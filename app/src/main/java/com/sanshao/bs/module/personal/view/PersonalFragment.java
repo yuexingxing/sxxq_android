@@ -15,6 +15,9 @@ import com.sanshao.bs.module.TestMenuActivity;
 import com.sanshao.bs.module.order.bean.OrderInfo;
 import com.sanshao.bs.module.order.view.OrderListActivity;
 import com.sanshao.bs.module.personal.adapter.PersonalOrderSubjectAdapter;
+import com.sanshao.bs.module.personal.income.view.IncomeMenuActivity;
+import com.sanshao.bs.module.personal.personaldata.view.PersonalDetailActivity;
+import com.sanshao.bs.module.personal.setting.view.SettingActivity;
 import com.sanshao.bs.module.personal.viewmodel.PersonalViewModel;
 
 import java.util.ArrayList;

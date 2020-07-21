@@ -16,6 +16,8 @@
                 android:id="@+id/title_bar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/title_height"
+                app:rightColor="@color/color_b6a57b"
+                app:rightTitle="完成"
                 app:title="个性签名" />
 
             <RelativeLayout
@@ -24,7 +26,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginRight="16dp"
-                android:background="@drawable/shape_login_input_phone"
+                android:background="@drawable/shape_white_radius_10"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -35,7 +37,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:gravity="start"
-                    android:hint="请输入自我的一句人生信条！"
+                    android:hint="说你想怎么美？"
                     android:maxLength="30"
                     android:padding="10dp"
                     android:textColor="@color/color_333333"
@@ -53,24 +55,6 @@
                     android:text="0/30"
                     android:textColor="#FF999999"
                     android:textSize="12sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="70dp"
-                android:gravity="center_horizontal">
-
-                <Button
-                    android:id="@+id/btn_commit"
-                    android:layout_width="180dp"
-                    android:layout_height="38dp"
-                    android:background="@drawable/selector_btn"
-                    android:enabled="false"
-                    android:gravity="center"
-                    android:text="完成"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
             </RelativeLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

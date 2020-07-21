@@ -1,11 +1,7 @@
-package com.sanshao.bs.module;
+package com.sanshao.bs.module.personal.income.view;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,99 +9,82 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.base.BaseViewModel;
 import com.exam.commonbiz.util.Res;
 import com.google.android.material.tabs.TabLayout;
 import com.sanshao.bs.R;
-import com.sanshao.bs.databinding.ActivityMainBinding;
+import com.sanshao.bs.databinding.ActivityIncomeMenuBinding;
 import com.sanshao.bs.module.personal.income.bean.IncomeMenuInfo;
-import com.sanshao.bs.module.personal.income.view.IncomeTabFragmentAdapter;
-import com.sanshao.bs.module.personal.view.PersonalFragment;
-import com.sanshao.bs.module.shoppingcenter.view.ShoppingCenterFragment;
-import com.sanshao.bs.util.ToastUtil;
+import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 进账菜单
+ *
  * @Author yuexingxing
- * @time 2020/6/10
+ * @time 2020/7/13
  */
-public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding> {
+public class IncomeMenuActivity extends BaseActivity<BaseViewModel, ActivityIncomeMenuBinding> {
 
     private List<Fragment> mFragmentList;
-    // 定义一个变量，来标识是否退出
-    private static boolean isExit = false;
-    private List<IncomeMenuInfo> mIncomeMenuInfoList;
     private IncomeTabFragmentAdapter mIncomeTabFragmentAdapter;
-
-    @SuppressLint("HandlerLeak")
-    Handler mHandler = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            isExit = false;
-        }
-    };
+    private List<IncomeMenuInfo> mIncomeMenuInfoList;
 
     public static void start(Context context) {
-        Intent starter = new Intent(context, MainActivity.class);
+        Intent starter = new Intent(context, IncomeMenuActivity.class);
         context.startActivity(starter);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_main;
+        return R.layout.activity_income_menu;
     }
 
     @Override
     public void initData() {
-
         initViewPager();
         initTabLayout();
-    }
 
+        binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
+            @Override
+            public void onLeftClick(View v) {
+                finish();
+            }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            exit();
-            return false;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+            @Override
+            public void onTitleClick(View v) {
 
-    private void exit() {
-        if (!isExit) {
-            isExit = true;
-            ToastUtil.showShortToast("再按一次退出程序");
-            mHandler.sendEmptyMessageDelayed(0, 2000);
-        } else {
-            finish();
-            System.exit(0);
-        }
+            }
+
+            @Override
+            public void onRightClick(View v) {
+
+            }
+        });
     }
 
     private void initViewPager() {
 
         mIncomeMenuInfoList = new ArrayList<>();
         IncomeMenuInfo incomeMenuInfoSort = new IncomeMenuInfo();
-        incomeMenuInfoSort.tilte = "商城";
-        incomeMenuInfoSort.iconSelect = R.drawable.tab_home_selected;
-        incomeMenuInfoSort.iconUnSelect = R.drawable.tab_home_normal;
+        incomeMenuInfoSort.tilte = "排行榜";
+        incomeMenuInfoSort.iconSelect = R.drawable.beautiful_press;
+        incomeMenuInfoSort.iconUnSelect = R.drawable.beautiful;
 
         IncomeMenuInfo incomeMenuInfo = new IncomeMenuInfo();
-        incomeMenuInfo.tilte = "我的";
-        incomeMenuInfo.iconSelect = R.drawable.tab_my_selected;
-        incomeMenuInfo.iconUnSelect = R.drawable.tab_my_normal;
+        incomeMenuInfo.tilte = "进账";
+        incomeMenuInfo.iconSelect = R.drawable.beautiful_press;
+        incomeMenuInfo.iconUnSelect = R.drawable.beautiful;
 
         mIncomeMenuInfoList.add(incomeMenuInfoSort);
         mIncomeMenuInfoList.add(incomeMenuInfo);
 
         //把Fragment添加到List集合里面
         mFragmentList = new ArrayList<>();
-        mFragmentList.add(ShoppingCenterFragment.newInstance());
-        mFragmentList.add(PersonalFragment.newInstance());
+        mFragmentList.add(RankingFragment.newInstance());
+        mFragmentList.add(IncomeFragment.newInstance());
         mIncomeTabFragmentAdapter = new IncomeTabFragmentAdapter(getSupportFragmentManager(), mFragmentList, mIncomeMenuInfoList, context);
         binding.viewPager.setAdapter(mIncomeTabFragmentAdapter);
         binding.viewPager.setOffscreenPageLimit(mFragmentList.size());
@@ -152,5 +131,7 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         textView.setTextColor(Res.getColor(context, R.color.color_333333));
         ImageView imgIcon  = view.findViewById(R.id.iv_icon);
         imgIcon.setImageResource(incomeMenuInfo.iconSelect);
+
+        binding.titleBar.setTitle(incomeMenuInfo.tilte);
     }
 }
