@@ -1,5 +1,7 @@
 package com.sanshao.bs.module.personal.adapter;
 
+import android.view.View;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,8 +20,23 @@ import java.util.List;
  */
 public class PersonalOrderSubjectAdapter extends BaseQuickAdapter<OrderInfo, BaseViewHolder> {
 
+    private OnItemClickListener mOnItemClickListener;
+    private boolean showOpenView = true;
+
     public PersonalOrderSubjectAdapter() {
         super(R.layout.item_layout_personal_order_subject, null);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
+    }
+
+    public void setShowOpenView(boolean showOpenView) {
+        this.showOpenView = showOpenView;
+    }
+
+    public interface OnItemClickListener {
+        void onOpenClick();
     }
 
     @Override
@@ -34,6 +51,18 @@ public class PersonalOrderSubjectAdapter extends BaseQuickAdapter<OrderInfo, Bas
         recyclerView.setAdapter(toBeInquiryAdapter);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setFocusable(false);
+
+        if (showOpenView) {
+            helper.getView(R.id.rl_open).setVisibility(View.VISIBLE);
+        } else {
+            helper.getView(R.id.rl_open).setVisibility(View.GONE);
+        }
+
+        helper.getView(R.id.rl_open).setOnClickListener(view -> {
+            if (mOnItemClickListener != null) {
+                mOnItemClickListener.onOpenClick();
+            }
+        });
 
         List<OrderInfo> orderInfoList = new ArrayList<>();
         for (int i = 0; i < 2; i++) {

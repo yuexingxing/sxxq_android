@@ -127,6 +127,14 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.includeOrder.recyclerView.setAdapter(mPersonalOrderSubjectAdapter);
         binding.includeOrder.recyclerView.setNestedScrollingEnabled(false);
         binding.includeOrder.recyclerView.setFocusable(false);
+        mPersonalOrderSubjectAdapter.setOnItemClickListener(new PersonalOrderSubjectAdapter.OnItemClickListener() {
+            @Override
+            public void onOpenClick() {
+                mPersonalOrderSubjectAdapter.setShowOpenView(false);
+                mPersonalOrderSubjectAdapter.getData().clear();
+                mPersonalOrderSubjectAdapter.addData(mOrderInfoList);
+            }
+        });
 
         for (int i = 0; i < 2; i++) {
             OrderInfo orderInfo = new OrderInfo();
@@ -134,11 +142,11 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             mOrderInfoList.add(orderInfo);
         }
 
-        binding.includeOrder.rlOpen.setOnClickListener(v -> {
-            binding.includeOrder.rlOpen.setVisibility(View.GONE);
-            mPersonalOrderSubjectAdapter.getData().clear();
-            mPersonalOrderSubjectAdapter.addData(mOrderInfoList);
-        });
+//        binding.includeOrder.rlOpen.setOnClickListener(v -> {
+//            binding.includeOrder.rlOpen.setVisibility(View.GONE);
+//            mPersonalOrderSubjectAdapter.getData().clear();
+//            mPersonalOrderSubjectAdapter.addData(mOrderInfoList);
+//        });
         mPersonalOrderSubjectAdapter.addData(mOrderInfoList.get(0));
     }
 }
