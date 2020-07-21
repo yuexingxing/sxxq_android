@@ -46,7 +46,6 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     @Override
     public void initData() {
 
-        binding.titleBar.getLeftView().setVisibility(View.INVISIBLE);
         binding.btnTest.setOnClickListener(v -> TestMenuActivity.start(getContext()));
         binding.llPersonal.setOnClickListener(v -> PersonalDetailActivity.start(getContext()));
         binding.includeOrder.rlAllOrder.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.ALL));

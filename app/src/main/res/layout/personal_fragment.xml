@@ -26,23 +26,25 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="295dp"
+                        android:paddingTop="25dp"
                         android:background="@drawable/image_twostarsbg">
 
-                        <com.sanshao.commonui.titlebar.TitleBar
-                            android:id="@+id/title_bar"
+                        <TextView
+                            android:id="@+id/tv_title"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/title_height"
-                            android:layout_marginTop="@dimen/margin_title_top"
-                            android:background="@color/transparent"
-                            app:title="个人中心" />
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="个人中心"
+                            android:textColor="@color/color_333333"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <LinearLayout
                             android:id="@+id/ll_personal"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/title_bar"
-                            android:layout_marginLeft="16dp"
+                            android:layout_height="match_parent"
+                            android:layout_below="@+id/tv_title"
                             android:layout_marginTop="16dp"
                             android:gravity="center"
                             android:orientation="vertical">
@@ -102,14 +104,23 @@
                                         android:layout_toRightOf="@+id/iv_zuan"
                                         android:text="一星会员"
                                         android:textColor="@color/white"
-                                        android:textSize="14sp" />
+                                        android:textSize="12sp" />
                                 </RelativeLayout>
+                            </LinearLayout>
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1">
 
                                 <RelativeLayout
+                                    android:id="@+id/rl_vip_bg"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="70dp"
+                                    android:layout_marginLeft="@dimen/left_container_margin"
                                     android:layout_marginTop="31dp"
-                                    android:background="@color/black"
+                                    android:layout_marginRight="@dimen/right_container_margin"
+                                    android:background="@drawable/image_vipcard"
                                     android:orientation="vertical"
                                     android:paddingLeft="12dp"
                                     android:paddingRight="12dp">
@@ -148,7 +159,13 @@
                                             android:textSize="12sp" />
                                     </RelativeLayout>
                                 </RelativeLayout>
-                            </LinearLayout>
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="bottom"
+                                    android:background="@drawable/image_membership_center" />
+                            </FrameLayout>
                         </LinearLayout>
                     </RelativeLayout>
 
