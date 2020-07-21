@@ -90,8 +90,15 @@
                         android:src="@drawable/gray_btn_bg"
                         app:riv_corner_radius="@dimen/avatar_height" />
                 </FrameLayout>
-
             </FrameLayout>
+
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:padding="10dp"
+                android:src="@drawable/icon_close" />
         </FrameLayout>
 
         <LinearLayout
@@ -114,12 +121,12 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:minHeight="40dp"
                     android:lineSpacingExtra="1.3dp"
+                    android:minHeight="40dp"
                     android:text="德国进口玻尿酸原液 德国进口玻尿酸原液 德国进口玻尿酸原液！"
                     android:textColor="@color/color_333333"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="1dp"

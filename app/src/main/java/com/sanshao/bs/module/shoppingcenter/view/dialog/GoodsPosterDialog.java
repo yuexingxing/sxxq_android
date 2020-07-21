@@ -52,6 +52,7 @@ public class GoodsPosterDialog {
         imgAvatar.setImageBitmap(bitmapAvatar);
 
         Glide.with(SSApplication.app).load(Constants.DEFAULT_IMG_URL).into(imgIcon);
+        rootView.findViewById(R.id.iv_close).setOnClickListener(view -> dialog.dismiss());
         rootView.findViewById(R.id.tv_save).setOnClickListener(v -> {
             String picName = System.currentTimeMillis() + ".png";
             Bitmap bitmap2 = BitmapUtil.viewConversionBitmap(llContent);

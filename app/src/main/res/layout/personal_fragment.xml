@@ -110,7 +110,7 @@
                                         android:layout_marginLeft="2dp"
                                         android:layout_marginRight="7dp"
                                         android:layout_toRightOf="@+id/iv_zuan"
-                                        android:text="一星会员"
+                                        android:text="二星会员"
                                         android:textColor="@color/white"
                                         android:textSize="12sp" />
                                 </RelativeLayout>
