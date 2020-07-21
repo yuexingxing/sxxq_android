@@ -19,7 +19,8 @@ import com.sanshao.bs.R;
 public class LineControllerView extends LinearLayout {
 
     private String mName;
-    private boolean mIsBottom;
+    private boolean mShowTopLine;
+    private boolean mShowBottomLine;
     private String mContent;
     private boolean mIsJump;
 
@@ -34,7 +35,8 @@ public class LineControllerView extends LinearLayout {
         try {
             mName = ta.getString(R.styleable.LineControllerView_name);
             mContent = ta.getString(R.styleable.LineControllerView_subject);
-            mIsBottom = ta.getBoolean(R.styleable.LineControllerView_isBottom, false);
+            mShowTopLine = ta.getBoolean(R.styleable.LineControllerView_showTopLine, false);
+            mShowBottomLine = ta.getBoolean(R.styleable.LineControllerView_showBottomLine, false);
             mIsJump = ta.getBoolean(R.styleable.LineControllerView_canNav, false);
             setUpView();
         } finally {
@@ -48,7 +50,9 @@ public class LineControllerView extends LinearLayout {
         mContentText = findViewById(R.id.content);
         mContentText.setText(mContent);
         View bottomLine = findViewById(R.id.bottomLine);
-        bottomLine.setVisibility(mIsBottom ? VISIBLE : GONE);
+        bottomLine.setVisibility(mShowTopLine ? VISIBLE : GONE);
+        View topLine = findViewById(R.id.view_top_line);
+        topLine.setVisibility(mShowTopLine ? VISIBLE : GONE);
         mNavArrowView = findViewById(R.id.rightArrow);
         mNavArrowView.setVisibility(mIsJump ? VISIBLE : GONE);
     }

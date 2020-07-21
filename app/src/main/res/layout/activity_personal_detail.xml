@@ -13,7 +13,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/main_bg">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -30,122 +30,136 @@
                     android:layout_height="@dimen/title_height"
                     app:title="个人设置" />
 
-                <LinearLayout
-                    android:id="@+id/ll_avatar"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/line_item_height"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/left_container_margin"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="@dimen/right_container_margin"
+                    android:background="@drawable/shape_white_radius_10">
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_weight="1"
-                        android:text="头像"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
-
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/iv_avatar"
-                        android:layout_width="@dimen/avatar_height"
-                        android:layout_height="@dimen/avatar_height"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/gray_btn_bg"
-                        app:riv_corner_radius="@dimen/avatar_height" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="15dp"
-                        android:src="@drawable/arrow_right" />
-                </LinearLayout>
-
-                <com.sanshao.bs.widget.LineControllerView
-                    android:id="@+id/lcv_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/line_item_height"
-                    app:canNav="true"
-                    app:name="名称"
-                    app:subject="设置名称" />
-
-                <com.sanshao.bs.widget.LineControllerView
-                    android:id="@+id/lcv_nick_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/line_item_height"
-                    app:canNav="true"
-                    app:name="昵称"
-                    app:isBottom="true"
-                    app:subject="设置昵称" />
-
-                <LinearLayout
-                    android:id="@+id/ll_qrcode"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/line_item_height"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                    <LinearLayout
+                        android:id="@+id/ll_avatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/line_item_height"
                         android:gravity="center_vertical"
-                        android:text="我的推荐码"
-                        android:textColor="#FF333333"
-                        android:textSize="15sp" />
+                        android:orientation="horizontal">
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:layout_weight="1"
+                            android:text="头像"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
 
-                    <ImageView
-                        android:id="@+id/iv_qrcode"
-                        android:layout_width="38dp"
-                        android:layout_height="38dp"
-                        android:src="@drawable/beautiful" />
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:id="@+id/iv_avatar"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/gray_btn_bg"
+                            app:riv_corner_radius="@dimen/avatar_height" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:src="@drawable/arrow_right" />
-                </LinearLayout>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="15dp"
+                            android:src="@drawable/arrow_right" />
+                    </LinearLayout>
 
-                <View
-                    android:id="@+id/bottomLine"
+                    <com.sanshao.bs.widget.LineControllerView
+                        android:id="@+id/lcv_nick_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/line_item_height"
+                        android:layout_below="@+id/ll_avatar"
+                        app:canNav="true"
+                        app:name="昵称"
+                        app:showBottomLine="false"
+                        app:showTopLine="false"
+                        app:subject="设置昵称" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_qrcode"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/line_item_height"
+                        android:layout_below="@+id/lcv_nick_name"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="我的推荐码"
+                            android:textColor="#FF333333"
+                            android:textSize="15sp" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
+
+                        <ImageView
+                            android:id="@+id/iv_qrcode"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:src="@drawable/beautiful" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:src="@drawable/arrow_right" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:background="@color/line" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/left_container_margin"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="@dimen/right_container_margin"
+                    android:background="@drawable/shape_white_radius_10">
 
-                <com.sanshao.bs.widget.LineControllerView
-                    android:id="@+id/lcv_sex"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/line_item_height"
-                    app:canNav="true"
-                    app:name="性别"
-                    app:subject="请选择" />
+                    <com.sanshao.bs.widget.LineControllerView
+                        android:id="@+id/lcv_sex"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/line_item_height"
+                        app:canNav="true"
+                        app:name="性别"
+                        app:showBottomLine="false"
+                        app:showTopLine="false"
+                        app:subject="请选择" />
 
-                <com.sanshao.bs.widget.LineControllerView
-                    android:id="@+id/lcv_birthday"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/line_item_height"
-                    app:canNav="true"
-                    app:name="出生日期"
-                    app:subject="请选择" />
+                    <com.sanshao.bs.widget.LineControllerView
+                        android:id="@+id/lcv_birthday"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/line_item_height"
+                        android:layout_below="@+id/lcv_sex"
+                        app:canNav="true"
+                        app:name="出生日期"
+                        app:showBottomLine="false"
+                        app:showTopLine="false"
+                        app:subject="请选择" />
 
-                <com.sanshao.bs.widget.LineControllerView
-                    android:id="@+id/lcv_signature"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/line_item_height"
-                    app:canNav="true"
-                    app:name="个性签名"
-                    app:subject="请选择" />
+                    <com.sanshao.bs.widget.LineControllerView
+                        android:id="@+id/lcv_signature"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/line_item_height"
+                        android:layout_below="@+id/lcv_birthday"
+                        app:canNav="true"
+                        app:name="个性签名"
+                        app:showBottomLine="false"
+                        app:showTopLine="false"
+                        app:subject="请选择" />
+                </RelativeLayout>
             </LinearLayout>
+
         </androidx.core.widget.NestedScrollView>
     </RelativeLayout>
 </layout>

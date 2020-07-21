@@ -63,7 +63,6 @@ public class PersonalDetailActivity extends BaseActivity<PersonalDetailViewModel
         super.onResume();
 
         UserInfo userInfo = SSApplication.getInstance().getUserInfo();
-        binding.lcvName.setContent(userInfo.name);
         binding.lcvNickName.setContent(userInfo.nickName);
         binding.lcvSex.setContent(userInfo.sexName);
         binding.lcvSignature.setContent(userInfo.signature);
@@ -118,7 +117,6 @@ public class PersonalDetailActivity extends BaseActivity<PersonalDetailViewModel
             binding.ivAvatar.setImageBitmap(bitmap);
         }
 
-        binding.lcvName.setOnClickListener(v -> SettingNameActivity.start(context, SettingNameActivity.MODIFY_NAME));
         binding.lcvNickName.setOnClickListener(v -> SettingNameActivity.start(context, SettingNameActivity.MODIFY_NICK_NAME));
         binding.llQrcode.setOnClickListener(v -> {
             RecommendCodeActivity.start(context);
