@@ -1,0 +1,5 @@
+include ':beauty'
+include ':livemodule'
+include ':commonbiz'
+include ':app'
+rootProject.name = "ssxq_android"

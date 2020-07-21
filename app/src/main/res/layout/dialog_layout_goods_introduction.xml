@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_top_bg"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_goods_introduction"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:gravity="center_horizontal"
+            android:text="商品说明"
+            android:textColor="#FF333333"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right">
+
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/icon_goods_detail_close" />
+        </RelativeLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/line" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginTop="27dp"
+            android:text="德国进口玻尿酸原液"
+            android:textColor="@color/color_333333"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <com.sanshao.bs.widget.RatingBar
+            android:id="@+id/ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="7dp"
+            app:select_enable="false"
+            app:selectedNumber="3"
+            app:starDistance="8dp"
+            app:starEmptyRes="@drawable/beautiful"
+            app:starSelectedRes="@drawable/beautiful_press"
+            app:startTotalNumber="5" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="52dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="52dp"
+            android:layout_marginBottom="96dp"
+            android:lineSpacingExtra="1.4dp"
+            android:text="玻尿酸（Hyaluronan）是由
+D-葡萄糖醛酸及N-乙酰葡糖胺组成的双糖单位
+又称糖醛酸、透明质酸
+基本结构是由两个双糖单位D-葡萄糖醛酸
+及N-乙酰葡糖胺组成的大型多糖类"
+            android:textColor="@color/color_666666"
+            android:textSize="13sp" />
+    </LinearLayout>
+</LinearLayout>

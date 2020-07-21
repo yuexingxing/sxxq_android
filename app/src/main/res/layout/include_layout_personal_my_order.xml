@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我的订单"
+                    android:textColor="#FF333333"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_all_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tv_all_order"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="全部订单"
+                        android:textColor="#FF999999"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="11dp"
+                        android:layout_toRightOf="@+id/tv_all_order"
+                        android:src="@drawable/arrow_right" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="@dimen/left_container_margin"
+                android:layout_marginTop="9dp"
+                android:layout_marginRight="@dimen/right_ontainer_margin"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <com.sanshao.bs.widget.PersonalOrderMenuView
+                    android:id="@+id/ll_order_tobepaid"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:PersonalOrderMenuView_icon="@drawable/icon_goods_type_six"
+                    app:PersonalOrderMenuView_name="待支付"
+                    app:PersonalOrderMenuView_num="2" />
+
+                <com.sanshao.bs.widget.PersonalOrderMenuView
+                    android:id="@+id/ll_order_tobeuse"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:PersonalOrderMenuView_icon="@drawable/icon_goods_type_six"
+                    app:PersonalOrderMenuView_name="待使用"
+                    app:PersonalOrderMenuView_num="2" />
+
+                <com.sanshao.bs.widget.PersonalOrderMenuView
+                    android:id="@+id/ll_order_tobesure"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:PersonalOrderMenuView_icon="@drawable/icon_goods_type_six"
+                    app:PersonalOrderMenuView_name="待问诊"
+                    app:PersonalOrderMenuView_num="2" />
+
+                <com.sanshao.bs.widget.PersonalOrderMenuView
+                    android:id="@+id/ll_order_complete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:PersonalOrderMenuView_icon="@drawable/icon_goods_type_six"
+                    app:PersonalOrderMenuView_name="已使用"
+                    app:PersonalOrderMenuView_num="2" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/left_container_margin"
+            android:layout_marginRight="@dimen/right_ontainer_margin"
+            android:background="@drawable/shape_radius_10_f8f7f3"
+            android:descendantFocusability="blocksDescendants">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never" />
+
+            <TextView
+                android:id="@+id/tv_open"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_below="@+id/recycler_view"
+                android:layout_marginLeft="29dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/shape_white_radius_5"
+                android:gravity="center"
+                android:text="展开"
+                android:textColor="@color/color_333333" />
+        </RelativeLayout>
+    </LinearLayout>
+</layout>
