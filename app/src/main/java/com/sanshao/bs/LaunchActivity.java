@@ -1,5 +1,6 @@
 package com.sanshao.bs;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,8 @@ public class LaunchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
 
-        SplashActivity.start(this);
+        Intent starter = new Intent(this, SplashActivity.class);
+        startActivity(starter);
+        finish();
     }
 }

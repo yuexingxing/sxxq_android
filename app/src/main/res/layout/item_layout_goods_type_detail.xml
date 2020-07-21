@@ -96,6 +96,6 @@
 
     <View
         android:id="@+id/view_right"
-        android:layout_width="@dimen/right_ontainer_margin"
+        android:layout_width="@dimen/right_container_margin"
         android:layout_height="1dp"/>
 </LinearLayout>

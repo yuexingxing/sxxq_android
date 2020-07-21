@@ -66,7 +66,7 @@
                 android:layout_height="1px"
                 android:layout_marginLeft="@dimen/left_container_margin"
                 android:layout_marginTop="9dp"
-                android:layout_marginRight="@dimen/right_ontainer_margin"
+                android:layout_marginRight="@dimen/right_container_margin"
                 android:background="@color/line" />
 
             <LinearLayout
@@ -117,7 +117,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/left_container_margin"
-            android:layout_marginRight="@dimen/right_ontainer_margin"
+            android:layout_marginRight="@dimen/right_container_margin"
             android:background="@drawable/shape_radius_10_f8f7f3"
             android:descendantFocusability="blocksDescendants">
 

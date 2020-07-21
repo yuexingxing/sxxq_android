@@ -238,7 +238,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/left_container_margin"
             android:layout_marginTop="4dp"
-            android:layout_marginRight="@dimen/right_ontainer_margin"
+            android:layout_marginRight="@dimen/right_container_margin"
             android:background="@drawable/shape_bottom_radius_20_f8f6f2">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -279,7 +279,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/left_container_margin"
         android:layout_marginTop="12dp"
-        android:layout_marginRight="@dimen/right_ontainer_margin" />
+        android:layout_marginRight="@dimen/right_container_margin" />
 
     <!-- 套餐 -->
     <LinearLayout

@@ -27,7 +27,7 @@
             android:id="@+id/iv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/right_ontainer_margin"
+            android:layout_marginRight="@dimen/right_container_margin"
             android:src="@drawable/icon_goods_list_right" />
     </LinearLayout>
 

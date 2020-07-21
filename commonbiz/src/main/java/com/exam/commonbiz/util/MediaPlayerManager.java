@@ -5,6 +5,7 @@ import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.view.SurfaceHolder;
 
 import com.exam.commonbiz.log.XLog;
@@ -68,6 +69,9 @@ public class MediaPlayerManager {
      * @param path
      */
     public void setPath(String path){
+        if (TextUtils.isEmpty(path)){
+            return;
+        }
         if(mMediaPlayer.isPlaying()){
             mMediaPlayer.reset();
         }
