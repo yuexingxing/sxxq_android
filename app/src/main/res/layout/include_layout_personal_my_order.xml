@@ -46,7 +46,7 @@
                         android:id="@+id/tv_all_order"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="全部订单"
+                        android:text=""
                         android:textColor="#FF999999"
                         android:textSize="12sp" />
 
@@ -63,11 +63,9 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginLeft="@dimen/left_container_margin"
-                android:layout_marginTop="9dp"
-                android:layout_marginRight="@dimen/right_container_margin"
-                android:background="@color/line" />
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/color_eeeeee" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -80,7 +78,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    app:PersonalOrderMenuView_icon="@drawable/icon_goods_type_six"
+                    app:PersonalOrderMenuView_icon="@drawable/icon_tobepaid"
                     app:PersonalOrderMenuView_name="待支付"
                     app:PersonalOrderMenuView_num="2" />
 
@@ -89,7 +87,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    app:PersonalOrderMenuView_icon="@drawable/icon_goods_type_six"
+                    app:PersonalOrderMenuView_icon="@drawable/icon_tobeuse"
                     app:PersonalOrderMenuView_name="待使用"
                     app:PersonalOrderMenuView_num="2" />
 
@@ -98,7 +96,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    app:PersonalOrderMenuView_icon="@drawable/icon_goods_type_six"
+                    app:PersonalOrderMenuView_icon="@drawable/icon_forvisits"
                     app:PersonalOrderMenuView_name="待问诊"
                     app:PersonalOrderMenuView_num="2" />
 
@@ -107,7 +105,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    app:PersonalOrderMenuView_icon="@drawable/icon_goods_type_six"
+                    app:PersonalOrderMenuView_icon="@drawable/icon_used"
                     app:PersonalOrderMenuView_name="已使用"
                     app:PersonalOrderMenuView_num="2" />
             </LinearLayout>
@@ -127,19 +125,28 @@
                 android:layout_height="wrap_content"
                 android:overScrollMode="never" />
 
-            <TextView
-                android:id="@+id/tv_open"
+            <RelativeLayout
+                android:id="@+id/rl_open"
                 android:layout_width="match_parent"
-                android:layout_height="36dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/recycler_view"
                 android:layout_marginLeft="29dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginBottom="4dp"
-                android:background="@drawable/shape_white_radius_5"
+                android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="展开"
-                android:textColor="@color/color_333333" />
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="14dp"
+                android:background="@drawable/shape_white_radius_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:gravity="center"
+                    android:drawablePadding="5dp"
+                    android:drawableLeft="@drawable/icon_open"
+                    android:text="展开"
+                    android:textColor="@color/color_333333" />
+            </RelativeLayout>
+
         </RelativeLayout>
     </LinearLayout>
 </layout>

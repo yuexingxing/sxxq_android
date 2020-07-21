@@ -10,6 +10,8 @@ public class OrderInfo {
     public String price;
     public int state;
     public int buyNum;
+    public String time;
+    public String address;
     public interface State {
         int ALL = 0;
         int ToBePaid = 1;

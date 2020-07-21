@@ -15,12 +15,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.sanshao.commonui.titlebar.TitleBar
-                android:id="@+id/title_bar"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/title_height"
-                app:title="个人中心" />
-
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -30,49 +24,133 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <LinearLayout
-                        android:id="@+id/ll_personal"
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="16dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:background="@drawable/image_twostarsbg">
 
-                        <com.makeramen.roundedimageview.RoundedImageView
-                            android:id="@+id/iv_avatar"
-                            android:layout_width="@dimen/avatar_height"
-                            android:layout_height="@dimen/avatar_height"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/gray_btn_bg"
-                            app:riv_corner_radius="@dimen/avatar_height" />
+                        <com.sanshao.commonui.titlebar.TitleBar
+                            android:id="@+id/title_bar"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/title_height"
+                            android:layout_marginTop="@dimen/margin_title_top"
+                            android:background="@color/transparent"
+                            app:title="个人中心" />
 
                         <LinearLayout
+                            android:id="@+id/ll_personal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
+                            android:layout_below="@+id/title_bar"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="16dp"
+                            android:gravity="center"
                             android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/tv_name"
+                            <RelativeLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="7dp"
-                                android:text="周哈哈"
-                                android:textColor="@color/color_333333"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
+                                android:background="@drawable/image_twostars"
+                                android:gravity="center">
 
-                            <TextView
-                                android:id="@+id/tv_label"
-                                android:layout_width="wrap_content"
+                                <com.makeramen.roundedimageview.RoundedImageView
+                                    android:id="@+id/iv_avatar"
+                                    android:layout_width="@dimen/avatar_height"
+                                    android:layout_height="@dimen/avatar_height"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/gray_btn_bg"
+                                    app:riv_corner_radius="@dimen/avatar_height" />
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:text="一星会员"
-                                android:textColor="@color/color_999999"
-                                android:textSize="14sp" />
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tv_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="7dp"
+                                    android:text="周哈哈"
+                                    android:textColor="@color/color_333333"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="18dp"
+                                    android:layout_marginTop="5dp"
+                                    android:background="@drawable/shape_3e3f40_radius_9"
+                                    android:gravity="center_vertical">
+
+                                    <ImageView
+                                        android:id="@+id/iv_zuan"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginLeft="7dp"
+                                        android:src="@drawable/icon_universaldrillmembers" />
+
+                                    <TextView
+                                        android:id="@+id/tv_label"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="2dp"
+                                        android:layout_marginRight="7dp"
+                                        android:layout_toRightOf="@+id/iv_zuan"
+                                        android:text="一星会员"
+                                        android:textColor="@color/white"
+                                        android:textSize="14sp" />
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="31dp"
+                                    android:background="@color/black"
+                                    android:orientation="vertical"
+                                    android:paddingLeft="12dp"
+                                    android:paddingRight="12dp">
+
+                                    <ProgressBar
+                                        android:id="@+id/progress_horizontal"
+                                        style="@android:style/Widget.ProgressBar.Horizontal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="3dp"
+                                        android:layout_marginTop="14dp"
+                                        android:max="100"
+                                        android:progress="50"
+                                        android:progressDrawable="@drawable/shape_horizontal_progressbar" />
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/progress_horizontal"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginBottom="12dp"
+                                        android:gravity="center_vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="会员期限 92/365"
+                                            android:textColor="@color/white"
+                                            android:textSize="12sp" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentRight="true"
+                                            android:text="2020-02-02到期"
+                                            android:textColor="#ff999999"
+                                            android:textSize="12sp" />
+                                    </RelativeLayout>
+                                </RelativeLayout>
+                            </LinearLayout>
                         </LinearLayout>
-                    </LinearLayout>
+                    </RelativeLayout>
 
                     <include
                         android:id="@+id/include_order"
@@ -80,43 +158,40 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-
-                    <LinearLayout
+                    <com.sanshao.bs.widget.PersonalAccountView
+                        android:id="@+id/pav_income"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="55dp"
                         android:layout_marginTop="10dp"
-                        android:background="@color/white"
-                        android:orientation="vertical"
-                        android:paddingLeft="16dp"
-                        android:paddingRight="16dp">
+                        android:paddingLeft="@dimen/left_container_margin"
+                        android:paddingRight="@dimen/right_container_margin"
+                        app:icon_pav="@drawable/icon_income"
+                        app:title_pav="进账" />
 
-                        <com.sanshao.bs.widget.PersonalAccountView
-                            android:id="@+id/pav_income"
-                            android:layout_width="match_parent"
-                            android:layout_height="55dp"
-                            app:icon_pav="@drawable/beautiful"
-                            app:title_pav="进账" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/left_container_margin"
+                        android:layout_marginRight="@dimen/right_container_margin"
+                        android:background="@color/color_eeeeee" />
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1px"
-                            android:background="@color/line" />
-
-                        <com.sanshao.bs.widget.PersonalAccountView
-                            android:id="@+id/pav_setting"
-                            android:layout_width="match_parent"
-                            android:layout_height="55dp"
-                            app:icon_pav="@drawable/beautiful"
-                            app:isShowLine_pav="true"
-                            app:title_pav="设置" />
-                    </LinearLayout>
+                    <com.sanshao.bs.widget.PersonalAccountView
+                        android:id="@+id/pav_setting"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="1dp"
+                        android:paddingLeft="@dimen/left_container_margin"
+                        android:paddingRight="@dimen/right_container_margin"
+                        app:icon_pav="@drawable/icon_setup"
+                        app:isShowLine_pav="true"
+                        app:title_pav="设置" />
 
                     <com.sanshao.bs.widget.GuessYouLoveView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="28dp"
-                        android:layout_marginRight="16dp" />
+                        android:layout_marginLeft="@dimen/left_container_margin"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="@dimen/right_container_margin" />
 
                     <Button
                         android:id="@+id/btn_test"

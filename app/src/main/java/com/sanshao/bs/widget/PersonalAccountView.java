@@ -49,7 +49,7 @@ public class PersonalAccountView extends LinearLayout {
         mTvContent = findViewById(R.id.tv_content);
         mTvTitle.setText(mTitle);
         mTvContent.setText(mContent);
-        mIcon.setBackgroundResource(iconId);
+        mIcon.setImageResource(iconId);
         if (isShowLine){
 
         }

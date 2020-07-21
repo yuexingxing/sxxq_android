@@ -68,9 +68,9 @@
             android:layout_marginTop="7dp"
             app:select_enable="false"
             app:selectedNumber="3"
-            app:starDistance="8dp"
-            app:starEmptyRes="@drawable/beautiful"
-            app:starSelectedRes="@drawable/beautiful_press"
+            app:starDistance="1dp"
+            app:starEmptyRes="@drawable/icon_scorelessthanstar"
+            app:starSelectedRes="@drawable/icon_coresofstars"
             app:startTotalNumber="5" />
 
         <TextView

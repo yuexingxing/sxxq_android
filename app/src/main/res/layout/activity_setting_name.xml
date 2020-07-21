@@ -17,8 +17,8 @@
                 android:id="@+id/title_bar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/title_height"
+                app:rightColor="@color/color_b6a57b"
                 app:rightTitle="完成"
-                app:rightColor="@color/color_b6a578"
                 app:title="名称" />
 
             <LinearLayout
@@ -38,7 +38,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:hint="请输入用户名称"
-                    android:maxLength="20"
+                    android:maxLength="30"
                     android:paddingLeft="12dp"
                     android:textColor="@color/color_330000"
                     android:textColorHint="@color/color_999999"
@@ -54,6 +54,7 @@
                 android:layout_marginRight="16dp"
                 android:text="只能修改一次，请谨慎填写！"
                 android:textColor="#FFC5602D"
+                android:visibility="gone"
                 android:textSize="12sp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

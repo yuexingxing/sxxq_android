@@ -25,7 +25,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="16dp"
-                android:background="@drawable/shape_login_input_phone"
+                android:background="@drawable/shape_white_radius_10"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -42,7 +42,7 @@
                         android:layout_width="278dp"
                         android:layout_height="278dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/icon_goods_type_six" />
+                        android:src="@drawable/gray_btn_bg" />
                 </RelativeLayout>
 
                 <TextView

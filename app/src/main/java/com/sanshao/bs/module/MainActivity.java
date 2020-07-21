@@ -65,6 +65,21 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         initTabLayout();
     }
 
+    @Override
+    protected boolean isUseFullScreenMode() {
+        return true;
+    }
+
+    @Override
+    protected boolean isUseBlackFontWithStatusBar() {
+        return true;
+    }
+
+    @Override
+    public int getStatusBarColor() {
+        return R.color.transparent;
+    }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

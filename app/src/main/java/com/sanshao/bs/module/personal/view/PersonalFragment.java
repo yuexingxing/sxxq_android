@@ -68,7 +68,23 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         }
     }
 
-    private void initOrderList(){
+    @Override
+    protected boolean isUseFullScreenMode() {
+        return true;
+    }
+
+    @Override
+    protected boolean isUseBlackFontWithStatusBar() {
+        return true;
+    }
+
+    @Override
+    public int getStatusBarColor() {
+        return R.color.transparent;
+    }
+
+
+    private void initOrderList() {
 
         mPersonalOrderSubjectAdapter = new PersonalOrderSubjectAdapter();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
@@ -78,14 +94,14 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.includeOrder.recyclerView.setNestedScrollingEnabled(false);
         binding.includeOrder.recyclerView.setFocusable(false);
 
-        for (int i = 0; i <3 ; i++) {
+        for (int i = 0; i < 2; i++) {
             OrderInfo orderInfo = new OrderInfo();
-            orderInfo.name = i+"黄金微针你的美容必备，美容必备…";
+            orderInfo.name = i + "黄金微针你的美容必备，美容必备…";
             mOrderInfoList.add(orderInfo);
         }
 
-        binding.includeOrder.tvOpen.setOnClickListener(v->{
-            binding.includeOrder.tvOpen.setVisibility(View.GONE);
+        binding.includeOrder.rlOpen.setOnClickListener(v -> {
+            binding.includeOrder.rlOpen.setVisibility(View.GONE);
             mPersonalOrderSubjectAdapter.getData().clear();
             mPersonalOrderSubjectAdapter.addData(mOrderInfoList);
         });
