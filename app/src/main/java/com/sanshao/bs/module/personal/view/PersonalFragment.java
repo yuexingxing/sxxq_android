@@ -51,7 +51,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     @Override
     public void initData() {
 
-        binding.flexibleLayout.setHeader(binding.ivBg);
+        binding.flexibleLayout.setHeader(binding.flHeader);
         binding.flexibleLayout.setReadyListener(new OnReadyPullListener() {
             @Override
             public boolean isReady() {

@@ -22,6 +22,7 @@
                 android:orientation="vertical">
 
                 <FrameLayout
+                    android:id="@+id/fl_header"
                     android:layout_width="match_parent"
                     android:layout_height="295dp">
 
@@ -51,15 +52,15 @@
                         <LinearLayout
                             android:id="@+id/ll_personal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_title"
                             android:layout_marginTop="16dp"
                             android:gravity="center"
                             android:orientation="vertical">
 
                             <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="75dp"
+                                android:layout_height="75dp"
                                 android:background="@drawable/image_twostars"
                                 android:gravity="center">
 
@@ -124,7 +125,7 @@
                                 <RelativeLayout
                                     android:id="@+id/rl_vip_bg"
                                     android:layout_width="match_parent"
-                                    android:layout_height="70dp"
+                                    android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/left_container_margin"
                                     android:layout_marginTop="31dp"
                                     android:layout_marginRight="@dimen/right_container_margin"

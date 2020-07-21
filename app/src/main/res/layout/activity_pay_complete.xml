@@ -34,35 +34,19 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/shape_white_radius_10"
+                    android:gravity="center"
                     android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <ImageView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:paddingTop="16dp"
-                        android:paddingBottom="16dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/icon_order_pay_complete" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="16dp"
-                            android:text="订单已提交！"
-                            android:textColor="@color/color_333333"
-                            android:textSize="17sp" />
-                    </LinearLayout>
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/image_payforsuccess" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="46dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="18dp"
                         android:background="@drawable/shape_white_radius_10"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
@@ -97,44 +81,55 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="34dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/shape_pay_complete_out"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:background="@drawable/shape_white_radius_10"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                    <LinearLayout
+                    <FrameLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/shape_pay_complete_left"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
 
                         <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="14dp"
-                            android:layout_marginLeft="10dp"
-                            android:src="@drawable/beautiful" />
+                            android:layout_width="197dp"
+                            android:layout_height="224dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/image_threestarpaymentissuccessful" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="3dp"
-                            android:layout_marginRight="9dp"
-                            android:text="会员奖励"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
+                            android:layout_gravity="bottom"
+                            android:layout_marginBottom="14dp"
+                            android:text="恭喜您！核销完成后将成为一星会员！"
+                            android:textColor="@color/color_333333"
+                            android:textSize="17sp" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_reward"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/shape_radius_10_b6a57b"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_vipreward" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:text="已获得一星会员身份，请在会员中心查看!"
-                        android:textColor="@color/color_c52d2d"
-                        android:textSize="12sp" />
+                        android:layout_marginLeft="8dp"
+                        android:text="会员奖励"
+                        android:textColor="#ffc5602d"
+                        android:textSize="17sp" />
                 </LinearLayout>
 
                 <com.sanshao.bs.widget.GuessYouLoveView

@@ -44,6 +44,7 @@ public class PayCompleteActivity extends BaseActivity<PayCompleteViewModel, Acti
         payStatusChangedEvent.paySuccess = true;
         EventBus.getDefault().post(payStatusChangedEvent);
 
+        binding.llReward.getBackground().setAlpha(9);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
