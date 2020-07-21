@@ -41,7 +41,6 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
     public void initData() {
 
         mShoppingCenterViewModel = new ShoppingCenterViewModel();
-        binding.titleBar.getLeftView().setVisibility(View.INVISIBLE);
         mServiceTypeAdapter = new ServiceTypeAdapter();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
         binding.serviceTypeRecyclerView.setLayoutManager(gridLayoutManager);
@@ -63,6 +62,22 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
         mGoodsTypeAdapter.setOnItemClickListener((adapter, view, position) -> GoodsListActivity.start(getContext()));
         mShoppingCenterViewModel.getGoodsList(this);
     }
+
+    @Override
+    protected boolean isUseFullScreenMode() {
+        return true;
+    }
+
+    @Override
+    protected boolean isUseBlackFontWithStatusBar() {
+        return true;
+    }
+
+    @Override
+    public int getStatusBarColor() {
+        return R.color.transparent;
+    }
+
 
     @Override
     public void returnShoppingCenterList(ShoppingCenterResponse shoppingCenterResponse) {

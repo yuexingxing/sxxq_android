@@ -18,7 +18,7 @@ import com.sanshao.bs.util.Constants;
  */
 public class SplashActivity extends BaseActivity<BaseViewModel, ActivitySplashBinding> {
 
-    private long mJumpTime = 3000;//跳过倒计时提示5秒
+    private long mJumpTime = 1000;//跳过倒计时提示5秒
 
     @Override
     protected int getLayoutId() {

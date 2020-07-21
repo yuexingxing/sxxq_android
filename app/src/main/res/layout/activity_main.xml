@@ -30,15 +30,22 @@
 
             </androidx.viewpager.widget.ViewPager>
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabBackground="@android:color/transparent"
-                app:tabRippleColor="@color/transparent"
-                app:tabIndicatorColor="@color/transparent"
-                app:tabIndicatorFullWidth="false"
-                app:tabMode="fixed" />
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_white_top_radius_10"
+                    app:tabBackground="@android:color/transparent"
+                    app:tabIndicatorColor="@color/transparent"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabMode="fixed"
+                    app:tabRippleColor="@color/transparent" />
+            </RelativeLayout>
+
         </LinearLayout>
     </RelativeLayout>
 </layout>

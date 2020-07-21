@@ -16,15 +16,20 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="25dp"
                 android:orientation="vertical">
 
-                <com.sanshao.commonui.titlebar.TitleBar
-                    android:id="@+id/title_bar"
+                <TextView
+                    android:id="@+id/tv_title"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/title_height"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    app:title="三少医美" />
+                    android:text="@string/app_name"
+                    android:textColor="@color/color_333333"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -57,7 +62,7 @@
                     android:id="@+id/home_banner_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp" />
+                    android:layout_marginTop="22dp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/service_type_recycler_view"

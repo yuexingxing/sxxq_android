@@ -2,6 +2,7 @@ package com.sanshao.bs.module.personal.view;
 
 import android.graphics.Bitmap;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.cache.ACache;
 import com.exam.commonbiz.config.ConfigSP;
+import com.exam.commonbiz.kits.Kits;
+import com.exam.commonbiz.log.XLog;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.PersonalFragmentBinding;
 import com.sanshao.bs.module.TestMenuActivity;
@@ -19,6 +22,8 @@ import com.sanshao.bs.module.personal.income.view.IncomeMenuActivity;
 import com.sanshao.bs.module.personal.personaldata.view.PersonalDetailActivity;
 import com.sanshao.bs.module.personal.setting.view.SettingActivity;
 import com.sanshao.bs.module.personal.viewmodel.PersonalViewModel;
+import com.sanshao.bs.widget.flexible.OnReadyPullListener;
+import com.sanshao.bs.widget.flexible.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +51,36 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     @Override
     public void initData() {
 
+        binding.flexibleLayout.setHeader(binding.ivBg);
+        binding.flexibleLayout.setReadyListener(new OnReadyPullListener() {
+            @Override
+            public boolean isReady() {
+                XLog.d("zdddz", binding.nestedScrollview.getScrollY() + "");
+                return binding.nestedScrollview.getScrollY() == 0;
+            }
+        }).setRefreshable(false)
+                .setDefaultRefreshView(new OnRefreshListener() {
+                    @Override
+                    public void onRefreshing() {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.sleep(2000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                //刷新完成后需要调用onRefreshComplete()通知FlexibleLayout
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        binding.flexibleLayout.onRefreshComplete();
+                                    }
+                                });
+                            }
+                        }).start();
+                    }
+                });
         binding.btnTest.setOnClickListener(v -> TestMenuActivity.start(getContext()));
         binding.llPersonal.setOnClickListener(v -> PersonalDetailActivity.start(getContext()));
         binding.includeOrder.rlAllOrder.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.ALL));

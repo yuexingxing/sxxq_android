@@ -3,32 +3,40 @@
 
     <data></data>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.sanshao.bs.widget.flexible.FlexibleLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/flexible_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <LinearLayout
+        <ScrollView
+            android:id="@+id/nested_scrollview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <androidx.core.widget.NestedScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="295dp">
+
+                    <ImageView
+                        android:id="@+id/iv_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/image_twostarsbg"
+                        android:paddingTop="25dp" />
 
                     <RelativeLayout
+                        android:id="@+id/rl_header"
                         android:layout_width="match_parent"
-                        android:layout_height="295dp"
-                        android:paddingTop="25dp"
-                        android:background="@drawable/image_twostarsbg">
+                        android:layout_height="match_parent"
+                        android:paddingTop="25dp">
 
                         <TextView
                             android:id="@+id/tv_title"
@@ -168,57 +176,57 @@
                             </FrameLayout>
                         </LinearLayout>
                     </RelativeLayout>
+                </FrameLayout>
 
-                    <include
-                        android:id="@+id/include_order"
-                        layout="@layout/include_layout_personal_my_order"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                <include
+                    android:id="@+id/include_order"
+                    layout="@layout/include_layout_personal_my_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-                    <com.sanshao.bs.widget.PersonalAccountView
-                        android:id="@+id/pav_income"
-                        android:layout_width="match_parent"
-                        android:layout_height="55dp"
-                        android:layout_marginTop="10dp"
-                        android:paddingLeft="@dimen/left_container_margin"
-                        android:paddingRight="@dimen/right_container_margin"
-                        app:icon_pav="@drawable/icon_income"
-                        app:title_pav="进账" />
+                <com.sanshao.bs.widget.PersonalAccountView
+                    android:id="@+id/pav_income"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="@dimen/left_container_margin"
+                    android:paddingRight="@dimen/right_container_margin"
+                    app:icon_pav="@drawable/icon_income"
+                    app:title_pav="进账" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginLeft="@dimen/left_container_margin"
-                        android:layout_marginRight="@dimen/right_container_margin"
-                        android:background="@color/color_eeeeee" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/left_container_margin"
+                    android:layout_marginRight="@dimen/right_container_margin"
+                    android:background="@color/color_eeeeee" />
 
-                    <com.sanshao.bs.widget.PersonalAccountView
-                        android:id="@+id/pav_setting"
-                        android:layout_width="match_parent"
-                        android:layout_height="55dp"
-                        android:layout_marginTop="1dp"
-                        android:paddingLeft="@dimen/left_container_margin"
-                        android:paddingRight="@dimen/right_container_margin"
-                        app:icon_pav="@drawable/icon_setup"
-                        app:isShowLine_pav="true"
-                        app:title_pav="设置" />
+                <com.sanshao.bs.widget.PersonalAccountView
+                    android:id="@+id/pav_setting"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="1dp"
+                    android:paddingLeft="@dimen/left_container_margin"
+                    android:paddingRight="@dimen/right_container_margin"
+                    app:icon_pav="@drawable/icon_setup"
+                    app:isShowLine_pav="true"
+                    app:title_pav="设置" />
 
-                    <com.sanshao.bs.widget.GuessYouLoveView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/left_container_margin"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginRight="@dimen/right_container_margin" />
+                <com.sanshao.bs.widget.GuessYouLoveView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/left_container_margin"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="@dimen/right_container_margin" />
 
-                    <Button
-                        android:id="@+id/btn_test"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center"
-                        android:text="测试模块" />
-                </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
-        </LinearLayout>
-    </RelativeLayout>
+                <Button
+                    android:id="@+id/btn_test"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="测试模块" />
+            </LinearLayout>
+        </ScrollView>
+    </com.sanshao.bs.widget.flexible.FlexibleLayout>
 </layout>
