@@ -5,29 +5,21 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
-import android.widget.ImageView;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.util.ContainerUtil;
-import com.sanshao.bs.SSApplication;
+import com.sanshao.bs.R;
+import com.sanshao.bs.databinding.ActivityAppointmentForConsultationBinding;
 import com.sanshao.bs.module.order.bean.ConfirmOrderResponse;
-import com.sanshao.bs.module.order.bean.OrderInfo;
 import com.sanshao.bs.module.order.bean.StoreInfo;
 import com.sanshao.bs.module.order.model.IConfirmOrderModel;
 import com.sanshao.bs.module.order.view.adapter.ConfirmOrderAdapter;
-import com.sanshao.bs.module.order.viewmodel.ConfirmOrderViewModel;
-import com.sanshao.bs.util.Constants;
-import com.sanshao.commonui.titlebar.OnTitleBarListener;
-import com.sanshao.bs.R;
-import com.sanshao.bs.databinding.ActivityAppointmentForConsultationBinding;
-import com.sanshao.bs.module.order.view.adapter.AppointmentForConsultationAdapter;
 import com.sanshao.bs.module.order.view.dialog.SelectSubscribeTimeDialog;
 import com.sanshao.bs.module.order.viewmodel.AppointmentForConsultationViewModel;
+import com.sanshao.bs.module.order.viewmodel.ConfirmOrderViewModel;
+import com.sanshao.bs.util.OpenLocalMapUtil;
 import com.sanshao.bs.util.ToastUtil;
+import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
 /**
  * 预约问诊
@@ -87,26 +79,45 @@ public class AppointmentForConsultationActivity extends BaseActivity<Appointment
             selectSubscribeTimeDialog.showDateDialog(context);
         });
         binding.btnSubscribe.setOnClickListener(v -> {
-            finish();
+            OpenLocalMapUtil.openLocalMap(context, OpenLocalMapUtil.START_LATLON[0], OpenLocalMapUtil.START_LATLON[1], OpenLocalMapUtil.SNAME, OpenLocalMapUtil.CITY);
+//            finish();
         });
         binding.mulitySetMealView.setOptType(ConfirmOrderAdapter.OPT_TYPE_APPOINTMENT);
         mConfirmOrderViewModel.getOrderInfo(this);
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        binding.bmapView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        binding.bmapView.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding.bmapView.onDestroy();
+    }
+
+    @Override
     public void returnConfirmOrder(ConfirmOrderResponse confirmOrderResponse) {
-        if (confirmOrderResponse == null){
+        if (confirmOrderResponse == null) {
             return;
         }
 
         StoreInfo storeInfo = confirmOrderResponse.storeInfo;
-        if (storeInfo != null){
+        if (storeInfo != null) {
             binding.includeStore.tvTel.setText(storeInfo.tel);
             binding.includeStore.tvTime.setText(storeInfo.time);
             binding.includeStore.tvAddress.setText(storeInfo.address);
         }
 
-        if (!ContainerUtil.isEmpty(confirmOrderResponse.goodsTypeDetailInfoList)){
+        if (!ContainerUtil.isEmpty(confirmOrderResponse.goodsTypeDetailInfoList)) {
             binding.mulitySetMealView.mConfirmOrderAdapter.addData(confirmOrderResponse.goodsTypeDetailInfoList);
         }
     }
