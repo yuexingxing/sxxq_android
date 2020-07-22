@@ -106,21 +106,32 @@ public class PersonalDetailActivity extends BaseActivity<PersonalDetailViewModel
         });
 
         binding.llAvatar.setOnClickListener(v -> {
-            new ChangeAvatarDialog().show(context, (postion, object) -> {
-                if (postion == 0) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        checkPermission(0);
-                    } else {
-                        selectFromCamera();
-                    }
-                } else if (postion == 1) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        checkPermission(1);
-                    } else {
-                        selectFromAlbum();
-                    }
-                }
-            });
+            List<CommonDialogInfo> commonDialogInfoList = new ArrayList<>();
+            commonDialogInfoList.add(new CommonDialogInfo("拍照"));
+            commonDialogInfoList.add(new CommonDialogInfo("相册"));
+
+            new CommonBottomDialog()
+                    .init(this)
+                    .setData(commonDialogInfoList)
+                    .setOnItemClickListener(new CommonDialogAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(CommonDialogInfo commonDialogInfo) {
+                            if (commonDialogInfo.position == 0) {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                    checkPermission(0);
+                                } else {
+                                    selectFromCamera();
+                                }
+                            } else {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                    checkPermission(1);
+                                } else {
+                                    selectFromAlbum();
+                                }
+                            }
+                        }
+                    })
+                    .show();
         });
         Bitmap bitmap = ACache.get(context).getAsBitmap(ConfigSP.UserInfo.AVATAR);
         if (bitmap != null) {
