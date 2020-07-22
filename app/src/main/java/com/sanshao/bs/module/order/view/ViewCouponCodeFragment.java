@@ -117,6 +117,18 @@ public class ViewCouponCodeFragment extends BaseFragment<OrderStatusViewModel, F
             }
             binding.viewPager.setCurrentItem(currentItem + 1);
         }
+
+        if (binding.viewPager.getCurrentItem() == 0) {
+            binding.ivLeft.setImageResource(R.drawable.but_leftrow_hasbeenused);
+        } else {
+            binding.ivLeft.setImageResource(R.drawable.btu_lefttrow_tobeused);
+        }
+
+        if (binding.viewPager.getCurrentItem() == mFragmentList.size() - 1) {
+            binding.ivRight.setImageResource(R.drawable.but_rightrow_hasbeenused);
+        } else {
+            binding.ivRight.setImageResource(R.drawable.btu_rightrow);
+        }
     }
 
     @Override

@@ -108,7 +108,7 @@
                             android:id="@+id/iv_qrcode"
                             android:layout_width="38dp"
                             android:layout_height="38dp"
-                            android:src="@drawable/beautiful" />
+                            android:src="@drawable/gray_btn_bg" />
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -129,7 +129,8 @@
                     <com.sanshao.bs.widget.LineControllerView
                         android:id="@+id/lcv_sex"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/line_item_height"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="3dp"
                         app:canNav="true"
                         app:name="性别"
                         app:showBottomLine="false"
@@ -150,8 +151,9 @@
                     <com.sanshao.bs.widget.LineControllerView
                         android:id="@+id/lcv_signature"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/line_item_height"
+                        android:layout_height="60dp"
                         android:layout_below="@+id/lcv_birthday"
+                        android:layout_marginBottom="3dp"
                         app:canNav="true"
                         app:name="个性签名"
                         app:showBottomLine="false"

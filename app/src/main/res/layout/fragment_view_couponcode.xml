@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@color/white"
+            android:background="@drawable/shape_white_radius_10"
             android:orientation="vertical">
 
             <LinearLayout
@@ -157,9 +157,7 @@
                             android:id="@+id/iv_left"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:padding="10dp"
-                            android:src="@drawable/beautiful" />
+                            android:src="@drawable/but_leftrow_hasbeenused" />
 
                         <TextView
                             android:id="@+id/tv_qr_code"
@@ -167,7 +165,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="券码"
+                            android:text="券码：1234567890"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp" />
 
@@ -175,9 +173,7 @@
                             android:id="@+id/iv_right"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="20dp"
-                            android:padding="10dp"
-                            android:src="@drawable/beautiful" />
+                            android:src="@drawable/btu_rightrow" />
                     </LinearLayout>
                 </RelativeLayout>
             </FrameLayout>
