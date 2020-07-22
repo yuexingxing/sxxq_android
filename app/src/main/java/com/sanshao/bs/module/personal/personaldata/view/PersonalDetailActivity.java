@@ -10,6 +10,7 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.cache.ACache;
@@ -17,7 +18,11 @@ import com.exam.commonbiz.config.ConfigSP;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.QRCodeUtil;
 import com.exam.commonbiz.util.ScreenUtil;
+import com.sanshao.bs.module.MainActivity;
 import com.sanshao.bs.module.personal.personaldata.viewmodel.PersonalSignatureViewModel;
+import com.sanshao.commonui.dialog.CommonBottomDialog;
+import com.sanshao.commonui.dialog.CommonDialogAdapter;
+import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.sanshao.commonutil.permission.PermissionGroup;
 import com.sanshao.commonutil.permission.RxPermissions;
@@ -34,6 +39,8 @@ import com.sanshao.bs.util.FileUtil;
 import com.sanshao.bs.util.ToastUtil;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -125,19 +132,25 @@ public class PersonalDetailActivity extends BaseActivity<PersonalDetailViewModel
             RecommendCodeActivity.start(context);
         });
         binding.lcvSex.setOnClickListener(v -> {
-            new SelectSexDialog().show(context, (postion, object) -> {
-                UserInfo userInfo = SSApplication.getInstance().getUserInfo();
-                userInfo.sex = postion;
-                if (postion == 0) {
-                    userInfo.sexName = "女";
-                } else {
-                    userInfo.sexName = "男";
-                }
-                SSApplication.getInstance().saveUserInfo(userInfo);
-                binding.lcvSex.setContent(userInfo.sexName);
-                //TODO 更新性别
-                //mPersonalSignatureViewModel.updateUserInfo(null);
-            });
+            List<CommonDialogInfo> commonDialogInfoList = new ArrayList<>();
+            commonDialogInfoList.add(new CommonDialogInfo("男"));
+            commonDialogInfoList.add(new CommonDialogInfo("女"));
+
+            new CommonBottomDialog()
+                    .init(this)
+                    .setData(commonDialogInfoList)
+                    .setOnItemClickListener(new CommonDialogAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(CommonDialogInfo commonDialogInfo) {
+                            UserInfo userInfo = SSApplication.getInstance().getUserInfo();
+                            userInfo.sexName = commonDialogInfo.name;
+                            SSApplication.getInstance().saveUserInfo(userInfo);
+                            binding.lcvSex.setContent(userInfo.sexName);
+                            //TODO 更新性别
+                            //mPersonalSignatureViewModel.updateUserInfo(null);
+                        }
+                    })
+                    .show();
         });
         binding.lcvSignature.setOnClickListener(v -> {
             PersonalSignatureActivity.start(context);
