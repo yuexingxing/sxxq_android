@@ -17,6 +17,7 @@ import com.exam.commonbiz.config.ConfigSP;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.QRCodeUtil;
 import com.exam.commonbiz.util.ScreenUtil;
+import com.sanshao.bs.module.personal.personaldata.viewmodel.PersonalSignatureViewModel;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.sanshao.commonutil.permission.PermissionGroup;
 import com.sanshao.commonutil.permission.RxPermissions;
@@ -47,6 +48,7 @@ public class PersonalDetailActivity extends BaseActivity<PersonalDetailViewModel
     private final static int REQUEST_IMAGE_CAPTURE = 2;
     private String mCurrentPhotoPath;
     private SelectBirthdayDialog mSelectBirthdayDialog;
+    private PersonalSignatureViewModel mPersonalSignatureViewModel;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, PersonalDetailActivity.class);
@@ -62,6 +64,7 @@ public class PersonalDetailActivity extends BaseActivity<PersonalDetailViewModel
     protected void onResume() {
         super.onResume();
 
+        mPersonalSignatureViewModel = new PersonalSignatureViewModel();
         UserInfo userInfo = SSApplication.getInstance().getUserInfo();
         binding.lcvNickName.setContent(userInfo.nickName);
         binding.lcvSex.setContent(userInfo.sexName);
@@ -132,6 +135,8 @@ public class PersonalDetailActivity extends BaseActivity<PersonalDetailViewModel
                 }
                 SSApplication.getInstance().saveUserInfo(userInfo);
                 binding.lcvSex.setContent(userInfo.sexName);
+                //TODO 更新性别
+                //mPersonalSignatureViewModel.updateUserInfo(null);
             });
         });
         binding.lcvSignature.setOnClickListener(v -> {
@@ -155,6 +160,8 @@ public class PersonalDetailActivity extends BaseActivity<PersonalDetailViewModel
                 }
             });
             mSelectBirthdayDialog.showDateDialog(context, 3);
+            //TODO 更新生日
+            //mPersonalSignatureViewModel.updateUserInfo(null);
         });
     }
 
