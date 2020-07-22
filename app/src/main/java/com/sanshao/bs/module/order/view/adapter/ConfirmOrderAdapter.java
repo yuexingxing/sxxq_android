@@ -33,6 +33,7 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
     public static final int OPT_TYPE_CONFIRM_ORDER = 1;
     public static final int OPT_TYPE_VIEW_CODE = 2;
     public static final int OPT_TYPE_ORDER_DETAIL = 3;
+    public static final int OPT_TYPE_APPOINTMENT = 4;//预约问诊
 
     private int mOptType;
     private OnItemClickListener mCallBack;
@@ -77,14 +78,15 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
             llOpenSetMeal.setVisibility(View.VISIBLE);
         });
 
+        helper.getView(R.id.include_goods_single).setVisibility(View.GONE);
+        helper.getView(R.id.ll_mulity_set_meal).setVisibility(View.GONE);
+        helper.getView(R.id.tv_goods_count).setVisibility(View.GONE);
+
         LinearLayout llConentTop = helper.getView(R.id.ll_content_top);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) llConentTop.getLayoutParams();
         //确认订单
         if (mOptType == OPT_TYPE_CONFIRM_ORDER){
             helper.getView(R.id.ll_right_price).setVisibility(View.GONE);
-            helper.getView(R.id.include_goods_single).setVisibility(View.GONE);
-            helper.getView(R.id.ll_mulity_set_meal).setVisibility(View.GONE);
-            helper.getView(R.id.tv_goods_count).setVisibility(View.GONE);
             helper.getView(R.id.ll_count_view).setVisibility(View.VISIBLE);
         }else if (mOptType == OPT_TYPE_ORDER_DETAIL){
             helper.getView(R.id.ll_right_price).setVisibility(View.VISIBLE);
@@ -96,6 +98,9 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
             layoutParams.leftMargin = ScreenUtil.dp2px(SSApplication.app, 12);
             layoutParams.rightMargin = ScreenUtil.dp2px(SSApplication.app, 12);
             llConentTop.setLayoutParams(layoutParams);
+        }else if (mOptType == OPT_TYPE_APPOINTMENT){
+            helper.getView(R.id.ll_right_price).setVisibility(View.GONE);
+            helper.getView(R.id.ll_count_view).setVisibility(View.GONE);
         }
 
         //如果有套餐

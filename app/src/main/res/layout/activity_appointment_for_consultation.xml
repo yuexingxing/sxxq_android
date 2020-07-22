@@ -31,6 +31,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/left_container_margin"
+                    android:layout_marginTop="12dp"
                     android:layout_marginRight="@dimen/right_container_margin"
                     android:background="@drawable/shape_white_radius_10"
                     android:orientation="vertical">
@@ -77,66 +78,11 @@
                             android:textSize="11sp" />
                     </LinearLayout>
 
-                    <include
-                        layout="@layout/include_item_layout_order_content"
+                    <com.sanshao.bs.module.order.widget.MulitySetMealView
+                        android:id="@+id/mulity_set_meal_view"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginRight="18dp" />
+                        android:layout_height="wrap_content" />
 
-                    <RelativeLayout
-                        android:id="@+id/rl_open"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center">
-
-                        <TextView
-                            android:id="@+id/tv_open"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:padding="10dp"
-                            android:text="展开"
-                            android:textColor="#FFB6A57B"
-                            android:textSize="12sp" />
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="32dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="32dp"
-                        android:background="@color/color_1ab6a578"
-                        android:orientation="vertical"
-                        android:visibility="gone"
-                        tools:visibility="visible">
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="12dp"
-                            android:layout_marginRight="12dp" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center">
-
-                            <TextView
-                                android:id="@+id/tv_close"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:padding="10dp"
-                                android:text="收起"
-                                android:textColor="#FFB6A57B"
-                                android:textSize="12sp" />
-                        </RelativeLayout>
-                    </LinearLayout>
                 </LinearLayout>
 
                 <RelativeLayout
@@ -155,7 +101,9 @@
                         android:textSize="11sp" />
                 </RelativeLayout>
 
-                <include layout="@layout/include_layout_store_message" />
+                <include
+                    android:id="@+id/include_store"
+                    layout="@layout/include_layout_store_message" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -163,7 +111,8 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginRight="16dp"
-                    android:background="@drawable/shape_login_input_phone"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/shape_white_radius_10"
                     android:orientation="vertical">
 
                     <LinearLayout

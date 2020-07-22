@@ -5,12 +5,22 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.util.ContainerUtil;
+import com.sanshao.bs.SSApplication;
+import com.sanshao.bs.module.order.bean.ConfirmOrderResponse;
 import com.sanshao.bs.module.order.bean.OrderInfo;
+import com.sanshao.bs.module.order.bean.StoreInfo;
+import com.sanshao.bs.module.order.model.IConfirmOrderModel;
+import com.sanshao.bs.module.order.view.adapter.ConfirmOrderAdapter;
+import com.sanshao.bs.module.order.viewmodel.ConfirmOrderViewModel;
+import com.sanshao.bs.util.Constants;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityAppointmentForConsultationBinding;
@@ -25,9 +35,9 @@ import com.sanshao.bs.util.ToastUtil;
  * @Author yuexingxing
  * @time 2020/7/7
  */
-public class AppointmentForConsultationActivity extends BaseActivity<AppointmentForConsultationViewModel, ActivityAppointmentForConsultationBinding> {
+public class AppointmentForConsultationActivity extends BaseActivity<AppointmentForConsultationViewModel, ActivityAppointmentForConsultationBinding> implements IConfirmOrderModel {
 
-    private AppointmentForConsultationAdapter mAppointmentForConsultationAdapter;
+    private ConfirmOrderViewModel mConfirmOrderViewModel;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, AppointmentForConsultationActivity.class);
@@ -42,6 +52,7 @@ public class AppointmentForConsultationActivity extends BaseActivity<Appointment
     @Override
     public void initData() {
 
+        mConfirmOrderViewModel = new ConfirmOrderViewModel();
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -78,28 +89,30 @@ public class AppointmentForConsultationActivity extends BaseActivity<Appointment
         binding.btnSubscribe.setOnClickListener(v -> {
             finish();
         });
-        binding.rlOpen.setOnClickListener(v -> {
-            binding.rlOpen.setVisibility(View.GONE);
-            binding.llContent.setVisibility(View.VISIBLE);
-        });
-        binding.tvClose.setOnClickListener(v -> {
-            binding.llContent.setVisibility(View.GONE);
-            binding.rlOpen.setVisibility(View.VISIBLE);
-        });
+        binding.mulitySetMealView.setOptType(ConfirmOrderAdapter.OPT_TYPE_APPOINTMENT);
+        mConfirmOrderViewModel.getOrderInfo(this);
+    }
 
-        mAppointmentForConsultationAdapter = new AppointmentForConsultationAdapter();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        binding.recyclerView.setLayoutManager(linearLayoutManager);
-        binding.recyclerView.setAdapter(mAppointmentForConsultationAdapter);
-        binding.recyclerView.setNestedScrollingEnabled(false);
-        binding.recyclerView.setFocusable(false);
+    @Override
+    public void returnConfirmOrder(ConfirmOrderResponse confirmOrderResponse) {
+        if (confirmOrderResponse == null){
+            return;
+        }
 
-        for (int i = 0; i < 2; i++) {
-            OrderInfo orderInfo = new OrderInfo();
-            orderInfo.name = "玻尿酸美容护肤不二之选，还你天使容颜，变美不容错误。";
-            mAppointmentForConsultationAdapter.addData(orderInfo);
+        StoreInfo storeInfo = confirmOrderResponse.storeInfo;
+        if (storeInfo != null){
+            binding.includeStore.tvTel.setText(storeInfo.tel);
+            binding.includeStore.tvTime.setText(storeInfo.time);
+            binding.includeStore.tvAddress.setText(storeInfo.address);
+        }
+
+        if (!ContainerUtil.isEmpty(confirmOrderResponse.goodsTypeDetailInfoList)){
+            binding.mulitySetMealView.mConfirmOrderAdapter.addData(confirmOrderResponse.goodsTypeDetailInfoList);
         }
     }
 
+    @Override
+    public void returnSubmitOrderInfo() {
+
+    }
 }
