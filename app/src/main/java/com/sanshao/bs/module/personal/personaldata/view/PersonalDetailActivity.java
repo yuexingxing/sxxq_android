@@ -10,7 +10,6 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Toast;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.cache.ACache;
@@ -18,8 +17,7 @@ import com.exam.commonbiz.config.ConfigSP;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.QRCodeUtil;
 import com.exam.commonbiz.util.ScreenUtil;
-import com.sanshao.bs.module.MainActivity;
-import com.sanshao.bs.module.personal.personaldata.viewmodel.PersonalSignatureViewModel;
+import com.sanshao.bs.module.personal.viewmodel.PersonalViewModel;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogAdapter;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
@@ -30,9 +28,7 @@ import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ActivityPersonalDetailBinding;
 import com.sanshao.bs.module.personal.bean.UserInfo;
-import com.sanshao.bs.module.personal.personaldata.dialog.ChangeAvatarDialog;
 import com.sanshao.bs.module.personal.personaldata.dialog.SelectBirthdayDialog;
-import com.sanshao.bs.module.personal.personaldata.dialog.SelectSexDialog;
 import com.sanshao.bs.module.personal.setting.viewmodel.PersonalDetailViewModel;
 import com.sanshao.bs.util.BitmapUtil;
 import com.sanshao.bs.util.FileUtil;
@@ -55,7 +51,7 @@ public class PersonalDetailActivity extends BaseActivity<PersonalDetailViewModel
     private final static int REQUEST_IMAGE_CAPTURE = 2;
     private String mCurrentPhotoPath;
     private SelectBirthdayDialog mSelectBirthdayDialog;
-    private PersonalSignatureViewModel mPersonalSignatureViewModel;
+    private PersonalViewModel mPersonalViewModel;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, PersonalDetailActivity.class);
@@ -71,7 +67,7 @@ public class PersonalDetailActivity extends BaseActivity<PersonalDetailViewModel
     protected void onResume() {
         super.onResume();
 
-        mPersonalSignatureViewModel = new PersonalSignatureViewModel();
+        mPersonalViewModel = new PersonalViewModel();
         UserInfo userInfo = SSApplication.getInstance().getUserInfo();
         binding.lcvNickName.setContent(userInfo.nickName);
         binding.lcvSex.setContent(userInfo.sexName);

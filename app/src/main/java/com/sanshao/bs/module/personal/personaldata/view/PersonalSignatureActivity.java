@@ -2,22 +2,18 @@ package com.sanshao.bs.module.personal.personaldata.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.text.Editable;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.style.ImageSpan;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
+import com.sanshao.bs.module.personal.viewmodel.PersonalViewModel;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ActivityPersonalSignatureBinding;
 import com.sanshao.bs.module.personal.bean.UserInfo;
-import com.sanshao.bs.module.personal.personaldata.viewmodel.PersonalSignatureViewModel;
 
 /**
  * 个性签名
@@ -25,9 +21,9 @@ import com.sanshao.bs.module.personal.personaldata.viewmodel.PersonalSignatureVi
  * @Author yuexingxing
  * @time 2020/7/2
  */
-public class PersonalSignatureActivity extends BaseActivity<PersonalSignatureViewModel, ActivityPersonalSignatureBinding> {
+public class PersonalSignatureActivity extends BaseActivity<PersonalViewModel, ActivityPersonalSignatureBinding> {
 
-    private PersonalSignatureViewModel mPersonalSignatureViewModel;
+    private PersonalViewModel mPersonalViewModel;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, PersonalSignatureActivity.class);
@@ -42,7 +38,7 @@ public class PersonalSignatureActivity extends BaseActivity<PersonalSignatureVie
     @Override
     public void initData() {
 
-        mPersonalSignatureViewModel = new PersonalSignatureViewModel();
+        mPersonalViewModel = new PersonalViewModel();
         String content = SSApplication.getInstance().getUserInfo().signature;
         if (TextUtils.isEmpty(content)) {
             content = "";

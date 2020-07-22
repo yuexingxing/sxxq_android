@@ -1,11 +1,10 @@
-package com.sanshao.bs.module.personal.personaldata.model;
+package com.sanshao.bs.module.personal.model;
 
 import com.exam.commonbiz.net.BaseObserver;
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.ExceptionHandle;
 import com.exam.commonbiz.net.OnLoadListener;
 import com.exam.commonbiz.net.XApi;
-import com.sanshao.bs.module.login.BaseApiService;
 import com.sanshao.bs.module.login.bean.LoginBean;
 import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.module.personal.personaldata.api.PersonalApiService;

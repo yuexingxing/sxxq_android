@@ -1,4 +1,4 @@
-package com.sanshao.bs.widget;
+package com.sanshao.bs.module.shoppingcenter.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -12,6 +12,8 @@ import com.sanshao.bs.R;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.module.shoppingcenter.view.GoodsDetailActivity;
 import com.sanshao.bs.module.shoppingcenter.view.adapter.GuessYouLoveAdapter;
+
+import java.util.List;
 
 /**
  * 猜你喜欢封装自定义控件
@@ -28,7 +30,7 @@ public class GuessYouLoveView extends LinearLayout {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.widget_layout_guess_you_love, this);
         initView(context);
-        initData();
+        setData(null);
     }
 
     private void initView(Context context) {
@@ -40,11 +42,10 @@ public class GuessYouLoveView extends LinearLayout {
         mRecyclerView.setAdapter(mGuessYouLoveAdapter);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setFocusable(false);
-//        mRecyclerView.addItemDecoration(new GuessYouLoveSpaceItemDecoration(ScreenUtil.dp2px(context, 10), 2));
         mGuessYouLoveAdapter.setOnItemClickListener((adapter, view, position) -> GoodsDetailActivity.start(context));
     }
 
-    private void initData() {
+    public void setData(List<GoodsDetailInfo> goodsDetailInfoList) {
         for (int i = 0; i < 10; i++) {
             GoodsDetailInfo goodsDetailInfo = new GoodsDetailInfo();
             goodsDetailInfo.name = "玻尿酸美容护肤不二之选，还你天使容颜，变美不容错误。";

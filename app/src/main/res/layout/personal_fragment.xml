@@ -222,7 +222,7 @@
                     android:gravity="center"
                     android:text="测试模块" />
 
-                <com.sanshao.bs.widget.GuessYouLoveView
+                <com.sanshao.bs.module.shoppingcenter.widget.GuessYouLoveView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/left_container_margin"

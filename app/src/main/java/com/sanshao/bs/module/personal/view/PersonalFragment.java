@@ -18,7 +18,9 @@ import com.sanshao.bs.module.TestMenuActivity;
 import com.sanshao.bs.module.order.bean.OrderInfo;
 import com.sanshao.bs.module.order.view.OrderListActivity;
 import com.sanshao.bs.module.personal.adapter.PersonalOrderSubjectAdapter;
+import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.module.personal.income.view.IncomeMenuActivity;
+import com.sanshao.bs.module.personal.model.IPersonalCallBack;
 import com.sanshao.bs.module.personal.personaldata.view.PersonalDetailActivity;
 import com.sanshao.bs.module.personal.setting.view.SettingActivity;
 import com.sanshao.bs.module.personal.viewmodel.PersonalViewModel;
@@ -34,10 +36,11 @@ import java.util.List;
  * @Author yuexingxing
  * @time 2020/6/12
  */
-public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFragmentBinding> {
+public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFragmentBinding> implements IPersonalCallBack {
 
     private List<OrderInfo> mOrderInfoList = new ArrayList<>();
     private PersonalOrderSubjectAdapter mPersonalOrderSubjectAdapter;
+    private PersonalViewModel mPersonalViewModel;
 
     public static PersonalFragment newInstance() {
         return new PersonalFragment();
@@ -51,6 +54,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     @Override
     public void initData() {
 
+        mPersonalViewModel = new PersonalViewModel();
         binding.flexibleLayout.setHeader(binding.flHeader);
         binding.flexibleLayout.setReadyListener(new OnReadyPullListener() {
             @Override
@@ -91,6 +95,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.pavIncome.setOnClickListener(v -> IncomeMenuActivity.start(context));
         binding.pavSetting.setOnClickListener(v -> SettingActivity.start(context));
         initOrderList();
+        mPersonalViewModel.getUserInfo(this);
     }
 
     @Override
@@ -127,13 +132,10 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.includeOrder.recyclerView.setAdapter(mPersonalOrderSubjectAdapter);
         binding.includeOrder.recyclerView.setNestedScrollingEnabled(false);
         binding.includeOrder.recyclerView.setFocusable(false);
-        mPersonalOrderSubjectAdapter.setOnItemClickListener(new PersonalOrderSubjectAdapter.OnItemClickListener() {
-            @Override
-            public void onOpenClick() {
-                mPersonalOrderSubjectAdapter.setShowOpenView(false);
-                mPersonalOrderSubjectAdapter.getData().clear();
-                mPersonalOrderSubjectAdapter.addData(mOrderInfoList);
-            }
+        mPersonalOrderSubjectAdapter.setOnItemClickListener(() -> {
+            mPersonalOrderSubjectAdapter.setShowOpenView(false);
+            mPersonalOrderSubjectAdapter.getData().clear();
+            mPersonalOrderSubjectAdapter.addData(mOrderInfoList);
         });
 
         for (int i = 0; i < 2; i++) {
@@ -148,5 +150,15 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
 //            mPersonalOrderSubjectAdapter.addData(mOrderInfoList);
 //        });
         mPersonalOrderSubjectAdapter.addData(mOrderInfoList.get(0));
+    }
+
+    @Override
+    public void returnUserInfo(UserInfo userInfo) {
+
+    }
+
+    @Override
+    public void returnUpdateUserInfo() {
+
     }
 }

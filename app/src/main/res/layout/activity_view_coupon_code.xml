@@ -30,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <com.sanshao.bs.widget.GuessYouLoveView
+                <com.sanshao.bs.module.shoppingcenter.widget.GuessYouLoveView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"

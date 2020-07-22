@@ -132,7 +132,7 @@
                         android:textSize="17sp" />
                 </LinearLayout>
 
-                <com.sanshao.bs.widget.GuessYouLoveView
+                <com.sanshao.bs.module.shoppingcenter.widget.GuessYouLoveView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="26dp" />
