@@ -1,5 +1,7 @@
 package com.sanshao.bs.module.shoppingcenter.view.dialog;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -19,6 +21,8 @@ import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.util.BitmapUtil;
 import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.util.ToastUtil;
+import com.sanshao.commonutil.permission.PermissionGroup;
+import com.sanshao.commonutil.permission.RxPermissions;
 
 /**
  * 商品海报
@@ -28,6 +32,7 @@ import com.sanshao.bs.util.ToastUtil;
  */
 public class GoodsPosterDialog {
 
+    @SuppressLint("CheckResult")
     public void show(Context context) {
         LinearLayout rootView = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.dialog_layout_goods_poster, null);
         Dialog dialog = new Dialog(context, R.style.dialogSupply);
@@ -42,7 +47,7 @@ public class GoodsPosterDialog {
         LinearLayout llContent = rootView.findViewById(R.id.ll_content);
 
         String userId = SSApplication.getInstance().getUserInfo().nickName;
-        if (TextUtils.isEmpty(userId)){
+        if (TextUtils.isEmpty(userId)) {
             userId = "sanshao";
         }
         Bitmap bitmap = QRCodeUtil.createQRCodeBitmap(userId, 100, 100);
@@ -54,12 +59,20 @@ public class GoodsPosterDialog {
         Glide.with(SSApplication.app).load(Constants.DEFAULT_IMG_URL).into(imgIcon);
         rootView.findViewById(R.id.iv_close).setOnClickListener(view -> dialog.dismiss());
         rootView.findViewById(R.id.tv_save).setOnClickListener(v -> {
-            String picName = System.currentTimeMillis() + ".png";
-            Bitmap bitmap2 = BitmapUtil.viewConversionBitmap(llContent);
-            boolean saveSuccess = FileUtil.saveImageToGallery(context, bitmap2, picName);
-            if (saveSuccess) {
-                ToastUtil.showShortToast("图片保存成功");
-            }
+
+            RxPermissions rxPermissions = new RxPermissions((Activity) context);
+            rxPermissions.request(PermissionGroup.STORAGE)
+                    .subscribe(aBoolean -> {
+                        if (!aBoolean) {
+                            return;
+                        }
+                        String picName = System.currentTimeMillis() + ".png";
+                        Bitmap bitmap2 = BitmapUtil.viewConversionBitmap(llContent);
+                        boolean saveSuccess = FileUtil.saveImageToGallery(context, bitmap2, picName);
+                        if (saveSuccess) {
+                            ToastUtil.showShortToast("图片保存成功");
+                        }
+                    });
         });
     }
 }

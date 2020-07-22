@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.Res;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityGoodsDetailBinding;
@@ -26,10 +27,18 @@ import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsInroductionDialog;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
 import com.sanshao.bs.util.Constants;
+import com.sanshao.bs.util.ShareUtils;
+import com.sanshao.commonui.dialog.CommonBottomDialog;
+import com.sanshao.commonui.dialog.CommonDialogAdapter;
+import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 商品详情
@@ -101,7 +110,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         binding.recyclerViewSetmeal.setAdapter(mSetMealAdapter);
         binding.recyclerViewSetmeal.setNestedScrollingEnabled(false);
         binding.recyclerViewSetmeal.setFocusable(false);
-        ((DefaultItemAnimator)  binding.recyclerViewSetmeal.getItemAnimator()).setSupportsChangeAnimations(false);
+        ((DefaultItemAnimator) binding.recyclerViewSetmeal.getItemAnimator()).setSupportsChangeAnimations(false);
         mSetMealAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -118,13 +127,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         }
 
         binding.includeBottom.llShare.setOnClickListener(v -> {
-            new GoodsDetailShareDialog().show(context, (postion, object) -> {
-                if (postion == 0) {
-
-                } else if (postion == 1) {
-                    new GoodsPosterDialog().show(context);
-                }
-            });
+            share();
         });
         binding.ivRecommendReward.setOnClickListener(v ->
                 EmptyWebViewActivity.start(context, "http://www.2345.com")
@@ -182,12 +185,36 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onPayStatusChangedEvent(PayStatusChangedEvent payStatusChangedEvent) {
-        if (payStatusChangedEvent == null){
+        if (payStatusChangedEvent == null) {
             return;
         }
-        if (payStatusChangedEvent.paySuccess){
+        if (payStatusChangedEvent.paySuccess) {
             finish();
         }
+    }
+
+    private void share() {
+
+        List<CommonDialogInfo> commonDialogInfoList = new ArrayList<>();
+        commonDialogInfoList.add(new CommonDialogInfo("分享到微信"));
+        commonDialogInfoList.add(new CommonDialogInfo("生成海报"));
+
+        new CommonBottomDialog()
+                .init(this)
+                .setData(commonDialogInfoList)
+                .setOnItemClickListener(commonDialogInfo -> {
+                    if (commonDialogInfo.position == 0) {
+                        ShareUtils.shareText(GoodsDetailActivity.this, "title", SHARE_MEDIA.WEIXIN, new CommonCallBack() {
+                            @Override
+                            public void callback(int postion, Object object) {
+
+                            }
+                        });
+                    } else {
+                        new GoodsPosterDialog().show(context);
+                    }
+                })
+                .show();
     }
 
     @Override

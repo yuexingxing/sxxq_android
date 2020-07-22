@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityGoodsListBinding;
@@ -19,14 +20,18 @@ import com.sanshao.bs.module.order.view.ConfirmOrderActivity;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.module.shoppingcenter.model.IGoodsListModel;
 import com.sanshao.bs.module.shoppingcenter.view.adapter.GoodsListAdapter;
-import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsDetailShareDialog;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.GoodsListViewModel;
+import com.sanshao.bs.util.ShareUtils;
+import com.sanshao.commonui.dialog.CommonBottomDialog;
+import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -87,13 +92,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
 
             @Override
             public void onShareClick() {
-                new GoodsDetailShareDialog().show(context, (postion, object) -> {
-                    if (postion == 0) {
-
-                    } else if (postion == 1) {
-                        new GoodsPosterDialog().show(context);
-                    }
-                });
+                share();
             }
 
             @Override
@@ -113,8 +112,8 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
     }
 
     @Override
-    public void onRefreshData(List<GoodsDetailInfo> list){
-        if (ContainerUtil.isEmpty(list)){
+    public void onRefreshData(List<GoodsDetailInfo> list) {
+        if (ContainerUtil.isEmpty(list)) {
             return;
         }
         mGoodsListAdapter.addData(list);
@@ -132,11 +131,35 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onPayStatusChangedEvent(PayStatusChangedEvent payStatusChangedEvent) {
-        if (payStatusChangedEvent == null){
+        if (payStatusChangedEvent == null) {
             return;
         }
-        if (payStatusChangedEvent.paySuccess){
+        if (payStatusChangedEvent.paySuccess) {
             finish();
         }
+    }
+
+    private void share() {
+
+        List<CommonDialogInfo> commonDialogInfoList = new ArrayList<>();
+        commonDialogInfoList.add(new CommonDialogInfo("分享到微信"));
+        commonDialogInfoList.add(new CommonDialogInfo("生成海报"));
+
+        new CommonBottomDialog()
+                .init(this)
+                .setData(commonDialogInfoList)
+                .setOnItemClickListener(commonDialogInfo -> {
+                    if (commonDialogInfo.position == 0) {
+                        ShareUtils.shareText(GoodsListActivity.this, "title", SHARE_MEDIA.WEIXIN, new CommonCallBack() {
+                            @Override
+                            public void callback(int postion, Object object) {
+
+                            }
+                        });
+                    } else {
+                        new GoodsPosterDialog().show(context);
+                    }
+                })
+                .show();
     }
 }
