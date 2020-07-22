@@ -10,16 +10,15 @@
         android:layout_height="match_parent"
         android:background="@color/main_bg">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:orientation="vertical">
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1">
 
                 <FrameLayout
@@ -32,7 +31,9 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:background="@color/transparent">
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tab_layout"
@@ -46,6 +47,6 @@
                     app:tabRippleColor="@color/transparent" />
             </RelativeLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
 </layout>

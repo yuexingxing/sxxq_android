@@ -14,7 +14,8 @@
         <ScrollView
             android:id="@+id/nested_scrollview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -213,13 +214,6 @@
                     app:isShowLine_pav="true"
                     app:title_pav="设置" />
 
-                <com.sanshao.bs.widget.GuessYouLoveView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/left_container_margin"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="@dimen/right_container_margin" />
-
                 <Button
                     android:id="@+id/btn_test"
                     android:layout_width="match_parent"
@@ -227,6 +221,14 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="测试模块" />
+
+                <com.sanshao.bs.widget.GuessYouLoveView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/left_container_margin"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="@dimen/right_container_margin"
+                    android:layout_marginBottom="60dp" />
             </LinearLayout>
         </ScrollView>
     </com.sanshao.bs.widget.flexible.FlexibleLayout>
