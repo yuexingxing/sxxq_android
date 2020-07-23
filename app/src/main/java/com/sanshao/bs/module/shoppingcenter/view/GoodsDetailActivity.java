@@ -21,15 +21,15 @@ import com.sanshao.bs.module.EmptyWebViewActivity;
 import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
 import com.sanshao.bs.module.order.view.ConfirmOrderActivity;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
+import com.sanshao.bs.module.shoppingcenter.bean.ResponseGoodsDetail;
+import com.sanshao.bs.module.shoppingcenter.model.IGoodsDetailModel;
 import com.sanshao.bs.module.shoppingcenter.view.adapter.SetMealAdapter;
-import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsDetailShareDialog;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsInroductionDialog;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
 import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.util.ShareUtils;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
-import com.sanshao.commonui.dialog.CommonDialogAdapter;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -46,9 +46,11 @@ import java.util.List;
  * @Author yuexingxing
  * @time 2020/6/18
  */
-public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, ActivityGoodsDetailBinding> {
+public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, ActivityGoodsDetailBinding> implements IGoodsDetailModel {
     private final String TAG = GoodsDetailActivity.class.getSimpleName();
+    private GoodsDetailViewModel mGoodsDetailViewModel;
     private SetMealAdapter mSetMealAdapter;
+    private GoodsDetailInfo mGoodsDetailInfo;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, GoodsDetailActivity.class);
@@ -64,6 +66,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
     @Override
     public void initData() {
 
+        mGoodsDetailViewModel = new GoodsDetailViewModel(this);
         binding.includeVideo.ivIcon.setVisibility(View.GONE);
         binding.includeVideo.videoPlayLayout.setVisibility(View.VISIBLE);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
@@ -91,7 +94,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             }
         });
 
-        binding.llIntroduction.setOnClickListener(v -> new GoodsInroductionDialog().show(context));
+        binding.llIntroduction.setOnClickListener(v -> new GoodsInroductionDialog().show(context, ""));
 
         binding.includeBottom.btnBuy.setOnClickListener(v -> ConfirmOrderActivity.start(context));
         binding.llTabGoods.setOnClickListener(v -> {
@@ -120,23 +123,13 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             }
         });
 
-        for (int i = 0; i < 2; i++) {
-            GoodsDetailInfo goodsTypeDetailInfo = GoodsDetailInfo.getGoodsDetailInfo();
-            goodsTypeDetailInfo.name = "玻尿酸美容护肤不二之选，还你天使容颜，变美不容错误。";
-            mSetMealAdapter.addData(goodsTypeDetailInfo);
-        }
-
         binding.includeBottom.llShare.setOnClickListener(v -> {
             share();
         });
         binding.ivRecommendReward.setOnClickListener(v ->
                 EmptyWebViewActivity.start(context, "http://www.2345.com")
         );
-
-        binding.tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
-        binding.tryMatching.initData();
-        binding.tryMatching.initViewPager(getSupportFragmentManager());
-        binding.includeVideo.videoPlayLayout.setVideoPlayUrl(Constants.VIDEO_PLAY_URL);
+        mGoodsDetailViewModel.getGoodsList();
     }
 
     private void scrollToView(View view) {
@@ -215,6 +208,21 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                     }
                 })
                 .show();
+    }
+
+    @Override
+    public void returnGoodsDetail(ResponseGoodsDetail responseGoodsDetail) {
+        if (responseGoodsDetail == null){
+            return;
+        }
+        mGoodsDetailInfo = responseGoodsDetail.goodsDetailInfo;
+
+        binding.tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+        binding.tryMatching.initData();
+        binding.tryMatching.initViewPager(getSupportFragmentManager());
+        binding.includeVideo.videoPlayLayout.setVideoPlayUrl(mGoodsDetailInfo.videoPlayUrl);
+
+        mSetMealAdapter.setNewData(responseGoodsDetail.setMealList);
     }
 
     @Override

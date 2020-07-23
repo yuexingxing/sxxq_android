@@ -24,4 +24,8 @@ public interface GoodsApiService {
     @POST("/util/sms/fetch")
     Observable<BaseResponse<List<GoodsDetailInfo>>> getGoodsList(@Query("mobile") String mobile,
                                                                  @Query("code") String code);
+
+    //获取商品详情
+    @POST("/util/sms/fetch")
+    Observable<BaseResponse<List<GoodsDetailInfo>>> getGoodsDetail(@Query("goods_id") String goodsId);
 }

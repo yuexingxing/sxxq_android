@@ -18,6 +18,7 @@ public class GoodsDetailInfo implements Serializable {
     public int position;
     public List<GoodsDetailInfo> setMealList;//套餐
     public String videoPlayUrl;
+    public String instruction;
 
     public static GoodsDetailInfo getGoodsDetailInfo(){
 
