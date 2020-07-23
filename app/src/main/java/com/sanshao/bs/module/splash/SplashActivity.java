@@ -1,4 +1,4 @@
-package com.sanshao.bs;
+package com.sanshao.bs.module.splash;
 
 import android.content.Intent;
 import android.os.CountDownTimer;
@@ -6,6 +6,8 @@ import android.os.CountDownTimer;
 import com.bumptech.glide.Glide;
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.base.BaseViewModel;
+import com.sanshao.bs.R;
+import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ActivitySplashBinding;
 import com.sanshao.bs.module.MainActivity;
 import com.sanshao.bs.util.Constants;
@@ -16,9 +18,10 @@ import com.sanshao.bs.util.Constants;
  * @Author yuexingxing
  * @time 2020/6/18
  */
-public class SplashActivity extends BaseActivity<BaseViewModel, ActivitySplashBinding> {
+public class SplashActivity extends BaseActivity<BaseViewModel, ActivitySplashBinding> implements ISplashCallBack {
 
     private long mJumpTime = 1000;//跳过倒计时提示5秒
+    private SplashViewModel mSplashViewModel;
 
     @Override
     protected int getLayoutId() {
@@ -43,6 +46,8 @@ public class SplashActivity extends BaseActivity<BaseViewModel, ActivitySplashBi
     @Override
     public void initData() {
 
+        mSplashViewModel = new SplashViewModel();
+        mSplashViewModel.getSplashInfo("1", this);
         Glide.with(SSApplication.app).load(Constants.DEFAULT_IMG_URL).into(binding.ivIcon);
         binding.tvTime.getBackground().setAlpha(79);
         binding.tvTime.setOnClickListener(view -> {
@@ -68,5 +73,13 @@ public class SplashActivity extends BaseActivity<BaseViewModel, ActivitySplashBi
         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void returnSplashInfo(SplashInfo splashInfo) {
+        if (splashInfo == null) {
+            return;
+        }
+        Glide.with(SSApplication.app).load(splashInfo.url).into(binding.ivIcon);
     }
 }

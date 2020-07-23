@@ -30,7 +30,7 @@
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
         <activity
-            android:name=".SplashActivity"
+            android:name=".module.splash.SplashActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.personal.income.view.IncomeMenuActivity"
@@ -119,7 +119,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LaunchActivity"
+            android:name=".module.splash.LaunchActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,9 +1,11 @@
-package com.sanshao.bs;
+package com.sanshao.bs.module.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.sanshao.bs.R;
 
 /**
  * 启动页
