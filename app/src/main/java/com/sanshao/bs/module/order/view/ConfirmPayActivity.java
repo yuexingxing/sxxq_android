@@ -10,6 +10,8 @@ import com.sanshao.bs.databinding.ActivityConfirmPayBinding;
 import com.sanshao.bs.module.order.bean.OrderPayInfoResponse;
 import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
 import com.sanshao.bs.module.order.model.IConfirmPayModel;
+import com.sanshao.bs.module.order.model.OnPayListener;
+import com.sanshao.bs.module.order.util.PayUtils;
 import com.sanshao.bs.module.order.viewmodel.ConfirmOrderViewModel;
 import com.sanshao.bs.module.order.viewmodel.ConfirmPayViewModel;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
@@ -60,7 +62,7 @@ public class ConfirmPayActivity extends BaseActivity<ConfirmOrderViewModel, Acti
 
             }
         });
-        binding.btnStartPay.setOnClickListener(v ->{
+        binding.btnStartPay.setOnClickListener(v -> {
             mConfirmPayViewModel.getOrderPayInfo(mPayType);
         });
         binding.llPayWechat.setOnClickListener(v -> {
@@ -84,10 +86,10 @@ public class ConfirmPayActivity extends BaseActivity<ConfirmOrderViewModel, Acti
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onPayStatusChangedEvent(PayStatusChangedEvent payStatusChangedEvent) {
-        if (payStatusChangedEvent == null){
+        if (payStatusChangedEvent == null) {
             return;
         }
-        if (payStatusChangedEvent.paySuccess){
+        if (payStatusChangedEvent.paySuccess) {
             finish();
         }
     }
@@ -97,7 +99,7 @@ public class ConfirmPayActivity extends BaseActivity<ConfirmOrderViewModel, Acti
      */
     private void setCheckStatus(int payType) {
         mPayType = payType;
-        if (payType == PAY_BY_WECHAT) {
+        if (PAY_BY_WECHAT == payType) {
             binding.checkWechat.setImageResource(R.drawable.icon_login_checked);
             binding.checkAlipay.setImageResource(R.drawable.icon_login_unchecked);
         } else {
@@ -108,6 +110,28 @@ public class ConfirmPayActivity extends BaseActivity<ConfirmOrderViewModel, Acti
 
     @Override
     public void returnOrderPayInfo(OrderPayInfoResponse orderPayInfoResponse) {
+        //TODO 获取支付信息，发起支付
         PayCompleteActivity.start(context);
+        if (orderPayInfoResponse == null) {
+            return;
+        }
+
+        PayUtils payUtils = new PayUtils();
+        if (PAY_BY_WECHAT == mPayType) {
+            payUtils.wxPay(ConfirmPayActivity.this, orderPayInfoResponse.orderInfo);
+        } else {
+            payUtils.aliPay(ConfirmPayActivity.this, orderPayInfoResponse.orderInfo);
+        }
+        payUtils.setOnPayListener(new OnPayListener() {
+            @Override
+            public void onPaySuccess() {
+                PayCompleteActivity.start(context);
+            }
+
+            @Override
+            public void onPayFailed() {
+
+            }
+        });
     }
 }
