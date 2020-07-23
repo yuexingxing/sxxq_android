@@ -43,7 +43,7 @@ public class ConfirmPayActivity extends BaseActivity<ConfirmOrderViewModel, Acti
     @Override
     public void initData() {
 
-        mConfirmPayViewModel = new ConfirmPayViewModel();
+        mConfirmPayViewModel = new ConfirmPayViewModel(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -61,7 +61,7 @@ public class ConfirmPayActivity extends BaseActivity<ConfirmOrderViewModel, Acti
             }
         });
         binding.btnStartPay.setOnClickListener(v ->{
-            mConfirmPayViewModel.getOrderPayInfo(mPayType, this);
+            mConfirmPayViewModel.getOrderPayInfo(mPayType);
         });
         binding.llPayWechat.setOnClickListener(v -> {
             setCheckStatus(PAY_BY_WECHAT);
