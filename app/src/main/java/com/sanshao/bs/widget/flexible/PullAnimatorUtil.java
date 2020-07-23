@@ -27,16 +27,16 @@ public class PullAnimatorUtil {
         }
         int pullOffset = (int) Math.pow(offsetY, 0.8);
         int newHeight = Math.min(maxHeight + headerHeight, pullOffset + headerHeight);
-//        int newWidth = (int) ((((float) newHeight / headerHeight)) * headerWidth);
+        int newWidth = (int) ((((float) newHeight / headerHeight)) * headerWidth);
         headerView.getLayoutParams().height = newHeight;
-//        headerView.getLayoutParams().width = newWidth;
-//        int margin = (newWidth - headerWidth) / 2;
+        headerView.getLayoutParams().width = newWidth;
+        int margin = (newWidth - headerWidth) / 2;
         if (headerView.getParent() != null
                 && headerView.getParent() instanceof RelativeLayout) {
             // TODO: gavin 2018/6/26  RelativeLayout会有问题，需要查明原因
-//            margin = 0;
+            margin = 0;
         }
-//        headerView.setTranslationX(-margin);
+        headerView.setTranslationX(-margin);
         headerView.requestLayout();
     }
 
