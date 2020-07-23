@@ -26,6 +26,13 @@
         android:roundIcon="@drawable/image_logo"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
+        <service
+            android:name=".module.personal.setting.service.KillSelfService"
+            android:process=":restart" />
+
+        <activity
+            android:name=".module.personal.setting.view.ChangeHostActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".module.personal.account.view.BindWeChatActivity"
             android:screenOrientation="portrait" />

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".module.personal.setting.view.ChangeHostActivity">
+
+        <com.sanshao.commonui.titlebar.TitleBar
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="切换环境" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/left_container_margin"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="@dimen/right_container_margin">
+
+            <RadioButton
+                android:id="@+id/rb_dev"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:checked="true"
+                android:text="DEV" />
+
+            <RadioButton
+                android:id="@+id/rb_pre"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:text="PRE" />
+
+            <RadioButton
+                android:id="@+id/rb_pro"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:text="PRO" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/btn_ok"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/shape_radius_10_b6a57b"
+            android:gravity="center"
+            android:text="确认"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+</layout>

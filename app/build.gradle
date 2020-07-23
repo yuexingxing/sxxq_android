@@ -8,8 +8,8 @@ android {
         applicationId "com.sanshao.bs"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
         multiDexEnabled true
 
         ndk {
@@ -106,6 +106,9 @@ dependencies {
     implementation 'com.umeng.sdk:common:1.5.0'
     implementation 'com.umeng.sdk:analytics:7.5.0'
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:6.6.4'
+
+    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:1.2.1'
+    releaseImplementation 'com.didichuxing.doraemonkit:doraemonkit-no-op:1.2.0'
 
     implementation project(':commonbiz')
     implementation project(':livemodule')

@@ -11,6 +11,8 @@ import androidx.multidex.MultiDex;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
+import com.didichuxing.doraemonkit.DoraemonKit;
+import com.didichuxing.doraemonkit.kit.IKit;
 import com.exam.commonbiz.base.BasicApplication;
 import com.exam.commonbiz.cache.ACache;
 import com.exam.commonbiz.config.ConfigSP;
@@ -21,6 +23,7 @@ import com.exam.commonbiz.net.RequestHandler;
 import com.exam.commonbiz.net.XApi;
 import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.util.AppUtil;
+import com.sanshao.bs.module.personal.setting.dokit.KitChangeHost;
 import com.sanshao.commonui.titlebar.TitleBar;
 import com.sanshao.commonui.titlebar.TitleBarLightStyle;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;
@@ -33,6 +36,8 @@ import com.umeng.socialize.UMShareAPI;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
@@ -69,6 +74,10 @@ public class SSApplication extends BasicApplication {
         closeAndroidPDialog();
         TCGlobalConfig.init(this);
 
+        List<IKit> kits = new ArrayList<>();
+        kits.add(new KitChangeHost());
+
+        DoraemonKit.install(this, kits);
         // 必须：初始化全局的 用户信息管理类，记录个人信息。
         TCUserMgr.getInstance().initContext(getApplicationContext());
         PlatformConfig.setWeixin("微信AppId", "微信AppSecret");
@@ -98,10 +107,10 @@ public class SSApplication extends BasicApplication {
         BASE_URL = "https://122.228.44.22:8080";
         //debug模式下允许切换服务器，这个设置一定要放到initHttpConfig初始化后面
         if (AppUtil.isDebug(this)) {
-            ACache.get(this).put(ConfigSP.SP_CURRENT_HOST, 0);
+//            ACache.get(this).put(ConfigSP.SP_CURRENT_HOST, ConfigSP.HOST_TYPE.DEV);
         }
 
-        ACache.get(this).put(ConfigSP.SP_CURRENT_HOST, 2);//默认线上服务器
+//        ACache.get(this).put(ConfigSP.SP_CURRENT_HOST, ConfigSP.HOST_TYPE.PRO);//默认线上服务器
         XApi.registerDefaultProvider(BASE_URL, new NetProvider() {
 
             @Override

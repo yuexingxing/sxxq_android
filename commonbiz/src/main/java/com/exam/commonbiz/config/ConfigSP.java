@@ -12,6 +12,12 @@ public class ConfigSP {
     public static final String SP_USER_INFO = "sp_user_info";
     public static final String SP_CURRENT_HOST = "sp_current_host";
 
+    public enum HOST_TYPE {
+        DEV,
+        PRE,
+        PRO
+    }
+
     public interface UserInfo {
         String AVATAR = "user_info_avatar";
     }
