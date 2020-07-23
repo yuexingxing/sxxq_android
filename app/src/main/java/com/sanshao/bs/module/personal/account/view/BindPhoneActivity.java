@@ -43,7 +43,7 @@ public class BindPhoneActivity extends BaseActivity<BindPhoneViewModel, Activity
 
             @Override
             public void onRightClick(View v) {
-
+                
             }
         });
     }

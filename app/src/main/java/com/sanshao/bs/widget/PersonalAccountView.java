@@ -34,9 +34,9 @@ public class PersonalAccountView extends LinearLayout {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PersonalAccountView, 0, 0);
         try {
             mTitle = typedArray.getString(R.styleable.PersonalAccountView_title_pav);
-            mContent= typedArray.getString(R.styleable.PersonalAccountView_content_pav);
-            isShowLine= typedArray.getBoolean(R.styleable.PersonalAccountView_isShowLine_pav, false);
-            iconId = typedArray.getResourceId(R.styleable.PersonalAccountView_icon_pav, R.drawable.beautiful);
+            mContent = typedArray.getString(R.styleable.PersonalAccountView_content_pav);
+            isShowLine = typedArray.getBoolean(R.styleable.PersonalAccountView_isShowLine_pav, false);
+            iconId = typedArray.getResourceId(R.styleable.PersonalAccountView_icon_pav, 0);
             initView();
         } finally {
             typedArray.recycle();
@@ -49,8 +49,13 @@ public class PersonalAccountView extends LinearLayout {
         mTvContent = findViewById(R.id.tv_content);
         mTvTitle.setText(mTitle);
         mTvContent.setText(mContent);
-        mIcon.setImageResource(iconId);
-        if (isShowLine){
+        if (iconId != 0) {
+            mIcon.setImageResource(iconId);
+        } else {
+            mIcon.setVisibility(GONE);
+        }
+
+        if (isShowLine) {
 
         }
     }

@@ -48,14 +48,7 @@ public class AccountSafetyActivity extends BaseActivity<AccountSafetyViewModel, 
 
             }
         });
-        binding.tvBindphone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BindPhoneActivity.start(context);
-            }
-        });
-        binding.tvSettingpsd.setOnClickListener(v -> {
-            SettingAccountActivity.start(context, SettingAccountActivity.SETTING_PASSWORD);
-        });
+        binding.llBindPhone.setOnClickListener(v -> BindPhoneActivity.start(context));
+        binding.llBindWechat.setOnClickListener(v -> BindWeChatActivity.start(context));
     }
 }

@@ -21,6 +21,7 @@ import com.sanshao.bs.module.login.bean.AuthInfo;
 import com.sanshao.bs.module.login.bean.LoginBean;
 import com.sanshao.bs.module.login.model.ILoginCallBack;
 import com.sanshao.bs.module.login.viewmodel.LoginViewModel;
+import com.sanshao.bs.module.personal.account.view.BindWeChatActivity;
 import com.sanshao.bs.util.CommandTools;
 import com.sanshao.bs.util.LoadDialogMgr;
 import com.sanshao.bs.util.ToastUtil;
@@ -68,7 +69,7 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
         loginBean.phone = "18744556665";
         loginBean.code = "12345";
         binding.setUser(loginBean);
-        binding.tvJump.setOnClickListener(v->{
+        binding.tvJump.setOnClickListener(v -> {
             MainActivity.start(context);
         });
         binding.edtPhone.addTextChangedListener(new TextWatcher() {
@@ -128,15 +129,7 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
             }
         });
         binding.rlLoginWechat.setOnClickListener(view -> {
-            UMSocialUtil.authorization(context, SHARE_MEDIA.WEIXIN, new CommonCallBack() {
-                @Override
-                public void callback(int postion, Object object) {
-                    if (postion == 0 && object != null){
-                        AuthInfo authInfo = (AuthInfo) object;
-                        XLog.d(TAG, authInfo.openid);
-                    }
-                }
-            });
+            BindWeChatActivity.start(context);
         });
     }
 

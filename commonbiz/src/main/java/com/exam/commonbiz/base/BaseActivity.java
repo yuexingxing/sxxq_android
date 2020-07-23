@@ -28,6 +28,7 @@ import java.lang.reflect.ParameterizedType;
  * @time 2020/6/30
  */
 public abstract class BaseActivity<VM extends ViewModel, VDB extends ViewDataBinding> extends AppCompatActivity {
+    public final String TAG = BaseActivity.class.getSimpleName();
     public Context context;
     protected VM mViewModel;
     protected VDB binding;

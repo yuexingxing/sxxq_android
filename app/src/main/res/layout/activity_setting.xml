@@ -22,10 +22,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="@dimen/left_container_margin"
                 android:layout_marginTop="12dp"
-                android:layout_marginRight="16dp"
-                android:background="@drawable/shape_login_input_phone"
+                android:layout_marginRight="@dimen/right_container_margin"
+                android:background="@drawable/shape_white_radius_10"
                 android:orientation="vertical"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp">
@@ -34,7 +34,6 @@
                     android:id="@+id/pav_account"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    app:icon_pav="@drawable/beautiful"
                     app:title_pav="账户安全" />
 
                 <com.sanshao.bs.widget.PersonalAccountView
@@ -42,21 +41,20 @@
                     android:layout_height="55dp"
                     android:visibility="gone"
                     app:content_pav="未认证"
-                    app:icon_pav="@drawable/beautiful"
                     app:title_pav="实名认证"
                     tools:visibility="visible" />
 
                 <com.sanshao.bs.widget.PersonalAccountView
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    app:icon_pav="@drawable/beautiful"
-                    app:title_pav="问题反馈" />
+                    android:visibility="gone"
+                    app:title_pav="问题反馈"
+                    tools:visibility="visible" />
 
                 <com.sanshao.bs.widget.PersonalAccountView
                     android:id="@+id/pav_about_us"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    app:icon_pav="@drawable/beautiful"
                     app:title_pav="关于我们" />
             </LinearLayout>
         </LinearLayout>
