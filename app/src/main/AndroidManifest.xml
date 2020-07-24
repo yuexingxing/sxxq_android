@@ -26,6 +26,7 @@
         android:roundIcon="@drawable/image_logo"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
+        <activity android:name=".module.personal.inquiry.view.InquiryDetailActivity"></activity>
         <activity
             android:name=".module.personal.inquiry.view.ToBeInquiryActivity"
             android:screenOrientation="portrait" />

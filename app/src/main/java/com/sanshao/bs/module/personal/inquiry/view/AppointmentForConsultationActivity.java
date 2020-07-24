@@ -79,29 +79,10 @@ public class AppointmentForConsultationActivity extends BaseActivity<Appointment
             selectSubscribeTimeDialog.showDateDialog(context);
         });
         binding.btnSubscribe.setOnClickListener(v -> {
-            OpenLocalMapUtil.openLocalMap(context, OpenLocalMapUtil.START_LATLON[0], OpenLocalMapUtil.START_LATLON[1], OpenLocalMapUtil.SNAME, OpenLocalMapUtil.CITY);
-//            finish();
+            finish();
         });
         binding.mulitySetMealView.setOptType(ConfirmOrderAdapter.OPT_TYPE_APPOINTMENT);
         mConfirmOrderViewModel.getOrderInfo(this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        binding.bmapView.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        binding.bmapView.onPause();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        binding.bmapView.onDestroy();
     }
 
     @Override

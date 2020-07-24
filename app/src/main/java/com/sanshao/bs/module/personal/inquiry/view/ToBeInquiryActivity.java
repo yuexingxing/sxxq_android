@@ -73,7 +73,7 @@ public class ToBeInquiryActivity extends BaseActivity<BaseViewModel, ActivityToB
         mToBeInquiryAdapter.setOnItemClickListener(new ToBeInquiryAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(OrderInfo item) {
-                AppointmentForConsultationActivity.start(context);
+                InquiryDetailActivity.start(context);
             }
 
             @Override
