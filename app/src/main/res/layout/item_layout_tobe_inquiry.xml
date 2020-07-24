@@ -1,86 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_bg"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/view_space_top"
+        android:layout_width="match_parent"
+        android:layout_height="12dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_below="@+id/view_space_top"
         android:background="@drawable/shape_white_radius_10"
         android:orientation="vertical"
-        android:paddingLeft="13dp"
-        android:paddingTop="11dp"
-        android:paddingRight="13dp"
-        android:paddingBottom="11dp">
+        android:paddingLeft="12dp"
+        android:paddingTop="12dp"
+        android:paddingRight="12dp"
+        android:layout_marginBottom="12dp"
+        android:paddingBottom="14dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="项目："
-                android:textColor="@color/color_333333"
-                android:textSize="11sp" />
 
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                tools:text="黄金微针你的美容必备，美容必备…"
+                android:text="乔丽尔医美"
                 android:textColor="@color/color_333333"
-                android:textSize="14sp" />
-        </LinearLayout>
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:orientation="horizontal">
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="时间："
-                android:textColor="@color/color_666666"
+                android:text="预约时间："
+                android:textColor="@color/color_333333"
                 android:textSize="11sp" />
 
             <TextView
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="周一至周五：10:00-22:00"
-                android:textColor="@color/color_666666"
-                android:textSize="11sp" />
+                android:text="05-06 10:30"
+                android:textColor="@color/color_c5602d"
+                android:textSize="12sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="地址："
-                android:textColor="@color/color_666666"
-                android:textSize="11sp" />
-
-            <TextView
-                android:id="@+id/tv_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:lineSpacingExtra="1.3dp"
-                tools:text="上海市静安区新闸路829号丽都新贵大厦304、305、306室上海市静安区新闸路829号丽都新贵大厦304、305、306室"
-                android:textColor="@color/color_666666"
-                android:textSize="11sp" />
-        </LinearLayout>
+        <include
+            android:id="@+id/include_content"
+            layout="@layout/include_item_layout_order_content" />
     </LinearLayout>
 </RelativeLayout>

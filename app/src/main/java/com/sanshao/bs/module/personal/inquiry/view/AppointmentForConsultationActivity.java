@@ -1,4 +1,4 @@
-package com.sanshao.bs.module.order.view;
+package com.sanshao.bs.module.personal.inquiry.view;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;

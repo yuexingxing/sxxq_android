@@ -14,6 +14,7 @@ import com.sanshao.bs.module.order.model.IOrderModel;
 import com.sanshao.bs.module.order.view.adapter.OrderListAdapter;
 import com.sanshao.bs.module.order.viewmodel.OrderListViewModel;
 import com.sanshao.bs.module.order.viewmodel.OrderStatusViewModel;
+import com.sanshao.bs.module.personal.inquiry.view.AppointmentForConsultationActivity;
 
 import java.util.List;
 

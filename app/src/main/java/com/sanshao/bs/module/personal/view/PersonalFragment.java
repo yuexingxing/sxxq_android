@@ -1,8 +1,6 @@
 package com.sanshao.bs.module.personal.view;
 
 import android.graphics.Bitmap;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.cache.ACache;
 import com.exam.commonbiz.config.ConfigSP;
-import com.exam.commonbiz.kits.Kits;
 import com.exam.commonbiz.log.XLog;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.PersonalFragmentBinding;
@@ -20,6 +17,7 @@ import com.sanshao.bs.module.order.view.OrderListActivity;
 import com.sanshao.bs.module.personal.adapter.PersonalOrderSubjectAdapter;
 import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.module.personal.income.view.IncomeMenuActivity;
+import com.sanshao.bs.module.personal.inquiry.view.ToBeInquiryActivity;
 import com.sanshao.bs.module.personal.model.IPersonalCallBack;
 import com.sanshao.bs.module.personal.personaldata.view.PersonalDetailActivity;
 import com.sanshao.bs.module.personal.setting.view.SettingActivity;
@@ -90,7 +88,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.includeOrder.rlAllOrder.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.ALL));
         binding.includeOrder.llOrderTobepaid.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.ToBePaid));
         binding.includeOrder.llOrderTobeuse.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.ToBeUse));
-        binding.includeOrder.llOrderTobesure.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.ToBePaid));
+        binding.includeOrder.llOrderTobeinquiry.setOnClickListener(v -> ToBeInquiryActivity.start(context));
         binding.includeOrder.llOrderComplete.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.Complete));
         binding.pavIncome.setOnClickListener(v -> IncomeMenuActivity.start(context));
         binding.pavSetting.setOnClickListener(v -> SettingActivity.start(context));

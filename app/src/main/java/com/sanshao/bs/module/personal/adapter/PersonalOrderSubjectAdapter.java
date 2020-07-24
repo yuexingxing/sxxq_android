@@ -9,7 +9,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.sanshao.bs.R;
 import com.sanshao.bs.module.order.bean.OrderInfo;
-import com.sanshao.bs.module.order.view.adapter.OrderListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,11 +43,11 @@ public class PersonalOrderSubjectAdapter extends BaseQuickAdapter<OrderInfo, Bas
         helper.setText(R.id.tv_time, helper.getAdapterPosition() + "-6天12小时9分");
 
         RecyclerView recyclerView = helper.getView(R.id.recycler_view);
-        ToBeInquiryAdapter toBeInquiryAdapter = new ToBeInquiryAdapter();
+        InquiryInfoAdapter inquiryInfoAdapter = new InquiryInfoAdapter();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(toBeInquiryAdapter);
+        recyclerView.setAdapter(inquiryInfoAdapter);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setFocusable(false);
 
@@ -72,6 +71,6 @@ public class PersonalOrderSubjectAdapter extends BaseQuickAdapter<OrderInfo, Bas
             orderInfo.address = "上海市静安区新闸路829号丽都新贵大厦304、305、306室上海市静安区新闸路829号丽都新贵大厦304、305、306室";
             orderInfoList.add(orderInfo);
         }
-        toBeInquiryAdapter.addData(orderInfoList);
+        inquiryInfoAdapter.addData(orderInfoList);
     }
 }

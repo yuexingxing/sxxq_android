@@ -93,7 +93,7 @@
                     app:PersonalOrderMenuView_num="2" />
 
                 <com.sanshao.bs.widget.PersonalOrderMenuView
-                    android:id="@+id/ll_order_tobesure"
+                    android:id="@+id/ll_order_tobeinquiry"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
