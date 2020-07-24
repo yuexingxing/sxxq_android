@@ -1,8 +1,10 @@
 package com.sanshao.bs.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ public class CommandTools {
             return phone.matches(telRegex);
     }
 
-    public static String getUUID(){
+    public static String getUUID() {
         return String.valueOf(UUID.randomUUID());
     }
 
@@ -62,4 +64,18 @@ public class CommandTools {
         }
         return false;
     }
+
+    /**
+     * 拨打电话（跳转到拨号界面，用户手动点击拨打）
+     *
+     * @param phoneNum 电话号码
+     */
+    public static void callPhone(Context context, String phoneNum) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        Uri data = Uri.parse("tel:" + phoneNum);
+        intent.setData(data);
+        context.startActivity(intent);
+    }
+
+
 }

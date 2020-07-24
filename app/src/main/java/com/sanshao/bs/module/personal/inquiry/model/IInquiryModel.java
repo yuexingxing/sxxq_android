@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IInquiryModel {
     void returnInquiryList(List<OrderInfo> orderInfoList);
+
+    void returnInquiryDetail(OrderInfo orderInfo);
 }

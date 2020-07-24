@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.base.BaseViewModel;
 import com.sanshao.bs.R;
-import com.sanshao.bs.databinding.ActivityToBeInquiryBinding;
+import com.sanshao.bs.databinding.ActivityToBeInquiryListBinding;
 import com.sanshao.bs.module.order.bean.OrderInfo;
 import com.sanshao.bs.module.order.view.ViewCouponCodeActivity;
 import com.sanshao.bs.module.personal.inquiry.adapter.ToBeInquiryAdapter;
@@ -20,26 +20,25 @@ import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
 import java.util.List;
 
-
 /**
  * 待问诊列表
  *
  * @Author yuexingxing
  * @time 2020/7/24
  */
-public class ToBeInquiryActivity extends BaseActivity<BaseViewModel, ActivityToBeInquiryBinding> implements IInquiryModel {
+public class ToBeInquiryListActivity extends BaseActivity<BaseViewModel, ActivityToBeInquiryListBinding> implements IInquiryModel {
 
     private ToBeInquiryAdapter mToBeInquiryAdapter;
     private InquiryListViewModel mInquiryListViewModel;
 
     public static void start(Context context) {
-        Intent starter = new Intent(context, ToBeInquiryActivity.class);
+        Intent starter = new Intent(context, ToBeInquiryListActivity.class);
         context.startActivity(starter);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_to_be_inquiry;
+        return R.layout.activity_to_be_inquiry_list;
     }
 
     @Override
@@ -73,7 +72,7 @@ public class ToBeInquiryActivity extends BaseActivity<BaseViewModel, ActivityToB
         mToBeInquiryAdapter.setOnItemClickListener(new ToBeInquiryAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(OrderInfo item) {
-                InquiryDetailActivity.start(context);
+                ToBeInquiryDetailActivity.start(context);
             }
 
             @Override
@@ -92,5 +91,10 @@ public class ToBeInquiryActivity extends BaseActivity<BaseViewModel, ActivityToB
         }
 
         mToBeInquiryAdapter.setNewData(orderInfoList);
+    }
+
+    @Override
+    public void returnInquiryDetail(OrderInfo orderInfo) {
+
     }
 }

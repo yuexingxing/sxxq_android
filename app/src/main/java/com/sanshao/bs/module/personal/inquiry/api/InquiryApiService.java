@@ -17,11 +17,11 @@ import retrofit2.http.Query;
  */
 public interface InquiryApiService {
 
-    //获取订单列表
+    //获取待问诊列表
     @GET("/util/sms/fetch")
     Observable<BaseResponse<OrderListResponse>> getInquiryList();
 
-    //获取订单详情
+    //获取待问诊详情
     @GET("/util/sms/fetch")
     Observable<BaseResponse<OrderListResponse>> getInquiryDetailInfo();
 }
