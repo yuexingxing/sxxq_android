@@ -15,24 +15,24 @@ import java.util.List;
  * @Author yuexingxing
  * @time 2020/7/24
  */
-public class InquiryDetailViewModel extends BaseViewModel {
-    private String TAG = InquiryDetailViewModel.class.getSimpleName();
+public class ToBeInquiryListViewModel extends BaseViewModel {
+    private String TAG = ToBeInquiryListViewModel.class.getSimpleName();
     private IInquiryModel mIInquiryModel;
 
-    public InquiryDetailViewModel() {
+    public ToBeInquiryListViewModel() {
 
     }
 
-    public InquiryDetailViewModel(IInquiryModel inquiryModel) {
+    public ToBeInquiryListViewModel(IInquiryModel inquiryModel) {
         mIInquiryModel = inquiryModel;
     }
 
-    public void getInquiryDetailInfo() {
+    public void getInquiryList() {
 
-        InquiryModel.getInquiryDetailInfo(new OnLoadListener<OrderListResponse>() {
+        InquiryModel.getInquiryList(new OnLoadListener<OrderListResponse>() {
             @Override
             public void onLoadStart() {
-
+                loadData();
             }
 
             @Override

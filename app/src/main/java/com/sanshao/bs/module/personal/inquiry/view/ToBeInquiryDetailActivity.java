@@ -14,7 +14,10 @@ import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.base.BaseViewModel;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityToBeInquiryDetailBinding;
+import com.sanshao.bs.module.order.bean.OrderInfo;
 import com.sanshao.bs.module.order.view.ViewCouponCodeActivity;
+import com.sanshao.bs.module.personal.inquiry.model.IInquiryModel;
+import com.sanshao.bs.module.personal.inquiry.viewmodel.ToBeInquiryDetailViewModel;
 import com.sanshao.bs.util.CommandTools;
 import com.sanshao.bs.util.OpenLocalMapUtil;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
@@ -30,7 +33,9 @@ import java.util.List;
  * @Author yuexingxing
  * @time 2020/7/24
  */
-public class ToBeInquiryDetailActivity extends BaseActivity<BaseViewModel, ActivityToBeInquiryDetailBinding> {
+public class ToBeInquiryDetailActivity extends BaseActivity<BaseViewModel, ActivityToBeInquiryDetailBinding> implements IInquiryModel {
+
+    private ToBeInquiryDetailViewModel mToBeInquiryDetailViewModel;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, ToBeInquiryDetailActivity.class);
@@ -45,6 +50,7 @@ public class ToBeInquiryDetailActivity extends BaseActivity<BaseViewModel, Activ
     @Override
     public void initData() {
 
+        mToBeInquiryDetailViewModel = new ToBeInquiryDetailViewModel();
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -104,6 +110,7 @@ public class ToBeInquiryDetailActivity extends BaseActivity<BaseViewModel, Activ
         binding.rlViewcode.setOnClickListener(view -> {
             ViewCouponCodeActivity.start(context);
         });
+        mToBeInquiryDetailViewModel.getInquiryDetailInfo();
     }
 
     @Override
@@ -122,5 +129,15 @@ public class ToBeInquiryDetailActivity extends BaseActivity<BaseViewModel, Activ
     protected void onDestroy() {
         super.onDestroy();
         binding.bmapView.onDestroy();
+    }
+
+    @Override
+    public void returnInquiryList(List<OrderInfo> orderInfoList) {
+
+    }
+
+    @Override
+    public void returnInquiryDetail(OrderInfo orderInfo) {
+
     }
 }

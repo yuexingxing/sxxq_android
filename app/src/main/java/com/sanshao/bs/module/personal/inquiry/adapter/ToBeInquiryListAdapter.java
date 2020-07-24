@@ -16,10 +16,10 @@ import com.sanshao.bs.util.Constants;
  * @Author yuexingxing
  * @time 2020/7/21
  */
-public class ToBeInquiryAdapter extends BaseQuickAdapter<OrderInfo, BaseViewHolder> {
+public class ToBeInquiryListAdapter extends BaseQuickAdapter<OrderInfo, BaseViewHolder> {
 
     private OnItemClickListener mOnItemClickListener;
-    public ToBeInquiryAdapter() {
+    public ToBeInquiryListAdapter() {
         super(R.layout.item_layout_tobe_inquiry, null);
     }
 

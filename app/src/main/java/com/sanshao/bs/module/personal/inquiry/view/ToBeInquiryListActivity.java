@@ -13,9 +13,9 @@ import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityToBeInquiryListBinding;
 import com.sanshao.bs.module.order.bean.OrderInfo;
 import com.sanshao.bs.module.order.view.ViewCouponCodeActivity;
-import com.sanshao.bs.module.personal.inquiry.adapter.ToBeInquiryAdapter;
+import com.sanshao.bs.module.personal.inquiry.adapter.ToBeInquiryListAdapter;
 import com.sanshao.bs.module.personal.inquiry.model.IInquiryModel;
-import com.sanshao.bs.module.personal.inquiry.viewmodel.InquiryListViewModel;
+import com.sanshao.bs.module.personal.inquiry.viewmodel.ToBeInquiryListViewModel;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
 import java.util.List;
@@ -28,8 +28,8 @@ import java.util.List;
  */
 public class ToBeInquiryListActivity extends BaseActivity<BaseViewModel, ActivityToBeInquiryListBinding> implements IInquiryModel {
 
-    private ToBeInquiryAdapter mToBeInquiryAdapter;
-    private InquiryListViewModel mInquiryListViewModel;
+    private ToBeInquiryListAdapter mToBeInquiryListAdapter;
+    private ToBeInquiryListViewModel mToBeInquiryListViewModel;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, ToBeInquiryListActivity.class);
@@ -61,15 +61,15 @@ public class ToBeInquiryListActivity extends BaseActivity<BaseViewModel, Activit
             }
         });
 
-        mInquiryListViewModel = new InquiryListViewModel(this);
-        mToBeInquiryAdapter = new ToBeInquiryAdapter();
+        mToBeInquiryListViewModel = new ToBeInquiryListViewModel(this);
+        mToBeInquiryListAdapter = new ToBeInquiryListAdapter();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         binding.recyclerView.setLayoutManager(linearLayoutManager);
-        binding.recyclerView.setAdapter(mToBeInquiryAdapter);
+        binding.recyclerView.setAdapter(mToBeInquiryListAdapter);
         binding.recyclerView.setNestedScrollingEnabled(false);
         binding.recyclerView.setFocusable(false);
-        mToBeInquiryAdapter.setOnItemClickListener(new ToBeInquiryAdapter.OnItemClickListener() {
+        mToBeInquiryListAdapter.setOnItemClickListener(new ToBeInquiryListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(OrderInfo item) {
                 ToBeInquiryDetailActivity.start(context);
@@ -81,7 +81,7 @@ public class ToBeInquiryListActivity extends BaseActivity<BaseViewModel, Activit
             }
         });
 
-        mInquiryListViewModel.getInquiryList();
+        mToBeInquiryListViewModel.getInquiryList();
     }
 
     @Override
@@ -90,7 +90,7 @@ public class ToBeInquiryListActivity extends BaseActivity<BaseViewModel, Activit
             return;
         }
 
-        mToBeInquiryAdapter.setNewData(orderInfoList);
+        mToBeInquiryListAdapter.setNewData(orderInfoList);
     }
 
     @Override
