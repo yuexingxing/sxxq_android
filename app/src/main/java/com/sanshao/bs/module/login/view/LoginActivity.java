@@ -92,45 +92,31 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
 
             }
         });
-        binding.tvGetCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPhone = binding.edtPhone.getText().toString();
-                if (!CommandTools.isMobileNum(mPhone)) {
-                    ToastUtil.showShortToast("请输入正确的手机号");
-                    return;
-                }
-                LoadDialogMgr.getInstance().show(context);
-                mViewModel.getSMSCode(mPhone, "1");
+        binding.tvGetCode.setOnClickListener(v -> {
+            mPhone = binding.edtPhone.getText().toString();
+            if (!CommandTools.isMobileNum(mPhone)) {
+                ToastUtil.showShortToast("请输入正确的手机号");
+                return;
             }
+            LoadDialogMgr.getInstance().show(context);
+            mViewModel.getSMSCode(mPhone, "1");
         });
-        binding.tvLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String code = binding.edtCode.getText().toString();
-                if (TextUtils.isEmpty(code)) {
-                    ToastUtil.showShortToast("验证码不能为空");
-                    return;
-                }
-                LoadDialogMgr.getInstance().show(context, "登录中...");
-                mViewModel.login(mPhone, code);
+        binding.tvLogin.setOnClickListener(v -> {
+            String code = binding.edtCode.getText().toString();
+            if (TextUtils.isEmpty(code)) {
+                ToastUtil.showShortToast("验证码不能为空");
+                return;
             }
-        });
-        binding.includePolicy.tvAgreement.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EmptyWebViewActivity.start(context, "http://www.baidu.com");
+            if (!binding.includePolicy.checkbox.isChecked()) {
+                ToastUtil.showShortToast("未勾选协议和隐私政策");
+                return;
             }
+            LoadDialogMgr.getInstance().show(context, "登录中...");
+            mViewModel.login(mPhone, code);
         });
-        binding.includePolicy.tvPolicy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EmptyWebViewActivity.start(context, "http://www.2345.com");
-            }
-        });
-        binding.rlLoginWechat.setOnClickListener(view -> {
-            BindWeChatActivity.start(context);
-        });
+        binding.includePolicy.tvAgreement.setOnClickListener(v -> EmptyWebViewActivity.start(context, "http://www.baidu.com"));
+        binding.includePolicy.tvPolicy.setOnClickListener(v -> EmptyWebViewActivity.start(context, "http://www.2345.com"));
+        binding.rlLoginWechat.setOnClickListener(view -> BindWeChatActivity.start(context));
     }
 
     /**
