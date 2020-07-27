@@ -14,6 +14,7 @@ import android.view.View;
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.cache.ACache;
 import com.exam.commonbiz.config.ConfigSP;
+import com.exam.commonbiz.oss.OssService;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.QRCodeUtil;
 import com.exam.commonbiz.util.ScreenUtil;
@@ -232,6 +233,12 @@ public class PersonalDetailActivity extends BaseActivity<PersonalDetailViewModel
                 binding.ivAvatar.setImageBitmap(bitmap);
                 ACache.get(context).put(ConfigSP.UserInfo.AVATAR, bitmap);
             }
+
+            //TODO 上传图片
+            //实例化OSSClient (自己是在onCreate()中实例化的，当然考虑到token的过期问题，也有在onResume()中再次实例化一次)
+//            OssService ossService = OssService.initOSS(tokenBean.getBucket().getEndPoint(), tokenBean.getBucket().getBucketName());
+//            //上传图片,需要根据自己的逻辑传参数
+//            ossService.asyncPutImage("图片在阿里上的存储路径", "本地路径", null, "1");
         }
     }
 
