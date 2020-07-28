@@ -20,17 +20,17 @@ public class PersonalOrderMenuView extends LinearLayout {
 
     private TextView mTvName;
     private ImageView mImgIcon;
-    private TextView mTvNum;
     private String mName;
     private int mIcon;
     private int mUnReadNum;
+    private RedPointImageView mRedPointImageView;
 
     public PersonalOrderMenuView(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.widget_layout_personal_order_menu, this);
         mTvName = findViewById(R.id.tv_name);
         mImgIcon = findViewById(R.id.iv_icon);
-        mTvNum =findViewById(R.id.tv_num);
+        mRedPointImageView = findViewById(R.id.red_point_view);
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.PersonalOrderMenuView, 0, 0);
         try {
             mName = ta.getString(R.styleable.PersonalOrderMenuView_PersonalOrderMenuView_name);
@@ -40,15 +40,21 @@ public class PersonalOrderMenuView extends LinearLayout {
         } finally {
             ta.recycle();
         }
+        mRedPointImageView.setShow(true);
+        mRedPointImageView.setNumber(5);
+    }
+
+    public ImageView getImageView(){
+        return mImgIcon;
     }
 
     private void initView(Context context) {
         mTvName.setText(mName);
         mImgIcon.setImageResource(mIcon);
-        mTvNum.setText(mUnReadNum + "");
+        mRedPointImageView.setNumber(mUnReadNum);
     }
 
     public void setUnReadNum(int unReadNum){
-        mTvNum.setText(unReadNum + "");
+        mRedPointImageView.setNumber(unReadNum);
     }
 }

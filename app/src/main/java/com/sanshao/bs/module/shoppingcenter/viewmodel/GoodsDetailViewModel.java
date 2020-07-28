@@ -28,9 +28,9 @@ public class GoodsDetailViewModel extends BaseViewModel {
         mCallBack = iGoodsDetailModel;
     }
 
-    public void getGoodsList() {
+    public void getGoodsDetail() {
 
-        ShoppingCenterModel.getGoodsList("", "", new OnLoadListener<List<GoodsDetailInfo>>() {
+        ShoppingCenterModel.getGoodsDetail("",  new OnLoadListener<List<GoodsDetailInfo>>() {
 
             @Override
             public void onLoadStart() {

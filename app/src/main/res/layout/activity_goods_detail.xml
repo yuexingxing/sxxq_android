@@ -21,7 +21,8 @@
                 android:id="@+id/nested_scrollview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="44dp">
+                android:layout_marginTop="44dp"
+                android:fillViewport="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -29,9 +30,9 @@
                     android:orientation="vertical">
 
                     <androidx.viewpager.widget.ViewPager
-                        android:id="@+id/view_pager"
+                        android:id="@+id/view_pager_video"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp" >
+                        android:layout_height="200dp">
 
                         <FrameLayout
                             android:id="@+id/content"

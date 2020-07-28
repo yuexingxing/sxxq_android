@@ -1,6 +1,7 @@
 package com.sanshao.bs.module.shoppingcenter.view;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
@@ -12,6 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.sanshao.bs.R;
 import com.sanshao.bs.module.order.view.adapter.TabFragmentPagerAdapter;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
+import com.sanshao.bs.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,15 +37,15 @@ public class TryMatchingView extends LinearLayout {
     }
 
     private void initView() {
-        mViewPager = findViewById(R.id.view_pager);
+        mViewPager = findViewById(R.id.view_pager_try);
     }
 
     public void initViewPager(FragmentManager fragmentManager) {
 
         adapter = new TabFragmentPagerAdapter(fragmentManager, mFragmentList);
         mViewPager.setAdapter(adapter);
-        mViewPager.setCurrentItem(0);
         mViewPager.setOffscreenPageLimit(mFragmentList.size());
+        mViewPager.setCurrentItem(0);
     }
 
     public void initData() {

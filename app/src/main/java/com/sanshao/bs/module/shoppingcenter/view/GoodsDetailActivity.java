@@ -17,16 +17,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.Res;
-import com.google.android.material.tabs.TabLayout;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityGoodsDetailBinding;
 import com.sanshao.bs.module.EmptyWebViewActivity;
 import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
 import com.sanshao.bs.module.order.view.ConfirmOrderActivity;
 import com.sanshao.bs.module.order.view.adapter.TabFragmentPagerAdapter;
-import com.sanshao.bs.module.personal.income.bean.IncomeMenuInfo;
-import com.sanshao.bs.module.personal.income.view.IncomeTabFragmentAdapter;
-import com.sanshao.bs.module.personal.view.PersonalFragment;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.module.shoppingcenter.bean.ResponseGoodsDetail;
 import com.sanshao.bs.module.shoppingcenter.model.IGoodsDetailModel;
@@ -136,7 +132,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         binding.ivRecommendReward.setOnClickListener(v ->
                 EmptyWebViewActivity.start(context, "http://www.2345.com")
         );
-        mGoodsDetailViewModel.getGoodsList();
+        mGoodsDetailViewModel.getGoodsDetail();
     }
 
     private void initViewPager() {
@@ -146,9 +142,9 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         mFragmentList.add(GoodsDetailVideoFragment.newInstance());
         mFragmentList.add(GoodsDetailPictureFragment.newInstance());
         mFragmentPagerAdapter = new TabFragmentPagerAdapter(getSupportFragmentManager(), mFragmentList);
-        binding.viewPager.setAdapter(mFragmentPagerAdapter);
-        binding.viewPager.setOffscreenPageLimit(mFragmentList.size());
-        binding.viewPager.setCurrentItem(0);
+        binding.viewPagerVideo.setAdapter(mFragmentPagerAdapter);
+        binding.viewPagerVideo.setOffscreenPageLimit(mFragmentList.size());
+        binding.viewPagerVideo.setCurrentItem(0);
     }
 
     private void scrollToView(View view) {

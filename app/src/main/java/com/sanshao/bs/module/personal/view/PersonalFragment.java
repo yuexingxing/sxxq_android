@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chendong.gank.library.SuperBadgeHelper;
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.cache.ACache;
 import com.exam.commonbiz.config.ConfigSP;
@@ -210,6 +211,5 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             binding.tvLabel.setText("三星会员");
             binding.rlVipBg.setVisibility(View.VISIBLE);
         }
-
     }
 }
