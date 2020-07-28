@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.bs.R;
+import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ActivityAppointmentForConsultationBinding;
 import com.sanshao.bs.module.order.bean.ConfirmOrderResponse;
 import com.sanshao.bs.module.order.bean.StoreInfo;
@@ -17,6 +19,8 @@ import com.sanshao.bs.module.order.view.adapter.ConfirmOrderAdapter;
 import com.sanshao.bs.module.order.view.dialog.SelectSubscribeTimeDialog;
 import com.sanshao.bs.module.order.viewmodel.AppointmentForConsultationViewModel;
 import com.sanshao.bs.module.order.viewmodel.ConfirmOrderViewModel;
+import com.sanshao.bs.module.personal.bean.UserInfo;
+import com.sanshao.bs.module.personal.personaldata.dialog.SelectBirthdayDialog;
 import com.sanshao.bs.util.OpenLocalMapUtil;
 import com.sanshao.bs.util.ToastUtil;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
@@ -69,14 +73,17 @@ public class AppointmentForConsultationActivity extends BaseActivity<Appointment
             ToastUtil.showShortToast("复制成功");
         });
         binding.rlSubscribeTime.setOnClickListener(v -> {
-            SelectSubscribeTimeDialog selectSubscribeTimeDialog = new SelectSubscribeTimeDialog();
-            selectSubscribeTimeDialog.setCommonCallBack((postion, object) -> {
-                if (object == null) {
-                    return;
-                }
-                binding.tvSubscribeTime.setText((String) object);
-            });
-            selectSubscribeTimeDialog.showDateDialog(context);
+            new SelectBirthdayDialog()
+                    .init(context, "预约时间")
+                    .setCommonCallBack(new CommonCallBack() {
+                        @Override
+                        public void callback(int postion, Object object) {
+                            if (object == null) {
+                                return;
+                            }
+                            binding.tvSubscribeTime.setText((String) object);
+                        }
+                    }).show();
         });
         binding.btnSubscribe.setOnClickListener(v -> {
             finish();

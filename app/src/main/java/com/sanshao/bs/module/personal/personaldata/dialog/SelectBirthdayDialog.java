@@ -1,15 +1,22 @@
 package com.sanshao.bs.module.personal.personaldata.dialog;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
-
-import androidx.annotation.NonNull;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.FrameLayout;
 
 import com.exam.commonbiz.util.CommonCallBack;
-import com.sanshao.commonui.wheeldatepicker.dialog.DateTimeWheelDialog;
+import com.sanshao.bs.R;
+import com.sanshao.bs.util.CommandTools;
+import com.sanshao.commonui.pickerview.builder.TimePickerBuilder;
+import com.sanshao.commonui.pickerview.listener.OnTimeSelectChangeListener;
+import com.sanshao.commonui.pickerview.listener.OnTimeSelectListener;
+import com.sanshao.commonui.pickerview.view.TimePickerView;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -18,68 +25,70 @@ import java.util.Date;
  */
 public class SelectBirthdayDialog {
 
-    private DateTimeWheelDialog mDateTimeWheelDialog;
+    private TimePickerView mTimePickerView;
     private CommonCallBack mCommonCallBack;
 
-    public void setCommonCallBack(CommonCallBack commonCallBack) {
+    public SelectBirthdayDialog setCommonCallBack(CommonCallBack commonCallBack) {
         this.mCommonCallBack = commonCallBack;
+        return this;
     }
 
-    public void showDateDialog(Context context, int type) {
-        if (mDateTimeWheelDialog == null) {
-            mDateTimeWheelDialog = createDialog(context, type);
-        }
-        mDateTimeWheelDialog.show();
-    }
-
-    private DateTimeWheelDialog createDialog(Context context, int type) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, 2015);
-        calendar.set(Calendar.MONTH, 0);
-        calendar.set(Calendar.DAY_OF_MONTH, 1);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        Date startDate = calendar.getTime();
-        calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, 2030);
-        Date endDate = calendar.getTime();
-
-        DateTimeWheelDialog dialog = new DateTimeWheelDialog(context);
-        dialog.setShowCount(5);
-        dialog.setItemVerticalSpace(24);
-        dialog.show();
-        dialog.setTitle("出生日期");
-        int config = DateTimeWheelDialog.SHOW_YEAR_MONTH_DAY_HOUR_MINUTE;
-        switch (type) {
-            case 1:
-                config = DateTimeWheelDialog.SHOW_YEAR;
-                break;
-            case 2:
-                config = DateTimeWheelDialog.SHOW_YEAR_MONTH;
-                break;
-            case 3:
-                config = DateTimeWheelDialog.SHOW_YEAR_MONTH_DAY;
-                break;
-            case 4:
-                config = DateTimeWheelDialog.SHOW_YEAR_MONTH_DAY_HOUR;
-                break;
-            case 5:
-                config = DateTimeWheelDialog.SHOW_YEAR_MONTH_DAY_HOUR_MINUTE;
-                break;
-        }
-        dialog.configShowUI(config);
-        dialog.setCancelButton("取消", null);
-        dialog.setOKButton("确  认", new DateTimeWheelDialog.OnClickCallBack() {
+    public SelectBirthdayDialog init(Context context, String title) {//Dialog 模式下，在底部弹出
+        mTimePickerView = new TimePickerBuilder(context, new OnTimeSelectListener() {
             @Override
-            public boolean callBack(View v, @NonNull Date selectedDate) {
-                if (mCommonCallBack != null) {
-                    mCommonCallBack.callback(0, SimpleDateFormat.getInstance().format(selectedDate));
+            public void onTimeSelect(Date date, View v) {
+                Log.i("pvTime", "onTimeSelect");
+                if (mCommonCallBack != null){
+                    mCommonCallBack.callback(0, CommandTools.getTime(date));
                 }
-                return false;
             }
-        });
-        dialog.setDateArea(startDate, endDate, true);
-        dialog.updateSelectedDate(new Date());
-        return dialog;
+        })
+                .setTimeSelectChangeListener(new OnTimeSelectChangeListener() {
+                    @Override
+                    public void onTimeSelectChanged(Date date) {
+                        Log.i("pvTime", "onTimeSelectChanged");
+                    }
+                })
+                .setTitleText(title)
+                .setType(new boolean[]{true, true, true, false, false, false})
+                .isDialog(true) //默认设置false ，内部实现将DecorView 作为它的父控件。
+                .addOnCancelClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.i("pvTime", "onCancelClickListener");
+                    }
+                })
+                .setItemVisibleCount(5) //若设置偶数，实际值会加1（比如设置6，则最大可见条目为7）
+                .setLineSpacingMultiplier(2.0f)
+                .isAlphaGradient(true)
+                .build();
+
+        Dialog mDialog = mTimePickerView.getDialog();
+        if (mDialog != null) {
+
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    Gravity.BOTTOM);
+
+            params.leftMargin = 0;
+            params.rightMargin = 0;
+            mTimePickerView.getDialogContainerLayout().setLayoutParams(params);
+
+            Window dialogWindow = mDialog.getWindow();
+            if (dialogWindow != null) {
+                dialogWindow.setWindowAnimations(R.style.picker_view_slide_anim);//修改动画样式
+                dialogWindow.setGravity(Gravity.BOTTOM);//改成Bottom,底部显示
+                dialogWindow.setDimAmount(0.3f);
+            }
+        }
+        return this;
+    }
+
+    public SelectBirthdayDialog show() {
+        if (mTimePickerView != null) {
+            mTimePickerView.show();
+        }
+        return this;
     }
 }

@@ -79,7 +79,7 @@ dependencies {
     api 'com.github.lihangleo2:ShadowLayout:2.0.1'
     api 'com.github.ForgetAll:LoadingDialog:v1.0.1'
     api 'com.google.android.material:material:1.1.0'
-    api 'com.sanshao.commonui:commonlib:1.0.11'
+    api 'com.sanshao.commonui:commonlib:1.0.13'
     api 'com.sanshao.commonutil:commonlib:1.0.1'
     api 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     api 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
