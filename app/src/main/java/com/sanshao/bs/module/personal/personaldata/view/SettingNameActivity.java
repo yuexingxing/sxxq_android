@@ -12,23 +12,18 @@ import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ActivitySettingNameBinding;
 import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.module.personal.setting.viewmodel.SettingNameViewModel;
-import com.sanshao.bs.util.Constants;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
 /**
- * 修改名称、昵称
+ * 修改昵称
  *
  * @Author yuexingxing
  * @time 2020/7/2
  */
 public class SettingNameActivity extends BaseActivity<SettingNameViewModel, ActivitySettingNameBinding> {
-    public static final int MODIFY_NAME = 0;
-    public static final int MODIFY_NICK_NAME = 1;
-    private int optType;
 
-    public static void start(Context context, int optType) {
+    public static void start(Context context) {
         Intent starter = new Intent(context, SettingNameActivity.class);
-        starter.putExtra(Constants.OPT_TYPE, optType);
         context.startActivity(starter);
     }
 
@@ -40,18 +35,11 @@ public class SettingNameActivity extends BaseActivity<SettingNameViewModel, Acti
     @Override
     public void initData() {
 
-        optType = getIntent().getIntExtra(Constants.OPT_TYPE, MODIFY_NAME);
-        if (MODIFY_NAME == optType) {
-            binding.titleBar.setTitle("名称");
-            binding.edtName.setHint("请输入用户名称");
-            binding.tvTip.setVisibility(View.VISIBLE);
-            binding.edtName.setText(SSApplication.getInstance().getUserInfo().name);
-        } else {
-            binding.titleBar.setTitle("昵称");
-            binding.edtName.setHint("请输入用户昵称");
-            binding.tvTip.setVisibility(View.GONE);
-            binding.edtName.setText(SSApplication.getInstance().getUserInfo().nickName);
-        }
+        binding.titleBar.setTitle("昵称");
+        binding.edtName.setHint("请输入用户昵称");
+        binding.tvTip.setVisibility(View.GONE);
+        binding.edtName.setText(SSApplication.getInstance().getUserInfo().nickName);
+
         binding.edtName.setSelection(binding.edtName.getText().toString().length());
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
@@ -87,13 +75,9 @@ public class SettingNameActivity extends BaseActivity<SettingNameViewModel, Acti
         });
     }
 
-    private void saveData(){
+    private void saveData() {
         UserInfo userInfo = SSApplication.getInstance().getUserInfo();
-        if (MODIFY_NAME == optType) {
-            userInfo.name = binding.edtName.getText().toString();
-        } else {
-            userInfo.nickName = binding.edtName.getText().toString();
-        }
+        userInfo.nickName = binding.edtName.getText().toString();
         SSApplication.getInstance().saveUserInfo(userInfo);
         finish();
     }

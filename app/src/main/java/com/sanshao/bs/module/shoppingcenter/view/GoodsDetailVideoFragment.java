@@ -36,8 +36,8 @@ public class GoodsDetailVideoFragment extends BaseFragment<BaseViewModel, Fragme
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         binding.videoPlayLayout.pausePlay();
     }
 }

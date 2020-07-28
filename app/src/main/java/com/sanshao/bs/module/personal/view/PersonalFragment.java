@@ -1,6 +1,7 @@
 package com.sanshao.bs.module.personal.view;
 
 import android.graphics.Bitmap;
+import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +11,7 @@ import com.exam.commonbiz.cache.ACache;
 import com.exam.commonbiz.config.ConfigSP;
 import com.exam.commonbiz.log.XLog;
 import com.sanshao.bs.R;
+import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.PersonalFragmentBinding;
 import com.sanshao.bs.module.TestMenuActivity;
 import com.sanshao.bs.module.order.bean.OrderInfo;
@@ -53,7 +55,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     public void initData() {
 
         mPersonalViewModel = new PersonalViewModel();
-        binding.flexibleLayout.setHeader(binding.flHeader);
+        binding.flexibleLayout.setHeader(binding.ivBg);
         binding.flexibleLayout.setReadyListener(new OnReadyPullListener() {
             @Override
             public boolean isReady() {
@@ -152,11 +154,62 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
 
     @Override
     public void returnUserInfo(UserInfo userInfo) {
-
+        initLoginStatus(3);
     }
 
     @Override
     public void returnUpdateUserInfo() {
+
+    }
+
+    /**
+     * 初始化登录状态
+     */
+    private void initLoginStatus(int state) {
+
+        UserInfo userInfo = SSApplication.getInstance().getUserInfo();
+
+        //未登录
+        if (state == 0) {
+            binding.ivAvatar.setImageResource(R.drawable.image_graphofbooth_default);
+            binding.rlAvatarBg.setBackground(null);
+            binding.ivBg.setBackground(getResources().getDrawable(R.drawable.image_nostar_background));
+            binding.tvName.setText("登录");
+            binding.tvLabel.setText("游客");
+            binding.ivZuan.setVisibility(View.GONE);
+            binding.rlVipBg.setVisibility(View.INVISIBLE);
+            return;
+        }
+
+        binding.tvName.setText(userInfo.nickName);
+        //非会员
+        if (state == 1) {
+            binding.rlAvatarBg.setBackground(null);
+            binding.ivBg.setBackground(getResources().getDrawable(R.drawable.image_nostar_background));
+            binding.tvLabel.setText("普通会员");
+            binding.rlVipBg.setVisibility(View.INVISIBLE);
+        }
+        //一星会员
+        else if (state == 2) {
+            binding.rlAvatarBg.setBackground(getResources().getDrawable(R.drawable.image_onestars));
+            binding.ivBg.setBackground(getResources().getDrawable(R.drawable.image_onestarbg));
+            binding.tvLabel.setText("一星会员");
+            binding.rlVipBg.setVisibility(View.VISIBLE);
+        }
+        //二星会员
+        else if (state == 3) {
+            binding.rlAvatarBg.setBackground(getResources().getDrawable(R.drawable.image_twostars));
+            binding.ivBg.setBackground(getResources().getDrawable(R.drawable.image_twostarsbg));
+            binding.tvLabel.setText("二星会员");
+            binding.rlVipBg.setVisibility(View.VISIBLE);
+        }
+        //三星会员
+        else if (state == 4) {
+            binding.rlAvatarBg.setBackground(getResources().getDrawable(R.drawable.image_threestars));
+            binding.ivBg.setBackground(getResources().getDrawable(R.drawable.image_three_starsbg));
+            binding.tvLabel.setText("三星会员");
+            binding.rlVipBg.setVisibility(View.VISIBLE);
+        }
 
     }
 }

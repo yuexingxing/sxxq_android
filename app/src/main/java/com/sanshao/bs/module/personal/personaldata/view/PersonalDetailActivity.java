@@ -141,7 +141,7 @@ public class PersonalDetailActivity extends BaseActivity<PersonalDetailViewModel
             binding.ivAvatar.setImageBitmap(bitmap);
         }
 
-        binding.lcvNickName.setOnClickListener(v -> SettingNameActivity.start(context, SettingNameActivity.MODIFY_NICK_NAME));
+        binding.lcvNickName.setOnClickListener(v -> SettingNameActivity.start(context));
         binding.llQrcode.setOnClickListener(v -> {
             RecommendCodeActivity.start(context);
         });
