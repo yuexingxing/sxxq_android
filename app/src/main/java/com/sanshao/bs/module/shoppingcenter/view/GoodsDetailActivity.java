@@ -7,6 +7,8 @@ import android.os.Build;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,11 +17,16 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.Res;
+import com.google.android.material.tabs.TabLayout;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityGoodsDetailBinding;
 import com.sanshao.bs.module.EmptyWebViewActivity;
 import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
 import com.sanshao.bs.module.order.view.ConfirmOrderActivity;
+import com.sanshao.bs.module.order.view.adapter.TabFragmentPagerAdapter;
+import com.sanshao.bs.module.personal.income.bean.IncomeMenuInfo;
+import com.sanshao.bs.module.personal.income.view.IncomeTabFragmentAdapter;
+import com.sanshao.bs.module.personal.view.PersonalFragment;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.module.shoppingcenter.bean.ResponseGoodsDetail;
 import com.sanshao.bs.module.shoppingcenter.model.IGoodsDetailModel;
@@ -27,7 +34,6 @@ import com.sanshao.bs.module.shoppingcenter.view.adapter.SetMealAdapter;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsInroductionDialog;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
-import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.util.ShareUtils;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
@@ -51,6 +57,8 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
     private GoodsDetailViewModel mGoodsDetailViewModel;
     private SetMealAdapter mSetMealAdapter;
     private GoodsDetailInfo mGoodsDetailInfo;
+    private List<Fragment> mFragmentList;
+    private FragmentPagerAdapter mFragmentPagerAdapter;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, GoodsDetailActivity.class);
@@ -66,9 +74,8 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
     @Override
     public void initData() {
 
+        initViewPager();
         mGoodsDetailViewModel = new GoodsDetailViewModel(this);
-        binding.includeVideo.ivIcon.setVisibility(View.GONE);
-        binding.includeVideo.videoPlayLayout.setVisibility(View.VISIBLE);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -132,6 +139,18 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         mGoodsDetailViewModel.getGoodsList();
     }
 
+    private void initViewPager() {
+
+        //把Fragment添加到List集合里面
+        mFragmentList = new ArrayList<>();
+        mFragmentList.add(GoodsDetailVideoFragment.newInstance());
+        mFragmentList.add(GoodsDetailPictureFragment.newInstance());
+        mFragmentPagerAdapter = new TabFragmentPagerAdapter(getSupportFragmentManager(), mFragmentList);
+        binding.viewPager.setAdapter(mFragmentPagerAdapter);
+        binding.viewPager.setOffscreenPageLimit(mFragmentList.size());
+        binding.viewPager.setCurrentItem(0);
+    }
+
     private void scrollToView(View view) {
         binding.nestedScrollview.post(new Runnable() {
             @Override
@@ -146,12 +165,6 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                 binding.nestedScrollview.smoothScrollTo(0, location[1]);
             }
         });
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        binding.includeVideo.videoPlayLayout.pausePlay();
     }
 
     /**
@@ -212,7 +225,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
 
     @Override
     public void returnGoodsDetail(ResponseGoodsDetail responseGoodsDetail) {
-        if (responseGoodsDetail == null){
+        if (responseGoodsDetail == null) {
             return;
         }
         mGoodsDetailInfo = responseGoodsDetail.goodsDetailInfo;
@@ -220,14 +233,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         binding.tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         binding.tryMatching.initData();
         binding.tryMatching.initViewPager(getSupportFragmentManager());
-        binding.includeVideo.videoPlayLayout.setVideoPlayUrl(mGoodsDetailInfo.videoPlayUrl);
 
         mSetMealAdapter.setNewData(responseGoodsDetail.setMealList);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        binding.includeVideo.videoPlayLayout.pausePlay();
     }
 }

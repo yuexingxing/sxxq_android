@@ -28,11 +28,18 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <include
-                        android:id="@+id/include_video"
-                        layout="@layout/include_layout_video_play"
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/view_pager"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp" />
+                        android:layout_height="200dp" >
+
+                        <FrameLayout
+                            android:id="@+id/content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                    </androidx.viewpager.widget.ViewPager>
 
                     <LinearLayout
                         android:layout_width="match_parent"
