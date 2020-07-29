@@ -109,7 +109,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         });
         binding.llTabGoodsDetail.setOnClickListener(v -> {
             initTabStatus(1);
-            scrollToView(binding.llGoodsDetail);
+            binding.nestedScrollview.smoothScrollTo(0, binding.llGoodsDetail.getTop() - ScreenUtil.dp2px(context, 70));
         });
 
         mSetMealAdapter = new SetMealAdapter();
