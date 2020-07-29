@@ -177,6 +177,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             binding.tvLabel.setText("游客");
             binding.ivZuan.setVisibility(View.GONE);
             binding.rlVipBg.setVisibility(View.INVISIBLE);
+            binding.viewSpaceZuan.setVisibility(View.VISIBLE);
             return;
         }
 
@@ -187,6 +188,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             binding.ivBg.setBackground(getResources().getDrawable(R.drawable.image_nostar_background));
             binding.tvLabel.setText("普通会员");
             binding.rlVipBg.setVisibility(View.INVISIBLE);
+            binding.viewSpaceZuan.setVisibility(View.VISIBLE);
         }
         //一星会员
         else if (state == 2) {

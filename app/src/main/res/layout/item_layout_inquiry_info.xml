@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/view_space_top"
+        android:layout_width="match_parent"
+        android:layout_height="12dp" />
 
     <LinearLayout
+        android:id="@+id/ll_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
+        android:layout_below="@+id/view_space_top"
         android:background="@drawable/shape_white_radius_10"
         android:orientation="vertical"
         android:paddingLeft="13dp"
@@ -33,9 +39,9 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                tools:text="黄金微针你的美容必备，美容必备…"
                 android:textColor="@color/color_333333"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                tools:text="黄金微针你的美容必备，美容必备…" />
         </LinearLayout>
 
         <LinearLayout
@@ -55,9 +61,9 @@
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="周一至周五：10:00-22:00"
                 android:textColor="@color/color_666666"
-                android:textSize="11sp" />
+                android:textSize="11sp"
+                tools:text="周一至周五：10:00-22:00" />
         </LinearLayout>
 
         <LinearLayout
@@ -78,9 +84,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="1.3dp"
-                tools:text="上海市静安区新闸路829号丽都新贵大厦304、305、306室上海市静安区新闸路829号丽都新贵大厦304、305、306室"
                 android:textColor="@color/color_666666"
-                android:textSize="11sp" />
+                android:textSize="11sp"
+                tools:text="上海市静安区新闸路829号丽都新贵大厦304、305、306室上海市静安区新闸路829号丽都新贵大厦304、305、306室" />
         </LinearLayout>
     </LinearLayout>
+
+    <View
+        android:id="@+id/view_space_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_below="@+id/ll_content" />
 </RelativeLayout>

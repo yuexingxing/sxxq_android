@@ -19,7 +19,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -63,9 +63,9 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="1px"
                 android:layout_marginTop="12dp"
-                android:background="@color/color_eeeeee" />
+                android:background="@color/line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -118,7 +118,8 @@
             android:layout_marginLeft="@dimen/left_container_margin"
             android:layout_marginRight="@dimen/right_container_margin"
             android:background="@drawable/shape_radius_10_f8f7f3"
-            android:descendantFocusability="blocksDescendants">
+            android:descendantFocusability="blocksDescendants"
+            android:paddingBottom="12dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"

@@ -13,6 +13,11 @@ import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.FileUtil;
 import com.exam.commonbiz.util.QRCodeUtil;
 import com.exam.commonbiz.util.ScreenUtil;
+import com.sanshao.bs.module.shoppingcenter.view.GoodsListActivity;
+import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsPosterDialog;
+import com.sanshao.bs.util.ShareUtils;
+import com.sanshao.commonui.dialog.CommonBottomDialog;
+import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.sanshao.commonutil.permission.PermissionGroup;
 import com.sanshao.commonutil.permission.RxPermissions;
@@ -22,6 +27,10 @@ import com.sanshao.bs.databinding.ActivityRecommendCodeBinding;
 import com.sanshao.bs.module.personal.setting.viewmodel.RecommendCodeViewModel;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsDetailShareDialog;
 import com.sanshao.bs.util.ToastUtil;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 我的推荐码
@@ -79,12 +88,7 @@ public class RecommendCodeActivity extends BaseActivity<RecommendCodeViewModel, 
                     });
         });
         binding.llShare.setOnClickListener(v -> {
-            new GoodsDetailShareDialog().show(context, new CommonCallBack() {
-                @Override
-                public void callback(int postion, Object object) {
-
-                }
-            });
+            share();
         });
 
         String content = "www.baidu.com";
@@ -94,6 +98,30 @@ public class RecommendCodeActivity extends BaseActivity<RecommendCodeViewModel, 
         Bitmap bitmap = ACache.get(context).getAsBitmap(ConfigSP.UserInfo.AVATAR);
         binding.ivAvatar.setImageBitmap(bitmap);
         binding.tvName.setText(SSApplication.getInstance().getUserInfo().nickName);
+    }
+
+    private void share() {
+
+        List<CommonDialogInfo> commonDialogInfoList = new ArrayList<>();
+        commonDialogInfoList.add(new CommonDialogInfo("分享到微信"));
+        commonDialogInfoList.add(new CommonDialogInfo("生成海报"));
+
+        new CommonBottomDialog()
+                .init(this)
+                .setData(commonDialogInfoList)
+                .setOnItemClickListener(commonDialogInfo -> {
+                    if (commonDialogInfo.position == 0) {
+                        ShareUtils.shareText(RecommendCodeActivity.this, "title", SHARE_MEDIA.WEIXIN, new CommonCallBack() {
+                            @Override
+                            public void callback(int postion, Object object) {
+
+                            }
+                        });
+                    } else {
+                        new GoodsPosterDialog().show(context);
+                    }
+                })
+                .show();
     }
 
     @Override

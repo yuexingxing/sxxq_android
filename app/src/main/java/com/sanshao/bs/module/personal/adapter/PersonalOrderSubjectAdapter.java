@@ -43,7 +43,7 @@ public class PersonalOrderSubjectAdapter extends BaseQuickAdapter<OrderInfo, Bas
         helper.setText(R.id.tv_time, helper.getAdapterPosition() + "-6天12小时9分");
 
         RecyclerView recyclerView = helper.getView(R.id.recycler_view);
-        InquiryInfoAdapter inquiryInfoAdapter = new InquiryInfoAdapter();
+        InquiryInfoAdapter inquiryInfoAdapter = new InquiryInfoAdapter(helper.getAdapterPosition() == getData().size() - 1);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -55,6 +55,18 @@ public class PersonalOrderSubjectAdapter extends BaseQuickAdapter<OrderInfo, Bas
             helper.getView(R.id.rl_open).setVisibility(View.VISIBLE);
         } else {
             helper.getView(R.id.rl_open).setVisibility(View.GONE);
+        }
+
+        if (helper.getAdapterPosition() == 0) {
+            helper.getView(R.id.view_space_top).setVisibility(View.VISIBLE);
+        } else {
+            helper.getView(R.id.view_space_top).setVisibility(View.GONE);
+        }
+
+        if (helper.getAdapterPosition() == getData().size() - 1) {
+            helper.getView(R.id.view_space_bottom).setVisibility(View.VISIBLE);
+        } else {
+            helper.getView(R.id.view_space_bottom).setVisibility(View.GONE);
         }
 
         helper.getView(R.id.rl_open).setOnClickListener(view -> {
