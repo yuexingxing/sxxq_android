@@ -23,16 +23,16 @@ public class OpenLocalMapUtil {
     /**
      * 当前位置
      */
-    public static double[] START_LATLON = {121.493748, 31.294335};
+    public static double[] START_LATLON = {31.294335, 121.493748};
     /**
      * 目的地
      */
-    private static double[] DESTINATION_TA_LATLON = {121.493748, 31.294335};
+    private static double[] DESTINATION_TA_LATLON = {31.294335, 121.493748};
     private static boolean isOpened;
-    public static String SNAME = "中山公园";
-    public static String DNAME = "上海虹桥国际机场";
-    public static String CITY = "上海";
-    public static String APP_NAME = "OPenLocalMapDemo";
+    public static String SNAME = "上海市长宁区中山公园";
+    public static String DNAME = "上海市长宁区虹桥国际机场";
+    public static String CITY = "上海市";
+    public static String APP_NAME = "三少爱美";
     private static String SRC = "thirdapp.navi.beiing.openlocalmapdemo";
 
     /**
