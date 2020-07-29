@@ -10,14 +10,20 @@ import com.sanshao.bs.util.LoadDialogMgr;
 
 public class PersonalViewModel extends BaseViewModel {
 
-    public void getUserInfo(IPersonalCallBack callBack) {
+    public IPersonalCallBack mCallBack;
+
+    public void setCallBack(IPersonalCallBack iPersonalCallBack){
+        mCallBack = iPersonalCallBack;
+    }
+
+    public void getUserInfo() {
 
         PersonalModel.getUserInfo(new OnLoadListener<UserInfo>() {
 
             @Override
             public void onLoadStart() {
-                if (callBack != null){
-                    callBack.returnUserInfo(null);
+                if (mCallBack != null){
+                    mCallBack.returnUserInfo(null);
                 }
             }
 

@@ -23,9 +23,7 @@ import com.sanshao.commonui.titlebar.OnTitleBarListener;
  * @Author yuexingxing
  * @time 2020/7/23
  */
-public class VerifyPhoneActivity extends BaseActivity<BaseViewModel, ActivityVerifyPhoneBinding> implements ILoginCallBack {
-
-    private LoginViewModel mLoginViewModel;
+public class VerifyPhoneActivity extends BaseActivity<LoginViewModel, ActivityVerifyPhoneBinding> implements ILoginCallBack {
 
     public static void start(Context context) {
         Intent starter = new Intent(context, VerifyPhoneActivity.class);
@@ -40,7 +38,7 @@ public class VerifyPhoneActivity extends BaseActivity<BaseViewModel, ActivityVer
     @Override
     public void initData() {
 
-        mLoginViewModel = new LoginViewModel();
+        mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -62,7 +60,7 @@ public class VerifyPhoneActivity extends BaseActivity<BaseViewModel, ActivityVer
             @Override
             public void onClick(View v) {
                 LoadDialogMgr.getInstance().show(context);
-                mLoginViewModel.getSMSCode("1234567890", "1");
+                mViewModel.getSMSCode("1234567890", "1");
             }
         });
     }

@@ -89,7 +89,7 @@ public class AppointmentForConsultationActivity extends BaseActivity<Appointment
             finish();
         });
         binding.mulitySetMealView.setOptType(ConfirmOrderAdapter.OPT_TYPE_APPOINTMENT);
-        mConfirmOrderViewModel.getOrderInfo(this);
+        mConfirmOrderViewModel.getOrderInfo();
     }
 
     @Override

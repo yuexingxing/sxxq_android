@@ -13,14 +13,10 @@ import com.sanshao.bs.module.order.model.OrderModel;
  */
 public class ConfirmPayViewModel extends BaseViewModel {
     private String TAG = ConfirmPayViewModel.class.getSimpleName();
-    private IConfirmPayModel mIConfirmPayModel;
+    private IConfirmPayModel mCallBack;
 
-    public ConfirmPayViewModel(){
-
-    }
-
-    public ConfirmPayViewModel(IConfirmPayModel iConfirmPayModel){
-        mIConfirmPayModel = iConfirmPayModel;
+    public void setCallBack(IConfirmPayModel iConfirmPayModel){
+        mCallBack = iConfirmPayModel;
     }
 
     public void getOrderPayInfo(int payType){
@@ -29,8 +25,8 @@ public class ConfirmPayViewModel extends BaseViewModel {
 
             @Override
             public void onLoadStart() {
-                if (mIConfirmPayModel != null){
-                    mIConfirmPayModel.returnOrderPayInfo(null);
+                if (mCallBack != null){
+                    mCallBack.returnOrderPayInfo(null);
                 }
             }
 

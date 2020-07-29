@@ -28,7 +28,6 @@
             android:textColor="@color/color_333333"
             android:textSize="15sp" />
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="42dp"

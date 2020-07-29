@@ -32,7 +32,6 @@ import java.util.List;
  */
 public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, ActivityConfirmOrderBinding> implements IConfirmOrderModel {
 
-    private ConfirmOrderViewModel mConfirmOrderViewModel;
     private double mTotalPrice = 0;
     private int mTotalBuyNum = 0;
 
@@ -49,7 +48,7 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
     @Override
     public void initData() {
 
-        mConfirmOrderViewModel = new ConfirmOrderViewModel();
+        mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -74,7 +73,7 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
             }
 
             GoodsDetailInfo goodsDetailInfo = new GoodsDetailInfo();
-           mConfirmOrderViewModel.submitOrderInfo(goodsDetailInfo,this);
+           mViewModel.submitOrderInfo(goodsDetailInfo);
         });
 
         binding.mulitySetMealView.setOptType(ConfirmOrderAdapter.OPT_TYPE_CONFIRM_ORDER);
@@ -100,7 +99,7 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
             }
         });
 
-        mConfirmOrderViewModel.getOrderInfo(this);
+        mViewModel.getOrderInfo();
     }
 
     @Override

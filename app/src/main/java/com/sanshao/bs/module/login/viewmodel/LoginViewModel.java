@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
 import com.sanshao.bs.module.login.bean.LoginBean;
+import com.sanshao.bs.module.login.model.ILoginCallBack;
 import com.sanshao.bs.module.login.model.LoginModel;
 import com.sanshao.bs.util.LoadDialogMgr;
 import com.sanshao.bs.util.ToastUtil;
@@ -17,6 +18,11 @@ import com.sanshao.bs.util.ToastUtil;
  */
 public class LoginViewModel extends ViewModel {
     private String TAG = LoginViewModel.class.getSimpleName();
+    private ILoginCallBack mLoginCallBack;
+
+    public void setCallBack(ILoginCallBack iLoginCallBack) {
+        mLoginCallBack = iLoginCallBack;
+    }
 
     @Override
     protected void onCleared() {
@@ -41,12 +47,13 @@ public class LoginViewModel extends ViewModel {
             @Override
             public void onLoadSucessed(BaseResponse t) {
                 Log.d(TAG, "onLoadSucessed");
-//                getV().onGetSMSCode();
+                if (mLoginCallBack != null) {
+                    mLoginCallBack.onGetCode();
+                }
             }
 
             @Override
             public void onLoadFailed(String errMsg) {
-//                getV().onGetSMSCode();
                 ToastUtil.showShortToast(errMsg);
             }
         });
@@ -67,12 +74,16 @@ public class LoginViewModel extends ViewModel {
 
             @Override
             public void onLoadSucessed(BaseResponse<LoginBean> t) {
-//                getV().onLoginResponse(t.getData());
+                if (mLoginCallBack != null) {
+                    mLoginCallBack.onLoginSuccess();
+                }
             }
 
             @Override
             public void onLoadFailed(String errMsg) {
-//                getV().onLoginResponse(null);
+                if (mLoginCallBack != null) {
+                    mLoginCallBack.onLoginFailed();
+                }
             }
         });
     }

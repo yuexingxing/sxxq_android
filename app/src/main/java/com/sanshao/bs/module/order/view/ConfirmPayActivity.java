@@ -7,8 +7,10 @@ import android.view.View;
 import com.exam.commonbiz.base.BaseActivity;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityConfirmPayBinding;
+import com.sanshao.bs.module.order.bean.ConfirmOrderResponse;
 import com.sanshao.bs.module.order.bean.OrderPayInfoResponse;
 import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
+import com.sanshao.bs.module.order.model.IConfirmOrderModel;
 import com.sanshao.bs.module.order.model.IConfirmPayModel;
 import com.sanshao.bs.module.order.model.OnPayListener;
 import com.sanshao.bs.module.order.util.PayUtils;
@@ -25,12 +27,10 @@ import org.greenrobot.eventbus.ThreadMode;
  * @Author yuexingxing
  * @time 2020/6/20
  */
-public class ConfirmPayActivity extends BaseActivity<ConfirmOrderViewModel, ActivityConfirmPayBinding> implements IConfirmPayModel {
+public class ConfirmPayActivity extends BaseActivity<ConfirmPayViewModel, ActivityConfirmPayBinding> implements IConfirmPayModel, IConfirmOrderModel {
     private final int PAY_BY_WECHAT = 0;
     private final int PAY_BY_ALI = 1;
     private int mPayType = PAY_BY_WECHAT;
-
-    private ConfirmPayViewModel mConfirmPayViewModel;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, ConfirmPayActivity.class);
@@ -45,7 +45,7 @@ public class ConfirmPayActivity extends BaseActivity<ConfirmOrderViewModel, Acti
     @Override
     public void initData() {
 
-        mConfirmPayViewModel = new ConfirmPayViewModel(this);
+        mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -63,7 +63,7 @@ public class ConfirmPayActivity extends BaseActivity<ConfirmOrderViewModel, Acti
             }
         });
         binding.btnStartPay.setOnClickListener(v -> {
-            mConfirmPayViewModel.getOrderPayInfo(mPayType);
+            mViewModel.getOrderPayInfo(mPayType);
         });
         binding.llPayWechat.setOnClickListener(v -> {
             setCheckStatus(PAY_BY_WECHAT);
@@ -133,5 +133,15 @@ public class ConfirmPayActivity extends BaseActivity<ConfirmOrderViewModel, Acti
 
             }
         });
+    }
+
+    @Override
+    public void returnConfirmOrder(ConfirmOrderResponse confirmOrderResponse) {
+
+    }
+
+    @Override
+    public void returnSubmitOrderInfo() {
+
     }
 }

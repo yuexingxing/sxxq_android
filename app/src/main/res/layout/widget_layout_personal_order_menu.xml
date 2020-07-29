@@ -24,7 +24,7 @@
                     android:id="@+id/iv_icon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/drawable_face_beauty" />
+                    android:src="@drawable/gray_btn_bg" />
 
                 <TextView
                     android:id="@+id/tv_name"

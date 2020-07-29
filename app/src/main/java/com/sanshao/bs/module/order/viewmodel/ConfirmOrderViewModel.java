@@ -19,14 +19,19 @@ import java.util.List;
  */
 public class ConfirmOrderViewModel extends BaseViewModel {
     private String TAG = ConfirmOrderViewModel.class.getSimpleName();
+    private IConfirmOrderModel mCallBack;
 
-    public void getOrderInfo(IConfirmOrderModel callback){
+    public void setCallBack(IConfirmOrderModel iConfirmOrderModel) {
+        mCallBack = iConfirmOrderModel;
+    }
+
+    public void getOrderInfo() {
 
         OrderModel.getOrderInfo(new OnLoadListener<ConfirmOrderResponse>() {
 
             @Override
             public void onLoadStart() {
-                loadData(callback);
+                loadData();
             }
 
             @Override
@@ -46,14 +51,14 @@ public class ConfirmOrderViewModel extends BaseViewModel {
         });
     }
 
-    public void submitOrderInfo(GoodsDetailInfo goodsDetailInfo, IConfirmOrderModel callback){
+    public void submitOrderInfo(GoodsDetailInfo goodsDetailInfo) {
 
         OrderModel.submitOrderInfo(goodsDetailInfo, new OnLoadListener<ConfirmOrderResponse>() {
 
             @Override
             public void onLoadStart() {
-                if (callback != null){
-                    callback.returnSubmitOrderInfo();
+                if (mCallBack != null) {
+                    mCallBack.returnSubmitOrderInfo();
                 }
             }
 
@@ -74,7 +79,7 @@ public class ConfirmOrderViewModel extends BaseViewModel {
         });
     }
 
-    private void loadData(IConfirmOrderModel callback){
+    private void loadData() {
 
         ConfirmOrderResponse confirmOrderResponse = new ConfirmOrderResponse();
         StoreInfo storeInfo = new StoreInfo();
@@ -96,8 +101,8 @@ public class ConfirmOrderViewModel extends BaseViewModel {
         confirmOrderResponse.phone = "13343223367";
         confirmOrderResponse.storeInfo = storeInfo;
         confirmOrderResponse.goodsTypeDetailInfoList = goodsTypeDetailInfoList;
-        if (callback != null){
-            callback.returnConfirmOrder(confirmOrderResponse);
+        if (mCallBack != null) {
+            mCallBack.returnConfirmOrder(confirmOrderResponse);
         }
     }
 }

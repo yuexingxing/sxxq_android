@@ -20,9 +20,7 @@ import com.sanshao.commonui.titlebar.OnTitleBarListener;
  * @Author yuexingxing
  * @time 2020/7/7
  */
-public class ViewCouponCodeActivity extends BaseActivity<ViewCouponCodeViewModel, ActivityViewCouponCodeBinding> implements IOrderDetailModel {
-
-    private OrderDetailViewModel mOrderDetailViewModel;
+public class ViewCouponCodeActivity extends BaseActivity<OrderDetailViewModel, ActivityViewCouponCodeBinding> implements IOrderDetailModel {
 
     public static void start(Context context) {
         Intent starter = new Intent(context, ViewCouponCodeActivity.class);
@@ -37,7 +35,7 @@ public class ViewCouponCodeActivity extends BaseActivity<ViewCouponCodeViewModel
     @Override
     public void initData() {
 
-        mOrderDetailViewModel = new OrderDetailViewModel();
+        mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -57,12 +55,12 @@ public class ViewCouponCodeActivity extends BaseActivity<ViewCouponCodeViewModel
 
         binding.mulitySetMealView.setOptType(ConfirmOrderAdapter.OPT_TYPE_ORDER_DETAIL);
         binding.mulitySetMealView.setFragmentManager(getSupportFragmentManager());
-        mOrderDetailViewModel.getOrderDetailInfo(1, this);
+        mViewModel.getOrderDetailInfo(1);
     }
 
     @Override
     public void returnOrderDetailInfo(OrderDetailResponse orderDetailResponse) {
-        if (orderDetailResponse == null){
+        if (orderDetailResponse == null) {
             return;
         }
         binding.mulitySetMealView.mConfirmOrderAdapter.addData(orderDetailResponse.goodsDetailInfo);

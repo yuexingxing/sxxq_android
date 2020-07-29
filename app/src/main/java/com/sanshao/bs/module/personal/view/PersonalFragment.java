@@ -5,6 +5,7 @@ import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.cache.ACache;
 import com.exam.commonbiz.config.ConfigSP;
@@ -39,7 +40,6 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
 
     private List<OrderInfo> mOrderInfoList = new ArrayList<>();
     private PersonalOrderSubjectAdapter mPersonalOrderSubjectAdapter;
-    private PersonalViewModel mPersonalViewModel;
 
     public static PersonalFragment newInstance() {
         return new PersonalFragment();
@@ -53,7 +53,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     @Override
     public void initData() {
 
-        mPersonalViewModel = new PersonalViewModel();
+        mViewModel.setCallBack(this);
         binding.flexibleLayout.setHeader(binding.ivBg);
         binding.flexibleLayout.setReadyListener(new OnReadyPullListener() {
             @Override
@@ -94,7 +94,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.pavIncome.setOnClickListener(v -> IncomeMenuActivity.start(context));
         binding.pavSetting.setOnClickListener(v -> SettingActivity.start(context));
         initOrderList();
-        mPersonalViewModel.getUserInfo(this);
+        mViewModel.getUserInfo();
     }
 
     @Override

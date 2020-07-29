@@ -16,13 +16,19 @@ import java.util.List;
 
 public class ShoppingCenterViewModel extends BaseViewModel {
 
-    public void getGoodsList(IShoppingCenterModel callback){
+    public IShoppingCenterModel mCallBack;
+
+    public void setCallBack(IShoppingCenterModel iShoppingCenterModel) {
+        mCallBack = iShoppingCenterModel;
+    }
+
+    public void getGoodsList() {
 
         ShoppingCenterModel.getShoppingCenterList(new OnLoadListener<ShoppingCenterResponse>() {
 
             @Override
             public void onLoadStart() {
-                loadData(callback);
+                loadData();
             }
 
             @Override
@@ -32,7 +38,9 @@ public class ShoppingCenterViewModel extends BaseViewModel {
 
             @Override
             public void onLoadSucessed(BaseResponse<ShoppingCenterResponse> t) {
-
+                if (mCallBack != null) {
+                    mCallBack.returnShoppingCenterList(t.getData());
+                }
             }
 
             @Override
@@ -42,7 +50,7 @@ public class ShoppingCenterViewModel extends BaseViewModel {
         });
     }
 
-    private void loadData(IShoppingCenterModel callback) {
+    private void loadData() {
 
         ShoppingCenterResponse shoppingCenterResponse = new ShoppingCenterResponse();
         List<BannerInfo> bannerInfoList = new ArrayList<>();
@@ -71,8 +79,8 @@ public class ShoppingCenterViewModel extends BaseViewModel {
             goodsTypeInfoList.add(goodsTypeInfo);
         }
         shoppingCenterResponse.goodsTypeInfoList = goodsTypeInfoList;
-        if (callback != null){
-            callback.returnShoppingCenterList(shoppingCenterResponse);
+        if (mCallBack != null) {
+            mCallBack.returnShoppingCenterList(shoppingCenterResponse);
         }
     }
 }

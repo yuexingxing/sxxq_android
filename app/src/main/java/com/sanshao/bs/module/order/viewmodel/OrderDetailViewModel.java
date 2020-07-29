@@ -19,13 +19,19 @@ import java.util.List;
 public class OrderDetailViewModel extends BaseViewModel {
     private String TAG = OrderDetailViewModel.class.getSimpleName();
 
-    public void getOrderDetailInfo(int payType, IOrderDetailModel callback){
+    private IOrderDetailModel mCallBack;
+
+    public void setCallBack(IOrderDetailModel iOrderDetailModel) {
+        mCallBack = iOrderDetailModel;
+    }
+
+    public void getOrderDetailInfo(int payType) {
 
         OrderModel.getOrderDetailInfo(payType, new OnLoadListener<OrderDetailResponse>() {
 
             @Override
             public void onLoadStart() {
-              initData(callback);
+                initData();
             }
 
             @Override
@@ -45,7 +51,7 @@ public class OrderDetailViewModel extends BaseViewModel {
         });
     }
 
-    private void initData(IOrderDetailModel callback){
+    private void initData() {
 
         OrderDetailResponse orderDetailResponse = new OrderDetailResponse();
 
@@ -68,8 +74,8 @@ public class OrderDetailViewModel extends BaseViewModel {
         goodsDetailInfo.setMealList = null;
         orderDetailResponse.goodsDetailInfo = goodsDetailInfo;
 
-        if (callback != null){
-            callback.returnOrderDetailInfo(orderDetailResponse);
+        if (mCallBack != null) {
+            mCallBack.returnOrderDetailInfo(orderDetailResponse);
         }
     }
 }

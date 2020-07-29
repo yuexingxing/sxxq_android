@@ -19,6 +19,7 @@ import com.sanshao.bs.module.shoppingcenter.viewmodel.ShoppingCenterViewModel;
 
 /**
  * 商城
+ *
  * @Author yuexingxing
  * @time 2020/6/12
  */
@@ -26,7 +27,6 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
 
     private ServiceTypeAdapter mServiceTypeAdapter;
     private GoodsTypeAdapter mGoodsTypeAdapter;
-    private ShoppingCenterViewModel mShoppingCenterViewModel;
 
     public static ShoppingCenterFragment newInstance() {
         return new ShoppingCenterFragment();
@@ -40,18 +40,13 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
     @Override
     public void initData() {
 
-        mShoppingCenterViewModel = new ShoppingCenterViewModel();
+        mViewModel.setCallBack(this);
         mServiceTypeAdapter = new ServiceTypeAdapter();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
         binding.serviceTypeRecyclerView.setLayoutManager(gridLayoutManager);
         binding.serviceTypeRecyclerView.setAdapter(mServiceTypeAdapter);
         binding.serviceTypeRecyclerView.setNestedScrollingEnabled(false);
-        mServiceTypeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                GoodsListActivity.start(getContext());
-            }
-        });
+        mServiceTypeAdapter.setOnItemClickListener((adapter, view, position) -> GoodsListActivity.start(getContext()));
 
         mGoodsTypeAdapter = new GoodsTypeAdapter();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -60,7 +55,7 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
         binding.goodsTypeRecyclerView.setLayoutManager(linearLayoutManager);
         binding.goodsTypeRecyclerView.setAdapter(mGoodsTypeAdapter);
         mGoodsTypeAdapter.setOnItemClickListener((adapter, view, position) -> GoodsListActivity.start(getContext()));
-        mShoppingCenterViewModel.getGoodsList(this);
+        mViewModel.getGoodsList();
     }
 
     @Override
@@ -81,7 +76,7 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
 
     @Override
     public void returnShoppingCenterList(ShoppingCenterResponse shoppingCenterResponse) {
-        if (shoppingCenterResponse == null){
+        if (shoppingCenterResponse == null) {
             return;
         }
         binding.homeBannerLayout.setData(shoppingCenterResponse.banner);

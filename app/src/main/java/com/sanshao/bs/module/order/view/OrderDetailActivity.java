@@ -17,6 +17,7 @@ import com.sanshao.bs.module.order.view.adapter.ConfirmOrderAdapter;
 import com.sanshao.bs.module.order.view.adapter.RemainingServiceAdapter;
 import com.sanshao.bs.module.order.view.adapter.ServedAdapter;
 import com.sanshao.bs.module.order.viewmodel.OrderDetailViewModel;
+import com.sanshao.bs.util.CommandTools;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -32,7 +33,6 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
 
     private ServedAdapter mServedAdapter;
     private RemainingServiceAdapter mRemainingServiceAdapter;
-    private OrderDetailViewModel mOrderDetailViewModel;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, OrderDetailActivity.class);
@@ -47,7 +47,7 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
     @Override
     public void initData() {
 
-        mOrderDetailViewModel = new OrderDetailViewModel();
+        mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -81,9 +81,13 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
         binding.recyclerViewRemainingService.setNestedScrollingEnabled(false);
         binding.recyclerViewRemainingService.setFocusable(false);
 
+        binding.llCall.setOnClickListener(view -> {
+            CommandTools.callPhone(context, "1234567");
+        });
+
         binding.mulitySetMealView.setFragmentManager(getSupportFragmentManager());
         binding.mulitySetMealView.setOptType(ConfirmOrderAdapter.OPT_TYPE_ORDER_DETAIL);
-        mOrderDetailViewModel.getOrderDetailInfo(1, this);
+        mViewModel.getOrderDetailInfo(1);
     }
 
     @Override
@@ -93,17 +97,17 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onPayStatusChangedEvent(PayStatusChangedEvent payStatusChangedEvent) {
-        if (payStatusChangedEvent == null){
+        if (payStatusChangedEvent == null) {
             return;
         }
-        if (payStatusChangedEvent.paySuccess){
+        if (payStatusChangedEvent.paySuccess) {
             finish();
         }
     }
 
     @Override
     public void returnOrderDetailInfo(OrderDetailResponse orderDetailResponse) {
-        if (orderDetailResponse == null){
+        if (orderDetailResponse == null) {
             return;
         }
         mServedAdapter.addData(orderDetailResponse.serverList);
