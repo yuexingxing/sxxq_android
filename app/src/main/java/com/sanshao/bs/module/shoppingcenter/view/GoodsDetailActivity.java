@@ -18,6 +18,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.Res;
+import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityGoodsDetailBinding;
 import com.sanshao.bs.module.EmptyWebViewActivity;
@@ -31,6 +32,7 @@ import com.sanshao.bs.module.shoppingcenter.view.adapter.SetMealAdapter;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsInroductionDialog;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
+import com.sanshao.bs.util.CommandTools;
 import com.sanshao.bs.util.ShareUtils;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
@@ -91,14 +93,14 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         });
 
         binding.nestedScrollview.setOnScrollChangeListener((View.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-            if (scrollY > 200) {
+            if (scrollY > ScreenUtil.dp2px(context, 200)) {
                 binding.llTab.setVisibility(View.VISIBLE);
             } else {
                 binding.llTab.setVisibility(View.GONE);
             }
         });
 
-        binding.llIntroduction.setOnClickListener(v -> new GoodsInroductionDialog().show(context, ""));
+        binding.llIntroduction.setOnClickListener(v -> new GoodsInroductionDialog().show(context, "玻尿酸（Hyaluronan）是由D-葡萄糖醛酸及N-乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构双糖单位又称糖醛酸、透明质酸基本结构。乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类。玻尿酸（Hyaluronan）是由D-葡萄糖醛酸及N-乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构双糖单位又称糖醛酸、透明质酸基本结构。乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类。玻尿酸（Hyaluronan）是由D-葡萄糖醛酸及N-乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构双糖单位又称糖醛酸、透明质酸基本结构。乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类。玻尿酸（Hyaluronan）是由D-葡萄糖醛酸及N-乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构双糖单位又称糖醛酸、透明质酸基本结构。乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类。玻尿酸（Hyaluronan）是由D-葡萄糖醛酸及N-乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构双糖单位又称糖醛酸、透明质酸基本结构。乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类。玻尿酸（Hyaluronan）是由D-葡萄糖醛酸及N-乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构双糖单位又称糖醛酸、透明质酸基本结构。乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类。"));
 
         binding.includeBottom.btnBuy.setOnClickListener(v -> ConfirmOrderActivity.start(context));
         binding.llTabGoods.setOnClickListener(v -> {
@@ -133,6 +135,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         binding.ivRecommendReward.setOnClickListener(v ->
                 EmptyWebViewActivity.start(context, "http://www.2345.com")
         );
+        binding.ivCallPhone.setOnClickListener(view -> CommandTools.callPhone(context, "12345678"));
         mGoodsDetailViewModel.getGoodsDetail();
     }
 

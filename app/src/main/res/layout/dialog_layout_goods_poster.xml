@@ -34,7 +34,7 @@
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="13dp"
+                android:layout_marginLeft="12dp"
                 android:layout_marginTop="20dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -121,7 +121,9 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:ellipsize="end"
                     android:lineSpacingExtra="1.3dp"
+                    android:maxLines="2"
                     android:minHeight="40dp"
                     android:text="德国进口玻尿酸原液 德国进口玻尿酸原液 德国进口玻尿酸原液！"
                     android:textColor="@color/color_333333"
@@ -137,14 +139,17 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical"
                     android:text="¥"
                     android:textColor="@color/color_b6a578"
                     android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
                     android:text="9999"
                     android:textColor="@color/color_b6a578"
                     android:textSize="22sp"
