@@ -16,11 +16,14 @@ allprojects {
         google()
         jcenter()
         maven { url "https://jitpack.io" }
-        maven {
-            url "https://raw.githubusercontent.com/yuexingxing/commonlib/master"
-        }
+//        maven {
+//            url "https://raw.githubusercontent.com/yuexingxing/commonlib/master"
+//        }
         maven {
             url 'https://maven.aliyun.com/repository/releases'
+        }
+        flatDir {
+            dirs '../commonbiz/libs'
         }
     }
 }
