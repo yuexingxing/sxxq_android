@@ -17,14 +17,10 @@ import java.util.List;
  */
 public class ToBeInquiryListViewModel extends BaseViewModel {
     private String TAG = ToBeInquiryListViewModel.class.getSimpleName();
-    private IInquiryModel mIInquiryModel;
+    private IInquiryModel mCallBack;
 
-    public ToBeInquiryListViewModel() {
-
-    }
-
-    public ToBeInquiryListViewModel(IInquiryModel inquiryModel) {
-        mIInquiryModel = inquiryModel;
+    public void setCallBack(IInquiryModel inquiryModel) {
+        mCallBack = inquiryModel;
     }
 
     public void getInquiryList() {
@@ -59,8 +55,8 @@ public class ToBeInquiryListViewModel extends BaseViewModel {
             orderInfo.name = "乔丽尔医美";
             list.add(orderInfo);
         }
-        if (mIInquiryModel != null) {
-            mIInquiryModel.returnInquiryList(list);
+        if (mCallBack != null) {
+            mCallBack.returnInquiryList(list);
         }
     }
 }

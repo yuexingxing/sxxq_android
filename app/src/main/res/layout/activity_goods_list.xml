@@ -15,11 +15,17 @@
             android:layout_height="@dimen/title_height"
             app:title="商品列表" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/goods_list_recycler_view"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/title_bar" />
+            android:layout_below="@+id/title_bar">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/goods_list_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title_bar" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </RelativeLayout>
 </layout>

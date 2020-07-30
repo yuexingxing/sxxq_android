@@ -17,14 +17,19 @@ import java.util.List;
  */
 public class GoodsListViewModel extends BaseViewModel {
     private String TAG = GoodsListViewModel.class.getSimpleName();
+    private IGoodsListModel mCallBack;
 
-    public void getGoodsList(IGoodsListModel callback){
+    public void setCallBack(IGoodsListModel iGoodsListModel){
+        mCallBack = iGoodsListModel;
+    }
+
+    public void getGoodsList(){
 
         ShoppingCenterModel.getGoodsList("", "", new OnLoadListener<List<GoodsDetailInfo>>() {
 
             @Override
             public void onLoadStart() {
-                loadData(callback);
+                loadData();
             }
 
             @Override
@@ -44,7 +49,7 @@ public class GoodsListViewModel extends BaseViewModel {
         });
     }
 
-    private void loadData(IGoodsListModel callback) {
+    private void loadData() {
         List<GoodsDetailInfo> list = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             GoodsDetailInfo goodsDetailInfo = new GoodsDetailInfo();
@@ -57,8 +62,8 @@ public class GoodsListViewModel extends BaseViewModel {
             }
             list.add(goodsDetailInfo);
         }
-        if (callback != null){
-            callback.onRefreshData(list);
+        if (mCallBack != null){
+            mCallBack.onRefreshData(list);
         }
     }
 }

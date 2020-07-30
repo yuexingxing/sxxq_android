@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.base.BaseViewModel;
@@ -26,10 +27,9 @@ import java.util.List;
  * @Author yuexingxing
  * @time 2020/7/24
  */
-public class ToBeInquiryListActivity extends BaseActivity<BaseViewModel, ActivityToBeInquiryListBinding> implements IInquiryModel {
+public class ToBeInquiryListActivity extends BaseActivity<ToBeInquiryListViewModel, ActivityToBeInquiryListBinding> implements IInquiryModel {
 
     private ToBeInquiryListAdapter mToBeInquiryListAdapter;
-    private ToBeInquiryListViewModel mToBeInquiryListViewModel;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, ToBeInquiryListActivity.class);
@@ -44,6 +44,7 @@ public class ToBeInquiryListActivity extends BaseActivity<BaseViewModel, Activit
     @Override
     public void initData() {
 
+        mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -61,7 +62,6 @@ public class ToBeInquiryListActivity extends BaseActivity<BaseViewModel, Activit
             }
         });
 
-        mToBeInquiryListViewModel = new ToBeInquiryListViewModel(this);
         mToBeInquiryListAdapter = new ToBeInquiryListAdapter();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -81,11 +81,20 @@ public class ToBeInquiryListActivity extends BaseActivity<BaseViewModel, Activit
             }
         });
 
-        mToBeInquiryListViewModel.getInquiryList();
+        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mViewModel.getInquiryList();
+            }
+        });
+
+        mViewModel.getInquiryList();
     }
 
     @Override
     public void returnInquiryList(List<OrderInfo> orderInfoList) {
+        mToBeInquiryListAdapter.getData().clear();
+        binding.swipeRefreshLayout.setRefreshing(false);
         if (orderInfoList == null) {
             return;
         }

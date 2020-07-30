@@ -1,13 +1,10 @@
 package com.sanshao.bs.module.shoppingcenter.view;
 
-import android.view.View;
-
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseFragment;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ShoppingCenterFragmentBinding;

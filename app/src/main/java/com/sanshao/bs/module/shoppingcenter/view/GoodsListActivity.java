@@ -8,6 +8,7 @@ import android.view.View;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseActivity;
@@ -46,7 +47,6 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
         IGoodsListModel {
 
     private GoodsListAdapter mGoodsListAdapter;
-    private GoodsListViewModel mGoodsListViewModel;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, GoodsListActivity.class);
@@ -62,7 +62,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
     @Override
     public void initData() {
 
-        mGoodsListViewModel = new GoodsListViewModel();
+        mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -77,6 +77,13 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
             @Override
             public void onRightClick(View v) {
 
+            }
+        });
+
+        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mViewModel.getGoodsList();
             }
         });
 
@@ -109,9 +116,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
         binding.goodsListRecyclerView.setNestedScrollingEnabled(false);
         binding.goodsListRecyclerView.setFocusable(false);
         mGoodsListAdapter.setOnLoadMoreListener(this, binding.goodsListRecyclerView);
-        mGoodsListViewModel.getGoodsList(this);
         mGoodsListAdapter.setEnableLoadMore(false);
-
         binding.goodsListRecyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
@@ -121,6 +126,9 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
             @Override
             public void onChildViewDetachedFromWindow(View view) {
                 Jzvd jzvd = view.findViewById(R.id.videoplayer);
+                if (jzvd == null || jzvd.jzDataSource == null) {
+                    return;
+                }
                 if (jzvd != null && Jzvd.CURRENT_JZVD != null &&
                         jzvd.jzDataSource.containsTheUrl(Jzvd.CURRENT_JZVD.jzDataSource.getCurrentUrl())) {
                     if (Jzvd.CURRENT_JZVD != null && Jzvd.CURRENT_JZVD.screen != Jzvd.SCREEN_FULLSCREEN) {
@@ -129,10 +137,13 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
                 }
             }
         });
+        mViewModel.getGoodsList();
     }
 
     @Override
     public void onRefreshData(List<GoodsDetailInfo> list) {
+        mGoodsListAdapter.getData().clear();
+        binding.swipeRefreshLayout.setRefreshing(false);
         if (ContainerUtil.isEmpty(list)) {
             return;
         }

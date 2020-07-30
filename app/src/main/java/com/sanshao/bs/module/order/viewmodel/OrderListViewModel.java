@@ -17,12 +17,17 @@ import java.util.List;
  */
 public class OrderListViewModel extends BaseViewModel {
     private String TAG = OrderListViewModel.class.getSimpleName();
+    private IOrderModel mCallBack;
 
-    public void getOrderList(int orderState, IOrderModel callback){
+    public void setCallBack(IOrderModel iOrderModel) {
+        mCallBack = iOrderModel;
+    }
+
+    public void getOrderList(int orderState) {
         OrderModel.getOrderList("", "", new OnLoadListener<OrderListResponse>() {
             @Override
             public void onLoadStart() {
-                loadData(orderState, callback);
+                loadData(orderState);
             }
 
             @Override
@@ -42,7 +47,7 @@ public class OrderListViewModel extends BaseViewModel {
         });
     }
 
-    private void loadData(int orderState, IOrderModel callback){
+    private void loadData(int orderState) {
         List<OrderInfo> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             OrderInfo orderInfo = new OrderInfo();
@@ -50,8 +55,8 @@ public class OrderListViewModel extends BaseViewModel {
             orderInfo.state = orderState;
             list.add(orderInfo);
         }
-        if(callback != null){
-            callback.onRefreshData(list);
+        if (mCallBack != null) {
+            mCallBack.onRefreshData(list);
         }
     }
 }

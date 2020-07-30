@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.util.ContainerUtil;
@@ -24,9 +25,8 @@ import java.util.List;
  * @Author yuexingxing
  * @time 2020/7/1
  */
-public class OrderStatusFragment extends BaseFragment<OrderStatusViewModel, FragmentOrderStatusBinding> implements IOrderModel {
+public class OrderStatusFragment extends BaseFragment<OrderListViewModel, FragmentOrderStatusBinding> implements IOrderModel {
 
-    private OrderListViewModel mOrderListViewModel;
     private int orderState;
     private OrderListAdapter mOrderListAdapter;
 
@@ -58,7 +58,7 @@ public class OrderStatusFragment extends BaseFragment<OrderStatusViewModel, Frag
     @Override
     public void initData() {
 
-        mOrderListViewModel = new OrderListViewModel();
+        mViewModel.setCallBack(this);
         mOrderListAdapter = new OrderListAdapter();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -97,13 +97,20 @@ public class OrderStatusFragment extends BaseFragment<OrderStatusViewModel, Frag
                 ConfirmPayActivity.start(context);
             }
         });
-
-        mOrderListViewModel.getOrderList(orderState, this);
+        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mViewModel.getOrderList(orderState);
+            }
+        });
+        mViewModel.getOrderList(orderState);
     }
 
     @Override
     public void onRefreshData(List<OrderInfo> list) {
-        if (ContainerUtil.isEmpty(list)){
+        mOrderListAdapter.getData().clear();
+        binding.swipeRefreshLayout.setRefreshing(false);
+        if (ContainerUtil.isEmpty(list)) {
             return;
         }
         mOrderListAdapter.addData(list);
