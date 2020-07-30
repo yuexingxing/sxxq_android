@@ -2,10 +2,18 @@ package com.sanshao.bs.module;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.sanshao.bs.module.order.bean.OrderInfo;
+import com.sanshao.bs.util.CommandTools;
+import com.sanshao.commonui.pickerview.builder.OrderTimePickerBuilder;
+import com.sanshao.commonui.pickerview.contrarywind.view.WheelView;
+import com.sanshao.commonui.pickerview.listener.OnTimeSelectChangeListener;
+import com.sanshao.commonui.pickerview.listener.OnTimeSelectListener;
+import com.sanshao.commonui.pickerview.view.OrderTimePickerView;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.sanshao.livemodule.zhibo.login.TCLoginActivity;
 import com.sanshao.bs.R;
@@ -13,6 +21,8 @@ import com.sanshao.bs.databinding.ActivityTestMenuBinding;
 import com.sanshao.bs.module.login.view.LoginActivity;
 import com.sanshao.bs.module.order.view.OrderListActivity;
 import com.sanshao.bs.wxapi.alipay.AliPayDemoActivity;
+
+import java.util.Date;
 
 /**
  * 调试模块
@@ -52,33 +62,47 @@ public class TestMenuActivity extends BaseActivity<TestMenuViewModel, ActivityTe
             }
         });
 
-        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoginActivity.start(TestMenuActivity.this);
-            }
+        binding.btnLogin.setOnClickListener(v -> LoginActivity.start(TestMenuActivity.this));
+        binding.btnPay.setOnClickListener(v -> AliPayDemoActivity.start(context));
+        binding.btnLive.setOnClickListener(v -> {
+            Intent intent = new Intent(context, TCLoginActivity.class);
+            startActivity(intent);
         });
+        binding.btnOrderList.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.ALL));
+        binding.btnOrderPicker.setOnClickListener(v -> showOrderPicker());
+    }
 
-        binding.btnPay.setOnClickListener(new View.OnClickListener() {
+    /**
+     * 进账-日期选择弹窗
+     */
+    private void showOrderPicker() {
+        OrderTimePickerView orderTimePickerView = new OrderTimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
-            public void onClick(View v) {
-                AliPayDemoActivity.start(context);
+            public void onTimeSelect(Date date, View v) {
+                Toast.makeText(context, CommandTools.getTime(date), Toast.LENGTH_SHORT).show();
+                Log.i("pvTime", "onTimeSelect");
             }
-        });
-
-        binding.btnLive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, TCLoginActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        binding.btnOrderList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                OrderListActivity.start(context, OrderInfo.State.ALL);
-            }
-        });
+        })
+                .setTimeSelectChangeListener(new OnTimeSelectChangeListener() {
+                    @Override
+                    public void onTimeSelectChanged(Date date) {
+                        Log.i("pvTime", "onTimeSelectChanged");
+                    }
+                })
+                .setType(new boolean[]{true, true, false, false, false, false})
+                .isDialog(true) //默认设置false ，内部实现将DecorView 作为它的父控件。
+                .addOnCancelClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.i("pvTime", "onCancelClickListener");
+                    }
+                })
+                .setItemVisibleCount(5) //若设置偶数，实际值会加1（比如设置6，则最大可见条目为7）
+                .setLineSpacingMultiplier(2.0f)
+                .setDividerType(WheelView.DividerType.FILL)
+                .isAlphaGradient(true)
+                .build();
+        orderTimePickerView.setDialog();
+        orderTimePickerView.show();
     }
 }

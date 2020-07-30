@@ -51,7 +51,6 @@
                     android:layout_height="45dp"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:clickable="false"
                     android:text="直播" />
 
                 <Button
@@ -60,8 +59,15 @@
                     android:layout_height="45dp"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:clickable="false"
                     android:text="订单列表" />
+
+                <Button
+                    android:id="@+id/btn_order_picker"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="进账日期选择弹窗" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
