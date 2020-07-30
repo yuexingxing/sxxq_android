@@ -19,11 +19,12 @@ import com.sanshao.bs.util.Constants;
 public class ToBeInquiryListAdapter extends BaseQuickAdapter<OrderInfo, BaseViewHolder> {
 
     private OnItemClickListener mOnItemClickListener;
+
     public ToBeInquiryListAdapter() {
         super(R.layout.item_layout_tobe_inquiry, null);
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         mOnItemClickListener = onItemClickListener;
     }
 
@@ -34,7 +35,9 @@ public class ToBeInquiryListAdapter extends BaseQuickAdapter<OrderInfo, BaseView
         helper.getView(R.id.tv_city).setVisibility(View.GONE);
         helper.getView(R.id.ll_viewcode).setVisibility(View.VISIBLE);
         helper.getView(R.id.ll_right_price).setVisibility(View.GONE);
+        helper.getView(R.id.tv_price).setVisibility(View.VISIBLE);
 
+        helper.setText(R.id.tv_price, "服务次数: 1次");
         ImageView imgIcon = helper.getView(R.id.iv_icon);
         Glide.with(SSApplication.app).load(Constants.DEFAULT_IMG_URL).into(imgIcon);
         if (helper.getAdapterPosition() == 0) {
@@ -44,13 +47,13 @@ public class ToBeInquiryListAdapter extends BaseQuickAdapter<OrderInfo, BaseView
         }
 
         helper.getView(R.id.rl_bg).setOnClickListener(view -> {
-            if (mOnItemClickListener != null){
+            if (mOnItemClickListener != null) {
                 mOnItemClickListener.onItemClick(item);
             }
         });
 
         helper.getView(R.id.ll_viewcode).setOnClickListener(view -> {
-            if (mOnItemClickListener != null){
+            if (mOnItemClickListener != null) {
                 mOnItemClickListener.onViewCodeClick(item);
             }
         });

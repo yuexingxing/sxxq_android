@@ -35,7 +35,7 @@
                     android:ellipsize="end"
                     android:lineSpacingExtra="1.3dp"
                     android:maxLines="2"
-                    android:text="玻尿酸美容护肤不二之选还你天使容颜…"
+                    android:text="玻尿酸美容护肤不二之选还你天使容颜选还你天使容颜…"
                     android:textColor="@color/color_333333"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -44,9 +44,10 @@
                     android:id="@+id/tv_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
                     android:text="套餐"
-                    android:textColor="@color/color_333333"
-                    android:textSize="17sp"
+                    android:textColor="@color/color_999999"
+                    android:textSize="11sp"
                     android:visibility="invisible"
                     tools:visibility="visible" />
 
