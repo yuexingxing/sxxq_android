@@ -27,7 +27,7 @@ public class VideoPlayLayout extends LinearLayout {
 
     public void setVideoPlayUrl(String playUrl) {
         mJzvdStd.setVisibility(VISIBLE);
-        mJzvdStd.setUp(playUrl,"标题", JzvdStd.SCREEN_NORMAL);
+        mJzvdStd.setUp(playUrl,"", JzvdStd.SCREEN_NORMAL);
         mJzvdStd.fullscreenButton.setVisibility(INVISIBLE);
         Glide.with(this).load(Constants.DEFAULT_IMG_BG).into(mJzvdStd.posterImageView);
     }

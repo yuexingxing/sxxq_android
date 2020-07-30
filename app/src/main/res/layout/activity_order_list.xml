@@ -22,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             app:tabBackground="@color/white"
+            app:tabRippleColor="@color/transparent"
             app:tabIndicatorColor="@color/color_b6a578"
             app:tabIndicatorFullWidth="false"
             app:tabMode="fixed" />

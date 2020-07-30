@@ -70,6 +70,7 @@
                                     android:id="@+id/iv_avatar"
                                     android:layout_width="@dimen/avatar_height"
                                     android:layout_height="@dimen/avatar_height"
+                                    android:layout_marginBottom="2dp"
                                     android:scaleType="centerCrop"
                                     android:src="@drawable/image_graphofbooth_default"
                                     app:riv_corner_radius="@dimen/avatar_height" />
