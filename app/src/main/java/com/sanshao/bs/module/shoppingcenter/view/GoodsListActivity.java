@@ -133,17 +133,11 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
                 }
             }
         });
+        binding.emptyLayout.bindView(binding.goodsListRecyclerView);
+        binding.emptyLayout.setOnButtonClick(view -> {
+            mViewModel.getGoodsList();
+        });
         mViewModel.getGoodsList();
-    }
-
-    @Override
-    public void onRefreshData(List<GoodsDetailInfo> list) {
-        mGoodsListAdapter.getData().clear();
-        binding.swipeRefreshLayout.setRefreshing(false);
-        if (ContainerUtil.isEmpty(list)) {
-            return;
-        }
-        mGoodsListAdapter.addData(list);
     }
 
     @Override
@@ -202,5 +196,28 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
     protected void onPause() {
         super.onPause();
         Jzvd.releaseAllVideos();
+    }
+
+    @Override
+    public void onRefreshData(Object object) {
+        List<GoodsDetailInfo> list = (List<GoodsDetailInfo>) object;
+        mGoodsListAdapter.getData().clear();
+        binding.swipeRefreshLayout.setRefreshing(false);
+        if (ContainerUtil.isEmpty(list)) {
+            binding.emptyLayout.showEmpty("数据为空", R.drawable.image_logo);
+            return;
+        }
+        mGoodsListAdapter.addData(list);
+        binding.emptyLayout.showSuccess();
+    }
+
+    @Override
+    public void onLoadMoreData(Object object) {
+
+    }
+
+    @Override
+    public void onNetError() {
+//        binding.emptyLayout.showError();
     }
 }

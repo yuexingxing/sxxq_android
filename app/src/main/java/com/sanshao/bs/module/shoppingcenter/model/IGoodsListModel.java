@@ -1,10 +1,7 @@
 package com.sanshao.bs.module.shoppingcenter.model;
 
-import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
+import com.exam.commonbiz.base.IBaseModel;
 
-import java.util.List;
+public interface IGoodsListModel extends IBaseModel {
 
-public interface IGoodsListModel {
-
-   void onRefreshData(List<GoodsDetailInfo> list);
 }

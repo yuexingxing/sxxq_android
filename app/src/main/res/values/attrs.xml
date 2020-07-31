@@ -55,5 +55,9 @@
         <attr name="PersonalOrderMenuView_icon" format="reference" />
         <attr name="PersonalOrderMenuView_num" format="integer" />
     </declare-styleable>
-
+    <declare-styleable name="EmptyLayout">
+        <attr name="elEmptyLayout"  format="reference"/>
+        <attr name="elErrorLayout"  format="reference"/>
+        <attr name="elLoadingLayout"  format="reference"/>
+    </declare-styleable>
 </resources>
