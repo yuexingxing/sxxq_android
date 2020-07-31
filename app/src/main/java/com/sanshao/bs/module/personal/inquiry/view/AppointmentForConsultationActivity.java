@@ -31,9 +31,7 @@ import com.sanshao.commonui.titlebar.OnTitleBarListener;
  * @Author yuexingxing
  * @time 2020/7/7
  */
-public class AppointmentForConsultationActivity extends BaseActivity<AppointmentForConsultationViewModel, ActivityAppointmentForConsultationBinding> implements IConfirmOrderModel {
-
-    private ConfirmOrderViewModel mConfirmOrderViewModel;
+public class AppointmentForConsultationActivity extends BaseActivity<ConfirmOrderViewModel, ActivityAppointmentForConsultationBinding> implements IConfirmOrderModel {
 
     public static void start(Context context) {
         Intent starter = new Intent(context, AppointmentForConsultationActivity.class);
@@ -48,7 +46,8 @@ public class AppointmentForConsultationActivity extends BaseActivity<Appointment
     @Override
     public void initData() {
 
-        mConfirmOrderViewModel = new ConfirmOrderViewModel();
+        mViewModel.setCallBack(this);
+        binding.mulitySetMealView.setTitleVisible(View.GONE);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -73,8 +72,9 @@ public class AppointmentForConsultationActivity extends BaseActivity<Appointment
             ToastUtil.showShortToast("复制成功");
         });
         binding.rlSubscribeTime.setOnClickListener(v -> {
+            boolean[] timeType = new boolean[]{true, true, true, true, true, false};
             new SelectBirthdayDialog()
-                    .init(context, "预约时间")
+                    .init(context, "预约时间", timeType)
                     .setCommonCallBack(new CommonCallBack() {
                         @Override
                         public void callback(int postion, Object object) {
@@ -89,7 +89,7 @@ public class AppointmentForConsultationActivity extends BaseActivity<Appointment
             finish();
         });
         binding.mulitySetMealView.setOptType(ConfirmOrderAdapter.OPT_TYPE_APPOINTMENT);
-        mConfirmOrderViewModel.getOrderInfo();
+        mViewModel.getOrderInfo();
     }
 
     @Override

@@ -83,9 +83,11 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
         binding.tvCopy.setOnClickListener(view -> CommandTools.copyToClipboard(context, binding.tvOrderNo.getText().toString()));
         binding.llOrderMore.setOnClickListener(view -> {
             if (binding.recyclerViewServed.getVisibility() == View.GONE) {
+                binding.ivMore.setImageResource(R.drawable.icon_goods_detail_more);
                 binding.recyclerViewServed.setVisibility(View.VISIBLE);
                 binding.recyclerViewRemainingService.setVisibility(View.VISIBLE);
             } else {
+                binding.ivMore.setImageResource(R.drawable.icon_goods_detail_down);
                 binding.recyclerViewServed.setVisibility(View.GONE);
                 binding.recyclerViewRemainingService.setVisibility(View.GONE);
             }

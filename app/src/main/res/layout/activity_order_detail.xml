@@ -46,7 +46,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_login_input_phone"
+                        android:background="@drawable/shape_white_radius_10"
                         android:orientation="vertical"
                         android:paddingLeft="12dp"
                         android:paddingRight="12dp">
@@ -66,7 +66,7 @@
                                 android:textSize="17sp"
                                 android:textStyle="bold" />
 
-                            <view
+                            <View
                                 android:layout_width="0dp"
                                 android:layout_height="1dp"
                                 android:layout_weight="1" />
@@ -86,6 +86,7 @@
                                     android:textSize="12sp" />
 
                                 <ImageView
+                                    android:id="@+id/iv_more"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="8dp"

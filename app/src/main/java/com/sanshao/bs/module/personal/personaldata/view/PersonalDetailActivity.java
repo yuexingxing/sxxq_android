@@ -171,8 +171,9 @@ public class PersonalDetailActivity extends BaseActivity<PersonalDetailViewModel
         });
         binding.lcvBirthday.setOnClickListener(v -> {
 
+            boolean[] timeType = new boolean[]{true, true, true, false, false, false};
             new SelectBirthdayDialog()
-                    .init(context, "出生日期")
+                    .init(context, "出生日期", timeType)
                     .setCommonCallBack(new CommonCallBack() {
                         @Override
                         public void callback(int postion, Object object) {

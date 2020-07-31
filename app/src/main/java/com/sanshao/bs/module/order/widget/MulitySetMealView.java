@@ -31,7 +31,7 @@ public class MulitySetMealView extends LinearLayout {
     private LinearLayout mLlTitleBg;
     private int mOptType;
 
-    public void setOnItemClickListener(ConfirmOrderAdapter.OnItemClickListener listener){
+    public void setOnItemClickListener(ConfirmOrderAdapter.OnItemClickListener listener) {
         mConfirmOrderAdapter.setOnItemClickListener(listener);
     }
 
@@ -53,28 +53,32 @@ public class MulitySetMealView extends LinearLayout {
         mRecyclerView.setAdapter(mConfirmOrderAdapter);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setFocusable(false);
-        ((DefaultItemAnimator)  mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+        ((DefaultItemAnimator) mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     }
 
-    public void setFragmentManager(FragmentManager fragmentManager){
+    public void setFragmentManager(FragmentManager fragmentManager) {
         mConfirmOrderAdapter.setFragmentManager(fragmentManager);
     }
 
-    public void setOptType(int optType){
+    public void setOptType(int optType) {
         mOptType = optType;
         mConfirmOrderAdapter.setOptType(optType);
 
         LayoutParams layoutParams = (LayoutParams) mLlTitleBg.getLayoutParams();
-        if (mOptType == ConfirmOrderAdapter.OPT_TYPE_CONFIRM_ORDER){
+        if (mOptType == ConfirmOrderAdapter.OPT_TYPE_CONFIRM_ORDER) {
             layoutParams.leftMargin = 0;
             layoutParams.rightMargin = 0;
             mLlTitleBg.setLayoutParams(layoutParams);
-        }else{
+        } else {
 
         }
     }
 
     public void setData(List<GoodsDetailInfo> goodsDetailInfoList) {
         mConfirmOrderAdapter.addData(goodsDetailInfoList);
+    }
+
+    public void setTitleVisible(int visible) {
+        mLlTitleBg.setVisibility(visible);
     }
 }

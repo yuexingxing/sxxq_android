@@ -33,7 +33,7 @@ public class SelectBirthdayDialog {
         return this;
     }
 
-    public SelectBirthdayDialog init(Context context, String title) {//Dialog 模式下，在底部弹出
+    public SelectBirthdayDialog init(Context context, String title, boolean[] type) {//Dialog 模式下，在底部弹出
         mTimePickerView = new TimePickerBuilder(context, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
@@ -50,7 +50,7 @@ public class SelectBirthdayDialog {
                     }
                 })
                 .setTitleText(title)
-                .setType(new boolean[]{true, true, true, false, false, false})
+                .setType(type)
                 .isDialog(true) //默认设置false ，内部实现将DecorView 作为它的父控件。
                 .addOnCancelClickListener(new View.OnClickListener() {
                     @Override
