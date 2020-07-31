@@ -10,6 +10,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.base.BaseViewModel;
+import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityToBeInquiryListBinding;
 import com.sanshao.bs.module.order.bean.OrderInfo;
@@ -19,6 +20,7 @@ import com.sanshao.bs.module.personal.inquiry.model.IInquiryModel;
 import com.sanshao.bs.module.personal.inquiry.viewmodel.ToBeInquiryListViewModel;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -88,23 +90,35 @@ public class ToBeInquiryListActivity extends BaseActivity<ToBeInquiryListViewMod
                 mViewModel.getInquiryList();
             }
         });
-
+        binding.emptyLayout.bindView(binding.recyclerView);
+        binding.emptyLayout.setOnButtonClick(view -> {
+            mViewModel.getInquiryList();
+        });
         mViewModel.getInquiryList();
     }
 
     @Override
-    public void returnInquiryList(List<OrderInfo> orderInfoList) {
-        mToBeInquiryListAdapter.getData().clear();
-        binding.swipeRefreshLayout.setRefreshing(false);
-        if (orderInfoList == null) {
+    public void onRefreshData(Object object) {
+        if (object == null) {
             return;
         }
-
+        List<OrderInfo> orderInfoList = (List<OrderInfo>) object;
+        mToBeInquiryListAdapter.getData().clear();
+        binding.swipeRefreshLayout.setRefreshing(false);
+        if (ContainerUtil.isEmpty(orderInfoList)) {
+            binding.emptyLayout.showEmpty("数据为空", R.drawable.image_logo);
+            return;
+        }
         mToBeInquiryListAdapter.setNewData(orderInfoList);
     }
 
     @Override
-    public void returnInquiryDetail(OrderInfo orderInfo) {
+    public void onLoadMoreData(Object object) {
 
+    }
+
+    @Override
+    public void onNetError() {
+        binding.emptyLayout.showError();
     }
 }

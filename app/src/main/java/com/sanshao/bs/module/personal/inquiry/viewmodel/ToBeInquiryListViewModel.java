@@ -56,7 +56,7 @@ public class ToBeInquiryListViewModel extends BaseViewModel {
             list.add(orderInfo);
         }
         if (mCallBack != null) {
-            mCallBack.returnInquiryList(list);
+            mCallBack.onRefreshData(list);
         }
     }
 }

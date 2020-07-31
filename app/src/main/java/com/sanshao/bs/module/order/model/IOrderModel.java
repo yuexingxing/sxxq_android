@@ -1,9 +1,7 @@
 package com.sanshao.bs.module.order.model;
 
-import com.sanshao.bs.module.order.bean.OrderInfo;
+import com.exam.commonbiz.base.IBaseModel;
 
-import java.util.List;
+public interface IOrderModel extends IBaseModel {
 
-public interface IOrderModel {
-    void onRefreshData(List<OrderInfo> list);
 }

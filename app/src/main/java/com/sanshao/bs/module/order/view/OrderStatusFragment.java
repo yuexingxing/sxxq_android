@@ -104,16 +104,35 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
                 mViewModel.getOrderList(orderState);
             }
         });
+        binding.emptyLayout.bindView(binding.recyclerView);
+        binding.emptyLayout.setOnButtonClick(view -> {
+            mViewModel.getOrderList(orderState);
+        });
         mViewModel.getOrderList(orderState);
     }
 
     @Override
-    public void onRefreshData(List<OrderInfo> list) {
+    public void onRefreshData(Object object) {
+        if (object == null) {
+            return;
+        }
+        List<OrderInfo> list = (List<OrderInfo>) object;
         mOrderListAdapter.getData().clear();
         binding.swipeRefreshLayout.setRefreshing(false);
         if (ContainerUtil.isEmpty(list)) {
+            binding.emptyLayout.showEmpty("暂无数据", R.drawable.image_logo);
             return;
         }
         mOrderListAdapter.addData(list);
+    }
+
+    @Override
+    public void onLoadMoreData(Object object) {
+
+    }
+
+    @Override
+    public void onNetError() {
+        binding.emptyLayout.showError();
     }
 }

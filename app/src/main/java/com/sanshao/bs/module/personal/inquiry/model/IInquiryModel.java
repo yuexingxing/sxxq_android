@@ -1,11 +1,6 @@
 package com.sanshao.bs.module.personal.inquiry.model;
 
-import com.sanshao.bs.module.order.bean.OrderInfo;
+import com.exam.commonbiz.base.IBaseModel;
 
-import java.util.List;
-
-public interface IInquiryModel {
-    void returnInquiryList(List<OrderInfo> orderInfoList);
-
-    void returnInquiryDetail(OrderInfo orderInfo);
+public interface IInquiryModel extends IBaseModel {
 }
