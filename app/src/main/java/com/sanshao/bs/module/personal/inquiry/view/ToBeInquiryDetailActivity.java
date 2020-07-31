@@ -4,10 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.ZoomControls;
 
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapPoi;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.Marker;
+import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.exam.commonbiz.base.BaseActivity;
@@ -110,6 +117,8 @@ public class ToBeInquiryDetailActivity extends BaseActivity<BaseViewModel, Activ
         binding.rlViewcode.setOnClickListener(view -> {
             ViewCouponCodeActivity.start(context);
         });
+        initStoreLocation();
+        addMarker();
         mToBeInquiryDetailViewModel.getInquiryDetailInfo();
     }
 
@@ -123,6 +132,40 @@ public class ToBeInquiryDetailActivity extends BaseActivity<BaseViewModel, Activ
     protected void onPause() {
         super.onPause();
         binding.bmapView.onPause();
+    }
+
+    /**
+     * 初始化门店位置
+     * 根据后台返回经纬度定位
+     */
+    private void initStoreLocation() {
+        LatLng latLng = new LatLng(31.202845, 121.34672);
+        MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newLatLng(latLng);
+        binding.bmapView.getMap().setMapStatus(mapStatusUpdate);
+    }
+
+    private void addMarker() {
+        BaiduMap baiduMap = binding.bmapView.getMap();
+        LatLng latLng = baiduMap.getMapStatus().target;
+        //准备 marker 的图片
+        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.image_logo_smal);
+        //准备 marker option 添加 marker 使用
+        MarkerOptions markerOptions = new MarkerOptions().icon(bitmap).position(latLng);
+        //获取添加的 marker 这样便于后续的操作
+        Marker marker = (Marker) baiduMap.addOverlay(markerOptions);
+
+        //对 marker 添加点击相应事件
+        baiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
+
+            @Override
+            public boolean onMarkerClick(Marker arg0) {
+                // TODO 点击门店图标
+                Toast.makeText(getApplicationContext(), "门店图标Marker被点击了！", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+
+
     }
 
     @Override

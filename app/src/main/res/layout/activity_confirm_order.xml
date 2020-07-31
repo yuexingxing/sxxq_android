@@ -125,9 +125,9 @@
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="82dp"
+                            android:layout_marginLeft="46dp"
                             android:background="@null"
-                            android:hint="请输入备注内容"
+                            android:hint="选填，请先和商家协商一致"
                             android:maxLength="100"
                             android:maxLines="3"
                             android:textColor="@color/color_333333"
