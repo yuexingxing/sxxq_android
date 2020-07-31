@@ -1,11 +1,16 @@
 package com.sanshao.bs.module.shoppingcenter.view;
 
+import android.util.Log;
+import android.view.View;
+
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.exam.commonbiz.base.BaseFragment;
+import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ShoppingCenterFragmentBinding;
 import com.sanshao.bs.module.shoppingcenter.bean.ShoppingCenterResponse;
@@ -52,6 +57,22 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
         binding.goodsTypeRecyclerView.setLayoutManager(linearLayoutManager);
         binding.goodsTypeRecyclerView.setAdapter(mGoodsTypeAdapter);
         mGoodsTypeAdapter.setOnItemClickListener((adapter, view, position) -> GoodsListActivity.start(getContext()));
+
+        binding.nestedScrollview.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                Log.d(TAG, "dy-" + scrollY + "/" + oldScrollY);
+                if (scrollY > ScreenUtil.dp2px(context, 200)) {
+                    binding.ivToTop.setVisibility(View.VISIBLE);
+                } else {
+                    binding.ivToTop.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        binding.ivToTop.setOnClickListener(view -> {
+            binding.nestedScrollview.smoothScrollTo(0, 0);
+        });
         mViewModel.getGoodsList();
     }
 

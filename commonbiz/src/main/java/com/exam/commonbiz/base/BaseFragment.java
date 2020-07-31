@@ -26,6 +26,7 @@ import java.lang.reflect.ParameterizedType;
  * @time 2020/6/30
  */
 public abstract class BaseFragment<VM extends ViewModel, VDB extends ViewDataBinding> extends Fragment {
+    public final String TAG = BaseFragment.class.getSimpleName();
     public Context context;
     protected VM mViewModel;
     protected VDB binding;

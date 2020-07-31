@@ -28,12 +28,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/goods_list_recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/title_bar" />
+                <androidx.core.widget.NestedScrollView
+                    android:id="@+id/nested_scrollview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/goods_list_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </androidx.core.widget.NestedScrollView>
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         </com.sanshao.bs.widget.EmptyLayout>
+
+        <ImageView
+            android:id="@+id/iv_to_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="50dp"
+            android:src="@drawable/btu_top"
+            android:visibility="gone"
+            tools:visibility="visible" />
     </RelativeLayout>
 </layout>

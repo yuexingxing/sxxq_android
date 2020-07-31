@@ -3,17 +3,22 @@ package com.sanshao.bs.module.shoppingcenter.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.log.XLog;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.ContainerUtil;
+import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityGoodsListBinding;
 import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
@@ -136,6 +141,21 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
         binding.emptyLayout.bindView(binding.goodsListRecyclerView);
         binding.emptyLayout.setOnButtonClick(view -> {
             mViewModel.getGoodsList();
+        });
+        binding.nestedScrollview.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                Log.d(TAG, "dy-" + scrollY + "/" + oldScrollY);
+                if (scrollY > ScreenUtil.dp2px(context, 1000)) {
+                    binding.ivToTop.setVisibility(View.VISIBLE);
+                } else {
+                    binding.ivToTop.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        binding.ivToTop.setOnClickListener(view -> {
+            binding.nestedScrollview.smoothScrollTo(0, 0);
         });
         mViewModel.getGoodsList();
     }
