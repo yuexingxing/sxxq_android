@@ -178,6 +178,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_order_no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="09238908290238"

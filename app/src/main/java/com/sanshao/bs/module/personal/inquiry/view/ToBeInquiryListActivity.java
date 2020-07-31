@@ -81,6 +81,7 @@ public class ToBeInquiryListActivity extends BaseActivity<ToBeInquiryListViewMod
             }
         });
 
+        binding.swipeRefreshLayout.setColorSchemeResources(R.color.main_color);
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

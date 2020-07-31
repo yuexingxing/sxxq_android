@@ -1,5 +1,6 @@
 package com.sanshao.bs.util;
 
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -7,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -84,5 +86,17 @@ public class CommandTools {
         Log.d("getTime()", "choice date millis: " + date.getTime());
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return format.format(date);
+    }
+
+    /**
+     * 把文本复制到粘贴板
+     *
+     * @param context
+     * @param content
+     */
+    public static void copyToClipboard(Context context, String content) {
+        ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        cm.setText(content);
+        ToastUtil.showShortToast("复制成功");
     }
 }

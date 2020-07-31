@@ -80,12 +80,8 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
             }
         });
 
-        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mViewModel.getGoodsList();
-            }
-        });
+        binding.swipeRefreshLayout.setColorSchemeResources(R.color.main_color);
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> mViewModel.getGoodsList());
 
         mGoodsListAdapter = new GoodsListAdapter();
         mGoodsListAdapter.setOnItemClickListener(new GoodsListAdapter.OnItemClickListener() {

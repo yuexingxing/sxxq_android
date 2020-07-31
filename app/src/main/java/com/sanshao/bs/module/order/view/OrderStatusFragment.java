@@ -97,6 +97,7 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
                 ConfirmPayActivity.start(context);
             }
         });
+        binding.swipeRefreshLayout.setColorSchemeResources(R.color.main_color);
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

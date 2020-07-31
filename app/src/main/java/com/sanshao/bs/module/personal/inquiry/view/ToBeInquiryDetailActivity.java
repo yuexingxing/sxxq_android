@@ -1,5 +1,6 @@
 package com.sanshao.bs.module.personal.inquiry.view;
 
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -111,14 +112,11 @@ public class ToBeInquiryDetailActivity extends BaseActivity<BaseViewModel, Activ
                     }).withBottomButton(View.GONE)
                     .show();
         });
-        binding.rlCallPhone.setOnClickListener(view -> {
-            CommandTools.callPhone(context, "123456789");
-        });
-        binding.rlViewcode.setOnClickListener(view -> {
-            ViewCouponCodeActivity.start(context);
-        });
+        binding.rlCallPhone.setOnClickListener(view -> CommandTools.callPhone(context, "123456789"));
+        binding.rlViewcode.setOnClickListener(view -> ViewCouponCodeActivity.start(context));
+        binding.tvCopy.setOnClickListener(view -> CommandTools.copyToClipboard(context, binding.tvOrderNo.getText().toString()));
         initStoreLocation();
-        addMarker();
+        addStoreMarker();
         mToBeInquiryDetailViewModel.getInquiryDetailInfo();
     }
 
@@ -144,7 +142,7 @@ public class ToBeInquiryDetailActivity extends BaseActivity<BaseViewModel, Activ
         binding.bmapView.getMap().setMapStatus(mapStatusUpdate);
     }
 
-    private void addMarker() {
+    private void addStoreMarker() {
         BaiduMap baiduMap = binding.bmapView.getMap();
         LatLng latLng = baiduMap.getMapStatus().target;
         //准备 marker 的图片
