@@ -162,8 +162,6 @@ public class ToBeInquiryDetailActivity extends BaseActivity<BaseViewModel, Activ
                 return false;
             }
         });
-
-
     }
 
     @Override
@@ -173,12 +171,17 @@ public class ToBeInquiryDetailActivity extends BaseActivity<BaseViewModel, Activ
     }
 
     @Override
-    public void returnInquiryList(List<OrderInfo> orderInfoList) {
+    public void onRefreshData(Object object) {
 
     }
 
     @Override
-    public void returnInquiryDetail(OrderInfo orderInfo) {
+    public void onLoadMoreData(Object object) {
+
+    }
+
+    @Override
+    public void onNetError() {
 
     }
 }

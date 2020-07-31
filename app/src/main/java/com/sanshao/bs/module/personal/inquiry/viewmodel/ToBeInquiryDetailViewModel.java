@@ -60,7 +60,7 @@ public class ToBeInquiryDetailViewModel extends BaseViewModel {
             list.add(orderInfo);
         }
         if (mIInquiryModel != null) {
-            mIInquiryModel.returnInquiryList(list);
+            mIInquiryModel.onRefreshData(list);
         }
     }
 }
