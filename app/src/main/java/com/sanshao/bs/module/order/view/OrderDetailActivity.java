@@ -80,6 +80,16 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
         binding.recyclerViewRemainingService.setAdapter(mRemainingServiceAdapter);
         binding.recyclerViewRemainingService.setNestedScrollingEnabled(false);
         binding.recyclerViewRemainingService.setFocusable(false);
+        binding.tvCopy.setOnClickListener(view -> CommandTools.copyToClipboard(context, binding.tvOrderNo.getText().toString()));
+        binding.llOrderMore.setOnClickListener(view -> {
+            if (binding.recyclerViewServed.getVisibility() == View.GONE) {
+                binding.recyclerViewServed.setVisibility(View.VISIBLE);
+                binding.recyclerViewRemainingService.setVisibility(View.VISIBLE);
+            } else {
+                binding.recyclerViewServed.setVisibility(View.GONE);
+                binding.recyclerViewRemainingService.setVisibility(View.GONE);
+            }
+        });
 
         binding.llCall.setOnClickListener(view -> {
             CommandTools.callPhone(context, "1234567");

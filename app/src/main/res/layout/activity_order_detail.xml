@@ -51,14 +51,89 @@
                         android:paddingLeft="12dp"
                         android:paddingRight="12dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="14dp"
-                            android:text="订单信息"
-                            android:textColor="@color/color_333333"
-                            android:textSize="17sp"
-                            android:textStyle="bold" />
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="订单信息"
+                                android:textColor="@color/color_333333"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
+
+                            <view
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:layout_weight="1" />
+
+                            <LinearLayout
+                                android:id="@+id/ll_order_more"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="right|center_vertical"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="查看更多"
+                                    android:textColor="@color/color_999999"
+                                    android:textSize="12sp" />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="12dp"
+                                    android:src="@drawable/icon_goods_detail_more" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="订单编号："
+                                android:textColor="@color/color_333333"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_order_no"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="28492374923740"
+                                android:textColor="@color/color_333333"
+                                android:textSize="12sp" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:id="@+id/tv_copy"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="12dp"
+                                android:background="@drawable/shape_radius_4_b6a57b"
+                                android:paddingLeft="10dp"
+                                android:paddingTop="2dp"
+                                android:paddingRight="10dp"
+                                android:paddingBottom="2dp"
+                                android:text="复制"
+                                android:textColor="@color/white"
+                                android:textSize="11sp" />
+                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -79,25 +154,6 @@
                                 android:text="2019-09-23 15:04:14"
                                 android:textColor="@color/color_333333"
                                 android:textSize="12sp" />
-
-                            <View
-                                android:layout_width="0dp"
-                                android:layout_height="1dp"
-                                android:layout_weight="1" />
-
-                            <TextView
-                                android:id="@+id/tv_copy"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="12dp"
-                                android:background="@drawable/shape_order_list_refund"
-                                android:paddingLeft="10dp"
-                                android:paddingTop="2dp"
-                                android:paddingRight="10dp"
-                                android:paddingBottom="2dp"
-                                android:text="复制"
-                                android:textColor="@color/white"
-                                android:textSize="11sp" />
                         </LinearLayout>
 
                         <LinearLayout
