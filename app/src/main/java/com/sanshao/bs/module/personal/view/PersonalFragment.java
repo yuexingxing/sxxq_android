@@ -86,7 +86,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
                 });
         binding.btnTest.setOnClickListener(v -> TestMenuActivity.start(getContext()));
         binding.llPersonal.setOnClickListener(v -> PersonalDetailActivity.start(getContext()));
-        binding.includeOrder.rlAllOrder.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.ALL));
+        binding.includeOrder.llAllOrder.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.ALL));
         binding.includeOrder.llOrderTobepaid.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.ToBePaid));
         binding.includeOrder.llOrderTobeuse.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.ToBeUse));
         binding.includeOrder.llOrderTobeinquiry.setOnClickListener(v -> ToBeInquiryListActivity.start(context));

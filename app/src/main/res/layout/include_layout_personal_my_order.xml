@@ -17,6 +17,7 @@
             android:paddingBottom="12dp">
 
             <LinearLayout
+                android:id="@+id/ll_all_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -36,29 +37,14 @@
                     android:layout_height="1dp"
                     android:layout_weight="1" />
 
-                <RelativeLayout
-                    android:id="@+id/rl_all_order"
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:id="@+id/tv_all_order"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textColor="#FF999999"
-                        android:textSize="12sp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="11dp"
-                        android:layout_toRightOf="@+id/tv_all_order"
-                        android:src="@drawable/arrow_right" />
-                </RelativeLayout>
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="11dp"
+                    android:layout_toRightOf="@+id/tv_all_order"
+                    android:src="@drawable/arrow_right" />
             </LinearLayout>
 
             <View
