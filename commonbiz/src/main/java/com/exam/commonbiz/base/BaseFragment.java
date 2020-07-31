@@ -17,7 +17,9 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.exam.commonbiz.R;
 import com.exam.commonbiz.event.EventBusProvider;
+import com.exam.commonbiz.util.LoadingDialogUtil;
 import com.exam.commonbiz.util.StatusBarUtil;
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 
 import java.lang.reflect.ParameterizedType;
 
@@ -25,8 +27,10 @@ import java.lang.reflect.ParameterizedType;
  * @Author yuexingxing
  * @time 2020/6/30
  */
-public abstract class BaseFragment<VM extends ViewModel, VDB extends ViewDataBinding> extends Fragment {
+public abstract class BaseFragment<VM extends ViewModel, VDB extends ViewDataBinding> extends Fragment implements BaseViewCallBack{
+
     public final String TAG = BaseFragment.class.getSimpleName();
+
     public Context context;
     protected VM mViewModel;
     protected VDB binding;
@@ -107,5 +111,20 @@ public abstract class BaseFragment<VM extends ViewModel, VDB extends ViewDataBin
         if (useEventBus()) {
             EventBusProvider.getBus().unregister(this);
         }
+    }
+
+    @Override
+    public LoadingDialog createLoadingDialog() {
+        return LoadingDialogUtil.createLoadingDialog(getActivity());
+    }
+
+    @Override
+    public LoadingDialog createLoadingDialog(String text) {
+        return LoadingDialogUtil.createLoadingDialog(getActivity(), text);
+    }
+
+    @Override
+    public boolean visibility() {
+        return isVisible();
     }
 }

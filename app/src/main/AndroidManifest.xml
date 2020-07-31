@@ -53,7 +53,7 @@
             android:name=".module.splash.SplashActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.personal.income.view.IncomeMenuActivity"
+            android:name=".module.personal.income.view.IncomeHomeActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.personal.setting.view.SettingActivity"
@@ -189,6 +189,11 @@
             android:enabled="true"
             android:process=":remote"
             tools:ignore="MissingClass" />
+
+        <!-- 全面屏适配 -->
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1"/>
     </application>
 
 </manifest>
