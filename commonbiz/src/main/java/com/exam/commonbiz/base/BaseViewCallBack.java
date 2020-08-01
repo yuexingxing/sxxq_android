@@ -9,4 +9,6 @@ public interface BaseViewCallBack {
     LoadingDialog createLoadingDialog(String text);
 
     boolean visibility();
+
+    boolean viewFinished();
 }

@@ -70,5 +70,4 @@ public class IncomeFrament extends BaseFragment<IncomeViewModel, FragmentIncomeB
                 break;
         }
     }
-
 }

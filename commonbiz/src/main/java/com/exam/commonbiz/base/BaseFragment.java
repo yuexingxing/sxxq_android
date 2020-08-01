@@ -127,4 +127,9 @@ public abstract class BaseFragment<VM extends ViewModel, VDB extends ViewDataBin
     public boolean visibility() {
         return isVisible();
     }
+
+    @Override
+    public boolean viewFinished() {
+        return isDetached() || getActivity().isFinishing();
+    }
 }
