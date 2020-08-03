@@ -1,59 +1,61 @@
 package com.exam.commonbiz.net;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 /**
  * 网络返回基类 支持泛型
+ *
  * @Author yuexingxing
  * @time 2020/6/11
  */
 public class BaseResponse<T> {
 
-    private String desc;
-    private int status;
-    private T data;
+    private String msg;
+    private String ret;
+    private T content;
 
-    public String getDesc() {
-        return desc;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public int getStatus() {
-        return status;
+    public String getRet() {
+        return ret;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setRet(String ret) {
+        this.ret = ret;
     }
 
-    public T getData() {
-        return data;
+    public T getContent() {
+        return content;
     }
 
-    public void setData(T data) {
-        this.data = data;
+    public void setContent(T content) {
+        this.content = content;
     }
 
     public boolean isOk() {
-        return status == 0;
+        return TextUtils.equals("OK", ret);
     }
 
     @Override
     public String toString() {
 
         Log.v("zd", "BaseResponse{" +
-                "code=" + status +
-                ", msg='" + desc + '\'' +
-                ", data=" + data +
+                "code=" + ret +
+                ", msg='" + msg + '\'' +
+                ", data=" + content +
                 '}');
 
         return "BaseResponse{" +
-                "code=" + status +
-                ", msg='" + desc + '\'' +
-                ", data=" + data +
+                "code=" + ret +
+                ", msg='" + msg + '\'' +
+                ", data=" + content +
                 '}';
     }
 }

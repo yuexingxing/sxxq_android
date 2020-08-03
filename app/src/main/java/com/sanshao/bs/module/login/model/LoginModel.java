@@ -6,7 +6,10 @@ import com.exam.commonbiz.net.BaseObserver;
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.ExceptionHandle;
 import com.exam.commonbiz.net.OnLoadListener;
+import com.sanshao.bs.module.login.bean.GetCodeRequest;
 import com.sanshao.bs.module.login.bean.LoginBean;
+import com.sanshao.bs.module.login.bean.LoginRequest;
+import com.sanshao.bs.module.personal.bean.UserInfo;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -17,9 +20,9 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class LoginModel {
 
-    public static void getSMSCode(String mobile, String type, final OnLoadListener onLoadListener) {
+    public static void getSMSCode(GetCodeRequest getCodeRequest, final OnLoadListener onLoadListener) {
         XApi.get(BaseApiService.class)
-                .getSMSCode(mobile, type)
+                .getSMSCode(getCodeRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver() {
@@ -47,12 +50,12 @@ public class LoginModel {
                 });
     }
 
-    public static void login(String mobile, String code, final OnLoadListener<LoginBean> onLoadListener) {
+    public static void login(LoginRequest loginRequest, final OnLoadListener onLoadListener) {
         XApi.get(BaseApiService.class)
-                .login(mobile, code)
+                .login(loginRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver<LoginBean>() {
+                .subscribe(new BaseObserver() {
 
                     @Override
                     public void onStart() {
@@ -60,7 +63,7 @@ public class LoginModel {
                     }
 
                     @Override
-                    public void onSuccess(BaseResponse<LoginBean> response) {
+                    public void onSuccess(BaseResponse response) {
                         onLoadListener.onLoadSucessed(response);
                     }
 

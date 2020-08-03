@@ -2,6 +2,7 @@ package com.exam.commonbiz.net;
 
 import androidx.annotation.NonNull;
 
+import com.exam.commonbiz.net.interceptor.HeadInterceptor;
 import com.exam.commonbiz.progress.ProgressHelper;
 import com.exam.commonbiz.kits.Kits;
 import com.exam.commonbiz.log.LogInterceptor;
@@ -151,7 +152,7 @@ public class XApi {
             builder.addInterceptor(logInterceptor);
         }
 
-//        builder.addInterceptor(new HeadInterceptor());
+        builder.addInterceptor(new HeadInterceptor());
 
         OkHttpClient client = builder.build();
         clientMap.put(baseUrl, client);

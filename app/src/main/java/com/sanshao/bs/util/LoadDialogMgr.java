@@ -51,7 +51,7 @@ public class LoadDialogMgr {
                 .setRepeatCount(0)
                 .show();
     }
-
+    
     public void dismiss() {
         if (mLoadingDialog == null) {
             return;

@@ -1,6 +1,7 @@
 package com.exam.commonbiz.net;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.exam.commonbiz.base.BasicApplication;
 import com.google.gson.JsonParseException;
@@ -33,16 +34,14 @@ public abstract class BaseObserver<T> implements Observer<BaseResponse<T>> {
 
     @Override
     public void onNext(@NonNull BaseResponse<T> response) {
-        if (response.getStatus() == 0) {
+        if (TextUtils.equals(response.getRet(), "OK")) {
             onSuccess(response);
-        } else if (response.getStatus() == -1) {
-            onError(ExceptionHandle.handleException(new JsonParseException("ParseException")));
-        } else if (response.getStatus() > 0) {
-            response.setDesc(response.getDesc());
-            onSuccess(response);
+        } else if (TextUtils.equals(response.getRet(), "ERROR")) {
+            ExceptionHandle.ResponeThrowable responeThrowable = new ExceptionHandle.ResponeThrowable(null, 0);
+            responeThrowable.message = response.getMsg();
+            onError(responeThrowable);
         } else {
-            response.setDesc(ErrorUtils.intCode2str(BasicApplication.app, response.getStatus()));
-            onSuccess(response);
+            onError(ExceptionHandle.handleException(new JsonParseException("ParseException")));
         }
     }
 

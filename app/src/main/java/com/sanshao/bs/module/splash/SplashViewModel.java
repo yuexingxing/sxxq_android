@@ -24,7 +24,7 @@ public class SplashViewModel extends BaseViewModel {
             @Override
             public void onLoadSucessed(BaseResponse<SplashInfo> t) {
                 if (callBack != null) {
-                    callBack.returnSplashInfo(t.getData());
+                    callBack.returnSplashInfo(t.getContent());
                 }
             }
 

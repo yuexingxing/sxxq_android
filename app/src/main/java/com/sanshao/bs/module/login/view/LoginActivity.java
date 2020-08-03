@@ -19,6 +19,7 @@ import com.sanshao.bs.module.EmptyWebViewActivity;
 import com.sanshao.bs.module.MainActivity;
 import com.sanshao.bs.module.login.bean.AuthInfo;
 import com.sanshao.bs.module.login.bean.LoginBean;
+import com.sanshao.bs.module.login.bean.LoginResponse;
 import com.sanshao.bs.module.login.model.ILoginCallBack;
 import com.sanshao.bs.module.login.viewmodel.LoginViewModel;
 import com.sanshao.bs.module.personal.account.view.BindWeChatActivity;
@@ -67,8 +68,10 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     public void initData() {
         LoginBean loginBean = new LoginBean();
         loginBean.phone = "18744556665";
-        loginBean.code = "12345";
+        loginBean.code = "8888";
         binding.setUser(loginBean);
+
+        mViewModel.setCallBack(this);
         binding.tvJump.setOnClickListener(v -> {
             MainActivity.start(context);
         });
@@ -99,9 +102,10 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
                 return;
             }
             LoadDialogMgr.getInstance().show(context);
-            mViewModel.getSMSCode(mPhone, "1");
+            mViewModel.getSMSCode(mPhone, "APP_LOGIN");
         });
         binding.tvLogin.setOnClickListener(v -> {
+            mPhone = binding.edtPhone.getText().toString();
             String code = binding.edtCode.getText().toString();
             if (TextUtils.isEmpty(code)) {
                 ToastUtil.showShortToast("验证码不能为空");
@@ -112,7 +116,7 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
                 return;
             }
             LoadDialogMgr.getInstance().show(context, "登录中...");
-            mViewModel.login(mPhone, code);
+            mViewModel.login(mPhone, code, "");
         });
         binding.includePolicy.tvAgreement.setOnClickListener(v -> EmptyWebViewActivity.start(context, "http://www.baidu.com"));
         binding.includePolicy.tvPolicy.setOnClickListener(v -> EmptyWebViewActivity.start(context, "http://www.2345.com"));
@@ -135,7 +139,7 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
 
         @Override
         public void onTick(long millisUntilFinished) {
-            binding.tvGetCode.setText(String.valueOf((millisUntilFinished / 1000) + "s"));
+            binding.tvGetCode.setText((millisUntilFinished / 1000) + "s");
             binding.tvGetCode.setTextColor(Res.getColor(SSApplication.app, R.color.color_b6a578));
         }
 
@@ -160,8 +164,12 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     }
 
     @Override
-    public void onLoginSuccess() {
-        ToastUtil.showShortToast("onLoginResponse");
+    public void onLoginSuccess(LoginResponse loginResponse) {
+        if (loginResponse == null) {
+            return;
+        }
+        SSApplication.setToken(loginResponse.token);
+        MainActivity.start(context);
     }
 
     @Override

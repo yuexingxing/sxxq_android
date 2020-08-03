@@ -39,7 +39,7 @@ public class ShoppingCenterViewModel extends BaseViewModel {
             @Override
             public void onLoadSucessed(BaseResponse<ShoppingCenterResponse> t) {
                 if (mCallBack != null) {
-                    mCallBack.returnShoppingCenterList(t.getData());
+                    mCallBack.returnShoppingCenterList(t.getContent());
                 }
             }
 

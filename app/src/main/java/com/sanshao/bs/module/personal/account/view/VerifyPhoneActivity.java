@@ -11,6 +11,7 @@ import com.exam.commonbiz.util.Res;
 import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ActivityVerifyPhoneBinding;
+import com.sanshao.bs.module.login.bean.LoginResponse;
 import com.sanshao.bs.module.login.model.ILoginCallBack;
 import com.sanshao.bs.module.login.view.LoginActivity;
 import com.sanshao.bs.module.login.viewmodel.LoginViewModel;
@@ -106,7 +107,7 @@ public class VerifyPhoneActivity extends BaseActivity<LoginViewModel, ActivityVe
     }
 
     @Override
-    public void onLoginSuccess() {
+    public void onLoginSuccess(LoginResponse loginResponse) {
 
     }
 

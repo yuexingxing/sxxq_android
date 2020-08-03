@@ -6,7 +6,11 @@ import androidx.lifecycle.ViewModel;
 
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
+import com.sanshao.bs.module.login.bean.GetCodeRequest;
+import com.sanshao.bs.module.login.bean.GetCodeResponse;
 import com.sanshao.bs.module.login.bean.LoginBean;
+import com.sanshao.bs.module.login.bean.LoginRequest;
+import com.sanshao.bs.module.login.bean.LoginResponse;
 import com.sanshao.bs.module.login.model.ILoginCallBack;
 import com.sanshao.bs.module.login.model.LoginModel;
 import com.sanshao.bs.util.LoadDialogMgr;
@@ -30,8 +34,8 @@ public class LoginViewModel extends ViewModel {
         Log.i(TAG, "onCleared");
     }
 
-    public void getSMSCode(String mobile, String tpye) {
-        LoginModel.getSMSCode(mobile, tpye, new OnLoadListener() {
+    public void getSMSCode(String mobile, String pinType) {
+        LoginModel.getSMSCode(new GetCodeRequest(mobile, pinType), new OnLoadListener<GetCodeResponse>() {
 
             @Override
             public void onLoadStart() {
@@ -45,8 +49,8 @@ public class LoginViewModel extends ViewModel {
             }
 
             @Override
-            public void onLoadSucessed(BaseResponse t) {
-                Log.d(TAG, "onLoadSucessed");
+            public void onLoadSucessed(BaseResponse<GetCodeResponse> t) {
+                ToastUtil.showShortToast(t.getMsg());
                 if (mLoginCallBack != null) {
                     mLoginCallBack.onGetCode();
                 }
@@ -54,13 +58,16 @@ public class LoginViewModel extends ViewModel {
 
             @Override
             public void onLoadFailed(String errMsg) {
+                Log.d(TAG, "onLoadFailed-" + errMsg);
                 ToastUtil.showShortToast(errMsg);
             }
         });
     }
 
-    public void login(String mobile, String password) {
-        LoginModel.login(mobile, password, new OnLoadListener<LoginBean>() {
+    public void login(String mobile, String code, String referrerMemId) {
+
+        LoginRequest loginRequest = new LoginRequest(mobile, code);
+        LoginModel.login(loginRequest, new OnLoadListener<LoginResponse>() {
 
             @Override
             public void onLoadStart() {
@@ -73,9 +80,10 @@ public class LoginViewModel extends ViewModel {
             }
 
             @Override
-            public void onLoadSucessed(BaseResponse<LoginBean> t) {
+            public void onLoadSucessed(BaseResponse<LoginResponse> t) {
+                ToastUtil.showShortToast(t.getMsg());
                 if (mLoginCallBack != null) {
-                    mLoginCallBack.onLoginSuccess();
+                    mLoginCallBack.onLoginSuccess(t.getContent());
                 }
             }
 

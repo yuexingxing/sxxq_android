@@ -9,6 +9,7 @@ import android.view.View;
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.util.Res;
 import com.sanshao.bs.SSApplication;
+import com.sanshao.bs.module.login.bean.LoginResponse;
 import com.sanshao.bs.module.login.model.ILoginCallBack;
 import com.sanshao.bs.module.login.viewmodel.LoginViewModel;
 import com.sanshao.bs.util.CommandTools;
@@ -62,7 +63,7 @@ public class BindPhoneActivity extends BaseActivity<LoginViewModel, ActivityBind
                     return;
                 }
                 LoadDialogMgr.getInstance().show(context, "提交中...");
-                mViewModel.login(mPhone, code);
+                mViewModel.login(mPhone, code, "123");
             }
         });
         binding.tvGetCode.setOnClickListener(v -> {
@@ -117,8 +118,8 @@ public class BindPhoneActivity extends BaseActivity<LoginViewModel, ActivityBind
     }
 
     @Override
-    public void onLoginSuccess() {
-        ToastUtil.showShortToast("onLoginResponse");
+    public void onLoginSuccess(LoginResponse loginResponse) {
+
     }
 
     @Override

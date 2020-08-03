@@ -104,7 +104,7 @@ public class SSApplication extends BasicApplication {
 
     public void initHttpConfig() {
         BASE_URL = Kits.Package.getMetaValue(this, "HTTP_HOST");
-        BASE_URL = "https://122.228.44.22:8080";
+        BASE_URL = "http://dev.kmlab.com/ssxq/";
         //debug模式下允许切换服务器，这个设置一定要放到initHttpConfig初始化后面
         if (AppUtil.isDebug(this)) {
 //            ACache.get(this).put(ConfigSP.SP_CURRENT_HOST, ConfigSP.HOST_TYPE.DEV);
