@@ -90,11 +90,11 @@ public class ConfirmOrderViewModel extends BaseViewModel {
         List<GoodsDetailInfo> goodsTypeDetailInfoList = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             GoodsDetailInfo orderInfo = GoodsDetailInfo.getGoodsDetailInfo();
-            orderInfo.name = "玻尿酸美容护肤不二之选，还你天使容颜，变美不容错误。";
+            orderInfo.sartiName = "玻尿酸美容护肤不二之选，还你天使容颜，变美不容错误。";
             orderInfo.stock = 5;
             orderInfo.buyNum = 1;
-            orderInfo.price = 102.2;
-            orderInfo.icon = Constants.DEFAULT_IMG_URL;
+            orderInfo.sartiMkPrice = 102.2;
+            orderInfo.thumbnail_img = Constants.DEFAULT_IMG_URL;
             goodsTypeDetailInfoList.add(orderInfo);
         }
         confirmOrderResponse.nickName = "王小丫";

@@ -237,7 +237,7 @@ public class HomeBanner extends ViewPager {
                 ImageView banner_image = view.findViewById(R.id.banner_image);
 
                 Glide.with(getContext())
-                        .load(info.image)
+                        .load(info.artitag_url)
                         .placeholder(R.drawable.ic_launcher_background)
                         .error(R.drawable.ic_launcher_background)
                         .into(banner_image);

@@ -32,7 +32,7 @@ public class GoodsTypeAdapter extends BaseQuickAdapter<GoodsTypeInfo, BaseViewHo
         RecyclerView recyclerView = helper.getView(R.id.goods_type_detail_recycler_view);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(goodsTypeDetailAdapter);
-        goodsTypeDetailAdapter.addData(item.goodsTypeDetailInfoList);
+        goodsTypeDetailAdapter.addData(item.setMealProduct);
         goodsTypeDetailAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

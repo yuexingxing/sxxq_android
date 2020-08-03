@@ -30,7 +30,6 @@ public class GuessYouLoveView extends LinearLayout {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.widget_layout_guess_you_love, this);
         initView(context);
-        setData(null);
     }
 
     private void initView(Context context) {
@@ -43,15 +42,5 @@ public class GuessYouLoveView extends LinearLayout {
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setFocusable(false);
         mGuessYouLoveAdapter.setOnItemClickListener((adapter, view, position) -> GoodsDetailActivity.start(context));
-    }
-
-    public void setData(List<GoodsDetailInfo> goodsDetailInfoList) {
-        for (int i = 0; i < 10; i++) {
-            GoodsDetailInfo goodsDetailInfo = new GoodsDetailInfo();
-            goodsDetailInfo.name = "玻尿酸美容护肤不二之选，还你天使容颜，变美不容错误。";
-            goodsDetailInfo.price = 200;
-            goodsDetailInfo.oldPrice = 240;
-            mGuessYouLoveAdapter.addData(goodsDetailInfo);
-        }
     }
 }

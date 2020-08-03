@@ -1,5 +1,7 @@
 package com.sanshao.bs.module.shoppingcenter.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.List;
 
 /**
@@ -8,5 +10,6 @@ import java.util.List;
  */
 public class GoodsTypeInfo {
     public String title;
-    public List<GoodsDetailInfo> goodsTypeDetailInfoList;
+    @JSONField(name="set_meal_product")
+    public List<GoodsDetailInfo> setMealProduct;
 }

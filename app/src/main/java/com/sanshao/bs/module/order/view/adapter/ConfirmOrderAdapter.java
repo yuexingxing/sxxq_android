@@ -49,9 +49,9 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
 
     @Override
     protected void convert(BaseViewHolder helper, GoodsDetailInfo item) {
-        helper.setText(R.id.tv_title, helper.getAdapterPosition() + "-" + item.name);
+        helper.setText(R.id.tv_title, helper.getAdapterPosition() + "-" + item.sartiName);
         helper.setText(R.id.tv_buy_count, item.buyNum + "");
-        helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.price));
+        helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.sartiMkPrice));
 
         helper.getView(R.id.rl_minus).setOnClickListener(v -> {
             if (mCallBack != null) {
@@ -63,7 +63,7 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
                 mCallBack.onPlusClick(helper.getAdapterPosition(), item);
             }
         });
-        Glide.with(SSApplication.app).load(item.icon).into((ImageView) helper.getView(R.id.iv_icon));
+        Glide.with(SSApplication.app).load(item.thumbnail_img).into((ImageView) helper.getView(R.id.iv_icon));
 
         FrameLayout flSetMeal = helper.getView(R.id.fl_set_meal);
         LinearLayout llOpenSetMeal = helper.getView(R.id.ll_more_setmeal);

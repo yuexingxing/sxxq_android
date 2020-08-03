@@ -55,10 +55,10 @@ public class GoodsListViewModel extends BaseViewModel {
         List<GoodsDetailInfo> list = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             GoodsDetailInfo goodsDetailInfo = new GoodsDetailInfo();
-            goodsDetailInfo.name = "玻尿酸美容护肤不二之选，还你天使容颜，变美不容错误。";
-            goodsDetailInfo.price = 200;
-            goodsDetailInfo.oldPrice = 240;
-            goodsDetailInfo.icon = Constants.DEFAULT_IMG_URL;
+            goodsDetailInfo.sartiName = "玻尿酸美容护肤不二之选，还你天使容颜，变美不容错误。";
+            goodsDetailInfo.sartiSalePrice = 200;
+            goodsDetailInfo.sartiMkPrice = 240;
+            goodsDetailInfo.thumbnail_img = Constants.DEFAULT_IMG_URL;
             if (i % 2 == 0){
                 goodsDetailInfo.videoPlayUrl = Constants.VIDEO_PLAY_URL;
             }

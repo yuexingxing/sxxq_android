@@ -7,6 +7,7 @@ import com.sanshao.bs.module.shoppingcenter.bean.ShoppingCenterResponse;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -16,8 +17,8 @@ import retrofit2.http.Query;
  */
 public interface GoodsApiService {
 
-    //获取商城列表
-    @POST("/util/sms/fetch")
+    //首页数据
+    @GET("home/list")
     Observable<BaseResponse<ShoppingCenterResponse>> getShoppingCenterList();
 
     //获取商品列表

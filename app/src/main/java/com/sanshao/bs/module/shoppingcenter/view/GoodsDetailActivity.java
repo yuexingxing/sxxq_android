@@ -53,7 +53,6 @@ import java.util.List;
  */
 public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, ActivityGoodsDetailBinding> implements IGoodsDetailModel {
     private final String TAG = GoodsDetailActivity.class.getSimpleName();
-    private GoodsDetailViewModel mGoodsDetailViewModel;
     private SetMealAdapter mSetMealAdapter;
     private GoodsDetailInfo mGoodsDetailInfo;
     private List<Fragment> mFragmentList;
@@ -74,7 +73,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
     public void initData() {
 
         initViewPager();
-        mGoodsDetailViewModel = new GoodsDetailViewModel(this);
+       mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -136,7 +135,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                 EmptyWebViewActivity.start(context, "http://www.2345.com")
         );
         binding.ivCallPhone.setOnClickListener(view -> CommandTools.callPhone(context, "12345678"));
-        mGoodsDetailViewModel.getGoodsDetail();
+        mViewModel.getGoodsDetail();
     }
 
     private void initViewPager() {

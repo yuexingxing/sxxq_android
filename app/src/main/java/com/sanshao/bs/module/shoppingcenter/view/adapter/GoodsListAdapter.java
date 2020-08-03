@@ -45,11 +45,11 @@ public class GoodsListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
 
     @Override
     protected void convert(BaseViewHolder helper, GoodsDetailInfo item) {
-        helper.setText(R.id.tv_title, helper.getAdapterPosition() + "-" + item.name);
+        helper.setText(R.id.tv_title, helper.getAdapterPosition() + "-" + item.sartiName);
 
-        helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.price));
+        helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.sartiMkPrice));
         TextView tvOldPrice = helper.getView(R.id.tv_old_price);
-        tvOldPrice.setText("¥" + MathUtil.getNumExclude0(item.oldPrice));
+        tvOldPrice.setText("¥" + MathUtil.getNumExclude0(item.sartiSalePrice));
         tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
 
         View viewInclude = helper.getView(R.id.include_video);
@@ -59,7 +59,7 @@ public class GoodsListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
         if (TextUtils.isEmpty(item.videoPlayUrl)){
             ivIcon.setVisibility(View.VISIBLE);
             videoPlayLayout.setVisibility(View.GONE);
-            Glide.with(SSApplication.app).load(item.icon).into(ivIcon);
+            Glide.with(SSApplication.app).load(item.thumbnail_img).into(ivIcon);
             layoutParams.height = ScreenUtil.dp2px(SSApplication.app, 343);
         }else{
             ivIcon.setVisibility(View.GONE);

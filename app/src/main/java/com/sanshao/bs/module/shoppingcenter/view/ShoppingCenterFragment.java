@@ -7,6 +7,7 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.exam.commonbiz.base.BaseFragment;
@@ -70,6 +71,9 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
             }
         });
 
+        binding.swipeRefreshLayout.setColorSchemeResources(R.color.main_color);
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> mViewModel.getGoodsList());
+
         binding.ivToTop.setOnClickListener(view -> {
             binding.nestedScrollview.smoothScrollTo(0, 0);
         });
@@ -94,15 +98,17 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
 
     @Override
     public void returnShoppingCenterList(ShoppingCenterResponse shoppingCenterResponse) {
+        binding.swipeRefreshLayout.setRefreshing(false);
         if (shoppingCenterResponse == null) {
             return;
         }
-        binding.homeBannerLayout.setData(shoppingCenterResponse.banner);
+        binding.homeBannerLayout.setData(shoppingCenterResponse.slideshow);
         Glide.with(getContext())
-                .load(shoppingCenterResponse.ad)
+                .load(shoppingCenterResponse.staticAdvertising.artitag_url)
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_background)
                 .into(binding.ivAd);
-        mGoodsTypeAdapter.addData(shoppingCenterResponse.goodsTypeInfoList);
+        mGoodsTypeAdapter.addData(shoppingCenterResponse.classify);
+        binding.llBottomLine.setVisibility(View.VISIBLE);
     }
 }

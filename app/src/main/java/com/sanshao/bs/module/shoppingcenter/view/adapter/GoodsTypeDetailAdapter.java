@@ -26,11 +26,11 @@ public class GoodsTypeDetailAdapter extends BaseQuickAdapter<GoodsDetailInfo, Ba
 
     @Override
     protected void convert(BaseViewHolder helper, GoodsDetailInfo item) {
-        helper.setText(R.id.tv_title, item.name);
+        helper.setText(R.id.tv_title, item.sartiName);
 
-        helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.price));
+        helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.sartiMkPrice));
         TextView tvOldPrice = helper.getView(R.id.tv_old_price);
-        tvOldPrice.setText("¥" + MathUtil.getNumExclude0(item.oldPrice));
+        tvOldPrice.setText("¥" + MathUtil.getNumExclude0(item.sartiSalePrice));
         tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         Glide.with(SSApplication.app).load(Constants.DEFAULT_IMG_URL).into((ImageView) helper.getView(R.id.iv_icon));
 

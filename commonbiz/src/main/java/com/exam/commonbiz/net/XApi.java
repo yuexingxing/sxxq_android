@@ -9,7 +9,9 @@ import com.exam.commonbiz.log.LogInterceptor;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -24,6 +26,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @time 2020/6/10
  */
 public class XApi {
+
+    public static interface HOST_TYPE{
+        String JAVA = "java";
+        String NODE = "node";
+    }
+
     private static String defaultBaseUrl;
 
     private static NetProvider sProvider = null;
@@ -31,6 +39,7 @@ public class XApi {
     private Map<String, NetProvider> providerMap = new HashMap<>();
     private Map<String, Retrofit> retrofitMap = new HashMap<>();
     private Map<String, OkHttpClient> clientMap = new HashMap<>();
+    private static Map<String, String> mHostMap = new HashMap<>();//多服务器
 
     public static final long connectTimeoutMills = 10 * 1000l;
     public static final long readTimeoutMills = 10 * 1000l;
@@ -53,6 +62,10 @@ public class XApi {
     }
 
     public static <S> S get(Class<S> service) {
+        return getInstance().getRetrofit(defaultBaseUrl).create(service);
+    }
+
+    public static <S> S get(Class<S> service, String hostType) {
         return getInstance().getRetrofit(defaultBaseUrl).create(service);
     }
 
@@ -203,4 +216,15 @@ public class XApi {
         getInstance().clientMap.clear();
     }
 
+    public static void setHostMap(Map<String, String> hostMap) {
+        if (hostMap == null) {
+            return;
+        }
+        mHostMap.clear();
+        for (Map.Entry<String, String> entry : hostMap.entrySet()) {
+            String mapKey = entry.getKey();
+            String mapValue = entry.getValue();
+            mHostMap.put(mapKey, mapValue);
+        }
+    }
 }

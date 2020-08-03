@@ -28,7 +28,7 @@ public class ShoppingCenterViewModel extends BaseViewModel {
 
             @Override
             public void onLoadStart() {
-                loadData();
+//                loadData();
             }
 
             @Override
@@ -45,7 +45,9 @@ public class ShoppingCenterViewModel extends BaseViewModel {
 
             @Override
             public void onLoadFailed(String errMsg) {
-
+                if (mCallBack != null) {
+                    mCallBack.returnShoppingCenterList(null);
+                }
             }
         });
     }
@@ -56,11 +58,11 @@ public class ShoppingCenterViewModel extends BaseViewModel {
         List<BannerInfo> bannerInfoList = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             BannerInfo bannerInfo = new BannerInfo();
-            bannerInfo.image = Constants.DEFAULT_IMG_URL;
+            bannerInfo.artitag_url = Constants.DEFAULT_IMG_URL;
             bannerInfoList.add(bannerInfo);
         }
-        shoppingCenterResponse.banner = bannerInfoList;
-        shoppingCenterResponse.ad = Constants.DEFAULT_IMG_URL;
+        shoppingCenterResponse.slideshow = bannerInfoList;
+        shoppingCenterResponse.staticAdvertising = shoppingCenterResponse.slideshow.get(0);
 
         List<GoodsTypeInfo> goodsTypeInfoList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
@@ -70,15 +72,15 @@ public class ShoppingCenterViewModel extends BaseViewModel {
             List<GoodsDetailInfo> goodsTypeDetailInfoList = new ArrayList<>();
             for (int k = 0; k < 6; k++) {
                 GoodsDetailInfo goodsDetailInfo = new GoodsDetailInfo();
-                goodsDetailInfo.name = "玻尿酸美容护肤不二之选";
-                goodsDetailInfo.price = 200;
-                goodsDetailInfo.oldPrice = 240;
+                goodsDetailInfo.sartiName = "玻尿酸美容护肤不二之选";
+                goodsDetailInfo.sartiMkPrice = 200;
+                goodsDetailInfo.sartiSalePrice = 240;
                 goodsTypeDetailInfoList.add(goodsDetailInfo);
             }
-            goodsTypeInfo.goodsTypeDetailInfoList = goodsTypeDetailInfoList;
+            goodsTypeInfo.setMealProduct = goodsTypeDetailInfoList;
             goodsTypeInfoList.add(goodsTypeInfo);
         }
-        shoppingCenterResponse.goodsTypeInfoList = goodsTypeInfoList;
+        shoppingCenterResponse.classify = goodsTypeInfoList;
         if (mCallBack != null) {
             mCallBack.returnShoppingCenterList(shoppingCenterResponse);
         }

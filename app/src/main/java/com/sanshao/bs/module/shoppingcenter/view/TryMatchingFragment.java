@@ -40,10 +40,10 @@ public class TryMatchingFragment extends BaseFragment<BaseViewModel, FragmentTry
 
         GoodsDetailInfo goodsDetailInfo = (GoodsDetailInfo) getArguments().getSerializable(Constants.OPT_DATA);
         if (goodsDetailInfo != null){
-            binding.includeTry.tvTitle.setText(goodsDetailInfo.name);
-            binding.includeTry.tvPrice.setText(MathUtil.getNumExclude0(goodsDetailInfo.price));
-            binding.includeTry.tvOldPrice.setText("¥" + MathUtil.getNumExclude0(goodsDetailInfo.oldPrice));
-            Glide.with(SSApplication.app).load(goodsDetailInfo.icon).into(binding.includeTry.ivIcon);
+            binding.includeTry.tvTitle.setText(goodsDetailInfo.sartiName);
+            binding.includeTry.tvPrice.setText(MathUtil.getNumExclude0(goodsDetailInfo.sartiSalePrice));
+            binding.includeTry.tvOldPrice.setText("¥" + MathUtil.getNumExclude0(goodsDetailInfo.sartiMkPrice));
+            Glide.with(SSApplication.app).load(goodsDetailInfo.thumbnail_img).into(binding.includeTry.ivIcon);
 
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) binding.rlContent.getLayoutParams();
             if (goodsDetailInfo.position == 0){
