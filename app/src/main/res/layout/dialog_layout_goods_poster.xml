@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_top_bg"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -118,6 +119,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_title"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -125,7 +127,7 @@
                     android:lineSpacingExtra="1.3dp"
                     android:maxLines="2"
                     android:minHeight="40dp"
-                    android:text="德国进口玻尿酸原液 德国进口玻尿酸原液 德国进口玻尿酸原液！"
+                    tools:text="德国进口玻尿酸原液 德国进口玻尿酸原液 德国进口玻尿酸原液！"
                     android:textColor="@color/color_333333"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -147,10 +149,11 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tv_price"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="9999"
+                    tools:text="9999"
                     android:textColor="@color/color_b6a578"
                     android:textSize="22sp"
                     android:textStyle="bold" />

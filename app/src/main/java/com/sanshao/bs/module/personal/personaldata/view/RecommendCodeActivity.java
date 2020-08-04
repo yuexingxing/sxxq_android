@@ -13,6 +13,7 @@ import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.FileUtil;
 import com.exam.commonbiz.util.QRCodeUtil;
 import com.exam.commonbiz.util.ScreenUtil;
+import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.module.shoppingcenter.view.GoodsListActivity;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import com.sanshao.bs.util.ShareUtils;
@@ -118,7 +119,7 @@ public class RecommendCodeActivity extends BaseActivity<RecommendCodeViewModel, 
                             }
                         });
                     } else {
-                        new GoodsPosterDialog().show(context);
+                        new GoodsPosterDialog().show(context, new GoodsDetailInfo());
                     }
                 })
                 .show();

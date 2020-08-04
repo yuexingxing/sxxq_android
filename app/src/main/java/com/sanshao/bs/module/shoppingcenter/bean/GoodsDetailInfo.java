@@ -1,6 +1,5 @@
 package com.sanshao.bs.module.shoppingcenter.bean;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.sanshao.bs.util.Constants;
 
 import java.io.Serializable;
@@ -18,7 +17,6 @@ public class GoodsDetailInfo implements Serializable {
     public boolean checked;
     public int position;
     public List<GoodsDetailInfo> setMealList;//套餐
-    public String videoPlayUrl;
     public String instruction;
     public String thumbnail_img;//封面缩略图
     public String sarti_marketing_text;//商品营销文字

@@ -96,18 +96,18 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
         mGoodsListAdapter = new GoodsListAdapter();
         mGoodsListAdapter.setOnItemClickListener(new GoodsListAdapter.OnItemClickListener() {
             @Override
-            public void onBuyClick() {
+            public void onBuyClick(GoodsDetailInfo goodsDetailInfo) {
                 ConfirmOrderActivity.start(context);
             }
 
             @Override
-            public void onGoToDetail() {
+            public void onGoToDetail(GoodsDetailInfo goodsDetailInfo) {
                 GoodsDetailActivity.start(GoodsListActivity.this);
             }
 
             @Override
-            public void onShareClick() {
-                share();
+            public void onShareClick(GoodsDetailInfo goodsDetailInfo) {
+                share(goodsDetailInfo);
             }
 
             @Override
@@ -188,7 +188,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
         }
     }
 
-    private void share() {
+    private void share(GoodsDetailInfo goodsDetailInfo) {
 
         List<CommonDialogInfo> commonDialogInfoList = new ArrayList<>();
         commonDialogInfoList.add(new CommonDialogInfo("分享到微信"));
@@ -206,7 +206,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
                             }
                         });
                     } else {
-                        new GoodsPosterDialog().show(context);
+                        new GoodsPosterDialog().show(context, goodsDetailInfo);
                     }
                 })
                 .show();

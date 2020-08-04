@@ -26,7 +26,7 @@ public class GoodsDetailVideoFragment extends BaseFragment<BaseViewModel, Fragme
 
     @Override
     public void initData() {
-        binding.videoPlayLayout.setVideoPlayUrl(Constants.VIDEO_PLAY_URL);
+//        binding.videoPlayLayout.setVideoInfo(Constants.VIDEO_PLAY_URL);
     }
 
     @Override

@@ -216,7 +216,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                             }
                         });
                     } else {
-                        new GoodsPosterDialog().show(context);
+                        new GoodsPosterDialog().show(context, new GoodsDetailInfo());
                     }
                 })
                 .show();

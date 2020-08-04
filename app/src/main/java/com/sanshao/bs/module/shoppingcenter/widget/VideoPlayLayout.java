@@ -5,9 +5,9 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 
-import com.bumptech.glide.Glide;
 import com.sanshao.bs.R;
-import com.sanshao.bs.util.Constants;
+import com.sanshao.bs.module.shoppingcenter.bean.VideoInfo;
+import com.sanshao.bs.util.GlideUtil;
 
 import cn.jzvd.Jzvd;
 import cn.jzvd.JzvdStd;
@@ -25,11 +25,11 @@ public class VideoPlayLayout extends LinearLayout {
         mJzvdStd = findViewById(R.id.videoplayer);
     }
 
-    public void setVideoPlayUrl(String playUrl) {
+    public void setVideoInfo(VideoInfo videoInfo) {
         mJzvdStd.setVisibility(VISIBLE);
-        mJzvdStd.setUp(playUrl,"", JzvdStd.SCREEN_NORMAL);
+        mJzvdStd.setUp(videoInfo.video, "", JzvdStd.SCREEN_NORMAL);
         mJzvdStd.fullscreenButton.setVisibility(INVISIBLE);
-        Glide.with(this).load(Constants.DEFAULT_IMG_BG).into(mJzvdStd.posterImageView);
+        GlideUtil.loadImage(videoInfo.img, mJzvdStd.posterImageView);
     }
 
     public void pausePlay() {

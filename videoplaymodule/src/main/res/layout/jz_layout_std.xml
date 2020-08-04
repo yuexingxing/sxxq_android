@@ -22,7 +22,7 @@
         android:layout_alignParentBottom="true"
         android:adjustViewBounds="true"
         android:background="#000000"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         app:riv_corner_radius_top_left="10dp"
         app:riv_corner_radius_top_right="10dp" />
 

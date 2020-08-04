@@ -10,12 +10,20 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.exam.commonbiz.util.ContainerUtil;
 import com.exam.commonbiz.util.ScreenUtil;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
+import com.sanshao.bs.module.shoppingcenter.bean.VideoInfo;
 import com.sanshao.bs.module.shoppingcenter.widget.VideoPlayLayout;
+import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.util.MathUtil;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * @Author yuexingxing
@@ -26,11 +34,11 @@ public class GoodsListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
     private OnItemClickListener mCallBack;
 
     public interface OnItemClickListener {
-        void onBuyClick();
+        void onBuyClick(GoodsDetailInfo goodsDetailInfo);
 
-        void onGoToDetail();
+        void onGoToDetail(GoodsDetailInfo goodsDetailInfo);
 
-        void onShareClick();
+        void onShareClick(GoodsDetailInfo goodsDetailInfo);
 
         void onConsultClick();
     }
@@ -56,7 +64,10 @@ public class GoodsListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
         ImageView ivIcon = helper.getView(R.id.iv_icon);
         VideoPlayLayout videoPlayLayout = helper.getView(R.id.video_play_layout);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) viewInclude.getLayoutParams();
-        if (TextUtils.isEmpty(item.videoPlayUrl)){
+        Type type = new TypeToken<List<VideoInfo>>() {
+        }.getType();
+        List<VideoInfo> videoInfoList = new Gson().fromJson(item.sarti_img, type);
+        if (ContainerUtil.isEmpty(videoInfoList)){
             ivIcon.setVisibility(View.VISIBLE);
             videoPlayLayout.setVisibility(View.GONE);
             Glide.with(SSApplication.app).load(item.thumbnail_img).into(ivIcon);
@@ -64,14 +75,14 @@ public class GoodsListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
         }else{
             ivIcon.setVisibility(View.GONE);
             videoPlayLayout.setVisibility(View.VISIBLE);
-            videoPlayLayout.setVideoPlayUrl(item.videoPlayUrl);
+            videoPlayLayout.setVideoInfo(videoInfoList.get(0));
             layoutParams.height = ScreenUtil.dp2px(SSApplication.app, 200);
         }
         viewInclude.setLayoutParams(layoutParams);
 
         helper.getView(R.id.ll_bg).setOnClickListener(v -> {
             if (mCallBack != null) {
-                mCallBack.onGoToDetail();
+                mCallBack.onGoToDetail(item);
             }
         });
         helper.getView(R.id.ll_consult).setOnClickListener(v -> {
@@ -81,18 +92,18 @@ public class GoodsListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
         });
         helper.getView(R.id.ll_share).setOnClickListener(v -> {
             if (mCallBack != null) {
-                mCallBack.onShareClick();
+                mCallBack.onShareClick(item);
             }
         });
         helper.getView(R.id.btn_buy).setOnClickListener(v -> {
             if (mCallBack != null) {
-                mCallBack.onBuyClick();
+                mCallBack.onBuyClick(item);
             }
         });
 
-        if (helper.getAdapterPosition() == getData().size() - 1){
+        if (helper.getAdapterPosition() == getData().size() - 1) {
             helper.getView(R.id.view_bottom).setVisibility(View.VISIBLE);
-        }else{
+        } else {
             helper.getView(R.id.view_bottom).setVisibility(View.GONE);
         }
     }
