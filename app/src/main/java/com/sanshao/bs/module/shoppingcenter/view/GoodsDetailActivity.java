@@ -242,9 +242,6 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         binding.tvPrice.setText(MathUtil.getNumExclude0(goodsDetailInfo.sarti_saleprice));
         binding.tvOldPrice.setText("¥" + MathUtil.getNumExclude0(goodsDetailInfo.sarti_mkprice));
         binding.tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
-        binding.tryMatching.initData();
-        binding.tryMatching.initViewPager(getSupportFragmentManager());
-
         binding.tvSellNum.setText("已售" + goodsDetailInfo.sell_num);
 
         RichText.from(goodsDetailInfo.sarti_desc).bind(this)
@@ -253,10 +250,20 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                 .into(binding.tvGoodsDetail);
 
         if (!ContainerUtil.isEmpty(goodsDetailInfo.product_list)) {
-            binding.llSetMeal.setVisibility(View.VISIBLE);
-            mSetMealAdapter.setNewData(goodsDetailInfo.product_list);
+            //0=非套餐，1=套餐
+            if (goodsDetailInfo.is_package == 1) {
+                binding.tryMatching.setVisibility(View.GONE);
+                binding.llSetMeal.setVisibility(View.VISIBLE);
+                mSetMealAdapter.setNewData(goodsDetailInfo.product_list);
+            } else {
+                binding.llSetMeal.setVisibility(View.GONE);
+                binding.tryMatching.setVisibility(View.VISIBLE);
+                binding.tryMatching.setData(goodsDetailInfo.product_list);
+                binding.tryMatching.initViewPager(getSupportFragmentManager());
+            }
         } else {
             binding.llSetMeal.setVisibility(View.GONE);
+            binding.tryMatching.setVisibility(View.GONE);
         }
 
         if (!ContainerUtil.isEmpty(goodsDetailInfo.sarti_img)) {

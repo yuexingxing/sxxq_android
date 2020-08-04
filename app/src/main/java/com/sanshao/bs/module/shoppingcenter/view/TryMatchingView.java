@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
+import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.module.order.view.adapter.TabFragmentPagerAdapter;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
@@ -48,10 +49,12 @@ public class TryMatchingView extends LinearLayout {
         mViewPager.setCurrentItem(0);
     }
 
-    public void initData() {
-
-        for (int i = 0; i < 5; i++) {
-            GoodsDetailInfo goodsDetailInfo = GoodsDetailInfo.getGoodsDetailInfo();
+    public void setData(List<GoodsDetailInfo> goodsDetailInfoList) {
+        if (ContainerUtil.isEmpty(goodsDetailInfoList)) {
+            return;
+        }
+        for (int i = 0; i < goodsDetailInfoList.size(); i++) {
+            GoodsDetailInfo goodsDetailInfo = goodsDetailInfoList.get(i);
             goodsDetailInfo.position = i;
             TryMatchingFragment tryMatchingFragment = TryMatchingFragment.newInstance(goodsDetailInfo);
             mFragmentList.add(tryMatchingFragment);

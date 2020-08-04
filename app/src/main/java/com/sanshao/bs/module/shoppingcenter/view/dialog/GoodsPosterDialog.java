@@ -53,7 +53,7 @@ public class GoodsPosterDialog {
         if (goodsDetailInfo != null) {
             tvTitle.setText(goodsDetailInfo.sarti_name);
             tvPrice.setText(goodsDetailInfo.sarti_saleprice + "");
-            Glide.with(SSApplication.app).load(goodsDetailInfo.thumbnail_img).into(imgIcon);
+            Glide.with(SSApplication.app).load(goodsDetailInfo.share_url).into(imgIcon);
         }
         String userId = SSApplication.getInstance().getUserInfo().nickName;
         if (TextUtils.isEmpty(userId)) {

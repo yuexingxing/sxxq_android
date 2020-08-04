@@ -12,6 +12,7 @@ import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.FragmentTryMatchingBinding;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.util.Constants;
+import com.sanshao.bs.util.GlideUtil;
 import com.sanshao.bs.util.MathUtil;
 
 /**
@@ -39,16 +40,17 @@ public class TryMatchingFragment extends BaseFragment<BaseViewModel, FragmentTry
     public void initData() {
 
         GoodsDetailInfo goodsDetailInfo = (GoodsDetailInfo) getArguments().getSerializable(Constants.OPT_DATA);
-        if (goodsDetailInfo != null){
+        if (goodsDetailInfo != null) {
             binding.includeTry.tvTitle.setText(goodsDetailInfo.sarti_name);
             binding.includeTry.tvPrice.setText(MathUtil.getNumExclude0(goodsDetailInfo.sarti_saleprice));
             binding.includeTry.tvOldPrice.setText("¥" + MathUtil.getNumExclude0(goodsDetailInfo.sarti_mkprice));
-            Glide.with(SSApplication.app).load(goodsDetailInfo.thumbnail_img).into(binding.includeTry.ivIcon);
+            GlideUtil.loadImage(goodsDetailInfo.thumbnail_img, binding.includeTry.ivIcon);
+            binding.includeTry.tvSellNum.setText("热卖" + goodsDetailInfo.sell_num + "件");
 
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) binding.rlContent.getLayoutParams();
-            if (goodsDetailInfo.position == 0){
+            if (goodsDetailInfo.position == 0) {
                 layoutParams.setMargins(ScreenUtil.dp2px(context, 0), 0, 0, 0);
-            }else{
+            } else {
                 layoutParams.setMargins(ScreenUtil.dp2px(context, 12), 0, ScreenUtil.dp2px(context, 12), 0);
             }
             binding.rlContent.setLayoutParams(layoutParams);
