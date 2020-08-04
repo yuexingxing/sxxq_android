@@ -126,6 +126,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.shoppingcenter.view.GoodsDetailActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.shoppingcenter.view.GoodsListActivity"

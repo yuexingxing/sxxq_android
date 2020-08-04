@@ -17,7 +17,7 @@ public class GoodsDetailInfo implements Serializable {
     public boolean checked;
     public int position;
     public List<GoodsDetailInfo> setMealList;//套餐
-    public String instruction;
+    public String sarti_intro;
     public String thumbnail_img;//封面缩略图
     public String sarti_marketing_text;//商品营销文字
     public int is_package;//0=非套餐，1=套餐

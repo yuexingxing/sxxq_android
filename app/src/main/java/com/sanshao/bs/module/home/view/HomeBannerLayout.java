@@ -1,6 +1,7 @@
 package com.sanshao.bs.module.home.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,8 +37,16 @@ public class HomeBannerLayout extends LinearLayout {
 
     public HomeBannerLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        boolean autoScroll;
         View rootView = LayoutInflater.from(context).inflate(R.layout.layout_home_banner, this);
+        TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.HomeBannerLayout, 0, 0);
+        try {
+            autoScroll = ta.getBoolean(R.styleable.HomeBannerLayout_HomeBannerLayout_autoScroll, true);
+        } finally {
+            ta.recycle();
+        }
         mHomeBanner = rootView.findViewById(R.id.home_banner);
+        mHomeBanner.setAutoScroll(autoScroll);
         ViewGroup.LayoutParams params = mHomeBanner.getLayoutParams();
         params.width = ScreenUtil.getScreenSize(getContext())[0];
         params.height = ScreenUtil.dp2px(getContext(), 200);
@@ -49,6 +58,10 @@ public class HomeBannerLayout extends LinearLayout {
         super(context, attrs, defStyleAttr);
     }
 
+    /**
+     *
+     * @param list
+     */
     public void setData(List<BannerInfo> list) {
         if (ContainerUtil.isEmpty(list)) {
             return;
@@ -62,6 +75,10 @@ public class HomeBannerLayout extends LinearLayout {
         }
         mHomeBanner.setData(list, new BannerClick());
         mHomeBanner.setScrollSpeed(mHomeBanner);
+    }
+
+    public void pauseBanner(){
+        mHomeBanner.pauseBanner();
     }
 
     private void addDots(List<BannerInfo> list) {

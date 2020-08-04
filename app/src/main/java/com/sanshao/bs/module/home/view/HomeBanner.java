@@ -1,10 +1,12 @@
 package com.sanshao.bs.module.home.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,12 +24,14 @@ import androidx.viewpager.widget.ViewPager;
 import com.bumptech.glide.Glide;
 import com.sanshao.bs.R;
 import com.sanshao.bs.module.home.model.BannerInfo;
+import com.sanshao.bs.module.shoppingcenter.bean.VideoInfo;
+import com.sanshao.bs.module.shoppingcenter.widget.VideoPlayLayout;
+import com.sanshao.bs.util.GlideUtil;
 
 import java.lang.reflect.Field;
 import java.util.List;
 
 /**
- *
  * @Author yuexingxing
  * @time 2020/6/15
  */
@@ -39,11 +43,7 @@ public class HomeBanner extends ViewPager {
     private int time = 5000;
     private Rect mRect;
     private boolean isFmVisiable = true;
-
-    public HomeBanner(Context context) {
-        super(context);
-        init();
-    }
+    private boolean mAutoScroll = true;
 
     public HomeBanner(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -119,12 +119,11 @@ public class HomeBanner extends ViewPager {
                 } else {
                     setCurrentItem(currentItem + 1);
                 }
-                if (mHandler != null) {
+                if (mHandler != null && mAutoScroll) {
                     mHandler.postDelayed(mRunnable, time);
                 }
             }
         };
-
         mRect = new Rect();
 
         addOnPageChangeListener(new OnPageChangeListener() {
@@ -148,6 +147,10 @@ public class HomeBanner extends ViewPager {
 
     public void setFmVisiable(boolean isVisiable) {
         this.isFmVisiable = isVisiable;
+    }
+
+    public void setAutoScroll(boolean autoScroll) {
+        this.mAutoScroll = autoScroll;
     }
 
     @Override
@@ -185,8 +188,10 @@ public class HomeBanner extends ViewPager {
     }
 
     public void resumeBanner() {
-        mHandler.removeCallbacksAndMessages(null);
-        mHandler.postDelayed(mRunnable, time);
+        if (mAutoScroll) {
+            mHandler.removeCallbacksAndMessages(null);
+            mHandler.postDelayed(mRunnable, time);
+        }
     }
 
     public OnPageClickListener onPageClickListener;
@@ -201,11 +206,12 @@ public class HomeBanner extends ViewPager {
             mContext = context;
         }
 
-
         @Override
         public int getCount() {
             if (mList == null || mList.isEmpty()) {
                 return 0;
+            } else if (!mAutoScroll) {
+                return mList.size();
             } else {
                 return Integer.MAX_VALUE;
 
@@ -230,18 +236,24 @@ public class HomeBanner extends ViewPager {
         public Object instantiateItem(ViewGroup container, int position) {
             int pos = position % mList.size();
             if (pos >= 0 && pos < mList.size()) {
-                BannerInfo info = mList.get(pos);
+                BannerInfo bannerInfo = mList.get(pos);
                 View view = LayoutInflater.from(mContext).inflate(R.layout.item_home_banner, container, false);
-                view.setTag(info);
+                view.setTag(bannerInfo);
                 view.setOnClickListener(this);
-                ImageView banner_image = view.findViewById(R.id.banner_image);
-
-                Glide.with(getContext())
-                        .load(info.artitag_url)
-                        .placeholder(R.drawable.ic_launcher_background)
-                        .error(R.drawable.ic_launcher_background)
-                        .into(banner_image);
-
+                ImageView bannerImage = view.findViewById(R.id.banner_image);
+                VideoPlayLayout videoPlayLayout = view.findViewById(R.id.video_play_layout);
+                if (!TextUtils.isEmpty(bannerInfo.videoUrl)) {
+                    bannerImage.setVisibility(GONE);
+                    videoPlayLayout.setVisibility(VISIBLE);
+                    VideoInfo videoInfo = new VideoInfo();
+                    videoInfo.video = bannerInfo.videoUrl;
+                    videoInfo.img = bannerInfo.videoPic;
+                    videoPlayLayout.setVideoInfo(videoInfo);
+                } else {
+                    videoPlayLayout.setVisibility(GONE);
+                    bannerImage.setVisibility(VISIBLE);
+                    GlideUtil.loadImage(bannerInfo.artitag_url, bannerImage);
+                }
                 container.addView(view);
                 return view;
             } else {

@@ -24,6 +24,7 @@ import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityGoodsDetailBinding;
 import com.sanshao.bs.module.EmptyWebViewActivity;
+import com.sanshao.bs.module.home.model.BannerInfo;
 import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
 import com.sanshao.bs.module.order.view.ConfirmOrderActivity;
 import com.sanshao.bs.module.order.view.adapter.TabFragmentPagerAdapter;
@@ -63,8 +64,6 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
     private String mSartiId;
     private SetMealAdapter mSetMealAdapter;
     private GoodsDetailInfo mGoodsDetailInfo;
-    private List<Fragment> mFragmentList = new ArrayList<>();
-    private FragmentPagerAdapter mFragmentPagerAdapter;
 
     public static void start(Context context, String sartiId) {
         Intent starter = new Intent(context, GoodsDetailActivity.class);
@@ -75,6 +74,14 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
     @Override
     public int getLayoutId() {
         return R.layout.activity_goods_detail;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        initData();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -108,7 +115,12 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             }
         });
 
-        binding.llIntroduction.setOnClickListener(v -> new GoodsInroductionDialog().show(context, "玻尿酸（Hyaluronan）是由D-葡萄糖醛酸及N-乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构双糖单位又称糖醛酸、透明质酸基本结构。乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类。玻尿酸（Hyaluronan）是由D-葡萄糖醛酸及N-乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构双糖单位又称糖醛酸、透明质酸基本结构。乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类。玻尿酸（Hyaluronan）是由D-葡萄糖醛酸及N-乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构双糖单位又称糖醛酸、透明质酸基本结构。乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类。玻尿酸（Hyaluronan）是由D-葡萄糖醛酸及N-乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构双糖单位又称糖醛酸、透明质酸基本结构。乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类。玻尿酸（Hyaluronan）是由D-葡萄糖醛酸及N-乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构双糖单位又称糖醛酸、透明质酸基本结构。乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类。玻尿酸（Hyaluronan）是由D-葡萄糖醛酸及N-乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构双糖单位又称糖醛酸、透明质酸基本结构。乙酰葡糖胺组成的双糖单位又称糖醛酸、透明质酸基本结构是由两个双糖单位D-葡萄糖醛酸及N-乙酰葡糖胺组成的大型多糖类。"));
+        binding.llIntroduction.setOnClickListener(v -> {
+            if (mGoodsDetailInfo == null) {
+                return;
+            }
+            new GoodsInroductionDialog().show(context, mGoodsDetailInfo.sarti_intro);
+        });
 
         binding.includeBottom.btnBuy.setOnClickListener(v -> ConfirmOrderActivity.start(context));
         binding.llTabGoods.setOnClickListener(v -> {
@@ -133,9 +145,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         mSetMealAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                GoodsDetailInfo goodsTypeDetailInfo = mSetMealAdapter.getData().get(position);
-                goodsTypeDetailInfo.checked = !goodsTypeDetailInfo.checked;
-                adapter.notifyItemChanged(position);
+                GoodsDetailActivity.start(context, mSetMealAdapter.getData().get(position).sarti_id);
             }
         });
 
@@ -147,13 +157,6 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         );
         binding.ivCallPhone.setOnClickListener(view -> CommandTools.callPhone(context, "12345678"));
         mViewModel.getGoodsDetail(mSartiId);
-    }
-
-    private void initViewPager() {
-        mFragmentPagerAdapter = new TabFragmentPagerAdapter(getSupportFragmentManager(), mFragmentList);
-        binding.viewPagerVideo.setAdapter(mFragmentPagerAdapter);
-        binding.viewPagerVideo.setOffscreenPageLimit(mFragmentList.size());
-        binding.viewPagerVideo.setCurrentItem(0);
     }
 
     private void scrollToView(View view) {
@@ -256,19 +259,21 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             binding.llSetMeal.setVisibility(View.GONE);
         }
 
-        mFragmentList.clear();
         if (!ContainerUtil.isEmpty(goodsDetailInfo.sarti_img)) {
+            List<BannerInfo> bannerInfoList = new ArrayList<>();
             for (int i = 0; i < goodsDetailInfo.sarti_img.size(); i++) {
                 VideoInfo videoInfo = goodsDetailInfo.sarti_img.get(i);
+                BannerInfo bannerInfo = new BannerInfo();
                 if (!TextUtils.isEmpty(videoInfo.video)) {
-                    mFragmentList.add(GoodsDetailVideoFragment.newInstance(videoInfo));
+                    bannerInfo.videoUrl = videoInfo.video;
+                    bannerInfo.videoPic = videoInfo.img;
                 } else {
-                    mFragmentList.add(GoodsDetailPictureFragment.newInstance(videoInfo.img));
+                    bannerInfo.artitag_url = videoInfo.img;
                 }
+                bannerInfoList.add(bannerInfo);
             }
-        } else {
-            mFragmentList.add(GoodsDetailPictureFragment.newInstance(goodsDetailInfo.thumbnail_img));
+            binding.homeBannerLayout.setData(bannerInfoList);
         }
-        initViewPager();
+        binding.nestedScrollview.scrollTo(0, 0);
     }
 }

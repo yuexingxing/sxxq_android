@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/frame_layout"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -17,5 +18,12 @@
         app:riv_mutate_background="true"
         app:riv_oval="false"
         app:riv_tile_mode="clamp" />
+
+    <com.sanshao.bs.module.shoppingcenter.widget.VideoPlayLayout
+        android:id="@+id/video_play_layout"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_height="match_parent" />
 
 </FrameLayout>

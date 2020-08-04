@@ -10,4 +10,6 @@ public class BannerInfo {
     public String artitag_url;
     public String artitag_type;//1：轮播（显示标签），2：爆款促销（显示商品），3：好物推荐（显示商品），4：商品分类（显示标签）,5:静态广告
     public String action_type;//GOODS=跳转到商品详情页
+    public String videoUrl;
+    public String videoPic;
 }
