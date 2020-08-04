@@ -98,7 +98,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
         mGoodsListAdapter.setOnItemClickListener(new GoodsListAdapter.OnItemClickListener() {
             @Override
             public void onBuyClick(GoodsDetailInfo goodsDetailInfo) {
-                ConfirmOrderActivity.start(context);
+                ConfirmOrderActivity.start(context, goodsDetailInfo.sarti_id);
             }
 
             @Override

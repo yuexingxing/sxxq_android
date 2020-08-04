@@ -9,6 +9,7 @@ import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityAppointmentForConsultationBinding;
 import com.sanshao.bs.module.order.bean.ConfirmOrderResponse;
+import com.sanshao.bs.module.order.bean.CreateOrderResponse;
 import com.sanshao.bs.module.order.bean.StoreInfo;
 import com.sanshao.bs.module.order.model.IConfirmOrderModel;
 import com.sanshao.bs.module.order.view.adapter.ConfirmOrderAdapter;
@@ -73,6 +74,11 @@ public class AppointmentForConsultationActivity extends BaseActivity<ConfirmOrde
         });
         binding.mulitySetMealView.setOptType(ConfirmOrderAdapter.OPT_TYPE_APPOINTMENT);
         mViewModel.getOrderInfo();
+    }
+
+    @Override
+    public void returnCreateOrderInfo(CreateOrderResponse createOrderResponse) {
+
     }
 
     @Override

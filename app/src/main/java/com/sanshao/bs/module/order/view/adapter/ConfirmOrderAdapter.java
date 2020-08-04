@@ -43,15 +43,15 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
         super(R.layout.item_layout_confirm_order, null);
     }
 
-    public void setOptType(int optType){
+    public void setOptType(int optType) {
         mOptType = optType;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, GoodsDetailInfo item) {
-        helper.setText(R.id.tv_title, helper.getAdapterPosition() + "-" + item.sarti_name);
+        helper.setText(R.id.tv_title, item.sarti_name);
         helper.setText(R.id.tv_buy_count, item.buyNum + "");
-//        helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.sartiMkPrice));
+        helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.sarti_mkprice));
 
         helper.getView(R.id.rl_minus).setOnClickListener(v -> {
             if (mCallBack != null) {
@@ -69,11 +69,11 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
         LinearLayout llOpenSetMeal = helper.getView(R.id.ll_more_setmeal);
         LinearLayout llCloseSetMeal = helper.getView(R.id.ll_close_setmeal);
 
-        llOpenSetMeal.setOnClickListener(v->{
+        llOpenSetMeal.setOnClickListener(v -> {
             llOpenSetMeal.setVisibility(View.GONE);
             flSetMeal.setVisibility(View.VISIBLE);
         });
-        llCloseSetMeal.setOnClickListener(v->{
+        llCloseSetMeal.setOnClickListener(v -> {
             flSetMeal.setVisibility(View.GONE);
             llOpenSetMeal.setVisibility(View.VISIBLE);
         });
@@ -85,10 +85,10 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
         LinearLayout llConentTop = helper.getView(R.id.ll_content_top);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) llConentTop.getLayoutParams();
         //确认订单
-        if (mOptType == OPT_TYPE_CONFIRM_ORDER){
+        if (mOptType == OPT_TYPE_CONFIRM_ORDER) {
             helper.getView(R.id.ll_right_price).setVisibility(View.GONE);
             helper.getView(R.id.ll_count_view).setVisibility(View.VISIBLE);
-        }else if (mOptType == OPT_TYPE_ORDER_DETAIL){
+        } else if (mOptType == OPT_TYPE_ORDER_DETAIL) {
             helper.getView(R.id.ll_right_price).setVisibility(View.VISIBLE);
             helper.getView(R.id.include_goods_single).setVisibility(View.VISIBLE);
             helper.getView(R.id.ll_mulity_set_meal).setVisibility(View.VISIBLE);
@@ -98,14 +98,14 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
             layoutParams.leftMargin = ScreenUtil.dp2px(SSApplication.app, 12);
             layoutParams.rightMargin = ScreenUtil.dp2px(SSApplication.app, 12);
             llConentTop.setLayoutParams(layoutParams);
-        }else if (mOptType == OPT_TYPE_APPOINTMENT){
+        } else if (mOptType == OPT_TYPE_APPOINTMENT) {
             helper.getView(R.id.ll_right_price).setVisibility(View.GONE);
             helper.getView(R.id.ll_count_view).setVisibility(View.GONE);
         }
 
         //如果有套餐
-        if (!ContainerUtil.isEmpty(item.setMealList)){
-            if (flSetMeal.getVisibility() == View.GONE){
+        if (item.isMeal() && !ContainerUtil.isEmpty(item.product_list)) {
+            if (flSetMeal.getVisibility() == View.GONE) {
                 llOpenSetMeal.setVisibility(View.VISIBLE);
             }
             RecyclerView recyclerView = helper.getView(R.id.recycler_view);
@@ -116,14 +116,14 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
             recyclerView.setAdapter(setMealAdapter);
             recyclerView.setNestedScrollingEnabled(false);
             recyclerView.setFocusable(false);
-            setMealAdapter.setNewData(item.setMealList);
-        }else{
+            setMealAdapter.setNewData(item.product_list);
+        } else {
             llOpenSetMeal.setVisibility(View.GONE);
         }
 
-        if (mFragmentManager != null){
+        if (mFragmentManager != null) {
             List<Fragment> mFragmentList = new ArrayList<>();
-            for (int i = 0; i <5 ; i++) {
+            for (int i = 0; i < 5; i++) {
                 mFragmentList.add(ViewCouponCodeFragment.newInstance(i));
             }
             ViewPager viewPager = helper.getView(R.id.view_pager);
@@ -134,8 +134,8 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
         }
     }
 
-    public void setFragmentManager(FragmentManager fragmentManager){
-      mFragmentManager = fragmentManager;
+    public void setFragmentManager(FragmentManager fragmentManager) {
+        mFragmentManager = fragmentManager;
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

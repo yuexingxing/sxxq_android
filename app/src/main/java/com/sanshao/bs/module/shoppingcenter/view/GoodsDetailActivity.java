@@ -122,7 +122,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             new GoodsInroductionDialog().show(context, mGoodsDetailInfo.sarti_intro);
         });
 
-        binding.includeBottom.btnBuy.setOnClickListener(v -> ConfirmOrderActivity.start(context));
+        binding.includeBottom.btnBuy.setOnClickListener(v -> ConfirmOrderActivity.start(context, mSartiId));
         binding.llTabGoods.setOnClickListener(v -> {
             initTabStatus(0);
             scrollToView(binding.llGoods);

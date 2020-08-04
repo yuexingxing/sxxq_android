@@ -16,7 +16,6 @@ public class GoodsDetailInfo implements Serializable {
     public List<VideoInfo> sarti_img;//商品介绍图/视频
     public boolean checked;
     public int position;
-    public List<GoodsDetailInfo> setMealList;//套餐
     public String sarti_intro;
     public String thumbnail_img;//封面缩略图
     public String sarti_marketing_text;//商品营销文字
@@ -29,7 +28,16 @@ public class GoodsDetailInfo implements Serializable {
     public String sarti_desc;
     public List<GoodsDetailInfo> product_list;
 
-    public static GoodsDetailInfo getGoodsDetailInfo(){
+    /**
+     * 是否是套餐
+     *
+     * @return
+     */
+    public boolean isMeal() {
+        return is_package == 1;
+    }
+
+    public static GoodsDetailInfo getGoodsDetailInfo() {
 
         GoodsDetailInfo goodsDetailInfo = new GoodsDetailInfo();
         goodsDetailInfo.sarti_name = "玻尿酸美容护肤不二之选，还你天使容颜，变美不容错误。";
@@ -46,7 +54,7 @@ public class GoodsDetailInfo implements Serializable {
             goodsDetailInfo2.sarti_mkprice = 999;
             setMealList.add(goodsDetailInfo2);
         }
-        goodsDetailInfo.setMealList = setMealList;
+        goodsDetailInfo.product_list = setMealList;
 
         return goodsDetailInfo;
     }

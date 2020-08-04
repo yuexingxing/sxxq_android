@@ -71,7 +71,7 @@ public class OrderDetailViewModel extends BaseViewModel {
         }
         orderDetailResponse.serverList = serverInfoList;
         GoodsDetailInfo goodsDetailInfo = GoodsDetailInfo.getGoodsDetailInfo();
-        goodsDetailInfo.setMealList = null;
+        goodsDetailInfo.product_list = null;
         orderDetailResponse.goodsDetailInfo = goodsDetailInfo;
 
         if (mCallBack != null) {

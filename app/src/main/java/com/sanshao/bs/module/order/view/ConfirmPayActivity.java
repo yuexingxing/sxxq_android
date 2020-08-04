@@ -8,6 +8,7 @@ import com.exam.commonbiz.base.BaseActivity;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityConfirmPayBinding;
 import com.sanshao.bs.module.order.bean.ConfirmOrderResponse;
+import com.sanshao.bs.module.order.bean.CreateOrderResponse;
 import com.sanshao.bs.module.order.bean.OrderPayInfoResponse;
 import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
 import com.sanshao.bs.module.order.model.IConfirmOrderModel;
@@ -133,6 +134,11 @@ public class ConfirmPayActivity extends BaseActivity<ConfirmPayViewModel, Activi
 
             }
         });
+    }
+
+    @Override
+    public void returnCreateOrderInfo(CreateOrderResponse createOrderResponse) {
+
     }
 
     @Override

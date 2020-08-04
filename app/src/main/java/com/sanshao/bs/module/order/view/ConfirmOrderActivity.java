@@ -9,12 +9,20 @@ import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityConfirmOrderBinding;
 import com.sanshao.bs.module.order.bean.ConfirmOrderResponse;
+import com.sanshao.bs.module.order.bean.CreateOrderResponse;
+import com.sanshao.bs.module.order.bean.OrderDetailResponse;
 import com.sanshao.bs.module.order.bean.StoreInfo;
 import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
 import com.sanshao.bs.module.order.model.IConfirmOrderModel;
+import com.sanshao.bs.module.order.model.IOrderDetailModel;
 import com.sanshao.bs.module.order.view.adapter.ConfirmOrderAdapter;
 import com.sanshao.bs.module.order.viewmodel.ConfirmOrderViewModel;
+import com.sanshao.bs.module.order.viewmodel.OrderDetailViewModel;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
+import com.sanshao.bs.module.shoppingcenter.model.IGoodsDetailModel;
+import com.sanshao.bs.module.shoppingcenter.view.GoodsDetailActivity;
+import com.sanshao.bs.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
+import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.util.MathUtil;
 import com.sanshao.bs.util.ToastUtil;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
@@ -22,6 +30,7 @@ import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,16 +39,18 @@ import java.util.List;
  * @Author yuexingxing
  * @time 2020/6/20
  */
-public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, ActivityConfirmOrderBinding> implements IConfirmOrderModel {
+public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, ActivityConfirmOrderBinding> implements IConfirmOrderModel, IGoodsDetailModel {
 
+    private String mSartiId;
     private double mTotalPrice = 0;
     private int mTotalBuyNum = 0;
+    private GoodsDetailViewModel mGoodsDetailViewModel;
 
-    public static void start(Context context) {
+    public static void start(Context context, String sartiId) {
         Intent starter = new Intent(context, ConfirmOrderActivity.class);
+        starter.putExtra(Constants.OPT_DATA, sartiId);
         context.startActivity(starter);
     }
-
     @Override
     public int getLayoutId() {
         return R.layout.activity_confirm_order;
@@ -48,7 +59,10 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
     @Override
     public void initData() {
 
+        mSartiId = getIntent().getStringExtra(Constants.OPT_DATA);
         mViewModel.setCallBack(this);
+        mGoodsDetailViewModel = new GoodsDetailViewModel();
+        mGoodsDetailViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -89,17 +103,13 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
 
             @Override
             public void onPlusClick(int position, GoodsDetailInfo item) {
-                if (item.buyNum >= item.stock){
-                    ToastUtil.showShortToast("不能超过库存");
-                    return;
-                }
                 ++item.buyNum;
                 binding.mulitySetMealView.mConfirmOrderAdapter.notifyItemChanged(position);
                 calculatePrice(binding.mulitySetMealView.mConfirmOrderAdapter.getData());
             }
         });
 
-        mViewModel.getOrderInfo();
+        mGoodsDetailViewModel.getGoodsDetail(mSartiId);
     }
 
     @Override
@@ -115,6 +125,11 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
         if (payStatusChangedEvent.paySuccess){
             finish();
         }
+    }
+
+    @Override
+    public void returnCreateOrderInfo(CreateOrderResponse createOrderResponse) {
+
     }
 
     @Override
@@ -163,5 +178,16 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
         binding.tvTotalPrice1.setText(showPrice);
         binding.tvTotalPrice2.setText(showPrice);
         binding.tvTotalPrice3.setText(showPrice);
+    }
+
+    @Override
+    public void returnGoodsDetail(GoodsDetailInfo goodsDetailInfo) {
+        if (goodsDetailInfo == null){
+            return;
+        }
+
+        List<GoodsDetailInfo> goodsDetailInfoList = new ArrayList<>();
+        goodsDetailInfoList.add(goodsDetailInfo);
+        binding.mulitySetMealView.setData(goodsDetailInfoList);
     }
 }
