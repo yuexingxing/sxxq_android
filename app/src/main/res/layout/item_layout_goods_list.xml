@@ -91,15 +91,16 @@
 
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:layout_marginTop="6dp"
             android:layout_marginRight="12dp"
             android:ellipsize="end"
+            android:gravity="start"
             android:lineSpacingExtra="1.3dp"
             android:maxLines="2"
-            android:text="德国进口玻尿酸原液，玻尿酸美容护肤不二之选，还你的天使容颜"
+            tools:text="德国进口玻尿酸原液，玻尿酸美容护肤不二之选，还你的天使容颜"
             android:textColor="@color/color_333333"
             android:textSize="18sp"/>
 

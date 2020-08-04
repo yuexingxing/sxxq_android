@@ -53,7 +53,9 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
         binding.goodsTypeRecyclerView.setNestedScrollingEnabled(false);
         binding.goodsTypeRecyclerView.setLayoutManager(linearLayoutManager);
         binding.goodsTypeRecyclerView.setAdapter(mGoodsTypeAdapter);
-        mGoodsTypeAdapter.setOnItemClickListener((adapter, view, position) -> GoodsListActivity.start(getContext()));
+        mGoodsTypeAdapter.setOnItemClickListener((adapter, view, position) ->{
+            GoodsListActivity.start(context, mGoodsTypeAdapter.getData().get(position).artitag_id);
+        });
 
         binding.nestedScrollview.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override

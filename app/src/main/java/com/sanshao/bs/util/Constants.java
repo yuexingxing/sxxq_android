@@ -23,6 +23,7 @@ public class Constants {
     public static final int SERVER_STATUS_OK = 20001;
     public static final int SERVER_STATUS_WRONG = 20002;
 
+    public static final int PAGE_SIZE = 10;
     public static final String OPT_TYPE = "opt_type";
     public static final String OPT_DATA = "opt_data";
 

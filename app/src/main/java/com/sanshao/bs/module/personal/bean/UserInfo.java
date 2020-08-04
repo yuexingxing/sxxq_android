@@ -1,5 +1,7 @@
 package com.sanshao.bs.module.personal.bean;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
 
 /**
@@ -7,9 +9,33 @@ import java.io.Serializable;
  * @time 2020/7/2
  */
 public class UserInfo implements Serializable {
-    public int sex;
-    public String sexName = "请选择";
+    public String mem_id;
+    public String gender = "请选择";
     public String nickName = "sanshao";
     public String birthday;
     public String signature;
+    public String avatar;
+    public String invitation_code;
+    public MemberClass mem_class;
+
+    public String getGender() {
+        if (TextUtils.equals("M", gender)) {
+            return "男";
+        } else {
+            return "女";
+        }
+    }
+
+    public class MemberClass {
+        public String mem_class_id;
+        public String mem_class_key;
+        public String mem_class_name;//会员等级名称
+        public String mem_class_valid_days;//会员等级有效天数
+        public String floor_amt;//实付xx元才能升到当前升级
+    }
+
+    public class ReferMember {
+
+
+    }
 }

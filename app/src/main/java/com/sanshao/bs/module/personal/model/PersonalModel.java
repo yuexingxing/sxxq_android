@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 public class PersonalModel {
 
     public static void getUserInfo(final OnLoadListener onLoadListener) {
-        XApi.get(PersonalApiService.class)
+        XApi.get(PersonalApiService.class, XApi.HOST_TYPE.NODE)
                 .getUserInfo()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

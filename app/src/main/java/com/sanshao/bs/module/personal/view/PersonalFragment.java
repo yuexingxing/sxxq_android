@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.cache.ACache;
 import com.exam.commonbiz.config.ConfigSP;
@@ -153,6 +154,11 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
 
     @Override
     public void returnUserInfo(UserInfo userInfo) {
+        if (userInfo == null){
+            return;
+        }
+        binding.tvName.setText(userInfo.nickName);
+        Glide.with(SSApplication.app).load(userInfo.avatar).into(binding.ivAvatar);
         initLoginStatus(3);
     }
 

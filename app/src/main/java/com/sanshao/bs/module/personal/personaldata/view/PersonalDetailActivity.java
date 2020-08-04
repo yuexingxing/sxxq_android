@@ -77,7 +77,7 @@ public class PersonalDetailActivity extends BaseActivity<PersonalDetailViewModel
         mPersonalViewModel = new PersonalViewModel();
         UserInfo userInfo = SSApplication.getInstance().getUserInfo();
         binding.lcvNickName.setContent(userInfo.nickName);
-        binding.lcvSex.setContent(userInfo.sexName);
+        binding.lcvSex.setContent(userInfo.getGender());
         binding.lcvSignature.setContent(userInfo.signature);
         binding.lcvBirthday.setContent(userInfo.birthday);
 
@@ -157,9 +157,9 @@ public class PersonalDetailActivity extends BaseActivity<PersonalDetailViewModel
                         @Override
                         public void onItemClick(CommonDialogInfo commonDialogInfo) {
                             UserInfo userInfo = SSApplication.getInstance().getUserInfo();
-                            userInfo.sexName = commonDialogInfo.name;
+//                            userInfo.sexName = commonDialogInfo.name;
                             SSApplication.getInstance().saveUserInfo(userInfo);
-                            binding.lcvSex.setContent(userInfo.sexName);
+//                            binding.lcvSex.setContent(userInfo.sexName);
                             //TODO 更新性别
                             //mPersonalSignatureViewModel.updateUserInfo(null);
                         }

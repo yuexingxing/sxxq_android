@@ -18,7 +18,7 @@ import retrofit2.http.Query;
 public interface PersonalApiService {
 
     //获取个人信息
-    @GET("/util/sms/fetch")
+    @GET("w/meminfo/getMemInfo")
     Observable<BaseResponse<UserInfo>> getUserInfo();
 
     //提交个人信息

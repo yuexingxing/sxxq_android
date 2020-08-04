@@ -42,9 +42,9 @@ public class ShoppingCenterModel {
                 });
     }
 
-    public static void getGoodsList(String mobile, String type, final OnLoadListener onLoadListener) {
-        XApi.get(GoodsApiService.class)
-                .getGoodsList(mobile, type)
+    public static void getGoodsList(String artiTagId, int offset, int limit, final OnLoadListener onLoadListener) {
+        XApi.get(GoodsApiService.class, XApi.HOST_TYPE.JAVA)
+                .getGoodsList(artiTagId, offset, limit)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver() {

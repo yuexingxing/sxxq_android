@@ -6,16 +6,13 @@ import android.os.Build;
 import android.util.Log;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseActivity;
-import com.exam.commonbiz.log.XLog;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.exam.commonbiz.util.ScreenUtil;
@@ -28,6 +25,7 @@ import com.sanshao.bs.module.shoppingcenter.model.IGoodsListModel;
 import com.sanshao.bs.module.shoppingcenter.view.adapter.GoodsListAdapter;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.GoodsListViewModel;
+import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.util.ShareUtils;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
@@ -51,10 +49,13 @@ import cn.jzvd.Jzvd;
 public class GoodsListActivity extends BaseActivity<GoodsListViewModel, ActivityGoodsListBinding> implements BaseQuickAdapter.RequestLoadMoreListener,
         IGoodsListModel {
 
+    private String mArtiTagId;
+    private int mPageNum = 0;
     private GoodsListAdapter mGoodsListAdapter;
 
-    public static void start(Context context) {
+    public static void start(Context context, String artiTagId) {
         Intent starter = new Intent(context, GoodsListActivity.class);
+        starter.putExtra(Constants.OPT_DATA, artiTagId);
         context.startActivity(starter);
     }
 
@@ -67,6 +68,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
     @Override
     public void initData() {
 
+        mArtiTagId = getIntent().getStringExtra(Constants.OPT_DATA);
         mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
@@ -86,7 +88,10 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
         });
 
         binding.swipeRefreshLayout.setColorSchemeResources(R.color.main_color);
-        binding.swipeRefreshLayout.setOnRefreshListener(() -> mViewModel.getGoodsList());
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> {
+            mPageNum = 0;
+            mViewModel.getGoodsList(mArtiTagId, mPageNum, Constants.PAGE_SIZE);
+        });
 
         mGoodsListAdapter = new GoodsListAdapter();
         mGoodsListAdapter.setOnItemClickListener(new GoodsListAdapter.OnItemClickListener() {
@@ -118,6 +123,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
         binding.goodsListRecyclerView.setFocusable(false);
         mGoodsListAdapter.setOnLoadMoreListener(this, binding.goodsListRecyclerView);
         mGoodsListAdapter.setEnableLoadMore(false);
+        mGoodsListAdapter.setOnLoadMoreListener(this, binding.goodsListRecyclerView);
         binding.goodsListRecyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
@@ -140,7 +146,8 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
         });
         binding.emptyLayout.bindView(binding.goodsListRecyclerView);
         binding.emptyLayout.setOnButtonClick(view -> {
-            mViewModel.getGoodsList();
+            mPageNum = 0;
+            mViewModel.getGoodsList(mArtiTagId, mPageNum, Constants.PAGE_SIZE);
         });
         binding.nestedScrollview.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
@@ -157,12 +164,13 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
         binding.ivToTop.setOnClickListener(view -> {
             binding.nestedScrollview.smoothScrollTo(0, 0);
         });
-        mViewModel.getGoodsList();
+        mViewModel.getGoodsList(mArtiTagId, mPageNum, Constants.PAGE_SIZE);
     }
 
     @Override
     public void onLoadMoreRequested() {
-
+        ++mPageNum;
+        mViewModel.getGoodsList(mArtiTagId, mPageNum, Constants.PAGE_SIZE);
     }
 
     @Override
@@ -220,9 +228,12 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
 
     @Override
     public void onRefreshData(Object object) {
+        binding.swipeRefreshLayout.setRefreshing(false);
+        if (object == null) {
+            return;
+        }
         List<GoodsDetailInfo> list = (List<GoodsDetailInfo>) object;
         mGoodsListAdapter.getData().clear();
-        binding.swipeRefreshLayout.setRefreshing(false);
         if (ContainerUtil.isEmpty(list)) {
             binding.emptyLayout.showEmpty("数据为空", R.drawable.image_logo);
             return;
@@ -233,11 +244,22 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
 
     @Override
     public void onLoadMoreData(Object object) {
-
+        binding.swipeRefreshLayout.setRefreshing(false);
+        if (object == null) {
+            return;
+        }
+        List<GoodsDetailInfo> list = (List<GoodsDetailInfo>) object;
+        if (ContainerUtil.isEmpty(list)) {
+            mGoodsListAdapter.loadMoreEnd();
+            return;
+        }
+        mGoodsListAdapter.loadMoreComplete();
+        mGoodsListAdapter.addData(list);
     }
 
     @Override
     public void onNetError() {
-//        binding.emptyLayout.showError();
+        binding.swipeRefreshLayout.setRefreshing(false);
+        binding.emptyLayout.showError();
     }
 }

@@ -22,9 +22,7 @@ public class PersonalViewModel extends BaseViewModel {
 
             @Override
             public void onLoadStart() {
-                if (mCallBack != null){
-                    mCallBack.returnUserInfo(null);
-                }
+
             }
 
             @Override
@@ -34,7 +32,9 @@ public class PersonalViewModel extends BaseViewModel {
 
             @Override
             public void onLoadSucessed(BaseResponse<UserInfo> t) {
-
+                if (mCallBack != null){
+                    mCallBack.returnUserInfo(t.getContent());
+                }
             }
 
             @Override

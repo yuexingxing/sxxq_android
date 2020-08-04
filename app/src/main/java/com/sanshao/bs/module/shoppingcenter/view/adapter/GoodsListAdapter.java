@@ -45,7 +45,7 @@ public class GoodsListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
 
     @Override
     protected void convert(BaseViewHolder helper, GoodsDetailInfo item) {
-        helper.setText(R.id.tv_title, helper.getAdapterPosition() + "-" + item.sarti_name);
+        helper.setText(R.id.tv_title, item.sarti_name);
 
         helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.sarti_mkprice));
         TextView tvOldPrice = helper.getView(R.id.tv_old_price);

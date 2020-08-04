@@ -12,6 +12,7 @@ import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsTypeInfo;
+import com.sanshao.bs.module.shoppingcenter.view.GoodsDetailActivity;
 import com.sanshao.bs.module.shoppingcenter.view.GoodsListActivity;
 
 /**
@@ -28,7 +29,7 @@ public class GoodsTypeAdapter extends BaseQuickAdapter<GoodsTypeInfo, BaseViewHo
     protected void convert(BaseViewHolder helper, GoodsTypeInfo item) {
         helper.setText(R.id.tv_title, item.artitag_name);
 
-        if (!ContainerUtil.isEmpty(item.set_meal_product)){
+        if (!ContainerUtil.isEmpty(item.set_meal_product)) {
             GoodsTypeDetailAdapter goodsTypeDetailAdapter = new GoodsTypeDetailAdapter();
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(SSApplication.app);
             linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
@@ -36,12 +37,7 @@ public class GoodsTypeAdapter extends BaseQuickAdapter<GoodsTypeInfo, BaseViewHo
             recyclerView.setLayoutManager(linearLayoutManager);
             recyclerView.setAdapter(goodsTypeDetailAdapter);
             goodsTypeDetailAdapter.addData(item.set_meal_product);
-            goodsTypeDetailAdapter.setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    GoodsListActivity.start(view.getContext());
-                }
-            });
+            goodsTypeDetailAdapter.setOnItemClickListener((adapter, view, position) -> GoodsDetailActivity.start(view.getContext()));
         }
     }
 }

@@ -33,7 +33,7 @@ public class SelectSexDialog {
         dialog.setCanceledOnTouchOutside(true);
         dialog.setCancelable(true);
 
-        sex = SSApplication.getInstance().getUserInfo().sex;
+//        sex = SSApplication.getInstance().getUserInfo().sex;
         initView();
 
         rootView.findViewById(R.id.tv_female).setOnClickListener(v -> {

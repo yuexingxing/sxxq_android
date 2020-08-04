@@ -22,9 +22,10 @@ public interface GoodsApiService {
     Observable<BaseResponse<ShoppingCenterResponse>> getShoppingCenterList();
 
     //获取商品列表
-    @POST("/util/sms/fetch")
-    Observable<BaseResponse<List<GoodsDetailInfo>>> getGoodsList(@Query("mobile") String mobile,
-                                                                 @Query("code") String code);
+    @GET("home/tags")
+    Observable<BaseResponse<List<GoodsDetailInfo>>> getGoodsList(@Query("artitag_id") String artiTagId,
+                                                                 @Query("offset") int offset,
+                                                                 @Query("limit") int limit);
 
     //获取商品详情
     @POST("/util/sms/fetch")
