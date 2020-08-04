@@ -91,6 +91,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'
     implementation 'com.squareup.okio:okio:1.9.0'
     api 'com.alibaba:fastjson:1.2.23'
+    api 'com.zzhoujay.richtext:richtext:3.0.7'
+
+
 
     compile (name:'commonui-1.0.13', ext: 'aar')
     compile (name:'commonutil-1.0.1', ext: 'aar')

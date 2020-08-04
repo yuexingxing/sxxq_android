@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
+import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsTypeInfo;
 import com.sanshao.bs.module.shoppingcenter.view.GoodsDetailActivity;
 import com.sanshao.bs.module.shoppingcenter.view.GoodsListActivity;
@@ -37,7 +38,10 @@ public class GoodsTypeAdapter extends BaseQuickAdapter<GoodsTypeInfo, BaseViewHo
             recyclerView.setLayoutManager(linearLayoutManager);
             recyclerView.setAdapter(goodsTypeDetailAdapter);
             goodsTypeDetailAdapter.addData(item.set_meal_product);
-            goodsTypeDetailAdapter.setOnItemClickListener((adapter, view, position) -> GoodsDetailActivity.start(view.getContext()));
+            goodsTypeDetailAdapter.setOnItemClickListener((adapter, view, position) -> {
+                GoodsDetailInfo goodsDetailInfo = goodsTypeDetailAdapter.getData().get(position);
+                GoodsDetailActivity.start(view.getContext(), goodsDetailInfo.sarti_id);
+            });
         }
     }
 }

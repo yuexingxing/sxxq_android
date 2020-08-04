@@ -72,9 +72,9 @@ public class ShoppingCenterModel {
                 });
     }
 
-    public static void getGoodsDetail(String goodsId, final OnLoadListener onLoadListener) {
-        XApi.get(GoodsApiService.class)
-                .getGoodsDetail(goodsId)
+    public static void getGoodsDetail(String sartiId, final OnLoadListener onLoadListener) {
+        XApi.get(GoodsApiService.class, XApi.HOST_TYPE.JAVA)
+                .getGoodsDetail(sartiId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver() {

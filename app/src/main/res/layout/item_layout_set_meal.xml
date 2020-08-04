@@ -34,7 +34,7 @@
                 android:layout_width="66dp"
                 android:layout_height="66dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/icon_goods_type_six"
+                android:src="@drawable/image_placeholder_two"
                 app:riv_corner_radius="10dp" />
 
             <LinearLayout
@@ -104,6 +104,7 @@
                         android:src="@drawable/icon_bestsellers" />
 
                     <TextView
+                        android:id="@+id/tv_sell_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"

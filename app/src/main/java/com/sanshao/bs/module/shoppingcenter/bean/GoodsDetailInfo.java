@@ -13,7 +13,7 @@ public class GoodsDetailInfo implements Serializable {
     public double sarti_mkprice;//市场价
     public int buyNum;
     public int stock;//库存
-    public String sarti_img;//商品介绍图/视频
+    public List<VideoInfo> sarti_img;//商品介绍图/视频
     public boolean checked;
     public int position;
     public List<GoodsDetailInfo> setMealList;//套餐
@@ -24,8 +24,10 @@ public class GoodsDetailInfo implements Serializable {
     public String mem_class_key;//商品星级
     public String share_code;//商品分享码
     public String share_url;//商品分享码图片
-    public String sellNum;
+    public String sell_num;
     public String use_qty;
+    public String sarti_desc;
+    public List<GoodsDetailInfo> product_list;
 
     public static GoodsDetailInfo getGoodsDetailInfo(){
 

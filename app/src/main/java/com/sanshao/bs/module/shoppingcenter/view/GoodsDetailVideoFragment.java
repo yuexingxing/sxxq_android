@@ -1,9 +1,12 @@
 package com.sanshao.bs.module.shoppingcenter.view;
 
+import android.os.Bundle;
+
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.base.BaseViewModel;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.FragmentLayoutGoodsDetailVideoBinding;
+import com.sanshao.bs.module.shoppingcenter.bean.VideoInfo;
 import com.sanshao.bs.util.Constants;
 
 /**
@@ -14,8 +17,11 @@ import com.sanshao.bs.util.Constants;
  */
 public class GoodsDetailVideoFragment extends BaseFragment<BaseViewModel, FragmentLayoutGoodsDetailVideoBinding> {
 
-    public static GoodsDetailVideoFragment newInstance() {
+    public static GoodsDetailVideoFragment newInstance(VideoInfo videoInfo) {
         GoodsDetailVideoFragment fragment = new GoodsDetailVideoFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.OPT_DATA, videoInfo);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -26,7 +32,10 @@ public class GoodsDetailVideoFragment extends BaseFragment<BaseViewModel, Fragme
 
     @Override
     public void initData() {
-//        binding.videoPlayLayout.setVideoInfo(Constants.VIDEO_PLAY_URL);
+        if (getArguments().getSerializable(Constants.OPT_DATA) != null) {
+            VideoInfo videoInfo = (VideoInfo) getArguments().getSerializable(Constants.OPT_DATA);
+            binding.videoPlayLayout.setVideoInfo(videoInfo);
+        }
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.sanshao.bs.module.shoppingcenter.view;
 
+import android.os.Bundle;
+
 import com.bumptech.glide.Glide;
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.base.BaseViewModel;
@@ -7,6 +9,7 @@ import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.FragmentLayoutGoodsDetailPictureBinding;
 import com.sanshao.bs.util.Constants;
+import com.sanshao.bs.util.GlideUtil;
 
 /**
  * 商品详情-图片预览
@@ -16,8 +19,11 @@ import com.sanshao.bs.util.Constants;
  */
 public class GoodsDetailPictureFragment extends BaseFragment<BaseViewModel, FragmentLayoutGoodsDetailPictureBinding> {
 
-    public static GoodsDetailPictureFragment newInstance() {
+    public static GoodsDetailPictureFragment newInstance(String url) {
         GoodsDetailPictureFragment fragment = new GoodsDetailPictureFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.OPT_DATA, url);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -28,7 +34,9 @@ public class GoodsDetailPictureFragment extends BaseFragment<BaseViewModel, Frag
 
     @Override
     public void initData() {
-        Glide.with(SSApplication.app).load(Constants.DEFAULT_IMG_URL).into(binding.ivIcon);
+        if (getArguments() != null) {
+            GlideUtil.loadImage(getArguments().getString(Constants.OPT_DATA), binding.ivIcon);
+        }
     }
 
     @Override

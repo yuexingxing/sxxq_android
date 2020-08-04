@@ -1,7 +1,7 @@
 package com.sanshao.bs.module.shoppingcenter.model;
 
-import com.sanshao.bs.module.shoppingcenter.bean.ResponseGoodsDetail;
+import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 
 public interface IGoodsDetailModel {
-    void returnGoodsDetail(ResponseGoodsDetail responseGoodsDetail);
+    void returnGoodsDetail(GoodsDetailInfo goodsDetailInfo);
 }

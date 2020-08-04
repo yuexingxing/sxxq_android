@@ -102,7 +102,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
 
             @Override
             public void onGoToDetail(GoodsDetailInfo goodsDetailInfo) {
-                GoodsDetailActivity.start(GoodsListActivity.this);
+                GoodsDetailActivity.start(GoodsListActivity.this, goodsDetailInfo.sarti_id);
             }
 
             @Override

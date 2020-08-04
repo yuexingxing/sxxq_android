@@ -64,18 +64,15 @@ public class GoodsListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
         ImageView ivIcon = helper.getView(R.id.iv_icon);
         VideoPlayLayout videoPlayLayout = helper.getView(R.id.video_play_layout);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) viewInclude.getLayoutParams();
-        Type type = new TypeToken<List<VideoInfo>>() {
-        }.getType();
-        List<VideoInfo> videoInfoList = new Gson().fromJson(item.sarti_img, type);
-        if (ContainerUtil.isEmpty(videoInfoList)){
+        if (ContainerUtil.isEmpty(item.sarti_img)) {
             ivIcon.setVisibility(View.VISIBLE);
             videoPlayLayout.setVisibility(View.GONE);
             Glide.with(SSApplication.app).load(item.thumbnail_img).into(ivIcon);
             layoutParams.height = ScreenUtil.dp2px(SSApplication.app, 343);
-        }else{
+        } else {
             ivIcon.setVisibility(View.GONE);
             videoPlayLayout.setVisibility(View.VISIBLE);
-            videoPlayLayout.setVideoInfo(videoInfoList.get(0));
+            videoPlayLayout.setVideoInfo(item.sarti_img.get(0));
             layoutParams.height = ScreenUtil.dp2px(SSApplication.app, 200);
         }
         viewInclude.setLayoutParams(layoutParams);

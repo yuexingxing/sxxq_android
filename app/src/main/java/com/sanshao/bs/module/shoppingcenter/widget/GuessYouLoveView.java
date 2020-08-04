@@ -41,6 +41,9 @@ public class GuessYouLoveView extends LinearLayout {
         mRecyclerView.setAdapter(mGuessYouLoveAdapter);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setFocusable(false);
-        mGuessYouLoveAdapter.setOnItemClickListener((adapter, view, position) -> GoodsDetailActivity.start(context));
+        mGuessYouLoveAdapter.setOnItemClickListener((adapter, view, position) -> {
+            GoodsDetailInfo goodsDetailInfo = mGuessYouLoveAdapter.getData().get(position);
+            GoodsDetailActivity.start(context, goodsDetailInfo.sarti_id);
+        });
     }
 }

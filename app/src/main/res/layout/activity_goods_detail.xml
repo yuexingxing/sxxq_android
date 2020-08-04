@@ -71,6 +71,7 @@
                                 android:textSize="15sp" />
 
                             <TextView
+                                android:id="@+id/tv_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="bottom"
@@ -97,6 +98,7 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/tv_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="12dp"
@@ -131,10 +133,11 @@
                                 android:layout_weight="1" />
 
                             <TextView
+                                android:id="@+id/tv_sell_num"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4dp"
-                                android:text="已售666"
+                                android:text="已售0"
                                 android:textColor="@color/color_999999"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -368,11 +371,11 @@
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <ImageView
+                    <TextView
+                        android:id="@+id/tv_goods_detail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:src="@drawable/icon_goods_type_five" />
+                        android:layout_marginTop="10dp"/>
                 </LinearLayout>
 
             </androidx.core.widget.NestedScrollView>

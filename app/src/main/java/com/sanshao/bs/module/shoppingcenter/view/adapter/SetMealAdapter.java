@@ -5,12 +5,11 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.sanshao.bs.R;
-import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
+import com.sanshao.bs.util.GlideUtil;
 import com.sanshao.bs.util.MathUtil;
 
 /**
@@ -26,14 +25,15 @@ public class SetMealAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseViewHo
     @Override
     protected void convert(BaseViewHolder helper, GoodsDetailInfo item) {
 
-        helper.setText(R.id.tv_title, helper.getAdapterPosition() + "-" + item.sarti_name);
+        helper.setText(R.id.tv_title, item.sarti_name);
         helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.sarti_saleprice));
         CheckBox checkBox = helper.getView(R.id.checkbox);
         checkBox.setChecked(item.checked);
 
-        TextView tvOldPrice  = helper.getView(R.id.tv_old_price);
+        helper.setText(R.id.tv_sell_num, "热卖" + item.sell_num + "件");
+        TextView tvOldPrice = helper.getView(R.id.tv_old_price);
         tvOldPrice.setText("¥" + MathUtil.getNumExclude0(item.sarti_mkprice));
         tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
-        Glide.with(SSApplication.app).load(item.thumbnail_img).into((ImageView) helper.getView(R.id.iv_icon));
+        GlideUtil.loadImage(item.thumbnail_img, (ImageView) helper.getView(R.id.iv_icon));
     }
 }

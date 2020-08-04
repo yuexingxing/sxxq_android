@@ -24,9 +24,9 @@ public class GoodsDetailViewModel extends BaseViewModel {
         mCallBack = iGoodsDetailModel;
     }
 
-    public void getGoodsDetail() {
+    public void getGoodsDetail(String sartiId) {
 
-        ShoppingCenterModel.getGoodsDetail("", new OnLoadListener<List<GoodsDetailInfo>>() {
+        ShoppingCenterModel.getGoodsDetail(sartiId, new OnLoadListener<GoodsDetailInfo>() {
 
             @Override
             public void onLoadStart() {
@@ -39,9 +39,9 @@ public class GoodsDetailViewModel extends BaseViewModel {
             }
 
             @Override
-            public void onLoadSucessed(BaseResponse<List<GoodsDetailInfo>> t) {
+            public void onLoadSucessed(BaseResponse<GoodsDetailInfo> t) {
                 if (mCallBack != null) {
-//                    mCallBack.returnGoodsDetail(t);
+                    mCallBack.returnGoodsDetail(t.getContent());
                 }
             }
 

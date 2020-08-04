@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.sanshao.bs.R;
+import com.zzhoujay.richtext.RichText;
 
 /**
  * 商品说明弹窗
@@ -17,6 +18,7 @@ import com.sanshao.bs.R;
 public class GoodsInroductionDialog {
 
     public void show(Context context, String content) {
+        RichText.initCacheDir(context);
         LinearLayout rootView = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.dialog_layout_goods_introduction, null);
         BottomSheetDialog dialog = new BottomSheetDialog(context, R.style.BottomSheetDialog);
 

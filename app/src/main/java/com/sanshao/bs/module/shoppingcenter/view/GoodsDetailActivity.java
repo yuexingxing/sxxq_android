@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Build;
+import android.text.TextUtils;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
@@ -17,6 +18,7 @@ import com.aliyun.player.AliPlayerFactory;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.util.CommonCallBack;
+import com.exam.commonbiz.util.ContainerUtil;
 import com.exam.commonbiz.util.Res;
 import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.bs.R;
@@ -27,17 +29,22 @@ import com.sanshao.bs.module.order.view.ConfirmOrderActivity;
 import com.sanshao.bs.module.order.view.adapter.TabFragmentPagerAdapter;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.module.shoppingcenter.bean.ResponseGoodsDetail;
+import com.sanshao.bs.module.shoppingcenter.bean.VideoInfo;
 import com.sanshao.bs.module.shoppingcenter.model.IGoodsDetailModel;
 import com.sanshao.bs.module.shoppingcenter.view.adapter.SetMealAdapter;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsInroductionDialog;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
 import com.sanshao.bs.util.CommandTools;
+import com.sanshao.bs.util.Constants;
+import com.sanshao.bs.util.MathUtil;
 import com.sanshao.bs.util.ShareUtils;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.zzhoujay.richtext.ImageHolder;
+import com.zzhoujay.richtext.RichText;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -53,13 +60,15 @@ import java.util.List;
  */
 public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, ActivityGoodsDetailBinding> implements IGoodsDetailModel {
     private final String TAG = GoodsDetailActivity.class.getSimpleName();
+    private String mSartiId;
     private SetMealAdapter mSetMealAdapter;
     private GoodsDetailInfo mGoodsDetailInfo;
-    private List<Fragment> mFragmentList;
+    private List<Fragment> mFragmentList = new ArrayList<>();
     private FragmentPagerAdapter mFragmentPagerAdapter;
 
-    public static void start(Context context) {
+    public static void start(Context context, String sartiId) {
         Intent starter = new Intent(context, GoodsDetailActivity.class);
+        starter.putExtra(Constants.OPT_DATA, sartiId);
         context.startActivity(starter);
     }
 
@@ -72,8 +81,8 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
     @Override
     public void initData() {
 
-        initViewPager();
-       mViewModel.setCallBack(this);
+        mSartiId = getIntent().getStringExtra(Constants.OPT_DATA);
+        mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -111,6 +120,8 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             binding.nestedScrollview.smoothScrollTo(0, binding.llGoodsDetail.getTop() - ScreenUtil.dp2px(context, 70));
         });
 
+        //在第一次调用RichText之前先调用RichText.initCacheDir()方法设置缓存目录，不设置会报错
+        RichText.initCacheDir(this);
         mSetMealAdapter = new SetMealAdapter();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -135,15 +146,10 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                 EmptyWebViewActivity.start(context, "http://www.2345.com")
         );
         binding.ivCallPhone.setOnClickListener(view -> CommandTools.callPhone(context, "12345678"));
-        mViewModel.getGoodsDetail();
+        mViewModel.getGoodsDetail(mSartiId);
     }
 
     private void initViewPager() {
-
-        //把Fragment添加到List集合里面
-        mFragmentList = new ArrayList<>();
-        mFragmentList.add(GoodsDetailVideoFragment.newInstance());
-        mFragmentList.add(GoodsDetailPictureFragment.newInstance());
         mFragmentPagerAdapter = new TabFragmentPagerAdapter(getSupportFragmentManager(), mFragmentList);
         binding.viewPagerVideo.setAdapter(mFragmentPagerAdapter);
         binding.viewPagerVideo.setOffscreenPageLimit(mFragmentList.size());
@@ -223,16 +229,46 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
     }
 
     @Override
-    public void returnGoodsDetail(ResponseGoodsDetail responseGoodsDetail) {
-        if (responseGoodsDetail == null) {
+    public void returnGoodsDetail(GoodsDetailInfo goodsDetailInfo) {
+        if (goodsDetailInfo == null) {
             return;
         }
-        mGoodsDetailInfo = responseGoodsDetail.goodsDetailInfo;
+        mGoodsDetailInfo = goodsDetailInfo;
 
+        binding.tvTitle.setText(goodsDetailInfo.sarti_name);
+        binding.tvPrice.setText(MathUtil.getNumExclude0(goodsDetailInfo.sarti_saleprice));
+        binding.tvOldPrice.setText("¥" + MathUtil.getNumExclude0(goodsDetailInfo.sarti_mkprice));
         binding.tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         binding.tryMatching.initData();
         binding.tryMatching.initViewPager(getSupportFragmentManager());
 
-        mSetMealAdapter.setNewData(responseGoodsDetail.setMealList);
+        binding.tvSellNum.setText("已售" + goodsDetailInfo.sell_num);
+
+        RichText.from(goodsDetailInfo.sarti_desc).bind(this)
+                .showBorder(false)
+                .size(ImageHolder.MATCH_PARENT, ImageHolder.WRAP_CONTENT)
+                .into(binding.tvGoodsDetail);
+
+        if (!ContainerUtil.isEmpty(goodsDetailInfo.product_list)) {
+            binding.llSetMeal.setVisibility(View.VISIBLE);
+            mSetMealAdapter.setNewData(goodsDetailInfo.product_list);
+        } else {
+            binding.llSetMeal.setVisibility(View.GONE);
+        }
+
+        mFragmentList.clear();
+        if (!ContainerUtil.isEmpty(goodsDetailInfo.sarti_img)) {
+            for (int i = 0; i < goodsDetailInfo.sarti_img.size(); i++) {
+                VideoInfo videoInfo = goodsDetailInfo.sarti_img.get(i);
+                if (!TextUtils.isEmpty(videoInfo.video)) {
+                    mFragmentList.add(GoodsDetailVideoFragment.newInstance(videoInfo));
+                } else {
+                    mFragmentList.add(GoodsDetailPictureFragment.newInstance(videoInfo.img));
+                }
+            }
+        } else {
+            mFragmentList.add(GoodsDetailPictureFragment.newInstance(goodsDetailInfo.thumbnail_img));
+        }
+        initViewPager();
     }
 }

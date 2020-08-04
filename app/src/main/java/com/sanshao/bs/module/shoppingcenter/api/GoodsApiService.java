@@ -28,6 +28,6 @@ public interface GoodsApiService {
                                                                  @Query("limit") int limit);
 
     //获取商品详情
-    @POST("/util/sms/fetch")
-    Observable<BaseResponse<List<GoodsDetailInfo>>> getGoodsDetail(@Query("goods_id") String goodsId);
+    @GET("product/detail")
+    Observable<BaseResponse<GoodsDetailInfo>> getGoodsDetail(@Query("sarti_id") String sartiId);
 }
