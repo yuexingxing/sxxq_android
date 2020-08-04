@@ -31,6 +31,7 @@ import com.sanshao.bs.util.OpenLocalMapUtil;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -183,5 +184,25 @@ public class ToBeInquiryDetailActivity extends BaseActivity<BaseViewModel, Activ
     @Override
     public void onNetError() {
 
+    }
+
+    @Override
+    public LoadingDialog createLoadingDialog() {
+        return null;
+    }
+
+    @Override
+    public LoadingDialog createLoadingDialog(String text) {
+        return null;
+    }
+
+    @Override
+    public boolean visibility() {
+        return false;
+    }
+
+    @Override
+    public boolean viewFinished() {
+        return false;
     }
 }

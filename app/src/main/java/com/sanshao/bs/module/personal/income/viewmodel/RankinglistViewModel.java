@@ -30,7 +30,7 @@ public class RankinglistViewModel extends BaseViewModel {
             @Override
             public void onLoadSucessed(BaseResponse<RankinglistBean> t) {
                 if (callBack != null) {
-                    callBack.requestRankinglistSucc(t.getData());
+                    callBack.requestRankinglistSucc(t.getContent());
                 }
             }
 

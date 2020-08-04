@@ -19,6 +19,7 @@ import com.sanshao.bs.module.personal.inquiry.adapter.ToBeInquiryListAdapter;
 import com.sanshao.bs.module.personal.inquiry.model.IInquiryModel;
 import com.sanshao.bs.module.personal.inquiry.viewmodel.ToBeInquiryListViewModel;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 
 import java.util.Collections;
 import java.util.List;
@@ -120,5 +121,25 @@ public class ToBeInquiryListActivity extends BaseActivity<ToBeInquiryListViewMod
     @Override
     public void onNetError() {
         binding.emptyLayout.showError();
+    }
+
+    @Override
+    public LoadingDialog createLoadingDialog() {
+        return null;
+    }
+
+    @Override
+    public LoadingDialog createLoadingDialog(String text) {
+        return null;
+    }
+
+    @Override
+    public boolean visibility() {
+        return false;
+    }
+
+    @Override
+    public boolean viewFinished() {
+        return false;
     }
 }
