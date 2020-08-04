@@ -72,6 +72,7 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
         binding.setUser(loginBean);
 
         mViewModel.setCallBack(this);
+        SSApplication.setToken("");
         binding.tvJump.setOnClickListener(v -> {
             MainActivity.start(context);
         });

@@ -78,6 +78,10 @@ public class MulitySetMealView extends LinearLayout {
         mConfirmOrderAdapter.addData(goodsDetailInfoList);
     }
 
+    public List<GoodsDetailInfo> getData() {
+        return mConfirmOrderAdapter.getData();
+    }
+
     public void setTitleVisible(int visible) {
         mLlTitleBg.setVisibility(visible);
     }

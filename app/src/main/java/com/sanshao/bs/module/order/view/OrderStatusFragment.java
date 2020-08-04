@@ -103,7 +103,7 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
 
             @Override
             public void onPay(OrderInfo item) {
-                ConfirmPayActivity.start(context);
+
             }
         });
         binding.swipeRefreshLayout.setColorSchemeResources(R.color.main_color);

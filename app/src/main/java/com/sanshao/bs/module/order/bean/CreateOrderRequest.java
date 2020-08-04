@@ -8,7 +8,7 @@ public class CreateOrderRequest {
     public String note;
     public List<CartInfo> cart;
 
-    public class CartInfo {
+    public static class CartInfo {
         public String sarti_id;
         public int qty;
     }

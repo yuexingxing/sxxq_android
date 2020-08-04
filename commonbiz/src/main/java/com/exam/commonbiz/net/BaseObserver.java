@@ -3,7 +3,6 @@ package com.exam.commonbiz.net;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.exam.commonbiz.base.BasicApplication;
 import com.google.gson.JsonParseException;
 
 import io.reactivex.Observer;
@@ -37,7 +36,8 @@ public abstract class BaseObserver<T> implements Observer<BaseResponse<T>> {
         if (TextUtils.equals(response.getRet(), "OK")) {
             onSuccess(response);
         } else if (TextUtils.equals(response.getRet(), "ERROR")) {
-            ExceptionHandle.ResponeThrowable responeThrowable = new ExceptionHandle.ResponeThrowable(null, 0);
+            ExceptionHandle.ResponeThrowable responeThrowable = new ExceptionHandle.ResponeThrowable(null, ExceptionHandle.ERROR.SERVICE_ERROR);
+            responeThrowable.code = ExceptionHandle.ERROR.SERVICE_ERROR;
             responeThrowable.message = response.getMsg();
             onError(responeThrowable);
         } else {

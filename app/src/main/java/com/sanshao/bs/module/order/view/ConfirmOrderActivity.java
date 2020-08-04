@@ -9,6 +9,7 @@ import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityConfirmOrderBinding;
 import com.sanshao.bs.module.order.bean.ConfirmOrderResponse;
+import com.sanshao.bs.module.order.bean.CreateOrderRequest;
 import com.sanshao.bs.module.order.bean.CreateOrderResponse;
 import com.sanshao.bs.module.order.bean.OrderDetailResponse;
 import com.sanshao.bs.module.order.bean.StoreInfo;
@@ -51,6 +52,7 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
         starter.putExtra(Constants.OPT_DATA, sartiId);
         context.startActivity(starter);
     }
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_confirm_order;
@@ -80,14 +82,31 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
             }
         });
 
-        binding.btnConfirm.setOnClickListener(v ->{
-            if (mTotalBuyNum <= 0){
+        binding.btnConfirm.setOnClickListener(v -> {
+            if (mTotalBuyNum <= 0) {
                 ToastUtil.showShortToast("至少选择一件商品");
                 return;
             }
 
-            GoodsDetailInfo goodsDetailInfo = new GoodsDetailInfo();
-           mViewModel.submitOrderInfo(goodsDetailInfo);
+            CreateOrderRequest createOrderRequest = new CreateOrderRequest();
+            createOrderRequest.corp_id = "123";
+            createOrderRequest.note = binding.edtRemark.getText().toString();
+
+            List<CreateOrderRequest.CartInfo> cartInfoList = new ArrayList<>();
+            List<GoodsDetailInfo> goodsDetailInfoList = binding.mulitySetMealView.getData();
+            for (int i = 0; i < goodsDetailInfoList.size(); i++) {
+                GoodsDetailInfo goodsDetailInfo = goodsDetailInfoList.get(i);
+                if (goodsDetailInfo.buyNum == 0) {
+                    continue;
+                }
+                CreateOrderRequest.CartInfo cartInfo = new CreateOrderRequest.CartInfo();
+                cartInfo.sarti_id = goodsDetailInfo.sarti_id;
+                cartInfo.qty = goodsDetailInfo.buyNum;
+                cartInfoList.add(cartInfo);
+            }
+            createOrderRequest.cart = cartInfoList;
+
+            mViewModel.createOrderInfo(createOrderRequest);
         });
 
         binding.mulitySetMealView.setOptType(ConfirmOrderAdapter.OPT_TYPE_CONFIRM_ORDER);
@@ -119,48 +138,16 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onPayStatusChangedEvent(PayStatusChangedEvent payStatusChangedEvent) {
-        if (payStatusChangedEvent == null){
+        if (payStatusChangedEvent == null) {
             return;
         }
-        if (payStatusChangedEvent.paySuccess){
+        if (payStatusChangedEvent.paySuccess) {
             finish();
         }
     }
 
-    @Override
-    public void returnCreateOrderInfo(CreateOrderResponse createOrderResponse) {
-
-    }
-
-    @Override
-    public void returnConfirmOrder(ConfirmOrderResponse confirmOrderResponse) {
-        if (confirmOrderResponse == null){
-            return;
-        }
-
-        StoreInfo storeInfo = confirmOrderResponse.storeInfo;
-        if (storeInfo != null){
-            binding.includeStore.tvTel.setText(storeInfo.tel);
-            binding.includeStore.tvTime.setText(storeInfo.time);
-            binding.includeStore.tvAddress.setText(storeInfo.address);
-        }
-
-        if (!ContainerUtil.isEmpty(confirmOrderResponse.goodsTypeDetailInfoList)){
-            binding.mulitySetMealView.mConfirmOrderAdapter.addData(confirmOrderResponse.goodsTypeDetailInfoList);
-            calculatePrice(confirmOrderResponse.goodsTypeDetailInfoList);
-        }
-
-        binding.tvNickName.setText(confirmOrderResponse.nickName);
-        binding.tvPhone.setText(confirmOrderResponse.phone);
-    }
-
-    @Override
-    public void returnSubmitOrderInfo() {
-        ConfirmPayActivity.start(context);
-    }
-
-    public void calculatePrice(List<GoodsDetailInfo> goodsDetailInfoList){
-        if (ContainerUtil.isEmpty(goodsDetailInfoList)){
+    public void calculatePrice(List<GoodsDetailInfo> goodsDetailInfoList) {
+        if (ContainerUtil.isEmpty(goodsDetailInfoList)) {
             return;
         }
 
@@ -181,8 +168,40 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
     }
 
     @Override
+    public void returnCreateOrderInfo(CreateOrderResponse createOrderResponse) {
+        ConfirmPayActivity.start(context, createOrderResponse);
+    }
+
+    @Override
+    public void returnConfirmOrder(ConfirmOrderResponse confirmOrderResponse) {
+        if (confirmOrderResponse == null) {
+            return;
+        }
+
+        StoreInfo storeInfo = confirmOrderResponse.storeInfo;
+        if (storeInfo != null) {
+            binding.includeStore.tvTel.setText(storeInfo.tel);
+            binding.includeStore.tvTime.setText(storeInfo.time);
+            binding.includeStore.tvAddress.setText(storeInfo.address);
+        }
+
+        if (!ContainerUtil.isEmpty(confirmOrderResponse.goodsTypeDetailInfoList)) {
+            binding.mulitySetMealView.mConfirmOrderAdapter.addData(confirmOrderResponse.goodsTypeDetailInfoList);
+            calculatePrice(confirmOrderResponse.goodsTypeDetailInfoList);
+        }
+
+        binding.tvNickName.setText(confirmOrderResponse.nickName);
+        binding.tvPhone.setText(confirmOrderResponse.phone);
+    }
+
+    @Override
+    public void returnSubmitOrderInfo() {
+
+    }
+
+    @Override
     public void returnGoodsDetail(GoodsDetailInfo goodsDetailInfo) {
-        if (goodsDetailInfo == null){
+        if (goodsDetailInfo == null) {
             return;
         }
 

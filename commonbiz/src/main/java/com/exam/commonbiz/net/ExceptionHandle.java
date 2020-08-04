@@ -12,7 +12,6 @@ import java.net.ConnectException;
 import retrofit2.HttpException;
 
 /**
- *
  * @Author yuexingxing
  * @time 2020/6/11
  */
@@ -120,6 +119,10 @@ public class ExceptionHandle {
          * 连接超时
          */
         public static final int TIMEOUT_ERROR = 1006;
+        /**
+         * 业务逻辑错误
+         */
+        public static final int SERVICE_ERROR = 1007;
     }
 
     public static class ResponeThrowable extends Exception {

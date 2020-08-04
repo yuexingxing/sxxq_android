@@ -11,6 +11,7 @@ import com.sanshao.bs.module.order.model.IConfirmOrderModel;
 import com.sanshao.bs.module.order.model.OrderModel;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.util.Constants;
+import com.sanshao.bs.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class ConfirmOrderViewModel extends BaseViewModel {
 
             @Override
             public void onLoadStart() {
-                loadData();
+
             }
 
             @Override
@@ -43,12 +44,14 @@ public class ConfirmOrderViewModel extends BaseViewModel {
 
             @Override
             public void onLoadSucessed(BaseResponse<CreateOrderResponse> t) {
-
+                if (mCallBack != null) {
+                    mCallBack.returnCreateOrderInfo(t.getContent());
+                }
             }
 
             @Override
             public void onLoadFailed(String errMsg) {
-
+                ToastUtil.showShortToast(errMsg);
             }
         });
     }

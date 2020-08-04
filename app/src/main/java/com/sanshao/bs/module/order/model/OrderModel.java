@@ -40,7 +40,6 @@ public class OrderModel {
                     public void onFinish() {
                         onLoadListener.onLoadCompleted();
                     }
-
                 });
     }
 

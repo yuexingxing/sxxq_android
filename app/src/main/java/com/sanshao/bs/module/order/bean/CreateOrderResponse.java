@@ -2,7 +2,9 @@ package com.sanshao.bs.module.order.bean;
 
 import com.google.gson.annotations.SerializedName;
 
-public class CreateOrderResponse {
+import java.io.Serializable;
+
+public class CreateOrderResponse implements Serializable {
 
     @SerializedName("order_no")
     public String orderNo;

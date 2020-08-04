@@ -17,6 +17,7 @@ import com.sanshao.bs.module.order.model.OnPayListener;
 import com.sanshao.bs.module.order.util.PayUtils;
 import com.sanshao.bs.module.order.viewmodel.ConfirmOrderViewModel;
 import com.sanshao.bs.module.order.viewmodel.ConfirmPayViewModel;
+import com.sanshao.bs.util.Constants;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -33,8 +34,9 @@ public class ConfirmPayActivity extends BaseActivity<ConfirmPayViewModel, Activi
     private final int PAY_BY_ALI = 1;
     private int mPayType = PAY_BY_WECHAT;
 
-    public static void start(Context context) {
+    public static void start(Context context, CreateOrderResponse createOrderResponse) {
         Intent starter = new Intent(context, ConfirmPayActivity.class);
+        starter.putExtra(Constants.OPT_DATA, createOrderResponse);
         context.startActivity(starter);
     }
 
@@ -46,6 +48,7 @@ public class ConfirmPayActivity extends BaseActivity<ConfirmPayViewModel, Activi
     @Override
     public void initData() {
 
+        CreateOrderResponse createOrderResponse = (CreateOrderResponse) getIntent().getSerializableExtra(Constants.OPT_DATA);
         mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
@@ -63,21 +66,13 @@ public class ConfirmPayActivity extends BaseActivity<ConfirmPayViewModel, Activi
 
             }
         });
-        binding.btnStartPay.setOnClickListener(v -> {
-            mViewModel.getOrderPayInfo(mPayType);
-        });
-        binding.llPayWechat.setOnClickListener(v -> {
-            setCheckStatus(PAY_BY_WECHAT);
-        });
-        binding.llPayAli.setOnClickListener(v -> {
-            setCheckStatus(PAY_BY_ALI);
-        });
-        binding.checkWechat.setOnClickListener(v -> {
-            setCheckStatus(PAY_BY_WECHAT);
-        });
-        binding.checkAlipay.setOnClickListener(v -> {
-            setCheckStatus(PAY_BY_ALI);
-        });
+        binding.tvOrderNo.setText("订单编号：" + createOrderResponse.orderNo);
+        binding.tvPrice.setText(createOrderResponse.orderPrice);
+        binding.btnStartPay.setOnClickListener(v -> mViewModel.getOrderPayInfo(mPayType));
+        binding.llPayWechat.setOnClickListener(v -> setCheckStatus(PAY_BY_WECHAT));
+        binding.llPayAli.setOnClickListener(v -> setCheckStatus(PAY_BY_ALI));
+        binding.checkWechat.setOnClickListener(v -> setCheckStatus(PAY_BY_WECHAT));
+        binding.checkAlipay.setOnClickListener(v -> setCheckStatus(PAY_BY_ALI));
     }
 
     @Override
