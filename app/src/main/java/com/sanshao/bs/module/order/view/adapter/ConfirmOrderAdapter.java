@@ -49,9 +49,9 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
 
     @Override
     protected void convert(BaseViewHolder helper, GoodsDetailInfo item) {
-        helper.setText(R.id.tv_title, helper.getAdapterPosition() + "-" + item.sartiName);
+        helper.setText(R.id.tv_title, helper.getAdapterPosition() + "-" + item.sarti_name);
         helper.setText(R.id.tv_buy_count, item.buyNum + "");
-        helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.sartiMkPrice));
+//        helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.sartiMkPrice));
 
         helper.getView(R.id.rl_minus).setOnClickListener(v -> {
             if (mCallBack != null) {

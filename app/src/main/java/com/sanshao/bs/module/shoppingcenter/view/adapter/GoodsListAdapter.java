@@ -45,11 +45,11 @@ public class GoodsListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
 
     @Override
     protected void convert(BaseViewHolder helper, GoodsDetailInfo item) {
-        helper.setText(R.id.tv_title, helper.getAdapterPosition() + "-" + item.sartiName);
+        helper.setText(R.id.tv_title, helper.getAdapterPosition() + "-" + item.sarti_name);
 
-        helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.sartiMkPrice));
+        helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.sarti_mkprice));
         TextView tvOldPrice = helper.getView(R.id.tv_old_price);
-        tvOldPrice.setText("¥" + MathUtil.getNumExclude0(item.sartiSalePrice));
+        tvOldPrice.setText("¥" + MathUtil.getNumExclude0(item.sarti_saleprice));
         tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
 
         View viewInclude = helper.getView(R.id.include_video);

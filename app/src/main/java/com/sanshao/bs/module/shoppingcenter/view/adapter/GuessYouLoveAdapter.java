@@ -25,7 +25,7 @@ public class GuessYouLoveAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
 
     @Override
     protected void convert(BaseViewHolder helper, GoodsDetailInfo item) {
-        helper.setText(R.id.tv_title, helper.getAdapterPosition() + "-" + item.sartiName);
+        helper.setText(R.id.tv_title, helper.getAdapterPosition() + "-" + item.sarti_name);
 
         View viewLeft = helper.getView(R.id.view_left);
         View viewRight = helper.getView(R.id.view_right);

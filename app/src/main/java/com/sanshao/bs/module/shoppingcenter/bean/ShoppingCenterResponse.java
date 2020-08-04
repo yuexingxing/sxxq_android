@@ -6,6 +6,6 @@ import java.util.List;
 
 public class ShoppingCenterResponse {
     public List<BannerInfo> slideshow;
-    public BannerInfo staticAdvertising;
+    public List<BannerInfo> static_advertising;
     public List<GoodsTypeInfo> classify;
 }

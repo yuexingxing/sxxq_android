@@ -1,5 +1,6 @@
 package com.sanshao.bs.module.shoppingcenter.view;
 
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
 
@@ -11,9 +12,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.exam.commonbiz.base.BaseFragment;
+import com.exam.commonbiz.util.ContainerUtil;
 import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ShoppingCenterFragmentBinding;
+import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
+import com.sanshao.bs.module.shoppingcenter.bean.GoodsTypeInfo;
 import com.sanshao.bs.module.shoppingcenter.bean.ShoppingCenterResponse;
 import com.sanshao.bs.module.shoppingcenter.model.IShoppingCenterModel;
 import com.sanshao.bs.module.shoppingcenter.view.adapter.GoodsTypeAdapter;
@@ -28,7 +32,6 @@ import com.sanshao.bs.module.shoppingcenter.viewmodel.ShoppingCenterViewModel;
  */
 public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel, ShoppingCenterFragmentBinding> implements IShoppingCenterModel {
 
-    private ServiceTypeAdapter mServiceTypeAdapter;
     private GoodsTypeAdapter mGoodsTypeAdapter;
 
     public static ShoppingCenterFragment newInstance() {
@@ -44,13 +47,6 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
     public void initData() {
 
         mViewModel.setCallBack(this);
-        mServiceTypeAdapter = new ServiceTypeAdapter();
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
-        binding.serviceTypeRecyclerView.setLayoutManager(gridLayoutManager);
-        binding.serviceTypeRecyclerView.setAdapter(mServiceTypeAdapter);
-        binding.serviceTypeRecyclerView.setNestedScrollingEnabled(false);
-        mServiceTypeAdapter.setOnItemClickListener((adapter, view, position) -> GoodsListActivity.start(getContext()));
-
         mGoodsTypeAdapter = new GoodsTypeAdapter();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -95,7 +91,6 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
         return R.color.transparent;
     }
 
-
     @Override
     public void returnShoppingCenterList(ShoppingCenterResponse shoppingCenterResponse) {
         binding.swipeRefreshLayout.setRefreshing(false);
@@ -103,12 +98,23 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
             return;
         }
         binding.homeBannerLayout.setData(shoppingCenterResponse.slideshow);
-        Glide.with(getContext())
-                .load(shoppingCenterResponse.staticAdvertising.artitag_url)
-                .placeholder(R.drawable.ic_launcher_background)
-                .error(R.drawable.ic_launcher_background)
-                .into(binding.ivAd);
-        mGoodsTypeAdapter.addData(shoppingCenterResponse.classify);
+        if (!ContainerUtil.isEmpty(shoppingCenterResponse.static_advertising)) {
+            Glide.with(getContext())
+                    .load(shoppingCenterResponse.static_advertising.get(0).artitag_url)
+                    .placeholder(R.drawable.ic_launcher_background)
+                    .error(R.drawable.ic_launcher_background)
+                    .into(binding.ivAd);
+        }
+        if (!ContainerUtil.isEmpty(shoppingCenterResponse.classify)) {
+            for (int i = 0; i < shoppingCenterResponse.classify.size(); i++) {
+                GoodsTypeInfo goodsTypeInfo = shoppingCenterResponse.classify.get(i);
+                if (ContainerUtil.isEmpty(goodsTypeInfo.set_meal_product)) {
+                    shoppingCenterResponse.classify.remove(i);
+                    --i;
+                }
+            }
+            mGoodsTypeAdapter.setNewData(shoppingCenterResponse.classify);
+        }
         binding.llBottomLine.setVisibility(View.VISIBLE);
     }
 }

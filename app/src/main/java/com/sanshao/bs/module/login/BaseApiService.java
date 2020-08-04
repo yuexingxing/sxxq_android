@@ -5,13 +5,11 @@ import com.sanshao.bs.module.login.bean.GetCodeRequest;
 import com.sanshao.bs.module.login.bean.GetCodeResponse;
 import com.sanshao.bs.module.login.bean.LoginRequest;
 import com.sanshao.bs.module.login.bean.LoginResponse;
-import com.sanshao.bs.module.personal.bean.UserInfo;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * @Author yuexingxing

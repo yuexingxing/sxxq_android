@@ -3,6 +3,7 @@ package com.sanshao.bs;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.ArrayMap;
 import android.util.Log;
 
 import androidx.multidex.BuildConfig;
@@ -37,7 +38,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
@@ -111,6 +114,11 @@ public class SSApplication extends BasicApplication {
         }
 
 //        ACache.get(this).put(ConfigSP.SP_CURRENT_HOST, ConfigSP.HOST_TYPE.PRO);//默认线上服务器
+        Map<String, String> hostMap = new HashMap<>();
+        hostMap.put(XApi.HOST_TYPE.JAVA, XApi.HOST_URL.JAVA);
+        hostMap.put(XApi.HOST_TYPE.NODE, XApi.HOST_URL.NODE);
+        XApi.setHostMap(hostMap);
+
         XApi.registerDefaultProvider(BASE_URL, new NetProvider() {
 
             @Override

@@ -2,16 +2,14 @@ package com.exam.commonbiz.net;
 
 import androidx.annotation.NonNull;
 
-import com.exam.commonbiz.net.interceptor.HeadInterceptor;
-import com.exam.commonbiz.progress.ProgressHelper;
 import com.exam.commonbiz.kits.Kits;
 import com.exam.commonbiz.log.LogInterceptor;
+import com.exam.commonbiz.net.interceptor.HeadInterceptor;
+import com.exam.commonbiz.progress.ProgressHelper;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -27,9 +25,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class XApi {
 
-    public static interface HOST_TYPE{
+    public interface HOST_TYPE {
         String JAVA = "java";
         String NODE = "node";
+    }
+
+    public interface HOST_URL {
+        String JAVA = "http://192.168.200.225:9080/";
+        String NODE = "http://dev.kmlab.com/ssxq/";
     }
 
     private static String defaultBaseUrl;
@@ -66,7 +69,12 @@ public class XApi {
     }
 
     public static <S> S get(Class<S> service, String hostType) {
-        return getInstance().getRetrofit(defaultBaseUrl).create(service);
+        if (mHostMap.containsKey(hostType)) {
+            String hostUrl = mHostMap.get(hostType);
+            return getInstance().getRetrofit(hostUrl).create(service);
+        } else {
+            return getInstance().getRetrofit(defaultBaseUrl).create(service);
+        }
     }
 
     public static <S> S get(String baseUrl, Class<S> service) {

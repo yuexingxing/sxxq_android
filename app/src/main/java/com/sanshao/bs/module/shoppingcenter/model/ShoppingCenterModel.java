@@ -13,7 +13,7 @@ import io.reactivex.schedulers.Schedulers;
 public class ShoppingCenterModel {
 
     public static void getShoppingCenterList(final OnLoadListener onLoadListener) {
-        XApi.get(GoodsApiService.class)
+        XApi.get(GoodsApiService.class, XApi.HOST_TYPE.JAVA)
                 .getShoppingCenterList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

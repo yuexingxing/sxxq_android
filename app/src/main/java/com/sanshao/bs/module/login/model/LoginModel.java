@@ -21,7 +21,7 @@ import io.reactivex.schedulers.Schedulers;
 public class LoginModel {
 
     public static void getSMSCode(GetCodeRequest getCodeRequest, final OnLoadListener onLoadListener) {
-        XApi.get(BaseApiService.class)
+        XApi.get(BaseApiService.class, XApi.HOST_TYPE.NODE)
                 .getSMSCode(getCodeRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -51,7 +51,7 @@ public class LoginModel {
     }
 
     public static void login(LoginRequest loginRequest, final OnLoadListener onLoadListener) {
-        XApi.get(BaseApiService.class)
+        XApi.get(BaseApiService.class, XApi.HOST_TYPE.NODE)
                 .login(loginRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

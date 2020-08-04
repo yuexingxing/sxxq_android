@@ -50,6 +50,7 @@
                 android:layout_marginRight="8dp"
                 android:ellipsize="end"
                 android:maxLines="2"
+                android:minHeight="40dp"
                 tools:text="激光祛斑美容护肤不二之选，玻尿酸不二之选"
                 android:textColor="@color/color_333333"
                 android:textSize="15sp"

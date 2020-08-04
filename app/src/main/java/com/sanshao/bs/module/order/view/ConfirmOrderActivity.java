@@ -154,7 +154,7 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
         for (int i = 0; i < goodsDetailInfoList.size(); i++) {
             GoodsDetailInfo goodsDetailInfo = goodsDetailInfoList.get(i);
             mTotalBuyNum += goodsDetailInfo.buyNum;
-            mTotalPrice += MathUtil.multiply(goodsDetailInfo.buyNum, goodsDetailInfo.sartiMkPrice);
+            mTotalPrice += MathUtil.multiply(goodsDetailInfo.buyNum, goodsDetailInfo.sarti_mkprice);
         }
 
         String showPrice = MathUtil.getNumExclude0(mTotalPrice) + "元";

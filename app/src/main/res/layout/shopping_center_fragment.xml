@@ -71,13 +71,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="22dp" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/service_type_recycler_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="27dp"
-                        android:visibility="gone" />
-
                     <ImageView
                         android:id="@+id/iv_ad"
                         android:layout_width="match_parent"
@@ -85,7 +78,7 @@
                         android:layout_marginLeft="@dimen/left_container_margin"
                         android:layout_marginTop="24dp"
                         android:layout_marginRight="@dimen/right_container_margin"
-                        android:scaleType="centerCrop" />
+                        android:scaleType="fitCenter" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/goods_type_recycler_view"
