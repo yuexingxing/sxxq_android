@@ -1,5 +1,6 @@
 package com.sanshao.bs.module.shoppingcenter.view;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.widget.RelativeLayout;
 
@@ -44,6 +45,7 @@ public class TryMatchingFragment extends BaseFragment<BaseViewModel, FragmentTry
             binding.includeTry.tvTitle.setText(goodsDetailInfo.sarti_name);
             binding.includeTry.tvPrice.setText(MathUtil.getNumExclude0(goodsDetailInfo.sarti_saleprice));
             binding.includeTry.tvOldPrice.setText("¥" + MathUtil.getNumExclude0(goodsDetailInfo.sarti_mkprice));
+            binding.includeTry.tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
             GlideUtil.loadImage(goodsDetailInfo.thumbnail_img, binding.includeTry.ivIcon);
             binding.includeTry.tvSellNum.setText("热卖" + goodsDetailInfo.sell_num + "件");
 

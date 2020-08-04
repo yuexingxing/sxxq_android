@@ -2,6 +2,8 @@ package com.sanshao.bs.module.order.api;
 
 import com.exam.commonbiz.net.BaseResponse;
 import com.sanshao.bs.module.order.bean.ConfirmOrderResponse;
+import com.sanshao.bs.module.order.bean.CreateOrderRequest;
+import com.sanshao.bs.module.order.bean.CreateOrderResponse;
 import com.sanshao.bs.module.order.bean.OrderListResponse;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 
@@ -17,14 +19,17 @@ import retrofit2.http.Query;
  */
 public interface OrderApiService {
 
+    //创建订单信息
+    @POST("order/create")
+    Observable<BaseResponse<CreateOrderResponse>> createOrderInfo(@Body CreateOrderRequest createOrderRequest);
+
     //获取订单信息
     @GET("/util/sms/fetch")
     Observable<BaseResponse<ConfirmOrderResponse>> getOrderInfo();
 
     //提交订单信息
-    @POST("/util/sms/fetch")
+    @POST("order/create")
     Observable<BaseResponse> submitOrderInfo(@Body GoodsDetailInfo goodsDetailInfo);
-
 
     //获取订单列表
     @GET("/salebill/list")

@@ -4,6 +4,8 @@ import com.exam.commonbiz.base.BaseViewModel;
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
 import com.sanshao.bs.module.order.bean.ConfirmOrderResponse;
+import com.sanshao.bs.module.order.bean.CreateOrderRequest;
+import com.sanshao.bs.module.order.bean.CreateOrderResponse;
 import com.sanshao.bs.module.order.bean.StoreInfo;
 import com.sanshao.bs.module.order.model.IConfirmOrderModel;
 import com.sanshao.bs.module.order.model.OrderModel;
@@ -23,6 +25,32 @@ public class ConfirmOrderViewModel extends BaseViewModel {
 
     public void setCallBack(IConfirmOrderModel iConfirmOrderModel) {
         mCallBack = iConfirmOrderModel;
+    }
+
+    public void createOrderInfo(CreateOrderRequest createOrderRequest) {
+
+        OrderModel.createOrderInfo(createOrderRequest, new OnLoadListener<CreateOrderResponse>() {
+
+            @Override
+            public void onLoadStart() {
+                loadData();
+            }
+
+            @Override
+            public void onLoadCompleted() {
+
+            }
+
+            @Override
+            public void onLoadSucessed(BaseResponse<CreateOrderResponse> t) {
+
+            }
+
+            @Override
+            public void onLoadFailed(String errMsg) {
+
+            }
+        });
     }
 
     public void getOrderInfo() {

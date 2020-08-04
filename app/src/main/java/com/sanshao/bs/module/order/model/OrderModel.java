@@ -6,12 +6,44 @@ import com.exam.commonbiz.net.ExceptionHandle;
 import com.exam.commonbiz.net.OnLoadListener;
 import com.exam.commonbiz.net.XApi;
 import com.sanshao.bs.module.order.api.OrderApiService;
+import com.sanshao.bs.module.order.bean.CreateOrderRequest;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class OrderModel {
+
+    public static void createOrderInfo(CreateOrderRequest createOrderRequest, final OnLoadListener onLoadListener) {
+        XApi.get(OrderApiService.class, XApi.HOST_TYPE.JAVA)
+                .createOrderInfo(createOrderRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver() {
+
+                    @Override
+                    public void onStart() {
+                        onLoadListener.onLoadStart();
+                    }
+
+                    @Override
+                    public void onSuccess(BaseResponse response) {
+                        onLoadListener.onLoadSucessed(response);
+                    }
+
+                    @Override
+                    public void onError(ExceptionHandle.ResponeThrowable responeThrowable) {
+                        onLoadListener.onLoadFailed(responeThrowable.message);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        onLoadListener.onLoadCompleted();
+                    }
+
+                });
+    }
+
 
     public static void getOrderInfo(final OnLoadListener onLoadListener) {
         XApi.get(OrderApiService.class)
@@ -104,7 +136,7 @@ public class OrderModel {
     }
 
     public static void getOrderPayInfo(int payType, final OnLoadListener onLoadListener) {
-        XApi.get(OrderApiService.class)
+        XApi.get(OrderApiService.class, XApi.HOST_TYPE.JAVA)
                 .getOrderPayInfo(payType)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
