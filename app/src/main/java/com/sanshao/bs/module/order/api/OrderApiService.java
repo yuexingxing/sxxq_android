@@ -25,10 +25,10 @@ public interface OrderApiService {
     @POST("/util/sms/fetch")
     Observable<BaseResponse> submitOrderInfo(@Body GoodsDetailInfo goodsDetailInfo);
 
+
     //获取订单列表
-    @GET("/util/sms/fetch")
-    Observable<BaseResponse<OrderListResponse>> getOrderList(@Query("mobile") String mobile,
-                                                             @Query("code") String code);
+    @GET("/salebill/list")
+    Observable<BaseResponse<OrderListResponse>> getOrderList(@Query("saleStatus") String saleStatus, @Query("page") int page, @Query("page") int pageSize);
 
     //获取订单支付信息，发起支付
     @GET("/util/sms/fetch")

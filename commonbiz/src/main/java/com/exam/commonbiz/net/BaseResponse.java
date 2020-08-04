@@ -3,13 +3,15 @@ package com.exam.commonbiz.net;
 import android.text.TextUtils;
 import android.util.Log;
 
+import java.io.Serializable;
+
 /**
  * 网络返回基类 支持泛型
  *
  * @Author yuexingxing
  * @time 2020/6/11
  */
-public class BaseResponse<T> {
+public class BaseResponse<T> implements Serializable {
 
     private String msg;
     private String ret;

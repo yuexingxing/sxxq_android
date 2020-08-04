@@ -73,9 +73,9 @@ public class OrderModel {
                 });
     }
 
-    public static void getOrderList(String mobile, String type, final OnLoadListener onLoadListener) {
+    public static void getOrderList(String saleStatus, int page, int pageSize, final OnLoadListener onLoadListener) {
         XApi.get(OrderApiService.class)
-                .getOrderList(mobile, type)
+                .getOrderList(saleStatus, page, pageSize)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver() {

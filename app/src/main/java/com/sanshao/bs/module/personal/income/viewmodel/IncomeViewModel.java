@@ -26,7 +26,7 @@ public class IncomeViewModel extends BaseViewModel {
             @Override
             public void onLoadSucessed(BaseResponse<IncomeBean> bean) {
                 if (callBack != null) {
-                    callBack.requestIncomeInfoSucc(bean.getData());
+                    callBack.requestIncomeInfoSucc(bean.getContent());
                 }
             }
 
