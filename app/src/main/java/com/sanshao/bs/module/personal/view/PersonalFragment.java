@@ -19,7 +19,7 @@ import com.sanshao.bs.module.order.bean.OrderInfo;
 import com.sanshao.bs.module.order.view.OrderListActivity;
 import com.sanshao.bs.module.personal.adapter.PersonalOrderSubjectAdapter;
 import com.sanshao.bs.module.personal.bean.UserInfo;
-import com.sanshao.bs.module.personal.income.view.IncomeMenuActivity;
+import com.sanshao.bs.module.personal.income.view.IncomeHomeActivity;
 import com.sanshao.bs.module.personal.inquiry.view.ToBeInquiryListActivity;
 import com.sanshao.bs.module.personal.model.IPersonalCallBack;
 import com.sanshao.bs.module.personal.personaldata.view.PersonalDetailActivity;
@@ -92,7 +92,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.includeOrder.llOrderTobeuse.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.ToBeUse));
         binding.includeOrder.llOrderTobeinquiry.setOnClickListener(v -> ToBeInquiryListActivity.start(context));
         binding.includeOrder.llOrderComplete.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.Complete));
-        binding.pavIncome.setOnClickListener(v -> IncomeMenuActivity.start(context));
+        binding.pavIncome.setOnClickListener(v -> IncomeHomeActivity.start(context));
         binding.pavSetting.setOnClickListener(v -> SettingActivity.start(context));
         initOrderList();
         mViewModel.getUserInfo();

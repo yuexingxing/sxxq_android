@@ -1,6 +1,6 @@
 package com.exam.commonbiz.base;
 
-public interface IBaseModel {
+public interface IBaseModel extends BaseViewCallBack{
 
     void onRefreshData(Object object);
 

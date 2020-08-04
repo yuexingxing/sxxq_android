@@ -62,7 +62,7 @@ public class EmptyLayout extends FrameLayout {
     /**
      * 全部隐藏
      */
-    private void setGone() {
+    public void setGone() {
         mEmptyView.setVisibility(View.GONE);
         mErrorView.setVisibility(View.GONE);
     }

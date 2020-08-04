@@ -1,12 +1,14 @@
 package com.sanshao.bs.module.order.view;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.exam.commonbiz.base.BaseFragment;
+import com.exam.commonbiz.base.BaseViewCallBack;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.FragmentOrderStatusBinding;
@@ -16,6 +18,7 @@ import com.sanshao.bs.module.order.view.adapter.OrderListAdapter;
 import com.sanshao.bs.module.order.viewmodel.OrderListViewModel;
 import com.sanshao.bs.module.order.viewmodel.OrderStatusViewModel;
 import com.sanshao.bs.module.personal.inquiry.view.AppointmentForConsultationActivity;
+import com.sanshao.bs.util.ToastUtil;
 
 import java.util.List;
 
@@ -27,7 +30,12 @@ import java.util.List;
  */
 public class OrderStatusFragment extends BaseFragment<OrderListViewModel, FragmentOrderStatusBinding> implements IOrderModel {
 
+    private static final int PAGE_SIZE = 100;
+
+    private int curPage = 1;
+
     private int orderState;
+
     private OrderListAdapter mOrderListAdapter;
 
     public OrderStatusFragment() {
@@ -59,6 +67,7 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
     public void initData() {
 
         mViewModel.setCallBack(this);
+
         mOrderListAdapter = new OrderListAdapter();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -101,19 +110,22 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mViewModel.getOrderList(orderState);
+                curPage = 1;
+                mViewModel.getOrderList(orderState, curPage, PAGE_SIZE);
             }
         });
         binding.emptyLayout.bindView(binding.recyclerView);
         binding.emptyLayout.setOnButtonClick(view -> {
-            mViewModel.getOrderList(orderState);
+            curPage = 1;
+            mViewModel.getOrderList(orderState, curPage, PAGE_SIZE);
         });
-        mViewModel.getOrderList(orderState);
+        mViewModel.getOrderList(orderState, curPage, PAGE_SIZE);
     }
 
     @Override
     public void onRefreshData(Object object) {
         if (object == null) {
+            ToastUtil.showShortToast("获取订单列表失败");
             return;
         }
         List<OrderInfo> list = (List<OrderInfo>) object;
@@ -121,8 +133,11 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
         binding.swipeRefreshLayout.setRefreshing(false);
         if (ContainerUtil.isEmpty(list)) {
             binding.emptyLayout.showEmpty("暂无数据", R.drawable.image_logo);
+            binding.recyclerView.setVisibility(View.INVISIBLE);
             return;
         }
+        binding.emptyLayout.setGone();
+        binding.recyclerView.setVisibility(View.VISIBLE);
         mOrderListAdapter.addData(list);
     }
 

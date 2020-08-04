@@ -34,18 +34,20 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderInfo, BaseViewHolder
         helper.getView(R.id.ll_tobe_paid).setVisibility(View.GONE);
         helper.getView(R.id.ll_tobe_use).setVisibility(View.GONE);
         helper.getView(R.id.ll_complete).setVisibility(View.GONE);
-        if (OrderInfo.State.ToBePaid == item.state) {
+
+        if (OrderInfo.State.ToBePaid == item.status) {
             helper.setText(R.id.tv_state, "待支付");
             helper.getView(R.id.ll_tobe_paid).setVisibility(View.VISIBLE);
-        } else if (OrderInfo.State.ToBeUse == item.state) {
+        } else if (OrderInfo.State.ToBeUse == item.status) {
             helper.setText(R.id.tv_state, "待使用");
             helper.getView(R.id.ll_tobe_use).setVisibility(View.VISIBLE);
-        } else if (OrderInfo.State.Complete == item.state) {
+        } else if (OrderInfo.State.Complete == item.status) {
             helper.setText(R.id.tv_state, "已完成");
             helper.getView(R.id.ll_complete).setVisibility(View.VISIBLE);
         }
 
         Glide.with(SSApplication.app).load(Constants.DEFAULT_IMG_URL).into((ImageView) helper.getView(R.id.iv_icon));
+
         helper.getView(R.id.rl_bg).setOnClickListener(v -> {
             if (mCallBack != null) {
                 mCallBack.onOrderDetail(item);
