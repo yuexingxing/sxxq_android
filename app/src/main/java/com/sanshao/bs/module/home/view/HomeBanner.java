@@ -1,8 +1,6 @@
 package com.sanshao.bs.module.home.view;
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Rect;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -21,7 +19,6 @@ import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.bumptech.glide.Glide;
 import com.sanshao.bs.R;
 import com.sanshao.bs.module.home.model.BannerInfo;
 import com.sanshao.bs.module.shoppingcenter.bean.VideoInfo;
@@ -41,8 +38,6 @@ public class HomeBanner extends ViewPager {
     private Handler mHandler;
     private Runnable mRunnable;
     private int time = 5000;
-    private Rect mRect;
-    private boolean isFmVisiable = true;
     private boolean mAutoScroll = true;
 
     public HomeBanner(Context context, AttributeSet attrs) {
@@ -61,6 +56,7 @@ public class HomeBanner extends ViewPager {
             setAdapter(mAdapter);
             setCurrentItem(bannerList.size() * 10000);
         }
+        setOffscreenPageLimit(bannerList.size());
         mHandler.removeCallbacksAndMessages(null);
         if (bannerList != null && bannerList.size() > 1) {
             mHandler.postDelayed(mRunnable, time);
@@ -124,7 +120,6 @@ public class HomeBanner extends ViewPager {
                 }
             }
         };
-        mRect = new Rect();
 
         addOnPageChangeListener(new OnPageChangeListener() {
             @Override
@@ -143,10 +138,6 @@ public class HomeBanner extends ViewPager {
 
             }
         });
-    }
-
-    public void setFmVisiable(boolean isVisiable) {
-        this.isFmVisiable = isVisiable;
     }
 
     public void setAutoScroll(boolean autoScroll) {
