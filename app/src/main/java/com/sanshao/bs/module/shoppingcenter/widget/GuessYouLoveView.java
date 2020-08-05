@@ -8,10 +8,13 @@ import android.widget.LinearLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
+import com.sanshao.bs.module.shoppingcenter.model.IGuessYouLoveModel;
 import com.sanshao.bs.module.shoppingcenter.view.GoodsDetailActivity;
 import com.sanshao.bs.module.shoppingcenter.view.adapter.GuessYouLoveAdapter;
+import com.sanshao.bs.module.shoppingcenter.viewmodel.GuessYouLoveViewModel;
 
 import java.util.List;
 
@@ -21,8 +24,9 @@ import java.util.List;
  * @Author yuexingxing
  * @time 2020/7/2
  */
-public class GuessYouLoveView extends LinearLayout {
+public class GuessYouLoveView extends LinearLayout implements IGuessYouLoveModel {
 
+    private GuessYouLoveViewModel mGuessYouLoveViewModel;
     private GuessYouLoveAdapter mGuessYouLoveAdapter;
     private RecyclerView mRecyclerView;
 
@@ -33,6 +37,9 @@ public class GuessYouLoveView extends LinearLayout {
     }
 
     private void initView(Context context) {
+
+        mGuessYouLoveViewModel = new GuessYouLoveViewModel();
+        mGuessYouLoveViewModel.setCallBack(this);
         mRecyclerView = findViewById(R.id.recycler_view);
         mGuessYouLoveAdapter = new GuessYouLoveAdapter();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
@@ -45,5 +52,19 @@ public class GuessYouLoveView extends LinearLayout {
             GoodsDetailInfo goodsDetailInfo = mGuessYouLoveAdapter.getData().get(position);
             GoodsDetailActivity.start(context, goodsDetailInfo.sarti_id);
         });
+    }
+
+    public void getData() {
+        mGuessYouLoveViewModel.getGuessYouLoveData();
+    }
+
+    @Override
+    public void returnGuessYouLoveData(List<GoodsDetailInfo> goodsDetailInfoList) {
+        if (ContainerUtil.isEmpty(goodsDetailInfoList)) {
+            setVisibility(GONE);
+            return;
+        }
+        setVisibility(VISIBLE);
+        mGuessYouLoveAdapter.addData(goodsDetailInfoList);
     }
 }

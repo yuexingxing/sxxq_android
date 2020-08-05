@@ -96,6 +96,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.pavSetting.setOnClickListener(v -> SettingActivity.start(context));
         initOrderList();
         mViewModel.getUserInfo();
+        binding.guessYouLoveView.getData();
     }
 
     @Override

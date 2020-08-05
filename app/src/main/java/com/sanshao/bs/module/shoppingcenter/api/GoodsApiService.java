@@ -30,4 +30,8 @@ public interface GoodsApiService {
     //获取商品详情
     @GET("product/detail")
     Observable<BaseResponse<GoodsDetailInfo>> getGoodsDetail(@Query("sarti_id") String sartiId);
+
+    //猜你喜欢
+    @GET("product/guess/like")
+    Observable<BaseResponse<List<GoodsDetailInfo>>> getGuessYouLoveData();
 }
