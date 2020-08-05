@@ -1,7 +1,6 @@
 package com.sanshao.bs.module.personal.personaldata.view;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,34 +9,23 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.cache.ACache;
 import com.exam.commonbiz.config.ConfigSP;
-import com.exam.commonbiz.util.CommonCallBack;
-import com.exam.commonbiz.util.QRCodeUtil;
-import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ActivityPersonalDetailBinding;
 import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.module.personal.model.IPersonalCallBack;
 import com.sanshao.bs.module.personal.personaldata.dialog.SelectBirthdayDialog;
-import com.sanshao.bs.module.personal.setting.viewmodel.PersonalDetailViewModel;
 import com.sanshao.bs.module.personal.viewmodel.PersonalViewModel;
 import com.sanshao.bs.util.BitmapUtil;
 import com.sanshao.bs.util.FileUtil;
 import com.sanshao.bs.util.GlideUtil;
 import com.sanshao.bs.util.ToastUtil;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
-import com.sanshao.commonui.dialog.CommonDialogAdapter;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.sanshao.commonutil.permission.PermissionGroup;
@@ -45,9 +33,7 @@ import com.sanshao.commonutil.permission.RxPermissions;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
 
 /**
  * 个人设置

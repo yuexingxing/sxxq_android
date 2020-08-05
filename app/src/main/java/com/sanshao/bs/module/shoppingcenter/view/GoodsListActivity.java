@@ -236,7 +236,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
         List<GoodsDetailInfo> list = (List<GoodsDetailInfo>) object;
         mGoodsListAdapter.getData().clear();
         if (ContainerUtil.isEmpty(list)) {
-            binding.emptyLayout.showEmpty("数据为空", R.drawable.image_logo);
+            binding.emptyLayout.showEmpty("暂无商品", R.drawable.image_nogoods);
             return;
         }
         mGoodsListAdapter.addData(list);

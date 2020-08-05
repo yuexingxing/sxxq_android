@@ -1,35 +1,26 @@
 package com.sanshao.bs.module.shoppingcenter.view;
 
-import android.text.InputFilter;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
 import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.bs.R;
-import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ShoppingCenterFragmentBinding;
-import com.sanshao.bs.module.personal.bean.UserInfo;
-import com.sanshao.bs.module.personal.event.UpdateUserInfoEvent;
-import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
+import com.sanshao.bs.module.home.model.BannerInfo;
+import com.sanshao.bs.module.home.view.HomeBannerLayout;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsTypeInfo;
 import com.sanshao.bs.module.shoppingcenter.bean.ShoppingCenterResponse;
 import com.sanshao.bs.module.shoppingcenter.model.IShoppingCenterModel;
 import com.sanshao.bs.module.shoppingcenter.view.adapter.GoodsTypeAdapter;
-import com.sanshao.bs.module.shoppingcenter.view.adapter.ServiceTypeAdapter;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.ShoppingCenterViewModel;
-import com.sanshao.bs.util.ToastUtil;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * 商城
@@ -60,8 +51,16 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
         binding.goodsTypeRecyclerView.setNestedScrollingEnabled(false);
         binding.goodsTypeRecyclerView.setLayoutManager(linearLayoutManager);
         binding.goodsTypeRecyclerView.setAdapter(mGoodsTypeAdapter);
-        mGoodsTypeAdapter.setOnItemClickListener((adapter, view, position) ->{
+        mGoodsTypeAdapter.setOnItemClickListener((adapter, view, position) -> {
             GoodsListActivity.start(context, mGoodsTypeAdapter.getData().get(position).artitag_id);
+        });
+
+        binding.homeBannerLayout.setOnBannerClick(bannerInfo -> {
+            if (TextUtils.equals(bannerInfo.action_type, BannerInfo.ActionType.GOODS_LIST)) {
+                GoodsListActivity.start(context, bannerInfo.artitag_id);
+            } else if (TextUtils.equals(bannerInfo.action_type, BannerInfo.ActionType.NEW_MEM)) {
+
+            }
         });
 
         binding.nestedScrollview.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {

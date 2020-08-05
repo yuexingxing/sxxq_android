@@ -30,6 +30,15 @@ public class HomeBannerLayout extends LinearLayout {
     private HomeBanner mHomeBanner;
     private LinearLayout mLinearLayout;
     private ArrayList<ImageView> mDotList = new ArrayList<>();
+    private OnBannerClick mOnBannerClick;
+
+    public interface OnBannerClick{
+        void onBannerClick(BannerInfo bannerInfo);
+    }
+
+    public void setOnBannerClick(OnBannerClick onBannerClick){
+        mOnBannerClick = onBannerClick;
+    }
 
     public HomeBannerLayout(Context context) {
         super(context);
@@ -109,6 +118,9 @@ public class HomeBannerLayout extends LinearLayout {
             long currentTime = Calendar.getInstance().getTimeInMillis();
             if (currentTime - lastClickTime > 500) {
                 lastClickTime = currentTime;
+            }
+            if (mOnBannerClick != null){
+                mOnBannerClick.onBannerClick(info);
             }
         }
 
