@@ -12,4 +12,6 @@ public interface ILoginCallBack {
     void onLoginSuccess(LoginResponse loginResponse);
 
     void onLoginFailed();
+
+    void onModifyPhone(String phone);
 }

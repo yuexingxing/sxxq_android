@@ -12,6 +12,7 @@ import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.module.login.bean.LoginResponse;
 import com.sanshao.bs.module.login.model.ILoginCallBack;
 import com.sanshao.bs.module.login.viewmodel.LoginViewModel;
+import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.util.CommandTools;
 import com.sanshao.bs.util.LoadDialogMgr;
 import com.sanshao.bs.util.ToastUtil;
@@ -63,7 +64,7 @@ public class BindPhoneActivity extends BaseActivity<LoginViewModel, ActivityBind
                     return;
                 }
                 LoadDialogMgr.getInstance().show(context, "提交中...");
-                mViewModel.login(mPhone, code, "123");
+                mViewModel.modifyPhone(mPhone, code);
             }
         });
         binding.tvGetCode.setOnClickListener(v -> {
@@ -73,7 +74,7 @@ public class BindPhoneActivity extends BaseActivity<LoginViewModel, ActivityBind
                 return;
             }
             LoadDialogMgr.getInstance().show(context);
-            mViewModel.getSMSCode(mPhone, "1");
+            mViewModel.getSMSCode(mPhone, LoginViewModel.LoginType.CHANGE_PHONE);
         });
     }
 
@@ -93,7 +94,7 @@ public class BindPhoneActivity extends BaseActivity<LoginViewModel, ActivityBind
 
         @Override
         public void onTick(long millisUntilFinished) {
-            binding.tvGetCode.setText(String.valueOf((millisUntilFinished / 1000) + "s"));
+            binding.tvGetCode.setText((millisUntilFinished / 1000) + "s");
             binding.tvGetCode.setTextColor(Res.getColor(SSApplication.app, R.color.color_b6a578));
         }
 
@@ -125,5 +126,14 @@ public class BindPhoneActivity extends BaseActivity<LoginViewModel, ActivityBind
     @Override
     public void onLoginFailed() {
 
+    }
+
+    @Override
+    public void onModifyPhone(String phone) {
+        UserInfo userInfo = SSApplication.getInstance().getUserInfo();
+        userInfo.mem_phone = phone;
+        SSApplication.getInstance().saveUserInfo(userInfo);
+        ToastUtil.showShortToast("修改成功");
+        finish();
     }
 }

@@ -19,6 +19,7 @@ public class UserInfo implements Serializable {
     public String avatar;
     public String invitation_code;
     public MemberClass mem_class;
+    public String mem_phone;
 
     public String getGender() {
         if (TextUtils.equals("M", gender)) {

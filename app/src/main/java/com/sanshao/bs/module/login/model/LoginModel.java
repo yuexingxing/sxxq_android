@@ -9,6 +9,7 @@ import com.exam.commonbiz.net.OnLoadListener;
 import com.sanshao.bs.module.login.bean.GetCodeRequest;
 import com.sanshao.bs.module.login.bean.LoginBean;
 import com.sanshao.bs.module.login.bean.LoginRequest;
+import com.sanshao.bs.module.login.bean.ModifyPhoneRequest;
 import com.sanshao.bs.module.personal.bean.UserInfo;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -80,12 +81,12 @@ public class LoginModel {
                 });
     }
 
-    public static void test(final OnLoadListener<String> onLoadListener) {
-        XApi.get(BaseApiService.class)
-                .test()
+    public static void modifyPhone(ModifyPhoneRequest modifyPhoneRequest, final OnLoadListener onLoadListener) {
+        XApi.get(BaseApiService.class, XApi.HOST_TYPE.NODE)
+                .modifyPhone(modifyPhoneRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver<String>() {
+                .subscribe(new BaseObserver() {
 
                     @Override
                     public void onStart() {
@@ -93,7 +94,7 @@ public class LoginModel {
                     }
 
                     @Override
-                    public void onSuccess(BaseResponse<String> response) {
+                    public void onSuccess(BaseResponse response) {
                         onLoadListener.onLoadSucessed(response);
                     }
 

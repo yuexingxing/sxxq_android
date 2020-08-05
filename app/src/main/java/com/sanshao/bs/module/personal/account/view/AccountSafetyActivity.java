@@ -2,9 +2,12 @@ package com.sanshao.bs.module.personal.account.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
+import com.sanshao.bs.SSApplication;
+import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityAccountSafetyBinding;
@@ -30,6 +33,15 @@ public class AccountSafetyActivity extends BaseActivity<AccountSafetyViewModel, 
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        UserInfo userInfo = SSApplication.getInstance().getUserInfo();
+        if (!TextUtils.isEmpty(userInfo.mem_phone)) {
+            binding.tvPhone.setText(userInfo.mem_phone);
+        }
+    }
+
+    @Override
     public void initData() {
 
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
@@ -48,7 +60,15 @@ public class AccountSafetyActivity extends BaseActivity<AccountSafetyViewModel, 
 
             }
         });
-        binding.llBindPhone.setOnClickListener(v -> BindPhoneActivity.start(context));
+        binding.llBindPhone.setOnClickListener(v -> {
+            UserInfo userInfo = SSApplication.getInstance().getUserInfo();
+            if (TextUtils.isEmpty(userInfo.mem_phone)) {
+                BindPhoneActivity.start(context);
+            } else {
+                VerifyPhoneActivity.start(context, userInfo.mem_phone);
+            }
+
+        });
         binding.llBindWechat.setOnClickListener(v -> BindWeChatActivity.start(context));
     }
 }

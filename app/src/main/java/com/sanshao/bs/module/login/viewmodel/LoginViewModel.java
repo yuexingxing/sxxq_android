@@ -8,9 +8,9 @@ import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
 import com.sanshao.bs.module.login.bean.GetCodeRequest;
 import com.sanshao.bs.module.login.bean.GetCodeResponse;
-import com.sanshao.bs.module.login.bean.LoginBean;
 import com.sanshao.bs.module.login.bean.LoginRequest;
 import com.sanshao.bs.module.login.bean.LoginResponse;
+import com.sanshao.bs.module.login.bean.ModifyPhoneRequest;
 import com.sanshao.bs.module.login.model.ILoginCallBack;
 import com.sanshao.bs.module.login.model.LoginModel;
 import com.sanshao.bs.util.LoadDialogMgr;
@@ -23,6 +23,12 @@ import com.sanshao.bs.util.ToastUtil;
 public class LoginViewModel extends ViewModel {
     private String TAG = LoginViewModel.class.getSimpleName();
     private ILoginCallBack mLoginCallBack;
+
+    public interface LoginType {
+        String APP_LOGIN = "APP_LOGIN";
+        String BIND_PHONE = "BIND_PHONE";
+        String CHANGE_PHONE = "CHANGE_PHONE";//修改手机号时发送验证码
+    }
 
     public void setCallBack(ILoginCallBack iLoginCallBack) {
         mLoginCallBack = iLoginCallBack;
@@ -92,6 +98,37 @@ public class LoginViewModel extends ViewModel {
                 if (mLoginCallBack != null) {
                     mLoginCallBack.onLoginFailed();
                 }
+            }
+        });
+    }
+
+    public void modifyPhone(String mobile, String code) {
+
+        ModifyPhoneRequest loginRequest = new ModifyPhoneRequest(mobile, code);
+        LoginModel.modifyPhone(loginRequest, new OnLoadListener<LoginResponse>() {
+
+            @Override
+            public void onLoadStart() {
+
+            }
+
+            @Override
+            public void onLoadCompleted() {
+                LoadDialogMgr.getInstance().dismiss();
+            }
+
+            @Override
+            public void onLoadSucessed(BaseResponse t) {
+                if (mLoginCallBack != null) {
+                    mLoginCallBack.onModifyPhone(mobile);
+                }else{
+                    ToastUtil.showShortToast(t.getMsg());
+                }
+            }
+
+            @Override
+            public void onLoadFailed(String errMsg) {
+                ToastUtil.showShortToast(errMsg);
             }
         });
     }

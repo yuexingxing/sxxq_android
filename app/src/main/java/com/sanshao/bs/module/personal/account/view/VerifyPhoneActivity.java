@@ -15,6 +15,8 @@ import com.sanshao.bs.module.login.bean.LoginResponse;
 import com.sanshao.bs.module.login.model.ILoginCallBack;
 import com.sanshao.bs.module.login.view.LoginActivity;
 import com.sanshao.bs.module.login.viewmodel.LoginViewModel;
+import com.sanshao.bs.module.personal.bean.UserInfo;
+import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.util.LoadDialogMgr;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
@@ -26,8 +28,11 @@ import com.sanshao.commonui.titlebar.OnTitleBarListener;
  */
 public class VerifyPhoneActivity extends BaseActivity<LoginViewModel, ActivityVerifyPhoneBinding> implements ILoginCallBack {
 
-    public static void start(Context context) {
+    private String mPhone;
+
+    public static void start(Context context, String phone) {
         Intent starter = new Intent(context, VerifyPhoneActivity.class);
+        starter.putExtra(Constants.OPT_DATA, phone);
         context.startActivity(starter);
     }
 
@@ -39,6 +44,7 @@ public class VerifyPhoneActivity extends BaseActivity<LoginViewModel, ActivityVe
     @Override
     public void initData() {
 
+        mPhone = getIntent().getStringExtra(Constants.OPT_DATA);
         mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
@@ -57,13 +63,12 @@ public class VerifyPhoneActivity extends BaseActivity<LoginViewModel, ActivityVe
             }
         });
 
-        binding.tvGetCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoadDialogMgr.getInstance().show(context);
-                mViewModel.getSMSCode("1234567890", "1");
-            }
+        binding.tvGetCode.setOnClickListener(v -> {
+            LoadDialogMgr.getInstance().show(context);
+            mViewModel.getSMSCode(mPhone, LoginViewModel.LoginType.CHANGE_PHONE);
         });
+
+        binding.tvPhone.setText("已绑定手机：" + mPhone);
     }
 
     /**
@@ -82,7 +87,7 @@ public class VerifyPhoneActivity extends BaseActivity<LoginViewModel, ActivityVe
 
         @Override
         public void onTick(long millisUntilFinished) {
-            binding.tvGetCode.setText(String.valueOf((millisUntilFinished / 1000) + "s"));
+            binding.tvGetCode.setText((millisUntilFinished / 1000) + "s");
             binding.tvGetCode.setTextColor(Res.getColor(SSApplication.app, R.color.color_b6a578));
         }
 
@@ -113,6 +118,11 @@ public class VerifyPhoneActivity extends BaseActivity<LoginViewModel, ActivityVe
 
     @Override
     public void onLoginFailed() {
+
+    }
+
+    @Override
+    public void onModifyPhone(String phone) {
 
     }
 }

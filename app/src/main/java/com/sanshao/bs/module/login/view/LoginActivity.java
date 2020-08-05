@@ -103,7 +103,7 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
                 return;
             }
             LoadDialogMgr.getInstance().show(context);
-            mViewModel.getSMSCode(mPhone, "APP_LOGIN");
+            mViewModel.getSMSCode(mPhone, LoginViewModel.LoginType.APP_LOGIN);
         });
         binding.tvLogin.setOnClickListener(v -> {
             mPhone = binding.edtPhone.getText().toString();
@@ -175,6 +175,11 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
 
     @Override
     public void onLoginFailed() {
+
+    }
+
+    @Override
+    public void onModifyPhone(String phone) {
 
     }
 }

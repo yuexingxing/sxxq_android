@@ -19,6 +19,7 @@
             app:title="验证手机号" />
 
         <TextView
+            android:id="@+id/tv_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/left_container_margin"
