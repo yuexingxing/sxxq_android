@@ -22,6 +22,6 @@ public interface PersonalApiService {
     Observable<BaseResponse<UserInfo>> getUserInfo();
 
     //提交个人信息
-    @POST("/util/sms/fetch")
+    @POST("w/meminfo/updateMemInfo")
     Observable<BaseResponse> updateUserInfo(@Body UserInfo userInfo);
 }

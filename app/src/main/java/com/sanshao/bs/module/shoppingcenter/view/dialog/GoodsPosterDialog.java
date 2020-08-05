@@ -55,7 +55,7 @@ public class GoodsPosterDialog {
             tvPrice.setText(goodsDetailInfo.sarti_saleprice + "");
             Glide.with(SSApplication.app).load(goodsDetailInfo.share_url).into(imgIcon);
         }
-        String userId = SSApplication.getInstance().getUserInfo().nickName;
+        String userId = SSApplication.getInstance().getUserInfo().nickname;
         if (TextUtils.isEmpty(userId)) {
             userId = "sanshao";
         }

@@ -28,11 +28,13 @@ import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ActivityPersonalDetailBinding;
 import com.sanshao.bs.module.personal.bean.UserInfo;
+import com.sanshao.bs.module.personal.model.IPersonalCallBack;
 import com.sanshao.bs.module.personal.personaldata.dialog.SelectBirthdayDialog;
 import com.sanshao.bs.module.personal.setting.viewmodel.PersonalDetailViewModel;
 import com.sanshao.bs.module.personal.viewmodel.PersonalViewModel;
 import com.sanshao.bs.util.BitmapUtil;
 import com.sanshao.bs.util.FileUtil;
+import com.sanshao.bs.util.GlideUtil;
 import com.sanshao.bs.util.ToastUtil;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogAdapter;
@@ -53,12 +55,11 @@ import java.util.List;
  * @Author yuexingxing
  * @time 2020/6/12
  */
-public class PersonalDetailActivity extends BaseActivity<PersonalDetailViewModel, ActivityPersonalDetailBinding> {
+public class PersonalDetailActivity extends BaseActivity<PersonalViewModel, ActivityPersonalDetailBinding> implements IPersonalCallBack {
 
     private final static int REQUEST_IMAGE_GET = 1;
     private final static int REQUEST_IMAGE_CAPTURE = 2;
     private String mCurrentPhotoPath;
-    private PersonalViewModel mPersonalViewModel;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, PersonalDetailActivity.class);
@@ -73,24 +74,13 @@ public class PersonalDetailActivity extends BaseActivity<PersonalDetailViewModel
     @Override
     protected void onResume() {
         super.onResume();
-
-        mPersonalViewModel = new PersonalViewModel();
-        UserInfo userInfo = SSApplication.getInstance().getUserInfo();
-        binding.lcvNickName.setContent(userInfo.nickName);
-        binding.lcvSex.setContent(userInfo.getGender());
-        binding.lcvSignature.setContent(userInfo.signature);
-        binding.lcvBirthday.setContent(userInfo.birthday);
-
-        String content = "www.baidu.com";
-        Bitmap bitmap = QRCodeUtil.createQRCodeBitmap(content, ScreenUtil.dp2px(context, 38),
-                ScreenUtil.dp2px(context, 38));
-        binding.ivQrcode.setImageBitmap(bitmap);
+        mViewModel.getUserInfo();
     }
 
     @Override
     public void initData() {
 
-        binding.setUser(SSApplication.getInstance().getUserInfo());
+        mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -116,30 +106,23 @@ public class PersonalDetailActivity extends BaseActivity<PersonalDetailViewModel
             new CommonBottomDialog()
                     .init(this)
                     .setData(commonDialogInfoList)
-                    .setOnItemClickListener(new CommonDialogAdapter.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(CommonDialogInfo commonDialogInfo) {
-                            if (commonDialogInfo.position == 0) {
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    checkPermission(0);
-                                } else {
-                                    selectFromCamera();
-                                }
+                    .setOnItemClickListener(commonDialogInfo -> {
+                        if (commonDialogInfo.position == 0) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                checkPermission(0);
                             } else {
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    checkPermission(1);
-                                } else {
-                                    selectFromAlbum();
-                                }
+                                selectFromCamera();
+                            }
+                        } else {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                checkPermission(1);
+                            } else {
+                                selectFromAlbum();
                             }
                         }
                     })
                     .show();
         });
-        Bitmap bitmap = ACache.get(context).getAsBitmap(ConfigSP.UserInfo.AVATAR);
-        if (bitmap != null) {
-            binding.ivAvatar.setImageBitmap(bitmap);
-        }
 
         binding.lcvNickName.setOnClickListener(v -> SettingNameActivity.start(context));
         binding.llQrcode.setOnClickListener(v -> {
@@ -153,16 +136,14 @@ public class PersonalDetailActivity extends BaseActivity<PersonalDetailViewModel
             new CommonBottomDialog()
                     .init(this)
                     .setData(commonDialogInfoList)
-                    .setOnItemClickListener(new CommonDialogAdapter.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(CommonDialogInfo commonDialogInfo) {
-                            UserInfo userInfo = SSApplication.getInstance().getUserInfo();
-//                            userInfo.sexName = commonDialogInfo.name;
-                            SSApplication.getInstance().saveUserInfo(userInfo);
-//                            binding.lcvSex.setContent(userInfo.sexName);
-                            //TODO 更新性别
-                            //mPersonalSignatureViewModel.updateUserInfo(null);
+                    .setOnItemClickListener(commonDialogInfo -> {
+                        UserInfo userInfoTemp = new UserInfo();
+                        if (commonDialogInfo.position == 0) {
+                            userInfoTemp.gender = "M";
+                        } else {
+                            userInfoTemp.gender = "F";
                         }
+                        mViewModel.updateUserInfo(userInfoTemp);
                     })
                     .show();
         });
@@ -174,21 +155,14 @@ public class PersonalDetailActivity extends BaseActivity<PersonalDetailViewModel
             boolean[] timeType = new boolean[]{true, true, true, false, false, false};
             new SelectBirthdayDialog()
                     .init(context, "出生日期", timeType)
-                    .setCommonCallBack(new CommonCallBack() {
-                        @Override
-                        public void callback(int postion, Object object) {
-                            if (object == null) {
-                                return;
-                            }
-                            String birthday = ((String) object).split(" ")[0];
-                            UserInfo userInfo = SSApplication.getInstance().getUserInfo();
-                            userInfo.birthday = birthday;
-                            SSApplication.getInstance().saveUserInfo(userInfo);
-                            binding.lcvBirthday.setContent(birthday);
-
-                            //TODO 更新生日
-                            //mPersonalSignatureViewModel.updateUserInfo(null);
+                    .setCommonCallBack((postion, object) -> {
+                        if (object == null) {
+                            return;
                         }
+                        String birthday = ((String) object).split(" ")[0];
+                        UserInfo userInfoTemp = new UserInfo();
+                        userInfoTemp.birthday = birthday;
+                        mViewModel.updateUserInfo(userInfoTemp);
                     }).show();
         });
     }
@@ -282,5 +256,31 @@ public class PersonalDetailActivity extends BaseActivity<PersonalDetailViewModel
                         selectFromAlbum();
                     }
                 });
+    }
+
+    @Override
+    public void returnUserInfo(UserInfo userInfo) {
+        if (userInfo == null) {
+            return;
+        }
+        SSApplication.getInstance().saveUserInfo(userInfo);
+        updateUI(userInfo);
+    }
+
+    @Override
+    public void returnUpdateUserInfo(UserInfo userInfo) {
+        if (userInfo == null) {
+            return;
+        }
+        ToastUtil.showShortToast("修改成功");
+        mViewModel.getUserInfo();
+    }
+
+    private void updateUI(UserInfo userInfo) {
+        binding.lcvNickName.setContent(userInfo.nickname);
+        binding.lcvSex.setContent(userInfo.getGender());
+        binding.lcvBirthday.setContent(userInfo.birthday);
+        binding.lcvSignature.setContent(userInfo.signature);
+        GlideUtil.loadImage(userInfo.avatar, binding.ivAvatar);
     }
 }

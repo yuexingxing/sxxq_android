@@ -2,6 +2,8 @@ package com.sanshao.bs.module.personal.bean;
 
 import android.text.TextUtils;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -10,8 +12,8 @@ import java.io.Serializable;
  */
 public class UserInfo implements Serializable {
     public String mem_id;
-    public String gender = "请选择";
-    public String nickName = "sanshao";
+    public String gender;
+    public String nickname;
     public String birthday;
     public String signature;
     public String avatar;

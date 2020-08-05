@@ -6,6 +6,9 @@ import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
+import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
+import com.sanshao.bs.module.shoppingcenter.model.IGuessYouLoveModel;
+import com.sanshao.bs.module.shoppingcenter.viewmodel.GuessYouLoveViewModel;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityPayCompleteBinding;
@@ -17,6 +20,8 @@ import com.sanshao.bs.module.shoppingcenter.view.dialog.PaySuccessDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
+
 /**
  * 支付完成
  *
@@ -24,8 +29,6 @@ import org.greenrobot.eventbus.EventBus;
  * @time 2020/6/20
  */
 public class PayCompleteActivity extends BaseActivity<PayCompleteViewModel, ActivityPayCompleteBinding> {
-
-    private GuessYouLoveAdapter mGuessYouLoveAdapter;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, PayCompleteActivity.class);
@@ -62,9 +65,11 @@ public class PayCompleteActivity extends BaseActivity<PayCompleteViewModel, Acti
             }
         });
         binding.tvToMain.setOnClickListener(v -> MainActivity.start(context));
-        binding.tvViewOrder.setOnClickListener(v -> OrderListActivity.start(context,  OrderInfo.State.ALL));
+        binding.tvViewOrder.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.ALL));
 
+        binding.guessYouLoveView.getData();
         PaySuccessDialog paySuccessDialog = new PaySuccessDialog();
         paySuccessDialog.show(context);
     }
+
 }

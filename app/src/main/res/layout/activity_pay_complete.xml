@@ -133,6 +133,7 @@
                 </LinearLayout>
 
                 <com.sanshao.bs.module.shoppingcenter.widget.GuessYouLoveView
+                    android:id="@+id/guess_you_love_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="26dp" />

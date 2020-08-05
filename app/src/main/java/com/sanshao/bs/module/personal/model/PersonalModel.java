@@ -48,8 +48,8 @@ public class PersonalModel {
                 });
     }
 
-    public static void updateUserInfo(UserInfo userInfo, final OnLoadListener<LoginBean> onLoadListener) {
-        XApi.get(PersonalApiService.class)
+    public static void updateUserInfo(UserInfo userInfo, final OnLoadListener onLoadListener) {
+        XApi.get(PersonalApiService.class, XApi.HOST_TYPE.NODE)
                 .updateUserInfo(userInfo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

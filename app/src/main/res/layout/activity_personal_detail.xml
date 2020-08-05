@@ -28,7 +28,7 @@
                     android:id="@+id/title_bar"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/title_height"
-                    app:title="个人设置" />
+                    app:title="个人资料" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -158,7 +158,7 @@
                         app:name="个性签名"
                         app:showBottomLine="false"
                         app:showTopLine="false"
-                        app:subject="请选择" />
+                        app:subject="请填写" />
                 </RelativeLayout>
             </LinearLayout>
 

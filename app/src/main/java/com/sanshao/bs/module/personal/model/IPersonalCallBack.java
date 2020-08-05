@@ -9,5 +9,5 @@ import com.sanshao.bs.module.personal.bean.UserInfo;
 public interface IPersonalCallBack {
     void returnUserInfo(UserInfo userInfo);
 
-    void returnUpdateUserInfo();
+    void returnUpdateUserInfo(UserInfo userInfo);
 }

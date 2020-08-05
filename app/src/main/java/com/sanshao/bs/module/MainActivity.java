@@ -16,12 +16,18 @@ import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.util.Res;
 import com.google.android.material.tabs.TabLayout;
 import com.sanshao.bs.R;
+import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ActivityMainBinding;
+import com.sanshao.bs.module.personal.bean.UserInfo;
+import com.sanshao.bs.module.personal.event.UpdateUserInfoEvent;
 import com.sanshao.bs.module.personal.income.bean.IncomeMenuInfo;
 import com.sanshao.bs.module.personal.income.view.IncomeTabFragmentAdapter;
 import com.sanshao.bs.module.personal.view.PersonalFragment;
 import com.sanshao.bs.module.shoppingcenter.view.ShoppingCenterFragment;
 import com.sanshao.bs.util.ToastUtil;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;

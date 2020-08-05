@@ -98,7 +98,7 @@ public class RecommendCodeActivity extends BaseActivity<RecommendCodeViewModel, 
 
         Bitmap bitmap = ACache.get(context).getAsBitmap(ConfigSP.UserInfo.AVATAR);
         binding.ivAvatar.setImageBitmap(bitmap);
-        binding.tvName.setText(SSApplication.getInstance().getUserInfo().nickName);
+        binding.tvName.setText(SSApplication.getInstance().getUserInfo().nickname);
     }
 
     private void share() {

@@ -19,14 +19,20 @@ import com.sanshao.bs.module.order.bean.OrderInfo;
 import com.sanshao.bs.module.order.view.OrderListActivity;
 import com.sanshao.bs.module.personal.adapter.PersonalOrderSubjectAdapter;
 import com.sanshao.bs.module.personal.bean.UserInfo;
+import com.sanshao.bs.module.personal.event.UpdateUserInfoEvent;
 import com.sanshao.bs.module.personal.income.view.IncomeHomeActivity;
 import com.sanshao.bs.module.personal.inquiry.view.ToBeInquiryListActivity;
 import com.sanshao.bs.module.personal.model.IPersonalCallBack;
 import com.sanshao.bs.module.personal.personaldata.view.PersonalDetailActivity;
 import com.sanshao.bs.module.personal.setting.view.SettingActivity;
 import com.sanshao.bs.module.personal.viewmodel.PersonalViewModel;
+import com.sanshao.bs.util.GlideUtil;
+import com.sanshao.bs.util.ToastUtil;
 import com.sanshao.bs.widget.flexible.OnReadyPullListener;
 import com.sanshao.bs.widget.flexible.OnRefreshListener;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,10 +108,6 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     @Override
     public void onResume() {
         super.onResume();
-        Bitmap bitmap = ACache.get(context).getAsBitmap(ConfigSP.UserInfo.AVATAR);
-        if (bitmap != null) {
-            binding.ivAvatar.setImageBitmap(bitmap);
-        }
     }
 
     @Override
@@ -154,17 +156,28 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     }
 
     @Override
+    public boolean useEventBus() {
+        return true;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUpdateUserInfoEvent(UpdateUserInfoEvent updateUserInfoEvent) {
+        mViewModel.getUserInfo();
+    }
+
+    @Override
     public void returnUserInfo(UserInfo userInfo) {
-        if (userInfo == null){
+        if (userInfo == null) {
             return;
         }
-        binding.tvName.setText(userInfo.nickName);
-        Glide.with(SSApplication.app).load(userInfo.avatar).into(binding.ivAvatar);
+        SSApplication.getInstance().saveUserInfo(userInfo);
+        binding.tvName.setText(userInfo.nickname);
+        GlideUtil.loadImage(userInfo.avatar, binding.ivAvatar);
         initLoginStatus(3);
     }
 
     @Override
-    public void returnUpdateUserInfo() {
+    public void returnUpdateUserInfo(UserInfo userInfo) {
 
     }
 
@@ -188,7 +201,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             return;
         }
 
-        binding.tvName.setText(userInfo.nickName);
+        binding.tvName.setText(userInfo.nickname);
         //非会员
         if (state == 1) {
             binding.rlAvatarBg.setBackground(null);

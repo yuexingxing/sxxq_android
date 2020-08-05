@@ -15,7 +15,10 @@ import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.bs.R;
+import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ShoppingCenterFragmentBinding;
+import com.sanshao.bs.module.personal.bean.UserInfo;
+import com.sanshao.bs.module.personal.event.UpdateUserInfoEvent;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsTypeInfo;
 import com.sanshao.bs.module.shoppingcenter.bean.ShoppingCenterResponse;
@@ -23,6 +26,10 @@ import com.sanshao.bs.module.shoppingcenter.model.IShoppingCenterModel;
 import com.sanshao.bs.module.shoppingcenter.view.adapter.GoodsTypeAdapter;
 import com.sanshao.bs.module.shoppingcenter.view.adapter.ServiceTypeAdapter;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.ShoppingCenterViewModel;
+import com.sanshao.bs.util.ToastUtil;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * 商城

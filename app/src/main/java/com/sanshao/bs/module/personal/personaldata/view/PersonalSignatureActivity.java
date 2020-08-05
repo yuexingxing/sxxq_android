@@ -8,12 +8,17 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
+import com.sanshao.bs.module.personal.event.UpdateUserInfoEvent;
+import com.sanshao.bs.module.personal.model.IPersonalCallBack;
 import com.sanshao.bs.module.personal.viewmodel.PersonalViewModel;
+import com.sanshao.bs.util.ToastUtil;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ActivityPersonalSignatureBinding;
 import com.sanshao.bs.module.personal.bean.UserInfo;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * 个性签名
@@ -21,9 +26,7 @@ import com.sanshao.bs.module.personal.bean.UserInfo;
  * @Author yuexingxing
  * @time 2020/7/2
  */
-public class PersonalSignatureActivity extends BaseActivity<PersonalViewModel, ActivityPersonalSignatureBinding> {
-
-    private PersonalViewModel mPersonalViewModel;
+public class PersonalSignatureActivity extends BaseActivity<PersonalViewModel, ActivityPersonalSignatureBinding> implements IPersonalCallBack {
 
     public static void start(Context context) {
         Intent starter = new Intent(context, PersonalSignatureActivity.class);
@@ -38,7 +41,7 @@ public class PersonalSignatureActivity extends BaseActivity<PersonalViewModel, A
     @Override
     public void initData() {
 
-        mPersonalViewModel = new PersonalViewModel();
+        mViewModel.setCallBack(this);
         String content = SSApplication.getInstance().getUserInfo().signature;
         if (TextUtils.isEmpty(content)) {
             content = "";
@@ -99,14 +102,23 @@ public class PersonalSignatureActivity extends BaseActivity<PersonalViewModel, A
      */
     private void submit() {
 
-        //TODO 更新签名
-//        UserInfo userInfo = new UserInfo();
-//        userInfo.signature = binding.edtContent.getText().toString();
-//        mPersonalSignatureViewModel.updateUserInfo(userInfo);
-
-        UserInfo userInfo = SSApplication.getInstance().getUserInfo();
+        UserInfo userInfo = new UserInfo();
         userInfo.signature = binding.edtContent.getText().toString();
-        SSApplication.getInstance().saveUserInfo(userInfo);
+        mViewModel.updateUserInfo(userInfo);
+    }
+
+    @Override
+    public void returnUserInfo(UserInfo userInfo) {
+
+    }
+
+    @Override
+    public void returnUpdateUserInfo(UserInfo userInfo) {
+        ToastUtil.showShortToast("修改成功");
+        UserInfo userInfoTemp = SSApplication.getInstance().getUserInfo();
+        userInfoTemp.signature = userInfo.signature;
+        SSApplication.getInstance().saveUserInfo(userInfoTemp);
+        EventBus.getDefault().post(new UpdateUserInfoEvent());
         finish();
     }
 }

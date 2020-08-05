@@ -60,7 +60,9 @@ public class PersonalViewModel extends BaseViewModel {
 
             @Override
             public void onLoadSucessed(BaseResponse t) {
-
+                if (mCallBack != null){
+                    mCallBack.returnUpdateUserInfo(userInfo);
+                }
             }
 
             @Override

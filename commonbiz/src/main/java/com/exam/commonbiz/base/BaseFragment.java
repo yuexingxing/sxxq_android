@@ -16,10 +16,11 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.exam.commonbiz.R;
-import com.exam.commonbiz.event.EventBusProvider;
 import com.exam.commonbiz.util.LoadingDialogUtil;
 import com.exam.commonbiz.util.StatusBarUtil;
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.lang.reflect.ParameterizedType;
 
@@ -49,17 +50,16 @@ public abstract class BaseFragment<VM extends ViewModel, VDB extends ViewDataBin
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (useEventBus()) {
-            EventBusProvider.getBus().register(this);
-        }
         setStatusBar();
         initData();
+        if (useEventBus()) {
+            EventBus.getDefault().register(this);
+        }
     }
 
     public boolean useEventBus() {
@@ -109,7 +109,7 @@ public abstract class BaseFragment<VM extends ViewModel, VDB extends ViewDataBin
     public void onDestroyView() {
         super.onDestroyView();
         if (useEventBus()) {
-            EventBusProvider.getBus().unregister(this);
+            EventBus.getDefault().unregister(this);
         }
     }
 

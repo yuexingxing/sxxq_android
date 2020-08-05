@@ -9,9 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_marginLeft="16dp"
-        android:visibility="gone"
         android:layout_marginRight="16dp"
-        android:background="@color/line" />
+        android:background="@color/line"
+        android:visibility="gone" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -54,7 +54,6 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:gravity="right"
-                    android:maxLength="10"
                     android:singleLine="true"
                     android:textColor="@color/text_gray1"
                     android:textSize="14sp" />
@@ -75,6 +74,6 @@
         android:layout_height="1px"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:visibility="gone"
-        android:background="@color/line" />
+        android:background="@color/line"
+        android:visibility="gone" />
 </LinearLayout>
