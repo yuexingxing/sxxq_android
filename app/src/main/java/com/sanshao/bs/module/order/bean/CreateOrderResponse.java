@@ -6,10 +6,10 @@ import java.io.Serializable;
 
 public class CreateOrderResponse implements Serializable {
 
-    @SerializedName("order_no")
+    @SerializedName("salebill_id")
     public String orderNo;
-    @SerializedName("order_price")
+    @SerializedName("sum_amt")
     public String orderPrice;
-    @SerializedName("order_point")
-    public String orderPoint;
+    @SerializedName("sum_point")
+    public String sumPoint;
 }
