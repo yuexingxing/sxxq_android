@@ -94,7 +94,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.sanshao.bs.fileprovider"
+            android:authorities="${applicationId}.bs.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -108,25 +108,25 @@
         <uses-library android:name="android.test.runner" />
 
 
-<!--        <service-->
-<!--            android:name="com.tencent.imsdk.session.remote.SessionService"-->
-<!--            android:process=":network" />-->
-<!--        <service-->
-<!--            android:name="com.tencent.imsdk.session.remote.AssistService"-->
-<!--            android:process=":network" />-->
-<!--        <service-->
-<!--            android:name="com.tencent.imsdk.session.remote.KeepAliveJobService"-->
-<!--            android:permission="android.permission.BIND_JOB_SERVICE"-->
-<!--            android:process=":network" />-->
+        <!--        <service-->
+        <!--            android:name="com.tencent.imsdk.session.remote.SessionService"-->
+        <!--            android:process=":network" />-->
+        <!--        <service-->
+        <!--            android:name="com.tencent.imsdk.session.remote.AssistService"-->
+        <!--            android:process=":network" />-->
+        <!--        <service-->
+        <!--            android:name="com.tencent.imsdk.session.remote.KeepAliveJobService"-->
+        <!--            android:permission="android.permission.BIND_JOB_SERVICE"-->
+        <!--            android:process=":network" />-->
 
-<!--        <receiver android:name="com.tencent.imsdk.session.SessionBroadcastReceiver">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="com.tencent.imsdk.session.boot" />-->
-<!--                <action android:name="android.intent.action.BOOT_COMPLETED" />-->
-<!--                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
-<!--                <action android:name="com.tencent.qcloud.qal.TASK_REMOVED" />-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
+        <!--        <receiver android:name="com.tencent.imsdk.session.SessionBroadcastReceiver">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="com.tencent.imsdk.session.boot" />-->
+        <!--                <action android:name="android.intent.action.BOOT_COMPLETED" />-->
+        <!--                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
+        <!--                <action android:name="com.tencent.qcloud.qal.TASK_REMOVED" />-->
+        <!--            </intent-filter>-->
+        <!--        </receiver>-->
 
     </application>
 

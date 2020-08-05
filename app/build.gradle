@@ -5,7 +5,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.sanshao.bs"
+        applicationId "cn.sanshaoxingqiu.ssbm"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
@@ -114,6 +114,8 @@ dependencies {
 
     implementation 'com.aliyun.sdk.android:AliyunPlayer:4.5.0-full'
     implementation 'com.alivc.conan:AlivcConan:0.9.5'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.6.1'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
 
     implementation project(':commonbiz')
     implementation project(':livemodule')

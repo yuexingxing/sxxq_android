@@ -54,12 +54,19 @@ public class HomeBanner extends ViewPager {
             mAdapter = new MyAdapter(getContext(), bannerList);
             onPageClickListener = clickListener;
             setAdapter(mAdapter);
-            setCurrentItem(bannerList.size() * 10000);
+            if (mAutoScroll) {
+                setCurrentItem(bannerList.size() * 10000);
+            } else {
+                setCurrentItem(0);
+                setOffscreenPageLimit(bannerList.size());
+            }
         }
-        setOffscreenPageLimit(bannerList.size());
-        mHandler.removeCallbacksAndMessages(null);
-        if (bannerList != null && bannerList.size() > 1) {
-            mHandler.postDelayed(mRunnable, time);
+
+        if (mAutoScroll) {
+            mHandler.removeCallbacksAndMessages(null);
+            if (bannerList != null && bannerList.size() > 1) {
+                mHandler.postDelayed(mRunnable, time);
+            }
         }
     }
 
@@ -148,8 +155,10 @@ public class HomeBanner extends ViewPager {
     public boolean onTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_UP:
-                mHandler.removeCallbacksAndMessages(null);
-                mHandler.postDelayed(mRunnable, time);
+                if (mAutoScroll) {
+                    mHandler.removeCallbacksAndMessages(null);
+                    mHandler.postDelayed(mRunnable, time);
+                }
                 break;
         }
         return super.onTouchEvent(ev);

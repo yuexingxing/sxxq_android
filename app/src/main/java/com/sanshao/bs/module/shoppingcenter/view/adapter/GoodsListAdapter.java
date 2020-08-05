@@ -55,9 +55,9 @@ public class GoodsListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
     protected void convert(BaseViewHolder helper, GoodsDetailInfo item) {
         helper.setText(R.id.tv_title, item.sarti_name);
 
-        helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.sarti_mkprice));
+        helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.sarti_saleprice));
         TextView tvOldPrice = helper.getView(R.id.tv_old_price);
-        tvOldPrice.setText("¥" + MathUtil.getNumExclude0(item.sarti_saleprice));
+        tvOldPrice.setText("¥" + MathUtil.getNumExclude0(item.sarti_mkprice));
         tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
 
         View viewInclude = helper.getView(R.id.include_video);
@@ -69,6 +69,10 @@ public class GoodsListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
             videoPlayLayout.setVisibility(View.GONE);
             Glide.with(SSApplication.app).load(item.thumbnail_img).into(ivIcon);
             layoutParams.height = ScreenUtil.dp2px(SSApplication.app, 343);
+            //暂停播放
+            if (!item.isPlay) {
+                videoPlayLayout.pausePlay();
+            }
         } else {
             ivIcon.setVisibility(View.GONE);
             videoPlayLayout.setVisibility(View.VISIBLE);
@@ -103,5 +107,9 @@ public class GoodsListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
         } else {
             helper.getView(R.id.view_bottom).setVisibility(View.GONE);
         }
+    }
+
+    public void stopPlay() {
+
     }
 }

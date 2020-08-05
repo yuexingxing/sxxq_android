@@ -11,7 +11,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
-import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.util.MathUtil;
 
 /**
@@ -28,9 +27,9 @@ public class GoodsTypeDetailAdapter extends BaseQuickAdapter<GoodsDetailInfo, Ba
     protected void convert(BaseViewHolder helper, GoodsDetailInfo item) {
         helper.setText(R.id.tv_title, item.sarti_name);
 
-        helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.sarti_mkprice));
+        helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.sarti_saleprice));
         TextView tvOldPrice = helper.getView(R.id.tv_old_price);
-        tvOldPrice.setText("¥" + MathUtil.getNumExclude0(item.sarti_saleprice));
+        tvOldPrice.setText("¥" + MathUtil.getNumExclude0(item.sarti_mkprice));
         tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         Glide.with(SSApplication.app).load(item.thumbnail_img).into((ImageView) helper.getView(R.id.iv_icon));
 

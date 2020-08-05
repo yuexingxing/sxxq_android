@@ -15,12 +15,12 @@ import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ShoppingCenterFragmentBinding;
 import com.sanshao.bs.module.home.model.BannerInfo;
-import com.sanshao.bs.module.home.view.HomeBannerLayout;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsTypeInfo;
 import com.sanshao.bs.module.shoppingcenter.bean.ShoppingCenterResponse;
 import com.sanshao.bs.module.shoppingcenter.model.IShoppingCenterModel;
 import com.sanshao.bs.module.shoppingcenter.view.adapter.GoodsTypeAdapter;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.ShoppingCenterViewModel;
+import com.sanshao.bs.util.GlideUtil;
 
 /**
  * 商城
@@ -31,6 +31,7 @@ import com.sanshao.bs.module.shoppingcenter.viewmodel.ShoppingCenterViewModel;
 public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel, ShoppingCenterFragmentBinding> implements IShoppingCenterModel {
 
     private GoodsTypeAdapter mGoodsTypeAdapter;
+    private BannerInfo mAdBannerInfo;
 
     public static ShoppingCenterFragment newInstance() {
         return new ShoppingCenterFragment();
@@ -56,11 +57,13 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
         });
 
         binding.homeBannerLayout.setOnBannerClick(bannerInfo -> {
-            if (TextUtils.equals(bannerInfo.action_type, BannerInfo.ActionType.GOODS_LIST)) {
-                GoodsListActivity.start(context, bannerInfo.artitag_id);
-            } else if (TextUtils.equals(bannerInfo.action_type, BannerInfo.ActionType.NEW_MEM)) {
-
+            jumpBanner(bannerInfo);
+        });
+        binding.ivAd.setOnClickListener(v -> {
+            if (mAdBannerInfo == null) {
+                return;
             }
+            jumpBanner(mAdBannerInfo);
         });
 
         binding.nestedScrollview.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
@@ -107,11 +110,8 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
         }
         binding.homeBannerLayout.setData(shoppingCenterResponse.slideshow);
         if (!ContainerUtil.isEmpty(shoppingCenterResponse.static_advertising)) {
-            Glide.with(getContext())
-                    .load(shoppingCenterResponse.static_advertising.get(0).artitag_url)
-                    .placeholder(R.drawable.ic_launcher_background)
-                    .error(R.drawable.ic_launcher_background)
-                    .into(binding.ivAd);
+            mAdBannerInfo = shoppingCenterResponse.static_advertising.get(0);
+            GlideUtil.loadImage(mAdBannerInfo.artitag_url, binding.ivAd);
         }
         if (!ContainerUtil.isEmpty(shoppingCenterResponse.classify)) {
             for (int i = 0; i < shoppingCenterResponse.classify.size(); i++) {
@@ -124,5 +124,27 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
             mGoodsTypeAdapter.setNewData(shoppingCenterResponse.classify);
         }
         binding.llBottomLine.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * 轮播/广告点击跳转
+     *
+     * @param bannerInfo
+     */
+    private void jumpBanner(BannerInfo bannerInfo) {
+        if (bannerInfo == null) {
+            return;
+        }
+        if (TextUtils.equals(bannerInfo.action_type, BannerInfo.ActionType.GOODS)) {
+            if (bannerInfo.action_args != null) {
+                GoodsDetailActivity.start(context, bannerInfo.action_args.sarti_id);
+            }
+        } else if (TextUtils.equals(bannerInfo.action_type, BannerInfo.ActionType.GOODS_LIST)) {
+            if (bannerInfo.action_args != null) {
+                GoodsListActivity.start(context, bannerInfo.action_args.artitag_id);
+            }
+        } else if (TextUtils.equals(bannerInfo.action_type, BannerInfo.ActionType.NEW_MEM)) {
+
+        }
     }
 }

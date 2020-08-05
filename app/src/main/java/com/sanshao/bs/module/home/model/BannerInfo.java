@@ -12,10 +12,13 @@ public class BannerInfo {
     public String action_type;//GOODS=跳转到商品详情页
     public String videoUrl;
     public String videoPic;
+    public String sarti_id;
+    public BannerInfo action_args;
 
     public interface ActionType{
         String REG = "REG";
         String NEW_MEM = "NEW_MEM";
+        String GOODS = "GOODS";
         String GOODS_LIST = "GOODS_LIST";
     }
 }

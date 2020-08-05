@@ -6,6 +6,7 @@ import android.os.Build;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.log.XLog;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.exam.commonbiz.util.ScreenUtil;
@@ -26,6 +28,7 @@ import com.sanshao.bs.module.shoppingcenter.view.adapter.GoodsListAdapter;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.GoodsListViewModel;
 import com.sanshao.bs.util.Constants;
+import com.sanshao.bs.util.OnItemEnterOrExitVisibleHelper;
 import com.sanshao.bs.util.ShareUtils;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
@@ -120,9 +123,6 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         binding.goodsListRecyclerView.setLayoutManager(linearLayoutManager);
         binding.goodsListRecyclerView.setAdapter(mGoodsListAdapter);
-        binding.goodsListRecyclerView.setNestedScrollingEnabled(false);
-        binding.goodsListRecyclerView.setFocusable(false);
-        mGoodsListAdapter.setOnLoadMoreListener(this, binding.goodsListRecyclerView);
         mGoodsListAdapter.setEnableLoadMore(false);
         mGoodsListAdapter.setOnLoadMoreListener(this, binding.goodsListRecyclerView);
         binding.goodsListRecyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
@@ -150,21 +150,29 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
             mPageNum = 0;
             mViewModel.getGoodsList(mArtiTagId, mPageNum, Constants.PAGE_SIZE);
         });
-        binding.nestedScrollview.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                Log.d(TAG, "dy-" + scrollY + "/" + oldScrollY);
-                if (scrollY > ScreenUtil.dp2px(context, 1000)) {
+        
+        binding.ivToTop.setOnClickListener(view -> binding.goodsListRecyclerView.smoothScrollToPosition(0));
+        OnItemEnterOrExitVisibleHelper helper = new OnItemEnterOrExitVisibleHelper();
+        helper.setRecyclerScrollListener(binding.goodsListRecyclerView);
+        helper.setOnScrollStatusListener(new OnItemEnterOrExitVisibleHelper.OnScrollStatusListener() {
+            public void onSelectEnterPosition(int postion) {
+                XLog.d(TAG, "进入Enter：" + postion);
+                if (postion >= 10) {
                     binding.ivToTop.setVisibility(View.VISIBLE);
                 } else {
                     binding.ivToTop.setVisibility(View.GONE);
                 }
             }
+
+            public void onSelectExitPosition(int postion) {
+                XLog.d(TAG, "退出Exit：" + postion);
+                mGoodsListAdapter.getData().get(postion).isPlay = false;
+                mGoodsListAdapter.notifyItemChanged(postion);
+            }
         });
 
-        binding.ivToTop.setOnClickListener(view -> {
-            binding.nestedScrollview.smoothScrollTo(0, 0);
-        });
+        mGoodsListAdapter.setPreLoadNumber(1);
+        mGoodsListAdapter.disableLoadMoreIfNotFullPage();
         mViewModel.getGoodsList(mArtiTagId, mPageNum, Constants.PAGE_SIZE);
     }
 
@@ -234,12 +242,11 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
             return;
         }
         List<GoodsDetailInfo> list = (List<GoodsDetailInfo>) object;
-        mGoodsListAdapter.getData().clear();
         if (ContainerUtil.isEmpty(list)) {
             binding.emptyLayout.showEmpty("暂无商品", R.drawable.image_nogoods);
             return;
         }
-        mGoodsListAdapter.addData(list);
+        mGoodsListAdapter.setNewData(list);
         binding.emptyLayout.showSuccess();
     }
 

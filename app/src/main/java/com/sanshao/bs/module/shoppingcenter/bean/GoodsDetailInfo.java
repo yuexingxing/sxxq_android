@@ -27,6 +27,7 @@ public class GoodsDetailInfo implements Serializable {
     public String use_qty;
     public String sarti_desc;
     public List<GoodsDetailInfo> product_list;
+    public boolean isPlay;
 
     /**
      * 是否是套餐
