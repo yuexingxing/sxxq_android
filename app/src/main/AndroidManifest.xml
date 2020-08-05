@@ -147,39 +147,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- wxpay sdk -->
-        <activity
-            android:name=".wxapi.WXPayEntryActivity"
-            android:exported="true"
-            android:launchMode="singleTop">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data android:scheme="wx39e54ad494771256" />
-            </intent-filter>
-        </activity> <!-- wxpay sdk end -->
-        <!-- 微信 -->
-        <activity
-            android:name=".wxapi.WXEntryActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="adjustPan|adjustUnspecified|stateHidden" /> <!-- alipay sdk begin -->
-        <activity
-            android:name=".wxapi.alipay.H5PayDemoActivity"
-            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
-            android:exported="false"
-            android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name="com.alipay.sdk.app.H5AuthActivity"
-            android:configChanges="orientation|keyboardHidden|navigation"
-            android:exported="false"
-            android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" /> <!-- 百度地图配置； -->
+        </activity>
+        <!-- 百度地图配置； -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="vQ6wgz1OlQGDYI0n0oDgydMuaDcOPoSy" />

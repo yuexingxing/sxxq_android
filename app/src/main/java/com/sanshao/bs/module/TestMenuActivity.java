@@ -20,7 +20,6 @@ import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityTestMenuBinding;
 import com.sanshao.bs.module.login.view.LoginActivity;
 import com.sanshao.bs.module.order.view.OrderListActivity;
-import com.sanshao.bs.wxapi.alipay.AliPayDemoActivity;
 
 import java.util.Date;
 
@@ -63,7 +62,9 @@ public class TestMenuActivity extends BaseActivity<TestMenuViewModel, ActivityTe
         });
 
         binding.btnLogin.setOnClickListener(v -> LoginActivity.start(TestMenuActivity.this));
-        binding.btnPay.setOnClickListener(v -> AliPayDemoActivity.start(context));
+        binding.btnPay.setOnClickListener(v -> {
+
+        });
         binding.btnLive.setOnClickListener(v -> {
             Intent intent = new Intent(context, TCLoginActivity.class);
             startActivity(intent);

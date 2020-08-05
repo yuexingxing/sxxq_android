@@ -2,6 +2,7 @@ package com.sanshao.bs.module.order.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
@@ -18,6 +19,7 @@ import com.sanshao.bs.module.order.util.PayUtils;
 import com.sanshao.bs.module.order.viewmodel.ConfirmOrderViewModel;
 import com.sanshao.bs.module.order.viewmodel.ConfirmPayViewModel;
 import com.sanshao.bs.util.Constants;
+import com.sanshao.bs.util.ToastUtil;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -112,23 +114,20 @@ public class ConfirmPayActivity extends BaseActivity<ConfirmPayViewModel, Activi
             return;
         }
 
-        PayUtils payUtils = new PayUtils();
-        if (PAY_BY_WECHAT == mPayType) {
-            payUtils.wxPay(ConfirmPayActivity.this, orderPayInfoResponse.orderInfo);
-        } else {
-            payUtils.aliPay(ConfirmPayActivity.this, orderPayInfoResponse.orderInfo);
-        }
-        payUtils.setOnPayListener(new OnPayListener() {
-            @Override
-            public void onPaySuccess() {
-                PayCompleteActivity.start(context);
-            }
+        new PayUtils()
+                .startPay(ConfirmPayActivity.this, orderPayInfoResponse.orderInfo)
+                .setOnPayListener(new OnPayListener() {
+                    @Override
+                    public void onPaySuccess() {
+                        ToastUtil.showShortToast("支付成功");
+                        PayCompleteActivity.start(context);
+                    }
 
-            @Override
-            public void onPayFailed() {
-
-            }
-        });
+                    @Override
+                    public void onPayFailed() {
+                        ToastUtil.showShortToast("支付失败");
+                    }
+                });
     }
 
     @Override
