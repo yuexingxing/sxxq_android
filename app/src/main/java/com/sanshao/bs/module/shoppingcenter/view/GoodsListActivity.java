@@ -150,7 +150,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
             mPageNum = 0;
             mViewModel.getGoodsList(mArtiTagId, mPageNum, Constants.PAGE_SIZE);
         });
-        
+
         binding.ivToTop.setOnClickListener(view -> binding.goodsListRecyclerView.smoothScrollToPosition(0));
         OnItemEnterOrExitVisibleHelper helper = new OnItemEnterOrExitVisibleHelper();
         helper.setRecyclerScrollListener(binding.goodsListRecyclerView);
@@ -166,6 +166,9 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
 
             public void onSelectExitPosition(int postion) {
                 XLog.d(TAG, "退出Exit：" + postion);
+                if (postion >= mGoodsListAdapter.getData().size()) {
+                    return;
+                }
                 mGoodsListAdapter.getData().get(postion).isPlay = false;
                 mGoodsListAdapter.notifyItemChanged(postion);
             }
