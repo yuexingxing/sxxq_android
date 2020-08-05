@@ -65,7 +65,6 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.flexibleLayout.setReadyListener(new OnReadyPullListener() {
             @Override
             public boolean isReady() {
-                XLog.d("zdddz", binding.nestedScrollview.getScrollY() + "");
                 return binding.nestedScrollview.getScrollY() == 0;
             }
         }).setRefreshable(false)
@@ -172,7 +171,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         }
         SSApplication.getInstance().saveUserInfo(userInfo);
         binding.tvName.setText(userInfo.nickname);
-        GlideUtil.loadImage(userInfo.avatar, binding.ivAvatar);
+        GlideUtil.loadImage(userInfo.avatar, binding.ivAvatar, R.drawable.image_placeholder_two);
         initLoginStatus(3);
     }
 

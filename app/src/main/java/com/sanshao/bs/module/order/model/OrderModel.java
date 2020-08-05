@@ -74,7 +74,7 @@ public class OrderModel {
                 });
     }
 
-    public static void submitOrderInfo(GoodsDetailInfo goodsDetailInfo,  final OnLoadListener onLoadListener) {
+    public static void submitOrderInfo(GoodsDetailInfo goodsDetailInfo, final OnLoadListener onLoadListener) {
         XApi.get(OrderApiService.class)
                 .submitOrderInfo(goodsDetailInfo)
                 .subscribeOn(Schedulers.io())
@@ -105,7 +105,7 @@ public class OrderModel {
     }
 
     public static void getOrderList(String saleStatus, int page, int pageSize, final OnLoadListener onLoadListener) {
-        XApi.get(OrderApiService.class)
+        XApi.get(OrderApiService.class, XApi.HOST_TYPE.JAVA)
                 .getOrderList(saleStatus, page, pageSize)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -60,15 +60,7 @@ public class AccountSafetyActivity extends BaseActivity<AccountSafetyViewModel, 
 
             }
         });
-        binding.llBindPhone.setOnClickListener(v -> {
-            UserInfo userInfo = SSApplication.getInstance().getUserInfo();
-            if (TextUtils.isEmpty(userInfo.mem_phone)) {
-                BindPhoneActivity.start(context);
-            } else {
-                VerifyPhoneActivity.start(context, userInfo.mem_phone);
-            }
-
-        });
+        binding.llBindPhone.setOnClickListener(v -> BindPhoneActivity.start(context));
         binding.llBindWechat.setOnClickListener(v -> BindWeChatActivity.start(context));
     }
 }

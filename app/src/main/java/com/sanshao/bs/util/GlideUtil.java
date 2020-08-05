@@ -44,6 +44,24 @@ public class GlideUtil extends AppGlideModule {
         }
     }
 
+    public static void loadImage(Object obj, ImageView imageView, int placeholder) {
+        if (obj instanceof String) {
+            Glide.with(imageView.getContext()).load(obj).apply(initOptions())
+                    .skipMemoryCache(isSkipMemoryCache()).error(placeholder)
+                    .placeholder(placeholder).into(imageView);
+        }
+        if (obj instanceof Bitmap) {
+            Glide.with(imageView.getContext()).load(obj).apply(initOptions())
+                    .skipMemoryCache(isSkipMemoryCache()).error(placeholder)
+                    .fallback(placeholder).placeholder(placeholder).into(imageView);
+        }
+        if (obj instanceof Drawable) {
+            Glide.with(imageView.getContext()).load(obj).apply(initOptions())
+                    .skipMemoryCache(isSkipMemoryCache()).error(placeholder)
+                    .fallback(placeholder).placeholder(placeholder).into(imageView);
+        }
+    }
+
     /**
      * @param context   当前Activity的上下文对象
      * @param obj

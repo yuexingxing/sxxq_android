@@ -32,7 +32,7 @@ public interface OrderApiService {
     Observable<BaseResponse> submitOrderInfo(@Body GoodsDetailInfo goodsDetailInfo);
 
     //获取订单列表
-    @GET("/salebill/list")
+    @GET("salebill/list")
     Observable<BaseResponse<OrderListResponse>> getOrderList(@Query("saleStatus") String saleStatus, @Query("page") int page, @Query("page") int pageSize);
 
     //获取订单支付信息，发起支付
