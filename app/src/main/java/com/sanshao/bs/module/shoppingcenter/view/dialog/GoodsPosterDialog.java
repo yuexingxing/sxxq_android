@@ -19,9 +19,11 @@ import com.exam.commonbiz.util.QRCodeUtil;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
+import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.util.BitmapUtil;
 import com.sanshao.bs.util.Constants;
+import com.sanshao.bs.util.GlideUtil;
 import com.sanshao.bs.util.ToastUtil;
 import com.sanshao.commonutil.permission.PermissionGroup;
 import com.sanshao.commonutil.permission.RxPermissions;
@@ -49,11 +51,13 @@ public class GoodsPosterDialog {
         TextView tvTitle = rootView.findViewById(R.id.tv_title);
         TextView tvPrice = rootView.findViewById(R.id.tv_price);
         LinearLayout llContent = rootView.findViewById(R.id.ll_content);
+        TextView tvName = rootView.findViewById(R.id.tv_name);
+        TextView tvInviteCode = rootView.findViewById(R.id.tv_invite_code);
 
         if (goodsDetailInfo != null) {
             tvTitle.setText(goodsDetailInfo.sarti_name);
             tvPrice.setText(goodsDetailInfo.sarti_saleprice + "");
-            Glide.with(SSApplication.app).load(goodsDetailInfo.share_url).into(imgIcon);
+            GlideUtil.loadImage(goodsDetailInfo.share_url, imgIcon, R.drawable.gray_btn_bg);
         }
         String userId = SSApplication.getInstance().getUserInfo().nickname;
         if (TextUtils.isEmpty(userId)) {
@@ -62,8 +66,12 @@ public class GoodsPosterDialog {
         Bitmap bitmap = QRCodeUtil.createQRCodeBitmap(userId, 100, 100);
         imgQrcode.setImageBitmap(bitmap);
 
-        Bitmap bitmapAvatar = ACache.get(context).getAsBitmap(ConfigSP.UserInfo.AVATAR);
-        imgAvatar.setImageBitmap(bitmapAvatar);
+        UserInfo userInfo = SSApplication.getInstance().getUserInfo();
+
+        tvName.setText(userInfo.nickname);
+        tvInviteCode.setText("我的邀请码：" + userInfo.invitation_code);
+        GlideUtil.loadImage(userInfo.avatar, imgAvatar, R.drawable.image_placeholder_two);
+        GlideUtil.loadImage(userInfo.invitation_weapp_url, imgQrcode, R.drawable.img_qrcode);
 
         rootView.findViewById(R.id.iv_close).setOnClickListener(view -> dialog.dismiss());
         rootView.findViewById(R.id.tv_save).setOnClickListener(v -> {

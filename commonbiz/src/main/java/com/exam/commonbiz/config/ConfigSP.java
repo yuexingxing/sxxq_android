@@ -17,8 +17,4 @@ public class ConfigSP {
         PRE,
         PRO
     }
-
-    public interface UserInfo {
-        String AVATAR = "user_info_avatar";
-    }
 }

@@ -60,7 +60,7 @@
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/tv_code"
+                        android:id="@+id/tv_invite_code"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
@@ -127,10 +127,10 @@
                     android:lineSpacingExtra="1.3dp"
                     android:maxLines="2"
                     android:minHeight="40dp"
-                    tools:text="德国进口玻尿酸原液 德国进口玻尿酸原液 德国进口玻尿酸原液！"
                     android:textColor="@color/color_333333"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="德国进口玻尿酸原液 德国进口玻尿酸原液 德国进口玻尿酸原液！" />
 
                 <View
                     android:layout_width="1dp"
@@ -153,7 +153,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    tools:text="9999"
+                    android:text="0"
                     android:textColor="@color/color_b6a578"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -163,6 +163,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginRight="12dp"
                 android:layout_marginBottom="12dp"
                 android:orientation="horizontal">
 
@@ -215,6 +216,8 @@
             android:id="@+id/tv_save"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:gravity="center"
             android:text="保存图片到相册"
             android:textColor="#FF333333"

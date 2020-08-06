@@ -198,7 +198,6 @@ public class PersonalDetailActivity extends BaseActivity<PersonalViewModel, Acti
             if (!TextUtils.isEmpty(filePath)) {
                 Bitmap bitmap = BitmapUtil.getSmallBitmap(filePath, 200, 200);
                 binding.ivAvatar.setImageBitmap(bitmap);
-                ACache.get(context).put(ConfigSP.UserInfo.AVATAR, bitmap);
             }
 
             //TODO 上传图片
