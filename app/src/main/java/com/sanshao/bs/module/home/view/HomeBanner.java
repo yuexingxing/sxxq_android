@@ -57,7 +57,6 @@ public class HomeBanner extends ViewPager {
             if (mAutoScroll) {
                 setCurrentItem(bannerList.size() * 10000);
             } else {
-                setCurrentItem(0);
                 setOffscreenPageLimit(bannerList.size());
             }
         }
@@ -66,6 +65,11 @@ public class HomeBanner extends ViewPager {
             mHandler.removeCallbacksAndMessages(null);
             if (bannerList != null && bannerList.size() > 1) {
                 mHandler.postDelayed(mRunnable, time);
+            }
+        }else{
+            setCurrentItem(0);
+            if (onPageClickListener != null) {
+                onPageClickListener.onPageSelected(0);
             }
         }
     }
