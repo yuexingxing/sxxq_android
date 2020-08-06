@@ -56,6 +56,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jzvd.Jzvd;
+
 /**
  * 商品详情
  *
@@ -164,6 +166,12 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         binding.homeBannerLayout.setLayoutParams(layoutParams);
         binding.ivCallPhone.setOnClickListener(view -> CommandTools.callPhone(context, "12345678"));
         mViewModel.getGoodsDetail(mSartiId);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Jzvd.releaseAllVideos();
     }
 
     private void scrollToView(View view) {
