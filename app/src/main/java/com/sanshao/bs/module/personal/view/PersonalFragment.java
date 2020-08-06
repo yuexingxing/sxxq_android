@@ -172,7 +172,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         SSApplication.getInstance().saveUserInfo(userInfo);
         binding.tvName.setText(userInfo.nickname);
         GlideUtil.loadImage(userInfo.avatar, binding.ivAvatar, R.drawable.image_placeholder_two);
-        initLoginStatus(3);
+        initMemberStatus(userInfo);
     }
 
     @Override
@@ -183,10 +183,9 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     /**
      * 初始化登录状态
      */
-    private void initLoginStatus(int state) {
+    private void initMemberStatus(UserInfo userInfo) {
 
-        UserInfo userInfo = SSApplication.getInstance().getUserInfo();
-
+        int state = 0;
         //未登录
         if (state == 0) {
             binding.ivAvatar.setImageResource(R.drawable.image_graphofbooth_default);

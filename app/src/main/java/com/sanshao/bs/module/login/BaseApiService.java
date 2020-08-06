@@ -9,7 +9,6 @@ import com.sanshao.bs.module.login.bean.ModifyPhoneRequest;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 /**
@@ -17,10 +16,6 @@ import retrofit2.http.POST;
  * @time 2020/6/11
  */
 public interface BaseApiService {
-
-    //测试接口
-    @GET("test")
-    Observable<BaseResponse<String>> test();
 
     //获取验证码
     @POST("w/auth/pin")

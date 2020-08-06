@@ -311,11 +311,6 @@
                 android:textColor="@color/color_999999"
                 android:textSize="13sp" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -335,7 +330,8 @@
 
             <Button
                 android:id="@+id/btn_confirm"
-                android:layout_width="180dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="38dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="16dp"

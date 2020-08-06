@@ -58,6 +58,10 @@ public class BindPhoneActivity extends BaseActivity<LoginViewModel, ActivityBind
 
             @Override
             public void onRightClick(View v) {
+                if (TextUtils.isEmpty(mPhone)) {
+                    ToastUtil.showShortToast("手机号不能为空");
+                    return;
+                }
                 String code = binding.edtCode.getText().toString();
                 if (TextUtils.isEmpty(code)) {
                     ToastUtil.showShortToast("验证码不能为空");

@@ -36,7 +36,7 @@ public interface OrderApiService {
     Observable<BaseResponse<OrderListResponse>> getOrderList(@Query("saleStatus") String saleStatus, @Query("page") int page, @Query("page") int pageSize);
 
     //获取订单支付信息，发起支付
-    @GET("/util/sms/fetch")
+    @GET("pay")
     Observable<BaseResponse<OrderListResponse>> getOrderPayInfo(@Query("payType") int payType);
 
     //获取订单详情

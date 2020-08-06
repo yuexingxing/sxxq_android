@@ -18,8 +18,11 @@ public class UserInfo implements Serializable {
     public String signature;
     public String avatar;
     public String invitation_code;
-    public MemberClass mem_class;
+    public String invitation_weapp_url;
+    public MemberClassInfo mem_class;
+    public UserInfo referrer_mem;
     public String mem_phone;
+
 
     public String getGender() {
         if (TextUtils.equals("M", gender)) {
@@ -27,14 +30,6 @@ public class UserInfo implements Serializable {
         } else {
             return "女";
         }
-    }
-
-    public class MemberClass {
-        public String mem_class_id;
-        public String mem_class_key;
-        public String mem_class_name;//会员等级名称
-        public String mem_class_valid_days;//会员等级有效天数
-        public String floor_amt;//实付xx元才能升到当前升级
     }
 
     public class ReferMember {

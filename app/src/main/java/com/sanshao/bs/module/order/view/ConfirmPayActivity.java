@@ -19,6 +19,7 @@ import com.sanshao.bs.module.order.util.PayUtils;
 import com.sanshao.bs.module.order.viewmodel.ConfirmOrderViewModel;
 import com.sanshao.bs.module.order.viewmodel.ConfirmPayViewModel;
 import com.sanshao.bs.util.Constants;
+import com.sanshao.bs.util.MathUtil;
 import com.sanshao.bs.util.ToastUtil;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
@@ -69,7 +70,7 @@ public class ConfirmPayActivity extends BaseActivity<ConfirmPayViewModel, Activi
             }
         });
         binding.tvOrderNo.setText("订单编号：" + createOrderResponse.orderNo);
-        binding.tvPrice.setText(createOrderResponse.orderPrice);
+        binding.tvPrice.setText(MathUtil.getNumExclude0(Double.parseDouble(createOrderResponse.orderPrice)));
         binding.btnStartPay.setOnClickListener(v -> mViewModel.getOrderPayInfo(mPayType));
         binding.llPayWechat.setOnClickListener(v -> setCheckStatus(PAY_BY_WECHAT));
         binding.llPayAli.setOnClickListener(v -> setCheckStatus(PAY_BY_ALI));

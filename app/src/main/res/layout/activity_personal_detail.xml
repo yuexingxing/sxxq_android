@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,9 +10,7 @@
             type="com.sanshao.bs.module.personal.bean.UserInfo" />
     </data>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/main_bg">
@@ -59,7 +59,7 @@
                             android:layout_width="38dp"
                             android:layout_height="38dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/gray_btn_bg"
+                            android:src="@drawable/image_graphofbooth_default"
                             app:riv_corner_radius="@dimen/avatar_height" />
 
                         <ImageView
@@ -106,8 +106,8 @@
 
                         <ImageView
                             android:id="@+id/iv_qrcode"
-                            android:layout_width="38dp"
-                            android:layout_height="38dp"
+                            android:layout_width="28dp"
+                            android:layout_height="30dp"
                             android:src="@drawable/gray_btn_bg" />
 
                         <ImageView

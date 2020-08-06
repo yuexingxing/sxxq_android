@@ -47,7 +47,7 @@ public class SplashActivity extends BaseActivity<BaseViewModel, ActivitySplashBi
     public void initData() {
 
         mSplashViewModel = new SplashViewModel();
-        mSplashViewModel.getSplashInfo("1", this);
+//        mSplashViewModel.getSplashInfo("1", this);
         Glide.with(SSApplication.app).load(Constants.DEFAULT_IMG_URL).into(binding.ivIcon);
         binding.tvTime.getBackground().setAlpha(79);
         binding.tvTime.setOnClickListener(view -> {

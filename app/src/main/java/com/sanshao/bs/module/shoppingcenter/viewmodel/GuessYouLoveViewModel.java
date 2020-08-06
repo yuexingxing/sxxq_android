@@ -4,7 +4,6 @@ import com.exam.commonbiz.base.BaseViewModel;
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
-import com.sanshao.bs.module.shoppingcenter.model.IGoodsListModel;
 import com.sanshao.bs.module.shoppingcenter.model.IGuessYouLoveModel;
 import com.sanshao.bs.module.shoppingcenter.model.ShoppingCenterModel;
 
@@ -45,7 +44,9 @@ public class GuessYouLoveViewModel extends BaseViewModel {
 
             @Override
             public void onLoadFailed(String errMsg) {
-
+                if (mCallBack != null) {
+                    mCallBack.returnGuessYouLoveData(null);
+                }
             }
         });
     }

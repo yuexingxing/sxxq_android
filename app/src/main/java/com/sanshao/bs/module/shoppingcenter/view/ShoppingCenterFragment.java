@@ -8,7 +8,6 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.exam.commonbiz.util.ScreenUtil;

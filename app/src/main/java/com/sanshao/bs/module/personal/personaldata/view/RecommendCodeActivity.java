@@ -7,27 +7,24 @@ import android.graphics.Bitmap;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
-import com.exam.commonbiz.cache.ACache;
-import com.exam.commonbiz.config.ConfigSP;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.FileUtil;
-import com.exam.commonbiz.util.QRCodeUtil;
-import com.exam.commonbiz.util.ScreenUtil;
+import com.sanshao.bs.R;
+import com.sanshao.bs.SSApplication;
+import com.sanshao.bs.databinding.ActivityRecommendCodeBinding;
+import com.sanshao.bs.module.personal.bean.UserInfo;
+import com.sanshao.bs.module.personal.setting.viewmodel.RecommendCodeViewModel;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
-import com.sanshao.bs.module.shoppingcenter.view.GoodsListActivity;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsPosterDialog;
+import com.sanshao.bs.util.BitmapUtil;
+import com.sanshao.bs.util.GlideUtil;
 import com.sanshao.bs.util.ShareUtils;
+import com.sanshao.bs.util.ToastUtil;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.sanshao.commonutil.permission.PermissionGroup;
 import com.sanshao.commonutil.permission.RxPermissions;
-import com.sanshao.bs.R;
-import com.sanshao.bs.SSApplication;
-import com.sanshao.bs.databinding.ActivityRecommendCodeBinding;
-import com.sanshao.bs.module.personal.setting.viewmodel.RecommendCodeViewModel;
-import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsDetailShareDialog;
-import com.sanshao.bs.util.ToastUtil;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.ArrayList;
@@ -40,8 +37,6 @@ import java.util.List;
  * @time 2020/7/2
  */
 public class RecommendCodeActivity extends BaseActivity<RecommendCodeViewModel, ActivityRecommendCodeBinding> {
-
-    private Bitmap mBitmap;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, RecommendCodeActivity.class);
@@ -82,7 +77,8 @@ public class RecommendCodeActivity extends BaseActivity<RecommendCodeViewModel, 
                             return;
                         }
                         String picName = System.currentTimeMillis() + ".png";
-                        boolean saveSuccess = FileUtil.saveImageToGallery(context, mBitmap, picName);
+                        Bitmap bitmap = BitmapUtil.viewConversionBitmap(binding.ivQrcode);
+                        boolean saveSuccess = FileUtil.saveImageToGallery(context, bitmap, picName);
                         if (saveSuccess) {
                             ToastUtil.showShortToast("图片保存成功");
                         }
@@ -92,13 +88,11 @@ public class RecommendCodeActivity extends BaseActivity<RecommendCodeViewModel, 
             share();
         });
 
-        String content = "www.baidu.com";
-        mBitmap = QRCodeUtil.createQRCodeBitmap(content, ScreenUtil.dp2px(context, 278), ScreenUtil.dp2px(context, 278));
-        binding.ivQrcode.setImageBitmap(mBitmap);
-
-        Bitmap bitmap = ACache.get(context).getAsBitmap(ConfigSP.UserInfo.AVATAR);
-        binding.ivAvatar.setImageBitmap(bitmap);
-        binding.tvName.setText(SSApplication.getInstance().getUserInfo().nickname);
+        UserInfo userInfo = SSApplication.getInstance().getUserInfo();
+        binding.tvName.setText(userInfo.nickname);
+        binding.tvInviteCode.setText("我的推荐码：" + userInfo.invitation_code);
+        GlideUtil.loadImage(userInfo.invitation_weapp_url, binding.ivQrcode);
+        GlideUtil.loadImage(userInfo.avatar, binding.ivAvatar, R.drawable.image_placeholder_two);
     }
 
     private void share() {
@@ -128,9 +122,5 @@ public class RecommendCodeActivity extends BaseActivity<RecommendCodeViewModel, 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mBitmap != null && !mBitmap.isRecycled()) {
-            mBitmap.recycle();
-            mBitmap = null;
-        }
     }
 }

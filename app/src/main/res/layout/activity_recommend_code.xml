@@ -70,7 +70,7 @@
                         android:layout_height="56dp"
                         android:layout_marginLeft="32dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/gray_btn_bg"
+                        android:src="@drawable/image_graphofbooth_default"
                         app:riv_corner_radius="@dimen/avatar_height" />
 
                     <LinearLayout
@@ -90,6 +90,7 @@
                             tools:text="周哈哈" />
 
                         <TextView
+                            android:id="@+id/tv_invite_code"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"

@@ -18,6 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/left_container_margin"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="中医"
             android:textColor="@color/color_333333"
             android:textSize="17sp"
@@ -27,6 +29,7 @@
             android:id="@+id/iv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
             android:layout_marginRight="@dimen/right_container_margin"
             android:src="@drawable/icon_goods_list_right" />
     </LinearLayout>
