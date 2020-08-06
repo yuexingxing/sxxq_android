@@ -18,6 +18,7 @@ import com.exam.commonbiz.base.BasicApplication;
 import com.exam.commonbiz.cache.ACache;
 import com.exam.commonbiz.config.ConfigSP;
 import com.exam.commonbiz.kits.Kits;
+import com.exam.commonbiz.net.HostUrl;
 import com.exam.commonbiz.net.NetError;
 import com.exam.commonbiz.net.NetProvider;
 import com.exam.commonbiz.net.RequestHandler;
@@ -110,19 +111,27 @@ public class SSApplication extends BasicApplication {
     }
 
     public void initHttpConfig() {
+
         BASE_URL = Kits.Package.getMetaValue(this, "HTTP_HOST");
         BASE_URL = "http://dev.kmlab.com/ssxq/";
-        //debug模式下允许切换服务器，这个设置一定要放到initHttpConfig初始化后面
         if (AppUtil.isDebug(this)) {
-//            ACache.get(this).put(ConfigSP.SP_CURRENT_HOST, ConfigSP.HOST_TYPE.DEV);
+
         }
 
-//        ACache.get(this).put(ConfigSP.SP_CURRENT_HOST, ConfigSP.HOST_TYPE.PRO);//默认线上服务器
         Map<String, String> hostMap = new HashMap<>();
-        hostMap.put(XApi.HOST_TYPE.JAVA, XApi.HOST_URL.JAVA);
-        hostMap.put(XApi.HOST_TYPE.NODE, XApi.HOST_URL.NODE);
-        XApi.setHostMap(hostMap);
+        ConfigSP.HOST_TYPE hostType = (ConfigSP.HOST_TYPE) ACache.get(this).getAsObject(ConfigSP.SP_CURRENT_HOST);
+        if (ConfigSP.HOST_TYPE.DEV == hostType) {
+            hostMap.put(XApi.HOST_TYPE.JAVA, HostUrl.DEV.JAVA);
+            hostMap.put(XApi.HOST_TYPE.NODE, HostUrl.DEV.NODE);
+        } else if (ConfigSP.HOST_TYPE.PRE == hostType) {
+            hostMap.put(XApi.HOST_TYPE.JAVA, HostUrl.PRE.JAVA);
+            hostMap.put(XApi.HOST_TYPE.NODE, HostUrl.PRE.NODE);
+        } else {
+            hostMap.put(XApi.HOST_TYPE.JAVA, HostUrl.PRO.JAVA);
+            hostMap.put(XApi.HOST_TYPE.NODE, HostUrl.PRO.NODE);
+        }
 
+        XApi.setHostMap(hostMap);
         XApi.registerDefaultProvider(BASE_URL, new NetProvider() {
 
             @Override

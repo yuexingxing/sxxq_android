@@ -119,9 +119,6 @@
             android:name="UMENG_CHANNEL"
             android:value="umeng" /> <!-- 友盟配置结束 -->
         <activity
-            android:name=".wxapi.alipay.AliPayDemoActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".module.personal.personaldata.view.PersonalDetailActivity"
             android:screenOrientation="portrait" />
         <activity
