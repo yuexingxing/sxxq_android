@@ -271,6 +271,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
     @Override
     public void onNetError() {
         binding.swipeRefreshLayout.setRefreshing(false);
+        binding.emptyLayout.showEmpty("没有网络", R.drawable.image_servererror);
         binding.emptyLayout.showError();
     }
 
