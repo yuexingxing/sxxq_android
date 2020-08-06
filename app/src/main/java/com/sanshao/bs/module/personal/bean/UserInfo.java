@@ -2,8 +2,6 @@ package com.sanshao.bs.module.personal.bean;
 
 import android.text.TextUtils;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 
 /**
@@ -20,7 +18,7 @@ public class UserInfo implements Serializable {
     public String invitation_code;
     public String invitation_weapp_url;
     public MemberClassInfo mem_class;
-    public UserInfo referrer_mem;
+    public ReferMemberInfo referrer_mem;
     public String mem_phone;
 
 
@@ -32,7 +30,7 @@ public class UserInfo implements Serializable {
         }
     }
 
-    public class ReferMember {
+    public class ReferMemberInfo {
 
 
     }

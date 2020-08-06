@@ -12,8 +12,6 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
-import com.exam.commonbiz.cache.ACache;
-import com.exam.commonbiz.config.ConfigSP;
 import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ActivityPersonalDetailBinding;

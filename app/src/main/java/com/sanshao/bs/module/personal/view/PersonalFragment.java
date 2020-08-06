@@ -1,16 +1,16 @@
 package com.sanshao.bs.module.personal.view;
 
-import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.exam.commonbiz.base.BaseFragment;
-import com.exam.commonbiz.cache.ACache;
-import com.exam.commonbiz.config.ConfigSP;
-import com.exam.commonbiz.log.XLog;
+import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.PersonalFragmentBinding;
@@ -18,6 +18,7 @@ import com.sanshao.bs.module.TestMenuActivity;
 import com.sanshao.bs.module.order.bean.OrderInfo;
 import com.sanshao.bs.module.order.view.OrderListActivity;
 import com.sanshao.bs.module.personal.adapter.PersonalOrderSubjectAdapter;
+import com.sanshao.bs.module.personal.bean.MemberClassInfo;
 import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.module.personal.event.UpdateUserInfoEvent;
 import com.sanshao.bs.module.personal.income.view.IncomeHomeActivity;
@@ -27,7 +28,6 @@ import com.sanshao.bs.module.personal.personaldata.view.PersonalDetailActivity;
 import com.sanshao.bs.module.personal.setting.view.SettingActivity;
 import com.sanshao.bs.module.personal.viewmodel.PersonalViewModel;
 import com.sanshao.bs.util.GlideUtil;
-import com.sanshao.bs.util.ToastUtil;
 import com.sanshao.bs.widget.flexible.OnReadyPullListener;
 import com.sanshao.bs.widget.flexible.OnRefreshListener;
 
@@ -107,6 +107,11 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     @Override
     public void onResume() {
         super.onResume();
+//        if (!TextUtils.isEmpty(SSApplication.getToken())) {
+        mViewModel.getUserInfo();
+//        } else {
+//            initMemberStatus(null);
+//        }
     }
 
     @Override
@@ -123,7 +128,6 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     public int getStatusBarColor() {
         return R.color.transparent;
     }
-
 
     private void initOrderList() {
 
@@ -170,8 +174,6 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             return;
         }
         SSApplication.getInstance().saveUserInfo(userInfo);
-        binding.tvName.setText(userInfo.nickname);
-        GlideUtil.loadImage(userInfo.avatar, binding.ivAvatar, R.drawable.image_placeholder_two);
         initMemberStatus(userInfo);
     }
 
@@ -181,13 +183,14 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     }
 
     /**
-     * 初始化登录状态
+     * 初始化会员状态
      */
     private void initMemberStatus(UserInfo userInfo) {
 
-        int state = 0;
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) binding.flHeader.getLayoutParams();
+
         //未登录
-        if (state == 0) {
+        if (userInfo == null) {
             binding.ivAvatar.setImageResource(R.drawable.image_graphofbooth_default);
             binding.rlAvatarBg.setBackground(null);
             binding.ivBg.setBackground(getResources().getDrawable(R.drawable.image_nostar_background));
@@ -196,38 +199,58 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             binding.ivZuan.setVisibility(View.GONE);
             binding.rlVipBg.setVisibility(View.INVISIBLE);
             binding.viewSpaceZuan.setVisibility(View.VISIBLE);
+            binding.viewOrderTopLine.setVisibility(View.GONE);
+
+            layoutParams.height = ScreenUtil.dp2px(context, 235);
+            binding.flHeader.setLayoutParams(layoutParams);
             return;
         }
 
         binding.tvName.setText(userInfo.nickname);
+        binding.ivZuan.setVisibility(View.VISIBLE);
+        GlideUtil.loadImage(userInfo.avatar, binding.ivAvatar, R.drawable.image_placeholder_two);
+
+//        userInfo.mem_class = new MemberClassInfo();
+//        userInfo.mem_class.mem_class_key = "1";
+//        userInfo.mem_class.mem_class_name = "一星会员";
+//        userInfo.mem_class = null;
+
         //非会员
-        if (state == 1) {
+        if (userInfo.mem_class == null || null == userInfo.mem_class.mem_class_key) {
             binding.rlAvatarBg.setBackground(null);
             binding.ivBg.setBackground(getResources().getDrawable(R.drawable.image_nostar_background));
             binding.tvLabel.setText("普通会员");
+            binding.ivZuan.setImageResource(R.drawable.icon_commondiamond);
             binding.rlVipBg.setVisibility(View.INVISIBLE);
             binding.viewSpaceZuan.setVisibility(View.VISIBLE);
+            binding.viewOrderTopLine.setVisibility(View.GONE);
+
+            layoutParams.height = ScreenUtil.dp2px(context, 235);
+            binding.flHeader.setLayoutParams(layoutParams);
+            return;
         }
+
+        layoutParams.height = ScreenUtil.dp2px(context, 295);
+        binding.flHeader.setLayoutParams(layoutParams);
+        binding.tvLabel.setText(userInfo.mem_class.mem_class_name);
+        binding.ivZuan.setImageResource(R.drawable.icon_universaldrillmembers);
+        binding.rlVipBg.setVisibility(View.VISIBLE);
+        binding.viewOrderTopLine.setVisibility(View.VISIBLE);
+
         //一星会员
-        else if (state == 2) {
+        if (TextUtils.equals(userInfo.mem_class.mem_class_key, "1")) {
             binding.rlAvatarBg.setBackground(getResources().getDrawable(R.drawable.image_onestars));
             binding.ivBg.setBackground(getResources().getDrawable(R.drawable.image_onestarbg));
-            binding.tvLabel.setText("一星会员");
-            binding.rlVipBg.setVisibility(View.VISIBLE);
         }
         //二星会员
-        else if (state == 3) {
+        else if (TextUtils.equals(userInfo.mem_class.mem_class_key, "2")) {
             binding.rlAvatarBg.setBackground(getResources().getDrawable(R.drawable.image_twostars));
             binding.ivBg.setBackground(getResources().getDrawable(R.drawable.image_twostarsbg));
-            binding.tvLabel.setText("二星会员");
-            binding.rlVipBg.setVisibility(View.VISIBLE);
         }
         //三星会员
-        else if (state == 4) {
+        else if (TextUtils.equals(userInfo.mem_class.mem_class_key, "3")) {
             binding.rlAvatarBg.setBackground(getResources().getDrawable(R.drawable.image_threestars));
             binding.ivBg.setBackground(getResources().getDrawable(R.drawable.image_three_starsbg));
-            binding.tvLabel.setText("三星会员");
-            binding.rlVipBg.setVisibility(View.VISIBLE);
         }
     }
 }

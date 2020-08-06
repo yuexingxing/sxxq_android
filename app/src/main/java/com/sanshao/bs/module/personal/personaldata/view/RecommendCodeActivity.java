@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
@@ -90,7 +91,9 @@ public class RecommendCodeActivity extends BaseActivity<RecommendCodeViewModel, 
 
         UserInfo userInfo = SSApplication.getInstance().getUserInfo();
         binding.tvName.setText(userInfo.nickname);
-        binding.tvInviteCode.setText("我的推荐码：" + userInfo.invitation_code);
+        if (!TextUtils.isEmpty(userInfo.invitation_code)) {
+            binding.tvInviteCode.setText("我的推荐码：" + userInfo.invitation_code);
+        }
         GlideUtil.loadImage(userInfo.invitation_weapp_url, binding.ivQrcode);
         GlideUtil.loadImage(userInfo.avatar, binding.ivAvatar, R.drawable.image_placeholder_two);
     }

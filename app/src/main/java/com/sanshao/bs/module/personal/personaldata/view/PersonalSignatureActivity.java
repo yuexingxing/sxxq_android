@@ -42,7 +42,8 @@ public class PersonalSignatureActivity extends BaseActivity<PersonalViewModel, A
     public void initData() {
 
         mViewModel.setCallBack(this);
-        String content = SSApplication.getInstance().getUserInfo().signature;
+        UserInfo userInfo = SSApplication.getInstance().getUserInfo();
+        String content = userInfo.signature;
         if (TextUtils.isEmpty(content)) {
             content = "";
         }
