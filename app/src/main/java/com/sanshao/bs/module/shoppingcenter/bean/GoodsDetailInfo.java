@@ -28,6 +28,8 @@ public class GoodsDetailInfo implements Serializable {
     public String sarti_desc;
     public List<GoodsDetailInfo> product_list;
     public boolean isPlay;
+    public String used;//已使用服务次数
+    public String unused;//未使用服务次数
 
     /**
      * 是否是套餐

@@ -27,13 +27,13 @@ public class OrderDetailViewModel extends BaseViewModel {
         mCallBack = iOrderDetailModel;
     }
 
-    public void getOrderDetailInfo(int payType) {
+    public void getOrderDetailInfo(String salebillId) {
 
-        OrderModel.getOrderDetailInfo(payType, new OnLoadListener<OrderDetailResponse>() {
+        OrderModel.getOrderDetailInfo(salebillId, new OnLoadListener<OrderDetailResponse>() {
 
             @Override
             public void onLoadStart() {
-                initData();
+
             }
 
             @Override
@@ -43,12 +43,14 @@ public class OrderDetailViewModel extends BaseViewModel {
 
             @Override
             public void onLoadSucessed(BaseResponse<OrderDetailResponse> t) {
-
+                if (mCallBack != null) {
+                    mCallBack.returnOrderDetailInfo(t.getContent());
+                }
             }
 
             @Override
             public void onLoadFailed(String errMsg) {
-
+                ToastUtil.showShortToast(errMsg);
             }
         });
     }
@@ -59,7 +61,7 @@ public class OrderDetailViewModel extends BaseViewModel {
 
             @Override
             public void onLoadStart() {
-                initData();
+
             }
 
             @Override
@@ -88,7 +90,7 @@ public class OrderDetailViewModel extends BaseViewModel {
 
             @Override
             public void onLoadStart() {
-                initData();
+
             }
 
             @Override
@@ -108,33 +110,5 @@ public class OrderDetailViewModel extends BaseViewModel {
                 ToastUtil.showShortToast(errMsg);
             }
         });
-    }
-
-    private void initData() {
-
-        OrderDetailResponse orderDetailResponse = new OrderDetailResponse();
-
-        List<OrderInfo> remainingServerInfoList = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            OrderInfo orderInfo = new OrderInfo();
-            orderInfo.name = i + "黄金微针";
-            remainingServerInfoList.add(orderInfo);
-        }
-        orderDetailResponse.remainingServerList = remainingServerInfoList;
-
-        List<OrderInfo> serverInfoList = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            OrderInfo orderInfo = new OrderInfo();
-            orderInfo.name = i + "黄金微针";
-            serverInfoList.add(orderInfo);
-        }
-        orderDetailResponse.serverList = serverInfoList;
-        GoodsDetailInfo goodsDetailInfo = GoodsDetailInfo.getGoodsDetailInfo();
-        goodsDetailInfo.product_list = null;
-        orderDetailResponse.goodsDetailInfo = goodsDetailInfo;
-
-        if (mCallBack != null) {
-            mCallBack.returnOrderDetailInfo(orderDetailResponse);
-        }
     }
 }

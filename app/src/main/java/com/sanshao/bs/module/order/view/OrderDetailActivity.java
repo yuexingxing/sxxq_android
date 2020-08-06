@@ -18,12 +18,17 @@ import com.sanshao.bs.module.order.view.adapter.ConfirmOrderAdapter;
 import com.sanshao.bs.module.order.view.adapter.RemainingServiceAdapter;
 import com.sanshao.bs.module.order.view.adapter.ServedAdapter;
 import com.sanshao.bs.module.order.viewmodel.OrderDetailViewModel;
+import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.util.CommandTools;
+import com.sanshao.bs.util.Constants;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 订单详情
@@ -33,11 +38,13 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, ActivityOrderDetailBinding> implements IOrderDetailModel {
 
+    private String mSalebillId;
     private ServedAdapter mServedAdapter;
     private RemainingServiceAdapter mRemainingServiceAdapter;
 
-    public static void start(Context context) {
+    public static void start(Context context, String salebillId) {
         Intent starter = new Intent(context, OrderDetailActivity.class);
+        starter.putExtra(Constants.OPT_DATA, salebillId);
         context.startActivity(starter);
     }
 
@@ -49,6 +56,7 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
     @Override
     public void initData() {
 
+        mSalebillId = getIntent().getStringExtra(Constants.OPT_DATA);
         mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
@@ -101,7 +109,8 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
 
         binding.mulitySetMealView.setFragmentManager(getSupportFragmentManager());
         binding.mulitySetMealView.setOptType(ConfirmOrderAdapter.OPT_TYPE_ORDER_DETAIL);
-        mViewModel.getOrderDetailInfo(1);
+        mViewModel.getOrderDetailInfo(mSalebillId);
+        binding.guessYouLoveView.getData();
     }
 
     @Override
@@ -124,9 +133,18 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
         if (orderDetailResponse == null) {
             return;
         }
-        mServedAdapter.addData(orderDetailResponse.serverList);
-        mRemainingServiceAdapter.addData(orderDetailResponse.remainingServerList);
-        binding.mulitySetMealView.mConfirmOrderAdapter.addData(orderDetailResponse.goodsDetailInfo);
+//        mServedAdapter.addData(orderDetailResponse.serverList);
+//        mRemainingServiceAdapter.addData(orderDetailResponse.remainingServerList);
+//        binding.mulitySetMealView.mConfirmOrderAdapter.addData(orderDetailResponse.goodsDetailInfo);
+
+        List<GoodsDetailInfo> goodsDetailInfoList = new ArrayList<>();
+        goodsDetailInfoList.add(orderDetailResponse.orderProduct);
+        binding.mulitySetMealView.setData(goodsDetailInfoList);
+
+        binding.tvOrderNo.setText(orderDetailResponse.salebill_id);
+        binding.tvOrderTime.setText(orderDetailResponse.create_date);
+        binding.tvPayType.setText(orderDetailResponse.pay_type + "");
+        binding.tvPayTime.setText(orderDetailResponse.optr_date + "");
     }
 
     @Override

@@ -57,7 +57,7 @@ public class ViewCouponCodeActivity extends BaseActivity<OrderDetailViewModel, A
 
         binding.mulitySetMealView.setOptType(ConfirmOrderAdapter.OPT_TYPE_ORDER_DETAIL);
         binding.mulitySetMealView.setFragmentManager(getSupportFragmentManager());
-        mViewModel.getOrderDetailInfo(1);
+        mViewModel.getOrderDetailInfo("");
     }
 
     @Override
@@ -65,7 +65,7 @@ public class ViewCouponCodeActivity extends BaseActivity<OrderDetailViewModel, A
         if (orderDetailResponse == null) {
             return;
         }
-        binding.mulitySetMealView.mConfirmOrderAdapter.addData(orderDetailResponse.goodsDetailInfo);
+//        binding.mulitySetMealView.mConfirmOrderAdapter.addData(orderDetailResponse.goodsDetailInfo);
     }
 
     @Override

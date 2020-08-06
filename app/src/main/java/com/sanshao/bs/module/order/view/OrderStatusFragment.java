@@ -81,7 +81,7 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
         mOrderListAdapter.setOnItemClickListener(new OrderListAdapter.OnItemClickListener() {
             @Override
             public void onOrderDetail(OrderInfo item) {
-                OrderDetailActivity.start(context);
+                OrderDetailActivity.start(context, item.id);
             }
 
             @Override

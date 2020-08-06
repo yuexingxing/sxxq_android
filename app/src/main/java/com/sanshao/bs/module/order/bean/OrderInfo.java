@@ -9,7 +9,7 @@ import java.util.List;
  * @Author yuexingxing
  * @time 2020/7/1
  */
-public class OrderInfo  implements Serializable {
+public class OrderInfo implements Serializable {
 
     public static final String ORDER_STATE = "order_state";
 

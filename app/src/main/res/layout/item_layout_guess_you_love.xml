@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal">
 
     <View
@@ -23,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="166dp"
             android:scaleType="fitXY"
-            android:src="@drawable/gray_rectangle_bg"
+            android:src="@drawable/image_placeholder_one"
             app:OvalImageView_top_left="20"
             app:OvalImageView_top_right="20"   />
 
@@ -42,7 +43,8 @@
                 android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="德国进口玻尿酸原液 玻尿酸抗衰老…"
+                android:minHeight="35dp"
+                tools:text="德国进口玻尿酸原液 玻尿酸抗衰老口玻尿酸原液口玻尿酸原液口玻尿酸原液口玻尿酸原液"
                 android:textColor="@color/color_333333"
                 android:textSize="15sp"
                 android:textStyle="bold" />

@@ -4,6 +4,7 @@ import com.exam.commonbiz.net.BaseResponse;
 import com.sanshao.bs.module.order.bean.ConfirmOrderResponse;
 import com.sanshao.bs.module.order.bean.CreateOrderRequest;
 import com.sanshao.bs.module.order.bean.CreateOrderResponse;
+import com.sanshao.bs.module.order.bean.OrderDetailResponse;
 import com.sanshao.bs.module.order.bean.OrderListResponse;
 import com.sanshao.bs.module.order.bean.OrderNumStatusResponse;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
@@ -41,8 +42,8 @@ public interface OrderApiService {
     Observable<BaseResponse<OrderListResponse>> getOrderPayInfo(@Query("payType") int payType);
 
     //获取订单详情
-    @GET("/util/sms/fetch")
-    Observable<BaseResponse<OrderListResponse>> getOrderDetailInfo(@Query("payType") int payType);
+    @GET("order/detail")
+    Observable<BaseResponse<OrderDetailResponse>> getOrderDetailInfo(@Query("salebill_id") String salebillId);
 
     //获取订单数量状态
     @GET("salebill/saleStatus")

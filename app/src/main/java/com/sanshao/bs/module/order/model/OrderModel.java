@@ -164,9 +164,9 @@ public class OrderModel {
                 });
     }
 
-    public static void getOrderDetailInfo(int payType, final OnLoadListener onLoadListener) {
-        XApi.get(OrderApiService.class)
-                .getOrderDetailInfo(payType)
+    public static void getOrderDetailInfo(String salebillId, final OnLoadListener onLoadListener) {
+        XApi.get(OrderApiService.class, XApi.HOST_TYPE.JAVA)
+                .getOrderDetailInfo(salebillId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver() {
