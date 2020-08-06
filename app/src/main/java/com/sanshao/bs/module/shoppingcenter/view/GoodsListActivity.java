@@ -157,7 +157,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
         helper.setOnScrollStatusListener(new OnItemEnterOrExitVisibleHelper.OnScrollStatusListener() {
             public void onSelectEnterPosition(int postion) {
                 XLog.d(TAG, "进入Enter：" + postion);
-                if (postion >= 10) {
+                if (postion >= 6) {
                     binding.ivToTop.setVisibility(View.VISIBLE);
                 } else {
                     binding.ivToTop.setVisibility(View.GONE);

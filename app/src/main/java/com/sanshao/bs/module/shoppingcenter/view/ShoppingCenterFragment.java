@@ -69,7 +69,7 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 Log.d(TAG, "dy-" + scrollY + "/" + oldScrollY);
-                if (scrollY > ScreenUtil.dp2px(context, 200)) {
+                if (scrollY > ScreenUtil.dp2px(context, 400)) {
                     binding.ivToTop.setVisibility(View.VISIBLE);
                 } else {
                     binding.ivToTop.setVisibility(View.GONE);

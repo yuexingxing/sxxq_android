@@ -3,6 +3,7 @@ package com.sanshao.bs.module.order.view;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -64,7 +65,10 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
 
     @Override
     protected void loadData() {
-
+        curPage = 1;
+        if (mViewModel != null) {
+            mViewModel.getOrderList(orderState, curPage, Constants.PAGE_SIZE);
+        }
     }
 
     @Override
@@ -115,7 +119,6 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
             public void onRefresh() {
                 curPage = 1;
                 mViewModel.getOrderList(orderState, curPage, Constants.PAGE_SIZE);
-                binding.swipeRefreshLayout.setRefreshing(false);
             }
         });
         binding.emptyLayout.bindView(binding.recyclerView);
@@ -125,6 +128,9 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
 
         mOrderListAdapter.setPreLoadNumber(1);
         mOrderListAdapter.disableLoadMoreIfNotFullPage();
+        if (isVisiable){
+            loadData();
+        }
     }
 
     @Override
