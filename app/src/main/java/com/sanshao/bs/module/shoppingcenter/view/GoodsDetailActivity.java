@@ -6,6 +6,8 @@ import android.graphics.Paint;
 import android.os.Build;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -22,6 +24,7 @@ import com.exam.commonbiz.util.ContainerUtil;
 import com.exam.commonbiz.util.Res;
 import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.bs.R;
+import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ActivityGoodsDetailBinding;
 import com.sanshao.bs.module.EmptyWebViewActivity;
 import com.sanshao.bs.module.home.model.BannerInfo;
@@ -155,6 +158,10 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         binding.ivRecommendReward.setOnClickListener(v ->
                 EmptyWebViewActivity.start(context, "http://www.2345.com")
         );
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) binding.homeBannerLayout.getLayoutParams();
+        int videoHeight = ScreenUtil.getScreenWidth(SSApplication.app) - ScreenUtil.dp2px(SSApplication.app, 24);
+        layoutParams.height = videoHeight;
+        binding.homeBannerLayout.setLayoutParams(layoutParams);
         binding.ivCallPhone.setOnClickListener(view -> CommandTools.callPhone(context, "12345678"));
         mViewModel.getGoodsDetail(mSartiId);
     }

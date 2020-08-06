@@ -56,10 +56,6 @@ public class HomeBannerLayout extends LinearLayout {
         }
         mHomeBanner = rootView.findViewById(R.id.home_banner);
         mHomeBanner.setAutoScroll(autoScroll);
-        ViewGroup.LayoutParams params = mHomeBanner.getLayoutParams();
-        params.width = ScreenUtil.getScreenSize(getContext())[0];
-        params.height = ScreenUtil.dp2px(getContext(), 200);
-//        params.height = (int) ((params.width - ScreenUtil.dp2px(getContext(), 30)) / IMAGE_RATIO_BANNER);
         mLinearLayout = rootView.findViewById(R.id.ll_view);
     }
 

@@ -29,12 +29,20 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <com.sanshao.bs.module.home.view.HomeBannerLayout
-                        android:id="@+id/home_banner_layout"
+                    <RelativeLayout
+                        android:id="@+id/rl_banner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        app:HomeBannerLayout_autoScroll="false" />
+                        android:background="@color/red">
+
+                        <com.sanshao.bs.module.home.view.HomeBannerLayout
+                            android:id="@+id/home_banner_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="3dp"
+                            android:background="@color/black"
+                            app:HomeBannerLayout_autoScroll="false" />
+                    </RelativeLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"

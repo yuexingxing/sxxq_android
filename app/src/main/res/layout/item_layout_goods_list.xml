@@ -23,7 +23,7 @@
         <include
             android:id="@+id/include_video"
             android:layout_width="match_parent"
-            android:layout_height="343dp"
+            android:layout_height="wrap_content"
             layout="@layout/include_layout_video_play"/>
 
         <LinearLayout

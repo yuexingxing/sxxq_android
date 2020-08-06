@@ -64,11 +64,13 @@ public class GoodsListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
         ImageView ivIcon = helper.getView(R.id.iv_icon);
         VideoPlayLayout videoPlayLayout = helper.getView(R.id.video_play_layout);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) viewInclude.getLayoutParams();
+        int videoHeight = ScreenUtil.getScreenWidth(SSApplication.app) - ScreenUtil.dp2px(SSApplication.app, 24);
+        layoutParams.height = videoHeight;
+
         if (ContainerUtil.isEmpty(item.sarti_img)) {
             ivIcon.setVisibility(View.VISIBLE);
             videoPlayLayout.setVisibility(View.GONE);
             Glide.with(SSApplication.app).load(item.thumbnail_img).into(ivIcon);
-            layoutParams.height = ScreenUtil.dp2px(SSApplication.app, 343);
             //暂停播放
             if (!item.isPlay) {
                 videoPlayLayout.pausePlay();
@@ -77,7 +79,6 @@ public class GoodsListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
             ivIcon.setVisibility(View.GONE);
             videoPlayLayout.setVisibility(View.VISIBLE);
             videoPlayLayout.setVideoInfo(item.sarti_img.get(0));
-            layoutParams.height = ScreenUtil.dp2px(SSApplication.app, 200);
         }
         viewInclude.setLayoutParams(layoutParams);
 

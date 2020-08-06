@@ -68,7 +68,7 @@
                     <com.sanshao.bs.module.home.view.HomeBannerLayout
                         android:id="@+id/home_banner_layout"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="200dp"
                         android:layout_marginTop="22dp"
                         app:HomeBannerLayout_autoScroll="true" />
 
