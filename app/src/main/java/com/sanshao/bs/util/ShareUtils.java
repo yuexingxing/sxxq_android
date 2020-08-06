@@ -10,6 +10,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.exam.commonbiz.util.CommonCallBack;
+import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -198,7 +201,7 @@ public class ShareUtils {
      * 分享文字
      */
     public static void shareText(final Activity activity, String title,
-                              SHARE_MEDIA platform,
+                                 SHARE_MEDIA platform,
                                  CommonCallBack callBack) {
 
         if (!checkClient(activity, platform)) {
@@ -305,5 +308,20 @@ public class ShareUtils {
         return false;
     }
 
+    /**
+     * 小程序跳转
+     *
+     * @param context
+     * @param path
+     */
+    public static void jump2WxMiniProgram(Context context, String path) {
+        String appId = "wx45d94ea6d5c98caa"; //填应用AppId
+        IWXAPI api = WXAPIFactory.createWXAPI(context, appId);
 
+        WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
+        req.userName = "gh_3ea7bc763a0e"; // 填小程序原始id
+        req.path = path;//拉起小程序页面的可带参路径，不填默认拉起小程序首页
+        req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;// 可选打开 开发版，体验版和正式版
+        api.sendReq(req);
+    }
 }
