@@ -1,5 +1,6 @@
 package com.sanshao.bs.module.order.view.adapter;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -10,6 +11,8 @@ import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.module.order.bean.OrderInfo;
 import com.sanshao.bs.util.Constants;
+import com.sanshao.bs.util.GlideUtil;
+import com.sanshao.bs.util.MathUtil;
 
 /**
  * @Author yuexingxing
@@ -29,36 +32,45 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderInfo, BaseViewHolder
 
     @Override
     protected void convert(BaseViewHolder helper, OrderInfo item) {
-        helper.setText(R.id.tv_title, helper.getAdapterPosition() + "-" + item.name);
+
+        OrderInfo.Product product = item.shopSartiInfo;
+        if (product == null) {
+            return;
+        }
+        helper.setText(R.id.tv_title, product.name);
+        helper.setText(R.id.tv_total_price1, MathUtil.getNumExclude0(item.totalPrice));
+        helper.setText(R.id.tv_count, "x" + item.count);
 
         helper.getView(R.id.ll_tobe_paid).setVisibility(View.GONE);
         helper.getView(R.id.ll_tobe_use).setVisibility(View.GONE);
         helper.getView(R.id.ll_complete).setVisibility(View.GONE);
+        helper.getView(R.id.ll_canceled).setVisibility(View.GONE);
 
-        if (OrderInfo.State.ToBePaid == item.status) {
+        if (TextUtils.equals("PAY", item.saleStatus)) {
             helper.setText(R.id.tv_state, "待支付");
             helper.getView(R.id.ll_tobe_paid).setVisibility(View.VISIBLE);
-        } else if (OrderInfo.State.ToBeUse == item.status) {
+        } else if (TextUtils.equals("PAIED", item.saleStatus)) {
             helper.setText(R.id.tv_state, "待使用");
             helper.getView(R.id.ll_tobe_use).setVisibility(View.VISIBLE);
-        } else if (OrderInfo.State.Complete == item.status) {
-            helper.setText(R.id.tv_state, "已完成");
-            helper.getView(R.id.ll_complete).setVisibility(View.VISIBLE);
+        } else if (TextUtils.equals("CANCEL", item.saleStatus)) {
+            helper.setText(R.id.tv_state, "已关闭");
+            helper.getView(R.id.ll_canceled).setVisibility(View.VISIBLE);
         }
 
-        Glide.with(SSApplication.app).load(Constants.DEFAULT_IMG_URL).into((ImageView) helper.getView(R.id.iv_icon));
+        helper.setText(R.id.tv_content_tip, String.format("共计%s件商品；实收：%s元", item.count, MathUtil.getNumExclude0(item.totalPrice)));
+        GlideUtil.loadImage(item.shopSartiInfo.thumbnailImg, helper.getView(R.id.iv_icon));
 
         helper.getView(R.id.rl_bg).setOnClickListener(v -> {
             if (mCallBack != null) {
                 mCallBack.onOrderDetail(item);
             }
         });
-        helper.getView(R.id.tv_pay).setOnClickListener(v -> {
+        helper.getView(R.id.rl_pay).setOnClickListener(v -> {
             if (mCallBack != null) {
                 mCallBack.onPay(item);
             }
         });
-        helper.getView(R.id.tv_cancel_order).setOnClickListener(v -> {
+        helper.getView(R.id.rl_cancel_order).setOnClickListener(v -> {
             if (mCallBack != null) {
                 mCallBack.onCancelOrder(helper.getAdapterPosition(), item);
             }
@@ -83,10 +95,15 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderInfo, BaseViewHolder
                 mCallBack.onDeleteOrder(helper.getAdapterPosition(), item);
             }
         });
+        helper.getView(R.id.rl_canceled_delete).setOnClickListener(v -> {
+            if (mCallBack != null) {
+                mCallBack.onDeleteOrder(helper.getAdapterPosition(), item);
+            }
+        });
 
-        if (helper.getAdapterPosition() == getData().size() - 1){
+        if (helper.getAdapterPosition() == getData().size() - 1) {
             helper.getView(R.id.view_bottom).setVisibility(View.VISIBLE);
-        }else{
+        } else {
             helper.getView(R.id.view_bottom).setVisibility(View.GONE);
         }
     }

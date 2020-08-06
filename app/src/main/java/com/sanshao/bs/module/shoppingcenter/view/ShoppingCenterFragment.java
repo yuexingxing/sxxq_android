@@ -97,6 +97,11 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
     }
 
     @Override
+    protected void loadData() {
+
+    }
+
+    @Override
     public int getStatusBarColor() {
         return R.color.transparent;
     }

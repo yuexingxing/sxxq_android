@@ -25,6 +25,11 @@ public class HomeFragment extends BaseFragment<HomeViewModel, HomeFragmentBindin
     }
 
     @Override
+    protected void loadData() {
+
+    }
+
+    @Override
     public void initData() {
 
         binding.titleBar.getLeftView().setVisibility(View.INVISIBLE);

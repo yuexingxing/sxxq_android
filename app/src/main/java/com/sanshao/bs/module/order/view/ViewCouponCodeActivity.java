@@ -14,6 +14,7 @@ import com.sanshao.bs.module.order.view.adapter.ConfirmOrderAdapter;
 import com.sanshao.bs.module.order.viewmodel.OrderDetailViewModel;
 import com.sanshao.bs.module.order.viewmodel.ViewCouponCodeViewModel;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 
 /**
  * 查看券码
@@ -70,5 +71,45 @@ public class ViewCouponCodeActivity extends BaseActivity<OrderDetailViewModel, A
     @Override
     public void returnOrderNumStatus(OrderNumStatusResponse orderNumStatusResponse) {
 
+    }
+
+    @Override
+    public void returnCancelOrder() {
+
+    }
+
+    @Override
+    public void onRefreshData(Object object) {
+
+    }
+
+    @Override
+    public void onLoadMoreData(Object object) {
+
+    }
+
+    @Override
+    public void onNetError() {
+
+    }
+
+    @Override
+    public LoadingDialog createLoadingDialog() {
+        return null;
+    }
+
+    @Override
+    public LoadingDialog createLoadingDialog(String text) {
+        return null;
+    }
+
+    @Override
+    public boolean visibility() {
+        return false;
+    }
+
+    @Override
+    public boolean viewFinished() {
+        return false;
     }
 }

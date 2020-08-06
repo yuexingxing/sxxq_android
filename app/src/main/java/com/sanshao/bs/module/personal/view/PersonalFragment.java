@@ -144,6 +144,11 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     }
 
     @Override
+    protected void loadData() {
+
+    }
+
+    @Override
     public int getStatusBarColor() {
         return R.color.transparent;
     }
@@ -288,7 +293,27 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     }
 
     @Override
+    public void returnCancelOrder() {
+
+    }
+
+    @Override
     public void returnAppointmentedList(AppointmentedInfo appointmentedInfo) {
+
+    }
+
+    @Override
+    public void onRefreshData(Object object) {
+
+    }
+
+    @Override
+    public void onLoadMoreData(Object object) {
+
+    }
+
+    @Override
+    public void onNetError() {
 
     }
 }

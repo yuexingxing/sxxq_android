@@ -38,6 +38,11 @@ public class TryMatchingFragment extends BaseFragment<BaseViewModel, FragmentTry
     }
 
     @Override
+    protected void loadData() {
+
+    }
+
+    @Override
     public void initData() {
 
         GoodsDetailInfo goodsDetailInfo = (GoodsDetailInfo) getArguments().getSerializable(Constants.OPT_DATA);

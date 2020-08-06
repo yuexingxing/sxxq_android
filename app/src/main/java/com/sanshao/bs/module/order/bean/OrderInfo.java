@@ -41,6 +41,9 @@ public class OrderInfo  implements Serializable {
     @SerializedName("status")
     public int appointmentStatus;
 
+    @SerializedName("sale_status")
+    public String saleStatus;
+
     // 地址
     @SerializedName("address")
     public String address;
@@ -55,8 +58,7 @@ public class OrderInfo  implements Serializable {
     public boolean isSalesPackage;
 
     // 套餐内商品列表
-    @SerializedName("sale_sarti_info_list")
-    public List<Product> productList;
+    public Product shopSartiInfo;
 
     public static class Product implements Serializable {
 
@@ -78,7 +80,7 @@ public class OrderInfo  implements Serializable {
 
         // 商品件数
         @SerializedName("use_qty")
-        public int count;
+        public String count;
     }
 
     public interface State {

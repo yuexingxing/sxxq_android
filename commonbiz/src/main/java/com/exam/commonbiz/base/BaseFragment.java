@@ -28,13 +28,17 @@ import java.lang.reflect.ParameterizedType;
  * @Author yuexingxing
  * @time 2020/6/30
  */
-public abstract class BaseFragment<VM extends ViewModel, VDB extends ViewDataBinding> extends Fragment implements BaseViewCallBack{
+public abstract class BaseFragment<VM extends ViewModel, VDB extends ViewDataBinding> extends Fragment implements BaseViewCallBack {
 
     public final String TAG = BaseFragment.class.getSimpleName();
 
     public Context context;
     protected VM mViewModel;
     protected VDB binding;
+    //是否可见
+    protected boolean isVisiable;
+    // 标志位，标志Fragment已经初始化完成。
+    public boolean isPrepared = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
@@ -132,4 +136,31 @@ public abstract class BaseFragment<VM extends ViewModel, VDB extends ViewDataBin
     public boolean viewFinished() {
         return isDetached() || getActivity().isFinishing();
     }
+
+    /**
+     * 实现Fragment数据的缓加载
+     *
+     * @param isVisibleToUser
+     */
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            isVisiable = true;
+            onVisible();
+        } else {
+            isVisiable = false;
+            onInVisible();
+        }
+    }
+
+    protected void onInVisible() {
+    }
+
+    protected void onVisible() {
+        //加载数据
+        loadData();
+    }
+
+    protected abstract void loadData();
 }

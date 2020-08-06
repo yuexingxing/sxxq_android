@@ -27,6 +27,11 @@ public class RankinglistFragment extends BaseFragment<RankinglistViewModel, Frag
     }
 
     @Override
+    protected void loadData() {
+
+    }
+
+    @Override
     public void requestRankinglistSucc(RankinglistBean bean) {
 
     }

@@ -9,15 +9,16 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseFragment;
-import com.exam.commonbiz.base.BaseViewCallBack;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.FragmentOrderStatusBinding;
+import com.sanshao.bs.module.order.bean.OrderDetailResponse;
 import com.sanshao.bs.module.order.bean.OrderInfo;
-import com.sanshao.bs.module.order.model.IOrderModel;
+import com.sanshao.bs.module.order.bean.OrderListResponse;
+import com.sanshao.bs.module.order.bean.OrderNumStatusResponse;
+import com.sanshao.bs.module.order.model.IOrderDetailModel;
 import com.sanshao.bs.module.order.view.adapter.OrderListAdapter;
 import com.sanshao.bs.module.order.viewmodel.OrderListViewModel;
-import com.sanshao.bs.module.order.viewmodel.OrderStatusViewModel;
 import com.sanshao.bs.module.personal.inquiry.view.AppointmentForConsultationActivity;
 import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.util.ToastUtil;
@@ -30,12 +31,10 @@ import java.util.List;
  * @Author yuexingxing
  * @time 2020/7/1
  */
-public class OrderStatusFragment extends BaseFragment<OrderListViewModel, FragmentOrderStatusBinding> implements IOrderModel, BaseQuickAdapter.RequestLoadMoreListener {
+public class OrderStatusFragment extends BaseFragment<OrderListViewModel, FragmentOrderStatusBinding> implements IOrderDetailModel, BaseQuickAdapter.RequestLoadMoreListener {
 
     private int curPage = 0;
-
     private int orderState;
-
     private OrderListAdapter mOrderListAdapter;
 
     public OrderStatusFragment() {
@@ -64,17 +63,21 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
     }
 
     @Override
+    protected void loadData() {
+
+    }
+
+    @Override
     public void initData() {
 
         mViewModel.setCallBack(this);
-
         mOrderListAdapter = new OrderListAdapter();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         binding.recyclerView.setLayoutManager(linearLayoutManager);
         binding.recyclerView.setAdapter(mOrderListAdapter);
-        binding.recyclerView.setNestedScrollingEnabled(false);
-        binding.recyclerView.setFocusable(false);
+        mOrderListAdapter.setEnableLoadMore(false);
+        mOrderListAdapter.setOnLoadMoreListener(this, binding.recyclerView);
         mOrderListAdapter.setOnItemClickListener(new OrderListAdapter.OnItemClickListener() {
             @Override
             public void onOrderDetail(OrderInfo item) {
@@ -98,7 +101,7 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
 
             @Override
             public void onCancelOrder(int position, OrderInfo item) {
-
+                mViewModel.cancelOrder(item.id);
             }
 
             @Override
@@ -110,16 +113,18 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                curPage = 0;
+                curPage = 1;
                 mViewModel.getOrderList(orderState, curPage, Constants.PAGE_SIZE);
+                binding.swipeRefreshLayout.setRefreshing(false);
             }
         });
         binding.emptyLayout.bindView(binding.recyclerView);
         binding.emptyLayout.setOnButtonClick(view -> {
-            curPage = 1;
-            mViewModel.getOrderList(orderState, curPage, Constants.PAGE_SIZE);
+
         });
-        mViewModel.getOrderList(orderState, curPage, Constants.PAGE_SIZE);
+
+        mOrderListAdapter.setPreLoadNumber(1);
+        mOrderListAdapter.disableLoadMoreIfNotFullPage();
     }
 
     @Override
@@ -129,20 +134,21 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
             binding.emptyLayout.showEmpty("暂无数据", R.drawable.imsge_noorder);
             return;
         }
-        List<OrderInfo> list = (List<OrderInfo>) object;
+        OrderListResponse orderListResponse = (OrderListResponse) object;
         mOrderListAdapter.getData().clear();
         binding.swipeRefreshLayout.setRefreshing(false);
-        if (ContainerUtil.isEmpty(list)) {
+        if (ContainerUtil.isEmpty(orderListResponse.content)) {
             binding.emptyLayout.showEmpty("暂无数据", R.drawable.imsge_noorder);
             return;
         }
         binding.emptyLayout.showSuccess();
         binding.recyclerView.setVisibility(View.VISIBLE);
-        mOrderListAdapter.addData(list);
+        mOrderListAdapter.addData(orderListResponse.content);
     }
 
     @Override
     public void onLoadMoreData(Object object) {
+        binding.swipeRefreshLayout.setRefreshing(false);
         if (object == null) {
             return;
         }
@@ -157,6 +163,7 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
 
     @Override
     public void onNetError() {
+        binding.swipeRefreshLayout.setRefreshing(false);
         binding.emptyLayout.showError();
     }
 
@@ -164,5 +171,21 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
     public void onLoadMoreRequested() {
         ++curPage;
         mViewModel.getOrderList(orderState, curPage, Constants.PAGE_SIZE);
+    }
+
+    @Override
+    public void returnOrderDetailInfo(OrderDetailResponse orderDetailResponse) {
+
+    }
+
+    @Override
+    public void returnOrderNumStatus(OrderNumStatusResponse orderNumStatusResponse) {
+
+    }
+
+    @Override
+    public void returnCancelOrder() {
+        ToastUtil.showShortToast("取消成功");
+        loadData();
     }
 }

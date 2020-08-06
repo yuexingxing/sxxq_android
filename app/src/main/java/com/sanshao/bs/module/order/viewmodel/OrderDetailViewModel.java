@@ -9,6 +9,7 @@ import com.sanshao.bs.module.order.bean.OrderNumStatusResponse;
 import com.sanshao.bs.module.order.model.IOrderDetailModel;
 import com.sanshao.bs.module.order.model.OrderModel;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
+import com.sanshao.bs.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.List;
 public class OrderDetailViewModel extends BaseViewModel {
     private String TAG = OrderDetailViewModel.class.getSimpleName();
 
-    private IOrderDetailModel mCallBack;
+    public IOrderDetailModel mCallBack;
 
     public void setCallBack(IOrderDetailModel iOrderDetailModel) {
         mCallBack = iOrderDetailModel;
@@ -76,6 +77,35 @@ public class OrderDetailViewModel extends BaseViewModel {
             @Override
             public void onLoadFailed(String errMsg) {
 
+            }
+        });
+    }
+
+
+    public void cancelOrder(String salebillId) {
+
+        OrderModel.cancelOrder(salebillId, new OnLoadListener() {
+
+            @Override
+            public void onLoadStart() {
+                initData();
+            }
+
+            @Override
+            public void onLoadCompleted() {
+
+            }
+
+            @Override
+            public void onLoadSucessed(BaseResponse t) {
+                if (mCallBack != null) {
+                    mCallBack.returnCancelOrder();
+                }
+            }
+
+            @Override
+            public void onLoadFailed(String errMsg) {
+                ToastUtil.showShortToast(errMsg);
             }
         });
     }

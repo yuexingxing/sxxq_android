@@ -20,6 +20,7 @@ import com.sanshao.bs.module.order.view.adapter.ServedAdapter;
 import com.sanshao.bs.module.order.viewmodel.OrderDetailViewModel;
 import com.sanshao.bs.util.CommandTools;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -131,5 +132,45 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
     @Override
     public void returnOrderNumStatus(OrderNumStatusResponse orderNumStatusResponse) {
 
+    }
+
+    @Override
+    public void returnCancelOrder() {
+
+    }
+
+    @Override
+    public void onRefreshData(Object object) {
+
+    }
+
+    @Override
+    public void onLoadMoreData(Object object) {
+
+    }
+
+    @Override
+    public void onNetError() {
+
+    }
+
+    @Override
+    public LoadingDialog createLoadingDialog() {
+        return null;
+    }
+
+    @Override
+    public LoadingDialog createLoadingDialog(String text) {
+        return null;
+    }
+
+    @Override
+    public boolean visibility() {
+        return false;
+    }
+
+    @Override
+    public boolean viewFinished() {
+        return false;
     }
 }

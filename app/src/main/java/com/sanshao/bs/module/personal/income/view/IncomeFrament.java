@@ -36,6 +36,11 @@ public class IncomeFrament extends BaseFragment<IncomeViewModel, FragmentIncomeB
     }
 
     @Override
+    protected void loadData() {
+
+    }
+
+    @Override
     public void requestIncomeInfoSucc(IncomeBean bean) {
         if (bean == null) {
             return;

@@ -131,6 +131,11 @@ public class MathUtil {
         return decimalFormat.format(price);
     }
 
+    public static String getNumExclude0(String price){
+        DecimalFormat decimalFormat = new DecimalFormat("###################.###########");
+        return decimalFormat.format(Double.parseDouble(price));
+    }
+
     /**
      * 计算两个数相乘，防止精度丢失
      * @param a

@@ -33,7 +33,7 @@ public interface OrderApiService {
     Observable<BaseResponse> submitOrderInfo(@Body GoodsDetailInfo goodsDetailInfo);
 
     //获取订单列表
-    @GET("salebill/list")
+    @GET("salebill/salebillList")
     Observable<BaseResponse<OrderListResponse>> getOrderList(@Query("saleStatus") String saleStatus, @Query("page") int page, @Query("page") int pageSize);
 
     //获取订单支付信息，发起支付
@@ -47,4 +47,8 @@ public interface OrderApiService {
     //获取订单数量状态
     @GET("salebill/saleStatus")
     Observable<BaseResponse<OrderNumStatusResponse>> getOrderNumStatus();
+
+    //取消订单
+    @POST("salebill/cancel")
+    Observable<BaseResponse> cancelOrder(@Query("salebillId") String salebillId);
 }

@@ -37,6 +37,11 @@ public class ViewCouponCodeDetailFragment extends BaseFragment<OrderStatusViewMo
     }
 
     @Override
+    protected void loadData() {
+
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
