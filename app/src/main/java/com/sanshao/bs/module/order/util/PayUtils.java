@@ -1,15 +1,10 @@
 package com.sanshao.bs.module.order.util;
 
 import android.app.Activity;
-import android.text.TextUtils;
 
 import com.chinapnr.android.adapay.AdaPay;
-import com.chinapnr.android.adapay.PayCallback;
-import com.chinapnr.android.adapay.bean.PayResult;
 import com.chinapnr.android.adapay.bean.ResponseCode;
 import com.sanshao.bs.module.order.model.OnPayListener;
-import com.sanshao.bs.util.CommandTools;
-import com.sanshao.bs.util.ToastUtil;
 
 /**
  * 支付类

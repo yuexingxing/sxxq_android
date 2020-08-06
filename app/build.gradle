@@ -135,7 +135,7 @@ def getApkName() {
 
 //设定添加打包时间
 static def releaseTime() {
-    return new Date().format("MM-dd HH:mm", TimeZone.getTimeZone("UTC"))
+    return new Date().format("MMdd-HHmm", TimeZone.getTimeZone("UTC"))
 }
 
 //将密钥存在本地 防止泄露 local.properties 在Git的时候不会被上传
