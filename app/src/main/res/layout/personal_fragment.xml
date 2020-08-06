@@ -218,6 +218,8 @@
                     android:layout_marginTop="10dp"
                     android:paddingLeft="@dimen/left_container_margin"
                     android:paddingRight="@dimen/right_container_margin"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     app:icon_pav="@drawable/icon_income"
                     app:title_pav="进账" />
 
@@ -226,6 +228,8 @@
                     android:layout_height="1px"
                     android:layout_marginLeft="@dimen/left_container_margin"
                     android:layout_marginRight="@dimen/right_container_margin"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     android:background="@color/color_eeeeee" />
 
                 <com.sanshao.bs.widget.PersonalAccountView
