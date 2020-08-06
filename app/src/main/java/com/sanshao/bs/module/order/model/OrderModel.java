@@ -134,36 +134,6 @@ public class OrderModel {
                 });
     }
 
-    public static void getOrderPayInfo(int payType, final OnLoadListener onLoadListener) {
-        XApi.get(OrderApiService.class, XApi.HOST_TYPE.JAVA)
-                .getOrderPayInfo(payType)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver() {
-
-                    @Override
-                    public void onStart() {
-                        onLoadListener.onLoadStart();
-                    }
-
-                    @Override
-                    public void onSuccess(BaseResponse response) {
-                        onLoadListener.onLoadSucessed(response);
-                    }
-
-                    @Override
-                    public void onError(ExceptionHandle.ResponeThrowable responeThrowable) {
-                        onLoadListener.onLoadFailed(responeThrowable.message);
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        onLoadListener.onLoadCompleted();
-                    }
-
-                });
-    }
-
     public static void getOrderDetailInfo(String salebillId, final OnLoadListener onLoadListener) {
         XApi.get(OrderApiService.class, XApi.HOST_TYPE.JAVA)
                 .getOrderDetailInfo(salebillId)

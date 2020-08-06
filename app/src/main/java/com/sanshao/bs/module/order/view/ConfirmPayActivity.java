@@ -2,7 +2,6 @@ package com.sanshao.bs.module.order.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
@@ -11,13 +10,13 @@ import com.sanshao.bs.databinding.ActivityConfirmPayBinding;
 import com.sanshao.bs.module.order.bean.ConfirmOrderResponse;
 import com.sanshao.bs.module.order.bean.CreateOrderResponse;
 import com.sanshao.bs.module.order.bean.OrderPayInfoResponse;
+import com.sanshao.bs.module.order.bean.OrderStatusResponse;
 import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
 import com.sanshao.bs.module.order.model.IConfirmOrderModel;
-import com.sanshao.bs.module.order.model.IConfirmPayModel;
+import com.sanshao.bs.module.order.model.IPayModel;
 import com.sanshao.bs.module.order.model.OnPayListener;
 import com.sanshao.bs.module.order.util.PayUtils;
-import com.sanshao.bs.module.order.viewmodel.ConfirmOrderViewModel;
-import com.sanshao.bs.module.order.viewmodel.ConfirmPayViewModel;
+import com.sanshao.bs.module.order.viewmodel.PayViewModel;
 import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.util.MathUtil;
 import com.sanshao.bs.util.ToastUtil;
@@ -32,10 +31,11 @@ import org.greenrobot.eventbus.ThreadMode;
  * @Author yuexingxing
  * @time 2020/6/20
  */
-public class ConfirmPayActivity extends BaseActivity<ConfirmPayViewModel, ActivityConfirmPayBinding> implements IConfirmPayModel, IConfirmOrderModel {
+public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfirmPayBinding> implements IPayModel, IConfirmOrderModel {
     private final int PAY_BY_WECHAT = 0;
     private final int PAY_BY_ALI = 1;
     private int mPayType = PAY_BY_WECHAT;
+    private String mSalebillId;
 
     public static void start(Context context, CreateOrderResponse createOrderResponse) {
         Intent starter = new Intent(context, ConfirmPayActivity.class);
@@ -52,6 +52,7 @@ public class ConfirmPayActivity extends BaseActivity<ConfirmPayViewModel, Activi
     public void initData() {
 
         CreateOrderResponse createOrderResponse = (CreateOrderResponse) getIntent().getSerializableExtra(Constants.OPT_DATA);
+        mSalebillId = createOrderResponse.orderNo;
         mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
@@ -76,6 +77,12 @@ public class ConfirmPayActivity extends BaseActivity<ConfirmPayViewModel, Activi
         binding.llPayAli.setOnClickListener(v -> setCheckStatus(PAY_BY_ALI));
         binding.checkWechat.setOnClickListener(v -> setCheckStatus(PAY_BY_WECHAT));
         binding.checkAlipay.setOnClickListener(v -> setCheckStatus(PAY_BY_ALI));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mViewModel.getOrderStatus(mSalebillId);
     }
 
     @Override
@@ -129,6 +136,15 @@ public class ConfirmPayActivity extends BaseActivity<ConfirmPayViewModel, Activi
                         ToastUtil.showShortToast("支付失败");
                     }
                 });
+    }
+
+    @Override
+    public void returnOrderStatus(OrderStatusResponse orderStatusResponse) {
+        if (orderStatusResponse == null) {
+            return;
+        }
+        ToastUtil.showShortToast("支付成功");
+        PayCompleteActivity.start(context);
     }
 
     @Override
