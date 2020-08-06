@@ -8,6 +8,7 @@ import com.exam.commonbiz.base.BaseActivity;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityViewCouponCodeBinding;
 import com.sanshao.bs.module.order.bean.OrderDetailResponse;
+import com.sanshao.bs.module.order.bean.OrderNumStatusResponse;
 import com.sanshao.bs.module.order.model.IOrderDetailModel;
 import com.sanshao.bs.module.order.view.adapter.ConfirmOrderAdapter;
 import com.sanshao.bs.module.order.viewmodel.OrderDetailViewModel;
@@ -64,5 +65,10 @@ public class ViewCouponCodeActivity extends BaseActivity<OrderDetailViewModel, A
             return;
         }
         binding.mulitySetMealView.mConfirmOrderAdapter.addData(orderDetailResponse.goodsDetailInfo);
+    }
+
+    @Override
+    public void returnOrderNumStatus(OrderNumStatusResponse orderNumStatusResponse) {
+
     }
 }

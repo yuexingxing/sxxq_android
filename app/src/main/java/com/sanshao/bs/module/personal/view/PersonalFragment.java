@@ -2,9 +2,7 @@ package com.sanshao.bs.module.personal.view;
 
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,10 +13,17 @@ import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.PersonalFragmentBinding;
 import com.sanshao.bs.module.TestMenuActivity;
+import com.sanshao.bs.module.login.view.LoginActivity;
+import com.sanshao.bs.module.order.bean.AppointmentedInfo;
+import com.sanshao.bs.module.order.bean.OrderDetailResponse;
 import com.sanshao.bs.module.order.bean.OrderInfo;
+import com.sanshao.bs.module.order.bean.OrderNumStatusResponse;
+import com.sanshao.bs.module.order.model.IAppointmentModel;
+import com.sanshao.bs.module.order.model.IOrderDetailModel;
 import com.sanshao.bs.module.order.view.OrderListActivity;
+import com.sanshao.bs.module.order.viewmodel.AppointmentForConsultationViewModel;
+import com.sanshao.bs.module.order.viewmodel.OrderDetailViewModel;
 import com.sanshao.bs.module.personal.adapter.PersonalOrderSubjectAdapter;
-import com.sanshao.bs.module.personal.bean.MemberClassInfo;
 import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.module.personal.event.UpdateUserInfoEvent;
 import com.sanshao.bs.module.personal.income.view.IncomeHomeActivity;
@@ -43,10 +48,12 @@ import java.util.List;
  * @Author yuexingxing
  * @time 2020/6/12
  */
-public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFragmentBinding> implements IPersonalCallBack {
+public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFragmentBinding> implements IPersonalCallBack, IOrderDetailModel, IAppointmentModel {
 
     private List<OrderInfo> mOrderInfoList = new ArrayList<>();
     private PersonalOrderSubjectAdapter mPersonalOrderSubjectAdapter;
+    private OrderDetailViewModel mOrderDetailViewModel;
+    private AppointmentForConsultationViewModel mAppointmentForConsultationViewModel;
 
     public static PersonalFragment newInstance() {
         return new PersonalFragment();
@@ -61,6 +68,10 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     public void initData() {
 
         mViewModel.setCallBack(this);
+        mOrderDetailViewModel = new OrderDetailViewModel();
+        mAppointmentForConsultationViewModel = new AppointmentForConsultationViewModel();
+        mOrderDetailViewModel.setCallBack(this);
+        mAppointmentForConsultationViewModel.setCallBack(this);
         binding.flexibleLayout.setHeader(binding.ivBg);
         binding.flexibleLayout.setReadyListener(new OnReadyPullListener() {
             @Override
@@ -91,7 +102,13 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
                     }
                 });
         binding.btnTest.setOnClickListener(v -> TestMenuActivity.start(getContext()));
-        binding.llPersonal.setOnClickListener(v -> PersonalDetailActivity.start(getContext()));
+        binding.llPersonal.setOnClickListener(v -> {
+            if (TextUtils.isEmpty(SSApplication.getToken())) {
+                LoginActivity.start(context);
+            } else {
+                PersonalDetailActivity.start(getContext());
+            }
+        });
         binding.includeOrder.llAllOrder.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.ALL));
         binding.includeOrder.llOrderTobepaid.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.ToBePaid));
         binding.includeOrder.llOrderTobeuse.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.ToBeUse));
@@ -109,6 +126,8 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         super.onResume();
 //        if (!TextUtils.isEmpty(SSApplication.getToken())) {
         mViewModel.getUserInfo();
+        mOrderDetailViewModel.getOrderNumStatus();
+        mAppointmentForConsultationViewModel.getAppointmentedList();
 //        } else {
 //            initMemberStatus(null);
 //        }
@@ -252,5 +271,24 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             binding.rlAvatarBg.setBackground(getResources().getDrawable(R.drawable.image_threestars));
             binding.ivBg.setBackground(getResources().getDrawable(R.drawable.image_three_starsbg));
         }
+    }
+
+    @Override
+    public void returnOrderDetailInfo(OrderDetailResponse orderDetailResponse) {
+
+    }
+
+    @Override
+    public void returnOrderNumStatus(OrderNumStatusResponse orderNumStatusResponse) {
+        if (orderNumStatusResponse == null) {
+            return;
+        }
+        binding.includeOrder.llOrderTobepaid.setUnReadNum(orderNumStatusResponse.pay);
+        binding.includeOrder.llOrderTobeuse.setUnReadNum(orderNumStatusResponse.paid);
+    }
+
+    @Override
+    public void returnAppointmentedList(AppointmentedInfo appointmentedInfo) {
+
     }
 }

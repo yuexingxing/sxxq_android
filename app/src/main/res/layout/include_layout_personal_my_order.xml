@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -83,6 +84,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     app:PersonalOrderMenuView_icon="@drawable/icon_forvisits"
                     app:PersonalOrderMenuView_name="待问诊"
                     app:PersonalOrderMenuView_num="2" />
@@ -94,7 +97,7 @@
                     android:layout_weight="1"
                     app:PersonalOrderMenuView_icon="@drawable/icon_used"
                     app:PersonalOrderMenuView_name="已使用"
-                    app:PersonalOrderMenuView_num="2" />
+                    app:PersonalOrderMenuView_num="0" />
             </LinearLayout>
         </LinearLayout>
 

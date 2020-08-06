@@ -35,16 +35,14 @@ public class PersonalOrderMenuView extends LinearLayout {
         try {
             mName = ta.getString(R.styleable.PersonalOrderMenuView_PersonalOrderMenuView_name);
             mIcon = ta.getResourceId(R.styleable.PersonalOrderMenuView_PersonalOrderMenuView_icon, R.drawable.beautiful);
-            mUnReadNum  = ta.getInteger(R.styleable.PersonalOrderMenuView_PersonalOrderMenuView_num, 0);
+            mUnReadNum = ta.getInteger(R.styleable.PersonalOrderMenuView_PersonalOrderMenuView_num, 0);
             initView(context);
         } finally {
             ta.recycle();
         }
-        mRedPointImageView.setShow(true);
-        mRedPointImageView.setNumber(5);
     }
 
-    public ImageView getImageView(){
+    public ImageView getImageView() {
         return mImgIcon;
     }
 
@@ -54,7 +52,12 @@ public class PersonalOrderMenuView extends LinearLayout {
         mRedPointImageView.setNumber(mUnReadNum);
     }
 
-    public void setUnReadNum(int unReadNum){
-        mRedPointImageView.setNumber(unReadNum);
+    public void setUnReadNum(int unReadNum) {
+        if (unReadNum <= 0) {
+            mRedPointImageView.setVisibility(GONE);
+        } else {
+            mRedPointImageView.setVisibility(VISIBLE);
+            mRedPointImageView.setNumber(unReadNum);
+        }
     }
 }

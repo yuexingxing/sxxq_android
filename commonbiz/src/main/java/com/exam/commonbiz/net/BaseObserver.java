@@ -1,9 +1,13 @@
 package com.exam.commonbiz.net;
 
 import android.content.Context;
+import android.os.Message;
 import android.text.TextUtils;
 
+import com.exam.commonbiz.event.IdentityExpiredEvent;
 import com.google.gson.JsonParseException;
+
+import org.greenrobot.eventbus.EventBus;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -51,7 +55,12 @@ public abstract class BaseObserver<T> implements Observer<BaseResponse<T>> {
         if (e instanceof Exception) {
             //访问获得对应的Exception
             responeThrowable = ExceptionHandle.handleException(e);
-            onError(responeThrowable);
+
+            if (responeThrowable.code == 401){
+                EventBus.getDefault().post(new IdentityExpiredEvent());
+            }else{
+                onError(responeThrowable);
+            }
         } else {
             //将Throwable 和 未知错误的status code返回
             responeThrowable = new ExceptionHandle.ResponeThrowable(e, ExceptionHandle.ERROR.UNKNOWN);

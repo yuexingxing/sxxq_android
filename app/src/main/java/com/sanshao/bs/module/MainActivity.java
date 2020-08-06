@@ -13,11 +13,13 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.event.IdentityExpiredEvent;
 import com.exam.commonbiz.util.Res;
 import com.google.android.material.tabs.TabLayout;
 import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ActivityMainBinding;
+import com.sanshao.bs.module.login.view.LoginActivity;
 import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.module.personal.event.UpdateUserInfoEvent;
 import com.sanshao.bs.module.personal.income.bean.IncomeMenuInfo;
@@ -132,7 +134,7 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         binding.viewPager.setOffscreenPageLimit(mFragmentList.size());
         binding.tabLayout.setupWithViewPager(binding.viewPager);
 
-        for (int i = 0; i < binding.tabLayout.getTabCount(); i++){
+        for (int i = 0; i < binding.tabLayout.getTabCount(); i++) {
             TabLayout.Tab tab = binding.tabLayout.getTabAt(i);
             if (tab != null) {
                 tab.setCustomView(mIncomeTabFragmentAdapter.getTabView(i));
@@ -142,7 +144,7 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         onTabSelectView(binding.tabLayout.getTabAt(0));
     }
 
-    private void initTabLayout(){
+    private void initTabLayout() {
 
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -153,9 +155,9 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 View view = tab.getCustomView();
-                TextView textView=view.findViewById(R.id.tv_title);
+                TextView textView = view.findViewById(R.id.tv_title);
                 textView.setTextColor(Res.getColor(context, R.color.color_999999));
-                ImageView imgIcon  = view.findViewById(R.id.iv_icon);
+                ImageView imgIcon = view.findViewById(R.id.iv_icon);
                 imgIcon.setImageResource(mIncomeMenuInfoList.get(tab.getPosition()).iconUnSelect);
             }
 
@@ -166,12 +168,22 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         });
     }
 
-    private void onTabSelectView(TabLayout.Tab tab){
+    private void onTabSelectView(TabLayout.Tab tab) {
         IncomeMenuInfo incomeMenuInfo = mIncomeMenuInfoList.get(tab.getPosition());
         View view = tab.getCustomView();
         TextView textView = view.findViewById(R.id.tv_title);
         textView.setTextColor(Res.getColor(context, R.color.color_333333));
-        ImageView imgIcon  = view.findViewById(R.id.iv_icon);
+        ImageView imgIcon = view.findViewById(R.id.iv_icon);
         imgIcon.setImageResource(incomeMenuInfo.iconSelect);
+    }
+
+    @Override
+    public boolean useEventBus() {
+        return true;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onIdentityExpiredEvent(IdentityExpiredEvent identityExpiredEvent) {
+        LoginActivity.start(context);
     }
 }

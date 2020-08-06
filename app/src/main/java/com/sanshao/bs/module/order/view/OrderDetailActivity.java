@@ -11,6 +11,7 @@ import com.exam.commonbiz.base.BaseActivity;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityOrderDetailBinding;
 import com.sanshao.bs.module.order.bean.OrderDetailResponse;
+import com.sanshao.bs.module.order.bean.OrderNumStatusResponse;
 import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
 import com.sanshao.bs.module.order.model.IOrderDetailModel;
 import com.sanshao.bs.module.order.view.adapter.ConfirmOrderAdapter;
@@ -125,5 +126,10 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
         mServedAdapter.addData(orderDetailResponse.serverList);
         mRemainingServiceAdapter.addData(orderDetailResponse.remainingServerList);
         binding.mulitySetMealView.mConfirmOrderAdapter.addData(orderDetailResponse.goodsDetailInfo);
+    }
+
+    @Override
+    public void returnOrderNumStatus(OrderNumStatusResponse orderNumStatusResponse) {
+
     }
 }

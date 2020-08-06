@@ -31,9 +31,9 @@ public class XApi {
     }
 
     public interface HOST_URL {
-        String JAVA = "http://t2javaapi.sancell.top/";
+        String JAVA = "https://t2javaapi.sancell.top/";
 //        String JAVA = "http://192.168.200.225:9080/";
-        String NODE = "http://dev.kmlab.com/ssxq/";
+        String NODE = "https://t2wxapi.sancell.top/ssxq/";
     }
 
     private static String defaultBaseUrl;

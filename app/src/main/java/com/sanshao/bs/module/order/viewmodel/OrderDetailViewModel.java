@@ -5,6 +5,7 @@ import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
 import com.sanshao.bs.module.order.bean.OrderDetailResponse;
 import com.sanshao.bs.module.order.bean.OrderInfo;
+import com.sanshao.bs.module.order.bean.OrderNumStatusResponse;
 import com.sanshao.bs.module.order.model.IOrderDetailModel;
 import com.sanshao.bs.module.order.model.OrderModel;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
@@ -42,6 +43,34 @@ public class OrderDetailViewModel extends BaseViewModel {
             @Override
             public void onLoadSucessed(BaseResponse<OrderDetailResponse> t) {
 
+            }
+
+            @Override
+            public void onLoadFailed(String errMsg) {
+
+            }
+        });
+    }
+
+    public void getOrderNumStatus() {
+
+        OrderModel.getOrderNumStatus(new OnLoadListener<OrderNumStatusResponse>() {
+
+            @Override
+            public void onLoadStart() {
+                initData();
+            }
+
+            @Override
+            public void onLoadCompleted() {
+
+            }
+
+            @Override
+            public void onLoadSucessed(BaseResponse<OrderNumStatusResponse> t) {
+                if (mCallBack != null) {
+                    mCallBack.returnOrderNumStatus(t.getContent());
+                }
             }
 
             @Override

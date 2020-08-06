@@ -16,12 +16,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:background="@color/transparent"
                 android:button="@drawable/selector_login_checked"
-                android:checked="false" />
+                android:checked="true"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"

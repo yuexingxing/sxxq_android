@@ -136,7 +136,8 @@
                         android:hint="请输入手机短信中验证码"
                         android:maxLength="6"
                         android:paddingLeft="3dp"
-                        android:text="@{user.code}"
+                        android:text=""
+                        android:inputType="number"
                         android:textColor="@color/color_330000"
                         android:textColorHint="@color/color_999999"
                         android:textSize="14sp" />

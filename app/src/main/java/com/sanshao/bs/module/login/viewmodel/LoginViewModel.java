@@ -95,6 +95,7 @@ public class LoginViewModel extends ViewModel {
 
             @Override
             public void onLoadFailed(String errMsg) {
+                ToastUtil.showShortToast(errMsg);
                 if (mLoginCallBack != null) {
                     mLoginCallBack.onLoginFailed();
                 }
