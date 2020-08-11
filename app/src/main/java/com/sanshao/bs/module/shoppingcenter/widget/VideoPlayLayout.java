@@ -32,6 +32,12 @@ public class VideoPlayLayout extends LinearLayout {
         GlideUtil.loadImage(videoInfo.img, mJzvdStd.posterImageView);
     }
 
+    public void setRadius(int topLeftRadius, int topRightRadius, int bottomLeftRaidus, int bottomRightRadius) {
+        if (mJzvdStd != null) {
+            mJzvdStd.setLeftTopRightBottom(topLeftRadius, topRightRadius, bottomLeftRaidus, bottomRightRadius);
+        }
+    }
+
     public void pausePlay() {
         Jzvd.goOnPlayOnPause();
     }

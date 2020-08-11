@@ -292,6 +292,8 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                 }
                 bannerInfoList.add(bannerInfo);
             }
+            binding.homeBannerLayout.setRadius(0);
+            binding.homeBannerLayout.setLeftMargin(0);
             binding.homeBannerLayout.setData(bannerInfoList);
         }
         binding.nestedScrollview.scrollTo(0, 0);

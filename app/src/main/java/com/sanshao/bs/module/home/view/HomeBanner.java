@@ -12,13 +12,16 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
-import android.widget.ImageView;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.Scroller;
 
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.exam.commonbiz.util.ScreenUtil;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.sanshao.bs.R;
 import com.sanshao.bs.module.home.model.BannerInfo;
 import com.sanshao.bs.module.shoppingcenter.bean.VideoInfo;
@@ -39,6 +42,8 @@ public class HomeBanner extends ViewPager {
     private Runnable mRunnable;
     private int time = 5000;
     private boolean mAutoScroll = true;
+    private int mRadius = 10;
+    private int mLeftMargin = 12;
 
     public HomeBanner(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -66,7 +71,7 @@ public class HomeBanner extends ViewPager {
             if (bannerList != null && bannerList.size() > 1) {
                 mHandler.postDelayed(mRunnable, time);
             }
-        }else{
+        } else {
             setCurrentItem(0);
             if (onPageClickListener != null) {
                 onPageClickListener.onPageSelected(0);
@@ -79,6 +84,14 @@ public class HomeBanner extends ViewPager {
             return mAdapter.getData();
         }
         return null;
+    }
+
+    public void setRadius(int radius) {
+        mRadius = radius;
+    }
+
+    public void setLeftMargin(int leftMargin) {
+        mLeftMargin = leftMargin;
     }
 
     private boolean isDataChanged(List<BannerInfo> old, List<BannerInfo> newData) {
@@ -244,7 +257,14 @@ public class HomeBanner extends ViewPager {
                 View view = LayoutInflater.from(mContext).inflate(R.layout.item_home_banner, container, false);
                 view.setTag(bannerInfo);
                 view.setOnClickListener(this);
-                ImageView bannerImage = view.findViewById(R.id.banner_image);
+                RoundedImageView bannerImage = view.findViewById(R.id.banner_image);
+                bannerImage.setCornerRadius(ScreenUtil.dp2px(getContext(), mRadius));
+
+                int leftMargin = ScreenUtil.dp2px(getContext(), mLeftMargin);
+                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(bannerImage.getLayoutParams());
+                layoutParams.setMargins(leftMargin, 0, leftMargin, 0);
+                bannerImage.setLayoutParams(layoutParams);
+
                 VideoPlayLayout videoPlayLayout = view.findViewById(R.id.video_play_layout);
                 if (!TextUtils.isEmpty(bannerInfo.videoUrl)) {
                     bannerImage.setVisibility(GONE);

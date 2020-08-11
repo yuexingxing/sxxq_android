@@ -20,6 +20,7 @@ import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.module.shoppingcenter.bean.VideoInfo;
 import com.sanshao.bs.module.shoppingcenter.widget.VideoPlayLayout;
 import com.sanshao.bs.util.Constants;
+import com.sanshao.bs.util.GlideUtil;
 import com.sanshao.bs.util.MathUtil;
 
 import java.lang.reflect.Type;
@@ -70,13 +71,15 @@ public class GoodsListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
         if (ContainerUtil.isEmpty(item.sarti_img)) {
             ivIcon.setVisibility(View.VISIBLE);
             videoPlayLayout.setVisibility(View.GONE);
-            Glide.with(SSApplication.app).load(item.thumbnail_img).into(ivIcon);
+            GlideUtil.loadImage(item.thumbnail_img, ivIcon);
             //暂停播放
             if (!item.isPlay) {
                 videoPlayLayout.pausePlay();
             }
         } else {
             ivIcon.setVisibility(View.GONE);
+            int topRadius = ScreenUtil.dp2px(SSApplication.app, 10);
+            videoPlayLayout.setRadius(topRadius, topRadius, 0, 0);
             videoPlayLayout.setVisibility(View.VISIBLE);
             videoPlayLayout.setVideoInfo(item.sarti_img.get(0));
         }

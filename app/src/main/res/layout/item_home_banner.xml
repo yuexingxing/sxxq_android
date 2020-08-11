@@ -10,8 +10,6 @@
         android:id="@+id/banner_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
         android:scaleType="centerCrop"
         app:riv_border_color="@color/color_333333"
         app:riv_corner_radius="8dp"

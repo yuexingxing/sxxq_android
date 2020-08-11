@@ -192,6 +192,12 @@ public class JzvdStd extends Jzvd {
         setScreen(screen);
     }
 
+    public void setRadius(int topLeftRadius, int topRightRadius, int bottomLeftRaidus, int bottomRightRadius) {
+        if (posterImageView != null) {
+            posterImageView.setLeftTopRightBottom(topLeftRadius, topRightRadius, bottomLeftRaidus, bottomRightRadius);
+        }
+    }
+
     @Override
     public void changeUrl(JZDataSource jzDataSource, long seekToInAdvance) {
         super.changeUrl(jzDataSource, seekToInAdvance);

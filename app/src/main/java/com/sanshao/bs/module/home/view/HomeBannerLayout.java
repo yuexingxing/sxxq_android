@@ -64,6 +64,18 @@ public class HomeBannerLayout extends LinearLayout {
         super(context, attrs, defStyleAttr);
     }
 
+    public void setRadius(int radius) {
+        if (mHomeBanner != null) {
+            mHomeBanner.setRadius(radius);
+        }
+    }
+
+    public void setLeftMargin(int leftMargin){
+        if (mHomeBanner != null) {
+            mHomeBanner.setLeftMargin(leftMargin);
+        }
+    }
+
     public void setDotGravity() {
         mLinearLayout.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
     }
