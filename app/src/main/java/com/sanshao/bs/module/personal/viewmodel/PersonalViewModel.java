@@ -7,6 +7,7 @@ import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.module.personal.model.IPersonalCallBack;
 import com.sanshao.bs.module.personal.model.PersonalModel;
 import com.sanshao.bs.util.LoadDialogMgr;
+import com.sanshao.bs.util.ToastUtil;
 
 public class PersonalViewModel extends BaseViewModel {
 
@@ -39,7 +40,9 @@ public class PersonalViewModel extends BaseViewModel {
 
             @Override
             public void onLoadFailed(String errMsg) {
-
+                if (mCallBack != null){
+                    mCallBack.returnUserInfo(null);
+                }
             }
         });
     }
@@ -67,7 +70,7 @@ public class PersonalViewModel extends BaseViewModel {
 
             @Override
             public void onLoadFailed(String errMsg) {
-
+                ToastUtil.showShortToast(errMsg);
             }
         });
     }

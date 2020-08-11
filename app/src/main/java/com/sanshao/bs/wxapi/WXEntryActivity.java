@@ -6,7 +6,6 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.sanshao.bs.BuildConfig;
 import com.sanshao.bs.util.Constants;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;

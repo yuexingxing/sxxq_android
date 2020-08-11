@@ -3,6 +3,7 @@ package com.sanshao.bs.module.personal.view;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -195,11 +196,11 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
 
     @Override
     public void returnUserInfo(UserInfo userInfo) {
+        initMemberStatus(userInfo);
         if (userInfo == null) {
             return;
         }
         SSApplication.getInstance().saveUserInfo(userInfo);
-        initMemberStatus(userInfo);
     }
 
     @Override
@@ -213,6 +214,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     private void initMemberStatus(UserInfo userInfo) {
 
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) binding.flHeader.getLayoutParams();
+        RelativeLayout.LayoutParams layoutParamsLabel = (RelativeLayout.LayoutParams) binding.tvLabel.getLayoutParams();
 
         //未登录
         if (userInfo == null) {
@@ -223,10 +225,13 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             binding.tvLabel.setText("游客");
             binding.ivZuan.setVisibility(View.GONE);
             binding.rlVipBg.setVisibility(View.INVISIBLE);
-            binding.viewSpaceZuan.setVisibility(View.VISIBLE);
+            binding.viewSpaceZuan.setVisibility(View.GONE);
             binding.viewOrderTopLine.setVisibility(View.GONE);
 
-            layoutParams.height = ScreenUtil.dp2px(context, 235);
+            layoutParamsLabel.setMargins(ScreenUtil.dp2px(context, 5), 0, ScreenUtil.dp2px(context, 5), 0);
+            binding.tvLabel.setLayoutParams(layoutParamsLabel);
+
+            layoutParams.height = ScreenUtil.dp2px(context, 215);
             binding.flHeader.setLayoutParams(layoutParams);
             return;
         }

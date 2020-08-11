@@ -57,7 +57,7 @@ public class GoodsPosterDialog {
         if (goodsDetailInfo != null) {
             tvTitle.setText(goodsDetailInfo.sarti_name);
             tvPrice.setText(goodsDetailInfo.sarti_saleprice + "");
-            GlideUtil.loadImage(goodsDetailInfo.share_url, imgIcon, R.drawable.gray_btn_bg);
+            GlideUtil.loadImage(goodsDetailInfo.share_url, imgIcon, R.drawable.image_placeholder_two);
         }
         String userId = SSApplication.getInstance().getUserInfo().nickname;
         if (TextUtils.isEmpty(userId)) {

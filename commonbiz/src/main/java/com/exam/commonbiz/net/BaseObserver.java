@@ -55,9 +55,9 @@ public abstract class BaseObserver<T> implements Observer<BaseResponse<T>> {
         if (e instanceof Exception) {
             //访问获得对应的Exception
             responeThrowable = ExceptionHandle.handleException(e);
-
-            if (responeThrowable.code == 401){
+            if (responeThrowable.code == ExceptionHandle.UNAUTHORIZED){
                 EventBus.getDefault().post(new IdentityExpiredEvent());
+                return;
             }else{
                 onError(responeThrowable);
             }

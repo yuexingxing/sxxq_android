@@ -184,6 +184,7 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onIdentityExpiredEvent(IdentityExpiredEvent identityExpiredEvent) {
+        ToastUtil.showShortToast("身份过期");
         LoginActivity.start(context);
     }
 }

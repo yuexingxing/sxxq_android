@@ -91,6 +91,9 @@ public class SettingNameActivity extends BaseActivity<PersonalViewModel, Activit
 
     @Override
     public void returnUpdateUserInfo(UserInfo userInfo) {
+        if (userInfo == null){
+            return;
+        }
         ToastUtil.showShortToast("修改成功");
         UserInfo userInfoTemp = SSApplication.getInstance().getUserInfo();
         userInfoTemp.nickname = userInfo.nickname;

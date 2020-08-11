@@ -17,7 +17,7 @@ import retrofit2.HttpException;
  */
 public class ExceptionHandle {
 
-    private static final int UNAUTHORIZED = 401;
+    public static final int UNAUTHORIZED = 401;
     private static final int FORBIDDEN = 403;
     private static final int NOT_FOUND = 404;
     private static final int REQUEST_TIMEOUT = 408;
@@ -86,6 +86,9 @@ public class ExceptionHandle {
         } else {
             ex = new ResponeThrowable(e, ERROR.UNKNOWN);
             ex.message = UNKNOW_ERROR;
+            if (e.hashCode() == UNAUTHORIZED){
+                ex.message = "身份过期，请重新登录";
+            }
             return ex;
         }
     }
