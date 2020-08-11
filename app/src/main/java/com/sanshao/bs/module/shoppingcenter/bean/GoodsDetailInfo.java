@@ -19,7 +19,7 @@ public class GoodsDetailInfo implements Serializable {
     public String sarti_name;
     public double sarti_saleprice;//售价
     public double sarti_mkprice;//市场价
-    public int buyNum;
+    public int buyNum = 1;
     public int stock;//库存
     public List<VideoInfo> sarti_img;//商品介绍图/视频
     public boolean checked;
@@ -41,7 +41,7 @@ public class GoodsDetailInfo implements Serializable {
     public String pay_type;
     public int sarti_point_price;
 
-    public String getPointTip(){
+    public String getPointTip() {
         return sarti_point_price + "分享金";
     }
 

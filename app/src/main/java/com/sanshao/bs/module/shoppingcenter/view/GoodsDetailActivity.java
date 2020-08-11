@@ -119,7 +119,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             if (mGoodsDetailInfo == null) {
                 return;
             }
-            new GoodsInroductionDialog().show(context, mGoodsDetailInfo.sarti_intro);
+            new GoodsInroductionDialog().show(context, "商品说明", mGoodsDetailInfo.sarti_intro);
         });
 
         binding.includeBottom.btnBuy.setOnClickListener(v -> ConfirmOrderActivity.start(context, mSartiId));
@@ -151,7 +151,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             share();
         });
         binding.ivRecommendReward.setOnClickListener(v ->
-                EmptyWebViewActivity.start(context, "http://www.2345.com")
+                new GoodsInroductionDialog().show(context, "邀请有礼 一起变美", getResources().getString(R.string.goods_detail_invite_tip))
         );
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) binding.homeBannerLayout.getLayoutParams();
         int videoHeight = ScreenUtil.getScreenWidth(SSApplication.app) - ScreenUtil.dp2px(SSApplication.app, 24);
@@ -256,6 +256,17 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         binding.tvOldPrice.setText("¥" + MathUtil.getNumExclude0(goodsDetailInfo.sarti_mkprice));
         binding.tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         binding.tvSellNum.setText("已售" + goodsDetailInfo.sell_num);
+
+        if (goodsDetailInfo.isFree()) {
+            binding.tvPrice.setText("免费领取");
+            binding.includeBottom.btnBuy.setText("免费领取");
+        } else if (goodsDetailInfo.isPayByPoint()) {
+            binding.tvPrice.setText(goodsDetailInfo.getPointTip());
+            binding.tvOldPrice.setVisibility(View.GONE);
+            binding.includeBottom.btnBuy.setText("分享金购买");
+        } else {
+            binding.tvPrice.setText("¥" + MathUtil.getNumExclude0(goodsDetailInfo.sarti_saleprice));
+        }
 
         RichText.from(goodsDetailInfo.sarti_desc).bind(this)
                 .showBorder(false)

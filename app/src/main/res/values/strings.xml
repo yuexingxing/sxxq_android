@@ -17,4 +17,7 @@
     <string name="income_record">进账记录</string>
     <string name="withdrawal_record">提现记录</string>
     <string name="request_data_fail">获取数据失败</string>
+
+    <string name="goods_detail_invite_tip">分享一位体验用户成功注册三少变美APP，即可获得\"奖励变美区\"一个项目，项目任选，多分享多获得。</string>
+
 </resources>

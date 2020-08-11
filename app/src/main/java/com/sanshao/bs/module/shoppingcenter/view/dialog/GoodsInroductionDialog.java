@@ -17,12 +17,15 @@ import com.zzhoujay.richtext.RichText;
  */
 public class GoodsInroductionDialog {
 
-    public void show(Context context, String content) {
+    public void show(Context context, String title, String content) {
         RichText.initCacheDir(context);
         LinearLayout rootView = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.dialog_layout_goods_introduction, null);
         BottomSheetDialog dialog = new BottomSheetDialog(context, R.style.BottomSheetDialog);
 
+        TextView tvtitle = rootView.findViewById(R.id.tv_title);
         TextView tvContent = rootView.findViewById(R.id.tv_content);
+
+        tvtitle.setText(title);
         tvContent.setText(content);
         dialog.setContentView(rootView);
         dialog.show();
