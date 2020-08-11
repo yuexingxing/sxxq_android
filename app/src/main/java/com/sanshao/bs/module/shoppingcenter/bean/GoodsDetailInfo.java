@@ -39,14 +39,23 @@ public class GoodsDetailInfo implements Serializable {
     public String used;//已使用服务次数
     public String unused;//未使用服务次数
     public String pay_type;
+    public int sarti_point_price;
+
+    public String getPointTip(){
+        return sarti_point_price + "分享金";
+    }
 
     /**
      * 是不是积分支付
-     * @param payType
+     *
      * @return
      */
-    public static boolean isPayByPoint(String payType) {
-        return TextUtils.equals(PAY_TYPE.POINT, payType);
+    public boolean isPayByPoint() {
+        return TextUtils.equals(PAY_TYPE.POINT, pay_type);
+    }
+
+    public boolean isFree() {
+        return !isPayByPoint() && sarti_saleprice == 0;
     }
 
     /**

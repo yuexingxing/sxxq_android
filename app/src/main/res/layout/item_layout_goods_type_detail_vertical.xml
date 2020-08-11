@@ -13,15 +13,10 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <View
-            android:id="@+id/view_left"
-            android:layout_width="3dp"
-            android:visibility="gone"
-            android:layout_height="1dp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:background="@drawable/shape_white_radius_10"
             android:gravity="center"
             android:orientation="vertical">
@@ -36,7 +31,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    android:src="@drawable/gray_rectangle_bg"
+                    android:src="@drawable/image_placeholder_three"
                     app:OvalImageView_top_left="10"
                     app:OvalImageView_top_right="10" />
             </LinearLayout>
@@ -68,23 +63,14 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="¥"
-                        android:textColor="@color/color_c5602d"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-
-                    <TextView
                         android:id="@+id/tv_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
                         android:layout_marginTop="1dp"
-                        android:text="0"
+                        android:text="¥0"
                         android:textColor="@color/color_c5602d"
-                        android:textSize="17sp"
-                        android:textStyle="bold" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/tv_old_price"
@@ -101,7 +87,7 @@
 
         <View
             android:id="@+id/view_right"
-            android:layout_width="3dp"
+            android:layout_width="10dp"
             android:layout_height="1dp"
             android:visibility="gone" />
     </LinearLayout>

@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
+import com.sanshao.bs.util.GlideUtil;
 import com.sanshao.bs.util.MathUtil;
 
 /**
@@ -27,24 +28,26 @@ public class GoodsTypeDetailHorizontalAdapter extends BaseQuickAdapter<GoodsDeta
     protected void convert(BaseViewHolder helper, GoodsDetailInfo item) {
         helper.setText(R.id.tv_title, item.sarti_name);
 
-        helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.sarti_saleprice));
         TextView tvOldPrice = helper.getView(R.id.tv_old_price);
         tvOldPrice.setText("¥" + MathUtil.getNumExclude0(item.sarti_mkprice));
         tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
-        Glide.with(SSApplication.app).load(item.thumbnail_img).into((ImageView) helper.getView(R.id.iv_icon));
+        GlideUtil.loadImage(item.thumbnail_img, helper.getView(R.id.iv_icon));
 
-        if (helper.getAdapterPosition() == 0){
+        if (item.isFree()) {
+            helper.setText(R.id.tv_price, "免费领取");
+        } else if (item.isPayByPoint()) {
+            helper.setText(R.id.tv_price, item.getPointTip());
+            tvOldPrice.setVisibility(View.GONE);
+        } else {
+            helper.setText(R.id.tv_price, "¥" + MathUtil.getNumExclude0(item.sarti_saleprice));
+        }
+
+        if (helper.getAdapterPosition() == 0) {
             helper.getView(R.id.view_left).setVisibility(View.GONE);
             helper.getView(R.id.view_right).setVisibility(View.VISIBLE);
-        }else{
+        } else {
             helper.getView(R.id.view_left).setVisibility(View.VISIBLE);
             helper.getView(R.id.view_right).setVisibility(View.VISIBLE);
         }
-//
-//        if (helper.getAdapterPosition() == getData().size() - 1){
-//            helper.getView(R.id.view_right).setVisibility(View.VISIBLE);
-//        }else{
-//            helper.getView(R.id.view_right).setVisibility(View.GONE);
-//        }
     }
 }
