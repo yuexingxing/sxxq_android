@@ -34,6 +34,7 @@ import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
 import com.sanshao.bs.util.CommandTools;
 import com.sanshao.bs.util.Constants;
+import com.sanshao.bs.util.GlideUtil;
 import com.sanshao.bs.util.MathUtil;
 import com.sanshao.bs.util.ShareUtils;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
@@ -106,7 +107,6 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         });
 
         binding.emptyLayout.setOnButtonClick(view -> mViewModel.getGoodsDetail(mSartiId));
-
         binding.nestedScrollview.setOnScrollChangeListener((View.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
             if (scrollY > ScreenUtil.dp2px(context, 200)) {
                 binding.llTab.setVisibility(View.VISIBLE);
@@ -243,8 +243,11 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
     public void returnGoodsDetail(GoodsDetailInfo goodsDetailInfo) {
         if (goodsDetailInfo == null) {
             binding.emptyLayout.showError();
+            binding.llTab.setVisibility(View.GONE);
+            binding.rlBottomView.setVisibility(View.GONE);
             return;
         }
+        binding.rlBottomView.setVisibility(View.VISIBLE);
         binding.emptyLayout.showSuccess();
         mGoodsDetailInfo = goodsDetailInfo;
 
