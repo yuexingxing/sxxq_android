@@ -32,6 +32,7 @@ import com.sanshao.bs.module.personal.model.IPersonalCallBack;
 import com.sanshao.bs.module.personal.personaldata.view.PersonalDetailActivity;
 import com.sanshao.bs.module.personal.setting.view.SettingActivity;
 import com.sanshao.bs.module.personal.viewmodel.PersonalViewModel;
+import com.sanshao.bs.util.DateUtil;
 import com.sanshao.bs.util.GlideUtil;
 import com.sanshao.bs.widget.flexible.OnReadyPullListener;
 import com.sanshao.bs.widget.flexible.OnRefreshListener;
@@ -232,6 +233,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
 
         binding.tvName.setText(userInfo.nickname);
         binding.ivZuan.setVisibility(View.VISIBLE);
+
         GlideUtil.loadImage(userInfo.avatar, binding.ivAvatar, R.drawable.image_placeholder_two);
 
 //        userInfo.mem_class = new MemberClassInfo();
@@ -260,6 +262,14 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.ivZuan.setImageResource(R.drawable.icon_universaldrillmembers);
         binding.rlVipBg.setVisibility(View.VISIBLE);
         binding.viewOrderTopLine.setVisibility(View.VISIBLE);
+
+        String memberStartTime = DateUtil.timeFormat(userInfo.mem_class_start_date);
+        int diffDays = DateUtil.getDiffDay(memberStartTime, DateUtil.getCurrentTime());
+        binding.tvMembersDate.setText("会员期限" + diffDays
+                + "/" + userInfo.mem_class.mem_class_valid_days);
+        binding.tvMembersDateEnd.setText(DateUtil.getDateStr(memberStartTime, userInfo.mem_class.mem_class_valid_days));
+        binding.progressHorizontal.setProgress(diffDays);
+        binding.progressHorizontal.setMax(userInfo.mem_class.mem_class_valid_days);
 
         //一星会员
         if (TextUtils.equals(userInfo.mem_class.mem_class_key, "1")) {

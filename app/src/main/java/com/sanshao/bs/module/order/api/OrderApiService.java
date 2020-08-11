@@ -35,7 +35,7 @@ public interface OrderApiService {
 
     //获取订单列表
     @GET("salebill/salebillList")
-    Observable<BaseResponse<OrderListResponse>> getOrderList(@Query("saleStatus") String saleStatus, @Query("page") int page, @Query("page") int pageSize);
+    Observable<BaseResponse<OrderListResponse>> getOrderList(@Query("saleStatus") String saleStatus, @Query("page") int page, @Query("pageSize") int pageSize);
 
     //获取订单详情
     @GET("order/detail")

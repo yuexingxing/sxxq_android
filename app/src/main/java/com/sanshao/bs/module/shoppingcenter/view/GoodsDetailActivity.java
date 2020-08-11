@@ -136,6 +136,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             initTabStatus(1);
             binding.nestedScrollview.smoothScrollTo(0, binding.llGoodsDetail.getTop() - ScreenUtil.dp2px(context, 70));
         });
+        binding.homeBannerLayout.setDotGravity();
 
         //在第一次调用RichText之前先调用RichText.initCacheDir()方法设置缓存目录，不设置会报错
         RichText.initCacheDir(this);
@@ -147,11 +148,8 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         binding.recyclerViewSetmeal.setNestedScrollingEnabled(false);
         binding.recyclerViewSetmeal.setFocusable(false);
         ((DefaultItemAnimator) binding.recyclerViewSetmeal.getItemAnimator()).setSupportsChangeAnimations(false);
-        mSetMealAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                GoodsDetailActivity.start(context, mSetMealAdapter.getData().get(position).sarti_id);
-            }
+        mSetMealAdapter.setOnItemClickListener((adapter, view, position) -> {
+            GoodsDetailActivity.start(context, mSetMealAdapter.getData().get(position).sarti_id);
         });
 
         binding.includeBottom.llShare.setOnClickListener(v -> {

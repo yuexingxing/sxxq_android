@@ -55,6 +55,9 @@ public abstract class BasicApplication extends Application {
     }
 
     public static String getToken() {
+        if (ACache.get(app).getAsString(ConfigSP.SP_TOKEN) == null) {
+            return "";
+        }
         return ACache.get(app).getAsString(ConfigSP.SP_TOKEN);
     }
 

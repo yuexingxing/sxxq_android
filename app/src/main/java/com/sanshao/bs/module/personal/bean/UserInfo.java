@@ -17,10 +17,16 @@ public class UserInfo implements Serializable {
     public String avatar;
     public String invitation_code;
     public String invitation_weapp_url;
-    public MemberClassInfo mem_class;
-    public ReferMemberInfo referrer_mem;
     public String mem_phone;
+    public String mem_class_id;
+    public String mem_class_start_date;
+    public String mem_status;//
+    public MemberClassInfo mem_class;
+    public RefferMemberInfo referrer_mem;
 
+    public class RefferMemberInfo{
+
+    }
 
     public String getGender() {
         if (TextUtils.equals("M", gender)) {
@@ -28,10 +34,5 @@ public class UserInfo implements Serializable {
         } else {
             return "女";
         }
-    }
-
-    public class ReferMemberInfo {
-
-
     }
 }

@@ -155,6 +155,7 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
     @Override
     public void onLoadMoreData(Object object) {
         binding.swipeRefreshLayout.setRefreshing(false);
+        mOrderListAdapter.loadMoreComplete();
         if (object == null) {
             return;
         }
@@ -163,7 +164,6 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
             mOrderListAdapter.loadMoreEnd();
             return;
         }
-        mOrderListAdapter.loadMoreComplete();
         mOrderListAdapter.addData(list);
     }
 

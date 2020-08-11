@@ -3,6 +3,7 @@ package com.sanshao.bs.module.home.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,11 +33,11 @@ public class HomeBannerLayout extends LinearLayout {
     private ArrayList<ImageView> mDotList = new ArrayList<>();
     private OnBannerClick mOnBannerClick;
 
-    public interface OnBannerClick{
+    public interface OnBannerClick {
         void onBannerClick(BannerInfo bannerInfo);
     }
 
-    public void setOnBannerClick(OnBannerClick onBannerClick){
+    public void setOnBannerClick(OnBannerClick onBannerClick) {
         mOnBannerClick = onBannerClick;
     }
 
@@ -63,8 +64,11 @@ public class HomeBannerLayout extends LinearLayout {
         super(context, attrs, defStyleAttr);
     }
 
+    public void setDotGravity() {
+        mLinearLayout.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
+    }
+
     /**
-     *
      * @param list
      */
     public void setData(List<BannerInfo> list) {
@@ -82,7 +86,7 @@ public class HomeBannerLayout extends LinearLayout {
         mHomeBanner.setScrollSpeed(mHomeBanner);
     }
 
-    public void pauseBanner(){
+    public void pauseBanner() {
         mHomeBanner.pauseBanner();
     }
 
@@ -115,7 +119,7 @@ public class HomeBannerLayout extends LinearLayout {
             if (currentTime - lastClickTime > 500) {
                 lastClickTime = currentTime;
             }
-            if (mOnBannerClick != null){
+            if (mOnBannerClick != null) {
                 mOnBannerClick.onBannerClick(info);
             }
         }
@@ -124,13 +128,13 @@ public class HomeBannerLayout extends LinearLayout {
         public void onPageSelected(int position) {
             if (mDotList.size() > 0) {
                 for (int i = 0; i < mDotList.size(); i++) {
-                    ImageView imageView =  mDotList.get(i);
+                    ImageView imageView = mDotList.get(i);
                     ViewGroup.LayoutParams layoutParams = imageView.getLayoutParams();
                     if (position % mDotList.size() == i) {
-                        layoutParams.width =  ScreenUtil.dp2px(getContext(), 19);
+                        layoutParams.width = ScreenUtil.dp2px(getContext(), 19);
                         imageView.setImageResource(R.drawable.dots_focus);
                     } else {
-                        layoutParams.width =  ScreenUtil.dp2px(getContext(), 3);
+                        layoutParams.width = ScreenUtil.dp2px(getContext(), 3);
                         imageView.setImageResource(R.drawable.dots_normal);
                     }
                     imageView.setLayoutParams(layoutParams);
