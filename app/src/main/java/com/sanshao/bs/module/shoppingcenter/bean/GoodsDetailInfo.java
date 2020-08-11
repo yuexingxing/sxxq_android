@@ -1,5 +1,7 @@
 package com.sanshao.bs.module.shoppingcenter.bean;
 
+import android.text.TextUtils;
+
 import com.sanshao.bs.util.Constants;
 
 import java.io.Serializable;
@@ -7,6 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GoodsDetailInfo implements Serializable {
+
+    public interface PAY_TYPE {
+        String MONEY = "MONEY";
+        String POINT = "POINT";
+    }
+
     public String sarti_id;//商品子ID
     public String sarti_name;
     public double sarti_saleprice;//售价
@@ -30,6 +38,16 @@ public class GoodsDetailInfo implements Serializable {
     public boolean isPlay;
     public String used;//已使用服务次数
     public String unused;//未使用服务次数
+    public String pay_type;
+
+    /**
+     * 是不是积分支付
+     * @param payType
+     * @return
+     */
+    public static boolean isPayByPoint(String payType) {
+        return TextUtils.equals(PAY_TYPE.POINT, payType);
+    }
 
     /**
      * 是否是套餐

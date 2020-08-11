@@ -1,20 +1,20 @@
 package com.sanshao.bs.module.shoppingcenter.view.adapter;
 
+import android.text.TextUtils;
 import android.view.View;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsTypeInfo;
 import com.sanshao.bs.module.shoppingcenter.view.GoodsDetailActivity;
-import com.sanshao.bs.module.shoppingcenter.view.GoodsListActivity;
+import com.sanshao.bs.util.GlideUtil;
 
 /**
  * @Author yuexingxing
@@ -28,18 +28,36 @@ public class GoodsTypeAdapter extends BaseQuickAdapter<GoodsTypeInfo, BaseViewHo
 
     @Override
     protected void convert(BaseViewHolder helper, GoodsTypeInfo item) {
-        helper.setText(R.id.tv_title, item.artitag_name);
+        RecyclerView recyclerView = helper.getView(R.id.goods_type_detail_recycler_view);
 
-        if (!ContainerUtil.isEmpty(item.set_meal_product)) {
-            GoodsTypeDetailAdapter goodsTypeDetailAdapter = new GoodsTypeDetailAdapter();
+        if (TextUtils.isEmpty(item.artitag_url)) {
+            helper.getView(R.id.iv_bg).setVisibility(View.INVISIBLE);
+            helper.setText(R.id.tv_title, item.artitag_name);
+            helper.getView(R.id.ll_title_top).setVisibility(View.VISIBLE);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(SSApplication.app, 2);
+            gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
+            recyclerView.setLayoutManager(gridLayoutManager);
+
+            GoodsTypeDetailVerticalAdapter goodsTypeDetailVerticalAdapter = new GoodsTypeDetailVerticalAdapter();
+            recyclerView.setAdapter(goodsTypeDetailVerticalAdapter);
+            goodsTypeDetailVerticalAdapter.addData(item.set_meal_product);
+            goodsTypeDetailVerticalAdapter.setOnItemClickListener((adapter, view, position) -> {
+                GoodsDetailInfo goodsDetailInfo = goodsTypeDetailVerticalAdapter.getData().get(position);
+                GoodsDetailActivity.start(view.getContext(), goodsDetailInfo.sarti_id);
+            });
+        } else {
+            helper.getView(R.id.iv_bg).setVisibility(View.VISIBLE);
+            GlideUtil.loadImage(item.artitag_url, helper.getView(R.id.iv_bg));
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(SSApplication.app);
             linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
-            RecyclerView recyclerView = helper.getView(R.id.goods_type_detail_recycler_view);
+            helper.getView(R.id.ll_title_top).setVisibility(View.INVISIBLE);
             recyclerView.setLayoutManager(linearLayoutManager);
-            recyclerView.setAdapter(goodsTypeDetailAdapter);
-            goodsTypeDetailAdapter.addData(item.set_meal_product);
-            goodsTypeDetailAdapter.setOnItemClickListener((adapter, view, position) -> {
-                GoodsDetailInfo goodsDetailInfo = goodsTypeDetailAdapter.getData().get(position);
+
+            GoodsTypeDetailHorizontalAdapter goodsTypeDetailHorizontalAdapter = new GoodsTypeDetailHorizontalAdapter();
+            recyclerView.setAdapter(goodsTypeDetailHorizontalAdapter);
+            goodsTypeDetailHorizontalAdapter.addData(item.set_meal_product);
+            goodsTypeDetailHorizontalAdapter.setOnItemClickListener((adapter, view, position) -> {
+                GoodsDetailInfo goodsDetailInfo = goodsTypeDetailHorizontalAdapter.getData().get(position);
                 GoodsDetailActivity.start(view.getContext(), goodsDetailInfo.sarti_id);
             });
         }

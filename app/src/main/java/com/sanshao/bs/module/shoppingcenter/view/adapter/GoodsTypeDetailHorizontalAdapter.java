@@ -17,10 +17,10 @@ import com.sanshao.bs.util.MathUtil;
  * @Author yuexingxing
  * @time 2020/6/16
  */
-public class GoodsTypeDetailAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseViewHolder> {
+public class GoodsTypeDetailHorizontalAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseViewHolder> {
 
-    public GoodsTypeDetailAdapter() {
-        super(R.layout.item_layout_goods_type_detail, null);
+    public GoodsTypeDetailHorizontalAdapter() {
+        super(R.layout.item_layout_goods_type_detail_horizontal, null);
     }
 
     @Override
@@ -34,15 +34,17 @@ public class GoodsTypeDetailAdapter extends BaseQuickAdapter<GoodsDetailInfo, Ba
         Glide.with(SSApplication.app).load(item.thumbnail_img).into((ImageView) helper.getView(R.id.iv_icon));
 
         if (helper.getAdapterPosition() == 0){
-            helper.getView(R.id.view_left).setVisibility(View.VISIBLE);
-        }else{
             helper.getView(R.id.view_left).setVisibility(View.GONE);
-        }
-
-        if (helper.getAdapterPosition() == getData().size() - 1){
             helper.getView(R.id.view_right).setVisibility(View.VISIBLE);
         }else{
-            helper.getView(R.id.view_right).setVisibility(View.GONE);
+            helper.getView(R.id.view_left).setVisibility(View.VISIBLE);
+            helper.getView(R.id.view_right).setVisibility(View.VISIBLE);
         }
+//
+//        if (helper.getAdapterPosition() == getData().size() - 1){
+//            helper.getView(R.id.view_right).setVisibility(View.VISIBLE);
+//        }else{
+//            helper.getView(R.id.view_right).setVisibility(View.GONE);
+//        }
     }
 }

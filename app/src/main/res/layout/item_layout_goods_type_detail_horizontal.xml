@@ -5,17 +5,16 @@
     android:id="@+id/ll_bg"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="10dp"
     android:gravity="center"
     android:orientation="horizontal">
 
     <View
         android:id="@+id/view_left"
-        android:layout_width="6dp"
-        android:layout_height="1dp"/>
+        android:layout_width="3dp"
+        android:layout_height="1dp" />
 
     <LinearLayout
-        android:layout_width="153dp"
+        android:layout_width="112dp"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_white_radius_10"
         android:gravity="center"
@@ -23,7 +22,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="153dp"
+            android:layout_height="112dp"
             android:gravity="center_horizontal">
 
             <com.sanshao.bs.widget.OvalImageView
@@ -32,8 +31,8 @@
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
                 android:src="@drawable/gray_rectangle_bg"
-                app:OvalImageView_top_left="20"
-                app:OvalImageView_top_right="20" />
+                app:OvalImageView_top_left="10"
+                app:OvalImageView_top_right="10" />
         </LinearLayout>
 
         <LinearLayout
@@ -45,22 +44,21 @@
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:minHeight="40dp"
-                tools:text="激光祛斑美容护肤不二之选，玻尿酸不二之选"
                 android:textColor="@color/color_333333"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textSize="12sp"
+                tools:text="激光祛斑美容护肤不二之选，玻尿酸不二之选" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:layout_marginBottom="6dp"
+                android:layout_marginBottom="3dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -68,16 +66,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="¥"
-                    android:textStyle="bold"
                     android:textColor="@color/color_c5602d"
-                    android:textSize="10sp" />
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
                     android:layout_marginTop="1dp"
+                    android:text="0"
                     android:textColor="@color/color_c5602d"
                     android:textSize="17sp"
                     android:textStyle="bold" />
@@ -97,6 +95,6 @@
 
     <View
         android:id="@+id/view_right"
-        android:layout_width="@dimen/right_container_margin"
-        android:layout_height="1dp"/>
+        android:layout_width="3dp"
+        android:layout_height="1dp" />
 </LinearLayout>

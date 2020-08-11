@@ -10,5 +10,6 @@ public class GoodsTypeInfo {
     public String artitag_id;
     public String artitag_name;
     public String artitag_type;
+    public String artitag_url;
     public List<GoodsDetailInfo> set_meal_product;
 }
