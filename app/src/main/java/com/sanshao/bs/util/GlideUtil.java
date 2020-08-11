@@ -138,7 +138,7 @@ public class GlideUtil extends AppGlideModule {
      */
     private static @DrawableRes
     int getErrorImage() {
-        return R.drawable.image_placeholder_three;
+        return R.drawable.image_placeholder_five;
     }
 
     /**
@@ -147,7 +147,7 @@ public class GlideUtil extends AppGlideModule {
      */
     private static @DrawableRes
     int getPlaceholder() {
-        return R.drawable.image_placeholder_three;
+        return R.drawable.image_placeholder_five;
     }
 
     /**

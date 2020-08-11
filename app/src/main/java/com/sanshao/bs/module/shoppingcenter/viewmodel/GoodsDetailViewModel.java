@@ -47,7 +47,9 @@ public class GoodsDetailViewModel extends BaseViewModel {
 
             @Override
             public void onLoadFailed(String errMsg) {
-
+                if (mCallBack != null) {
+                    mCallBack.returnGoodsDetail(null);
+                }
             }
         });
     }

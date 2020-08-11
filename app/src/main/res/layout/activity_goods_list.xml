@@ -15,7 +15,7 @@
             android:layout_height="@dimen/title_height"
             app:title="商品列表" />
 
-        <com.sanshao.bs.widget.EmptyLayout
+        <com.sanshao.bs.widget.LinearEmptyLayout
             android:id="@+id/emptyLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -33,7 +33,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-        </com.sanshao.bs.widget.EmptyLayout>
+        </com.sanshao.bs.widget.LinearEmptyLayout>
 
         <ImageView
             android:id="@+id/iv_to_top"

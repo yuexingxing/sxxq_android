@@ -6,18 +6,13 @@ import android.graphics.Paint;
 import android.os.Build;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.aliyun.player.AliPlayerFactory;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.ContainerUtil;
@@ -30,9 +25,7 @@ import com.sanshao.bs.module.EmptyWebViewActivity;
 import com.sanshao.bs.module.home.model.BannerInfo;
 import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
 import com.sanshao.bs.module.order.view.ConfirmOrderActivity;
-import com.sanshao.bs.module.order.view.adapter.TabFragmentPagerAdapter;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
-import com.sanshao.bs.module.shoppingcenter.bean.ResponseGoodsDetail;
 import com.sanshao.bs.module.shoppingcenter.bean.VideoInfo;
 import com.sanshao.bs.module.shoppingcenter.model.IGoodsDetailModel;
 import com.sanshao.bs.module.shoppingcenter.view.adapter.SetMealAdapter;
@@ -112,6 +105,8 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             }
         });
 
+        binding.emptyLayout.setOnButtonClick(view -> mViewModel.getGoodsDetail(mSartiId));
+
         binding.nestedScrollview.setOnScrollChangeListener((View.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
             if (scrollY > ScreenUtil.dp2px(context, 200)) {
                 binding.llTab.setVisibility(View.VISIBLE);
@@ -134,7 +129,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         });
         binding.llTabGoodsDetail.setOnClickListener(v -> {
             initTabStatus(1);
-            binding.nestedScrollview.smoothScrollTo(0, binding.llGoodsDetail.getTop() - ScreenUtil.dp2px(context, 70));
+            binding.nestedScrollview.smoothScrollTo(0, binding.llGoodsDetail.getTop() - ScreenUtil.dp2px(context, 10));
         });
         binding.homeBannerLayout.setDotGravity();
 
@@ -247,8 +242,10 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
     @Override
     public void returnGoodsDetail(GoodsDetailInfo goodsDetailInfo) {
         if (goodsDetailInfo == null) {
+            binding.emptyLayout.showError();
             return;
         }
+        binding.emptyLayout.showSuccess();
         mGoodsDetailInfo = goodsDetailInfo;
 
         binding.tvTitle.setText(goodsDetailInfo.sarti_name);

@@ -65,6 +65,12 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
             jumpBanner(mAdBannerInfo);
         });
 
+        binding.emptyLayout.setOnButtonClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mViewModel.getGoodsList();
+            }
+        });
         binding.nestedScrollview.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -110,8 +116,10 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
     public void returnShoppingCenterList(ShoppingCenterResponse shoppingCenterResponse) {
         binding.swipeRefreshLayout.setRefreshing(false);
         if (shoppingCenterResponse == null) {
+            binding.emptyLayout.showError();
             return;
         }
+        binding.emptyLayout.showSuccess();
         binding.homeBannerLayout.setData(shoppingCenterResponse.slideshow);
         if (!ContainerUtil.isEmpty(shoppingCenterResponse.static_advertising)) {
             mAdBannerInfo = shoppingCenterResponse.static_advertising.get(0);

@@ -11,7 +11,7 @@
         android:background="@color/main_bg"
         android:orientation="vertical">
 
-        <com.sanshao.bs.widget.EmptyLayout
+        <com.sanshao.bs.widget.LinearEmptyLayout
             android:id="@+id/emptyLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -29,6 +29,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-        </com.sanshao.bs.widget.EmptyLayout>
+        </com.sanshao.bs.widget.LinearEmptyLayout>
     </LinearLayout>
 </layout>
