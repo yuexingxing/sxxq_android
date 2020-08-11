@@ -56,10 +56,20 @@ public class GoodsListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
     protected void convert(BaseViewHolder helper, GoodsDetailInfo item) {
         helper.setText(R.id.tv_title, item.sarti_name);
 
-        helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.sarti_saleprice));
         TextView tvOldPrice = helper.getView(R.id.tv_old_price);
         tvOldPrice.setText("¥" + MathUtil.getNumExclude0(item.sarti_mkprice));
         tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+
+        if (item.isFree()) {
+            helper.setText(R.id.tv_price, "免费领取");
+            helper.setText(R.id.btn_buy, "免费领取");
+        } else if (item.isPayByPoint()) {
+            helper.setText(R.id.tv_price, item.getPointTip());
+            tvOldPrice.setVisibility(View.GONE);
+            helper.setText(R.id.btn_buy, "分享金购买");
+        } else {
+            helper.setText(R.id.tv_price, "¥" + MathUtil.getNumExclude0(item.sarti_saleprice));
+        }
 
         View viewInclude = helper.getView(R.id.include_video);
         ImageView ivIcon = helper.getView(R.id.iv_icon);

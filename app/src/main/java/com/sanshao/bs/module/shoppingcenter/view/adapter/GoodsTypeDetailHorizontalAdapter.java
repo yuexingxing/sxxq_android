@@ -2,14 +2,11 @@ package com.sanshao.bs.module.shoppingcenter.view.adapter;
 
 import android.graphics.Paint;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.sanshao.bs.R;
-import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.util.GlideUtil;
 import com.sanshao.bs.util.MathUtil;
