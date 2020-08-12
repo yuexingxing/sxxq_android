@@ -259,10 +259,11 @@
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal">
 
-                                <ImageView
+                                <com.makeramen.roundedimageview.RoundedImageView
                                     android:layout_width="52dp"
                                     android:layout_height="52dp"
-                                    android:src="@drawable/icon_goods_type_six" />
+                                    android:src="@drawable/yimeilogo"
+                                    app:riv_corner_radius="5dp" />
 
                                 <LinearLayout
                                     android:layout_width="0dp"
