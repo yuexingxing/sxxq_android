@@ -155,7 +155,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         int videoHeight = ScreenUtil.getScreenWidth(SSApplication.app) - ScreenUtil.dp2px(SSApplication.app, 24);
         layoutParams.height = videoHeight;
         binding.homeBannerLayout.setLayoutParams(layoutParams);
-        binding.ivCallPhone.setOnClickListener(view ->  CommandTools.showCall(context));
+        binding.ivCallPhone.setOnClickListener(view -> CommandTools.showCall(context));
         mViewModel.getGoodsDetail(mSartiId);
     }
 
@@ -249,7 +249,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         binding.emptyLayout.showSuccess();
         mGoodsDetailInfo = goodsDetailInfo;
 
-        binding.tvTitle.setText(goodsDetailInfo.sarti_name);
+        binding.tvGoodsName.setText(goodsDetailInfo.sarti_name);
         binding.tvPrice.setText(MathUtil.getNumExclude0(goodsDetailInfo.sarti_saleprice));
         binding.tvOldPrice.setText("¥" + MathUtil.getNumExclude0(goodsDetailInfo.sarti_mkprice));
         binding.tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
@@ -258,12 +258,15 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         if (goodsDetailInfo.isFree()) {
             binding.tvPrice.setText("免费领取");
             binding.includeBottom.btnBuy.setText("免费领取");
+            binding.ivRecommendReward.setBackgroundResource(R.drawable.regactivity);
         } else if (goodsDetailInfo.isPayByPoint()) {
             binding.tvPrice.setText(goodsDetailInfo.getPointTip());
             binding.tvOldPrice.setVisibility(View.GONE);
             binding.includeBottom.btnBuy.setText("分享金购买");
+            binding.ivRecommendReward.setBackgroundResource(R.drawable.tuijianyou);
         } else {
             binding.tvPrice.setText("¥" + MathUtil.getNumExclude0(goodsDetailInfo.sarti_saleprice));
+            binding.ivRecommendReward.setBackgroundResource(R.drawable.share_icon);
         }
 
         RichText.from(goodsDetailInfo.sarti_desc).bind(this)

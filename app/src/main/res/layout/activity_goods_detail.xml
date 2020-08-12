@@ -94,11 +94,11 @@
                             </LinearLayout>
 
                             <TextView
-                                android:id="@+id/tv_title"
+                                android:id="@+id/tv_goods_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="12dp"
-                                android:layout_marginTop="14dp"
+                                android:layout_marginTop="6dp"
                                 android:layout_marginRight="12dp"
                                 android:textColor="@color/color_333333"
                                 android:textSize="18sp"
@@ -178,19 +178,15 @@
                                 android:src="@drawable/arrow_right" />
                         </LinearLayout>
 
-                        <LinearLayout
+                        <ImageView
+                            android:id="@+id/iv_recommend_reward"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="88dp"
+                            android:layout_marginLeft="@dimen/left_container_margin"
                             android:layout_marginTop="12dp"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/iv_recommend_reward"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/icon_awardforrecommendation" />
-                        </LinearLayout>
+                            android:layout_marginRight="@dimen/right_container_margin"
+                            android:background="@drawable/regactivity"
+                            android:scaleType="centerCrop" />
 
                         <com.sanshao.bs.module.shoppingcenter.view.TryMatchingView
                             android:id="@+id/try_matching"
