@@ -8,6 +8,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -24,6 +25,8 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -809,9 +812,13 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
         if (textureView != null) textureViewContainer.removeView(textureView);
         textureView = new JZTextureView(getContext().getApplicationContext());
         textureView.setSurfaceTextureListener(mediaInterface);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            textureView.setOutlineProvider(new TextureVideoViewOutlineProvider(10, 10, 0, 0));
+//            textureView.setClipToOutline(true);
+//        }
 
-        FrameLayout.LayoutParams layoutParams =
-                new FrameLayout.LayoutParams(
+        LayoutParams layoutParams =
+                new LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         Gravity.CENTER);
