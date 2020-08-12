@@ -34,8 +34,13 @@ public class JZTextureView extends TextureView {
 
     public void setVideoSize(int currentVideoWidth, int currentVideoHeight) {
         if (this.currentVideoWidth != currentVideoWidth || this.currentVideoHeight != currentVideoHeight) {
-            this.currentVideoWidth = currentVideoWidth + 100;
-            this.currentVideoHeight = currentVideoWidth;
+            if (currentVideoWidth > currentVideoHeight) {
+                this.currentVideoWidth = currentVideoWidth + 50;
+                this.currentVideoHeight = currentVideoWidth;
+            } else {
+                this.currentVideoWidth = currentVideoWidth;
+                this.currentVideoHeight = currentVideoWidth + 50;
+            }
             requestLayout();
         }
     }
@@ -54,7 +59,6 @@ public class JZTextureView extends TextureView {
         int viewRotation = (int) getRotation();
         int videoWidth = currentVideoWidth;
         int videoHeight = currentVideoHeight;
-
 
         int parentHeight = ((View) getParent()).getMeasuredHeight();
         int parentWidth = ((View) getParent()).getMeasuredWidth();
@@ -156,6 +160,7 @@ public class JZTextureView extends TextureView {
                 }
             }
         }
+
         setMeasuredDimension(width, height);
     }
 }
