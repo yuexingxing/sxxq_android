@@ -113,7 +113,7 @@ public class ToBeInquiryDetailActivity extends BaseActivity<BaseViewModel, Activ
                     }).withBottomButton(View.GONE)
                     .show();
         });
-        binding.rlCallPhone.setOnClickListener(view -> CommandTools.callPhone(context, "123456789"));
+        binding.rlCallPhone.setOnClickListener(view ->  CommandTools.showCall(context));
         binding.rlViewcode.setOnClickListener(view -> ViewCouponCodeActivity.start(context));
         binding.tvCopy.setOnClickListener(view -> CommandTools.copyToClipboard(context, binding.tvOrderNo.getText().toString()));
         initStoreLocation();

@@ -104,7 +104,7 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
         });
 
         binding.llCall.setOnClickListener(view -> {
-            CommandTools.callPhone(context, "1234567");
+            CommandTools.showCall(context);
         });
 
         binding.mulitySetMealView.setFragmentManager(getSupportFragmentManager());

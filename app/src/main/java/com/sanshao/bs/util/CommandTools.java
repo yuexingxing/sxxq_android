@@ -10,6 +10,14 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.exam.commonbiz.util.CommonCallBack;
+import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
+import com.sanshao.bs.module.shoppingcenter.view.GoodsDetailActivity;
+import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsPosterDialog;
+import com.sanshao.commonui.dialog.CommonBottomDialog;
+import com.sanshao.commonui.dialog.CommonDialogInfo;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -75,7 +83,7 @@ public class CommandTools {
      *
      * @param phoneNum 电话号码
      */
-    public static void callPhone(Context context, String phoneNum) {
+    private static void callPhone(Context context, String phoneNum) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
         Uri data = Uri.parse("tel:" + phoneNum);
         intent.setData(data);
@@ -98,5 +106,29 @@ public class CommandTools {
         ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         cm.setText(content);
         ToastUtil.showShortToast("复制成功");
+    }
+
+    /**
+     * 拨打客服弹窗
+     *
+     * @param context
+     */
+    public static void showCall(Context context) {
+
+        List<CommonDialogInfo> commonDialogInfoList = new ArrayList<>();
+        commonDialogInfoList.add(new CommonDialogInfo(Constants.SERVICE_PHONE));
+        commonDialogInfoList.add(new CommonDialogInfo("呼叫"));
+
+        CommonBottomDialog commonBottomDialog = new CommonBottomDialog();
+        commonBottomDialog.init(context)
+                .setData(commonDialogInfoList)
+                .autoDismissDialog(false)
+                .setOnItemClickListener(commonDialogInfo -> {
+                    if (commonDialogInfo.position == 1) {
+                        commonBottomDialog.dismissDialog();
+                        callPhone(context, Constants.SERVICE_PHONE);
+                    }
+                })
+                .show();
     }
 }

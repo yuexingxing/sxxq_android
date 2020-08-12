@@ -21,7 +21,6 @@ import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ActivityGoodsDetailBinding;
-import com.sanshao.bs.module.EmptyWebViewActivity;
 import com.sanshao.bs.module.home.model.BannerInfo;
 import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
 import com.sanshao.bs.module.order.view.ConfirmOrderActivity;
@@ -34,7 +33,6 @@ import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
 import com.sanshao.bs.util.CommandTools;
 import com.sanshao.bs.util.Constants;
-import com.sanshao.bs.util.GlideUtil;
 import com.sanshao.bs.util.MathUtil;
 import com.sanshao.bs.util.ShareUtils;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
@@ -157,7 +155,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         int videoHeight = ScreenUtil.getScreenWidth(SSApplication.app) - ScreenUtil.dp2px(SSApplication.app, 24);
         layoutParams.height = videoHeight;
         binding.homeBannerLayout.setLayoutParams(layoutParams);
-        binding.ivCallPhone.setOnClickListener(view -> CommandTools.callPhone(context, "12345678"));
+        binding.ivCallPhone.setOnClickListener(view ->  CommandTools.showCall(context));
         mViewModel.getGoodsDetail(mSartiId);
     }
 
@@ -273,18 +271,20 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                 .size(ImageHolder.MATCH_PARENT, ImageHolder.WRAP_CONTENT)
                 .into(binding.tvGoodsDetail);
 
+        binding.llSetMeal.setVisibility(View.GONE);
+        binding.tryMatching.setVisibility(View.GONE);
         if (!ContainerUtil.isEmpty(goodsDetailInfo.product_list)) {
             //0=非套餐，1=套餐
-            if (goodsDetailInfo.is_package == 1) {
-                binding.tryMatching.setVisibility(View.GONE);
-                binding.llSetMeal.setVisibility(View.VISIBLE);
-                mSetMealAdapter.setNewData(goodsDetailInfo.product_list);
-            } else {
-                binding.llSetMeal.setVisibility(View.GONE);
-                binding.tryMatching.setVisibility(View.VISIBLE);
-                binding.tryMatching.setData(goodsDetailInfo.product_list);
-                binding.tryMatching.initViewPager(getSupportFragmentManager());
-            }
+//            if (goodsDetailInfo.is_package == 1) {
+//                binding.tryMatching.setVisibility(View.GONE);
+//                binding.llSetMeal.setVisibility(View.GONE);
+//                mSetMealAdapter.setNewData(goodsDetailInfo.product_list);
+//            } else {
+//                binding.llSetMeal.setVisibility(View.GONE);
+//                binding.tryMatching.setVisibility(View.VISIBLE);
+//                binding.tryMatching.setData(goodsDetailInfo.product_list);
+//                binding.tryMatching.initViewPager(getSupportFragmentManager());
+//            }
         } else {
             binding.llSetMeal.setVisibility(View.GONE);
             binding.tryMatching.setVisibility(View.GONE);
