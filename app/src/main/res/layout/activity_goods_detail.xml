@@ -87,7 +87,7 @@
                                         android:layout_marginLeft="4dp"
                                         android:layout_marginBottom="3dp"
                                         android:gravity="bottom"
-                                        android:text="¥90"
+                                        android:text="¥0"
                                         android:textColor="@color/color_999999"
                                         android:textSize="14sp" />
                                 </RelativeLayout>
@@ -299,8 +299,8 @@
                                             android:layout_gravity="center"
                                             android:layout_marginLeft="6dp"
                                             app:select_enable="false"
-                                            app:selectedNumber="3"
-                                            app:starDistance="8dp"
+                                            app:selectedNumber="5"
+                                            app:starDistance="3dp"
                                             app:starEmptyRes="@drawable/icon_scorelessthanstar"
                                             app:starSelectedRes="@drawable/icon_coresofstars"
                                             app:startTotalNumber="5" />
