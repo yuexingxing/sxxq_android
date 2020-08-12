@@ -12,7 +12,7 @@ import com.sanshao.bs.module.order.bean.OrderNumStatusResponse;
 import com.sanshao.bs.module.order.model.IOrderDetailModel;
 import com.sanshao.bs.module.order.view.adapter.ConfirmOrderAdapter;
 import com.sanshao.bs.module.order.viewmodel.OrderDetailViewModel;
-import com.sanshao.bs.module.order.viewmodel.ViewCouponCodeViewModel;
+import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 
@@ -62,10 +62,7 @@ public class ViewCouponCodeActivity extends BaseActivity<OrderDetailViewModel, A
 
     @Override
     public void returnOrderDetailInfo(OrderDetailResponse orderDetailResponse) {
-        if (orderDetailResponse == null) {
-            return;
-        }
-//        binding.mulitySetMealView.mConfirmOrderAdapter.addData(orderDetailResponse.goodsDetailInfo);
+
     }
 
     @Override

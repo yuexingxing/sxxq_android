@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.sanshao.bs.R;
-import com.sanshao.bs.module.order.view.ViewCouponCodeFragment;
 import com.sanshao.bs.module.order.view.adapter.TabFragmentPagerAdapter;
 
 import java.util.ArrayList;
@@ -48,8 +47,5 @@ public class SetMealGoodsDetailView extends LinearLayout {
 
     public void initData() {
 
-        for (int i = 0; i < 5; i++) {
-            mFragmentList.add(ViewCouponCodeFragment.newInstance(i));
-        }
     }
 }

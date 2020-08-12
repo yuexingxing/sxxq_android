@@ -8,8 +8,9 @@ import com.exam.commonbiz.util.QRCodeUtil;
 import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.FragmentViewCouponcodeDetailBinding;
-import com.sanshao.bs.module.order.bean.OrderInfo;
 import com.sanshao.bs.module.order.viewmodel.OrderStatusViewModel;
+import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
+import com.sanshao.bs.util.Constants;
 
 /**
  * 待支付
@@ -23,10 +24,10 @@ public class ViewCouponCodeDetailFragment extends BaseFragment<OrderStatusViewMo
 
     }
 
-    public static ViewCouponCodeDetailFragment newInstance(int orderState) {
+    public static ViewCouponCodeDetailFragment newInstance(GoodsDetailInfo.WriteOffInfo writeOffInfo) {
         ViewCouponCodeDetailFragment fragment = new ViewCouponCodeDetailFragment();
         Bundle args = new Bundle();
-        args.putInt(OrderInfo.ORDER_STATE, orderState);
+        args.putSerializable(Constants.OPT_DATA, writeOffInfo);
         fragment.setArguments(args);
         return fragment;
     }
@@ -42,14 +43,10 @@ public class ViewCouponCodeDetailFragment extends BaseFragment<OrderStatusViewMo
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
     public void initData() {
-        Bitmap bitmap = QRCodeUtil.createQRCodeBitmap("123456", ScreenUtil.dp2px(context, 150), ScreenUtil.dp2px(context, 150));
+
+        GoodsDetailInfo.WriteOffInfo writeOffInfo = (GoodsDetailInfo.WriteOffInfo) getArguments().getSerializable(Constants.OPT_DATA);
+        Bitmap bitmap = QRCodeUtil.createQRCodeBitmap(writeOffInfo.code, ScreenUtil.dp2px(context, 150), ScreenUtil.dp2px(context, 150));
         binding.ivQrcode.setImageBitmap(bitmap);
     }
 }

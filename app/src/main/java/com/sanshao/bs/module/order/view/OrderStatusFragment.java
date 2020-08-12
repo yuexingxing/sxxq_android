@@ -3,7 +3,6 @@ package com.sanshao.bs.module.order.view;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -21,6 +20,7 @@ import com.sanshao.bs.module.order.model.IOrderDetailModel;
 import com.sanshao.bs.module.order.view.adapter.OrderListAdapter;
 import com.sanshao.bs.module.order.viewmodel.OrderListViewModel;
 import com.sanshao.bs.module.personal.inquiry.view.AppointmentForConsultationActivity;
+import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.util.ToastUtil;
 

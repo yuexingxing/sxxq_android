@@ -13,9 +13,9 @@ import com.exam.commonbiz.base.BaseFragment;
 import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.FragmentViewCouponcodeBinding;
-import com.sanshao.bs.module.order.bean.OrderInfo;
 import com.sanshao.bs.module.order.view.adapter.TabFragmentPagerAdapter;
 import com.sanshao.bs.module.order.viewmodel.OrderStatusViewModel;
+import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.widget.ViewPagerScroller;
 
@@ -32,16 +32,12 @@ public class ViewCouponCodeFragment extends BaseFragment<OrderStatusViewModel, F
 
     private TabFragmentPagerAdapter adapter;
     private List<Fragment> mFragmentList = new ArrayList<>();
-    private int index;
+    private GoodsDetailInfo mGoodsDetailInfo;
 
-    public ViewCouponCodeFragment(int index) {
-        this.index = index;
-    }
-
-    public static ViewCouponCodeFragment newInstance(int orderState) {
-        ViewCouponCodeFragment fragment = new ViewCouponCodeFragment(orderState);
+    public static ViewCouponCodeFragment newInstance(GoodsDetailInfo goodsDetailInfo) {
+        ViewCouponCodeFragment fragment = new ViewCouponCodeFragment();
         Bundle args = new Bundle();
-        args.putInt(OrderInfo.ORDER_STATE, orderState);
+        args.putSerializable(Constants.OPT_DATA, goodsDetailInfo);
         fragment.setArguments(args);
         return fragment;
     }
@@ -65,18 +61,27 @@ public class ViewCouponCodeFragment extends BaseFragment<OrderStatusViewModel, F
     @Override
     public void initData() {
 
+        binding.llContent.setVisibility(View.GONE);
         binding.ivLeft.setOnClickListener(v -> {
             setCurrentItem(0);
         });
         binding.ivRight.setOnClickListener(v -> {
             setCurrentItem(1);
         });
-        binding.tvTitle.setText(index + "-玻尿酸美容护肤不二之选还你天使容颜，玻尿酸美容护肤不二之选。");
-        for (int i = 0; i < 5; i++) {
-            mFragmentList.add(ViewCouponCodeDetailFragment.newInstance(i));
+
+        mGoodsDetailInfo = (GoodsDetailInfo) getArguments().getSerializable(Constants.OPT_DATA);
+        for (int i = 0; i < mGoodsDetailInfo.write_off.size(); i++) {
+            mFragmentList.add(ViewCouponCodeDetailFragment.newInstance(mGoodsDetailInfo.write_off.get(i)));
         }
+        binding.tvTitle.setText(mGoodsDetailInfo.sarti_name);
+        Glide.with(SSApplication.app).load(mGoodsDetailInfo.thumbnail_img).into(binding.ivIcon);
         initViewPager();
-        Glide.with(SSApplication.app).load(Constants.DEFAULT_IMG_URL).into(binding.ivIcon);
+
+        binding.tvQrCode.setText("券码：" + mGoodsDetailInfo.write_off.get(0).code);
+        setCurrentItem(0);
+        if (mGoodsDetailInfo.write_off.size() == 1) {
+            binding.ivRight.setImageResource(R.drawable.but_rightrow_hasbeenused);
+        }
     }
 
     private void initViewPager() {

@@ -219,7 +219,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
 
         List<CommonDialogInfo> commonDialogInfoList = new ArrayList<>();
         commonDialogInfoList.add(new CommonDialogInfo("分享到微信"));
-        commonDialogInfoList.add(new CommonDialogInfo("生成海报"));
+//        commonDialogInfoList.add(new CommonDialogInfo("生成海报"));
 
         new CommonBottomDialog()
                 .init(this)

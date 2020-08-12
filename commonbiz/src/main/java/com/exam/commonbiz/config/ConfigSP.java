@@ -13,8 +13,8 @@ public class ConfigSP {
     public static final String SP_CURRENT_HOST = "sp_current_host";
 
     public enum HOST_TYPE {
+        PRO,
         DEV,
-        PRE,
-        PRO
+        PRE
     }
 }

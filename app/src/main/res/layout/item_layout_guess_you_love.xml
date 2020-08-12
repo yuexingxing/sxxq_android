@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal">
 
     <View
@@ -26,7 +26,7 @@
             android:scaleType="fitXY"
             android:src="@drawable/image_placeholder_three"
             app:OvalImageView_top_left="20"
-            app:OvalImageView_top_right="20"   />
+            app:OvalImageView_top_right="20" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,10 +44,10 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:minHeight="35dp"
-                tools:text="德国进口玻尿酸原液 玻尿酸抗衰老口玻尿酸原液口玻尿酸原液口玻尿酸原液口玻尿酸原液"
                 android:textColor="@color/color_333333"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="德国进口玻尿酸原液 玻尿酸抗衰老口玻尿酸原液口玻尿酸原液口玻尿酸原液口玻尿酸原液" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -57,21 +57,12 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="¥"
-                    android:textColor="@color/color_c5602d"
-                    android:textSize="10sp"
-                    android:textStyle="bold" />
-
-                <TextView
                     android:id="@+id/tv_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:textColor="@color/color_c5602d"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/tv_old_price"

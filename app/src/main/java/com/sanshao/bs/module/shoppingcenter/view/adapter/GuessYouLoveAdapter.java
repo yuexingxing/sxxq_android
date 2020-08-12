@@ -37,8 +37,16 @@ public class GuessYouLoveAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
         TextView tvOldPrice = helper.getView(R.id.tv_old_price);
         tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
 
-        helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.sarti_saleprice));
         helper.setText(R.id.tv_old_price, "¥" + MathUtil.getNumExclude0(item.sarti_saleprice));
         GlideUtil.loadImage(item.thumbnail_img, helper.getView(R.id.iv_icon));
+
+        if (item.isFree()) {
+            helper.setText(R.id.tv_price, "免费领取");
+        } else if (item.isPayByPoint()) {
+            helper.setText(R.id.tv_price, item.getPointTip());
+            tvOldPrice.setVisibility(View.GONE);
+        } else {
+            helper.setText(R.id.tv_price, "¥" + MathUtil.getNumExclude0(item.sarti_saleprice));
+        }
     }
 }

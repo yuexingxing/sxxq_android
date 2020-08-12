@@ -33,6 +33,7 @@ import com.sanshao.bs.module.personal.model.IPersonalCallBack;
 import com.sanshao.bs.module.personal.personaldata.view.PersonalDetailActivity;
 import com.sanshao.bs.module.personal.setting.view.SettingActivity;
 import com.sanshao.bs.module.personal.viewmodel.PersonalViewModel;
+import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.util.DateUtil;
 import com.sanshao.bs.util.GlideUtil;
 import com.sanshao.bs.widget.flexible.OnReadyPullListener;
@@ -170,18 +171,18 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             mPersonalOrderSubjectAdapter.addData(mOrderInfoList);
         });
 
-        for (int i = 0; i < 2; i++) {
-            OrderInfo orderInfo = new OrderInfo();
-            orderInfo.name = i + "黄金微针你的美容必备，美容必备…";
-            mOrderInfoList.add(orderInfo);
-        }
+//        for (int i = 0; i < 2; i++) {
+//            OrderInfo orderInfo = new OrderInfo();
+//            orderInfo.name = i + "黄金微针你的美容必备，美容必备…";
+//            mOrderInfoList.add(orderInfo);
+//        }
 
 //        binding.includeOrder.rlOpen.setOnClickListener(v -> {
 //            binding.includeOrder.rlOpen.setVisibility(View.GONE);
 //            mPersonalOrderSubjectAdapter.getData().clear();
 //            mPersonalOrderSubjectAdapter.addData(mOrderInfoList);
 //        });
-        mPersonalOrderSubjectAdapter.addData(mOrderInfoList.get(0));
+//        mPersonalOrderSubjectAdapter.addData(mOrderInfoList.get(0));
     }
 
     @Override
@@ -228,7 +229,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             binding.viewSpaceZuan.setVisibility(View.GONE);
             binding.viewOrderTopLine.setVisibility(View.GONE);
 
-            layoutParamsLabel.setMargins(ScreenUtil.dp2px(context, 5), 0, ScreenUtil.dp2px(context, 5), 0);
+            layoutParamsLabel.setMargins(ScreenUtil.dp2px(context, 10), 0, ScreenUtil.dp2px(context, 10), 0);
             binding.tvLabel.setLayoutParams(layoutParamsLabel);
 
             layoutParams.height = ScreenUtil.dp2px(context, 215);

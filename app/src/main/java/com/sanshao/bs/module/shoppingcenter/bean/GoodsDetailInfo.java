@@ -34,12 +34,19 @@ public class GoodsDetailInfo implements Serializable {
     public String sell_num;
     public String use_qty;
     public String sarti_desc;
+    public GoodsDetailInfo order_product;
     public List<GoodsDetailInfo> product_list;
+    public List<WriteOffInfo> write_off;
     public boolean isPlay;
     public String used;//已使用服务次数
     public String unused;//未使用服务次数
     public String pay_type;
     public int sarti_point_price;
+    public String type;
+    public String code;
+    public String salebill_id;
+    public String create_date;
+    public String optr_date;
 
     public String getPointTip() {
         return sarti_point_price + "分享金";
@@ -87,5 +94,11 @@ public class GoodsDetailInfo implements Serializable {
         goodsDetailInfo.product_list = setMealList;
 
         return goodsDetailInfo;
+    }
+
+    //核销码
+    public class WriteOffInfo implements Serializable {
+        public String type;
+        public String code;
     }
 }

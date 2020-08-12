@@ -15,12 +15,5 @@ public class OrderDetailResponse {
     public String qty;
     public String sum_amt;
     @SerializedName("order_product")
-    public OrderProductInfo orderProduct;
-
-    public class OrderProductInfo extends GoodsDetailInfo {
-
-        public List<String> used_write_off;//已使用核销码
-        public List<String> unused_write_off;//未使用核销码
-        public List<String> writeoff_time;//核销时间
-    }
+    public GoodsDetailInfo orderProduct;
 }

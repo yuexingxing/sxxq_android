@@ -2,7 +2,6 @@ package com.sanshao.bs.module.order.view.adapter;
 
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.exam.commonbiz.util.ContainerUtil;
@@ -20,6 +18,7 @@ import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.module.order.view.ViewCouponCodeFragment;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
+import com.sanshao.bs.util.GlideUtil;
 import com.sanshao.bs.util.MathUtil;
 
 import java.util.ArrayList;
@@ -63,7 +62,7 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
                 mCallBack.onPlusClick(helper.getAdapterPosition(), item);
             }
         });
-        Glide.with(SSApplication.app).load(item.thumbnail_img).into((ImageView) helper.getView(R.id.iv_icon));
+        GlideUtil.loadImage(item.thumbnail_img, helper.getView(R.id.iv_icon));
 
         FrameLayout flSetMeal = helper.getView(R.id.fl_set_meal);
         LinearLayout llOpenSetMeal = helper.getView(R.id.ll_more_setmeal);
@@ -90,7 +89,6 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
             helper.getView(R.id.ll_count_view).setVisibility(View.VISIBLE);
         } else if (mOptType == OPT_TYPE_ORDER_DETAIL) {
             helper.getView(R.id.ll_right_price).setVisibility(View.VISIBLE);
-            helper.getView(R.id.include_goods_single).setVisibility(View.VISIBLE);
             helper.getView(R.id.ll_mulity_set_meal).setVisibility(View.VISIBLE);
             helper.getView(R.id.tv_goods_count).setVisibility(View.VISIBLE);
             helper.getView(R.id.ll_count_view).setVisibility(View.GONE);
@@ -121,10 +119,15 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
             llOpenSetMeal.setVisibility(View.GONE);
         }
 
-        if (mFragmentManager != null) {
+        if (mFragmentManager != null && item.order_product != null) {
             List<Fragment> mFragmentList = new ArrayList<>();
-            for (int i = 0; i < 5; i++) {
-                mFragmentList.add(ViewCouponCodeFragment.newInstance(i));
+            List<GoodsDetailInfo> orderProductInfoList = new ArrayList<>();
+            orderProductInfoList.add(item.order_product);
+            for (int i = 0; i < orderProductInfoList.size(); i++) {
+                //如果有核销码
+                if (!ContainerUtil.isEmpty(orderProductInfoList.get(i).write_off)) {
+                    mFragmentList.add(ViewCouponCodeFragment.newInstance(orderProductInfoList.get(i)));
+                }
             }
             ViewPager viewPager = helper.getView(R.id.view_pager);
             TabFragmentPagerAdapter adapter = new TabFragmentPagerAdapter(mFragmentManager, mFragmentList);

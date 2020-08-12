@@ -67,22 +67,13 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginBottom="3dp"
-                                    android:gravity="bottom"
-                                    android:text="¥"
-                                    android:textColor="@color/color_c5602d"
-                                    android:textSize="15sp" />
-
-                                <TextView
                                     android:id="@+id/tv_price"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="bottom"
-                                    android:text="9999"
+                                    android:text="¥0"
                                     android:textColor="@color/color_c5602d"
-                                    android:textSize="25sp" />
+                                    android:textSize="15sp" />
 
                                 <RelativeLayout
                                     android:layout_width="wrap_content"
