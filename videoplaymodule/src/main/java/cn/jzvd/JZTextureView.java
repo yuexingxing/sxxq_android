@@ -34,8 +34,8 @@ public class JZTextureView extends TextureView {
 
     public void setVideoSize(int currentVideoWidth, int currentVideoHeight) {
         if (this.currentVideoWidth != currentVideoWidth || this.currentVideoHeight != currentVideoHeight) {
-            this.currentVideoWidth = currentVideoWidth;
-            this.currentVideoHeight = currentVideoHeight;
+            this.currentVideoWidth = currentVideoWidth + 100;
+            this.currentVideoHeight = currentVideoWidth;
             requestLayout();
         }
     }
