@@ -19,6 +19,9 @@
     <string name="request_data_fail">获取数据失败</string>
 
     <string name="store_address">上海市静安区新闸路829号丽都新贵大厦304、305、306室</string>
-    <string name="goods_detail_invite_tip">分享一位体验用户成功注册三少变美APP，即可获得\"奖励变美区\"一个项目，项目任选，多分享多获得。</string>
+
+    <string name="goods_detail_invite_tip1">分享一位体验用户成功注册三少变美APP，即可获得\"奖励变美区\"一个项目，项目任选，多分享多获得。</string>
+    <string name="goods_detail_invite_tip2">免费注册即可享有“免费变美区”任何项目，不限项目，不限次数，不限时间。</string>
+    <string name="goods_detail_invite_tip3">消费【三少变美】医美项目即可成为平台VIP，分享好友还可享受佣金奖励、直播打赏等福利</string>
 
 </resources>

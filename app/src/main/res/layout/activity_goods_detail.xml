@@ -159,9 +159,12 @@
                                 android:textSize="14sp" />
 
                             <TextView
+                                android:id="@+id/tv_goods_intro"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="8dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
                                 android:text="正品保障·中国品质·提供发票"
                                 android:textColor="@color/color_333333"
                                 android:textSize="14sp" />
@@ -250,7 +253,6 @@
                             android:orientation="vertical"
                             android:paddingLeft="12dp"
                             android:paddingTop="14dp"
-                            android:paddingRight="12dp"
                             android:paddingBottom="14dp">
 
                             <LinearLayout
@@ -312,6 +314,7 @@
                                     android:id="@+id/iv_call_phone"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:padding="12dp"
                                     android:src="@drawable/icon_phone" />
                             </LinearLayout>
 

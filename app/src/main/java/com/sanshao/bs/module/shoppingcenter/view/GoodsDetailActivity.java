@@ -114,10 +114,10 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         });
 
         binding.llIntroduction.setOnClickListener(v -> {
-            if (mGoodsDetailInfo == null) {
+            if (TextUtils.isEmpty(binding.tvGoodsIntro.getText().toString())) {
                 return;
             }
-            new GoodsInroductionDialog().show(context, "商品说明", mGoodsDetailInfo.sarti_intro);
+            new GoodsInroductionDialog().show(context, "商品说明", binding.tvGoodsIntro.getText().toString());
         });
 
         binding.includeBottom.btnBuy.setOnClickListener(v -> ConfirmOrderActivity.start(context, mSartiId));
@@ -148,8 +148,22 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         binding.includeBottom.llShare.setOnClickListener(v -> {
             share();
         });
-        binding.ivRecommendReward.setOnClickListener(v ->
-                new GoodsInroductionDialog().show(context, "邀请有礼 一起变美", getResources().getString(R.string.goods_detail_invite_tip))
+        binding.ivRecommendReward.setOnClickListener(v -> {
+                    if (mGoodsDetailInfo == null) {
+                        return;
+                    }
+                    String title = "推荐有奖";
+                    String content = getResources().getString(R.string.goods_detail_invite_tip1);
+                    if (mGoodsDetailInfo.isFree()) {
+                        title = "上三少免费变美";
+                        content = getResources().getString(R.string.goods_detail_invite_tip2);
+                    } else if (mGoodsDetailInfo.isPayByPoint()) {
+                        title = "邀请有礼 一起变美";
+                        content = getResources().getString(R.string.goods_detail_invite_tip3);
+                    }
+
+                    new GoodsInroductionDialog().show(context, title, content);
+                }
         );
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) binding.homeBannerLayout.getLayoutParams();
         int videoHeight = ScreenUtil.getScreenWidth(SSApplication.app) - ScreenUtil.dp2px(SSApplication.app, 24);
@@ -245,15 +259,16 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             binding.rlBottomView.setVisibility(View.GONE);
             return;
         }
+        mGoodsDetailInfo = goodsDetailInfo;
         binding.rlBottomView.setVisibility(View.VISIBLE);
         binding.emptyLayout.showSuccess();
-        mGoodsDetailInfo = goodsDetailInfo;
 
         binding.tvGoodsName.setText(goodsDetailInfo.sarti_name);
         binding.tvPrice.setText(MathUtil.getNumExclude0(goodsDetailInfo.sarti_saleprice));
         binding.tvOldPrice.setText("¥" + MathUtil.getNumExclude0(goodsDetailInfo.sarti_mkprice));
         binding.tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         binding.tvSellNum.setText("已售" + goodsDetailInfo.sell_num);
+        binding.tvGoodsIntro.setText(goodsDetailInfo.sarti_intro);
 
         if (goodsDetailInfo.isFree()) {
             binding.tvPrice.setText("免费领取");
@@ -263,10 +278,10 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             binding.tvPrice.setText(goodsDetailInfo.getPointTip());
             binding.tvOldPrice.setVisibility(View.GONE);
             binding.includeBottom.btnBuy.setText("分享金购买");
-            binding.ivRecommendReward.setBackgroundResource(R.drawable.tuijianyou);
+            binding.ivRecommendReward.setBackgroundResource(R.drawable.share_icon);
         } else {
             binding.tvPrice.setText("¥" + MathUtil.getNumExclude0(goodsDetailInfo.sarti_saleprice));
-            binding.ivRecommendReward.setBackgroundResource(R.drawable.share_icon);
+            binding.ivRecommendReward.setBackgroundResource(R.drawable.tuijianyou);
         }
 
         RichText.from(goodsDetailInfo.sarti_desc).bind(this)
