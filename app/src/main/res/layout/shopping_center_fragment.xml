@@ -9,39 +9,41 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:paddingTop="30dp"
+            android:paddingBottom="5dp"
+            android:text="@string/app_name"
+            android:textColor="@color/color_333333"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <com.sanshao.bs.widget.LinearEmptyLayout
             android:id="@+id/emptyLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tv_title">
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_refresh_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-            <androidx.core.widget.NestedScrollView
-                android:id="@+id/nested_scrollview"
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
+
+
+                <androidx.core.widget.NestedScrollView
+                    android:id="@+id/nested_scrollview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:paddingTop="25dp">
-
-                        <TextView
-                            android:id="@+id/tv_title"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"
-                            android:gravity="center"
-                            android:text="@string/app_name"
-                            android:textColor="@color/color_333333"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                        android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -74,7 +76,7 @@
                             android:id="@+id/home_banner_layout"
                             android:layout_width="match_parent"
                             android:layout_height="200dp"
-                            android:layout_marginTop="22dp"
+                            android:layout_marginTop="12dp"
                             app:HomeBannerLayout_autoScroll="true" />
 
                         <ImageView
@@ -127,8 +129,8 @@
                                 android:background="@color/line" />
                         </LinearLayout>
                     </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                </androidx.core.widget.NestedScrollView>
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         </com.sanshao.bs.widget.LinearEmptyLayout>
 
         <ImageView

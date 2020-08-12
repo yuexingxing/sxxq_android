@@ -5,13 +5,11 @@
 
     <data></data>
 
-    <com.sanshao.bs.widget.flexible.FlexibleLayout
-        android:id="@+id/flexible_layout"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_height="match_parent">
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/nested_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -41,22 +39,11 @@
                         android:layout_height="match_parent"
                         android:paddingTop="25dp">
 
-                        <TextView
-                            android:id="@+id/tv_title"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="个人中心"
-                            android:textColor="@color/color_333333"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
                         <LinearLayout
                             android:id="@+id/ll_personal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tv_title"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="36dp"
                             android:gravity="center"
                             android:orientation="vertical">
 
@@ -221,18 +208,18 @@
                     android:paddingLeft="@dimen/left_container_margin"
                     android:paddingRight="@dimen/right_container_margin"
                     android:visibility="gone"
-                    tools:visibility="visible"
                     app:icon_pav="@drawable/icon_income"
-                    app:title_pav="进账" />
+                    app:title_pav="进账"
+                    tools:visibility="visible" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_marginLeft="@dimen/left_container_margin"
                     android:layout_marginRight="@dimen/right_container_margin"
+                    android:background="@color/color_eeeeee"
                     android:visibility="gone"
-                    tools:visibility="visible"
-                    android:background="@color/color_eeeeee" />
+                    tools:visibility="visible" />
 
                 <com.sanshao.bs.widget.PersonalAccountView
                     android:id="@+id/pav_setting"
@@ -261,6 +248,18 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginRight="@dimen/right_container_margin" />
             </LinearLayout>
-        </ScrollView>
-    </com.sanshao.bs.widget.flexible.FlexibleLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <TextView
+            android:id="@+id/tv_personal_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="30dp"
+            android:paddingBottom="5dp"
+            android:text="个人中心"
+            android:textColor="@color/color_333333"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </FrameLayout>
 </layout>

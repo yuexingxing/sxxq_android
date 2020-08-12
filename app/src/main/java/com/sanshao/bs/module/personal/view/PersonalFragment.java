@@ -1,14 +1,18 @@
 package com.sanshao.bs.module.personal.view;
 
+import android.graphics.Color;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.exam.commonbiz.base.BaseFragment;
+import com.exam.commonbiz.util.Res;
 import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
@@ -33,11 +37,8 @@ import com.sanshao.bs.module.personal.model.IPersonalCallBack;
 import com.sanshao.bs.module.personal.personaldata.view.PersonalDetailActivity;
 import com.sanshao.bs.module.personal.setting.view.SettingActivity;
 import com.sanshao.bs.module.personal.viewmodel.PersonalViewModel;
-import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.util.DateUtil;
 import com.sanshao.bs.util.GlideUtil;
-import com.sanshao.bs.widget.flexible.OnReadyPullListener;
-import com.sanshao.bs.widget.flexible.OnRefreshListener;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -75,35 +76,16 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         mAppointmentForConsultationViewModel = new AppointmentForConsultationViewModel();
         mOrderDetailViewModel.setCallBack(this);
         mAppointmentForConsultationViewModel.setCallBack(this);
-        binding.flexibleLayout.setHeader(binding.ivBg);
-        binding.flexibleLayout.setReadyListener(new OnReadyPullListener() {
+        binding.nestedScrollview.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
-            public boolean isReady() {
-                return binding.nestedScrollview.getScrollY() == 0;
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY > ScreenUtil.dp2px(context, 30)) {
+                    binding.tvPersonalTitle.setBackgroundColor(Res.getColor(context, R.color.white));
+                } else {
+                    binding.tvPersonalTitle.setBackgroundColor(Res.getColor(context, R.color.transparent));
+                }
             }
-        }).setRefreshable(false)
-                .setDefaultRefreshView(new OnRefreshListener() {
-                    @Override
-                    public void onRefreshing() {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    Thread.sleep(2000);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                                //刷新完成后需要调用onRefreshComplete()通知FlexibleLayout
-                                getActivity().runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        binding.flexibleLayout.onRefreshComplete();
-                                    }
-                                });
-                            }
-                        }).start();
-                    }
-                });
+        });
         binding.btnTest.setOnClickListener(v -> TestMenuActivity.start(getContext()));
         binding.llPersonal.setOnClickListener(v -> {
             if (TextUtils.isEmpty(SSApplication.getToken())) {
