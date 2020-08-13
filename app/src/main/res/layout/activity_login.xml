@@ -141,6 +141,40 @@
                         android:textColor="@color/color_330000"
                         android:textColorHint="@color/color_999999"
                         android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/shape_white_radius_10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:gravity="center_vertical"
+                        android:text="邀请码："
+                        android:textColor="@color/color_333333"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edt_invite_code"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="请输入您的邀请码"
+                        android:maxLength="12"
+                        android:paddingLeft="3dp"
+                        android:text=""
+                        android:inputType="number"
+                        android:textColor="@color/color_330000"
+                        android:textColorHint="@color/color_999999"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
             </LinearLayout>

@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.exam.commonbiz.base.BaseFragment;
+import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.FragmentViewCouponcodeBinding;
@@ -101,7 +102,10 @@ public class ViewCouponCodeFragment extends BaseFragment<OrderStatusViewModel, F
 
             @Override
             public void onPageSelected(int position) {
-                binding.tvQrCode.setText("券码：234832048-" + position);
+                if (mGoodsDetailInfo == null || ContainerUtil.isEmpty(mGoodsDetailInfo.write_off)) {
+                    return;
+                }
+                binding.tvQrCode.setText("券码：" + mGoodsDetailInfo.write_off.get(position).code);
             }
 
             @Override

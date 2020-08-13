@@ -115,7 +115,7 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
                 return;
             }
             LoadDialogMgr.getInstance().show(context, "登录中...");
-            mViewModel.login(mPhone, code, "");
+            mViewModel.login(mPhone, code, binding.edtInviteCode.getText().toString());
         });
         binding.includePolicy.tvAgreement.setOnClickListener(v -> EmptyWebViewActivity.start(context, "http://www.baidu.com"));
         binding.includePolicy.tvPolicy.setOnClickListener(v -> EmptyWebViewActivity.start(context, "http://www.2345.com"));

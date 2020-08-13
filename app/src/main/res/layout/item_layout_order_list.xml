@@ -85,10 +85,10 @@
                     android:id="@+id/rl_cancel_order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    tools:visibility="visible"
                     android:background="@drawable/shape_order_list_cancel_order"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -146,38 +146,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="18dp"
                         android:paddingLeft="18dp"
                         android:text="查看券码"
                         android:textColor="@color/color_b6a578"
                         android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="("
-                        android:textColor="@color/color_b6a578"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="剩余:5次"
-                        android:textColor="@color/color_999999"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="15dp"
-                        android:text=")"
-                        android:textColor="@color/color_b6a578"
-                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     android:background="@drawable/shape_order_list_refund"
                     android:gravity="center_vertical">
 
@@ -210,10 +191,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="12dp"
-                    android:visibility="gone"
-                    tools:visibility="visible"
                     android:background="@drawable/shape_order_list_cancel_order"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
 
                     <TextView
                         android:id="@+id/tv_delete"
@@ -286,10 +267,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="12dp"
-                    android:visibility="gone"
-                    tools:visibility="visible"
                     android:background="@drawable/shape_order_list_cancel_order"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
 
                     <TextView
                         android:layout_width="wrap_content"

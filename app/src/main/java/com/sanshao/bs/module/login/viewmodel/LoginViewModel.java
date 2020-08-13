@@ -72,7 +72,7 @@ public class LoginViewModel extends ViewModel {
 
     public void login(String mobile, String code, String referrerMemId) {
 
-        LoginRequest loginRequest = new LoginRequest(mobile, code);
+        LoginRequest loginRequest = new LoginRequest(mobile, code, referrerMemId);
         LoginModel.login(loginRequest, new OnLoadListener<LoginResponse>() {
 
             @Override
@@ -122,7 +122,7 @@ public class LoginViewModel extends ViewModel {
             public void onLoadSucessed(BaseResponse t) {
                 if (mLoginCallBack != null) {
                     mLoginCallBack.onModifyPhone(mobile);
-                }else{
+                } else {
                     ToastUtil.showShortToast(t.getMsg());
                 }
             }

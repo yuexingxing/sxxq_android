@@ -94,7 +94,9 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
 
             @Override
             public void onViewCouponCode(OrderInfo item) {
-                ViewCouponCodeActivity.start(context);
+//                ViewCouponCodeActivity.start(context);
+                //TODO 查看券码先跳转到订单详情
+                OrderDetailActivity.start(context, item.id);
             }
 
             @Override
