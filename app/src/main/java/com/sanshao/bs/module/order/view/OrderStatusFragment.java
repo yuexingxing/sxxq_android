@@ -129,7 +129,7 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
 
         mOrderListAdapter.setPreLoadNumber(1);
         mOrderListAdapter.disableLoadMoreIfNotFullPage();
-        if (isVisiable){
+        if (isVisiable) {
             loadData();
         }
     }
@@ -177,7 +177,7 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
     @Override
     public void onLoadMoreRequested() {
         ++curPage;
-        mViewModel.getOrderList(orderState, curPage, Constants.PAGE_SIZE);
+        mViewModel.getOrderList(orderState, curPage * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
     }
 
     @Override

@@ -178,7 +178,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
     @Override
     public void onLoadMoreRequested() {
         ++mPageNum;
-        mViewModel.getGoodsList(mArtiTagId, mPageNum, Constants.PAGE_SIZE);
+        mViewModel.getGoodsList(mArtiTagId, mPageNum * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
     }
 
     @Override
