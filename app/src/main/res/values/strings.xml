@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">三少爱美</string>
+    <string name="app_name" translatable="false">三少变美</string>
     <string name="main_privacy_text" translatable="false">点击查看<a href="http://privacy.qq.com/">隐私政策</a></string>
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="login_psd" translatable="false">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+—*/#</string>

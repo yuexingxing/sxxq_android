@@ -96,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:PersonalOrderMenuView_icon="@drawable/icon_used"
-                    app:PersonalOrderMenuView_name="已使用"
+                    app:PersonalOrderMenuView_name="已完成"
                     app:PersonalOrderMenuView_num="0" />
             </LinearLayout>
         </LinearLayout>

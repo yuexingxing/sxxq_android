@@ -290,7 +290,6 @@ public class ShareUtils {
         return false;
     }
 
-
     /**
      * 判断 用户是否安装QQ客户端
      */
@@ -315,13 +314,12 @@ public class ShareUtils {
      * @param path
      */
     public static void jump2WxMiniProgram(Context context, String path) {
-        String appId = "wx45d94ea6d5c98caa"; //填应用AppId
-        IWXAPI api = WXAPIFactory.createWXAPI(context, appId);
+        IWXAPI api = WXAPIFactory.createWXAPI(context, Constants.WX_APPId);
 
         WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
-        req.userName = "gh_3ea7bc763a0e"; // 填小程序原始id
+        req.userName = "gh_531477db6395"; // 填小程序原始id
         req.path = path;//拉起小程序页面的可带参路径，不填默认拉起小程序首页
-        req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;// 可选打开 开发版，体验版和正式版
+        req.miniprogramType = WXLaunchMiniProgram.Req.MINIPROGRAM_TYPE_TEST;// 可选打开 开发版，体验版和正式版
         api.sendReq(req);
     }
 }

@@ -47,7 +47,7 @@ public class GoodsTypeAdapter extends BaseQuickAdapter<GoodsTypeInfo, BaseViewHo
             });
         } else {
             helper.getView(R.id.iv_bg).setVisibility(View.VISIBLE);
-            GlideUtil.loadImage(item.artitag_url, helper.getView(R.id.iv_bg));
+            GlideUtil.loadImage(item.artitag_url, helper.getView(R.id.iv_bg), R.drawable.gray_btn_bg);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(SSApplication.app);
             linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
             helper.getView(R.id.ll_title_top).setVisibility(View.INVISIBLE);

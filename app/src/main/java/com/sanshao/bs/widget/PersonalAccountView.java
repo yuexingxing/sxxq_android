@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ public class PersonalAccountView extends LinearLayout {
     private ImageView mIcon;
     private TextView mTvTitle;
     private TextView mTvContent;
+    private View mViewLineBottom;
     private ImageView mIconArrow;
 
     public PersonalAccountView(Context context, AttributeSet attrs) {
@@ -47,6 +49,7 @@ public class PersonalAccountView extends LinearLayout {
         mIcon = findViewById(R.id.iv_icon);
         mTvTitle = findViewById(R.id.tv_title);
         mTvContent = findViewById(R.id.tv_content);
+        mViewLineBottom = findViewById(R.id.view_line_bottom);
         mTvTitle.setText(mTitle);
         mTvContent.setText(mContent);
         if (iconId != 0) {
@@ -56,7 +59,9 @@ public class PersonalAccountView extends LinearLayout {
         }
 
         if (isShowLine) {
-
+            mViewLineBottom.setVisibility(VISIBLE);
+        } else {
+            mViewLineBottom.setVisibility(GONE);
         }
     }
 

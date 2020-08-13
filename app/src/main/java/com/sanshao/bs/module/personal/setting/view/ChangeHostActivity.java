@@ -67,16 +67,18 @@ public class ChangeHostActivity extends BaseActivity<BaseViewModel, ActivityChan
                 type = ConfigSP.HOST_TYPE.DEV;
             } else if (binding.rbPre.isChecked()) {
                 type = ConfigSP.HOST_TYPE.PRE;
-            } else {
+            } else if (binding.rbPro.isChecked()) {
                 type = ConfigSP.HOST_TYPE.PRO;
+            } else {
+                restart();
+                return;
             }
             if (type == mCurrentIndex) {
                 finish();
                 return;
             }
-            ACache.get(context).put(ConfigSP.SP_TOKEN, "");
             ACache.get(context).put(ConfigSP.SP_CURRENT_HOST, type);
-            RestartAPPTool.restartAPP(getApplicationContext(), 100);
+            restart();
         });
 
         if (ACache.get(context).getAsObject(ConfigSP.SP_CURRENT_HOST) != null) {
@@ -89,5 +91,10 @@ public class ChangeHostActivity extends BaseActivity<BaseViewModel, ActivityChan
                 binding.rbPro.setChecked(true);
             }
         }
+    }
+
+    private void restart() {
+        ACache.get(context).put(ConfigSP.SP_TOKEN, "");
+        RestartAPPTool.restartAPP(getApplicationContext(), 100);
     }
 }

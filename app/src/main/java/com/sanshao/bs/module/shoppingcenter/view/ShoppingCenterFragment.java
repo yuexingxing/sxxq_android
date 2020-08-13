@@ -20,6 +20,7 @@ import com.sanshao.bs.module.shoppingcenter.model.IShoppingCenterModel;
 import com.sanshao.bs.module.shoppingcenter.view.adapter.GoodsTypeAdapter;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.ShoppingCenterViewModel;
 import com.sanshao.bs.util.GlideUtil;
+import com.sanshao.bs.util.ToastUtil;
 
 /**
  * 商城
@@ -156,7 +157,9 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
                 GoodsListActivity.start(context, bannerInfo.action_args.artitag_id);
             }
         } else if (TextUtils.equals(bannerInfo.action_type, BannerInfo.ActionType.NEW_MEM)) {
-
+            ToastUtil.showShortToast("NEW_MEM");
+        } else if (TextUtils.equals(bannerInfo.action_type, BannerInfo.ActionType.REG)) {
+            ToastUtil.showShortToast("REG");
         }
     }
 }

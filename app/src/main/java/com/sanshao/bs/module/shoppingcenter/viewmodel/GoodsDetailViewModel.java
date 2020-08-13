@@ -4,13 +4,8 @@ import com.exam.commonbiz.base.BaseViewModel;
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
-import com.sanshao.bs.module.shoppingcenter.bean.ResponseGoodsDetail;
 import com.sanshao.bs.module.shoppingcenter.model.IGoodsDetailModel;
 import com.sanshao.bs.module.shoppingcenter.model.ShoppingCenterModel;
-import com.sanshao.bs.util.Constants;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Author yuexingxing

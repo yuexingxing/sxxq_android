@@ -7,7 +7,7 @@
     <View
         android:id="@+id/view_space_top"
         android:layout_width="match_parent"
-        android:layout_height="16dp"/>
+        android:layout_height="16dp" />
 
     <LinearLayout
         android:id="@+id/ll_content"
@@ -36,10 +36,10 @@
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="玻尿酸美容护肤不二之选还你天使容颜，变美不容错过别让自己后悔。"
                 android:textColor="@color/color_333333"
-                android:maxLines="2"
-                android:ellipsize="end"
                 android:textSize="12sp" />
 
             <View
@@ -54,29 +54,20 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="¥"
-                    android:gravity="bottom"
-                    android:textColor="@color/color_333333"
-                    android:textSize="10sp" />
-
-                <TextView
                     android:id="@+id/tv_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="1dp"
-                    android:text="90"
+                    android:text="¥90"
                     android:textColor="@color/color_333333"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/tv_old_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="¥90"
+                    android:text="¥0"
                     android:textColor="@color/color_999999"
                     android:textSize="12sp" />
 
@@ -86,10 +77,11 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/tv_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="3件"
+                    android:text="x3"
                     android:textColor="@color/color_999999"
                     android:textSize="12sp" />
             </LinearLayout>

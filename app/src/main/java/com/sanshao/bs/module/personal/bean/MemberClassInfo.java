@@ -1,6 +1,8 @@
 package com.sanshao.bs.module.personal.bean;
 
-public class MemberClassInfo {
+import java.io.Serializable;
+
+public class MemberClassInfo implements Serializable {
     public String mem_class_id;//会员等级配置id
     public String mem_class_key;
     public String mem_class_name;//会员等级名称

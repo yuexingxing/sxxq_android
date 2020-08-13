@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.sanshao.bs.R;
 
-public class RedPointImageView extends ImageView {
+public class RedPointImageView extends androidx.appcompat.widget.AppCompatImageView {
 
     //红点长度类型
     private static final int TYPE_ZERO = 0;
@@ -75,7 +75,6 @@ public class RedPointImageView extends ImageView {
         initUI();
     }
 
-
     private void initUI() {
         if (number == 0) {//ZERO类型
             mTvPoint.setText("");
@@ -84,7 +83,6 @@ public class RedPointImageView extends ImageView {
             mRlPoint.setLayoutParams(params);
             mRlPoint.setBackgroundResource(R.drawable.shape_red_radius_10);
             type = TYPE_ZERO;
-
         } else if (number > 0 && number < 10) {//SHORT类型
             mTvPoint.setText(String.valueOf(number));
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(getResources().getDimensionPixelOffset(R.dimen.margin_15), getResources().getDimensionPixelOffset(R.dimen.margin_15));
@@ -92,9 +90,16 @@ public class RedPointImageView extends ImageView {
             mRlPoint.setLayoutParams(params);
             mRlPoint.setBackgroundResource(R.drawable.shape_red_radius_10);
             type = TYPE_SHORT;
+        } else if (number > 9 && number < 100) {//LONG类型
+            mTvPoint.setText(String.valueOf(number));
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(getResources().getDimensionPixelOffset(R.dimen.margin_30), getResources().getDimensionPixelOffset(R.dimen.margin_30));
+            params.setMargins(0, 0, 0, 0);
+            mRlPoint.setLayoutParams(params);
+            mRlPoint.setBackgroundResource(R.drawable.shape_red_radius_30);
+            type = TYPE_SHORT;
         } else {//LONG类型
-            mTvPoint.setText("···");
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(getResources().getDimensionPixelOffset(R.dimen.margin_20), getResources().getDimensionPixelOffset(R.dimen.margin_12));
+            mTvPoint.setText("99+");
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(getResources().getDimensionPixelOffset(R.dimen.margin_30), getResources().getDimensionPixelOffset(R.dimen.margin_30));
             params.setMargins(0, 0, 0, 0);
             mRlPoint.setLayoutParams(params);
             mRlPoint.setBackgroundResource(R.drawable.shape_red_radius_10);
@@ -194,5 +199,4 @@ public class RedPointImageView extends ImageView {
 
         return bitmap;
     }
-
 }

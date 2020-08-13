@@ -26,7 +26,7 @@ public class Constants {
     public static final int PAGE_SIZE = 10;
     public static final String OPT_TYPE = "opt_type";
     public static final String OPT_DATA = "opt_data";
-    public static final String WX_APPId = "";
+    public static final String WX_APPId = "wx0cb916b177b454f4";
 
     public static final String SERVICE_PHONE = "4007163188";
     public static final String DEFAULT_IMG_BG = "http://jzvd-pic.nathen.cn/jzvd-pic/00b026e7-b830-4994-bc87-38f4033806a6.jpg";

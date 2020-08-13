@@ -203,34 +203,54 @@
                 <com.sanshao.bs.widget.PersonalAccountView
                     android:id="@+id/pav_income"
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="45dp"
                     android:paddingLeft="@dimen/left_container_margin"
                     android:paddingRight="@dimen/right_container_margin"
-                    android:visibility="gone"
                     app:icon_pav="@drawable/icon_income"
-                    app:title_pav="进账"
-                    tools:visibility="visible" />
+                    app:isShowLine_pav="true"
+                    app:title_pav="进账" />
 
-                <View
+                <com.sanshao.bs.widget.PersonalAccountView
+                    android:id="@+id/pav_my_referrer"
                     android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_marginLeft="@dimen/left_container_margin"
-                    android:layout_marginRight="@dimen/right_container_margin"
-                    android:background="@color/color_eeeeee"
-                    android:visibility="gone"
-                    tools:visibility="visible" />
+                    android:layout_height="45dp"
+                    android:paddingLeft="@dimen/left_container_margin"
+                    android:paddingRight="@dimen/right_container_margin"
+                    app:icon_pav="@drawable/icon_oner"
+                    app:isShowLine_pav="true"
+                    app:title_pav="我的推荐人" />
+
+                <com.sanshao.bs.widget.PersonalAccountView
+                    android:id="@+id/pav_my_fans"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:paddingLeft="@dimen/left_container_margin"
+                    android:paddingRight="@dimen/right_container_margin"
+                    app:icon_pav="@drawable/icon_onerfans"
+                    app:isShowLine_pav="true"
+                    app:title_pav="我的粉丝" />
+
+                <com.sanshao.bs.widget.PersonalAccountView
+                    android:id="@+id/pav_my_share"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:paddingLeft="@dimen/left_container_margin"
+                    android:paddingRight="@dimen/right_container_margin"
+                    app:icon_pav="@drawable/icon_income"
+                    app:isShowLine_pav="true"
+                    app:title_pav="我的分享金" />
 
                 <com.sanshao.bs.widget.PersonalAccountView
                     android:id="@+id/pav_setting"
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_marginTop="1dp"
+                    android:layout_height="45dp"
                     android:paddingLeft="@dimen/left_container_margin"
                     android:paddingRight="@dimen/right_container_margin"
+                    android:visibility="gone"
                     app:icon_pav="@drawable/icon_setup"
                     app:isShowLine_pav="true"
-                    app:title_pav="设置" />
+                    app:title_pav="设置"
+                    tools:visibility="visible" />
 
                 <Button
                     android:id="@+id/btn_test"

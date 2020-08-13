@@ -24,7 +24,7 @@ public class UserInfo implements Serializable {
     public MemberClassInfo mem_class;
     public RefferMemberInfo referrer_mem;
 
-    public class RefferMemberInfo{
+    public class RefferMemberInfo implements Serializable{
 
     }
 

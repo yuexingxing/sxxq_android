@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
+import com.sanshao.bs.util.GlideUtil;
 import com.sanshao.bs.util.MathUtil;
 
 /**
@@ -25,17 +26,17 @@ public class SetMealAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseViewHo
 
     @Override
     protected void convert(BaseViewHolder helper, GoodsDetailInfo item) {
-        helper.setText(R.id.tv_title, helper.getAdapterPosition() + "-" + item.sarti_name);
-//        helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.sartiMkPrice));
-
+        helper.setText(R.id.tv_title, item.sarti_name);
+        helper.setText(R.id.tv_price, "¥" + MathUtil.getNumExclude0(item.sarti_saleprice));
+        helper.setText(R.id.tv_count, "x" + item.use_qty);
         TextView tvOldPrice = helper.getView(R.id.tv_old_price);
-//        tvOldPrice.setText("¥" + MathUtil.getNumExclude0(item.sartiSalePrice));
+        tvOldPrice.setText("¥" + MathUtil.getNumExclude0(item.sarti_mkprice));
         tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
-        Glide.with(SSApplication.app).load(item.thumbnail_img).into((ImageView) helper.getView(R.id.iv_icon));
+        GlideUtil.loadImage(item.thumbnail_img, helper.getView(R.id.iv_icon));
 
-        if (helper.getAdapterPosition() == 0){
+        if (helper.getAdapterPosition() == 0) {
             helper.getView(R.id.view_space_top).setVisibility(View.GONE);
-        }else{
+        } else {
             helper.getView(R.id.view_space_top).setVisibility(View.VISIBLE);
         }
     }

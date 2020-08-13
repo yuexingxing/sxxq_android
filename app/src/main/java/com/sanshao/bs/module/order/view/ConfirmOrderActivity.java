@@ -7,6 +7,7 @@ import android.view.View;
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.bs.R;
+import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ActivityConfirmOrderBinding;
 import com.sanshao.bs.module.order.bean.ConfirmOrderResponse;
 import com.sanshao.bs.module.order.bean.CreateOrderRequest;
@@ -16,6 +17,7 @@ import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
 import com.sanshao.bs.module.order.model.IConfirmOrderModel;
 import com.sanshao.bs.module.order.view.adapter.ConfirmOrderAdapter;
 import com.sanshao.bs.module.order.viewmodel.ConfirmOrderViewModel;
+import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.module.shoppingcenter.model.IGoodsDetailModel;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
@@ -109,7 +111,7 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
         binding.mulitySetMealView.setOnItemClickListener(new ConfirmOrderAdapter.OnItemClickListener() {
             @Override
             public void onMinusClick(int position, GoodsDetailInfo item) {
-                if (item.buyNum > 0) {
+                if (item.buyNum > 1) {
                     --item.buyNum;
                     binding.mulitySetMealView.mConfirmOrderAdapter.notifyItemChanged(position);
                     calculatePrice(binding.mulitySetMealView.mConfirmOrderAdapter.getData());
@@ -118,12 +120,19 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
 
             @Override
             public void onPlusClick(int position, GoodsDetailInfo item) {
+                if (item.buyNum >= 99) {
+                    ToastUtil.showShortToast("最多购买99件哦");
+                    return;
+                }
                 ++item.buyNum;
                 binding.mulitySetMealView.mConfirmOrderAdapter.notifyItemChanged(position);
                 calculatePrice(binding.mulitySetMealView.mConfirmOrderAdapter.getData());
             }
         });
 
+        UserInfo userInfo = SSApplication.getInstance().getUserInfo();
+        binding.tvNickName.setText(userInfo.nickname);
+        binding.tvPhone.setText(userInfo.mem_phone);
         mGoodsDetailViewModel.getGoodsDetail(mSartiId);
     }
 
@@ -152,7 +161,7 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
         for (int i = 0; i < goodsDetailInfoList.size(); i++) {
             GoodsDetailInfo goodsDetailInfo = goodsDetailInfoList.get(i);
             mTotalBuyNum += goodsDetailInfo.buyNum;
-            mTotalPrice += MathUtil.multiply(goodsDetailInfo.buyNum, goodsDetailInfo.sarti_mkprice);
+            mTotalPrice += MathUtil.multiply(goodsDetailInfo.buyNum, goodsDetailInfo.sarti_saleprice);
         }
 
         String showPrice = MathUtil.getNumExclude0(mTotalPrice) + "元";
@@ -204,5 +213,6 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
         List<GoodsDetailInfo> goodsDetailInfoList = new ArrayList<>();
         goodsDetailInfoList.add(goodsDetailInfo);
         binding.mulitySetMealView.setData(goodsDetailInfoList);
+        calculatePrice(goodsDetailInfoList);
     }
 }

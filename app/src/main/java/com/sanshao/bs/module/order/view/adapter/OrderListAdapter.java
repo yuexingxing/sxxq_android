@@ -42,7 +42,7 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderInfo, BaseViewHolder
         helper.setText(R.id.tv_count, "x" + item.count);
 
         helper.getView(R.id.ll_tobe_paid).setVisibility(View.GONE);
-        helper.getView(R.id.ll_tobe_use).setVisibility(View.VISIBLE);
+        helper.getView(R.id.ll_tobe_use).setVisibility(View.GONE);
         helper.getView(R.id.ll_complete).setVisibility(View.GONE);
         helper.getView(R.id.ll_canceled).setVisibility(View.GONE);
 

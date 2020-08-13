@@ -1,6 +1,5 @@
 package com.sanshao.bs.module.personal.view;
 
-import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +19,6 @@ import com.sanshao.bs.databinding.PersonalFragmentBinding;
 import com.sanshao.bs.module.TestMenuActivity;
 import com.sanshao.bs.module.login.view.LoginActivity;
 import com.sanshao.bs.module.order.bean.AppointmentedInfo;
-import com.sanshao.bs.module.order.bean.OrderDetailResponse;
 import com.sanshao.bs.module.order.bean.OrderInfo;
 import com.sanshao.bs.module.order.bean.OrderNumStatusResponse;
 import com.sanshao.bs.module.order.model.IAppointmentModel;
@@ -31,7 +29,6 @@ import com.sanshao.bs.module.order.viewmodel.OrderDetailViewModel;
 import com.sanshao.bs.module.personal.adapter.PersonalOrderSubjectAdapter;
 import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.module.personal.event.UpdateUserInfoEvent;
-import com.sanshao.bs.module.personal.income.view.IncomeHomeActivity;
 import com.sanshao.bs.module.personal.inquiry.view.ToBeInquiryListActivity;
 import com.sanshao.bs.module.personal.model.IPersonalCallBack;
 import com.sanshao.bs.module.personal.personaldata.view.PersonalDetailActivity;
@@ -40,6 +37,7 @@ import com.sanshao.bs.module.personal.viewmodel.PersonalViewModel;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.util.DateUtil;
 import com.sanshao.bs.util.GlideUtil;
+import com.sanshao.bs.util.ToastUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -100,7 +98,13 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.includeOrder.llOrderTobeuse.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.ToBeUse));
         binding.includeOrder.llOrderTobeinquiry.setOnClickListener(v -> ToBeInquiryListActivity.start(context));
         binding.includeOrder.llOrderComplete.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.Complete));
-        binding.pavIncome.setOnClickListener(v -> IncomeHomeActivity.start(context));
+        binding.pavIncome.setOnClickListener(v -> ToastUtil.showShortToast("开发中"));
+        binding.pavMyReferrer.setOnClickListener(v -> {
+        });
+        binding.pavMyFans.setOnClickListener(v -> {
+        });
+        binding.pavMyShare.setOnClickListener(v -> {
+        });
         binding.pavSetting.setOnClickListener(v -> SettingActivity.start(context));
         initOrderList();
         mViewModel.getUserInfo();
