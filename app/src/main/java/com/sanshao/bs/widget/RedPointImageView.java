@@ -86,7 +86,7 @@ public class RedPointImageView extends androidx.appcompat.widget.AppCompatImageV
         } else if (number > 0 && number < 10) {//SHORT类型
             mTvPoint.setText(String.valueOf(number));
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(getResources().getDimensionPixelOffset(R.dimen.margin_15), getResources().getDimensionPixelOffset(R.dimen.margin_15));
-            params.setMargins(0, 0, 0, 0);
+            params.setMargins(10, 0, 10, 0);
             mRlPoint.setLayoutParams(params);
             mRlPoint.setBackgroundResource(R.drawable.shape_red_radius_10);
             type = TYPE_SHORT;

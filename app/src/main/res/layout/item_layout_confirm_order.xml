@@ -139,7 +139,6 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/color_333333"
                         android:textSize="17sp"
-                        android:textStyle="bold"
                         tools:text="¥0" />
                 </LinearLayout>
 

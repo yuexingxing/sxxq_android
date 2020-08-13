@@ -102,18 +102,16 @@ public class RecommendCodeActivity extends BaseActivity<RecommendCodeViewModel, 
 
         List<CommonDialogInfo> commonDialogInfoList = new ArrayList<>();
         commonDialogInfoList.add(new CommonDialogInfo("分享到微信"));
-        commonDialogInfoList.add(new CommonDialogInfo("生成海报"));
+//        commonDialogInfoList.add(new CommonDialogInfo("生成海报"));
 
         new CommonBottomDialog()
                 .init(this)
                 .setData(commonDialogInfoList)
                 .setOnItemClickListener(commonDialogInfo -> {
                     if (commonDialogInfo.position == 0) {
-                        ShareUtils.shareText(RecommendCodeActivity.this, "title", SHARE_MEDIA.WEIXIN, new CommonCallBack() {
-                            @Override
-                            public void callback(int postion, Object object) {
+                        Bitmap bitmap = BitmapUtil.viewConversionBitmap(binding.ivQrcode);
+                        ShareUtils.sharePhoto(RecommendCodeActivity.this, bitmap, SHARE_MEDIA.WEIXIN, (postion, object) -> {
 
-                            }
                         });
                     } else {
                         new GoodsPosterDialog().show(context, new GoodsDetailInfo());

@@ -23,14 +23,14 @@ public class PersonalOrderMenuView extends LinearLayout {
     private String mName;
     private int mIcon;
     private int mUnReadNum;
-    private RedPointImageView mRedPointImageView;
+    private TextView mTvMessageNum;
 
     public PersonalOrderMenuView(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.widget_layout_personal_order_menu, this);
         mTvName = findViewById(R.id.tv_name);
         mImgIcon = findViewById(R.id.iv_icon);
-        mRedPointImageView = findViewById(R.id.red_point_view);
+        mTvMessageNum = findViewById(R.id.tv_message_num);
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.PersonalOrderMenuView, 0, 0);
         try {
             mName = ta.getString(R.styleable.PersonalOrderMenuView_PersonalOrderMenuView_name);
@@ -49,15 +49,15 @@ public class PersonalOrderMenuView extends LinearLayout {
     private void initView(Context context) {
         mTvName.setText(mName);
         mImgIcon.setImageResource(mIcon);
-        mRedPointImageView.setNumber(mUnReadNum);
+        mTvMessageNum.setText(mUnReadNum + "");
     }
 
     public void setUnReadNum(int unReadNum) {
         if (unReadNum <= 0) {
-            mRedPointImageView.setVisibility(GONE);
+            mTvMessageNum.setVisibility(GONE);
         } else {
-            mRedPointImageView.setVisibility(VISIBLE);
-            mRedPointImageView.setNumber(unReadNum);
+            mTvMessageNum.setVisibility(VISIBLE);
+            mTvMessageNum.setText(unReadNum + "");
         }
     }
 }

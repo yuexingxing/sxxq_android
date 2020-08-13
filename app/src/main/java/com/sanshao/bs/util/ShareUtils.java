@@ -126,7 +126,7 @@ public class ShareUtils {
     /**
      * 分享图片
      */
-    public static void sharePhoto(final Activity activity, Bitmap bitmap, SHARE_MEDIA platform) {
+    public static void sharePhoto(final Activity activity, Bitmap bitmap, SHARE_MEDIA platform, CommonCallBack callBack) {
 
         if (!checkClient(activity, platform)) {
             return;
@@ -153,6 +153,9 @@ public class ShareUtils {
                                 if (share_media.name().equals("WEIXIN_FAVORITE")) {
                                     Toast.makeText(activity, share_media + " 收藏成功", Toast.LENGTH_SHORT).show();
                                 } else {
+                                    if (callBack != null) {
+                                        callBack.callback(0, null);
+                                    }
 //                                    Toast.makeText(activity, "分享成功", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -168,6 +171,9 @@ public class ShareUtils {
                             @Override
                             public void run() {
 //                                Toast.makeText(activity, "分享失败", Toast.LENGTH_SHORT).show();
+                                if (callBack != null) {
+                                    callBack.callback(-1, null);
+                                }
                             }
                         });
                     }
