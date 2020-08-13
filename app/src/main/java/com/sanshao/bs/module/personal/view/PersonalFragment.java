@@ -1,6 +1,8 @@
 package com.sanshao.bs.module.personal.view;
 
+import android.graphics.Color;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -18,6 +20,7 @@ import com.sanshao.bs.databinding.PersonalFragmentBinding;
 import com.sanshao.bs.module.TestMenuActivity;
 import com.sanshao.bs.module.login.view.LoginActivity;
 import com.sanshao.bs.module.order.bean.AppointmentedInfo;
+import com.sanshao.bs.module.order.bean.OrderDetailResponse;
 import com.sanshao.bs.module.order.bean.OrderInfo;
 import com.sanshao.bs.module.order.bean.OrderNumStatusResponse;
 import com.sanshao.bs.module.order.model.IAppointmentModel;
