@@ -119,7 +119,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         binding.goodsListRecyclerView.setLayoutManager(linearLayoutManager);
         binding.goodsListRecyclerView.setAdapter(mGoodsListAdapter);
-        mGoodsListAdapter.setEnableLoadMore(false);
+        mGoodsListAdapter.setEnableLoadMore(true);
         mGoodsListAdapter.setOnLoadMoreListener(this, binding.goodsListRecyclerView);
         binding.goodsListRecyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override

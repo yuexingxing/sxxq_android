@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class OrderStatusFragment extends BaseFragment<OrderListViewModel, FragmentOrderStatusBinding> implements IOrderDetailModel, BaseQuickAdapter.RequestLoadMoreListener {
 
-    private int curPage = 0;
+    private int curPage = 1;
     private int orderState;
     private OrderListAdapter mOrderListAdapter;
 
@@ -79,7 +79,6 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         binding.recyclerView.setLayoutManager(linearLayoutManager);
         binding.recyclerView.setAdapter(mOrderListAdapter);
-        mOrderListAdapter.setEnableLoadMore(false);
         mOrderListAdapter.setOnLoadMoreListener(this, binding.recyclerView);
         mOrderListAdapter.setOnItemClickListener(new OrderListAdapter.OnItemClickListener() {
             @Override
@@ -126,9 +125,8 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
         binding.emptyLayout.setOnButtonClick(view -> {
 
         });
-
-        mOrderListAdapter.setPreLoadNumber(1);
-        mOrderListAdapter.disableLoadMoreIfNotFullPage();
+        mOrderListAdapter.setEnableLoadMore(true);
+//        mOrderListAdapter.disableLoadMoreIfNotFullPage();
         if (isVisiable) {
             loadData();
         }
@@ -150,22 +148,23 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
         }
         binding.emptyLayout.showSuccess();
         binding.recyclerView.setVisibility(View.VISIBLE);
-        mOrderListAdapter.addData(orderListResponse.content);
+        mOrderListAdapter.setNewData(orderListResponse.content);
     }
 
     @Override
     public void onLoadMoreData(Object object) {
         binding.swipeRefreshLayout.setRefreshing(false);
-        mOrderListAdapter.loadMoreComplete();
         if (object == null) {
             return;
         }
         List<OrderInfo> list = (List<OrderInfo>) object;
-        if (ContainerUtil.isEmpty(list)) {
-            mOrderListAdapter.loadMoreEnd();
-            return;
+        if (!ContainerUtil.isEmpty(list)) {
+            mOrderListAdapter.addData(list);
         }
-        mOrderListAdapter.addData(list);
+        mOrderListAdapter.loadMoreComplete();
+        if (list.size() < Constants.PAGE_SIZE) {
+            mOrderListAdapter.loadMoreEnd();
+        }
     }
 
     @Override
@@ -177,7 +176,7 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
     @Override
     public void onLoadMoreRequested() {
         ++curPage;
-        mViewModel.getOrderList(orderState, curPage * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
+        mViewModel.getOrderList(orderState, curPage, Constants.PAGE_SIZE);
     }
 
     @Override

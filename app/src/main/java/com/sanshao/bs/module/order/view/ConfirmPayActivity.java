@@ -75,8 +75,8 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         binding.tvPrice.setText(MathUtil.getNumExclude0(Double.parseDouble(createOrderResponse.orderPrice)));
         binding.btnStartPay.setOnClickListener(v -> {
             String path = "pages/order/confirmPay?" + "salebillId=" + createOrderResponse.orderNo;
-            ShareUtils.jump2WxMiniProgram(context, path);
-//            mViewModel.getOrderPayInfo(mPayType);
+//            ShareUtils.jump2WxMiniProgram(context, path);
+            mViewModel.getOrderPayInfo(mPayType);
         });
         binding.llPayWechat.setOnClickListener(v -> setCheckStatus(PAY_BY_WECHAT));
         binding.llPayAli.setOnClickListener(v -> setCheckStatus(PAY_BY_ALI));

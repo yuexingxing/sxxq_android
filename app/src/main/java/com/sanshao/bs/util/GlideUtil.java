@@ -20,6 +20,21 @@ import com.sanshao.bs.R;
  */
 public class GlideUtil extends AppGlideModule {
 
+    public static void loadImageWithNoPlaceHolder(Object obj, ImageView imageView) {
+        if (obj instanceof String) {
+            Glide.with(imageView.getContext()).load(obj).apply(initOptions())
+                    .skipMemoryCache(isSkipMemoryCache()).into(imageView);
+        }
+        if (obj instanceof Bitmap) {
+            Glide.with(imageView.getContext()).load(obj).apply(initOptions())
+                    .skipMemoryCache(isSkipMemoryCache()).into(imageView);
+        }
+        if (obj instanceof Drawable) {
+            Glide.with(imageView.getContext()).load(obj).apply(initOptions())
+                    .skipMemoryCache(isSkipMemoryCache()).into(imageView);
+        }
+    }
+
     /**
      * @param obj       这里obj 只加载 url bitmap  drawable
      * @param imageView 需要加载的图片

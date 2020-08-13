@@ -28,8 +28,13 @@ public class OrderListViewModel extends OrderDetailViewModel {
 
             @Override
             public void onLoadSucessed(BaseResponse<OrderListResponse> t) {
-                if (mCallBack != null) {
-                    mCallBack.onRefreshData(t != null ? t.getContent() : null);
+                if (mCallBack == null) {
+                    return;
+                }
+                if (page == 1) {
+                    mCallBack.onRefreshData(t.getContent());
+                } else {
+                    mCallBack.onLoadMoreData(t.getContent());
                 }
             }
 
