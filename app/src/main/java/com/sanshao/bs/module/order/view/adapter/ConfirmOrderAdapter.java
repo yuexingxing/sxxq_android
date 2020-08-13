@@ -48,10 +48,8 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
 
     @Override
     protected void convert(BaseViewHolder helper, GoodsDetailInfo item) {
-        helper.setText(R.id.tv_title, item.sarti_name);
-        helper.setText(R.id.tv_buy_count, item.buyNum + "");
-        helper.setText(R.id.tv_price, MathUtil.getNumExclude0(item.sarti_mkprice));
 
+        initView(helper, item);
         helper.getView(R.id.rl_minus).setOnClickListener(v -> {
             if (mCallBack != null) {
                 mCallBack.onMinusClick(helper.getAdapterPosition(), item);
@@ -62,7 +60,6 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
                 mCallBack.onPlusClick(helper.getAdapterPosition(), item);
             }
         });
-        GlideUtil.loadImage(item.thumbnail_img, helper.getView(R.id.iv_icon));
 
         FrameLayout flSetMeal = helper.getView(R.id.fl_set_meal);
         LinearLayout llOpenSetMeal = helper.getView(R.id.ll_more_setmeal);
@@ -93,6 +90,8 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
             helper.getView(R.id.tv_goods_count).setVisibility(View.VISIBLE);
             helper.getView(R.id.ll_count_view).setVisibility(View.GONE);
 
+            initOrderDetailView(helper, item);
+
             layoutParams.leftMargin = ScreenUtil.dp2px(SSApplication.app, 12);
             layoutParams.rightMargin = ScreenUtil.dp2px(SSApplication.app, 12);
             llConentTop.setLayoutParams(layoutParams);
@@ -119,7 +118,7 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
             llOpenSetMeal.setVisibility(View.GONE);
         }
 
-        if (mFragmentManager != null && item.order_product != null) {
+        if (mFragmentManager != null && item.order_product != null && !ContainerUtil.isEmpty(item.order_product.write_off)) {
             List<Fragment> mFragmentList = new ArrayList<>();
             List<GoodsDetailInfo> orderProductInfoList = new ArrayList<>();
             orderProductInfoList.add(item.order_product);
@@ -130,11 +129,38 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
                 }
             }
             ViewPager viewPager = helper.getView(R.id.view_pager);
+            viewPager.setVisibility(View.VISIBLE);
             TabFragmentPagerAdapter adapter = new TabFragmentPagerAdapter(mFragmentManager, mFragmentList);
             viewPager.setAdapter(adapter);
             viewPager.setCurrentItem(0);
             viewPager.setOffscreenPageLimit(mFragmentList.size());
+        } else {
+            helper.getView(R.id.view_pager).setVisibility(View.GONE);
         }
+    }
+
+    private void initView(BaseViewHolder helper, GoodsDetailInfo item) {
+
+        helper.setText(R.id.tv_title, item.sarti_name);
+        helper.setText(R.id.tv_buy_count, item.buyNum + "");
+        helper.setText(R.id.tv_price_1, "¥" + MathUtil.getNumExclude0(item.sum_amt));
+        helper.setText(R.id.tv_price_2, "¥" + MathUtil.getNumExclude0(item.sarti_mkprice));
+        helper.setText(R.id.tv_total_count, "x" + item.qty);
+        helper.setText(R.id.tv_goods_count, String.format("共计%s件商品；实收：%s元", item.qty, item.sum_amt));
+        GlideUtil.loadImage(item.thumbnail_img, helper.getView(R.id.iv_icon));
+    }
+
+    private void initOrderDetailView(BaseViewHolder helper, GoodsDetailInfo item) {
+        if (item == null || item.order_product == null) {
+            return;
+        }
+        helper.setText(R.id.tv_title, item.order_product.sarti_name);
+        helper.setText(R.id.tv_buy_count, item.buyNum + "");
+        helper.setText(R.id.tv_price_1, "¥" + MathUtil.getNumExclude0(item.sum_amt));
+        helper.setText(R.id.tv_price_2, "上海市");
+        helper.setText(R.id.tv_total_count, "x" + item.qty);
+        helper.setText(R.id.tv_goods_count, String.format("共计%s件商品；实收：%s元", item.qty, MathUtil.getNumExclude0(item.sum_amt)));
+        GlideUtil.loadImage(item.order_product.thumbnail_img, helper.getView(R.id.iv_icon));
     }
 
     public void setFragmentManager(FragmentManager fragmentManager) {

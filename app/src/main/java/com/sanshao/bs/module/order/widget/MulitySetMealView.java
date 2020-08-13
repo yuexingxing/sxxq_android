@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.bs.R;
+import com.sanshao.bs.module.order.bean.OrderInfo;
 import com.sanshao.bs.module.order.view.adapter.ConfirmOrderAdapter;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 
@@ -75,6 +77,11 @@ public class MulitySetMealView extends LinearLayout {
     }
 
     public void setData(List<GoodsDetailInfo> goodsDetailInfoList) {
+        if (ContainerUtil.isEmpty(goodsDetailInfoList)) {
+            return;
+        }
+        GoodsDetailInfo goodsDetailInfo = goodsDetailInfoList.get(0);
+        mTvOrderState.setText(OrderInfo.getOrderStatus(goodsDetailInfo.sale_status));
         mConfirmOrderAdapter.addData(goodsDetailInfoList);
     }
 

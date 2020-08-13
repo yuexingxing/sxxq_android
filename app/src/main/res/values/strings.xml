@@ -18,11 +18,13 @@
     <string name="withdrawal_record">提现记录</string>
     <string name="request_data_fail">获取数据失败</string>
 
-    <string name="store_address">上海市静安区新闸路829号丽都新贵大厦304、305、306室</string>
-
     <string name="goods_detail_invite_tip1">分享一位体验用户成功注册三少变美APP，即可获得\"奖励变美区\"一个项目，项目任选，多分享多获得。</string>
     <string name="goods_detail_invite_tip2">免费注册即可享有“免费变美区”任何项目，不限项目，不限次数，不限时间。</string>
     <string name="goods_detail_invite_tip3">消费【三少变美】医美项目即可成为平台VIP，分享好友还可享受佣金奖励、直播打赏等福利</string>
 
     <string name="register_tip">1.活动时间：2020年8月15日起效；\n2.体验用户：免费注册并可享有“免费变美区”任何项目，不限项目，不限次数，不限时间；\n3.VIP：登录后既可享有“免费变美区”任何项目，不限项目，不限次数，不限时间；\n4.成功领取项目后，可在【我的】【全部订单】-订单详情进入预约体验，体验时间不限；\n5.本活动手机号+线下核销身份证为唯一ID，仅限本人使用，不可转让；\n6.本次活动解释权归【三少变美】所有；</string>
+
+    <string name="store_service_phone">4007163188</string>
+    <string name="store_address">上海市静安区新闸路829号丽都新贵大厦304、305、306室</string>
+    <string name="store_service_time">周一至周五：10:00 - 22:00</string>
 </resources>

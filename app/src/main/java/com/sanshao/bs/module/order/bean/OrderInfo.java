@@ -1,5 +1,7 @@
 package com.sanshao.bs.module.order.bean;
 
+import android.text.TextUtils;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -81,6 +83,36 @@ public class OrderInfo implements Serializable {
         // 商品件数
         @SerializedName("use_qty")
         public String count;
+    }
+
+    public static String getOrderStatus(String status) {
+        if (TextUtils.isEmpty(status)) {
+            return "";
+        } else if (TextUtils.equals(status, ORDER_STATUS.PAY)) {
+            return "待付款";
+        } else if (TextUtils.equals(status, ORDER_STATUS.PAID)) {
+            return "已付款";
+        } else if (TextUtils.equals(status, ORDER_STATUS.FINISH)) {
+            return "待支付";
+        } else if (TextUtils.equals(status, ORDER_STATUS.PAYING)) {
+            return "付款中";
+        } else if (TextUtils.equals(status, ORDER_STATUS.CANCEL)) {
+            return "取消支付";
+        } else if (TextUtils.equals(status, ORDER_STATUS.REFUNDING)) {
+            return "申请退款";
+        } else {
+            return "退款完成";
+        }
+    }
+
+    public interface ORDER_STATUS {
+        String PAY = "PAY";
+        String PAID = "PAID";
+        String FINISH = "FINISH";
+        String PAYING = "PAYING";
+        String CANCEL = "CANCEL";
+        String REFUNDING = "REFUNDING";
+        String REFUNDED = "REFUNDED";
     }
 
     public interface State {

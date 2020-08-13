@@ -47,6 +47,10 @@ public class GoodsDetailInfo implements Serializable {
     public String salebill_id;
     public String create_date;
     public String optr_date;
+    public String sum_amt;
+    public String sum_point;
+    public String qty;
+    public String sale_status;//PAY=顾客待付款，PAYING=顾客付款中，PAID=顾客已付款 (金额进入第三方支付机构)，FINISH=订单已完成 (全部核销完毕)，CANCEL=顾客取消订单/订单支付超时，REFUNDING=顾客已申请退款，REFUNDED=顾客退款完成 ,
 
     public String getPointTip() {
         return sarti_point_price + "分享金";

@@ -25,20 +25,22 @@
             <RadioButton
                 android:id="@+id/rb_dev"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="DEV" />
 
             <RadioButton
                 android:id="@+id/rb_pre"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:text="PRE" />
 
             <RadioButton
                 android:id="@+id/rb_pro"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:text="PRO" />
         </RadioGroup>
 

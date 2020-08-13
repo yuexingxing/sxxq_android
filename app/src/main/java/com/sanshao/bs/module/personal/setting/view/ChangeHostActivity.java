@@ -8,7 +8,9 @@ import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.base.BaseViewModel;
 import com.exam.commonbiz.cache.ACache;
 import com.exam.commonbiz.config.ConfigSP;
+import com.exam.commonbiz.net.HostUrl;
 import com.sanshao.bs.R;
+import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ActivityChangeHostBinding;
 import com.sanshao.bs.module.login.view.LoginActivity;
 import com.sanshao.bs.module.personal.bean.UserInfo;
@@ -55,6 +57,10 @@ public class ChangeHostActivity extends BaseActivity<BaseViewModel, ActivityChan
 
             }
         });
+        binding.rbDev.setText(String.format("DEV\n%s\n%s", HostUrl.DEV.JAVA, HostUrl.DEV.NODE));
+        binding.rbPre.setText(String.format("PRE\n%s\n%s", HostUrl.PRE.JAVA, HostUrl.PRE.NODE));
+        binding.rbPro.setText(String.format("PRO\n%s\n%s", HostUrl.PRO.JAVA, HostUrl.PRO.NODE));
+
         binding.btnOk.setOnClickListener(view -> {
             ConfigSP.HOST_TYPE type;
             if (binding.rbDev.isChecked()) {
@@ -68,6 +74,7 @@ public class ChangeHostActivity extends BaseActivity<BaseViewModel, ActivityChan
                 finish();
                 return;
             }
+            ACache.get(context).put(ConfigSP.SP_TOKEN, "");
             ACache.get(context).put(ConfigSP.SP_CURRENT_HOST, type);
             RestartAPPTool.restartAPP(getApplicationContext(), 100);
         });

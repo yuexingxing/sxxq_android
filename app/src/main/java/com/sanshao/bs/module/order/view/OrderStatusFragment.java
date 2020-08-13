@@ -12,7 +12,6 @@ import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.FragmentOrderStatusBinding;
-import com.sanshao.bs.module.order.bean.OrderDetailResponse;
 import com.sanshao.bs.module.order.bean.OrderInfo;
 import com.sanshao.bs.module.order.bean.OrderListResponse;
 import com.sanshao.bs.module.order.bean.OrderNumStatusResponse;
@@ -180,7 +179,7 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
     }
 
     @Override
-    public void returnOrderDetailInfo(OrderDetailResponse orderDetailResponse) {
+    public void returnOrderDetailInfo(GoodsDetailInfo orderDetailResponse) {
 
     }
 

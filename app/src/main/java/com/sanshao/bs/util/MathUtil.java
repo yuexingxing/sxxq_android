@@ -1,5 +1,7 @@
 package com.sanshao.bs.util;
 
+import android.text.TextUtils;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
@@ -12,6 +14,7 @@ public class MathUtil {
      */
     //默认除法运算精度
     private static final int DEF_DIV_SCALE = 10;
+
     /**
      * 提供精确的加法运算。
      *
@@ -123,26 +126,31 @@ public class MathUtil {
 
     /**
      * 去掉小数点后面的0
+     *
      * @param price
      * @return
      */
-    public static String getNumExclude0(double price){
+    public static String getNumExclude0(double price) {
         DecimalFormat decimalFormat = new DecimalFormat("###################.###########");
         return decimalFormat.format(price);
     }
 
-    public static String getNumExclude0(String price){
+    public static String getNumExclude0(String price) {
+        if (TextUtils.isEmpty(price)) {
+            return "0";
+        }
         DecimalFormat decimalFormat = new DecimalFormat("###################.###########");
         return decimalFormat.format(Double.parseDouble(price));
     }
 
     /**
      * 计算两个数相乘，防止精度丢失
+     *
      * @param a
      * @param b
      * @return
      */
-    public static double multiply(double a, double b){
+    public static double multiply(double a, double b) {
         return new BigDecimal(a).multiply(new BigDecimal(b)).doubleValue();
     }
 }

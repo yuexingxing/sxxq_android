@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.exam.commonbiz.base.BaseActivity;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityOrderDetailBinding;
-import com.sanshao.bs.module.order.bean.OrderDetailResponse;
 import com.sanshao.bs.module.order.bean.OrderNumStatusResponse;
 import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
 import com.sanshao.bs.module.order.model.IOrderDetailModel;
@@ -129,7 +128,7 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
     }
 
     @Override
-    public void returnOrderDetailInfo(OrderDetailResponse orderDetailResponse) {
+    public void returnOrderDetailInfo(GoodsDetailInfo orderDetailResponse) {
         if (orderDetailResponse == null) {
             return;
         }
@@ -138,8 +137,8 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
 //        binding.mulitySetMealView.mConfirmOrderAdapter.addData(orderDetailResponse.goodsDetailInfo);
 
         List<GoodsDetailInfo> goodsDetailInfoList = new ArrayList<>();
-        orderDetailResponse.orderProduct.order_product = orderDetailResponse.orderProduct;
-        goodsDetailInfoList.add(orderDetailResponse.orderProduct);
+//        orderDetailResponse.orderProduct.order_product = orderDetailResponse.orderProduct;
+        goodsDetailInfoList.add(orderDetailResponse);
         binding.mulitySetMealView.setData(goodsDetailInfoList);
 
         binding.tvOrderNo.setText(orderDetailResponse.salebill_id);

@@ -1,8 +1,6 @@
 package com.sanshao.bs.module.personal.view;
 
-import android.graphics.Color;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -20,7 +18,6 @@ import com.sanshao.bs.databinding.PersonalFragmentBinding;
 import com.sanshao.bs.module.TestMenuActivity;
 import com.sanshao.bs.module.login.view.LoginActivity;
 import com.sanshao.bs.module.order.bean.AppointmentedInfo;
-import com.sanshao.bs.module.order.bean.OrderDetailResponse;
 import com.sanshao.bs.module.order.bean.OrderInfo;
 import com.sanshao.bs.module.order.bean.OrderNumStatusResponse;
 import com.sanshao.bs.module.order.model.IAppointmentModel;
@@ -37,6 +34,7 @@ import com.sanshao.bs.module.personal.model.IPersonalCallBack;
 import com.sanshao.bs.module.personal.personaldata.view.PersonalDetailActivity;
 import com.sanshao.bs.module.personal.setting.view.SettingActivity;
 import com.sanshao.bs.module.personal.viewmodel.PersonalViewModel;
+import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.util.DateUtil;
 import com.sanshao.bs.util.GlideUtil;
 
@@ -277,7 +275,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     }
 
     @Override
-    public void returnOrderDetailInfo(OrderDetailResponse orderDetailResponse) {
+    public void returnOrderDetailInfo(GoodsDetailInfo orderDetailResponse) {
 
     }
 

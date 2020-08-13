@@ -3,16 +3,11 @@ package com.sanshao.bs.module.order.viewmodel;
 import com.exam.commonbiz.base.BaseViewModel;
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
-import com.sanshao.bs.module.order.bean.OrderDetailResponse;
-import com.sanshao.bs.module.order.bean.OrderInfo;
 import com.sanshao.bs.module.order.bean.OrderNumStatusResponse;
 import com.sanshao.bs.module.order.model.IOrderDetailModel;
 import com.sanshao.bs.module.order.model.OrderModel;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.util.ToastUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Author yuexingxing
@@ -29,7 +24,7 @@ public class OrderDetailViewModel extends BaseViewModel {
 
     public void getOrderDetailInfo(String salebillId) {
 
-        OrderModel.getOrderDetailInfo(salebillId, new OnLoadListener<OrderDetailResponse>() {
+        OrderModel.getOrderDetailInfo(salebillId, new OnLoadListener<GoodsDetailInfo>() {
 
             @Override
             public void onLoadStart() {
@@ -42,7 +37,7 @@ public class OrderDetailViewModel extends BaseViewModel {
             }
 
             @Override
-            public void onLoadSucessed(BaseResponse<OrderDetailResponse> t) {
+            public void onLoadSucessed(BaseResponse<GoodsDetailInfo> t) {
                 if (mCallBack != null) {
                     mCallBack.returnOrderDetailInfo(t.getContent());
                 }
