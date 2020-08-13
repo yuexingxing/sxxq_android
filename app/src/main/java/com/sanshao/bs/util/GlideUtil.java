@@ -136,6 +136,16 @@ public class GlideUtil extends AppGlideModule {
     }
 
     /**
+     * 加载gif
+     *
+     * @param resId
+     * @param imageView
+     */
+    public static void loadgifImage(int resId, ImageView imageView) {
+        Glide.with(imageView.getContext()).asGif().load(resId).into(imageView);
+    }
+
+    /**
      * @param sizeMultiplier 如设置0.2f缩略
      * @describe 加载缩略图
      */

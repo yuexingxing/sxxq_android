@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 
 import com.exam.commonbiz.cache.ACache;
 import com.exam.commonbiz.config.ConfigSP;
@@ -63,5 +64,9 @@ public abstract class BasicApplication extends Application {
 
     public static void setToken(String token) {
         ACache.get(app).put(ConfigSP.SP_TOKEN, token);
+    }
+
+    public static boolean isLogin() {
+        return !TextUtils.isEmpty(getToken());
     }
 }

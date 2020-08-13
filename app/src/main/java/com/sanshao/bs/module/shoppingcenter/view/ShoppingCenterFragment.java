@@ -14,6 +14,7 @@ import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ShoppingCenterFragmentBinding;
 import com.sanshao.bs.module.home.model.BannerInfo;
+import com.sanshao.bs.module.register.view.RegisterActivity;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsTypeInfo;
 import com.sanshao.bs.module.shoppingcenter.bean.ShoppingCenterResponse;
 import com.sanshao.bs.module.shoppingcenter.model.IShoppingCenterModel;
@@ -159,7 +160,9 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
         } else if (TextUtils.equals(bannerInfo.action_type, BannerInfo.ActionType.NEW_MEM)) {
             ToastUtil.showShortToast("NEW_MEM");
         } else if (TextUtils.equals(bannerInfo.action_type, BannerInfo.ActionType.REG)) {
-            ToastUtil.showShortToast("REG");
+            if (bannerInfo.action_args != null) {
+                RegisterActivity.start(context, bannerInfo.action_args.artitag_id);
+            }
         }
     }
 }
