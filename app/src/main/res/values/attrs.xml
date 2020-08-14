@@ -19,6 +19,7 @@
     <declare-styleable name="PersonalAccountView">
         <attr name="icon_pav" format="reference" />
         <attr name="title_pav" format="string" />
+        <attr name="title2_pav" format="string" />
         <attr name="content_pav" format="string" />
         <attr name="isShowLine_pav" format="boolean" />
     </declare-styleable>

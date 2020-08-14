@@ -248,6 +248,7 @@
                     android:paddingRight="@dimen/right_container_margin"
                     app:icon_pav="@drawable/icon_sharemaney"
                     app:isShowLine_pav="true"
+                    app:title2_pav="邀请好友获取分享金"
                     app:title_pav="我的分享金" />
 
                 <com.sanshao.bs.widget.PersonalAccountView
@@ -258,6 +259,7 @@
                     android:paddingRight="@dimen/right_container_margin"
                     app:icon_pav="@drawable/icon_fenrun"
                     app:isShowLine_pav="true"
+                    app:title2_pav="邀请好友购买成本商品赚取分润"
                     app:title_pav="我的分润" />
 
                 <com.sanshao.bs.widget.PersonalAccountView
