@@ -14,6 +14,7 @@ import com.sanshao.bs.databinding.ActivityRegisterBinding;
 import com.sanshao.bs.module.MainActivity;
 import com.sanshao.bs.module.login.bean.LoginResponse;
 import com.sanshao.bs.module.login.viewmodel.LoginViewModel;
+import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.module.register.model.IRegisterCallBack;
 import com.sanshao.bs.module.register.viewmodel.RegisterViewModel;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
@@ -56,6 +57,7 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
             LoadDialogMgr.getInstance().show(context);
             mViewModel.getSMSCode(mPhone, LoginViewModel.LoginType.APP_LOGIN);
         });
+
         binding.ivRegister.setOnClickListener(v -> {
             String mPhone = binding.edtPhone.getText().toString();
             String code = binding.edtCode.getText().toString();
@@ -71,9 +73,14 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
             LoadDialogMgr.getInstance().show(context, "注册中...");
             mViewModel.reister(mPhone, code, referrerMemId);
         });
+
         if (binding.viewRegisterInfo.getVisibility() == View.VISIBLE) {
             GlideUtil.loadgifImage(R.drawable.icon_register, binding.ivRegister);
         }
+
+        UserInfo userInfo = SSApplication.getInstance().getUserInfo();
+        updateVipCard(userInfo);
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(RegisterActivity.this, 2);
         gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
         goodsTypeDetailVerticalAdapter = new GoodsTypeDetailVerticalAdapter();
@@ -109,8 +116,7 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
             return;
         }
         SSApplication.setToken(response.token);
-        MainActivity.start(context);
-        this.finish();
+        mViewModel.getUserInfo();
     }
 
     @Override
@@ -132,9 +138,30 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
     }
 
     @Override
+    public void getUserInfoSucc(UserInfo userInfo) {
+        updateVipCard(userInfo);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         cancelTimer();
+    }
+
+    private void updateVipCard(UserInfo userInfo) {
+        String memClassKey = "";
+        if (userInfo != null && userInfo.mem_class != null) {
+            memClassKey = userInfo.mem_class.mem_class_key;
+        }
+        if (TextUtils.equals(memClassKey, "1")) {
+            binding.ivVipCard.setBackgroundResource(R.drawable.img_vvipcard);
+        } else if (TextUtils.equals(memClassKey, "2")) {
+            binding.ivVipCard.setBackgroundResource(R.drawable.img_vipcard);
+        } else if (TextUtils.equals(memClassKey, "3")) {
+            binding.ivVipCard.setBackgroundResource(R.drawable.img_vvvipcard);
+        } else {
+            binding.ivVipCard.setBackgroundResource(R.drawable.img_vvvvipcard);
+        }
     }
 
     /**

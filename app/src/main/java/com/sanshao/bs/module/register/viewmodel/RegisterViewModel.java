@@ -7,6 +7,8 @@ import com.sanshao.bs.module.login.bean.GetCodeResponse;
 import com.sanshao.bs.module.login.bean.LoginRequest;
 import com.sanshao.bs.module.login.bean.LoginResponse;
 import com.sanshao.bs.module.login.model.LoginModel;
+import com.sanshao.bs.module.personal.bean.UserInfo;
+import com.sanshao.bs.module.personal.model.PersonalModel;
 import com.sanshao.bs.module.register.model.IRegisterCallBack;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.module.shoppingcenter.model.ShoppingCenterModel;
@@ -111,6 +113,33 @@ public class RegisterViewModel extends ViewModel {
                 if (callBack != null) {
                     callBack.registerFail();
                 }
+            }
+        });
+    }
+
+    public void getUserInfo() {
+        PersonalModel.getUserInfo(new OnLoadListener<UserInfo>() {
+
+            @Override
+            public void onLoadStart() {
+
+            }
+
+            @Override
+            public void onLoadCompleted() {
+                LoadDialogMgr.getInstance().dismiss();
+            }
+
+            @Override
+            public void onLoadSucessed(BaseResponse<UserInfo> t) {
+                if (callBack != null){
+                    callBack.getUserInfoSucc(t.getContent());
+                }
+            }
+
+            @Override
+            public void onLoadFailed(String errMsg) {
+
             }
         });
     }
