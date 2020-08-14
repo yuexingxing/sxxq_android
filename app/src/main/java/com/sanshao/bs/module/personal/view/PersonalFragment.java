@@ -1,7 +1,6 @@
 package com.sanshao.bs.module.personal.view;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -251,7 +250,6 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
 
         layoutParams.height = ScreenUtil.dp2px(context, 295);
         binding.flHeader.setLayoutParams(layoutParams);
-        binding.tvLabel.setText(userInfo.mem_class.mem_class_name);
         binding.ivZuan.setImageResource(R.drawable.icon_universaldrillmembers);
         binding.rlVipBg.setVisibility(View.VISIBLE);
         binding.viewOrderTopLine.setVisibility(View.VISIBLE);
@@ -266,16 +264,19 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
 
         //一星会员
         if (TextUtils.equals(userInfo.mem_class.mem_class_key, "1")) {
+            binding.tvLabel.setText("玉兔");
             binding.rlAvatarBg.setBackground(getResources().getDrawable(R.drawable.image_onestars));
             binding.ivBg.setBackground(getResources().getDrawable(R.drawable.image_onestarbg));
         }
         //二星会员
         else if (TextUtils.equals(userInfo.mem_class.mem_class_key, "2")) {
+            binding.tvLabel.setText("嫦娥");
             binding.rlAvatarBg.setBackground(getResources().getDrawable(R.drawable.image_twostars));
             binding.ivBg.setBackground(getResources().getDrawable(R.drawable.image_twostarsbg));
         }
         //三星会员
         else if (TextUtils.equals(userInfo.mem_class.mem_class_key, "3")) {
+            binding.tvLabel.setText("悟空");
             binding.rlAvatarBg.setBackground(getResources().getDrawable(R.drawable.image_threestars));
             binding.ivBg.setBackground(getResources().getDrawable(R.drawable.image_three_starsbg));
         }

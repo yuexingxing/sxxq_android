@@ -163,7 +163,7 @@ public class GlideUtil extends AppGlideModule {
      */
     private static @DrawableRes
     int getErrorImage() {
-        return R.drawable.image_placeholder_five;
+        return R.drawable.gray_btn_bg;
     }
 
     /**
@@ -172,7 +172,7 @@ public class GlideUtil extends AppGlideModule {
      */
     private static @DrawableRes
     int getPlaceholder() {
-        return R.drawable.image_placeholder_five;
+        return R.drawable.gray_btn_bg;
     }
 
     /**
