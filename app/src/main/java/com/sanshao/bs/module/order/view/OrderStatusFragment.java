@@ -1,7 +1,7 @@
 package com.sanshao.bs.module.order.view;
 
 import android.os.Bundle;
-import android.view.View;
+import android.os.Handler;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -79,6 +79,7 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         binding.recyclerView.setLayoutManager(linearLayoutManager);
         binding.recyclerView.setAdapter(mOrderListAdapter);
+        binding.recyclerView.setNestedScrollingEnabled(true);
         mOrderListAdapter.setOnLoadMoreListener(this, binding.recyclerView);
         mOrderListAdapter.setOnItemClickListener(new OrderListAdapter.OnItemClickListener() {
             @Override
@@ -113,6 +114,7 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
 
             }
         });
+
         binding.swipeRefreshLayout.setColorSchemeResources(R.color.main_color);
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -125,8 +127,7 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
         binding.emptyLayout.setOnButtonClick(view -> {
 
         });
-        mOrderListAdapter.setEnableLoadMore(true);
-//        mOrderListAdapter.disableLoadMoreIfNotFullPage();
+
         if (isVisiable) {
             loadData();
         }
@@ -140,31 +141,29 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
             return;
         }
         OrderListResponse orderListResponse = (OrderListResponse) object;
-        mOrderListAdapter.getData().clear();
-        binding.swipeRefreshLayout.setRefreshing(false);
         if (ContainerUtil.isEmpty(orderListResponse.content)) {
             binding.emptyLayout.showEmpty("暂无数据", R.drawable.imsge_noorder);
             return;
         }
-        binding.emptyLayout.showSuccess();
-        binding.recyclerView.setVisibility(View.VISIBLE);
         mOrderListAdapter.setNewData(orderListResponse.content);
+        binding.emptyLayout.showSuccess();
     }
 
     @Override
     public void onLoadMoreData(Object object) {
         binding.swipeRefreshLayout.setRefreshing(false);
         if (object == null) {
+            mOrderListAdapter.loadMoreEnd();
             return;
         }
+
         List<OrderInfo> list = (List<OrderInfo>) object;
-        if (!ContainerUtil.isEmpty(list)) {
-            mOrderListAdapter.addData(list);
-        }
-        mOrderListAdapter.loadMoreComplete();
-        if (list.size() < Constants.PAGE_SIZE) {
+        if (ContainerUtil.isEmpty(list)) {
             mOrderListAdapter.loadMoreEnd();
+            return;
         }
+        mOrderListAdapter.addData(list);
+        mOrderListAdapter.loadMoreComplete();
     }
 
     @Override

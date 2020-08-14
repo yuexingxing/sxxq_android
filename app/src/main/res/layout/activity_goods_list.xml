@@ -15,25 +15,25 @@
             android:layout_height="@dimen/title_height"
             app:title="商品列表" />
 
-        <com.sanshao.bs.widget.LinearEmptyLayout
-            android:id="@+id/emptyLayout"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/title_bar"
-            app:elEmptyLayout="@layout/layout_empty"
-            app:elErrorLayout="@layout/layout_error">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title_bar">
 
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/swipe_refresh_layout"
+            <com.sanshao.bs.widget.LinearEmptyLayout
+                android:id="@+id/emptyLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                app:elEmptyLayout="@layout/layout_empty"
+                app:elErrorLayout="@layout/layout_error">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/goods_list_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-        </com.sanshao.bs.widget.LinearEmptyLayout>
+            </com.sanshao.bs.widget.LinearEmptyLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <ImageView
             android:id="@+id/iv_to_top"

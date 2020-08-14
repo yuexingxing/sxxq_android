@@ -2,15 +2,11 @@ package com.sanshao.bs.module.order.view.adapter;
 
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.sanshao.bs.R;
-import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.module.order.bean.OrderInfo;
-import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.util.GlideUtil;
 import com.sanshao.bs.util.MathUtil;
 

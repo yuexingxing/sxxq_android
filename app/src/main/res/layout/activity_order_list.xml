@@ -22,10 +22,10 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             app:tabBackground="@color/white"
-            app:tabRippleColor="@color/transparent"
             app:tabIndicatorColor="@color/color_b6a578"
             app:tabIndicatorFullWidth="false"
-            app:tabMode="fixed" />
+            app:tabMode="fixed"
+            app:tabRippleColor="@color/transparent" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager"
@@ -36,8 +36,7 @@
             <FrameLayout
                 android:id="@+id/content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_height="match_parent" />
 
         </androidx.viewpager.widget.ViewPager>
     </LinearLayout>

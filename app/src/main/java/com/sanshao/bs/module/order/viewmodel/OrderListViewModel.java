@@ -41,8 +41,13 @@ public class OrderListViewModel extends OrderDetailViewModel {
             @Override
             public void onLoadFailed(String errMsg) {
                 ToastUtil.showShortToast(errMsg);
-                if (mCallBack != null) {
+                if (mCallBack == null) {
+                    return;
+                }
+                if (page == 1) {
                     mCallBack.onRefreshData(null);
+                } else {
+                    mCallBack.onLoadMoreData(null);
                 }
             }
         });

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -238,6 +239,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
     public void onRefreshData(Object object) {
         binding.swipeRefreshLayout.setRefreshing(false);
         if (object == null) {
+            binding.emptyLayout.showEmpty("暂无商品", R.drawable.image_nogoods);
             return;
         }
         List<GoodsDetailInfo> list = (List<GoodsDetailInfo>) object;
