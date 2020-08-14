@@ -30,6 +30,7 @@ import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.module.personal.event.UpdateUserInfoEvent;
 import com.sanshao.bs.module.personal.inquiry.view.ToBeInquiryListActivity;
 import com.sanshao.bs.module.personal.model.IPersonalCallBack;
+import com.sanshao.bs.module.personal.personaldata.dialog.MyInviterDialog;
 import com.sanshao.bs.module.personal.personaldata.view.PersonalDetailActivity;
 import com.sanshao.bs.module.personal.setting.view.SettingActivity;
 import com.sanshao.bs.module.personal.viewmodel.PersonalViewModel;
@@ -99,11 +100,15 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.includeOrder.llOrderComplete.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.Complete));
         binding.pavIncome.setOnClickListener(v -> ToastUtil.showShortToast("开发中"));
         binding.pavMyReferrer.setOnClickListener(v -> {
+            new MyInviterDialog().show(context);
         });
         binding.pavMyFans.setOnClickListener(v -> {
         });
         binding.pavMyShare.setOnClickListener(v -> {
         });
+        binding.pavMyInviteCode.setOnClickListener(v -> {
+        });
+
         binding.pavSetting.setOnClickListener(v -> SettingActivity.start(context));
         initOrderList();
         mViewModel.getUserInfo();
@@ -253,6 +258,9 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.ivZuan.setImageResource(R.drawable.icon_universaldrillmembers);
         binding.rlVipBg.setVisibility(View.VISIBLE);
         binding.viewOrderTopLine.setVisibility(View.VISIBLE);
+        binding.pavMyInviteCode.setContent(userInfo.invitation_code);
+        binding.pavMyShare.setContent(userInfo.point + "个");
+        binding.pavMyFenrun.setContent("¥ 0");
 
         String memberStartTime = DateUtil.timeFormat(userInfo.mem_class_start_date);
         int diffDays = DateUtil.getDiffDay(memberStartTime, DateUtil.getCurrentTime());

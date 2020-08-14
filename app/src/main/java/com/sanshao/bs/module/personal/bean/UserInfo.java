@@ -21,12 +21,9 @@ public class UserInfo implements Serializable {
     public String mem_class_id;
     public String mem_class_start_date;
     public String mem_status;//
+    public String point;
     public MemberClassInfo mem_class;
-    public RefferMemberInfo referrer_mem;
-
-    public class RefferMemberInfo implements Serializable{
-
-    }
+    public UserInfo referrer_mem;
 
     public String getGender() {
         if (TextUtils.equals("M", gender)) {

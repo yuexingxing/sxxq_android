@@ -68,4 +68,8 @@ public class PersonalAccountView extends LinearLayout {
     public void setName(String content) {
         mTvTitle.setText(content);
     }
+
+    public void setContent(String content) {
+        mTvContent.setText(content);
+    }
 }
