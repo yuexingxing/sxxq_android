@@ -25,6 +25,7 @@ import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.util.GlideUtil;
 import com.sanshao.bs.util.LoadDialogMgr;
 import com.sanshao.bs.util.ToastUtil;
+import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
     private GoodsTypeDetailVerticalAdapter goodsTypeDetailVerticalAdapter;
 
     public static void start(Context context, String artiTagId) {
+        if (TextUtils.isEmpty(artiTagId)) return;
         Intent starter = new Intent(context, RegisterActivity.class);
         starter.putExtra(Constants.OPT_DATA, artiTagId);
         context.startActivity(starter);
@@ -46,6 +48,23 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
         String artiTagId = getIntent().getStringExtra(Constants.OPT_DATA);
 
         mViewModel.setCallBack(this);
+
+        binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
+            @Override
+            public void onLeftClick(View v) {
+                finish();
+            }
+
+            @Override
+            public void onTitleClick(View v) {
+
+            }
+
+            @Override
+            public void onRightClick(View v) {
+
+            }
+        });
 
         binding.viewRegisterInfo.setVisibility(SSApplication.isLogin() ? View.GONE : View.VISIBLE);
         binding.tvGetCode.setOnClickListener(v -> {

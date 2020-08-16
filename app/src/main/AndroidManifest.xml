@@ -141,6 +141,10 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".module.invitation.view.InvitationActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".module.splash.LaunchActivity"
             android:screenOrientation="portrait">
             <intent-filter>

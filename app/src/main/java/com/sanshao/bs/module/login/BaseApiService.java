@@ -9,6 +9,7 @@ import com.sanshao.bs.module.login.bean.ModifyPhoneRequest;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 /**
@@ -28,4 +29,5 @@ public interface BaseApiService {
     //修改手机号码
     @POST("w/meminfo/updateMemPhone")
     Observable<BaseResponse<LoginResponse>> modifyPhone(@Body ModifyPhoneRequest modifyPhoneRequest);
+
 }

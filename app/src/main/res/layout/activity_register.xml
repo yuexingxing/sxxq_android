@@ -1,222 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/nested_scrollview"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.sanshao.commonui.titlebar.TitleBar
+            android:id="@+id/title_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#ECECEC"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:layout_height="@dimen/title_height"
+            app:title="注册" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="196dp"
-                android:background="@drawable/img_register_banner"/>
-
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
             <LinearLayout
-                android:id="@+id/view_register_info"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="20dp"
-                android:background="@drawable/shape_white_radius_10"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:background="#ECECEC"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="196dp"
+                    android:background="@drawable/img_register_banner"/>
 
                 <LinearLayout
+                    android:id="@+id/view_register_info"
                     android:layout_width="match_parent"
-                    android:layout_height="42dp"
-                    android:background="@drawable/shape_radius_10_bbbbbb"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="20dp"
+                    android:background="@drawable/shape_white_radius_10"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="16dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:background="@drawable/shape_radius_10_bbbbbb"
                         android:gravity="center_vertical"
-                        android:text="手机号："
-                        android:textColor="@color/color_333333"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/edt_phone"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:hint="请输入手机号码"
-                        android:inputType="phone"
-                        android:maxLength="11"
-                        android:paddingLeft="3dp"
-                        android:text=""
-                        android:textColor="@color/color_330000"
-                        android:textColorHint="@color/color_999999"
-                        android:textSize="14sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="16dp"
+                            android:gravity="center_vertical"
+                            android:text="手机号："
+                            android:textColor="@color/color_333333"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="11dp"
-                        android:background="@color/color_333333" />
+                        <EditText
+                            android:id="@+id/edt_phone"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:hint="请输入手机号码"
+                            android:inputType="phone"
+                            android:maxLength="11"
+                            android:paddingLeft="3dp"
+                            android:text=""
+                            android:textColor="@color/color_330000"
+                            android:textColorHint="@color/color_999999"
+                            android:textSize="14sp" />
 
-                    <TextView
-                        android:id="@+id/tv_get_code"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="16dp"
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="11dp"
+                            android:background="@color/color_333333" />
+
+                        <TextView
+                            android:id="@+id/tv_get_code"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="16dp"
+                            android:gravity="center_vertical"
+                            android:text="发送验证码"
+                            android:textColor="@color/color_333333"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
                         android:gravity="center_vertical"
-                        android:text="发送验证码"
-                        android:textColor="@color/color_333333"
-                        android:textSize="14sp" />
-                </LinearLayout>
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/shape_radius_10_bbbbbb"
+                        android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="42dp"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/shape_radius_10_bbbbbb"
-                    android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="16dp"
+                            android:gravity="center_vertical"
+                            android:text="验证码："
+                            android:textColor="@color/color_333333"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="16dp"
+                        <EditText
+                            android:id="@+id/edt_code"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:hint="请输入手机短信中验证码"
+                            android:maxLength="6"
+                            android:paddingLeft="3dp"
+                            android:text=""
+                            android:inputType="number"
+                            android:textColor="@color/color_330000"
+                            android:textColorHint="@color/color_999999"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/shape_radius_10_bbbbbb"
                         android:gravity="center_vertical"
-                        android:text="验证码："
-                        android:textColor="@color/color_333333"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/edt_code"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:hint="请输入手机短信中验证码"
-                        android:maxLength="6"
-                        android:paddingLeft="3dp"
-                        android:text=""
-                        android:inputType="number"
-                        android:textColor="@color/color_330000"
-                        android:textColorHint="@color/color_999999"
-                        android:textSize="14sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="16dp"
+                            android:gravity="center_vertical"
+                            android:text="邀请码："
+                            android:textColor="@color/color_333333"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
-                </LinearLayout>
+                        <EditText
+                            android:id="@+id/edt_invite_code"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:hint="请输入您的邀请码"
+                            android:inputType="number"
+                            android:maxLength="12"
+                            android:paddingLeft="3dp"
+                            android:text=""
+                            android:textColor="@color/color_330000"
+                            android:textColorHint="@color/color_999999"
+                            android:textSize="14sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="42dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/shape_radius_10_bbbbbb"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    </LinearLayout>
 
-                    <TextView
+                    <ImageView
+                        android:id="@+id/iv_register"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="16dp"
-                        android:gravity="center_vertical"
-                        android:text="邀请码："
-                        android:textColor="@color/color_333333"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/edt_invite_code"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:hint="请输入您的邀请码"
-                        android:inputType="number"
-                        android:maxLength="12"
-                        android:paddingLeft="3dp"
-                        android:text=""
-                        android:textColor="@color/color_330000"
-                        android:textColorHint="@color/color_999999"
-                        android:textSize="14sp" />
+                        android:layout_height="80dp"
+                        android:layout_gravity="center_horizontal"/>
 
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/iv_register"
-                    android:layout_width="wrap_content"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal"/>
-
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/iv_vip_card"
-                android:layout_width="match_parent"
-                android:layout_height="164dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:background="@drawable/img_vvvvipcard"/>
-
-            <View
-                android:id="@+id/view_activity_line"
-                android:layout_width="match_parent"
-                android:layout_height="14dp"
-                android:background="#ffffff"/>
-
-            <ImageView
-                android:id="@+id/view_activity_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/img_freebecomebeautiful"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/goods_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:background="#ffffff"/>
-
-            <LinearLayout
-                android:id="@+id/view_activity_description"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#ffffff"
-                android:paddingBottom="20dp">
-                <LinearLayout
+                    android:id="@+id/iv_vip_card"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:layout_height="164dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="12dp"
                     android:layout_marginRight="12dp"
-                    android:layout_marginTop="20dp"
-                    android:padding="12dp"
-                    android:background="@drawable/shape_radius_10_ececec">
-                    <TextView
+                    android:background="@drawable/img_vvvvipcard"/>
+
+                <View
+                    android:id="@+id/view_activity_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="14dp"
+                    android:background="#ffffff"/>
+
+                <ImageView
+                    android:id="@+id/view_activity_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_freebecomebeautiful"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/goods_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:background="#ffffff"/>
+
+                <LinearLayout
+                    android:id="@+id/view_activity_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#ffffff"
+                    android:paddingBottom="20dp">
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="15sp"
-                        android:textColor="#333333"
-                        android:text="活动细则"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:lineSpacingExtra="6dp"
-                        android:textSize="13sp"
-                        android:textColor="#333333"
-                        android:text="@string/register_tip"/>
+                        android:orientation="vertical"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_marginTop="20dp"
+                        android:padding="12dp"
+                        android:background="@drawable/shape_radius_10_ececec">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:textColor="#333333"
+                            android:text="活动细则"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:lineSpacingExtra="6dp"
+                            android:textSize="13sp"
+                            android:textColor="#333333"
+                            android:text="@string/register_tip"/>
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+
 </layout>
