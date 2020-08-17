@@ -1,7 +1,6 @@
 package com.sanshao.bs.module.order.view;
 
 import android.os.Bundle;
-import android.os.Handler;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,16 +23,15 @@ import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.util.ToastUtil;
 
-import java.util.List;
-
 /**
  * 待支付/待使用/已完成
  *
  * @Author yuexingxing
  * @time 2020/7/1
  */
-public class OrderStatusFragment extends BaseFragment<OrderListViewModel, FragmentOrderStatusBinding> implements IOrderDetailModel, BaseQuickAdapter.RequestLoadMoreListener {
+public class OrderStatusFragment extends BaseFragment<OrderListViewModel, FragmentOrderStatusBinding> implements IOrderDetailModel, SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
 
+    private int mTotalCount;
     private int curPage = 1;
     private int orderState;
     private OrderListAdapter mOrderListAdapter;
@@ -65,10 +63,7 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
 
     @Override
     protected void loadData() {
-        curPage = 1;
-        if (mViewModel != null) {
-            mViewModel.getOrderList(orderState, curPage, Constants.PAGE_SIZE);
-        }
+        onRefresh();
     }
 
     @Override
@@ -120,22 +115,31 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
             }
         });
 
+        mOrderListAdapter.disableLoadMoreIfNotFullPage();
         binding.swipeRefreshLayout.setColorSchemeResources(R.color.main_color);
-        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                curPage = 1;
-                mViewModel.getOrderList(orderState, curPage, Constants.PAGE_SIZE);
-            }
-        });
-        binding.emptyLayout.bindView(binding.recyclerView);
+        binding.swipeRefreshLayout.setOnRefreshListener(this);
+//        binding.emptyLayout.bindView(binding.recyclerView);
         binding.emptyLayout.setOnButtonClick(view -> {
-
+            onRefresh();
         });
 
         if (isVisiable) {
-            loadData();
+            onRefresh();
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        curPage = 1;
+        if (mViewModel != null) {
+            mViewModel.getOrderList(orderState, curPage, Constants.PAGE_SIZE);
+        }
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        ++curPage;
+        mViewModel.getOrderList(orderState, curPage, Constants.PAGE_SIZE);
     }
 
     @Override
@@ -150,6 +154,7 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
             binding.emptyLayout.showEmpty("暂无数据", R.drawable.imsge_noorder);
             return;
         }
+        mTotalCount = orderListResponse.count;
         mOrderListAdapter.setNewData(orderListResponse.content);
         binding.emptyLayout.showSuccess();
     }
@@ -161,13 +166,12 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
             mOrderListAdapter.loadMoreEnd();
             return;
         }
-
-        List<OrderInfo> list = (List<OrderInfo>) object;
-        if (ContainerUtil.isEmpty(list)) {
+        OrderListResponse orderListResponse = (OrderListResponse) object;
+        if (ContainerUtil.isEmpty(orderListResponse.content)) {
             mOrderListAdapter.loadMoreEnd();
             return;
         }
-        mOrderListAdapter.addData(list);
+        mOrderListAdapter.addData(orderListResponse.content);
         mOrderListAdapter.loadMoreComplete();
     }
 
@@ -175,12 +179,6 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
     public void onNetError() {
         binding.swipeRefreshLayout.setRefreshing(false);
         binding.emptyLayout.showError();
-    }
-
-    @Override
-    public void onLoadMoreRequested() {
-        ++curPage;
-        mViewModel.getOrderList(orderState, curPage, Constants.PAGE_SIZE);
     }
 
     @Override

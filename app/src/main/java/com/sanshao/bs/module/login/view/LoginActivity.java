@@ -66,9 +66,6 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
 
     @Override
     public void initData() {
-        LoginBean loginBean = new LoginBean();
-        loginBean.phone = "18721412241";
-        binding.setUser(loginBean);
 
         mViewModel.setCallBack(this);
         binding.tvJump.setOnClickListener(v -> {

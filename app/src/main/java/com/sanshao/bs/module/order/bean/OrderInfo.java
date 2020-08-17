@@ -41,7 +41,7 @@ public class OrderInfo implements Serializable {
 
     // 订单状态
     @SerializedName("salebill_status")
-    public int status;
+    public String status;
 
     // 预约状态
     @SerializedName("status")
