@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.TextureView;
 import android.view.View;
 
+import com.exam.commonbiz.util.ScreenUtil;
+
 /**
  * <p>参照Android系统的VideoView的onMeasure方法
  * <br>注意!relativelayout中无法全屏，要嵌套一个linearlayout</p>
@@ -34,13 +36,15 @@ public class JZTextureView extends TextureView {
 
     public void setVideoSize(int currentVideoWidth, int currentVideoHeight) {
         if (this.currentVideoWidth != currentVideoWidth || this.currentVideoHeight != currentVideoHeight) {
-            if (currentVideoWidth > currentVideoHeight) {
-                this.currentVideoWidth = currentVideoWidth + 50;
-                this.currentVideoHeight = currentVideoWidth;
-            } else {
-                this.currentVideoWidth = currentVideoWidth;
-                this.currentVideoHeight = currentVideoWidth + 50;
-            }
+//            if (currentVideoWidth > currentVideoHeight) {
+//                this.currentVideoWidth = currentVideoWidth + 50;
+//                this.currentVideoHeight = currentVideoWidth;
+//            } else {
+//                this.currentVideoWidth = currentVideoWidth;
+//                this.currentVideoHeight = currentVideoWidth + 50;
+//            }
+            this.currentVideoWidth = currentVideoWidth;
+            this.currentVideoHeight = currentVideoHeight;
             requestLayout();
         }
     }
@@ -55,11 +59,11 @@ public class JZTextureView extends TextureView {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        Log.i(TAG, "onMeasure " + " [" + this.hashCode() + "] ");
         int viewRotation = (int) getRotation();
         int videoWidth = currentVideoWidth;
         int videoHeight = currentVideoHeight;
 
+        Log.i(TAG, "onMeasure " + " [" + videoWidth + "/" + videoHeight + "] ");
         int parentHeight = ((View) getParent()).getMeasuredHeight();
         int parentWidth = ((View) getParent()).getMeasuredWidth();
         if (parentWidth != 0 && parentHeight != 0 && videoWidth != 0 && videoHeight != 0) {
@@ -161,6 +165,7 @@ public class JZTextureView extends TextureView {
             }
         }
 
+        Log.i(TAG, "onMeasure " + " [" + width + "/" + height + "] ");
         setMeasuredDimension(width, height);
     }
 }
