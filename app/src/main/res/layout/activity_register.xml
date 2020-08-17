@@ -176,7 +176,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="12dp"
                     android:layout_marginRight="12dp"
-                    android:background="@drawable/img_vvvvipcard"/>
+                    android:background="@drawable/icon_user_normal"/>
 
                 <View
                     android:id="@+id/view_activity_line"

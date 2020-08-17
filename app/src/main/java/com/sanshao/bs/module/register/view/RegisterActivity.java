@@ -150,6 +150,7 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
             return;
         }
         SSApplication.setToken(response.token);
+        binding.viewRegisterInfo.setVisibility(View.GONE);
         mViewModel.getUserInfo();
         goodsTypeDetailVerticalAdapter.isShowConver(false);
         goodsTypeDetailVerticalAdapter.notifyDataSetChanged();
@@ -195,13 +196,13 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
             memClassKey = userInfo.mem_class.mem_class_key;
         }
         if (TextUtils.equals(memClassKey, "1")) {
-            binding.ivVipCard.setBackgroundResource(R.drawable.img_vvipcard);
+            binding.ivVipCard.setBackgroundResource(R.drawable.icon_user_vip1);
         } else if (TextUtils.equals(memClassKey, "2")) {
-            binding.ivVipCard.setBackgroundResource(R.drawable.img_vipcard);
+            binding.ivVipCard.setBackgroundResource(R.drawable.icon_user_vip2);
         } else if (TextUtils.equals(memClassKey, "3")) {
-            binding.ivVipCard.setBackgroundResource(R.drawable.img_vvvipcard);
+            binding.ivVipCard.setBackgroundResource(R.drawable.icon_user_vip3);
         } else {
-            binding.ivVipCard.setBackgroundResource(R.drawable.img_vvvvipcard);
+            binding.ivVipCard.setBackgroundResource(R.drawable.icon_user_normal);
         }
     }
 
