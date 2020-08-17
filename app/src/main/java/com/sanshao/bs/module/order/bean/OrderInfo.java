@@ -31,6 +31,10 @@ public class OrderInfo implements Serializable {
     @SerializedName("sum_amt")
     public String totalPrice;
 
+    //总积分
+    @SerializedName("sum_point")
+    public String sumPoint;
+
     // 商品件数
     @SerializedName("qty")
     public int count;
