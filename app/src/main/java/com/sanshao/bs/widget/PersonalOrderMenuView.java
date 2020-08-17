@@ -6,8 +6,10 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.bs.R;
 
 /**
@@ -36,7 +38,7 @@ public class PersonalOrderMenuView extends LinearLayout {
             mName = ta.getString(R.styleable.PersonalOrderMenuView_PersonalOrderMenuView_name);
             mIcon = ta.getResourceId(R.styleable.PersonalOrderMenuView_PersonalOrderMenuView_icon, R.drawable.beautiful);
             mUnReadNum = ta.getInteger(R.styleable.PersonalOrderMenuView_PersonalOrderMenuView_num, 0);
-            initView(context);
+            initView();
         } finally {
             ta.recycle();
         }
@@ -46,18 +48,30 @@ public class PersonalOrderMenuView extends LinearLayout {
         return mImgIcon;
     }
 
-    private void initView(Context context) {
+    private void initView() {
         mTvName.setText(mName);
         mImgIcon.setImageResource(mIcon);
         mTvMessageNum.setText(mUnReadNum + "");
     }
 
     public void setUnReadNum(int unReadNum) {
+        mTvMessageNum.setText(unReadNum + "");
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mTvMessageNum.getLayoutParams();
+        layoutParams.height = ScreenUtil.dp2px(getContext(), 12);
         if (unReadNum <= 0) {
             mTvMessageNum.setVisibility(GONE);
+            return;
+        } else if (unReadNum < 10) {
+            layoutParams.width = ScreenUtil.dp2px(getContext(), 12);
+        } else if (unReadNum < 100) {
+            layoutParams.width = ScreenUtil.dp2px(getContext(), 18);
+            layoutParams.leftMargin = ScreenUtil.dp2px(getContext(), 15);
         } else {
-            mTvMessageNum.setVisibility(VISIBLE);
-            mTvMessageNum.setText(unReadNum + "");
+            layoutParams.width = ScreenUtil.dp2px(getContext(), 24);
+            layoutParams.leftMargin = ScreenUtil.dp2px(getContext(), 15);
+            mTvMessageNum.setText("99+");
         }
+        mTvMessageNum.setLayoutParams(layoutParams);
+        mTvMessageNum.setVisibility(VISIBLE);
     }
 }
