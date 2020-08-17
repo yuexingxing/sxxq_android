@@ -16,9 +16,11 @@ import com.exam.commonbiz.log.XLog;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.bs.R;
+import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ActivityGoodsListBinding;
 import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
 import com.sanshao.bs.module.order.view.ConfirmOrderActivity;
+import com.sanshao.bs.module.register.view.RegisterActivity;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.module.shoppingcenter.model.IGoodsListModel;
 import com.sanshao.bs.module.shoppingcenter.view.adapter.GoodsListAdapter;
@@ -98,6 +100,10 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
         mGoodsListAdapter.setOnItemClickListener(new GoodsListAdapter.OnItemClickListener() {
             @Override
             public void onBuyClick(GoodsDetailInfo goodsDetailInfo) {
+                if (!SSApplication.isLogin()) {
+                    RegisterActivity.start(context, Constants.TAG_ID_REGISTER);
+                    return;
+                }
                 ConfirmOrderActivity.start(context, goodsDetailInfo.sarti_id);
             }
 

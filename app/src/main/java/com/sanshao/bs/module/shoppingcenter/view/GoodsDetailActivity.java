@@ -24,6 +24,7 @@ import com.sanshao.bs.databinding.ActivityGoodsDetailBinding;
 import com.sanshao.bs.module.home.model.BannerInfo;
 import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
 import com.sanshao.bs.module.order.view.ConfirmOrderActivity;
+import com.sanshao.bs.module.register.view.RegisterActivity;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.module.shoppingcenter.bean.VideoInfo;
 import com.sanshao.bs.module.shoppingcenter.model.IGoodsDetailModel;
@@ -120,7 +121,13 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             new GoodsInroductionDialog().show(context, "商品说明", binding.tvGoodsIntro.getText().toString());
         });
 
-        binding.includeBottom.btnBuy.setOnClickListener(v -> ConfirmOrderActivity.start(context, mSartiId));
+        binding.includeBottom.btnBuy.setOnClickListener(v -> {
+            if (!SSApplication.isLogin()) {
+                RegisterActivity.start(context, Constants.TAG_ID_REGISTER);
+                return;
+            }
+            ConfirmOrderActivity.start(context, mSartiId);
+        });
         binding.llTabGoods.setOnClickListener(v -> {
             initTabStatus(0);
             scrollToView(binding.llGoods);

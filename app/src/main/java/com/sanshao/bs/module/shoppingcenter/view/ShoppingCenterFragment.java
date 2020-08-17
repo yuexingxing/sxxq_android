@@ -21,6 +21,7 @@ import com.sanshao.bs.module.shoppingcenter.bean.ShoppingCenterResponse;
 import com.sanshao.bs.module.shoppingcenter.model.IShoppingCenterModel;
 import com.sanshao.bs.module.shoppingcenter.view.adapter.GoodsTypeAdapter;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.ShoppingCenterViewModel;
+import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.util.GlideUtil;
 import com.sanshao.bs.util.ToastUtil;
 
@@ -159,13 +160,17 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
                 GoodsListActivity.start(context, bannerInfo.action_args.artitag_id);
             }
         } else if (TextUtils.equals(bannerInfo.action_type, BannerInfo.ActionType.NEW_MEM)) {
-            if (bannerInfo.action_args != null) {
-                InvitationActivity.start(context, bannerInfo.action_args.artitag_id);
+            String tagId = Constants.TAG_ID_INVITE;
+            if (bannerInfo.action_args != null && !TextUtils.isEmpty(bannerInfo.action_args.artitag_id)) {
+                tagId = bannerInfo.action_args.artitag_id;
             }
+            InvitationActivity.start(context, tagId);
         } else if (TextUtils.equals(bannerInfo.action_type, BannerInfo.ActionType.REG)) {
-            if (bannerInfo.action_args != null) {
-                RegisterActivity.start(context, bannerInfo.action_args.artitag_id);
+            String tagId = Constants.TAG_ID_REGISTER;
+            if (bannerInfo.action_args != null && !TextUtils.isEmpty(bannerInfo.action_args.artitag_id)) {
+                tagId = bannerInfo.action_args.artitag_id;
             }
+            RegisterActivity.start(context, tagId);
         }
     }
 }

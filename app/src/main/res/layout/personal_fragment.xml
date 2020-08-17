@@ -280,7 +280,9 @@
                     android:layout_height="45dp"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:text="测试模块" />
+                    android:text="测试模块"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
 
                 <com.sanshao.bs.module.shoppingcenter.widget.GuessYouLoveView
                     android:id="@+id/guess_you_love_view"

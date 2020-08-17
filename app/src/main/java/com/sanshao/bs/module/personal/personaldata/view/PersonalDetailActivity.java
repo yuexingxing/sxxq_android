@@ -83,29 +83,30 @@ public class PersonalDetailActivity extends BaseActivity<PersonalViewModel, Acti
         });
 
         binding.llAvatar.setOnClickListener(v -> {
-            List<CommonDialogInfo> commonDialogInfoList = new ArrayList<>();
-            commonDialogInfoList.add(new CommonDialogInfo("拍照"));
-            commonDialogInfoList.add(new CommonDialogInfo("相册"));
-
-            new CommonBottomDialog()
-                    .init(this)
-                    .setData(commonDialogInfoList)
-                    .setOnItemClickListener(commonDialogInfo -> {
-                        if (commonDialogInfo.position == 0) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                checkPermission(0);
-                            } else {
-                                selectFromCamera();
-                            }
-                        } else {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                checkPermission(1);
-                            } else {
-                                selectFromAlbum();
-                            }
-                        }
-                    })
-                    .show();
+            //TODO 屏蔽修改头像
+//            List<CommonDialogInfo> commonDialogInfoList = new ArrayList<>();
+//            commonDialogInfoList.add(new CommonDialogInfo("拍照"));
+//            commonDialogInfoList.add(new CommonDialogInfo("相册"));
+//
+//            new CommonBottomDialog()
+//                    .init(this)
+//                    .setData(commonDialogInfoList)
+//                    .setOnItemClickListener(commonDialogInfo -> {
+//                        if (commonDialogInfo.position == 0) {
+//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                                checkPermission(0);
+//                            } else {
+//                                selectFromCamera();
+//                            }
+//                        } else {
+//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                                checkPermission(1);
+//                            } else {
+//                                selectFromAlbum();
+//                            }
+//                        }
+//                    })
+//                    .show();
         });
 
         binding.lcvNickName.setOnClickListener(v -> SettingNameActivity.start(context));

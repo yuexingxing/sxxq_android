@@ -21,9 +21,10 @@ public class UserInfo implements Serializable {
     public String mem_class_id;
     public String mem_class_start_date;
     public String mem_status;//
-    public String point;
+    public String point;//我的分享金
     public MemberClassInfo mem_class;
     public UserInfo referrer_mem;
+    public String commission;//我的分润
 
     public String getGender() {
         if (TextUtils.equals("M", gender)) {

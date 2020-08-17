@@ -28,6 +28,9 @@ public class Constants {
     public static final String OPT_DATA = "opt_data";
     public static final String WX_APPId = "wx0cb916b177b454f4";
 
+    public static final String TAG_ID_REGISTER  = "9f913fab33e04ecc9031413da1e7b3bf";
+    public static final String TAG_ID_INVITE  = "b77ddad1b3834c7c9751f73ca9c5efee";
+
     public static final String SERVICE_PHONE = "4007163188";
     public static final String DEFAULT_IMG_BG = "http://jzvd-pic.nathen.cn/jzvd-pic/00b026e7-b830-4994-bc87-38f4033806a6.jpg";
     public static final String DEFAULT_IMG_URL = "http://img.cyw.com/shopx/20130606155913125664/shopinfo/201605041441522.jpg";

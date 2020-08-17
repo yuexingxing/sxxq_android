@@ -16,6 +16,7 @@ import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.PersonalFragmentBinding;
 import com.sanshao.bs.module.TestMenuActivity;
+import com.sanshao.bs.module.invitation.view.InvitationActivity;
 import com.sanshao.bs.module.login.view.LoginActivity;
 import com.sanshao.bs.module.order.bean.AppointmentedInfo;
 import com.sanshao.bs.module.order.bean.OrderInfo;
@@ -35,6 +36,7 @@ import com.sanshao.bs.module.personal.personaldata.view.PersonalDetailActivity;
 import com.sanshao.bs.module.personal.setting.view.SettingActivity;
 import com.sanshao.bs.module.personal.viewmodel.PersonalViewModel;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
+import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.util.DateUtil;
 import com.sanshao.bs.util.GlideUtil;
 import com.sanshao.bs.util.ToastUtil;
@@ -105,6 +107,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.pavMyFans.setOnClickListener(v -> {
         });
         binding.pavMyShare.setOnClickListener(v -> {
+            InvitationActivity.start(context, Constants.TAG_ID_INVITE);
         });
         binding.pavMyInviteCode.setOnClickListener(v -> {
         });
@@ -260,7 +263,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.viewOrderTopLine.setVisibility(View.VISIBLE);
         binding.pavMyInviteCode.setContent(userInfo.invitation_code);
         binding.pavMyShare.setContent(userInfo.point + "个");
-        binding.pavMyFenrun.setContent("¥ 0");
+        binding.pavMyFenrun.setContent("¥ " + userInfo.commission);
 
         String memberStartTime = DateUtil.timeFormat(userInfo.mem_class_start_date);
         int diffDays = DateUtil.getDiffDay(memberStartTime, DateUtil.getCurrentTime());
