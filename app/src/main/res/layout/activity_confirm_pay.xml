@@ -157,7 +157,9 @@
                     android:layout_marginTop="12dp"
                     android:background="@drawable/shape_white_radius_10"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="invisible"
+                    tools:visibility="visible">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -200,6 +202,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
+                android:visibility="invisible"
+                tools:visibility="visible"
                 android:orientation="horizontal">
 
                 <CheckBox

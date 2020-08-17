@@ -72,7 +72,9 @@ public class ViewCouponCodeFragment extends BaseFragment<OrderStatusViewModel, F
 
         mGoodsDetailInfo = (GoodsDetailInfo) getArguments().getSerializable(Constants.OPT_DATA);
         for (int i = 0; i < mGoodsDetailInfo.write_off.size(); i++) {
-            mFragmentList.add(ViewCouponCodeDetailFragment.newInstance(mGoodsDetailInfo.write_off.get(i)));
+            GoodsDetailInfo.WriteOffInfo writeOffInfo = mGoodsDetailInfo.write_off.get(i);
+            writeOffInfo.salebillId = mGoodsDetailInfo.salebill_id;
+            mFragmentList.add(ViewCouponCodeDetailFragment.newInstance(writeOffInfo));
         }
         binding.tvTitle.setText(mGoodsDetailInfo.sarti_name);
         Glide.with(SSApplication.app).load(mGoodsDetailInfo.thumbnail_img).into(binding.ivIcon);

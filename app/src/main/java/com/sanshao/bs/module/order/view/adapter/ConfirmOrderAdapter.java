@@ -125,6 +125,7 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
             for (int i = 0; i < orderProductInfoList.size(); i++) {
                 //如果有核销码
                 if (!ContainerUtil.isEmpty(orderProductInfoList.get(i).write_off)) {
+                    orderProductInfoList.get(i).salebill_id = item.salebill_id;
                     mFragmentList.add(ViewCouponCodeFragment.newInstance(orderProductInfoList.get(i)));
                 }
             }

@@ -46,7 +46,9 @@ public class ViewCouponCodeDetailFragment extends BaseFragment<OrderStatusViewMo
     public void initData() {
 
         GoodsDetailInfo.WriteOffInfo writeOffInfo = (GoodsDetailInfo.WriteOffInfo) getArguments().getSerializable(Constants.OPT_DATA);
-        Bitmap bitmap = QRCodeUtil.createQRCodeBitmap(writeOffInfo.code, ScreenUtil.dp2px(context, 150), ScreenUtil.dp2px(context, 150));
+        String qrData = String.format("salebill_id=%s&code=%s", writeOffInfo.salebillId, writeOffInfo.code);
+        int qrcodeHeight = ScreenUtil.dp2px(context, 150);
+        Bitmap bitmap = QRCodeUtil.createQRCodeBitmap(qrData, qrcodeHeight, qrcodeHeight);
         binding.ivQrcode.setImageBitmap(bitmap);
     }
 }

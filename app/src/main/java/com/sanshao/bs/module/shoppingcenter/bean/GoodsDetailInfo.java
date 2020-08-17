@@ -118,6 +118,7 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
 
     //核销码
     public class WriteOffInfo implements Serializable {
+        public String salebillId;
         public String type;
         public String code;
     }
