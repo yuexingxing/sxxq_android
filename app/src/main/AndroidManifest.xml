@@ -117,7 +117,7 @@
             android:value="5f15815bdbc2ec0813574b09" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="umeng" /> <!-- 友盟配置结束 -->
+            android:value="${UMENG_CHANNEL_VALUE}" /><!-- 友盟配置结束 -->
         <activity
             android:name=".module.personal.personaldata.view.PersonalDetailActivity"
             android:screenOrientation="portrait" />
