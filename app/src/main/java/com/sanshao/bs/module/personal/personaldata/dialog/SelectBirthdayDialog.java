@@ -11,6 +11,8 @@ import android.widget.FrameLayout;
 
 import com.exam.commonbiz.util.CommonCallBack;
 import com.sanshao.bs.R;
+import com.sanshao.bs.SSApplication;
+import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.util.CommandTools;
 import com.sanshao.commonui.pickerview.builder.TimePickerBuilder;
 import com.sanshao.commonui.pickerview.listener.OnTimeSelectChangeListener;
@@ -40,12 +42,19 @@ public class SelectBirthdayDialog {
         calendarStart.set(1900, 1, 1);
         Calendar calendarEnd = Calendar.getInstance();
         Calendar calendarShow = Calendar.getInstance();
-        calendarShow.set(2000, 0, 1);
+
+        UserInfo userInfo = SSApplication.getInstance().getUserInfo();
+        String[] arrBirthday = userInfo.birthday.split("-");
+        if (arrBirthday != null && arrBirthday.length == 3) {
+            calendarShow.set(Integer.parseInt(arrBirthday[0]), Integer.parseInt(arrBirthday[1]) - 1, Integer.parseInt(arrBirthday[2]));
+        } else {
+            calendarShow.set(2000, 0, 1);
+        }
         mTimePickerView = new TimePickerBuilder(context, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
                 Log.i("pvTime", "onTimeSelect");
-                if (mCommonCallBack != null){
+                if (mCommonCallBack != null) {
                     mCommonCallBack.callback(0, CommandTools.getTime(date));
                 }
             }

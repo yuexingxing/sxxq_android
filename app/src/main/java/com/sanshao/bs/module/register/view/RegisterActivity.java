@@ -19,6 +19,7 @@ import com.sanshao.bs.module.register.model.IRegisterCallBack;
 import com.sanshao.bs.module.register.viewmodel.RegisterViewModel;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.module.shoppingcenter.view.GoodsDetailActivity;
+import com.sanshao.bs.module.shoppingcenter.view.GoodsListActivity;
 import com.sanshao.bs.module.shoppingcenter.view.adapter.GoodsTypeDetailVerticalAdapter;
 import com.sanshao.bs.util.CommandTools;
 import com.sanshao.bs.util.Constants;
@@ -103,9 +104,20 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
         GridLayoutManager gridLayoutManager = new GridLayoutManager(RegisterActivity.this, 2);
         gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
         goodsTypeDetailVerticalAdapter = new GoodsTypeDetailVerticalAdapter();
+        goodsTypeDetailVerticalAdapter.setCommonCallBack((postion, object) -> {
+            if (SSApplication.isLogin()) {
+                GoodsListActivity.start(context, Constants.TAG_ID_REGISTER);
+            } else {
+                binding.nestedScrollview.smoothScrollTo(0, 0);
+            }
+        });
+        if (!SSApplication.isLogin()) {
+            goodsTypeDetailVerticalAdapter.isShowConver(true);
+        }
         goodsTypeDetailVerticalAdapter.setOnItemClickListener((adapter, view, position) -> {
             if (!SSApplication.isLogin()) {
                 ToastUtil.showShortToast("注册后即可免费领取");
+                binding.nestedScrollview.smoothScrollTo(0, 0);
                 return;
             }
             GoodsDetailInfo goodsDetailInfo = goodsTypeDetailVerticalAdapter.getData().get(position);
@@ -136,6 +148,8 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
         }
         SSApplication.setToken(response.token);
         mViewModel.getUserInfo();
+        goodsTypeDetailVerticalAdapter.isShowConver(false);
+        goodsTypeDetailVerticalAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -152,6 +166,11 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
             binding.goodsRecyclerView.setVisibility(View.GONE);
             binding.viewActivityDescription.setVisibility(View.GONE);
             return;
+        }
+        if (goodsList.size() % 2 != 0) {
+            GoodsDetailInfo goodsDetailInfo = new GoodsDetailInfo();
+            goodsDetailInfo.setItemType(GoodsDetailInfo.GOODS_TYPE.WITH_LAST_DATA);
+            goodsList.add(goodsDetailInfo);
         }
         goodsTypeDetailVerticalAdapter.setNewData(goodsList);
     }

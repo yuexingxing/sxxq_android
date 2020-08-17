@@ -2,13 +2,19 @@ package com.sanshao.bs.module.shoppingcenter.bean;
 
 import android.text.TextUtils;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.sanshao.bs.util.Constants;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoodsDetailInfo implements Serializable {
+public class GoodsDetailInfo implements Serializable, MultiItemEntity {
+
+    public interface GOODS_TYPE {
+        int REAL_DATA = 1;
+        int WITH_LAST_DATA = 2;
+    }
 
     public interface PAY_TYPE {
         String MONEY = "MONEY";
@@ -51,6 +57,7 @@ public class GoodsDetailInfo implements Serializable {
     public String sum_point;
     public String qty;
     public String sale_status;//PAY=顾客待付款，PAYING=顾客付款中，PAID=顾客已付款 (金额进入第三方支付机构)，FINISH=订单已完成 (全部核销完毕)，CANCEL=顾客取消订单/订单支付超时，REFUNDING=顾客已申请退款，REFUNDED=顾客退款完成 ,
+    public int itemType = GOODS_TYPE.REAL_DATA;
 
     public String getPointTip() {
         return sarti_point_price + "分享金";
@@ -67,6 +74,15 @@ public class GoodsDetailInfo implements Serializable {
 
     public boolean isFree() {
         return !isPayByPoint() && sarti_saleprice == 0;
+    }
+
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
+    }
+
+    @Override
+    public int getItemType() {
+        return itemType;
     }
 
     /**

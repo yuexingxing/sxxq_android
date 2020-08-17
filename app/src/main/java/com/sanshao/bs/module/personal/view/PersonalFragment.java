@@ -124,7 +124,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
 //        if (!TextUtils.isEmpty(SSApplication.getToken())) {
         mViewModel.getUserInfo();
         mOrderDetailViewModel.getOrderNumStatus();
-        mAppointmentForConsultationViewModel.getAppointmentedList();
+//        mAppointmentForConsultationViewModel.getAppointmentedList();
 //        } else {
 //            initMemberStatus(null);
 //        }

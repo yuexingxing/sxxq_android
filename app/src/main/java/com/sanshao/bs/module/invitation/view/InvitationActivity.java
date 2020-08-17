@@ -6,13 +6,17 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.util.CommonCallBack;
 import com.sanshao.bs.R;
+import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ActivityInvitationBinding;
 import com.sanshao.bs.module.invitation.bean.UserReferrals;
 import com.sanshao.bs.module.invitation.model.InvitationCallBack;
 import com.sanshao.bs.module.invitation.viewmodel.InvitationViewModel;
+import com.sanshao.bs.module.register.view.RegisterActivity;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.module.shoppingcenter.view.GoodsDetailActivity;
+import com.sanshao.bs.module.shoppingcenter.view.GoodsListActivity;
 import com.sanshao.bs.module.shoppingcenter.view.adapter.GoodsTypeDetailVerticalAdapter;
 import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.util.GlideUtil;
@@ -65,7 +69,21 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
         GridLayoutManager gridLayoutManager = new GridLayoutManager(InvitationActivity.this, 2);
         gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
         goodsTypeDetailVerticalAdapter = new GoodsTypeDetailVerticalAdapter();
+        goodsTypeDetailVerticalAdapter.setCommonCallBack((postion, object) -> {
+            if (SSApplication.isLogin()) {
+                GoodsListActivity.start(context, Constants.TAG_ID_INVITE);
+            } else {
+                RegisterActivity.start(context, Constants.TAG_ID_REGISTER);
+            }
+        });
+        if (!SSApplication.isLogin()) {
+            goodsTypeDetailVerticalAdapter.isShowConver(true);
+        }
         goodsTypeDetailVerticalAdapter.setOnItemClickListener((adapter, view, position) -> {
+            if (!SSApplication.isLogin()) {
+                RegisterActivity.start(context, Constants.TAG_ID_REGISTER);
+                return;
+            }
             GoodsDetailInfo goodsDetailInfo = goodsTypeDetailVerticalAdapter.getData().get(position);
             GoodsDetailActivity.start(view.getContext(), goodsDetailInfo.sarti_id);
         });
@@ -109,7 +127,7 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
         binding.viewUser1.setVisibility(View.GONE);
         binding.viewUser2.setVisibility(View.GONE);
         binding.viewUser2.setVisibility(View.GONE);
-        if(count > 0) {
+        if (count > 0) {
             UserReferrals.UserReferralsItem item = userReferrals.referrals.get(0);
             binding.viewUser1.setVisibility(View.VISIBLE);
             binding.tvUserName1.setText(item.nickname);
@@ -118,7 +136,7 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
             }
         }
 
-        if(count > 1){
+        if (count > 1) {
             UserReferrals.UserReferralsItem item = userReferrals.referrals.get(1);
             binding.viewUser2.setVisibility(View.VISIBLE);
             binding.tvUserName2.setText(item.nickname);
@@ -127,7 +145,7 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
             }
         }
 
-        if(count > 2){
+        if (count > 2) {
             UserReferrals.UserReferralsItem item = userReferrals.referrals.get(2);
             binding.viewUser3.setVisibility(View.VISIBLE);
             binding.tvUserName3.setText(item.nickname);

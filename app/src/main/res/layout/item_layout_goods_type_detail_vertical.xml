@@ -5,90 +5,105 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:id="@+id/ll_bg"
+    <FrameLayout
+        android:id="@+id/fl_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="12dp">
 
         <LinearLayout
+            android:id="@+id/ll_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/shape_white_radius_10"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="153dp"
-                android:gravity="center_horizontal">
-
-                <com.sanshao.bs.widget.OvalImageView
-                    android:id="@+id/iv_icon"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/image_placeholder_three"
-                    app:OvalImageView_top_left="10"
-                    app:OvalImageView_top_right="10" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_white_radius_10"
+                android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_title"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="8dp"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:minHeight="40dp"
-                    android:textColor="@color/color_333333"
-                    android:textSize="15sp"
-                    tools:text="激光祛斑美容护肤不二之选，玻尿酸不二之选" />
+                    android:layout_height="153dp"
+                    android:gravity="center_horizontal">
+
+                    <com.sanshao.bs.widget.OvalImageView
+                        android:id="@+id/iv_icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/image_placeholder_three"
+                        app:OvalImageView_top_left="10"
+                        app:OvalImageView_top_right="10" />
+                </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginBottom="6dp"
-                    android:orientation="horizontal">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_price"
+                        android:id="@+id/tv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="8dp"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:minHeight="40dp"
+                        android:textColor="@color/color_333333"
+                        android:textSize="15sp"
+                        tools:text="激光祛斑美容护肤不二之选，玻尿酸不二之选" />
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="1dp"
-                        android:text="¥0"
-                        android:textColor="@color/color_c5602d"
-                        android:textSize="15sp" />
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="6dp"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tv_old_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:text="¥0"
-                        android:textColor="@color/color_999999"
-                        android:textSize="12sp" />
+                        <TextView
+                            android:id="@+id/tv_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="1dp"
+                            android:text="¥0"
+                            android:textColor="@color/color_c5602d"
+                            android:textSize="15sp" />
 
+                        <TextView
+                            android:id="@+id/tv_old_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:text="¥0"
+                            android:textColor="@color/color_999999"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
         <View
-            android:id="@+id/view_right"
-            android:layout_width="10dp"
-            android:layout_height="1dp"
-            android:visibility="gone" />
-    </LinearLayout>
+            android:id="@+id/view_conver"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_halftranspant_radius_10"
+            android:visibility="gone"
+            tools:visibility="visible" />
+    </FrameLayout>
+
+    <View
+        android:id="@+id/view_right"
+        android:layout_width="10dp"
+        android:layout_toRightOf="@+id/fl_content"
+        android:layout_height="1dp"
+        android:visibility="gone" />
 </RelativeLayout>
