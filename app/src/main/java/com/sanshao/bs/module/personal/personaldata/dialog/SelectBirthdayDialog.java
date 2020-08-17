@@ -17,6 +17,7 @@ import com.sanshao.commonui.pickerview.listener.OnTimeSelectChangeListener;
 import com.sanshao.commonui.pickerview.listener.OnTimeSelectListener;
 import com.sanshao.commonui.pickerview.view.TimePickerView;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -34,6 +35,12 @@ public class SelectBirthdayDialog {
     }
 
     public SelectBirthdayDialog init(Context context, String title, boolean[] type) {//Dialog 模式下，在底部弹出
+
+        Calendar calendarStart = Calendar.getInstance();
+        calendarStart.set(1900, 1, 1);
+        Calendar calendarEnd = Calendar.getInstance();
+        Calendar calendarShow = Calendar.getInstance();
+        calendarShow.set(2000, 0, 1);
         mTimePickerView = new TimePickerBuilder(context, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
@@ -58,9 +65,11 @@ public class SelectBirthdayDialog {
                         Log.i("pvTime", "onCancelClickListener");
                     }
                 })
+                .setDate(calendarShow)
                 .setItemVisibleCount(5) //若设置偶数，实际值会加1（比如设置6，则最大可见条目为7）
                 .setLineSpacingMultiplier(2.0f)
                 .isAlphaGradient(true)
+                .setRangDate(calendarStart, calendarEnd)
                 .build();
 
         Dialog mDialog = mTimePickerView.getDialog();
