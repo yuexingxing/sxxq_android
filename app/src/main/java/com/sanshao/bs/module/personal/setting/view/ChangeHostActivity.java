@@ -62,14 +62,14 @@ public class ChangeHostActivity extends BaseActivity<BaseViewModel, ActivityChan
         binding.rbPro.setText(String.format("PRO\n%s\n%s", HostUrl.PRO.JAVA, HostUrl.PRO.NODE));
 
         binding.btnOk.setOnClickListener(view -> {
-            ConfigSP.HOST_TYPE type;
+            ConfigSP.HOST_TYPE type = ConfigSP.HOST_TYPE.PRO;
             if (binding.rbDev.isChecked()) {
                 type = ConfigSP.HOST_TYPE.DEV;
             } else if (binding.rbPre.isChecked()) {
                 type = ConfigSP.HOST_TYPE.PRE;
             } else if (binding.rbPro.isChecked()) {
                 type = ConfigSP.HOST_TYPE.PRO;
-            } else {
+            } else if (binding.rbFinish.isChecked()) {
                 restart();
                 return;
             }

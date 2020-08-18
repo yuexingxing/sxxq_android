@@ -41,6 +41,7 @@ import java.util.List;
 public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, ActivityConfirmOrderBinding> implements IConfirmOrderModel, IGoodsDetailModel {
 
     private String mSartiId;
+    private String mGoodsName;
     private double mTotalPrice = 0;
     private int mTotalBuyNum = 0;
     private GoodsDetailViewModel mGoodsDetailViewModel;
@@ -174,6 +175,10 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
 
     @Override
     public void returnCreateOrderInfo(CreateOrderResponse createOrderResponse) {
+        if (createOrderResponse == null) {
+            return;
+        }
+        createOrderResponse.sarti_name = mGoodsName;
         ConfirmPayActivity.start(context, createOrderResponse);
     }
 
@@ -210,6 +215,7 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
             return;
         }
 
+        mGoodsName = goodsDetailInfo.sarti_name;
         List<GoodsDetailInfo> goodsDetailInfoList = new ArrayList<>();
         goodsDetailInfoList.add(goodsDetailInfo);
         binding.mulitySetMealView.setData(goodsDetailInfoList);

@@ -12,4 +12,5 @@ public class CreateOrderResponse implements Serializable {
     public String orderPrice;
     @SerializedName("sum_point")
     public String sumPoint;
+    public String sarti_name;
 }

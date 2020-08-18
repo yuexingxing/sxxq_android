@@ -53,6 +53,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
     public void initData() {
 
         CreateOrderResponse createOrderResponse = (CreateOrderResponse) getIntent().getSerializableExtra(Constants.OPT_DATA);
+        binding.tvName.setText(createOrderResponse.sarti_name);
         mSalebillId = createOrderResponse.orderNo;
         mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
