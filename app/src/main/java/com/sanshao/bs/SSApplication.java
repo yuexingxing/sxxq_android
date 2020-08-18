@@ -31,6 +31,8 @@ import com.sanshao.commonui.titlebar.TitleBarLightStyle;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
 import com.squareup.leakcanary.LeakCanary;
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
@@ -81,6 +83,8 @@ public class SSApplication extends BasicApplication {
 
         List<IKit> kits = new ArrayList<>();
         kits.add(new KitChangeHost());
+        //bugly日志统计
+        CrashReport.initCrashReport(getApplicationContext(), "ea6de64e88", false);
 
         DoraemonKit.install(this, kits);
         // 必须：初始化全局的 用户信息管理类，记录个人信息。
