@@ -136,7 +136,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             initTabStatus(1);
             binding.nestedScrollview.smoothScrollTo(0, binding.llGoodsDetail.getTop() - ScreenUtil.dp2px(context, 60));
         });
-        binding.homeBannerLayout.setDotGravity();
+        binding.homeBannerLayout.setDotGravityBottomRight();
 
         //在第一次调用RichText之前先调用RichText.initCacheDir()方法设置缓存目录，不设置会报错
         RichText.initCacheDir(this);

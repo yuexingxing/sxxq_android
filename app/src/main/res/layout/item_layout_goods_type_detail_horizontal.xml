@@ -29,7 +29,7 @@
                 android:id="@+id/iv_icon"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:src="@drawable/gray_rectangle_bg"
                 app:OvalImageView_top_left="10"
                 app:OvalImageView_top_right="10" />
@@ -76,6 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
                     android:text="¥0"
+                    android:maxLines="1"
                     android:textColor="@color/color_999999"
                     android:textSize="12sp" />
 

@@ -76,7 +76,7 @@ public class HomeBannerLayout extends LinearLayout {
         }
     }
 
-    public void setDotGravity() {
+    public void setDotGravityBottomRight() {
         mLinearLayout.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
     }
 

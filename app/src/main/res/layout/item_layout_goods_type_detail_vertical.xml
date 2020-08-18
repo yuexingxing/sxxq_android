@@ -35,7 +35,7 @@
                         android:id="@+id/iv_icon"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="fitXY"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/image_placeholder_three"
                         app:OvalImageView_top_left="10"
                         app:OvalImageView_top_right="10" />
