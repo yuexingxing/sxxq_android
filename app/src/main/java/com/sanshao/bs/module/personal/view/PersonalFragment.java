@@ -95,16 +95,51 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
                 PersonalDetailActivity.start(getContext());
             }
         });
-        binding.includeOrder.llAllOrder.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.ALL));
-        binding.includeOrder.llOrderTobepaid.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.ToBePaid));
-        binding.includeOrder.llOrderTobeuse.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.ToBeUse));
-        binding.includeOrder.llOrderTobeinquiry.setOnClickListener(v -> ToBeInquiryListActivity.start(context));
-        binding.includeOrder.llOrderComplete.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.Complete));
+        binding.includeOrder.llAllOrder.setOnClickListener(v -> {
+            if (!SSApplication.isLogin()) {
+                LoginActivity.start(context);
+            } else {
+                OrderListActivity.start(context, OrderInfo.State.ALL);
+            }
+        });
+        binding.includeOrder.llOrderTobepaid.setOnClickListener(v -> {
+            if (!SSApplication.isLogin()) {
+                LoginActivity.start(context);
+            } else {
+                OrderListActivity.start(context, OrderInfo.State.ToBePaid);
+            }
+        });
+        binding.includeOrder.llOrderTobeuse.setOnClickListener(v -> {
+            if (!SSApplication.isLogin()) {
+                LoginActivity.start(context);
+            } else {
+                OrderListActivity.start(context, OrderInfo.State.ToBeUse);
+            }
+        });
+        binding.includeOrder.llOrderTobeinquiry.setOnClickListener(v -> {
+            if (!SSApplication.isLogin()) {
+                LoginActivity.start(context);
+            } else {
+                ToBeInquiryListActivity.start(context);
+            }
+        });
+        binding.includeOrder.llOrderComplete.setOnClickListener(v -> {
+            if (!SSApplication.isLogin()) {
+                LoginActivity.start(context);
+            } else {
+                OrderListActivity.start(context, OrderInfo.State.Complete);
+            }
+        });
         binding.pavIncome.setOnClickListener(v -> ToastUtil.showShortToast("开发中"));
         binding.pavMyReferrer.setOnClickListener(v -> {
             new MyInviterDialog().show(context);
         });
         binding.pavMyFans.setOnClickListener(v -> {
+            if (!SSApplication.isLogin()) {
+                LoginActivity.start(context);
+            } else {
+
+            }
         });
         binding.pavMyShare.setOnClickListener(v -> {
             InvitationActivity.start(context, Constants.TAG_ID_INVITE);

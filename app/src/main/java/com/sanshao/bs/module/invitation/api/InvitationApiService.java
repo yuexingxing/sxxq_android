@@ -9,6 +9,6 @@ import retrofit2.http.GET;
 
 public interface InvitationApiService {
 
-    @GET("/user/referrals")
+    @GET("user/referrals")
     Observable<BaseResponse<UserReferrals>> requestUserReferrals();
 }

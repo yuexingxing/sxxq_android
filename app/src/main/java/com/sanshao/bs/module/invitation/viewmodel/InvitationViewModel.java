@@ -31,7 +31,7 @@ public class InvitationViewModel extends ViewModel {
 
             @Override
             public void onLoadCompleted() {
-
+                LoadDialogMgr.getInstance().dismiss();
             }
 
             @Override

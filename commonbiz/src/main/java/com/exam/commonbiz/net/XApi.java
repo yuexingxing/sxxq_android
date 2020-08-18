@@ -30,11 +30,6 @@ public class XApi {
         String NODE = "node";
     }
 
-    public interface HOST_URL {
-        String JAVA = mHostMap.get(HOST_TYPE.JAVA);
-        String NODE = mHostMap.get(HOST_TYPE.NODE);
-    }
-
     private static String defaultBaseUrl;
 
     private static NetProvider sProvider = null;

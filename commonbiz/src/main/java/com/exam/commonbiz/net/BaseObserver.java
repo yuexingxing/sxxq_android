@@ -3,6 +3,7 @@ package com.exam.commonbiz.net;
 import android.content.Context;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.exam.commonbiz.event.IdentityExpiredEvent;
 import com.google.gson.JsonParseException;
@@ -54,6 +55,7 @@ public abstract class BaseObserver<T> implements Observer<BaseResponse<T>> {
         ExceptionHandle.ResponeThrowable responeThrowable;
         if (e instanceof Exception) {
             //访问获得对应的Exception
+            Log.d("zdddz", e.getMessage() + "/" + e.hashCode());
             responeThrowable = ExceptionHandle.handleException(e);
             if (responeThrowable.code == ExceptionHandle.UNAUTHORIZED){
                 EventBus.getDefault().post(new IdentityExpiredEvent());

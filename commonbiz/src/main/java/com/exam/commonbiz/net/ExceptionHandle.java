@@ -2,6 +2,7 @@ package com.exam.commonbiz.net;
 
 import android.net.ParseException;
 
+import com.exam.commonbiz.cache.ACache;
 import com.google.gson.JsonParseException;
 
 import org.apache.http.conn.ConnectTimeoutException;
@@ -83,14 +84,14 @@ public class ExceptionHandle {
             ex = new ResponeThrowable(e, ERROR.TIMEOUT_ERROR);
             ex.message = CONNECTION_TIMEOUT;
             return ex;
+        } else if (e instanceof com.jakewharton.retrofit2.adapter.rxjava2.HttpException) {
+            ex = new ResponeThrowable(e, ExceptionHandle.UNAUTHORIZED);
+            ex.message = "身份过期，请重新登录";
         } else {
             ex = new ResponeThrowable(e, ERROR.UNKNOWN);
             ex.message = UNKNOW_ERROR;
-            if (e.hashCode() == UNAUTHORIZED){
-                ex.message = "身份过期，请重新登录";
-            }
-            return ex;
         }
+        return ex;
     }
 
 
@@ -128,6 +129,11 @@ public class ExceptionHandle {
          * 业务逻辑错误
          */
         public static final int SERVICE_ERROR = 1007;
+
+        /**
+         * 身份认证失败，或登录过期
+         */
+        public static final int UNAUTHORIZED = 1008;
     }
 
     public static class ResponeThrowable extends Exception {
