@@ -787,8 +787,8 @@ public class JzvdStd extends Jzvd {
             replayTextView.setVisibility(GONE);
         } else if (state == STATE_AUTO_COMPLETE) {
             startButton.setVisibility(VISIBLE);
-            startButton.setImageResource(R.drawable.jz_click_replay_selector);
-            replayTextView.setVisibility(VISIBLE);
+            startButton.setImageResource(R.drawable.jz_click_play_selector);
+            replayTextView.setVisibility(INVISIBLE);//屏蔽重新播放
         } else {
             startButton.setImageResource(R.drawable.jz_click_play_selector);
             replayTextView.setVisibility(GONE);
