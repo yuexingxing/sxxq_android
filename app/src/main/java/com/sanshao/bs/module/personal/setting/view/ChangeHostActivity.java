@@ -81,15 +81,13 @@ public class ChangeHostActivity extends BaseActivity<BaseViewModel, ActivityChan
             restart();
         });
 
-        if (ACache.get(context).getAsObject(ConfigSP.SP_CURRENT_HOST) != null) {
-            mCurrentIndex = (ConfigSP.HOST_TYPE) ACache.get(context).getAsObject(ConfigSP.SP_CURRENT_HOST);
-            if (mCurrentIndex == ConfigSP.HOST_TYPE.DEV) {
-                binding.rbDev.setChecked(true);
-            } else if (mCurrentIndex == ConfigSP.HOST_TYPE.PRE) {
-                binding.rbPre.setChecked(true);
-            } else {
-                binding.rbPro.setChecked(true);
-            }
+        mCurrentIndex = (ConfigSP.HOST_TYPE) ACache.get(context).getAsObject(ConfigSP.SP_CURRENT_HOST);
+        if (ConfigSP.HOST_TYPE.DEV == mCurrentIndex) {
+            binding.rbDev.setChecked(true);
+        } else if (ConfigSP.HOST_TYPE.PRE == mCurrentIndex) {
+            binding.rbPre.setChecked(true);
+        } else {
+            binding.rbPro.setChecked(true);
         }
     }
 
