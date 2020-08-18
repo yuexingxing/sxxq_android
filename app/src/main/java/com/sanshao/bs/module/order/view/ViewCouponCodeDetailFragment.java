@@ -2,6 +2,7 @@ package com.sanshao.bs.module.order.view;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
 
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.util.QRCodeUtil;
@@ -46,9 +47,17 @@ public class ViewCouponCodeDetailFragment extends BaseFragment<OrderStatusViewMo
     public void initData() {
 
         GoodsDetailInfo.WriteOffInfo writeOffInfo = (GoodsDetailInfo.WriteOffInfo) getArguments().getSerializable(Constants.OPT_DATA);
-        String qrData = String.format("salebill_id=%s&code=%s", writeOffInfo.salebillId, writeOffInfo.code);
-        int qrcodeHeight = ScreenUtil.dp2px(context, 150);
-        Bitmap bitmap = QRCodeUtil.createQRCodeBitmap(qrData, qrcodeHeight, qrcodeHeight);
-        binding.ivQrcode.setImageBitmap(bitmap);
+        if (writeOffInfo.canUse()) {
+            binding.ivQrcodeUsed.setVisibility(View.GONE);
+            binding.ivQrcode.setVisibility(View.VISIBLE);
+            String qrData = String.format("salebill_id=%s&code=%s", writeOffInfo.salebillId, writeOffInfo.code);
+            int qrcodeHeight = ScreenUtil.dp2px(context, 150);
+            Bitmap bitmap = QRCodeUtil.createQRCodeBitmap(qrData, qrcodeHeight, qrcodeHeight);
+            binding.ivQrcode.setImageBitmap(bitmap);
+        } else {
+            binding.ivQrcodeUsed.setVisibility(View.VISIBLE);
+            binding.ivQrcode.setVisibility(View.GONE);
+        }
+
     }
 }

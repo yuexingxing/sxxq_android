@@ -15,6 +15,7 @@ import com.sanshao.bs.module.invitation.model.InvitationCallBack;
 import com.sanshao.bs.module.invitation.viewmodel.InvitationViewModel;
 import com.sanshao.bs.module.register.view.RegisterActivity;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
+import com.sanshao.bs.module.shoppingcenter.bean.GoodsTypeInfo;
 import com.sanshao.bs.module.shoppingcenter.view.GoodsDetailActivity;
 import com.sanshao.bs.module.shoppingcenter.view.GoodsListActivity;
 import com.sanshao.bs.module.shoppingcenter.view.adapter.GoodsTypeDetailVerticalAdapter;
@@ -71,7 +72,9 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
         goodsTypeDetailVerticalAdapter = new GoodsTypeDetailVerticalAdapter();
         goodsTypeDetailVerticalAdapter.setCommonCallBack((postion, object) -> {
             if (SSApplication.isLogin()) {
-                GoodsListActivity.start(context, Constants.TAG_ID_INVITE);
+                GoodsTypeInfo goodsTypeInfo = new GoodsTypeInfo();
+                goodsTypeInfo.artitag_id = Constants.TAG_ID_INVITE;
+                GoodsListActivity.start(context, goodsTypeInfo);
             } else {
                 RegisterActivity.start(context, Constants.TAG_ID_REGISTER);
             }

@@ -121,5 +121,9 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
         public String salebillId;
         public String type;
         public String code;
+
+        public boolean canUse() {
+            return TextUtils.equals("ENABLE", type);
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.sanshao.bs.module.shoppingcenter.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.text.TextUtils;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
 import com.sanshao.bs.module.order.view.ConfirmOrderActivity;
 import com.sanshao.bs.module.register.view.RegisterActivity;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
+import com.sanshao.bs.module.shoppingcenter.bean.GoodsTypeInfo;
 import com.sanshao.bs.module.shoppingcenter.model.IGoodsListModel;
 import com.sanshao.bs.module.shoppingcenter.view.adapter.GoodsListAdapter;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsPosterDialog;
@@ -56,9 +58,9 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
     private int mPageNum = 0;
     private GoodsListAdapter mGoodsListAdapter;
 
-    public static void start(Context context, String artiTagId) {
+    public static void start(Context context, GoodsTypeInfo goodsTypeInfo) {
         Intent starter = new Intent(context, GoodsListActivity.class);
-        starter.putExtra(Constants.OPT_DATA, artiTagId);
+        starter.putExtra(Constants.OPT_DATA, goodsTypeInfo);
         context.startActivity(starter);
     }
 
@@ -71,7 +73,11 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
     @Override
     public void initData() {
 
-        mArtiTagId = getIntent().getStringExtra(Constants.OPT_DATA);
+        GoodsTypeInfo goodsTypeInfo = (GoodsTypeInfo) getIntent().getSerializableExtra(Constants.OPT_DATA);
+        mArtiTagId = goodsTypeInfo.artitag_id;
+        if (!TextUtils.isEmpty(goodsTypeInfo.artitag_name)) {
+            binding.titleBar.setTitle(goodsTypeInfo.artitag_name);
+        }
         mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override

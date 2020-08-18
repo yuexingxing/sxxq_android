@@ -97,7 +97,7 @@ public class OrderInfo implements Serializable {
         } else if (TextUtils.equals(status, ORDER_STATUS.PAID)) {
             return "待使用";
         } else if (TextUtils.equals(status, ORDER_STATUS.FINISH)) {
-            return "待支付";
+            return "已完成";
         } else if (TextUtils.equals(status, ORDER_STATUS.PAYING)) {
             return "付款中";
         } else if (TextUtils.equals(status, ORDER_STATUS.CANCEL)) {

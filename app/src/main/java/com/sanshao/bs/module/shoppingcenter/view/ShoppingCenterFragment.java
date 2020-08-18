@@ -56,7 +56,7 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
         binding.goodsTypeRecyclerView.setLayoutManager(linearLayoutManager);
         binding.goodsTypeRecyclerView.setAdapter(mGoodsTypeAdapter);
         mGoodsTypeAdapter.setOnItemClickListener((adapter, view, position) -> {
-            GoodsListActivity.start(context, mGoodsTypeAdapter.getData().get(position).artitag_id);
+            GoodsListActivity.start(context, mGoodsTypeAdapter.getData().get(position));
         });
 
         binding.homeBannerLayout.setOnBannerClick(bannerInfo -> {
@@ -157,7 +157,10 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
             }
         } else if (TextUtils.equals(bannerInfo.action_type, BannerInfo.ActionType.GOODS_LIST)) {
             if (bannerInfo.action_args != null) {
-                GoodsListActivity.start(context, bannerInfo.action_args.artitag_id);
+                GoodsTypeInfo goodsTypeInfo = new GoodsTypeInfo();
+                goodsTypeInfo.artitag_id = bannerInfo.action_args.artitag_id;
+                goodsTypeInfo.artitag_name = bannerInfo.action_args.artitag_name;
+                GoodsListActivity.start(context, goodsTypeInfo);
             }
         } else if (TextUtils.equals(bannerInfo.action_type, BannerInfo.ActionType.NEW_MEM)) {
             String tagId = Constants.TAG_ID_INVITE;

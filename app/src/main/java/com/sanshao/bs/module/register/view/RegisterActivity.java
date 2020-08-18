@@ -18,6 +18,7 @@ import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.module.register.model.IRegisterCallBack;
 import com.sanshao.bs.module.register.viewmodel.RegisterViewModel;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
+import com.sanshao.bs.module.shoppingcenter.bean.GoodsTypeInfo;
 import com.sanshao.bs.module.shoppingcenter.view.GoodsDetailActivity;
 import com.sanshao.bs.module.shoppingcenter.view.GoodsListActivity;
 import com.sanshao.bs.module.shoppingcenter.view.adapter.GoodsTypeDetailVerticalAdapter;
@@ -106,7 +107,9 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
         goodsTypeDetailVerticalAdapter = new GoodsTypeDetailVerticalAdapter();
         goodsTypeDetailVerticalAdapter.setCommonCallBack((postion, object) -> {
             if (SSApplication.isLogin()) {
-                GoodsListActivity.start(context, Constants.TAG_ID_REGISTER);
+                GoodsTypeInfo goodsTypeInfo = new GoodsTypeInfo();
+                goodsTypeInfo.artitag_id = Constants.TAG_ID_REGISTER;
+                GoodsListActivity.start(context, goodsTypeInfo);
             } else {
                 binding.nestedScrollview.smoothScrollTo(0, 0);
             }
