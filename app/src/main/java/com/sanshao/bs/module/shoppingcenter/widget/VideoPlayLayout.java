@@ -27,6 +27,7 @@ public class VideoPlayLayout extends LinearLayout {
 
     public void setVideoInfo(VideoInfo videoInfo) {
         mJzvdStd.setVisibility(VISIBLE);
+        mJzvdStd.setVideoImageDisplayType(Jzvd.VIDEO_IMAGE_DISPLAY_TYPE_FILL_SCROP);
         mJzvdStd.setUp(videoInfo.video, "", JzvdStd.SCREEN_NORMAL);
         mJzvdStd.fullscreenButton.setVisibility(INVISIBLE);
         GlideUtil.loadImage(videoInfo.img, mJzvdStd.posterImageView);
