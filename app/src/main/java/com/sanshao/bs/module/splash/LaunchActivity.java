@@ -2,10 +2,12 @@ package com.sanshao.bs.module.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sanshao.bs.R;
+import com.sanshao.bs.module.MainActivity;
 
 /**
  * 启动页
@@ -20,8 +22,25 @@ public class LaunchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
 
-        Intent starter = new Intent(this, SplashActivity.class);
-        startActivity(starter);
+        countDownTimer.start();
+    }
+
+    private CountDownTimer countDownTimer = new CountDownTimer(1000, 1000) {
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+
+        }
+
+        @Override
+        public void onFinish() {
+            jump();
+        }
+    };
+
+    private void jump() {
+        Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
+        startActivity(intent);
         finish();
     }
 }

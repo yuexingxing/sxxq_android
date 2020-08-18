@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/icon_goods_type_six" />
+        android:src="@drawable/image_logo" />
 
     <TextView
         android:id="@+id/tv_tip"
@@ -23,7 +23,7 @@
         android:gravity="center_horizontal"
         android:text="健康不能少  美丽不能少  财富不能少"
         android:textColor="@color/color_333333"
-        android:textSize="14sp" />
+        android:textSize="12sp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -34,5 +34,5 @@
         android:gravity="center_horizontal"
         android:text="健康美丽财富一个都不能少"
         android:textColor="@color/color_333333"
-        android:textSize="14sp" />
+        android:textSize="12sp" />
 </RelativeLayout>
