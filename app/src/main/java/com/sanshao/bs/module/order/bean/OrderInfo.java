@@ -45,7 +45,7 @@ public class OrderInfo implements Serializable {
 
     // 预约状态
     @SerializedName("status")
-    public int appointmentStatus;
+    public String appointmentStatus;
 
     @SerializedName("sale_status")
     public String saleStatus;
@@ -93,9 +93,9 @@ public class OrderInfo implements Serializable {
         if (TextUtils.isEmpty(status)) {
             return "";
         } else if (TextUtils.equals(status, ORDER_STATUS.PAY)) {
-            return "待付款";
+            return "待支付";
         } else if (TextUtils.equals(status, ORDER_STATUS.PAID)) {
-            return "已付款";
+            return "待使用";
         } else if (TextUtils.equals(status, ORDER_STATUS.FINISH)) {
             return "待支付";
         } else if (TextUtils.equals(status, ORDER_STATUS.PAYING)) {

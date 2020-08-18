@@ -2,6 +2,7 @@ package com.sanshao.bs.module.personal.personaldata.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -44,7 +45,11 @@ public class SelectBirthdayDialog {
         Calendar calendarShow = Calendar.getInstance();
 
         UserInfo userInfo = SSApplication.getInstance().getUserInfo();
-        String[] arrBirthday = userInfo.birthday.split("-");
+        String[] arrBirthday = null;
+        if (!TextUtils.isEmpty(userInfo.birthday)) {
+            arrBirthday = userInfo.birthday.split("-");
+        }
+
         if (arrBirthday != null && arrBirthday.length == 3) {
             calendarShow.set(Integer.parseInt(arrBirthday[0]), Integer.parseInt(arrBirthday[1]) - 1, Integer.parseInt(arrBirthday[2]));
         } else {

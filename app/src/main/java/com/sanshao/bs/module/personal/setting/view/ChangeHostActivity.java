@@ -94,7 +94,7 @@ public class ChangeHostActivity extends BaseActivity<BaseViewModel, ActivityChan
     }
 
     private void restart() {
-//        ACache.get(context).put(ConfigSP.SP_TOKEN, "");
+        ACache.get(context).put(ConfigSP.SP_TOKEN, "");
         RestartAPPTool.restartAPP(getApplicationContext(), 100);
     }
 }
