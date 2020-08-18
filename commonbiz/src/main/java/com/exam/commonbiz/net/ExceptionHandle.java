@@ -2,15 +2,13 @@ package com.exam.commonbiz.net;
 
 import android.net.ParseException;
 
-import com.exam.commonbiz.cache.ACache;
 import com.google.gson.JsonParseException;
+import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 
 import org.apache.http.conn.ConnectTimeoutException;
 import org.json.JSONException;
 
 import java.net.ConnectException;
-
-import retrofit2.HttpException;
 
 /**
  * @Author yuexingxing
@@ -38,11 +36,12 @@ public class ExceptionHandle {
 
         e.printStackTrace();
         ResponeThrowable ex;
-        if (e instanceof HttpException) {
+        if (e instanceof com.jakewharton.retrofit2.adapter.rxjava2.HttpException) {
             HttpException httpException = (HttpException) e;
             ex = new ResponeThrowable(e, ERROR.HTTP_ERROR);
             switch (httpException.code()) {
                 case UNAUTHORIZED:
+                    ex.code = UNAUTHORIZED;
                     ex.message = "请重新登录";
                     break;
                 case FORBIDDEN:
@@ -84,9 +83,6 @@ public class ExceptionHandle {
             ex = new ResponeThrowable(e, ERROR.TIMEOUT_ERROR);
             ex.message = CONNECTION_TIMEOUT;
             return ex;
-        } else if (e instanceof com.jakewharton.retrofit2.adapter.rxjava2.HttpException) {
-            ex = new ResponeThrowable(e, ExceptionHandle.UNAUTHORIZED);
-            ex.message = "身份过期，请重新登录";
         } else {
             ex = new ResponeThrowable(e, ERROR.UNKNOWN);
             ex.message = UNKNOW_ERROR;
