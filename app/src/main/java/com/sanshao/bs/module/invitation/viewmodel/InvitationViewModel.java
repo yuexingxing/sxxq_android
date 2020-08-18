@@ -64,7 +64,7 @@ public class InvitationViewModel extends ViewModel {
 
             @Override
             public void onLoadSucessed(BaseResponse<UserReferrals> t) {
-                if(callBack == null){
+                if(callBack != null){
                     callBack.showUserReferrals(t.getContent());
                 }
             }

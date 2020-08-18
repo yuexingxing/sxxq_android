@@ -31,6 +31,7 @@ import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.module.personal.event.UpdateUserInfoEvent;
 import com.sanshao.bs.module.personal.inquiry.view.ToBeInquiryListActivity;
 import com.sanshao.bs.module.personal.model.IPersonalCallBack;
+import com.sanshao.bs.module.personal.myfans.view.FansActivity;
 import com.sanshao.bs.module.personal.personaldata.dialog.MyInviterDialog;
 import com.sanshao.bs.module.personal.personaldata.view.PersonalDetailActivity;
 import com.sanshao.bs.module.personal.setting.view.SettingActivity;
@@ -138,7 +139,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             if (!SSApplication.isLogin()) {
                 LoginActivity.start(context);
             } else {
-
+                FansActivity.start(context);
             }
         });
         binding.pavMyShare.setOnClickListener(v -> {

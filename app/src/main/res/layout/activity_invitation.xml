@@ -20,7 +20,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#ffffff"
+                android:background="#fafafa"
                 android:orientation="vertical"
                 android:gravity="center_horizontal"
                 android:paddingBottom="20dp">
@@ -47,18 +47,16 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginLeft="10dp"
-                        android:visibility="invisible"
                         android:textSize="10sp"
                         android:textColor="#313131"
-                        android:text="已邀请1人"/>
+                        android:text="已邀请0人"/>
 
                     <LinearLayout
                         android:id="@+id/view_invitatoin_user"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_gravity="center_horizontal"
-                        android:visibility="gone">
+                        android:layout_gravity="center_horizontal">
                         <LinearLayout
                             android:id="@+id/view_user1"
                             android:layout_width="wrap_content"
@@ -77,7 +75,7 @@
                                 android:id="@+id/tv_user_name1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="天空"
+                                android:text="无"
                                 android:textColor="#ff000000"
                                 android:textSize="6sp" />
                         </LinearLayout>
@@ -101,7 +99,7 @@
                                 android:id="@+id/tv_user_name2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="天空"
+                                android:text="无"
                                 android:textColor="#ff000000"
                                 android:textSize="6sp" />
                         </LinearLayout>
@@ -125,7 +123,7 @@
                                 android:id="@+id/tv_user_name3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="天空"
+                                android:text="无"
                                 android:textColor="#ff000000"
                                 android:textSize="6sp" />
                         </LinearLayout>
@@ -159,8 +157,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="22dp"
                         android:layout_gravity="center_horizontal"
-                        android:visibility="gone"
-                        android:text="已成功邀请0个好友  可免费领取0个奖励变美专区项目"
+                        android:text="已成功邀请0个好友  可免费领取1000个奖励变美专区项目"
                         android:textColor="#ff313131"
                         android:textSize="8sp" />
                 </LinearLayout>
