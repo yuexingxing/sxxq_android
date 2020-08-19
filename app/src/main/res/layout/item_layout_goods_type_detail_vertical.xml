@@ -28,14 +28,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="153dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center_horizontal">
 
                     <com.sanshao.bs.widget.OvalImageView
                         android:id="@+id/iv_icon"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
+                        android:layout_height="153dp"
+                        android:scaleType="fitXY"
                         android:src="@drawable/image_placeholder_three"
                         app:OvalImageView_top_left="10"
                         app:OvalImageView_top_right="10" />

@@ -2,12 +2,15 @@ package com.sanshao.bs.module.shoppingcenter.view.adapter;
 
 import android.graphics.Paint;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.exam.commonbiz.util.CommonCallBack;
+import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.bs.R;
+import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.util.GlideUtil;
 import com.sanshao.bs.util.MathUtil;
@@ -27,7 +30,7 @@ public class GoodsTypeDetailVerticalAdapter extends BaseMultiItemQuickAdapter<Go
         addItemType(GoodsDetailInfo.GOODS_TYPE.WITH_LAST_DATA, R.layout.item_layout_goods_type_detail_vertical_empty);
     }
 
-    public void setCommonCallBack(CommonCallBack commonCallBack){
+    public void setCommonCallBack(CommonCallBack commonCallBack) {
         mCommonCallBack = commonCallBack;
     }
 
@@ -68,10 +71,16 @@ public class GoodsTypeDetailVerticalAdapter extends BaseMultiItemQuickAdapter<Go
         }
 
         if (helper.getAdapterPosition() % 2 == 0) {
-            helper.getView(R.id.view_right).setVisibility(View.VISIBLE);
+            helper.getView(R.id.view_right).setVisibility(View.GONE);
         } else {
             helper.getView(R.id.view_right).setVisibility(View.GONE);
         }
+
+        int itemBgWidth = ScreenUtil.getScreenWidth(SSApplication.app) / 2 - ScreenUtil.dp2px(SSApplication.app, 15);
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) helper.getView(R.id.iv_icon).getLayoutParams();
+        layoutParams.width = itemBgWidth;
+        layoutParams.height = itemBgWidth;
+        helper.getView(R.id.iv_icon).setLayoutParams(layoutParams);
     }
 
     private void initEmptyView(BaseViewHolder helper, GoodsDetailInfo item) {
@@ -79,7 +88,7 @@ public class GoodsTypeDetailVerticalAdapter extends BaseMultiItemQuickAdapter<Go
         helper.getView(R.id.iv_icon).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mCommonCallBack != null){
+                if (mCommonCallBack != null) {
                     mCommonCallBack.callback(helper.getAdapterPosition(), item);
                 }
             }

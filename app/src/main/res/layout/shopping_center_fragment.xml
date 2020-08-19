@@ -82,11 +82,11 @@
                         <ImageView
                             android:id="@+id/iv_ad"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="88dp"
                             android:layout_marginLeft="@dimen/left_container_margin"
                             android:layout_marginTop="24dp"
                             android:layout_marginRight="@dimen/right_container_margin"
-                            android:scaleType="fitCenter" />
+                            android:scaleType="centerCrop" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/goods_type_recycler_view"

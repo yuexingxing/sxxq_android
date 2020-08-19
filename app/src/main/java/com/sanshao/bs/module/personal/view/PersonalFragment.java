@@ -157,9 +157,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     public void onResume() {
         super.onResume();
 //        if (!TextUtils.isEmpty(SSApplication.getToken())) {
-        mViewModel.getUserInfo();
-        mOrderDetailViewModel.getOrderNumStatus();
-//        mAppointmentForConsultationViewModel.getAppointmentedList();
+//              mAppointmentForConsultationViewModel.getAppointmentedList();
 //        } else {
 //            initMemberStatus(null);
 //        }
@@ -177,7 +175,8 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
 
     @Override
     protected void loadData() {
-
+        mViewModel.getUserInfo();
+        mOrderDetailViewModel.getOrderNumStatus();
     }
 
     @Override
