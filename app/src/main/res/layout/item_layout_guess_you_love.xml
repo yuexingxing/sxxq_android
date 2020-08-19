@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="166dp"
             android:scaleType="fitXY"
-            android:src="@drawable/image_placeholder_three"
+            android:src="@drawable/gray_btn_bg"
             app:OvalImageView_top_left="20"
             app:OvalImageView_top_right="20" />
 

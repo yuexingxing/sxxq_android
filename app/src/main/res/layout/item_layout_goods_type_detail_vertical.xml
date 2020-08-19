@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="12dp">
+        android:paddingTop="12dp">
 
         <LinearLayout
             android:id="@+id/ll_bg"
