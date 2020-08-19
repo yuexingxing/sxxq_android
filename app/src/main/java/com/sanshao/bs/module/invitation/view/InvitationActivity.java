@@ -13,6 +13,7 @@ import com.sanshao.bs.databinding.ActivityInvitationBinding;
 import com.sanshao.bs.module.invitation.bean.UserReferrals;
 import com.sanshao.bs.module.invitation.model.InvitationCallBack;
 import com.sanshao.bs.module.invitation.viewmodel.InvitationViewModel;
+import com.sanshao.bs.module.personal.myfans.view.FansListAdapter;
 import com.sanshao.bs.module.register.view.RegisterActivity;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsTypeInfo;
@@ -27,11 +28,14 @@ import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import java.util.List;
 
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class InvitationActivity extends BaseActivity<InvitationViewModel, ActivityInvitationBinding> implements InvitationCallBack {
 
     private GoodsTypeDetailVerticalAdapter goodsTypeDetailVerticalAdapter;
+
+    private InvitationListAdapter invitationListAdapter;
 
     public static void start(Context context, String artiTagId) {
         if (TextUtils.isEmpty(artiTagId)) return;
@@ -94,6 +98,15 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
         binding.goodsRecyclerView.setLayoutManager(gridLayoutManager);
         binding.goodsRecyclerView.setAdapter(goodsTypeDetailVerticalAdapter);
 
+
+        invitationListAdapter = new InvitationListAdapter();
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        binding.invitationRecyclerView.setNestedScrollingEnabled(false);
+        binding.invitationRecyclerView.setLayoutManager(linearLayoutManager);
+        binding.invitationRecyclerView.setAdapter(invitationListAdapter);
+
         LoadDialogMgr.getInstance().show(InvitationActivity.this);
         mViewModel.getGoodsList(artiTagId);
         mViewModel.getUserReferrals();
@@ -155,5 +168,8 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
                 GlideUtil.loadImage(item.avatar, binding.ivUserAvatar3, R.drawable.image_placeholder_two);
             }
         }
+
+        binding.invitaionRecord.setVisibility(View.VISIBLE);
+        invitationListAdapter.setNewData(userReferrals.referrals);
     }
 }

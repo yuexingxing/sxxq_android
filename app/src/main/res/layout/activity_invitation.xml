@@ -147,7 +147,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center_horizontal"
-                        android:textSize="10sp"
+                        android:textSize="14sp"
                         android:textColor="#000000"
                         android:text="邀请好友一起免费变美"/>
 
@@ -159,7 +159,7 @@
                         android:layout_gravity="center_horizontal"
                         android:text="已成功邀请0个好友  可免费领取1000个奖励变美专区项目"
                         android:textColor="#ff313131"
-                        android:textSize="8sp" />
+                        android:textSize="10sp" />
                 </LinearLayout>
 
                 <ImageView
@@ -200,6 +200,32 @@
                         android:textSize="13sp"
                         android:textColor="#333333"
                         android:text="@string/invitation_tip"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/invitaion_record"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/shape_radius_10_fdacab"
+                        android:gravity="center"
+                        android:textSize="12sp"
+                        android:textColor="#ffffff"
+                        android:text="邀请记录"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/invitation_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"/>
                 </LinearLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
