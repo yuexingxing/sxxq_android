@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.log.XLog;
+import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityMyfansBinding;
 import com.sanshao.bs.module.invitation.bean.UserReferrals;
@@ -19,8 +20,9 @@ import java.util.List;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-public class FansActivity  extends BaseActivity<FansViewModel, ActivityMyfansBinding> implements IFansCallBack {
+public class FansActivity extends BaseActivity<FansViewModel, ActivityMyfansBinding> implements IFansCallBack {
 
     private FansListAdapter adapter;
 
@@ -73,6 +75,12 @@ public class FansActivity  extends BaseActivity<FansViewModel, ActivityMyfansBin
 
             }
         });
+        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mViewModel.getFans(FansActivity.this);
+            }
+        });
 
         mViewModel.getFans(FansActivity.this);
     }
@@ -84,6 +92,12 @@ public class FansActivity  extends BaseActivity<FansViewModel, ActivityMyfansBin
 
     @Override
     public void showFans(List<UserReferrals.UserReferralsItem> fansList) {
+        binding.swipeRefreshLayout.setRefreshing(false);
+        if (ContainerUtil.isEmpty(fansList)) {
+            binding.emptyLayout.showEmpty("暂无粉丝", R.drawable.imsge_noorder);
+            return;
+        }
+        binding.emptyLayout.showSuccess();
         adapter.setNewData(fansList);
     }
 }
