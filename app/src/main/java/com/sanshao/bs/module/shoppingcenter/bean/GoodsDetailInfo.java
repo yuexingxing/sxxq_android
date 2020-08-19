@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.sanshao.bs.util.Constants;
+import com.sanshao.bs.util.MathUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -74,6 +75,15 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
 
     public boolean isFree() {
         return !isPayByPoint() && sarti_saleprice == 0;
+    }
+
+    public String getPriceText() {
+        if (isFree()) {
+            return "免费领取";
+        } else if (isPayByPoint()) {
+            return sarti_point_price + "分享金";
+        }
+        return "¥" + MathUtil.getNumExclude0(sarti_saleprice);
     }
 
     public void setItemType(int itemType) {

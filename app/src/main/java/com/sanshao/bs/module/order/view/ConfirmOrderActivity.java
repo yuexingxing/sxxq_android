@@ -3,6 +3,7 @@ package com.sanshao.bs.module.order.view;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.widget.TextView;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.util.ContainerUtil;
@@ -44,7 +45,9 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
     private String mGoodsName;
     private double mTotalPrice = 0;
     private int mTotalBuyNum = 0;
+    private int mTotalSharePoint = 0;
     private GoodsDetailViewModel mGoodsDetailViewModel;
+    private GoodsDetailInfo mGoodsDetailInfo;
 
     public static void start(Context context, String sartiId) {
         Intent starter = new Intent(context, ConfirmOrderActivity.class);
@@ -159,18 +162,31 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
 
         mTotalBuyNum = 0;
         mTotalPrice = 0;
+        mTotalSharePoint = 0;
         for (int i = 0; i < goodsDetailInfoList.size(); i++) {
             GoodsDetailInfo goodsDetailInfo = goodsDetailInfoList.get(i);
             mTotalBuyNum += goodsDetailInfo.buyNum;
             mTotalPrice += MathUtil.multiply(goodsDetailInfo.buyNum, goodsDetailInfo.sarti_saleprice);
+            mTotalSharePoint += goodsDetailInfo.buyNum * goodsDetailInfo.sarti_point_price;
         }
 
         String showPrice = MathUtil.getNumExclude0(mTotalPrice) + "元";
         binding.tvBuyNum1.setText(mTotalBuyNum + "件");
         binding.tvBuyNum2.setText("共" + mTotalBuyNum + "件");
-        binding.tvTotalPrice1.setText(showPrice);
-        binding.tvTotalPrice2.setText(showPrice);
-        binding.tvTotalPrice3.setText(showPrice);
+
+        if (mGoodsDetailInfo.isFree()) {
+            setTextInfo("免费领取");
+        } else if (mGoodsDetailInfo.isPayByPoint()) {
+            setTextInfo(mTotalSharePoint + "分享金");
+        } else {
+            setTextInfo(showPrice);
+        }
+    }
+
+    private void setTextInfo(String info) {
+        binding.tvTotalPrice1.setText(info);
+        binding.tvTotalPrice2.setText(info);
+        binding.tvTotalPrice3.setText(info);
     }
 
     @Override
@@ -215,6 +231,7 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
             return;
         }
 
+        mGoodsDetailInfo = goodsDetailInfo;
         mGoodsName = goodsDetailInfo.sarti_name;
         List<GoodsDetailInfo> goodsDetailInfoList = new ArrayList<>();
         goodsDetailInfoList.add(goodsDetailInfo);

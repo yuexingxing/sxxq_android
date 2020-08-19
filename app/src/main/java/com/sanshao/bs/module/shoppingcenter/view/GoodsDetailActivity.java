@@ -290,17 +290,15 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         binding.tvSellNum.setText("已售" + goodsDetailInfo.sell_num);
         binding.tvGoodsIntro.setText(goodsDetailInfo.sarti_intro);
 
+        binding.tvPrice.setText(goodsDetailInfo.getPriceText());
         if (goodsDetailInfo.isFree()) {
-            binding.tvPrice.setText("免费领取");
             binding.includeBottom.btnBuy.setText("免费领取");
             binding.ivRecommendReward.setBackgroundResource(R.drawable.regactivity);
         } else if (goodsDetailInfo.isPayByPoint()) {
-            binding.tvPrice.setText(goodsDetailInfo.getPointTip());
             binding.tvOldPrice.setVisibility(View.GONE);
             binding.includeBottom.btnBuy.setText("分享金购买");
             binding.ivRecommendReward.setBackgroundResource(R.drawable.share_icon);
         } else {
-            binding.tvPrice.setText("¥" + MathUtil.getNumExclude0(goodsDetailInfo.sarti_saleprice));
             binding.ivRecommendReward.setBackgroundResource(R.drawable.tuijianyou);
         }
 
