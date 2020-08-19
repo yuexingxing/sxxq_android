@@ -1,16 +1,22 @@
 package com.sanshao.bs.util;
 
+import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import com.didichuxing.doraemonkit.util.UIUtils;
 import com.exam.commonbiz.util.CommonCallBack;
+import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.module.shoppingcenter.view.GoodsDetailActivity;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsPosterDialog;
@@ -130,5 +136,30 @@ public class CommandTools {
                     }
                 })
                 .show();
+    }
+
+    /**
+     * 判断当前view是否在屏幕可见
+     */
+    public static boolean getLocalVisibleRect(Context context, View view, int offsetY) {
+        Point p = new Point();
+        ((Activity) context).getWindowManager().getDefaultDisplay().getSize(p);
+        int screenWidth = p.x;
+        int screenHeight = p.y;
+        Rect rect = new Rect(0, 0, screenWidth, screenHeight);
+        int[] location = new int[2];
+        location[1] = location[1] + ScreenUtil.dp2px(context, offsetY);
+        view.getLocationInWindow(location);
+        view.setTag(location[1]);//存储y方向的位置
+        if (view.getLocalVisibleRect(rect)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    public static boolean isVisibleInScreen(View v) {
+        return v.getLocalVisibleRect(new Rect());
     }
 }

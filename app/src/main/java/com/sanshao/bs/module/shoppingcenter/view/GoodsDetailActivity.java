@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -112,6 +113,17 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             } else {
                 binding.llTab.setVisibility(View.GONE);
             }
+
+            int[] location = new int[2];
+            binding.llGoodsDetail.getLocationInWindow(location);
+            Log.d("zdddz", scrollY + "/" + location[1]);
+            if (location[1] < 1800) {
+                initTabStatus(1);
+            } else if (location[1] < 2100) {
+                initTabStatus(0);
+            } else {
+                binding.llTab.setVisibility(View.GONE);
+            }
         });
 
         binding.llIntroduction.setOnClickListener(v -> {
@@ -130,7 +142,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         });
         binding.llTabGoods.setOnClickListener(v -> {
             initTabStatus(0);
-            scrollToView(binding.llGoods);
+            binding.nestedScrollview.smoothScrollTo(0, 0);
         });
         binding.llTabGoodsDetail.setOnClickListener(v -> {
             initTabStatus(1);
@@ -172,6 +184,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                     new GoodsInroductionDialog().show(context, title, content);
                 }
         );
+        initTabStatus(1);
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) binding.homeBannerLayout.getLayoutParams();
         int videoHeight = ScreenUtil.getScreenWidth(SSApplication.app) - ScreenUtil.dp2px(SSApplication.app, 24);
         layoutParams.height = videoHeight;
