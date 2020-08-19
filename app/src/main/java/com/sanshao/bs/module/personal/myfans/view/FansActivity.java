@@ -94,7 +94,7 @@ public class FansActivity extends BaseActivity<FansViewModel, ActivityMyfansBind
     public void showFans(List<UserReferrals.UserReferralsItem> fansList) {
         binding.swipeRefreshLayout.setRefreshing(false);
         if (ContainerUtil.isEmpty(fansList)) {
-            binding.emptyLayout.showEmpty("暂无粉丝", R.drawable.imsge_noorder);
+            binding.emptyLayout.showEmpty("暂无粉丝", R.drawable.image_nofans);
             return;
         }
         binding.emptyLayout.showSuccess();

@@ -60,17 +60,6 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
             GoodsListActivity.start(context, mGoodsTypeAdapter.getData().get(position));
         });
 
-//        ViewTreeObserver viewTreeObserver = binding.goodsTypeRecyclerView.getViewTreeObserver();
-//        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//            @Override
-//            public void onGlobalLayout() {
-//                //移除监听，只用于布局初始化
-//                viewTreeObserver.removeOnGlobalLayoutListener(this);
-//                //传入 RecyclerView 高度，并做一些 Adapter 的初始化工作
-//                initAdapter(recyclerView.getHeight());
-//            }
-//        });
-
         binding.homeBannerLayout.setOnBannerClick(bannerInfo -> {
             jumpBanner(bannerInfo);
         });

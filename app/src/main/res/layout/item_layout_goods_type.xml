@@ -56,8 +56,8 @@
             android:id="@+id/goods_type_detail_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="12dp"
             android:layout_marginTop="12dp"
-            android:layout_marginRight="20dp" />
+            android:layout_marginRight="12dp" />
     </LinearLayout>
 </FrameLayout>
