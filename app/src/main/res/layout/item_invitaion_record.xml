@@ -38,8 +38,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="2dp"
         android:layout_marginLeft="38dp"
         android:layout_marginRight="59dp"
-        android:background="#000000" />
+        android:background="@drawable/invitation_dot_line" />
 </LinearLayout>
