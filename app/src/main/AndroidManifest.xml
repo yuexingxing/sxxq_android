@@ -146,6 +146,10 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".module.personal.myfans.view.FansActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".module.splash.LaunchActivity"
             android:screenOrientation="portrait">
             <intent-filter>

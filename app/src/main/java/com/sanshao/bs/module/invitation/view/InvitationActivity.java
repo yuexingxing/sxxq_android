@@ -126,7 +126,6 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
         binding.invitationTip.setVisibility(View.VISIBLE);
         binding.invitationTip.setText("已成功邀请" + count + "个好友  可免费领取" + count + "个奖励变美专区项目");
 
-        binding.viewInvitatoinUser.setVisibility(View.VISIBLE);
         binding.viewUser1.setVisibility(View.GONE);
         binding.viewUser2.setVisibility(View.GONE);
         binding.viewUser2.setVisibility(View.GONE);
