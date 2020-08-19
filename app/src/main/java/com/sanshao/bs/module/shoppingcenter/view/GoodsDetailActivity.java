@@ -116,10 +116,9 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
 
             int[] location = new int[2];
             binding.llGoodsDetail.getLocationInWindow(location);
-            Log.d("zdddz", scrollY + "/" + location[1]);
-            if (location[1] < 1800) {
+            if (location[1] < 1600) {
                 initTabStatus(1);
-            } else if (location[1] < 2100) {
+            } else if (location[1] < 2500) {
                 initTabStatus(0);
             } else {
                 binding.llTab.setVisibility(View.GONE);
