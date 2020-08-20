@@ -1,5 +1,6 @@
 package com.sanshao.bs.module.order.view;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -108,6 +109,12 @@ public class ViewCouponCodeFragment extends BaseFragment<OrderStatusViewModel, F
                     return;
                 }
                 binding.tvQrCode.setText("券码：" + mGoodsDetailInfo.write_off.get(position).code);
+
+                if (mGoodsDetailInfo.write_off.get(position).canUse()) {
+                    binding.tvQrCode.getPaint().setFlags(0);
+                } else {
+                    binding.tvQrCode.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+                }
             }
 
             @Override

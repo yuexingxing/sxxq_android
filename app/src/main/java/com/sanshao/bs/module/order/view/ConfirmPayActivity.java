@@ -123,7 +123,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
     @Override
     public void returnOrderPayInfo(OrderPayInfoResponse orderPayInfoResponse) {
         //TODO 获取支付信息，发起支付
-        PayCompleteActivity.start(context);
+//        PayCompleteActivity.start(context);
         if (orderPayInfoResponse == null) {
             return;
         }

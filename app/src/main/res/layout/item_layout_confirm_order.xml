@@ -185,7 +185,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_confirm_order_open" />
+            android:src="@drawable/icon_opentwo" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -236,7 +236,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/icon_confirm_order_close" />
+                    android:src="@drawable/icon_packup" />
 
                 <TextView
                     android:layout_width="wrap_content"
