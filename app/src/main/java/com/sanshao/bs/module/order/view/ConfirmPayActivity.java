@@ -82,7 +82,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
                 String path = "pages/order/confirmPay?" + "salebillId=" + createOrderResponse.orderNo;
                 ShareUtils.jump2WxMiniProgram(context, path);
             } else {
-                mViewModel.getOrderPayInfo(mSalebillId, mPayType);
+                mViewModel.getOrderPayInfo(PayViewModel.GET_PAY_INFO, mSalebillId, mPayType);
             }
         });
         binding.llPayWechat.setOnClickListener(v -> setCheckStatus(PAY_BY_WECHAT));
@@ -94,7 +94,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
     @Override
     protected void onResume() {
         super.onResume();
-//        mViewModel.getOrderStatus(mSalebillId);
+
     }
 
     @Override
@@ -132,9 +132,13 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
     }
 
     @Override
-    public void returnOrderPayInfo(OrderPayInfoResponse orderPayInfoResponse) {
-        //TODO 获取支付信息，发起支付
-//        PayCompleteActivity.start(context);
+    public void returnOrderPayInfo(int optType, OrderPayInfoResponse orderPayInfoResponse) {
+        if (PayViewModel.CHECK_PRDER_STATUS == optType && orderPayInfoResponse == null) {
+            ToastUtil.showShortToast("支付成功");
+            PayCompleteActivity.start(context, mSalebillId);
+            return;
+        }
+
         if (orderPayInfoResponse == null) {
             return;
         }
@@ -144,16 +148,15 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         payUtils.setOnPayListener(new OnPayListener() {
             @Override
             public void onPaySuccess() {
-                ToastUtil.showShortToast("支付成功");
-                PayCompleteActivity.start(context);
+                mViewModel.getOrderPayInfo(PayViewModel.CHECK_PRDER_STATUS, mSalebillId, mPayType);
             }
 
             @Override
             public void onPayFailed() {
                 ToastUtil.showShortToast("支付失败");
             }
-        })
-                .startPay(ConfirmPayActivity.this, CommandTools.beanToJson(orderPayInfoResponse));
+        });
+        payUtils.startPay(ConfirmPayActivity.this, CommandTools.beanToJson(orderPayInfoResponse));
     }
 
     @Override
@@ -161,7 +164,6 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         if (orderStatusResponse == null) {
             return;
         }
-        PayCompleteActivity.start(context);
     }
 
     @Override

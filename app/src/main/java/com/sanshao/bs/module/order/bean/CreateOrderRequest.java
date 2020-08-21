@@ -4,7 +4,6 @@ import java.util.List;
 
 public class CreateOrderRequest {
 
-    public String corp_id;
     public String note;
     public List<CartInfo> cart;
 

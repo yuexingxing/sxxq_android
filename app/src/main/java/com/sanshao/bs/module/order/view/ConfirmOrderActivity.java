@@ -91,7 +91,6 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
             }
 
             CreateOrderRequest createOrderRequest = new CreateOrderRequest();
-            createOrderRequest.corp_id = "123";
             createOrderRequest.note = binding.edtRemark.getText().toString();
 
             List<CreateOrderRequest.CartInfo> cartInfoList = new ArrayList<>();

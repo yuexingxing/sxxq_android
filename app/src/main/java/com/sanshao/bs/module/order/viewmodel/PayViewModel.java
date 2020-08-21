@@ -14,6 +14,9 @@ import com.sanshao.bs.util.ToastUtil;
  * @time 2020/6/20
  */
 public class PayViewModel extends BaseViewModel {
+    public static int GET_PAY_INFO = 1;
+    public static int CHECK_PRDER_STATUS = 2;
+
     private String TAG = PayViewModel.class.getSimpleName();
     private IPayModel mCallBack;
 
@@ -21,7 +24,7 @@ public class PayViewModel extends BaseViewModel {
         mCallBack = iConfirmPayModel;
     }
 
-    public void getOrderPayInfo(String salebillId, String payType) {
+    public void getOrderPayInfo(int optType, String salebillId, String payType) {
 
         PayModel.getOrderPayInfo(salebillId, payType, new OnLoadListener<OrderPayInfoResponse>() {
 
@@ -38,7 +41,7 @@ public class PayViewModel extends BaseViewModel {
             @Override
             public void onLoadSucessed(BaseResponse<OrderPayInfoResponse> t) {
                 if (mCallBack != null) {
-                    mCallBack.returnOrderPayInfo(t.getContent());
+                    mCallBack.returnOrderPayInfo(optType, t.getContent());
                 }
             }
 

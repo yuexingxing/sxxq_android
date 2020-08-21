@@ -5,22 +5,17 @@ import android.content.Intent;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
-import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
-import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
-import com.sanshao.bs.module.shoppingcenter.model.IGuessYouLoveModel;
-import com.sanshao.bs.module.shoppingcenter.viewmodel.GuessYouLoveViewModel;
-import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityPayCompleteBinding;
 import com.sanshao.bs.module.MainActivity;
 import com.sanshao.bs.module.order.bean.OrderInfo;
+import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
 import com.sanshao.bs.module.order.viewmodel.PayCompleteViewModel;
-import com.sanshao.bs.module.shoppingcenter.view.adapter.GuessYouLoveAdapter;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.PaySuccessDialog;
+import com.sanshao.bs.util.Constants;
+import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.List;
 
 /**
  * 支付完成
@@ -30,8 +25,12 @@ import java.util.List;
  */
 public class PayCompleteActivity extends BaseActivity<PayCompleteViewModel, ActivityPayCompleteBinding> {
 
-    public static void start(Context context) {
+    private String mSalebillId;
+    ;
+
+    public static void start(Context context, String salebillId) {
         Intent starter = new Intent(context, PayCompleteActivity.class);
+        starter.putExtra(Constants.OPT_DATA, salebillId);
         context.startActivity(starter);
     }
 
@@ -47,6 +46,7 @@ public class PayCompleteActivity extends BaseActivity<PayCompleteViewModel, Acti
         payStatusChangedEvent.paySuccess = true;
         EventBus.getDefault().post(payStatusChangedEvent);
 
+        mSalebillId = getIntent().getStringExtra(Constants.OPT_DATA);
         binding.llReward.getBackground().setAlpha(9);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
@@ -65,7 +65,7 @@ public class PayCompleteActivity extends BaseActivity<PayCompleteViewModel, Acti
             }
         });
         binding.tvToMain.setOnClickListener(v -> MainActivity.start(context));
-        binding.tvViewOrder.setOnClickListener(v -> OrderListActivity.start(context, OrderInfo.State.ALL));
+        binding.tvViewOrder.setOnClickListener(v -> OrderDetailActivity.start(context, mSalebillId));
 
         binding.guessYouLoveView.getData();
         PaySuccessDialog paySuccessDialog = new PaySuccessDialog();
