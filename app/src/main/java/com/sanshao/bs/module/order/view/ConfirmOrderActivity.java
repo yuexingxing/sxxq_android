@@ -135,7 +135,6 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
         UserInfo userInfo = SSApplication.getInstance().getUserInfo();
         binding.tvNickName.setText(userInfo.nickname);
         binding.tvPhone.setText(userInfo.mem_phone);
-        LoadDialogMgr.getInstance().show(context);
         mGoodsDetailViewModel.getGoodsDetail(context, mSartiId);
     }
 
