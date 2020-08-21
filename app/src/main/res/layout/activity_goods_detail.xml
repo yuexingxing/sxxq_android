@@ -334,7 +334,7 @@
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:src="@drawable/icon_lbs_off" />
+                                    android:src="@drawable/icon_location" />
 
                                 <TextView
                                     android:id="@+id/tv_address"

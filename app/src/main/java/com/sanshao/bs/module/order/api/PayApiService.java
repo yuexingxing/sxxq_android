@@ -20,7 +20,6 @@ public interface PayApiService {
                                                                    @Query("pay_type") String payType
     );
 
-
     //确认订单付款状态
     @GET("orderStatus")
     Observable<BaseResponse<OrderStatusResponse>> getOrderStatus(@Query("salebillId") String salebillId);

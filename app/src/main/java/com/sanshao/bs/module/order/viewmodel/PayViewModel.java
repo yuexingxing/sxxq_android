@@ -21,9 +21,9 @@ public class PayViewModel extends BaseViewModel {
         mCallBack = iConfirmPayModel;
     }
 
-    public void getOrderPayInfo(int payType) {
+    public void getOrderPayInfo(String salebillId, String payType) {
 
-        PayModel.getOrderPayInfo(payType, new OnLoadListener<OrderPayInfoResponse>() {
+        PayModel.getOrderPayInfo(salebillId, payType, new OnLoadListener<OrderPayInfoResponse>() {
 
             @Override
             public void onLoadStart() {

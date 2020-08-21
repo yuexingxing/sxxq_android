@@ -78,12 +78,12 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         binding.tvOrderNo.setText("订单编号：" + createOrderResponse.orderNo);
         binding.tvPrice.setText(MathUtil.getNumExclude0(Double.parseDouble(createOrderResponse.orderPrice)));
         binding.btnStartPay.setOnClickListener(v -> {
-//            if (TextUtils.equals(mPayType, PAY_BY_WECHAT)) {
+            if (TextUtils.equals(mPayType, PAY_BY_WECHAT)) {
                 String path = "pages/order/confirmPay?" + "salebillId=" + createOrderResponse.orderNo;
                 ShareUtils.jump2WxMiniProgram(context, path);
-//            } else {
-//                mViewModel.getOrderPayInfo(mSalebillId, mPayType);
-//            }
+            } else {
+                mViewModel.getOrderPayInfo(mSalebillId, mPayType);
+            }
         });
         binding.llPayWechat.setOnClickListener(v -> setCheckStatus(PAY_BY_WECHAT));
         binding.llPayAli.setOnClickListener(v -> setCheckStatus(PAY_BY_ALI_APP));

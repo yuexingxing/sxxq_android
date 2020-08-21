@@ -26,7 +26,7 @@ public class KitChangeHost implements IKit {
 
     @Override
     public int getIcon() {
-        return R.drawable.dk_sys_info;
+        return R.drawable.image_logo_smal;
     }
 
     @Override

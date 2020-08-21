@@ -11,7 +11,7 @@
     <FrameLayout
         android:layout_width="400dp"
         android:layout_height="100dp"
-        android:background="@drawable/dk_info_background">
+        android:background="@drawable/gray_btn_bg">
 
         <TextView
             android:layout_width="wrap_content"
