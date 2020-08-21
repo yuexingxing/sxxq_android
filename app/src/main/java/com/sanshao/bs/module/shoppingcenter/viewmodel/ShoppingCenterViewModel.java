@@ -1,18 +1,16 @@
 package com.sanshao.bs.module.shoppingcenter.viewmodel;
 
+import android.content.Context;
+
 import com.exam.commonbiz.base.BaseViewModel;
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
-import com.sanshao.bs.module.home.model.BannerInfo;
-import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
-import com.sanshao.bs.module.shoppingcenter.bean.GoodsTypeInfo;
+import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.module.shoppingcenter.bean.ShoppingCenterResponse;
 import com.sanshao.bs.module.shoppingcenter.model.IShoppingCenterModel;
 import com.sanshao.bs.module.shoppingcenter.model.ShoppingCenterModel;
-import com.sanshao.bs.util.Constants;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.sanshao.bs.util.CommandTools;
+import com.sanshao.bs.util.LoadDialogMgr;
 
 public class ShoppingCenterViewModel extends BaseViewModel {
 
@@ -22,18 +20,18 @@ public class ShoppingCenterViewModel extends BaseViewModel {
         mCallBack = iShoppingCenterModel;
     }
 
-    public void getGoodsList() {
+    public void getGoodsList(Context context) {
 
         ShoppingCenterModel.getShoppingCenterList(new OnLoadListener<ShoppingCenterResponse>() {
 
             @Override
             public void onLoadStart() {
-//                loadData();
+                LoadDialogMgr.getInstance().show(context);
             }
 
             @Override
             public void onLoadCompleted() {
-
+                LoadDialogMgr.getInstance().dismiss();
             }
 
             @Override

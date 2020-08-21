@@ -20,6 +20,7 @@ import com.sanshao.bs.module.order.viewmodel.OrderListViewModel;
 import com.sanshao.bs.module.personal.inquiry.view.AppointmentForConsultationActivity;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.util.Constants;
+import com.sanshao.bs.util.LoadDialogMgr;
 import com.sanshao.bs.util.ToastUtil;
 
 /**
@@ -117,7 +118,6 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
         mOrderListAdapter.disableLoadMoreIfNotFullPage();
         binding.swipeRefreshLayout.setColorSchemeResources(R.color.main_color);
         binding.swipeRefreshLayout.setOnRefreshListener(this);
-//        binding.emptyLayout.bindView(binding.recyclerView);
         binding.emptyLayout.setOnButtonClick(view -> {
             onRefresh();
         });

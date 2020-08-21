@@ -96,6 +96,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
                 mViewModel.getOrderPayInfo(PayViewModel.GET_PAY_INFO, mSalebillId, mPayType);
             }
         });
+        setCheckStatus(PAY_BY_ALI_APP);//默认支付宝支付
         binding.llPayWechat.setOnClickListener(v -> setCheckStatus(PAY_BY_WECHAT));
         binding.llPayAli.setOnClickListener(v -> setCheckStatus(PAY_BY_ALI_APP));
         binding.checkWechat.setOnClickListener(v -> setCheckStatus(PAY_BY_WECHAT));

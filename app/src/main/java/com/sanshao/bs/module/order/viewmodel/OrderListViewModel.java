@@ -1,9 +1,12 @@
 package com.sanshao.bs.module.order.viewmodel;
 
+import android.content.Context;
+
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
 import com.sanshao.bs.module.order.bean.OrderListResponse;
 import com.sanshao.bs.module.order.model.OrderModel;
+import com.sanshao.bs.util.LoadDialogMgr;
 import com.sanshao.bs.util.ToastUtil;
 
 /**
@@ -23,7 +26,7 @@ public class OrderListViewModel extends OrderDetailViewModel {
 
             @Override
             public void onLoadCompleted() {
-
+                LoadDialogMgr.getInstance().dismiss();
             }
 
             @Override

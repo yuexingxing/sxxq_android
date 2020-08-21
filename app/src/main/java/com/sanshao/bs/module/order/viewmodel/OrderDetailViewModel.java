@@ -1,5 +1,7 @@
 package com.sanshao.bs.module.order.viewmodel;
 
+import android.content.Context;
+
 import com.exam.commonbiz.base.BaseViewModel;
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
@@ -7,6 +9,7 @@ import com.sanshao.bs.module.order.bean.OrderNumStatusResponse;
 import com.sanshao.bs.module.order.model.IOrderDetailModel;
 import com.sanshao.bs.module.order.model.OrderModel;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
+import com.sanshao.bs.util.LoadDialogMgr;
 import com.sanshao.bs.util.ToastUtil;
 
 /**
@@ -22,18 +25,18 @@ public class OrderDetailViewModel extends BaseViewModel {
         mCallBack = iOrderDetailModel;
     }
 
-    public void getOrderDetailInfo(String salebillId) {
+    public void getOrderDetailInfo(Context context, String salebillId) {
 
         OrderModel.getOrderDetailInfo(salebillId, new OnLoadListener<GoodsDetailInfo>() {
 
             @Override
             public void onLoadStart() {
-
+                LoadDialogMgr.getInstance().show(context);
             }
 
             @Override
             public void onLoadCompleted() {
-
+                LoadDialogMgr.getInstance().dismiss();
             }
 
             @Override

@@ -149,7 +149,7 @@
                         <ImageView
                             android:id="@+id/check_wechat"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="10dp"
                             android:layout_marginRight="12dp"
                             android:src="@drawable/icon_login_checked" />
                     </LinearLayout>

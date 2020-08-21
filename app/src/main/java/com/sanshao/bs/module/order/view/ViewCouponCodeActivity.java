@@ -56,7 +56,7 @@ public class ViewCouponCodeActivity extends BaseActivity<OrderDetailViewModel, A
 
         binding.mulitySetMealView.setOptType(ConfirmOrderAdapter.OPT_TYPE_ORDER_DETAIL);
         binding.mulitySetMealView.setFragmentManager(getSupportFragmentManager());
-        mViewModel.getOrderDetailInfo("");
+        mViewModel.getOrderDetailInfo(context,"");
     }
 
     @Override

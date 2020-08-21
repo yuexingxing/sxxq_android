@@ -7,6 +7,7 @@ import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.module.shoppingcenter.model.IGoodsListModel;
 import com.sanshao.bs.module.shoppingcenter.model.ShoppingCenterModel;
 import com.sanshao.bs.util.Constants;
+import com.sanshao.bs.util.LoadDialogMgr;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class GoodsListViewModel extends BaseViewModel {
 
             @Override
             public void onLoadCompleted() {
-
+                LoadDialogMgr.getInstance().dismiss();
             }
 
             @Override

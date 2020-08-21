@@ -108,7 +108,7 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
 
         binding.mulitySetMealView.setFragmentManager(getSupportFragmentManager());
         binding.mulitySetMealView.setOptType(ConfirmOrderAdapter.OPT_TYPE_ORDER_DETAIL);
-        mViewModel.getOrderDetailInfo(mSalebillId);
+        mViewModel.getOrderDetailInfo(context, mSalebillId);
         binding.guessYouLoveView.getData();
     }
 

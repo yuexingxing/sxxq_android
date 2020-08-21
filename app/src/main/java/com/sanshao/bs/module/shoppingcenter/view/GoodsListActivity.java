@@ -29,6 +29,7 @@ import com.sanshao.bs.module.shoppingcenter.view.adapter.GoodsListAdapter;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.GoodsListViewModel;
 import com.sanshao.bs.util.Constants;
+import com.sanshao.bs.util.LoadDialogMgr;
 import com.sanshao.bs.util.OnItemEnterOrExitVisibleHelper;
 import com.sanshao.bs.util.ShareUtils;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
@@ -185,6 +186,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
 
         mGoodsListAdapter.setPreLoadNumber(1);
         mGoodsListAdapter.disableLoadMoreIfNotFullPage();
+        LoadDialogMgr.getInstance().show(context);
         mViewModel.getGoodsList(mArtiTagId, mPageNum, Constants.PAGE_SIZE);
     }
 

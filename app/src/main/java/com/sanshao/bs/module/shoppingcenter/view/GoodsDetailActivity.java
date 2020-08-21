@@ -106,7 +106,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             }
         });
 
-        binding.emptyLayout.setOnButtonClick(view -> mViewModel.getGoodsDetail(mSartiId));
+        binding.emptyLayout.setOnButtonClick(view -> mViewModel.getGoodsDetail(context, mSartiId));
         binding.nestedScrollview.setOnScrollChangeListener((View.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
             if (scrollY > ScreenUtil.dp2px(context, 200)) {
                 binding.llTab.setVisibility(View.VISIBLE);
@@ -189,7 +189,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         layoutParams.height = videoHeight;
         binding.homeBannerLayout.setLayoutParams(layoutParams);
         binding.ivCallPhone.setOnClickListener(view -> CommandTools.showCall(context));
-        mViewModel.getGoodsDetail(mSartiId);
+        mViewModel.getGoodsDetail(context, mSartiId);
     }
 
     @Override

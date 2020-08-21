@@ -1,5 +1,6 @@
 package com.sanshao.bs.module.shoppingcenter.view;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.sanshao.bs.module.shoppingcenter.view.adapter.GoodsTypeAdapter;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.ShoppingCenterViewModel;
 import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.util.GlideUtil;
+import com.sanshao.bs.util.LoadDialogMgr;
 import com.sanshao.bs.util.ToastUtil;
 
 /**
@@ -73,7 +75,7 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
         binding.emptyLayout.setOnButtonClick(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mViewModel.getGoodsList();
+                mViewModel.getGoodsList(context);
             }
         });
         binding.nestedScrollview.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
@@ -89,12 +91,12 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
         });
 
         binding.swipeRefreshLayout.setColorSchemeResources(R.color.main_color);
-        binding.swipeRefreshLayout.setOnRefreshListener(() -> mViewModel.getGoodsList());
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> mViewModel.getGoodsList(context));
 
         binding.ivToTop.setOnClickListener(view -> {
             binding.nestedScrollview.smoothScrollTo(0, 0);
         });
-        mViewModel.getGoodsList();
+        mViewModel.getGoodsList(context);
     }
 
     @Override

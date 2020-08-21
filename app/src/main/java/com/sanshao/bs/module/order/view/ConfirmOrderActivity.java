@@ -21,6 +21,7 @@ import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.module.shoppingcenter.model.IGoodsDetailModel;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
 import com.sanshao.bs.util.Constants;
+import com.sanshao.bs.util.LoadDialogMgr;
 import com.sanshao.bs.util.MathUtil;
 import com.sanshao.bs.util.ToastUtil;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
@@ -134,7 +135,8 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
         UserInfo userInfo = SSApplication.getInstance().getUserInfo();
         binding.tvNickName.setText(userInfo.nickname);
         binding.tvPhone.setText(userInfo.mem_phone);
-        mGoodsDetailViewModel.getGoodsDetail(mSartiId);
+        LoadDialogMgr.getInstance().show(context);
+        mGoodsDetailViewModel.getGoodsDetail(context, mSartiId);
     }
 
     @Override
