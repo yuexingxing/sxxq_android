@@ -26,6 +26,7 @@ import com.exam.commonbiz.net.XApi;
 import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.util.AppUtil;
 import com.sanshao.bs.module.personal.setting.dokit.KitChangeHost;
+import com.sanshao.bs.util.CommandTools;
 import com.sanshao.commonui.titlebar.TitleBar;
 import com.sanshao.commonui.titlebar.TitleBarLightStyle;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;
@@ -75,18 +76,22 @@ public class SSApplication extends BasicApplication {
         initHttpConfig();
         initRouter(this);
 
-        //开启debug模式，方便定位错误，具体错误检查方式可以查看http://dev.umeng.com/social/android/quick-integration的报错必看，正式发布，请关闭该模式
-        Config.DEBUG = true;
         initUMeng();
         closeAndroidPDialog();
         TCGlobalConfig.init(this);
 
-        List<IKit> kits = new ArrayList<>();
-        kits.add(new KitChangeHost());
         //bugly日志统计
         CrashReport.initCrashReport(getApplicationContext(), "ea6de64e88", false);
 
-        DoraemonKit.install(this, kits);
+        if (AppUtil.isDebug(app)) {
+            List<IKit> kits = new ArrayList<>();
+            kits.add(new KitChangeHost());
+            DoraemonKit.install(this, kits);
+            Config.DEBUG = true;
+        } else {
+            Config.DEBUG = false;
+        }
+
         // 必须：初始化全局的 用户信息管理类，记录个人信息。
         TCUserMgr.getInstance().initContext(getApplicationContext());
         PlatformConfig.setWeixin("微信AppId", "微信AppSecret");
@@ -116,27 +121,32 @@ public class SSApplication extends BasicApplication {
 
     public void initHttpConfig() {
 
-        BASE_URL = Kits.Package.getMetaValue(this, "HTTP_HOST");
-        BASE_URL = "http://dev.kmlab.com/ssxq/";
-        if (AppUtil.isDebug(this)) {
-
-        }
-
         Map<String, String> hostMap = new HashMap<>();
-        ConfigSP.HOST_TYPE hostType = (ConfigSP.HOST_TYPE) ACache.get(this).getAsObject(ConfigSP.SP_CURRENT_HOST);
-        if (ConfigSP.HOST_TYPE.DEV == hostType) {
-            hostMap.put(XApi.HOST_TYPE.JAVA, HostUrl.DEV.JAVA);
-            hostMap.put(XApi.HOST_TYPE.NODE, HostUrl.DEV.NODE);
-        } else if (ConfigSP.HOST_TYPE.PRE == hostType) {
-            hostMap.put(XApi.HOST_TYPE.JAVA, HostUrl.PRE.JAVA);
-            hostMap.put(XApi.HOST_TYPE.NODE, HostUrl.PRE.NODE);
+        if (AppUtil.isDebug(this)) {
+            if (ACache.get(this).getAsObject(ConfigSP.SP_CURRENT_HOST) != null) {
+                ConfigSP.HOST_TYPE hostType = (ConfigSP.HOST_TYPE) ACache.get(this).getAsObject(ConfigSP.SP_CURRENT_HOST);
+                if (ConfigSP.HOST_TYPE.DEV == hostType) {
+                    hostMap.put(XApi.HOST_TYPE.JAVA, HostUrl.DEV.JAVA);
+                    hostMap.put(XApi.HOST_TYPE.NODE, HostUrl.DEV.NODE);
+                } else if (ConfigSP.HOST_TYPE.PRE == hostType) {
+                    hostMap.put(XApi.HOST_TYPE.JAVA, HostUrl.PRE.JAVA);
+                    hostMap.put(XApi.HOST_TYPE.NODE, HostUrl.PRE.NODE);
+                } else {
+                    hostMap.put(XApi.HOST_TYPE.JAVA, HostUrl.PRO.JAVA);
+                    hostMap.put(XApi.HOST_TYPE.NODE, HostUrl.PRO.NODE);
+                }
+            } else {
+                hostMap.put(XApi.HOST_TYPE.JAVA, HostUrl.DEV.JAVA);
+                hostMap.put(XApi.HOST_TYPE.NODE, HostUrl.DEV.NODE);
+                ACache.get(this).put(ConfigSP.SP_CURRENT_HOST, ConfigSP.HOST_TYPE.DEV);
+            }
         } else {
             hostMap.put(XApi.HOST_TYPE.JAVA, HostUrl.PRO.JAVA);
             hostMap.put(XApi.HOST_TYPE.NODE, HostUrl.PRO.NODE);
         }
 
         XApi.setHostMap(hostMap);
-        XApi.registerDefaultProvider(BASE_URL, new NetProvider() {
+        XApi.registerDefaultProvider(HostUrl.PRO.JAVA, new NetProvider() {
 
             @Override
             public okhttp3.Interceptor[] configInterceptors() {

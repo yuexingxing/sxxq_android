@@ -31,15 +31,6 @@ import java.util.UUID;
  */
 public class CommandTools {
 
-    public static boolean isDebugApp(Context context) {
-        try {
-            ApplicationInfo info = context.getApplicationInfo();
-            return (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
-        } catch (Exception x) {
-            return false;
-        }
-    }
-
     /**
      * 判断字符串是否符合手机号码格式
      *
