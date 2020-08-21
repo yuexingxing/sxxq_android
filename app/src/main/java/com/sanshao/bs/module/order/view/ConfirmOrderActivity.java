@@ -3,7 +3,6 @@ package com.sanshao.bs.module.order.view;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
-import android.widget.TextView;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.util.ContainerUtil;
@@ -12,7 +11,6 @@ import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ActivityConfirmOrderBinding;
 import com.sanshao.bs.module.order.bean.ConfirmOrderResponse;
 import com.sanshao.bs.module.order.bean.CreateOrderRequest;
-import com.sanshao.bs.module.order.bean.CreateOrderResponse;
 import com.sanshao.bs.module.order.bean.StoreInfo;
 import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
 import com.sanshao.bs.module.order.model.IConfirmOrderModel;
@@ -189,12 +187,16 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
     }
 
     @Override
-    public void returnCreateOrderInfo(CreateOrderResponse createOrderResponse) {
-        if (createOrderResponse == null) {
+    public void returnCreateOrderInfo(GoodsDetailInfo goodsDetailInfo) {
+        if (goodsDetailInfo == null) {
             return;
         }
-        createOrderResponse.sarti_name = mGoodsName;
-        ConfirmPayActivity.start(context, createOrderResponse);
+        goodsDetailInfo.sarti_name = mGoodsName;
+        goodsDetailInfo.sarti_saleprice = mGoodsDetailInfo.sarti_saleprice;
+        goodsDetailInfo.pay_type = mGoodsDetailInfo.pay_type;
+        goodsDetailInfo.sarti_point_price = goodsDetailInfo.sum_point;
+
+        ConfirmPayActivity.start(context, goodsDetailInfo);
     }
 
     @Override

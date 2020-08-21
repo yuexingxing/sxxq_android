@@ -3,7 +3,6 @@ package com.sanshao.bs.module.order.api;
 import com.exam.commonbiz.net.BaseResponse;
 import com.sanshao.bs.module.order.bean.ConfirmOrderResponse;
 import com.sanshao.bs.module.order.bean.CreateOrderRequest;
-import com.sanshao.bs.module.order.bean.CreateOrderResponse;
 import com.sanshao.bs.module.order.bean.OrderListResponse;
 import com.sanshao.bs.module.order.bean.OrderNumStatusResponse;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
@@ -22,7 +21,7 @@ public interface OrderApiService {
 
     //创建订单信息
     @POST("order/create")
-    Observable<BaseResponse<CreateOrderResponse>> createOrderInfo(@Body CreateOrderRequest createOrderRequest);
+    Observable<BaseResponse<GoodsDetailInfo>> createOrderInfo(@Body CreateOrderRequest createOrderRequest);
 
     //获取订单信息
     @GET("/util/sms/fetch")

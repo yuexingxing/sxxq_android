@@ -26,6 +26,26 @@ public class UserInfo implements Serializable {
     public UserInfo referrer_mem;
     public String commission;//我的分润
 
+    //是不是会员
+    public boolean isMember() {
+        if (mem_class == null || TextUtils.isEmpty(mem_class.mem_class_key)) {
+            return false;
+        }
+        return true;
+    }
+
+    public String getMember() {
+        if (mem_class == null || TextUtils.isEmpty(mem_class.mem_class_key)) {
+            return "普通会员";
+        } else if (TextUtils.equals("1", mem_class.mem_class_key)) {
+            return "一星会员";
+        } else if (TextUtils.equals("2", mem_class.mem_class_key)) {
+            return "二星会员";
+        } else {
+            return "三星会员";
+        }
+    }
+
     public String getGender() {
         if (TextUtils.equals("M", gender)) {
             return "男";

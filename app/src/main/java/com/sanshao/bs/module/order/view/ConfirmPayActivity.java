@@ -9,7 +9,6 @@ import com.exam.commonbiz.base.BaseActivity;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityConfirmPayBinding;
 import com.sanshao.bs.module.order.bean.ConfirmOrderResponse;
-import com.sanshao.bs.module.order.bean.CreateOrderResponse;
 import com.sanshao.bs.module.order.bean.OrderPayInfoResponse;
 import com.sanshao.bs.module.order.bean.OrderStatusResponse;
 import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
@@ -18,9 +17,9 @@ import com.sanshao.bs.module.order.model.IPayModel;
 import com.sanshao.bs.module.order.model.OnPayListener;
 import com.sanshao.bs.module.order.util.PayUtils;
 import com.sanshao.bs.module.order.viewmodel.PayViewModel;
+import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.util.CommandTools;
 import com.sanshao.bs.util.Constants;
-import com.sanshao.bs.util.MathUtil;
 import com.sanshao.bs.util.ShareUtils;
 import com.sanshao.bs.util.ToastUtil;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
@@ -38,12 +37,12 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
     private final String PAY_BY_WECHAT = "HFWX";
     private final String PAY_BY_ALI_APP = "HFALIPAYAPP";
     private final String PAY_BY_ALI_H5 = "HFALIPAYWAP";
-    private String mPayType = PAY_BY_WECHAT;
+    private String mPayType = PAY_BY_ALI_APP;
     private String mSalebillId;
 
-    public static void start(Context context, CreateOrderResponse createOrderResponse) {
+    public static void start(Context context, GoodsDetailInfo goodsDetailInfo) {
         Intent starter = new Intent(context, ConfirmPayActivity.class);
-        starter.putExtra(Constants.OPT_DATA, createOrderResponse);
+        starter.putExtra(Constants.OPT_DATA, goodsDetailInfo);
         context.startActivity(starter);
     }
 
@@ -55,9 +54,10 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
     @Override
     public void initData() {
 
-        CreateOrderResponse createOrderResponse = (CreateOrderResponse) getIntent().getSerializableExtra(Constants.OPT_DATA);
-        binding.tvName.setText(createOrderResponse.sarti_name);
-        mSalebillId = createOrderResponse.orderNo;
+        GoodsDetailInfo goodsDetailInfo = (GoodsDetailInfo) getIntent().getSerializableExtra(Constants.OPT_DATA);
+        if (goodsDetailInfo == null) {
+            finish();
+        }
         mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
@@ -75,11 +75,22 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
 
             }
         });
-        binding.tvOrderNo.setText("订单编号：" + createOrderResponse.orderNo);
-        binding.tvPrice.setText(MathUtil.getNumExclude0(Double.parseDouble(createOrderResponse.orderPrice)));
+        mSalebillId = goodsDetailInfo.salebill_id;
+        binding.tvPrice.setText(goodsDetailInfo.getPriceText());
+        binding.tvName.setText(goodsDetailInfo.sarti_name);
+        binding.tvOrderNo.setText("订单编号：" + goodsDetailInfo.salebill_id);
+        if (goodsDetailInfo.isFree()) {
+            binding.rlPay.setVisibility(View.INVISIBLE);
+            binding.btnStartPay.setText("免费领取");
+        } else if (goodsDetailInfo.isPayByPoint()) {
+            binding.rlPay.setVisibility(View.INVISIBLE);
+            binding.btnStartPay.setText("确认支付");
+        } else {
+            binding.rlPay.setVisibility(View.VISIBLE);
+        }
         binding.btnStartPay.setOnClickListener(v -> {
             if (TextUtils.equals(mPayType, PAY_BY_WECHAT)) {
-                String path = "pages/order/confirmPay?" + "salebillId=" + createOrderResponse.orderNo;
+                String path = "pages/order/confirmPay?" + "salebillId=" + goodsDetailInfo.salebill_id;
                 ShareUtils.jump2WxMiniProgram(context, path);
             } else {
                 mViewModel.getOrderPayInfo(PayViewModel.GET_PAY_INFO, mSalebillId, mPayType);
@@ -167,7 +178,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
     }
 
     @Override
-    public void returnCreateOrderInfo(CreateOrderResponse createOrderResponse) {
+    public void returnCreateOrderInfo(GoodsDetailInfo goodsDetailInfo) {
 
     }
 

@@ -9,12 +9,12 @@ import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ActivityAppointmentForConsultationBinding;
 import com.sanshao.bs.module.order.bean.ConfirmOrderResponse;
-import com.sanshao.bs.module.order.bean.CreateOrderResponse;
 import com.sanshao.bs.module.order.bean.StoreInfo;
 import com.sanshao.bs.module.order.model.IConfirmOrderModel;
 import com.sanshao.bs.module.order.view.adapter.ConfirmOrderAdapter;
 import com.sanshao.bs.module.order.viewmodel.ConfirmOrderViewModel;
 import com.sanshao.bs.module.personal.personaldata.dialog.SelectBirthdayDialog;
+import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.util.CommandTools;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
@@ -77,7 +77,7 @@ public class AppointmentForConsultationActivity extends BaseActivity<ConfirmOrde
     }
 
     @Override
-    public void returnCreateOrderInfo(CreateOrderResponse createOrderResponse) {
+    public void returnCreateOrderInfo(GoodsDetailInfo goodsDetailInfo) {
 
     }
 

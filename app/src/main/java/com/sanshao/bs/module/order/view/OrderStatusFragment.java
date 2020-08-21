@@ -11,7 +11,6 @@ import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.FragmentOrderStatusBinding;
-import com.sanshao.bs.module.order.bean.CreateOrderResponse;
 import com.sanshao.bs.module.order.bean.OrderInfo;
 import com.sanshao.bs.module.order.bean.OrderListResponse;
 import com.sanshao.bs.module.order.bean.OrderNumStatusResponse;
@@ -107,11 +106,11 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
 
             @Override
             public void onPay(OrderInfo item) {
-                CreateOrderResponse createOrderResponse = new CreateOrderResponse();
-                createOrderResponse.orderNo = item.id;
-                createOrderResponse.orderPrice = item.totalPrice;
-                createOrderResponse.sumPoint = item.sumPoint;
-                ConfirmPayActivity.start(context, createOrderResponse);
+                GoodsDetailInfo goodsDetailInfo = new GoodsDetailInfo();
+                goodsDetailInfo.salebill_id = item.id;
+                goodsDetailInfo.sum_amt = item.totalPrice;
+                goodsDetailInfo.sum_point = item.sumPoint;
+                ConfirmPayActivity.start(context, goodsDetailInfo);
             }
         });
 
