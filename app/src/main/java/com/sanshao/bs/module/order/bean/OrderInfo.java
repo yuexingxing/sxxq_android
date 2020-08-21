@@ -3,6 +3,7 @@ package com.sanshao.bs.module.order.bean;
 import android.text.TextUtils;
 
 import com.google.gson.annotations.SerializedName;
+import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 
 import java.io.Serializable;
 import java.util.List;
@@ -64,30 +65,7 @@ public class OrderInfo implements Serializable {
     public boolean isSalesPackage;
 
     // 套餐内商品列表
-    public Product shopSartiInfo;
-
-    public static class Product implements Serializable {
-
-        // 商品名称
-        @SerializedName("sarti_name")
-        public String name;
-
-        // 缩略图
-        @SerializedName("thumbnail_img")
-        public String thumbnailImg;
-
-        // 商品售价
-        @SerializedName("sart_saleprice")
-        public String salePrice;
-
-        // 商品市场价
-        @SerializedName("sarti_mkprice")
-        public String mkPrice;
-
-        // 商品件数
-        @SerializedName("use_qty")
-        public String count;
-    }
+    public GoodsDetailInfo shopSartiInfo;
 
     public static String getOrderStatus(String status) {
         if (TextUtils.isEmpty(status)) {

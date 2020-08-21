@@ -111,7 +111,7 @@
                 android:id="@+id/ll_right_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="4dp"
                 android:gravity="right"
                 android:orientation="vertical">
 
@@ -121,21 +121,12 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="¥"
-                        android:textColor="@color/color_333333"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-
-                    <TextView
                         android:id="@+id/tv_total_price1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="90"
+                        android:text="¥0"
                         android:textColor="@color/color_333333"
-                        android:textSize="17sp"
-                        android:textStyle="bold" />
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <LinearLayout

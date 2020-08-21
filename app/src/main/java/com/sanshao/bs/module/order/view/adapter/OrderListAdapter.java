@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.sanshao.bs.R;
 import com.sanshao.bs.module.order.bean.OrderInfo;
+import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.util.GlideUtil;
 import com.sanshao.bs.util.MathUtil;
 
@@ -28,13 +29,12 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderInfo, BaseViewHolder
 
     @Override
     protected void convert(BaseViewHolder helper, OrderInfo item) {
-
-        OrderInfo.Product product = item.shopSartiInfo;
+        GoodsDetailInfo product = item.shopSartiInfo;
         if (product == null) {
             return;
         }
-        helper.setText(R.id.tv_title, product.name);
-        helper.setText(R.id.tv_total_price1, MathUtil.getNumExclude0(item.totalPrice));
+        helper.setText(R.id.tv_title, product.sarti_name);
+        helper.setText(R.id.tv_total_price1, product.getPriceText());
         helper.setText(R.id.tv_count, "x" + item.count);
 
         helper.getView(R.id.ll_tobe_paid).setVisibility(View.GONE);
@@ -54,7 +54,7 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderInfo, BaseViewHolder
         }
 
         helper.setText(R.id.tv_content_tip, String.format("共计%s件商品；实收：%s元", item.count, MathUtil.getNumExclude0(item.totalPrice)));
-        GlideUtil.loadImage(item.shopSartiInfo.thumbnailImg, helper.getView(R.id.iv_icon));
+        GlideUtil.loadImage(item.shopSartiInfo.thumbnail_img, helper.getView(R.id.iv_icon));
 
         helper.getView(R.id.rl_bg).setOnClickListener(v -> {
             if (mCallBack != null) {
