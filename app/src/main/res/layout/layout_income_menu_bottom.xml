@@ -11,7 +11,7 @@
         android:id="@+id/iv_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/beautiful" />
+        android:background="@drawable/image_logo_smal" />
 
     <TextView
         android:id="@+id/tv_title"

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
@@ -12,17 +13,11 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
-import com.didichuxing.doraemonkit.util.UIUtils;
-import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.ScreenUtil;
-import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
-import com.sanshao.bs.module.shoppingcenter.view.GoodsDetailActivity;
-import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsPosterDialog;
+import com.google.gson.Gson;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
-import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,6 +30,15 @@ import java.util.UUID;
  * @time 2020/6/29
  */
 public class CommandTools {
+
+    public static boolean isDebugApp(Context context) {
+        try {
+            ApplicationInfo info = context.getApplicationInfo();
+            return (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+        } catch (Exception x) {
+            return false;
+        }
+    }
 
     /**
      * 判断字符串是否符合手机号码格式
@@ -158,8 +162,17 @@ public class CommandTools {
         }
     }
 
+    /**
+     * 将java对象转换成json字符串
+     *
+     * @param bean
+     * @return
+     */
 
-    public static boolean isVisibleInScreen(View v) {
-        return v.getLocalVisibleRect(new Rect());
+    public static String beanToJson(Object bean) {
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(bean);
+        System.out.println(jsonStr);
+        return jsonStr;
     }
 }

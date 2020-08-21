@@ -55,7 +55,7 @@
                     android:ellipsize="end"
                     android:gravity="right"
                     android:singleLine="true"
-                    android:textColor="@color/text_gray1"
+                    android:textColor="@color/color_333333"
                     android:textSize="14sp" />
 
                 <ImageView

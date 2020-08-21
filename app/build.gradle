@@ -13,7 +13,7 @@ android {
         multiDexEnabled true
 
         ndk {
-            abiFilters "armeabi-v7a"
+            abiFilters "armeabi"
         }
         javaCompileOptions {
             annotationProcessorOptions {
@@ -27,6 +27,7 @@ android {
         }
     }
     lintOptions {
+        ignoreWarnings true
         checkReleaseBuilds false
         abortOnError false
     }
@@ -50,10 +51,10 @@ android {
             }
         }
         release {
-            //debuggable true         //!!! remmeber to false
-            minifyEnabled true    //混淆
+            debuggable true         //!!! remmeber to false
+            minifyEnabled false    //混淆
             zipAlignEnabled true  //Zipalign优化
-            shrinkResources true  // 移除无用的resource文件
+            shrinkResources false  // 移除无用的resource文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
@@ -136,7 +137,7 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
 
     implementation project(':commonbiz')
-    implementation project(':livemodule')
+//    implementation project(':livemodule')
     implementation project(':videoplaymodule')
 }
 

@@ -1,10 +1,16 @@
 package com.sanshao.bs.module.order.util;
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.chinapnr.android.adapay.AdaPay;
+import com.chinapnr.android.adapay.bean.PayType;
 import com.chinapnr.android.adapay.bean.ResponseCode;
 import com.sanshao.bs.module.order.model.OnPayListener;
+import com.sanshao.bs.util.Constants;
+import com.sanshao.bs.util.ToastUtil;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 /**
  * 支付类
@@ -14,10 +20,17 @@ import com.sanshao.bs.module.order.model.OnPayListener;
  */
 public class PayUtils {
 
+    private IWXAPI api;
     private OnPayListener mOnPayListener;
 
     public PayUtils() {
 
+    }
+
+    public void registerApp(Context context) {
+        api = WXAPIFactory.createWXAPI(context, Constants.WX_APPId);
+        api.registerApp(Constants.WX_APPId);
+//        api.handleIntent(getIntent(), this);
     }
 
     public PayUtils setOnPayListener(OnPayListener onPayListener) {
@@ -37,6 +50,7 @@ public class PayUtils {
 
         AdaPay.doPay(activity, orderInfo, payResult -> {
             if (payResult == null) {
+                ToastUtil.showShortToast("payResult=null");
                 return;
             }
             switch (payResult.getResultCode()) {

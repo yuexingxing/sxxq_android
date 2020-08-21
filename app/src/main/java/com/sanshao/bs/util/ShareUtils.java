@@ -1,10 +1,13 @@
 package com.sanshao.bs.util;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -280,6 +283,19 @@ public class ShareUtils {
     }
 
     /**
+     * 检测是否安装支付宝
+     * @param context
+     * @return
+     */
+    public static boolean checkAliPayInstalled(Context context) {
+
+        Uri uri = Uri.parse("alipays://platformapi/startApp");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        ComponentName componentName = intent.resolveActivity(context.getPackageManager());
+        return componentName != null;
+    }
+
+    /**
      * 判断 用户是否安装微信客户端
      */
     public static boolean isWeixinAvilible(Context context) {
@@ -321,6 +337,7 @@ public class ShareUtils {
      */
     public static void jump2WxMiniProgram(Context context, String path) {
         IWXAPI api = WXAPIFactory.createWXAPI(context, Constants.WX_APPId);
+        api.registerApp(Constants.WX_APPId);
 
         WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
         req.userName = "gh_531477db6395"; // 填小程序原始id

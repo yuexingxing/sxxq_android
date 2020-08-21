@@ -1,8 +1,7 @@
 package com.sanshao.bs.module.order.api;
 
 import com.exam.commonbiz.net.BaseResponse;
-import com.sanshao.bs.module.order.bean.AppointmentedInfo;
-import com.sanshao.bs.module.order.bean.OrderListResponse;
+import com.sanshao.bs.module.order.bean.OrderPayInfoResponse;
 import com.sanshao.bs.module.order.bean.OrderStatusResponse;
 
 import io.reactivex.Observable;
@@ -16,8 +15,10 @@ import retrofit2.http.Query;
 public interface PayApiService {
 
     //获取订单支付信息，发起支付
-    @GET("pay")
-    Observable<BaseResponse<OrderListResponse>> getOrderPayInfo(@Query("payType") int payType);
+    @GET("w/pay/pay")
+    Observable<BaseResponse<OrderPayInfoResponse>> getOrderPayInfo(@Query("salebill_id") String salebill_id,
+                                                                   @Query("pay_type") String payType
+    );
 
 
     //确认订单付款状态

@@ -160,9 +160,7 @@
                     android:layout_marginTop="12dp"
                     android:background="@drawable/shape_white_radius_10"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:visibility="invisible"
-                    tools:visibility="visible">
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="wrap_content"

@@ -12,9 +12,9 @@ import io.reactivex.schedulers.Schedulers;
 
 public class PayModel {
 
-    public static void getOrderPayInfo(int payType, final OnLoadListener onLoadListener) {
-        XApi.get(PayApiService.class, XApi.HOST_TYPE.JAVA)
-                .getOrderPayInfo(payType)
+    public static void getOrderPayInfo(String salebillId, String payType, final OnLoadListener onLoadListener) {
+        XApi.get(PayApiService.class, XApi.HOST_TYPE.NODE)
+                .getOrderPayInfo(salebillId, payType)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver() {
@@ -43,7 +43,7 @@ public class PayModel {
     }
 
     public static void getOrderStatus(String salebillId, final OnLoadListener onLoadListener) {
-        XApi.get(PayApiService.class, XApi.HOST_TYPE.JAVA)
+        XApi.get(PayApiService.class, XApi.HOST_TYPE.NODE)
                 .getOrderStatus(salebillId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

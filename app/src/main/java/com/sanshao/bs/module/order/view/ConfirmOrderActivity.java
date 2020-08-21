@@ -65,7 +65,7 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
 
         mSartiId = getIntent().getStringExtra(Constants.OPT_DATA);
         mViewModel.setCallBack(this);
-        mGoodsDetailViewModel = new GoodsDetailViewModel();
+        mGoodsDetailViewModel = new GoodsDetailViewModel(getApplication());
         mGoodsDetailViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
