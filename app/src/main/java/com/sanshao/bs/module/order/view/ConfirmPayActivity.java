@@ -37,7 +37,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
     private final String PAY_BY_WECHAT = "HFWX";
     private final String PAY_BY_ALI_APP = "HFALIPAYAPP";
     private final String PAY_BY_ALI_H5 = "HFALIPAYWAP";
-    private String mPayType = PAY_BY_ALI_APP;
+    private String mPayType = PAY_BY_ALI_APP;//默认支付宝支付
     private String mSalebillId;
 
     public static void start(Context context, GoodsDetailInfo goodsDetailInfo) {
@@ -96,7 +96,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
                 mViewModel.getOrderPayInfo(PayViewModel.GET_PAY_INFO, mSalebillId, mPayType);
             }
         });
-        setCheckStatus(PAY_BY_ALI_APP);//默认支付宝支付
+        setCheckStatus(mPayType);
         binding.llPayWechat.setOnClickListener(v -> setCheckStatus(PAY_BY_WECHAT));
         binding.llPayAli.setOnClickListener(v -> setCheckStatus(PAY_BY_ALI_APP));
         binding.checkWechat.setOnClickListener(v -> setCheckStatus(PAY_BY_WECHAT));
