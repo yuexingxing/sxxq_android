@@ -218,10 +218,10 @@ public class SSApplication extends BasicApplication {
          */
         UMConfigure.init(this, Constants.UMENG_APP_KEY, "", UMConfigure.DEVICE_TYPE_PHONE, "");
         UMShareAPI.get(this);//初始化sdk
-//        PlatformConfig.setWeixin(Constants.WX_APPId, Constants.W);
+//        PlatformConfig.setWeixin(Constants.WX_APPID, Constants.W);
 
-        IWXAPI mWxApi = WXAPIFactory.createWXAPI(this, Constants.WX_APPId, true);
-        mWxApi.registerApp(Constants.WX_APPId);
+        IWXAPI mWxApi = WXAPIFactory.createWXAPI(this, Constants.WX_APPID, true);
+        mWxApi.registerApp(Constants.WX_APPID);
     }
 
     private void closeAndroidPDialog() {

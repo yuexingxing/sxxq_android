@@ -13,10 +13,10 @@ import com.sanshao.bs.R;
  * @Author yuexingxing
  * @time 2020/6/19
  */
-public class GoodsRecommendDialog {
+public class BenefitsRightDialog {
 
     public void show(Context context) {
-        LinearLayout layout = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.dialog_layout_goods_recommend, null);
+        LinearLayout layout = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.dialog_benefits_right, null);
         BottomSheetDialog dialog = new BottomSheetDialog(context, R.style.BottomSheetDialog);
         dialog.setContentView(layout);
         dialog.show();

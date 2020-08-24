@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Build;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -25,11 +24,13 @@ import com.sanshao.bs.databinding.ActivityGoodsDetailBinding;
 import com.sanshao.bs.module.home.model.BannerInfo;
 import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
 import com.sanshao.bs.module.order.view.ConfirmOrderActivity;
+import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.module.register.view.RegisterActivity;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.module.shoppingcenter.bean.VideoInfo;
 import com.sanshao.bs.module.shoppingcenter.model.IGoodsDetailModel;
 import com.sanshao.bs.module.shoppingcenter.view.adapter.SetMealAdapter;
+import com.sanshao.bs.module.shoppingcenter.view.dialog.BenefitsRightDialog;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsInroductionDialog;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
@@ -63,6 +64,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
     private String mSartiId;
     private SetMealAdapter mSetMealAdapter;
     private GoodsDetailInfo mGoodsDetailInfo;
+    private UserInfo mUserInfo;
 
     public static void start(Context context, String sartiId) {
         Intent starter = new Intent(context, GoodsDetailActivity.class);
@@ -87,6 +89,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
     @Override
     public void initData() {
 
+        mUserInfo = SSApplication.getInstance().getUserInfo();
         mSartiId = getIntent().getStringExtra(Constants.OPT_DATA);
         mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
@@ -137,7 +140,15 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                 RegisterActivity.start(context, Constants.TAG_ID_REGISTER);
                 return;
             }
-            ConfirmOrderActivity.start(context, mSartiId);
+            if (mGoodsDetailInfo.isPayByMoney()) {
+                ConfirmOrderActivity.start(context, mSartiId);
+            } else {
+                if (!mUserInfo.hasBenefitsRight()) {
+                    new BenefitsRightDialog().show(context);
+                    return;
+                }
+                ConfirmOrderActivity.start(context, mSartiId);
+            }
         });
         binding.llTabGoods.setOnClickListener(v -> {
             initTabStatus(0);
@@ -263,6 +274,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
 
                             }
                         });
+//                        ShareUtils.share(context);
                     } else {
                         new GoodsPosterDialog().show(context, new GoodsDetailInfo());
                     }
@@ -290,15 +302,24 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         binding.tvGoodsIntro.setText(goodsDetailInfo.sarti_intro);
 
         binding.tvPrice.setText(goodsDetailInfo.getPriceText());
-        if (goodsDetailInfo.isFree()) {
-            binding.includeBottom.btnBuy.setText("免费领取");
-            binding.ivRecommendReward.setBackgroundResource(R.drawable.regactivity);
-        } else if (goodsDetailInfo.isPayByPoint()) {
-            binding.tvOldPrice.setVisibility(View.GONE);
-            binding.includeBottom.btnBuy.setText("分享金购买");
-            binding.ivRecommendReward.setBackgroundResource(R.drawable.share_icon);
-        } else {
+        if (goodsDetailInfo.isPayByMoney()) {
+            binding.includeBottom.btnBuy.setText("立即购买");
             binding.ivRecommendReward.setBackgroundResource(R.drawable.tuijianyou);
+        } else {
+            if (goodsDetailInfo.isFree()) {
+                binding.includeBottom.btnBuy.setText("免费领取");
+                binding.ivRecommendReward.setBackgroundResource(R.drawable.regactivity);
+            } else if (goodsDetailInfo.isPayByPoint()) {
+                binding.tvOldPrice.setVisibility(View.GONE);
+                binding.includeBottom.btnBuy.setText("分享金购买");
+                binding.ivRecommendReward.setBackgroundResource(R.drawable.share_icon);
+                if (mUserInfo.isZeroPoint()) {
+                    binding.includeBottom.btnBuy.setText("分享免费领");
+                }
+            }
+            if (!SSApplication.isLogin()) {
+                binding.includeBottom.btnBuy.setText("注册免费领");
+            }
         }
 
         RichText.from(goodsDetailInfo.sarti_desc).bind(this)

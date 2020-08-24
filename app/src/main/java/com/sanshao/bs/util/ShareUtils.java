@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import com.exam.commonbiz.util.CommonCallBack;
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.umeng.socialize.ShareAction;
@@ -351,13 +354,33 @@ public class ShareUtils {
      * @param path
      */
     public static void jump2WxMiniProgram(Context context, String path) {
-        IWXAPI api = WXAPIFactory.createWXAPI(context, Constants.WX_APPId);
-        api.registerApp(Constants.WX_APPId);
+        IWXAPI api = WXAPIFactory.createWXAPI(context, Constants.WX_APPID);
+        api.registerApp(Constants.WX_APPID);
 
         WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
         req.userName = "gh_531477db6395"; // 填小程序原始id
         req.path = path;//拉起小程序页面的可带参路径，不填默认拉起小程序首页
         req.miniprogramType = WXLaunchMiniProgram.Req.MINIPROGRAM_TYPE_PREVIEW;// 可选打开 开发版，体验版和正式版
+        api.sendReq(req);
+    }
+
+    public static void share(Context context){
+
+        IWXAPI api = WXAPIFactory.createWXAPI(context, Constants.WX_APPID);
+        api.registerApp(Constants.WX_APPID);
+        WXWebpageObject webpage = new WXWebpageObject();
+        webpage.webpageUrl = url;
+//
+        WXMediaMessage msg = new WXMediaMessage(webpage);
+        msg.title = title;
+//        msg.description = decribe;
+//        msg.thumbData = getWXThumb(bitmap).toByteArray();
+
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+//WXSceneTimeline朋友圈    WXSceneSession聊天界面
+        req.scene = SendMessageToWX.Req.WXSceneSession;//SendMessageToWX.Req.WXSceneTimeline;// : SendMessageToWX.Req.WXSceneSession;//聊天界面
+        req.message = msg;
+        req.transaction = String.valueOf(System.currentTimeMillis());
         api.sendReq(req);
     }
 }

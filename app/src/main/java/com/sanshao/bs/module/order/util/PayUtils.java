@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.chinapnr.android.adapay.AdaPay;
-import com.chinapnr.android.adapay.bean.PayType;
 import com.chinapnr.android.adapay.bean.ResponseCode;
 import com.sanshao.bs.module.order.model.OnPayListener;
 import com.sanshao.bs.util.Constants;
@@ -28,8 +27,8 @@ public class PayUtils {
     }
 
     public void registerApp(Context context) {
-        api = WXAPIFactory.createWXAPI(context, Constants.WX_APPId);
-        api.registerApp(Constants.WX_APPId);
+        api = WXAPIFactory.createWXAPI(context, Constants.WX_APPID);
+        api.registerApp(Constants.WX_APPID);
 //        api.handleIntent(getIntent(), this);
     }
 

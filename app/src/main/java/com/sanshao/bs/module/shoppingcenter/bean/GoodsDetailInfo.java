@@ -77,6 +77,14 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
         return !isPayByPoint() && sarti_saleprice == 0;
     }
 
+    /**
+     * 是不是金钱购买
+     * @return
+     */
+    public boolean isPayByMoney() {
+        return !isFree() && !isPayByPoint();
+    }
+
     public String getPriceText() {
         if (isFree()) {
             return "免费领取";

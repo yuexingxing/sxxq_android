@@ -22,9 +22,23 @@ public class UserInfo implements Serializable {
     public String mem_class_start_date;
     public String mem_status;//
     public String point;//我的分享金
+    public String benefits_level;//是否购买90元商品，0未购买
     public MemberClassInfo mem_class;
     public UserInfo referrer_mem;
     public String commission;//我的分润
+
+    /**
+     * 是否购买了90元商品
+     * @return
+     */
+    public boolean hasBenefitsRight() {
+        return TextUtils.equals(benefits_level, "1");
+    }
+
+    //有没有分享金
+    public boolean isZeroPoint() {
+        return TextUtils.isEmpty(point) || TextUtils.equals("0", point);
+    }
 
     //是不是会员
     public boolean isMember() {

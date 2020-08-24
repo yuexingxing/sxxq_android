@@ -11,7 +11,6 @@ import com.sanshao.bs.util.ToastUtil;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
-import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -37,8 +36,8 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
     }
 
     public void initData() {
-        api = WXAPIFactory.createWXAPI(this, Constants.WX_APPId);
-        api.registerApp(Constants.WX_APPId);
+        api = WXAPIFactory.createWXAPI(this, Constants.WX_APPID);
+        api.registerApp(Constants.WX_APPID);
         api.handleIntent(getIntent(), this);
     }
 
