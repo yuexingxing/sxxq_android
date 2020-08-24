@@ -90,7 +90,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         }
         binding.btnStartPay.setOnClickListener(v -> {
             if (TextUtils.equals(mPayType, PAY_BY_WECHAT)) {
-                String path = "pages/order/confirmPay?" + "salebillId=" + goodsDetailInfo.salebill_id;
+                String path = "pages/order/confirmPay?" + "salebill_id=" + goodsDetailInfo.salebill_id;
                 ShareUtils.jump2WxMiniProgram(context, path);
             } else {
                 mViewModel.getOrderPayInfo(PayViewModel.GET_PAY_INFO, mSalebillId, mPayType);
@@ -106,7 +106,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
     @Override
     protected void onResume() {
         super.onResume();
-
+        mViewModel.getOrderPayInfo(PayViewModel.CHECK_ORDER_STATUS, mSalebillId, mPayType);
     }
 
     @Override
@@ -145,9 +145,13 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
 
     @Override
     public void returnOrderPayInfo(int optType, OrderPayInfoResponse orderPayInfoResponse) {
-        if (PayViewModel.CHECK_PRDER_STATUS == optType && orderPayInfoResponse == null) {
-            ToastUtil.showShortToast("支付成功");
-            PayCompleteActivity.start(context, mSalebillId);
+        if (PayViewModel.CHECK_ORDER_STATUS == optType && orderPayInfoResponse == null) {
+            if (orderPayInfoResponse == null) {
+                ToastUtil.showShortToast("支付成功");
+                PayCompleteActivity.start(context, mSalebillId);
+            } else {
+                return;
+            }
             return;
         }
 
@@ -160,7 +164,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         payUtils.setOnPayListener(new OnPayListener() {
             @Override
             public void onPaySuccess() {
-                mViewModel.getOrderPayInfo(PayViewModel.CHECK_PRDER_STATUS, mSalebillId, mPayType);
+
             }
 
             @Override

@@ -7,9 +7,11 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.sanshao.bs.util.Constants;
+import com.sanshao.bs.util.ToastUtil;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -42,18 +44,23 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
 
     @Override
     public void onReq(BaseReq baseReq) {
-        Log.i(TAG, "onShowMessageFromWXReq:zoulereq ");
+        Log.d(TAG, "onShowMessageFromWXReq:zoulereq ");
     }
 
     @Override
     public void onResp(BaseResp baseResp) {
 
         if (baseResp == null) {
-            Log.i(TAG, "onShowMessageFromWXReq:zouleresq----baseResp == null");
+            Log.d(TAG, "onShowMessageFromWXReq:zouleresq----baseResp == null");
         }
 
-        Log.i(TAG, "openId----" + baseResp.openId);
-        Log.i(TAG, "getType----" + baseResp.getType());
+        if (baseResp.getType() == ConstantsAPI.COMMAND_LAUNCH_WX_MINIPROGRAM) {
+            ToastUtil.showShortToast("onResp-小程序返回");
+            return;
+        }
+
+        Log.d(TAG, "openId----" + baseResp.openId);
+        Log.d(TAG, "getType----" + baseResp.getType());
         if (baseResp.getType() == ConstantsAPI.COMMAND_SUBSCRIBE_MESSAGE) {
 
             if (!TextUtils.isEmpty(baseResp.openId)) {

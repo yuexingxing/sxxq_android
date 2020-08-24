@@ -15,7 +15,7 @@ import com.sanshao.bs.util.ToastUtil;
  */
 public class PayViewModel extends BaseViewModel {
     public static int GET_PAY_INFO = 1;
-    public static int CHECK_PRDER_STATUS = 2;
+    public static int CHECK_ORDER_STATUS = 2;
 
     private String TAG = PayViewModel.class.getSimpleName();
     private IPayModel mCallBack;

@@ -3,7 +3,6 @@ package com.sanshao.bs;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.util.ArrayMap;
 import android.util.Log;
 
 import androidx.multidex.BuildConfig;
@@ -17,23 +16,23 @@ import com.didichuxing.doraemonkit.kit.IKit;
 import com.exam.commonbiz.base.BasicApplication;
 import com.exam.commonbiz.cache.ACache;
 import com.exam.commonbiz.config.ConfigSP;
-import com.exam.commonbiz.kits.Kits;
 import com.exam.commonbiz.net.HostUrl;
 import com.exam.commonbiz.net.NetError;
 import com.exam.commonbiz.net.NetProvider;
 import com.exam.commonbiz.net.RequestHandler;
 import com.exam.commonbiz.net.XApi;
 import com.sanshao.bs.module.personal.bean.UserInfo;
-import com.sanshao.bs.util.AppUtil;
 import com.sanshao.bs.module.personal.setting.dokit.KitChangeHost;
-import com.sanshao.bs.util.CommandTools;
+import com.sanshao.bs.util.AppUtil;
+import com.sanshao.bs.util.Constants;
 import com.sanshao.commonui.titlebar.TitleBar;
 import com.sanshao.commonui.titlebar.TitleBarLightStyle;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
 import com.squareup.leakcanary.LeakCanary;
-import com.tencent.bugly.Bugly;
 import com.tencent.bugly.crashreport.CrashReport;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
@@ -94,7 +93,7 @@ public class SSApplication extends BasicApplication {
 
         // 必须：初始化全局的 用户信息管理类，记录个人信息。
         TCUserMgr.getInstance().initContext(getApplicationContext());
-        PlatformConfig.setWeixin("微信AppId", "微信AppSecret");
+//        PlatformConfig.setWeixin("微信AppId", "微信AppSecret");
 
         //在使用SDK各组件之前初始化context信息，传入ApplicationContext
         SDKInitializer.initialize(this);
@@ -217,8 +216,12 @@ public class SSApplication extends BasicApplication {
          * 参数2:设备类型，UMConfigure.DEVICE_TYPE_PHONE为手机、UMConfigure.DEVICE_TYPE_BOX为盒子，默认为手机
          * 参数3:Push推送业务的secret
          */
-        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, "");
+        UMConfigure.init(this, Constants.UMENG_APP_KEY, "", UMConfigure.DEVICE_TYPE_PHONE, "");
         UMShareAPI.get(this);//初始化sdk
+//        PlatformConfig.setWeixin(Constants.WX_APPId, Constants.W);
+
+        IWXAPI mWxApi = WXAPIFactory.createWXAPI(this, Constants.WX_APPId, true);
+        mWxApi.registerApp(Constants.WX_APPId);
     }
 
     private void closeAndroidPDialog() {

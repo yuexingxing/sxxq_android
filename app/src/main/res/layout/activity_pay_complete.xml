@@ -103,7 +103,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginRight="12dp"
                             android:layout_marginBottom="14dp"
+                            android:gravity="center"
                             android:text="恭喜您！核销完成后将成为一星会员！"
                             android:textColor="@color/color_333333"
                             android:textSize="17sp" />

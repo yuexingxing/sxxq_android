@@ -22,6 +22,7 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -329,6 +330,20 @@ public class ShareUtils {
         return false;
     }
 
+    public static void init(){
+
+        HashMap<String, Object> hashMap = new HashMap<String, Object>();
+        hashMap.put("Id", "1");
+        hashMap.put("SortId", "1");
+        hashMap.put("AppId", "wx4868b35061f87885");
+        hashMap.put("AppSecret", "64020361b8ec4c99936c0e3999a9f249");
+        hashMap.put("userName", "gh_afb25ac019c9");
+        hashMap.put("path", "pages/index/index.html?id=1");
+        hashMap.put("BypassApproval", "true");
+        hashMap.put("Enable", "true");
+//        ShareSDK.setPlatformDevInfo(Wechat.NAME, hashMap);
+    }
+
     /**
      * 小程序跳转
      *
@@ -342,7 +357,7 @@ public class ShareUtils {
         WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
         req.userName = "gh_531477db6395"; // 填小程序原始id
         req.path = path;//拉起小程序页面的可带参路径，不填默认拉起小程序首页
-        req.miniprogramType = WXLaunchMiniProgram.Req.MINIPROGRAM_TYPE_TEST;// 可选打开 开发版，体验版和正式版
+        req.miniprogramType = WXLaunchMiniProgram.Req.MINIPROGRAM_TYPE_PREVIEW;// 可选打开 开发版，体验版和正式版
         api.sendReq(req);
     }
 }

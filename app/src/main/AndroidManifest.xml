@@ -114,7 +114,7 @@
             android:screenOrientation="portrait" /> <!-- 友盟配置开始 -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="5f15815bdbc2ec0813574b09" />
+            android:value="5f432637d3093221547c0978" />
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL_VALUE}" /><!-- 友盟配置结束 -->
