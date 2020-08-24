@@ -18,8 +18,8 @@
             android:layout_width="343dp"
             android:layout_height="400dp"
             android:src="@drawable/img_benefits"
-            app:riv_corner_radius_top_left="10dp"
-            app:riv_corner_radius_top_right="10dp" />
+            app:riv_corner_radius_top_left="20dp"
+            app:riv_corner_radius_top_right="20dp" />
 
         <LinearLayout
             android:layout_width="match_parent"

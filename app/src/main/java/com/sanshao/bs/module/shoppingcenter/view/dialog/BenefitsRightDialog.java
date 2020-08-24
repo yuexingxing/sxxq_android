@@ -27,12 +27,6 @@ public class BenefitsRightDialog {
         dialog.setCanceledOnTouchOutside(true);
         dialog.setCancelable(true);
 
-        layout.findViewById(R.id.iv_icon).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
         layout.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

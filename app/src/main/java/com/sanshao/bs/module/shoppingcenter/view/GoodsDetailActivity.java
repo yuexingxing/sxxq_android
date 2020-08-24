@@ -273,13 +273,13 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                 .setData(commonDialogInfoList)
                 .setOnItemClickListener(commonDialogInfo -> {
                     if (commonDialogInfo.position == 0) {
-                        ShareUtils.shareText(GoodsDetailActivity.this, "title", SHARE_MEDIA.WEIXIN_CIRCLE, new CommonCallBack() {
-                            @Override
-                            public void callback(int postion, Object object) {
-
-                            }
-                        });
-//                        ShareUtils.share(context);
+//                        ShareUtils.shareText(GoodsDetailActivity.this, "title", SHARE_MEDIA.WEIXIN_CIRCLE, new CommonCallBack() {
+//                            @Override
+//                            public void callback(int postion, Object object) {
+//
+//                            }
+//                        });
+                        ShareUtils.share(context);
                     } else {
                         new GoodsPosterDialog().show(context, new GoodsDetailInfo());
                     }
