@@ -145,7 +145,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
 
     @Override
     public void returnOrderPayInfo(int optType, OrderPayInfoResponse orderPayInfoResponse) {
-        if (PayViewModel.CHECK_ORDER_STATUS == optType && orderPayInfoResponse == null) {
+        if (PayViewModel.CHECK_ORDER_STATUS == optType) {
             if (orderPayInfoResponse == null) {
                 ToastUtil.showShortToast("支付成功");
                 PayCompleteActivity.start(context, mSalebillId);
