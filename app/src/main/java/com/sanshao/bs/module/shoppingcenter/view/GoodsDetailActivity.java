@@ -144,7 +144,12 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                 ConfirmOrderActivity.start(context, mSartiId);
             } else {
                 if (!mUserInfo.hasBenefitsRight()) {
-                    new BenefitsRightDialog().show(context);
+                    new BenefitsRightDialog().show(context, new CommonCallBack() {
+                        @Override
+                        public void callback(int postion, Object object) {
+                            ConfirmOrderActivity.start(context, mSartiId);
+                        }
+                    });
                     return;
                 }
                 ConfirmOrderActivity.start(context, mSartiId);

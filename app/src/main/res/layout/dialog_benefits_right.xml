@@ -1,48 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ll_top_bg"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_goods_introduction"
-    android:gravity="center_horizontal"
+    android:gravity="center"
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/left_container_margin"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="@dimen/right_container_margin"
-            android:text="您还没有开通无限免费领取权限。"
-            android:textColor="@color/color_333333"
-            android:textSize="15sp" />
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="343dp"
+            android:layout_height="400dp"
+            android:src="@drawable/img_benefits"
+            app:riv_corner_radius_top_left="10dp"
+            app:riv_corner_radius_top_right="10dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/left_container_margin"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:layout_marginRight="@dimen/right_container_margin"
-            android:text="只需支付90元，即可无限领取和使用黄金射频、脱毛塑形、光子嫩肤、点阵激光、部位除皱等五个项目。"
-            android:textColor="@color/color_333333"
-            android:textSize="15sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/left_container_margin"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="@dimen/right_container_margin"
-            android:text="您是否需要购买？"
-            android:textColor="@color/color_333333"
-            android:textSize="15sp" />
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="取消"
+                android:textColor="@color/color_333333"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_buy"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="购买"
+                android:textColor="@color/red"
+                android:textSize="15sp" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

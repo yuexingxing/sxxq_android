@@ -1,9 +1,13 @@
 package com.sanshao.bs.module.shoppingcenter.view.dialog;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
+import com.exam.commonbiz.util.CommonCallBack;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.sanshao.bs.R;
 
@@ -15,12 +19,34 @@ import com.sanshao.bs.R;
  */
 public class BenefitsRightDialog {
 
-    public void show(Context context) {
-        LinearLayout layout = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.dialog_benefits_right, null);
-        BottomSheetDialog dialog = new BottomSheetDialog(context, R.style.BottomSheetDialog);
+    public void show(Context context, CommonCallBack commonCallBack) {
+        RelativeLayout layout = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.dialog_benefits_right, null);
+        Dialog dialog = new Dialog(context, R.style.BottomSheetDialog);
         dialog.setContentView(layout);
         dialog.show();
         dialog.setCanceledOnTouchOutside(true);
         dialog.setCancelable(true);
+
+        layout.findViewById(R.id.iv_icon).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        layout.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        layout.findViewById(R.id.tv_buy).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                if (commonCallBack != null) {
+                    commonCallBack.callback(0, null);
+                }
+            }
+        });
     }
 }
