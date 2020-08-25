@@ -7,6 +7,9 @@ import android.graphics.Color;
 import android.os.Build;
 import android.view.View;
 
+import java.io.ByteArrayOutputStream;
+import java.net.URL;
+
 /**
  * @Author yuexingxing
  * @time 2020/6/18
@@ -86,5 +89,25 @@ public class BitmapUtil {
         v.draw(c);
 
         return bmp;
+    }
+
+    /**
+     * 把Bitmap转Byte
+     */
+    public static byte[] Bitmap2Bytes(Bitmap bm) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return baos.toByteArray();
+    }
+
+    public static Bitmap getBitmap(String imgUrl) {
+        Bitmap bitmap = null;
+        try {
+            URL url = new URL(imgUrl);
+            bitmap = BitmapFactory.decodeStream(url.openStream());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bitmap;
     }
 }

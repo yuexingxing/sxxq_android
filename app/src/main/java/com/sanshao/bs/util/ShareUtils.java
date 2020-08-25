@@ -7,15 +7,19 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.exam.commonbiz.util.CommonCallBack;
+import com.sanshao.bs.R;
+import com.sanshao.bs.SSApplication;
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.modelmsg.WXMiniProgramObject;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -45,6 +49,14 @@ public class ShareUtils {
     public static final int SHARE_CANCELED = -1;
     public static final int SHARE_FAILED = 0;
     public static final int SHARE_SUCCESS = 1;
+    private IWXAPI mIWXAPI;
+
+    public ShareUtils init(Context context) {
+
+        mIWXAPI = WXAPIFactory.createWXAPI(context, Constants.WX_APPID);
+        mIWXAPI.registerApp(Constants.WX_APPID);
+        return this;
+    }
 
     /**
      * 分享链接
@@ -277,17 +289,11 @@ public class ShareUtils {
                     }
                 })
                 .share();
-
-        //新浪微博中图文+链接
-        /*new ShareAction(activity)
-                .setPlatform(platform)
-                .withText(description + " " + WebUrl)
-                .withMedia(new UMImage(activity,imageID))
-                .share();*/
     }
 
     /**
      * 检测是否安装支付宝
+     *
      * @param context
      * @return
      */
@@ -333,7 +339,7 @@ public class ShareUtils {
         return false;
     }
 
-    public static void init(){
+    public static void init() {
 
         HashMap<String, Object> hashMap = new HashMap<String, Object>();
         hashMap.put("Id", "1");
@@ -364,23 +370,23 @@ public class ShareUtils {
         api.sendReq(req);
     }
 
-    public static void share(Context context){
-
-        IWXAPI api = WXAPIFactory.createWXAPI(context, Constants.WX_APPID);
-        api.registerApp(Constants.WX_APPID);
-        WXWebpageObject webpage = new WXWebpageObject();
-        webpage.webpageUrl = url;
-//
-        WXMediaMessage msg = new WXMediaMessage(webpage);
-        msg.title = title;
-//        msg.description = decribe;
-//        msg.thumbData = getWXThumb(bitmap).toByteArray();
-
+    public ShareUtils shareMiniProgram(String title, String desc, Bitmap bitmap, String path) {
+        WXMiniProgramObject miniProgram = new WXMiniProgramObject();
+        miniProgram.webpageUrl = "http://www.qq.com";//自定义
+        miniProgram.userName = Constants.MINI_PROGRAM_USER_NAME;//小程序端提供参数
+        miniProgram.path = path;//小程序端提供参数
+        miniProgram.miniprogramType = WXLaunchMiniProgram.Req.MINIPROGRAM_TYPE_PREVIEW;
+        WXMediaMessage mediaMessage = new WXMediaMessage(miniProgram);
+        mediaMessage.title = title;//自定义
+        mediaMessage.description = desc;//自定义
+        Bitmap sendBitmap = Bitmap.createScaledBitmap(bitmap, 200, 200, true);
+        bitmap.recycle();
+        mediaMessage.thumbData = BitmapUtil.Bitmap2Bytes(sendBitmap);
         SendMessageToWX.Req req = new SendMessageToWX.Req();
-//WXSceneTimeline朋友圈    WXSceneSession聊天界面
-        req.scene = SendMessageToWX.Req.WXSceneSession;//SendMessageToWX.Req.WXSceneTimeline;// : SendMessageToWX.Req.WXSceneSession;//聊天界面
-        req.message = msg;
-        req.transaction = String.valueOf(System.currentTimeMillis());
-        api.sendReq(req);
+        req.transaction = "";
+        req.scene = SendMessageToWX.Req.WXSceneTimeline;
+        req.message = mediaMessage;
+        mIWXAPI.sendReq(req);
+        return this;
     }
 }

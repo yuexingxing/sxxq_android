@@ -6,7 +6,6 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;

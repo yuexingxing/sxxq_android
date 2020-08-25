@@ -224,14 +224,4 @@ public class GlideUtil extends AppGlideModule {
     public static void clearDiskCache(Context context) {
         Glide.get(context).clearDiskCache();
     }
-
-    /**
-     * @param transformation
-     * @return
-     * @describe 设置加载的效果
-     */
-    private static RequestOptions bitmapTransform(BitmapTransformation transformation) {
-        return new RequestOptions();
-    }
-
 }

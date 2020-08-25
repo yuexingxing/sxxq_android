@@ -3,6 +3,8 @@ package com.sanshao.bs.module.shoppingcenter.bean;
 import android.text.TextUtils;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.sanshao.bs.SSApplication;
+import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.util.MathUtil;
 
@@ -79,6 +81,7 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
 
     /**
      * 是不是金钱购买
+     *
      * @return
      */
     public boolean isPayByMoney() {
@@ -132,6 +135,12 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
         goodsDetailInfo.product_list = setMealList;
 
         return goodsDetailInfo;
+    }
+
+    public String getSharePath() {
+        UserInfo userInfo = SSApplication.getInstance().getUserInfo();
+        String path = "/pages/mall/goodsDetail?sarti_id=" + salebill_id + "&mem=" + userInfo.invitation_code;
+        return path;
     }
 
     //核销码

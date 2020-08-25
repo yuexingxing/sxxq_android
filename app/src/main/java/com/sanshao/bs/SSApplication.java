@@ -86,9 +86,8 @@ public class SSApplication extends BasicApplication {
             List<IKit> kits = new ArrayList<>();
             kits.add(new KitChangeHost());
             DoraemonKit.install(this, kits);
-            Config.DEBUG = true;
         } else {
-            Config.DEBUG = false;
+
         }
 
         // 必须：初始化全局的 用户信息管理类，记录个人信息。
@@ -212,16 +211,20 @@ public class SSApplication extends BasicApplication {
     public void initUMeng() {
 
         /**
-         * 参数1:上下文，不能为空
-         * 参数2:设备类型，UMConfigure.DEVICE_TYPE_PHONE为手机、UMConfigure.DEVICE_TYPE_BOX为盒子，默认为手机
-         * 参数3:Push推送业务的secret
+         * 初始化common库
+         * 参数1:上下文，必须的参数，不能为空
+         * 参数2:友盟 app key，非必须参数，如果Manifest文件中已配置app key，该参数可以传空，则使用Manifest中配置的app key，否则该参数必须传入
+         * 参数3:友盟 channel，非必须参数，如果Manifest文件中已配置channel，该参数可以传空，则使用Manifest中配置的channel，否则该参数必须传入，channel命名请详见channel渠道命名规范
+         * 参数4:设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机
+         * 参数5:Push推送业务的secret，需要集成Push功能时必须传入Push的secret，否则传空
          */
-        UMConfigure.init(this, Constants.UMENG_APP_KEY, "", UMConfigure.DEVICE_TYPE_PHONE, "");
-        UMShareAPI.get(this);//初始化sdk
-//        PlatformConfig.setWeixin(Constants.WX_APPID, Constants.W);
-
-        IWXAPI mWxApi = WXAPIFactory.createWXAPI(this, Constants.WX_APPID, true);
-        mWxApi.registerApp(Constants.WX_APPID);
+        UMConfigure.init(this, Constants.UMENG_APP_KEY, "umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+        /**
+         * 友盟相关平台配置。注意友盟官方新文档中没有这项配置，但是如果不配置会吊不起来相关平台的授权界面
+         */
+        PlatformConfig.setWeixin(Constants.WX_APPID, Constants.WX_APPSECRET);//微信APPID和AppSecret
+//        PlatformConfig.setQQZone("你的QQAPPID", "你的QQAppSecret");//QQAPPID和AppSecret
+//        PlatformConfig.setSinaWeibo("你的微博APPID", "你的微博APPSecret","微博的后台配置回调地址");//微博
     }
 
     private void closeAndroidPDialog() {

@@ -2,8 +2,11 @@ package com.sanshao.bs.module.shoppingcenter.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -34,6 +37,7 @@ import com.sanshao.bs.module.shoppingcenter.view.dialog.BenefitsRightDialog;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsInroductionDialog;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
+import com.sanshao.bs.util.BitmapUtil;
 import com.sanshao.bs.util.CommandTools;
 import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.util.MathUtil;
@@ -41,7 +45,6 @@ import com.sanshao.bs.util.ShareUtils;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.zzhoujay.richtext.ImageHolder;
 import com.zzhoujay.richtext.RichText;
 
@@ -273,13 +276,17 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                 .setData(commonDialogInfoList)
                 .setOnItemClickListener(commonDialogInfo -> {
                     if (commonDialogInfo.position == 0) {
-//                        ShareUtils.shareText(GoodsDetailActivity.this, "title", SHARE_MEDIA.WEIXIN_CIRCLE, new CommonCallBack() {
-//                            @Override
-//                            public void callback(int postion, Object object) {
-//
-//                            }
-//                        });
-                        ShareUtils.share(context);
+
+                        new Thread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                Bitmap bitmap = BitmapUtil.getBitmap(mGoodsDetailInfo.thumbnail_img);
+                                Message message = new Message();
+                                message.obj = bitmap;
+                                mHandler.sendMessage(message);
+                            }
+                        }).start();
                     } else {
                         new GoodsPosterDialog().show(context, new GoodsDetailInfo());
                     }
@@ -370,4 +377,13 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         }
         binding.nestedScrollview.scrollTo(0, 0);
     }
+
+    public Handler mHandler = new Handler() {
+        public void handleMessage(Message message) {
+            new ShareUtils()
+                    .init(context)
+                    .shareMiniProgram(mGoodsDetailInfo.sarti_name, mGoodsDetailInfo.sarti_desc,
+                            (Bitmap) message.obj, mGoodsDetailInfo.getSharePath());
+        }
+    };
 }

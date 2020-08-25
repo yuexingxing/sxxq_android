@@ -90,7 +90,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         }
         binding.btnStartPay.setOnClickListener(v -> {
             if (TextUtils.equals(mPayType, PAY_BY_WECHAT)) {
-                String path = "pages/order/confirmPay?" + "salebill_id=" + goodsDetailInfo.salebill_id;
+                String path = "pages/order/appPay?" + "salebill_id=" + goodsDetailInfo.salebill_id;
                 ShareUtils.jump2WxMiniProgram(context, path);
             } else {
                 mViewModel.getOrderPayInfo(PayViewModel.GET_PAY_INFO, mSalebillId, mPayType);

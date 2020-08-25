@@ -14,7 +14,7 @@ import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.umeng.weixin.callback.WXCallbackActivity;
+import com.umeng.socialize.weixin.view.WXCallbackActivity;
 
 import org.greenrobot.eventbus.EventBus;
 

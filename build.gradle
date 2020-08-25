@@ -3,6 +3,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url 'https://dl.bintray.com/umsdk/release' }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.0.0"
@@ -22,6 +23,7 @@ allprojects {
         maven {
             url 'https://maven.aliyun.com/repository/releases'
         }
+        maven { url 'https://dl.bintray.com/umsdk/release' }
         flatDir {
             dirs '../commonbiz/libs'
         }
