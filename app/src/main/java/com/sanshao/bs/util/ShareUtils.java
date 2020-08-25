@@ -356,18 +356,16 @@ public class ShareUtils {
     /**
      * 小程序跳转
      *
-     * @param context
      * @param path
      */
-    public static void jump2WxMiniProgram(Context context, String path) {
-        IWXAPI api = WXAPIFactory.createWXAPI(context, Constants.WX_APPID);
-        api.registerApp(Constants.WX_APPID);
+    public ShareUtils jump2WxMiniProgram(String path) {
 
         WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
-        req.userName = "gh_531477db6395"; // 填小程序原始id
+        req.userName = Constants.MINI_PROGRAM_USER_NAME; // 填小程序原始id
         req.path = path;//拉起小程序页面的可带参路径，不填默认拉起小程序首页
         req.miniprogramType = WXLaunchMiniProgram.Req.MINIPROGRAM_TYPE_PREVIEW;// 可选打开 开发版，体验版和正式版
-        api.sendReq(req);
+        mIWXAPI.sendReq(req);
+        return this;
     }
 
     public ShareUtils shareMiniProgram(String title, String desc, Bitmap bitmap, String path) {

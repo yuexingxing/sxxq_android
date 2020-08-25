@@ -36,9 +36,9 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
     }
 
     public void initData() {
-        api = WXAPIFactory.createWXAPI(this, Constants.WX_APPID);
-        api.registerApp(Constants.WX_APPID);
-        api.handleIntent(getIntent(), this);
+//        api = WXAPIFactory.createWXAPI(this, Constants.WX_APPID);
+//        api.registerApp(Constants.WX_APPID);
+//        api.handleIntent(getIntent(), this);
     }
 
     @Override
@@ -51,6 +51,7 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
 
         if (baseResp == null) {
             Log.d(TAG, "onShowMessageFromWXReq:zouleresq----baseResp == null");
+            return;
         }
 
         if (baseResp.getType() == ConstantsAPI.COMMAND_LAUNCH_WX_MINIPROGRAM) {

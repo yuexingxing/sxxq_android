@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.sanshao.bs.R;
+import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ActivityConfirmPayBinding;
 import com.sanshao.bs.module.order.bean.ConfirmOrderResponse;
 import com.sanshao.bs.module.order.bean.OrderPayInfoResponse;
@@ -17,6 +18,7 @@ import com.sanshao.bs.module.order.model.IPayModel;
 import com.sanshao.bs.module.order.model.OnPayListener;
 import com.sanshao.bs.module.order.util.PayUtils;
 import com.sanshao.bs.module.order.viewmodel.PayViewModel;
+import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.util.CommandTools;
 import com.sanshao.bs.util.Constants;
@@ -90,8 +92,12 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         }
         binding.btnStartPay.setOnClickListener(v -> {
             if (TextUtils.equals(mPayType, PAY_BY_WECHAT)) {
-                String path = "pages/order/appPay?" + "salebill_id=" + goodsDetailInfo.salebill_id;
-                ShareUtils.jump2WxMiniProgram(context, path);
+                UserInfo userInfo = SSApplication.getInstance().getUserInfo();
+                String path = "pages/order/appPay?" + "salebill_id=" + goodsDetailInfo.salebill_id
+                        + "&mem_phone=" + userInfo.mem_phone + "&benefits_level=" + userInfo.benefits_level;
+                new ShareUtils()
+                        .init(context)
+                        .jump2WxMiniProgram(path);
             } else {
                 mViewModel.getOrderPayInfo(PayViewModel.GET_PAY_INFO, mSalebillId, mPayType);
             }
