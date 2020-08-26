@@ -131,9 +131,8 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
         if (!ContainerUtil.isEmpty(shoppingCenterResponse.static_advertising)) {
             mAdBannerInfo = shoppingCenterResponse.static_advertising.get(0);
             GlideUtil.loadImage(mAdBannerInfo.artitag_url, binding.ivAd);
-            binding.ivAd.setVisibility(View.VISIBLE);
-        } else {
-            binding.ivAd.setVisibility(View.GONE);
+        }else{
+            binding.ivAd.setBackgroundResource(R.drawable.index_equity);
         }
         if (!ContainerUtil.isEmpty(shoppingCenterResponse.classify)) {
             for (int i = 0; i < shoppingCenterResponse.classify.size(); i++) {

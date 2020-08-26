@@ -164,7 +164,6 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:launchMode="singleTask"
-            android:taskAffinity="cn.sanshaoxingqiu.ssbm"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="adjustPan|adjustUnspecified|stateHidden" />
         <!-- 百度地图配置； -->

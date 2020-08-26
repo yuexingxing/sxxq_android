@@ -2,7 +2,11 @@ package com.sanshao.bs.module.shoppingcenter.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -13,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.log.XLog;
-import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
@@ -27,6 +30,7 @@ import com.sanshao.bs.module.shoppingcenter.model.IGoodsListModel;
 import com.sanshao.bs.module.shoppingcenter.view.adapter.GoodsListAdapter;
 import com.sanshao.bs.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.GoodsListViewModel;
+import com.sanshao.bs.util.BitmapUtil;
 import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.util.LoadDialogMgr;
 import com.sanshao.bs.util.OnItemEnterOrExitVisibleHelper;
@@ -34,7 +38,6 @@ import com.sanshao.bs.util.ShareUtils;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -221,14 +224,22 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
                 .setData(commonDialogInfoList)
                 .setOnItemClickListener(commonDialogInfo -> {
                     if (commonDialogInfo.position == 0) {
-                        ShareUtils.shareText(GoodsListActivity.this, "title", SHARE_MEDIA.WEIXIN, new CommonCallBack() {
-                            @Override
-                            public void callback(int postion, Object object) {
 
+                        new Thread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                Bitmap bitmap = BitmapUtil.getBitmap(goodsDetailInfo.thumbnail_img);
+                                Message message = new Message();
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable(Constants.OPT_DATA, goodsDetailInfo);
+                                message.setData(bundle);
+                                message.obj = bitmap;
+                                mHandler.sendMessage(message);
                             }
-                        });
+                        }).start();
                     } else {
-                        new GoodsPosterDialog().show(context, goodsDetailInfo);
+                        new GoodsPosterDialog().show(context, new GoodsDetailInfo());
                     }
                 })
                 .show();
@@ -305,4 +316,16 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
     public boolean viewFinished() {
         return false;
     }
+
+    public Handler mHandler = new Handler() {
+        public void handleMessage(Message message) {
+            Bundle bundle = message.getData();
+            GoodsDetailInfo goodsDetailInfo = (GoodsDetailInfo) bundle.getSerializable(Constants.OPT_DATA);
+            Bitmap bitmap = (Bitmap) message.obj;
+            new ShareUtils()
+                    .init(context)
+                    .shareMiniProgram(goodsDetailInfo.sarti_name, goodsDetailInfo.sarti_desc,
+                            bitmap, goodsDetailInfo.getSharePath());
+        }
+    };
 }

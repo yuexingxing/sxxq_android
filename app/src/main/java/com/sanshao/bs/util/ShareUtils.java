@@ -7,12 +7,16 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.exam.commonbiz.util.CommonCallBack;
+import com.exam.commonbiz.util.Res;
+import com.sanshao.bs.R;
+import com.sanshao.bs.SSApplication;
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
@@ -357,9 +361,19 @@ public class ShareUtils {
         WXMediaMessage mediaMessage = new WXMediaMessage(miniProgram);
         mediaMessage.title = title;//自定义
         mediaMessage.description = desc;//自定义
-        Bitmap sendBitmap = Bitmap.createScaledBitmap(bitmap, 200, 200, true);
-        bitmap.recycle();
+        Bitmap sendBitmap;
+        if (bitmap == null) {
+            sendBitmap = BitmapFactory.decodeResource(SSApplication.app.getResources(), R.drawable.image_logo_smal);
+        } else {
+            sendBitmap = Bitmap.createScaledBitmap(bitmap, 300, 240, true);
+            bitmap.recycle();
+        }
+        Log.d("zdddz", "bitmap size:" + BitmapUtil.getBitmapSize(sendBitmap));
+        if (BitmapUtil.getBitmapSize(sendBitmap) > 128 * 1024) {
+            sendBitmap = BitmapUtil.compressBitmap(sendBitmap, 127);
+        }
         mediaMessage.thumbData = BitmapUtil.Bitmap2Bytes(sendBitmap);
+
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = "";
         req.scene = SendMessageToWX.Req.WXSceneTimeline;

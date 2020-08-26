@@ -74,9 +74,6 @@ public class DateUtil {
         }
 
         //将时间戳转为日期格式
-        Log.e("tag timeMillis =", "" + timeMillis);
-        Log.e("tag curTime =", "" + beginTime);
-        Log.e("tag endTime =", "" + endTime);
         Date curDate = null;
         Date endDate = null;
 
@@ -88,7 +85,6 @@ public class DateUtil {
         }
 
         long diff = endDate.getTime() - curDate.getTime();
-        Log.i("tag", "时间差=" + diff);
 
         //以天数为单位取整
         int day = (int) (diff / (1000 * 60 * 60 * 24));
@@ -98,18 +94,12 @@ public class DateUtil {
         Long min = ((diff / (60 * 1000)) - day * 24 * 60 - hour * 60);
         //以秒为单位
         Long second = (diff / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
-
-        Log.e(TAG, "day =" + day);
-        Log.e(TAG, "hour =" + hour);
-        Log.e(TAG, "min =" + min);
-        Log.e(TAG, "second =" + second);
         return day;
     }
 
     /**
      * 将时间戳转换为时间
      */
-
     public static String stampToDate(long timeMillis) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date(timeMillis);

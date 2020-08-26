@@ -190,13 +190,13 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                         return;
                     }
                     String title = "推荐有奖";
-                    String content = getResources().getString(R.string.goods_detail_invite_tip1);
+                    String content = getResources().getString(R.string.invitation_tip);
                     if (mGoodsDetailInfo.isFree()) {
                         title = "上三少免费变美";
-                        content = getResources().getString(R.string.goods_detail_invite_tip2);
+                        content = getResources().getString(R.string.register_tip);
                     } else if (mGoodsDetailInfo.isPayByPoint()) {
                         title = "邀请有礼 一起变美";
-                        content = getResources().getString(R.string.goods_detail_invite_tip3);
+                        content = getResources().getString(R.string.invitation_tip);
                     }
 
                     new GoodsInroductionDialog().show(context, title, content);
