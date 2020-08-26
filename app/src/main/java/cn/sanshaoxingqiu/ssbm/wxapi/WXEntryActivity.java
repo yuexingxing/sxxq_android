@@ -1,4 +1,4 @@
-package com.sanshao.bs.wxapi;
+package cn.sanshaoxingqiu.ssbm.wxapi;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,9 +36,9 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
     }
 
     public void initData() {
-//        api = WXAPIFactory.createWXAPI(this, Constants.WX_APPID);
-//        api.registerApp(Constants.WX_APPID);
-//        api.handleIntent(getIntent(), this);
+        api = WXAPIFactory.createWXAPI(this, Constants.WX_APPID);
+        api.registerApp(Constants.WX_APPID);
+        api.handleIntent(getIntent(), this);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
 
         if (baseResp.getType() == ConstantsAPI.COMMAND_LAUNCH_WX_MINIPROGRAM) {
             ToastUtil.showShortToast("onResp-小程序返回");
-            return;
+            finish();
         }
 
         Log.d(TAG, "openId----" + baseResp.openId);

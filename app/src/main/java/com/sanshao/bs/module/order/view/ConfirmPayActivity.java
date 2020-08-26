@@ -93,7 +93,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         binding.btnStartPay.setOnClickListener(v -> {
             if (TextUtils.equals(mPayType, PAY_BY_WECHAT)) {
                 UserInfo userInfo = SSApplication.getInstance().getUserInfo();
-                String path = "pages/order/appPay?" + "salebill_id=" + goodsDetailInfo.salebill_id
+                String path = "/pages/order/appPay?" + "salebill_id=" + goodsDetailInfo.salebill_id
                         + "&mem_phone=" + userInfo.mem_phone + "&benefits_level=" + userInfo.benefits_level;
                 new ShareUtils()
                         .init(context)
