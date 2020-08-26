@@ -82,7 +82,10 @@ public class LinearEmptyLayout extends LinearLayout {
 
     public void showEmpty(String text, int imaSrc) {
         if (mBindView != null) mBindView.setVisibility(View.GONE);
-        if (!TextUtils.isEmpty(text)) mEmptyText.setText(text);
+        if (TextUtils.isEmpty(text)) {
+            text = "";
+        }
+        mEmptyText.setText(text);
         ivEmptyImg.setBackgroundResource(imaSrc);
         setGone();
         mEmptyView.setVisibility(View.VISIBLE);

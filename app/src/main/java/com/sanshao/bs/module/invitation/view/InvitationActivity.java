@@ -109,7 +109,9 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
 
         LoadDialogMgr.getInstance().show(InvitationActivity.this);
         mViewModel.getGoodsList(artiTagId);
-        mViewModel.getUserReferrals();
+        if (SSApplication.isLogin()) {
+            mViewModel.getUserReferrals();
+        }
     }
 
     @Override

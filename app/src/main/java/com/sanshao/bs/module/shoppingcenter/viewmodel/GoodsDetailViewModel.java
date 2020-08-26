@@ -9,6 +9,7 @@ import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 import com.sanshao.bs.module.shoppingcenter.model.IGoodsDetailModel;
 import com.sanshao.bs.module.shoppingcenter.model.ShoppingCenterModel;
 import com.sanshao.bs.util.LoadDialogMgr;
+import com.sanshao.bs.util.ToastUtil;
 
 /**
  * @Author yuexingxing
@@ -45,6 +46,7 @@ public class GoodsDetailViewModel extends BaseViewModel {
 
             @Override
             public void onLoadFailed(String errMsg) {
+                ToastUtil.showShortToast(errMsg);
                 if (mCallBack != null) {
                     mCallBack.returnGoodsDetail(null);
                 }

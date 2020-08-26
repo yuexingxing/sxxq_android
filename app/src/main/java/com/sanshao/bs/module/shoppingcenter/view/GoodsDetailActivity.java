@@ -26,9 +26,13 @@ import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ActivityGoodsDetailBinding;
 import com.sanshao.bs.module.home.model.BannerInfo;
 import com.sanshao.bs.module.order.bean.OrderBenefitResponse;
+import com.sanshao.bs.module.order.bean.OrderNumStatusResponse;
 import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
+import com.sanshao.bs.module.order.model.IOrderDetailModel;
 import com.sanshao.bs.module.order.model.IOrderModel;
 import com.sanshao.bs.module.order.view.ConfirmOrderActivity;
+import com.sanshao.bs.module.order.view.ConfirmPayActivity;
+import com.sanshao.bs.module.order.viewmodel.OrderDetailViewModel;
 import com.sanshao.bs.module.order.viewmodel.OrderViewModel;
 import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.module.register.view.RegisterActivity;
@@ -48,6 +52,7 @@ import com.sanshao.bs.util.ShareUtils;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 import com.zzhoujay.richtext.ImageHolder;
 import com.zzhoujay.richtext.RichText;
 
@@ -65,13 +70,14 @@ import cn.jzvd.Jzvd;
  * @Author yuexingxing
  * @time 2020/6/18
  */
-public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, ActivityGoodsDetailBinding> implements IGoodsDetailModel, IOrderModel {
+public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, ActivityGoodsDetailBinding> implements IGoodsDetailModel, IOrderModel, IOrderDetailModel {
     private final String TAG = GoodsDetailActivity.class.getSimpleName();
     private String mSartiId;
     private SetMealAdapter mSetMealAdapter;
     private GoodsDetailInfo mGoodsDetailInfo;
     private UserInfo mUserInfo;
     private OrderViewModel mOrderViewModel;
+    private OrderDetailViewModel mOrderDetailViewModel;
 
     public static void start(Context context, String sartiId) {
         Intent starter = new Intent(context, GoodsDetailActivity.class);
@@ -100,7 +106,9 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         mSartiId = getIntent().getStringExtra(Constants.OPT_DATA);
         mViewModel.setCallBack(this);
         mOrderViewModel = new OrderViewModel();
+        mOrderDetailViewModel = new OrderDetailViewModel();
         mOrderViewModel.setCallBack(this);
+        mOrderDetailViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -395,6 +403,59 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         if (orderBenefitResponse == null) {
             return;
         }
-        ConfirmOrderActivity.start(context, orderBenefitResponse.salebill_id);
+        mOrderDetailViewModel.getOrderDetailInfo(context, orderBenefitResponse.salebill_id);
+    }
+
+    @Override
+    public void returnOrderDetailInfo(GoodsDetailInfo goodsDetailInfo) {
+        if (goodsDetailInfo == null) {
+            return;
+        }
+        ConfirmPayActivity.start(context, goodsDetailInfo);
+    }
+
+    @Override
+    public void returnOrderNumStatus(OrderNumStatusResponse orderNumStatusResponse) {
+
+    }
+
+    @Override
+    public void returnCancelOrder() {
+
+    }
+
+    @Override
+    public void onRefreshData(Object object) {
+
+    }
+
+    @Override
+    public void onLoadMoreData(Object object) {
+
+    }
+
+    @Override
+    public void onNetError() {
+
+    }
+
+    @Override
+    public LoadingDialog createLoadingDialog() {
+        return null;
+    }
+
+    @Override
+    public LoadingDialog createLoadingDialog(String text) {
+        return null;
+    }
+
+    @Override
+    public boolean visibility() {
+        return false;
+    }
+
+    @Override
+    public boolean viewFinished() {
+        return false;
     }
 }
