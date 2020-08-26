@@ -412,6 +412,12 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         if (goodsDetailInfo == null) {
             return;
         }
+        if (goodsDetailInfo.order_product != null){
+            goodsDetailInfo.sarti_name = goodsDetailInfo.order_product.sarti_name;
+            goodsDetailInfo.sarti_saleprice = goodsDetailInfo.order_product.sarti_saleprice;
+            goodsDetailInfo.pay_type = goodsDetailInfo.order_product.pay_type;
+            goodsDetailInfo.sarti_point_price = goodsDetailInfo.order_product.sum_point;
+        }
         ConfirmPayActivity.start(context, goodsDetailInfo);
     }
 
