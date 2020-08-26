@@ -325,12 +325,9 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                 binding.tvOldPrice.setVisibility(View.GONE);
                 binding.includeBottom.btnBuy.setText("分享金购买");
                 binding.ivRecommendReward.setBackgroundResource(R.drawable.share_icon);
-                if (mUserInfo.isZeroPoint()) {
-                    binding.includeBottom.btnBuy.setText("分享免费领");
-                }
             }
             if (!SSApplication.isLogin()) {
-                binding.includeBottom.btnBuy.setText("注册免费领");
+                binding.includeBottom.btnBuy.setText("免费领取");
             }
         }
 

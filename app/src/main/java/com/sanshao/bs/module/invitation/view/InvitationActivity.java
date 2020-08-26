@@ -134,7 +134,7 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
         }
         int count = userReferrals.referrals.size();
         binding.invitationCount.setVisibility(View.VISIBLE);
-        binding.invitationCount.setText("已邀请" + count + "人");
+        binding.invitationCount.setText("已邀请" + count + "人  点亮" + count + "个分享金");
 
         binding.invitationTip.setVisibility(View.VISIBLE);
         binding.invitationTip.setText("已成功邀请" + count + "个好友  可免费领取" + count + "个奖励变美专区项目");

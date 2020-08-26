@@ -41,15 +41,16 @@
                     android:paddingBottom="14dp"
                     android:background="@drawable/shape_radius_10_bee1f4"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/invitation_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
                         android:layout_marginLeft="10dp"
-                        android:textSize="10sp"
+                        android:layout_marginTop="8dp"
+                        android:text="已邀请0人 点亮0个分享金"
                         android:textColor="#313131"
-                        android:text="已邀请0人"/>
+                        android:textSize="10sp" />
 
                     <LinearLayout
                         android:id="@+id/view_invitatoin_user"
