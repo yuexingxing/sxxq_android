@@ -3,8 +3,10 @@ package com.sanshao.bs.module.order.api;
 import com.exam.commonbiz.net.BaseResponse;
 import com.sanshao.bs.module.order.bean.ConfirmOrderResponse;
 import com.sanshao.bs.module.order.bean.CreateOrderRequest;
+import com.sanshao.bs.module.order.bean.OrderBenefitResponse;
 import com.sanshao.bs.module.order.bean.OrderListResponse;
 import com.sanshao.bs.module.order.bean.OrderNumStatusResponse;
+import com.sanshao.bs.module.order.bean.OrderPayInfoResponse;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
 
 import io.reactivex.Observable;
@@ -46,4 +48,8 @@ public interface OrderApiService {
     //取消订单
     @POST("salebill/cancel")
     Observable<BaseResponse> cancelOrder(@Query("salebillId") String salebillId);
+
+    //用户权益订单
+    @GET("order/benefit")
+    Observable<BaseResponse<OrderBenefitResponse>> getOrderBenefit();
 }

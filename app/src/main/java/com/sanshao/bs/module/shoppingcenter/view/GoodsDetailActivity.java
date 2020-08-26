@@ -25,8 +25,11 @@ import com.sanshao.bs.R;
 import com.sanshao.bs.SSApplication;
 import com.sanshao.bs.databinding.ActivityGoodsDetailBinding;
 import com.sanshao.bs.module.home.model.BannerInfo;
+import com.sanshao.bs.module.order.bean.OrderBenefitResponse;
 import com.sanshao.bs.module.order.event.PayStatusChangedEvent;
+import com.sanshao.bs.module.order.model.IOrderModel;
 import com.sanshao.bs.module.order.view.ConfirmOrderActivity;
+import com.sanshao.bs.module.order.viewmodel.OrderViewModel;
 import com.sanshao.bs.module.personal.bean.UserInfo;
 import com.sanshao.bs.module.register.view.RegisterActivity;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsDetailInfo;
@@ -62,12 +65,13 @@ import cn.jzvd.Jzvd;
  * @Author yuexingxing
  * @time 2020/6/18
  */
-public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, ActivityGoodsDetailBinding> implements IGoodsDetailModel {
+public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, ActivityGoodsDetailBinding> implements IGoodsDetailModel, IOrderModel {
     private final String TAG = GoodsDetailActivity.class.getSimpleName();
     private String mSartiId;
     private SetMealAdapter mSetMealAdapter;
     private GoodsDetailInfo mGoodsDetailInfo;
     private UserInfo mUserInfo;
+    private OrderViewModel mOrderViewModel;
 
     public static void start(Context context, String sartiId) {
         Intent starter = new Intent(context, GoodsDetailActivity.class);
@@ -95,6 +99,8 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         mUserInfo = SSApplication.getInstance().getUserInfo();
         mSartiId = getIntent().getStringExtra(Constants.OPT_DATA);
         mViewModel.setCallBack(this);
+        mOrderViewModel = new OrderViewModel();
+        mOrderViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -143,14 +149,14 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                 RegisterActivity.start(context, Constants.TAG_ID_REGISTER);
                 return;
             }
-            if (mGoodsDetailInfo.isPayByMoney()) {
+            if (mGoodsDetailInfo.isPayByMoney() && !mGoodsDetailInfo.isFree()) {
                 ConfirmOrderActivity.start(context, mSartiId);
             } else {
                 if (!mUserInfo.hasBenefitsRight()) {
                     new BenefitsRightDialog().show(context, new CommonCallBack() {
                         @Override
                         public void callback(int postion, Object object) {
-                            ConfirmOrderActivity.start(context, mSartiId);
+                            mOrderViewModel.getOrderBenefit();
                         }
                     });
                     return;
@@ -383,4 +389,12 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                             (Bitmap) message.obj, mGoodsDetailInfo.getSharePath());
         }
     };
+
+    @Override
+    public void returnOrderBenefit(OrderBenefitResponse orderBenefitResponse) {
+        if (orderBenefitResponse == null) {
+            return;
+        }
+        ConfirmOrderActivity.start(context, orderBenefitResponse.salebill_id);
+    }
 }

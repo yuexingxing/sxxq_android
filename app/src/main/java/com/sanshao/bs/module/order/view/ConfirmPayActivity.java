@@ -41,6 +41,8 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
     private final String PAY_BY_ALI_H5 = "HFALIPAYWAP";
     private String mPayType = PAY_BY_ALI_APP;//默认支付宝支付
     private String mSalebillId;
+    private boolean isFirstIn = true;
+    private UserInfo mUserInfo;
 
     public static void start(Context context, GoodsDetailInfo goodsDetailInfo) {
         Intent starter = new Intent(context, ConfirmPayActivity.class);
@@ -81,7 +83,8 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         binding.tvPrice.setText(goodsDetailInfo.getPriceText());
         binding.tvName.setText(goodsDetailInfo.sarti_name);
         binding.tvOrderNo.setText("订单编号：" + goodsDetailInfo.salebill_id);
-        if (goodsDetailInfo.isFree()) {
+        mUserInfo = SSApplication.getInstance().getUserInfo();
+        if (goodsDetailInfo.isFree() && mUserInfo.hasBenefitsRight()) {
             binding.rlPay.setVisibility(View.INVISIBLE);
             binding.btnStartPay.setText("免费领取");
         } else if (goodsDetailInfo.isPayByPoint()) {
@@ -92,9 +95,8 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         }
         binding.btnStartPay.setOnClickListener(v -> {
             if (TextUtils.equals(mPayType, PAY_BY_WECHAT)) {
-                UserInfo userInfo = SSApplication.getInstance().getUserInfo();
                 String path = "/pages/order/appPay?" + "salebill_id=" + goodsDetailInfo.salebill_id
-                        + "&mem_phone=" + userInfo.mem_phone + "&benefits_level=" + userInfo.benefits_level;
+                        + "&mem_phone=" + mUserInfo.mem_phone + "&benefits_level=" + mUserInfo.benefits_level;
                 new ShareUtils()
                         .init(context)
                         .jump2WxMiniProgram(path);
@@ -112,7 +114,10 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
     @Override
     protected void onResume() {
         super.onResume();
-        mViewModel.getOrderPayInfo(PayViewModel.CHECK_ORDER_STATUS, mSalebillId, mPayType);
+        if (!isFirstIn) {
+            mViewModel.getOrderPayInfo(PayViewModel.CHECK_ORDER_STATUS, mSalebillId, mPayType);
+        }
+        isFirstIn = false;
     }
 
     @Override
@@ -186,6 +191,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         if (orderStatusResponse == null) {
             return;
         }
+        ;
     }
 
     @Override

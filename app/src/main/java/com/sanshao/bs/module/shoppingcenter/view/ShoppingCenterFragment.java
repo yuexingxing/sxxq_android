@@ -1,10 +1,8 @@
 package com.sanshao.bs.module.shoppingcenter.view;
 
-import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewTreeObserver;
 
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +15,10 @@ import com.sanshao.bs.R;
 import com.sanshao.bs.databinding.ShoppingCenterFragmentBinding;
 import com.sanshao.bs.module.home.model.BannerInfo;
 import com.sanshao.bs.module.invitation.view.InvitationActivity;
+import com.sanshao.bs.module.order.bean.OrderBenefitResponse;
+import com.sanshao.bs.module.order.model.IOrderModel;
+import com.sanshao.bs.module.order.view.ConfirmOrderActivity;
+import com.sanshao.bs.module.order.viewmodel.OrderViewModel;
 import com.sanshao.bs.module.register.view.RegisterActivity;
 import com.sanshao.bs.module.shoppingcenter.bean.GoodsTypeInfo;
 import com.sanshao.bs.module.shoppingcenter.bean.ShoppingCenterResponse;
@@ -25,8 +27,6 @@ import com.sanshao.bs.module.shoppingcenter.view.adapter.GoodsTypeAdapter;
 import com.sanshao.bs.module.shoppingcenter.viewmodel.ShoppingCenterViewModel;
 import com.sanshao.bs.util.Constants;
 import com.sanshao.bs.util.GlideUtil;
-import com.sanshao.bs.util.LoadDialogMgr;
-import com.sanshao.bs.util.ToastUtil;
 
 /**
  * 商城
@@ -96,6 +96,7 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
         binding.ivToTop.setOnClickListener(view -> {
             binding.nestedScrollview.smoothScrollTo(0, 0);
         });
+        binding.emptyLayout.showEmpty("", 0);
         mViewModel.getGoodsList(context);
     }
 
@@ -131,7 +132,7 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
         if (!ContainerUtil.isEmpty(shoppingCenterResponse.static_advertising)) {
             mAdBannerInfo = shoppingCenterResponse.static_advertising.get(0);
             GlideUtil.loadImage(mAdBannerInfo.artitag_url, binding.ivAd);
-        }else{
+        } else {
             binding.ivAd.setBackgroundResource(R.drawable.index_equity);
         }
         if (!ContainerUtil.isEmpty(shoppingCenterResponse.classify)) {
