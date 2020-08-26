@@ -3,9 +3,6 @@
 
     <data>
 
-        <variable
-            name="user"
-            type="com.sanshao.bs.module.login.bean.LoginBean" />
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"

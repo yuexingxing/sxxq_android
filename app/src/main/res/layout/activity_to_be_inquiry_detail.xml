@@ -292,7 +292,7 @@
                     </RelativeLayout>
                 </LinearLayout>
 
-                <com.sanshao.bs.module.shoppingcenter.widget.GuessYouLoveView
+                <cn.sanshaoxingqiu.ssbm.module.shoppingcenter.widget.GuessYouLoveView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/left_container_margin"

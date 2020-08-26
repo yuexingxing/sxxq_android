@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.sanshao.bs.widget.OvalImageView
+        <cn.sanshaoxingqiu.ssbm.widget.OvalImageView
             android:id="@+id/iv_icon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -16,7 +16,7 @@
             app:OvalImageView_top_left="20"
             app:OvalImageView_top_right="20" />
 
-        <com.sanshao.bs.module.shoppingcenter.widget.VideoPlayLayout
+        <cn.sanshaoxingqiu.ssbm.module.shoppingcenter.widget.VideoPlayLayout
             android:id="@+id/video_play_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -136,7 +136,7 @@
                         android:textSize="17sp" />
                 </LinearLayout>
 
-                <com.sanshao.bs.module.shoppingcenter.widget.GuessYouLoveView
+                <cn.sanshaoxingqiu.ssbm.module.shoppingcenter.widget.GuessYouLoveView
                     android:id="@+id/guess_you_love_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

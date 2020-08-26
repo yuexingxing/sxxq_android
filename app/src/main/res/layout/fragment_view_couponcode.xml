@@ -135,7 +135,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="245dp">
 
-                <com.sanshao.bs.widget.NoSlidingViewPager
+                <cn.sanshaoxingqiu.ssbm.widget.NoSlidingViewPager
                     android:id="@+id/view_pager"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -145,7 +145,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
-                </com.sanshao.bs.widget.NoSlidingViewPager>
+                </cn.sanshaoxingqiu.ssbm.widget.NoSlidingViewPager>
 
                 <RelativeLayout
                     android:layout_width="match_parent"

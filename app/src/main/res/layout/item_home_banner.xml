@@ -17,7 +17,7 @@
         app:riv_oval="false"
         app:riv_tile_mode="clamp" />
 
-    <com.sanshao.bs.module.shoppingcenter.widget.VideoPlayLayout
+    <cn.sanshaoxingqiu.ssbm.module.shoppingcenter.widget.VideoPlayLayout
         android:id="@+id/video_play_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

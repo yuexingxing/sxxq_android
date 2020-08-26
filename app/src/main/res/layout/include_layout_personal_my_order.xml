@@ -61,7 +61,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <com.sanshao.bs.widget.PersonalOrderMenuView
+                <cn.sanshaoxingqiu.ssbm.widget.PersonalOrderMenuView
                     android:id="@+id/ll_order_tobepaid"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                     app:PersonalOrderMenuView_name="待支付"
                     app:PersonalOrderMenuView_num="2" />
 
-                <com.sanshao.bs.widget.PersonalOrderMenuView
+                <cn.sanshaoxingqiu.ssbm.widget.PersonalOrderMenuView
                     android:id="@+id/ll_order_tobeuse"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
                     app:PersonalOrderMenuView_name="待使用"
                     app:PersonalOrderMenuView_num="2" />
 
-                <com.sanshao.bs.widget.PersonalOrderMenuView
+                <cn.sanshaoxingqiu.ssbm.widget.PersonalOrderMenuView
                     android:id="@+id/ll_order_tobeinquiry"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
                     app:PersonalOrderMenuView_name="待问诊"
                     app:PersonalOrderMenuView_num="2" />
 
-                <com.sanshao.bs.widget.PersonalOrderMenuView
+                <cn.sanshaoxingqiu.ssbm.widget.PersonalOrderMenuView
                     android:id="@+id/ll_order_complete"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

@@ -5,9 +5,6 @@
 
     <data>
 
-        <variable
-            name="user"
-            type="com.sanshao.bs.module.personal.bean.UserInfo" />
     </data>
 
     <RelativeLayout
@@ -70,7 +67,7 @@
                             android:src="@drawable/arrow_right" />
                     </LinearLayout>
 
-                    <com.sanshao.bs.widget.LineControllerView
+                    <cn.sanshaoxingqiu.ssbm.widget.LineControllerView
                         android:id="@+id/lcv_nick_name"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/line_item_height"
@@ -125,7 +122,7 @@
                     android:layout_marginRight="@dimen/right_container_margin"
                     android:background="@drawable/shape_white_radius_10">
 
-                    <com.sanshao.bs.widget.LineControllerView
+                    <cn.sanshaoxingqiu.ssbm.widget.LineControllerView
                         android:id="@+id/lcv_sex"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
@@ -136,7 +133,7 @@
                         app:showTopLine="false"
                         app:subject="请选择" />
 
-                    <com.sanshao.bs.widget.LineControllerView
+                    <cn.sanshaoxingqiu.ssbm.widget.LineControllerView
                         android:id="@+id/lcv_birthday"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/line_item_height"
@@ -147,7 +144,7 @@
                         app:showTopLine="false"
                         app:subject="请选择" />
 
-                    <com.sanshao.bs.widget.LineControllerView
+                    <cn.sanshaoxingqiu.ssbm.widget.LineControllerView
                         android:id="@+id/lcv_signature"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"

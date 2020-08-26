@@ -29,7 +29,7 @@
 
                 <include layout="@layout/include_layout_store_message" />
 
-                <com.sanshao.bs.module.order.widget.MulitySetMealView
+                <cn.sanshaoxingqiu.ssbm.module.order.widget.MulitySetMealView
                     android:id="@+id/mulity_set_meal_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -302,7 +302,7 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <com.sanshao.bs.module.shoppingcenter.widget.GuessYouLoveView
+                <cn.sanshaoxingqiu.ssbm.module.shoppingcenter.widget.GuessYouLoveView
                     android:id="@+id/guess_you_love_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

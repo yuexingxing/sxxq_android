@@ -6,8 +6,8 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.sanshao.bs.util.Constants;
-import com.sanshao.bs.util.ToastUtil;
+import cn.sanshaoxingqiu.ssbm.util.Constants;
+import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;

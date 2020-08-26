@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".module.personal.setting.view.ChangeHostActivity">
+        tools:context="cn.sanshaoxingqiu.ssbm.module.personal.setting.view.ChangeHostActivity">
 
         <com.sanshao.commonui.titlebar.TitleBar
             android:id="@+id/title_bar"

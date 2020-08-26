@@ -20,7 +20,7 @@
             android:layout_below="@+id/title_bar"
             android:descendantFocusability="blocksDescendants">
 
-            <com.sanshao.bs.widget.LinearEmptyLayout
+            <cn.sanshaoxingqiu.ssbm.widget.LinearEmptyLayout
                 android:id="@+id/emptyLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -34,7 +34,7 @@
                     android:background="#fafafa"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp" />
-            </com.sanshao.bs.widget.LinearEmptyLayout>
+            </cn.sanshaoxingqiu.ssbm.widget.LinearEmptyLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <ImageView

@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal">
 
-                    <com.sanshao.bs.widget.OvalImageView
+                    <cn.sanshaoxingqiu.ssbm.widget.OvalImageView
                         android:id="@+id/iv_icon"
                         android:layout_width="match_parent"
                         android:layout_height="153dp"

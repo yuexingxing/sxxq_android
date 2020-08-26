@@ -200,7 +200,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <com.sanshao.bs.widget.PersonalAccountView
+                <cn.sanshaoxingqiu.ssbm.widget.PersonalAccountView
                     android:id="@+id/pav_income"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
@@ -210,7 +210,7 @@
                     app:isShowLine_pav="true"
                     app:title_pav="进账" />
 
-                <com.sanshao.bs.widget.PersonalAccountView
+                <cn.sanshaoxingqiu.ssbm.widget.PersonalAccountView
                     android:id="@+id/pav_my_referrer"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
@@ -220,7 +220,7 @@
                     app:isShowLine_pav="true"
                     app:title_pav="我的推荐人" />
 
-                <com.sanshao.bs.widget.PersonalAccountView
+                <cn.sanshaoxingqiu.ssbm.widget.PersonalAccountView
                     android:id="@+id/pav_my_fans"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
@@ -230,7 +230,7 @@
                     app:isShowLine_pav="true"
                     app:title_pav="我的粉丝" />
 
-                <com.sanshao.bs.widget.PersonalAccountView
+                <cn.sanshaoxingqiu.ssbm.widget.PersonalAccountView
                     android:id="@+id/pav_my_invite_code"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
@@ -240,7 +240,7 @@
                     app:isShowLine_pav="true"
                     app:title_pav="我的邀请码" />
 
-                <com.sanshao.bs.widget.PersonalAccountView
+                <cn.sanshaoxingqiu.ssbm.widget.PersonalAccountView
                     android:id="@+id/pav_my_share"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
@@ -251,7 +251,7 @@
                     app:title2_pav="邀请好友获取分享金"
                     app:title_pav="我的分享金" />
 
-                <com.sanshao.bs.widget.PersonalAccountView
+                <cn.sanshaoxingqiu.ssbm.widget.PersonalAccountView
                     android:id="@+id/pav_my_fenrun"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
@@ -262,7 +262,7 @@
                     app:title2_pav="邀请好友购买成本商品赚取分润"
                     app:title_pav="我的分润" />
 
-                <com.sanshao.bs.widget.PersonalAccountView
+                <cn.sanshaoxingqiu.ssbm.widget.PersonalAccountView
                     android:id="@+id/pav_setting"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
@@ -284,7 +284,7 @@
                     android:visibility="gone"
                     tools:visibility="visible" />
 
-                <com.sanshao.bs.module.shoppingcenter.widget.GuessYouLoveView
+                <cn.sanshaoxingqiu.ssbm.module.shoppingcenter.widget.GuessYouLoveView
                     android:id="@+id/guess_you_love_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

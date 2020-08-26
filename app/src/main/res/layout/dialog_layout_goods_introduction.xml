@@ -65,7 +65,7 @@
             android:textStyle="bold"
             android:visibility="gone" />
 
-        <com.sanshao.bs.widget.RatingBar
+        <cn.sanshaoxingqiu.ssbm.widget.RatingBar
             android:id="@+id/ratingbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

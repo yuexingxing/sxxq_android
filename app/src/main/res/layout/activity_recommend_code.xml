@@ -6,7 +6,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".module.personal.personaldata.view.SettingNameActivity">
+        tools:context="cn.sanshaoxingqiu.ssbm.module.personal.personaldata.view.SettingNameActivity">
 
         <LinearLayout
             android:layout_width="match_parent"

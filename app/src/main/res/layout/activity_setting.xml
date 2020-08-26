@@ -6,7 +6,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".module.personal.personaldata.view.SettingNameActivity">
+        tools:context="cn.sanshaoxingqiu.ssbm.module.personal.personaldata.view.SettingNameActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,13 +30,13 @@
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp">
 
-                <com.sanshao.bs.widget.PersonalAccountView
+                <cn.sanshaoxingqiu.ssbm.widget.PersonalAccountView
                     android:id="@+id/pav_account"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     app:title_pav="账户安全" />
 
-                <com.sanshao.bs.widget.PersonalAccountView
+                <cn.sanshaoxingqiu.ssbm.widget.PersonalAccountView
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:visibility="gone"
@@ -44,14 +44,14 @@
                     app:title_pav="实名认证"
                     tools:visibility="visible" />
 
-                <com.sanshao.bs.widget.PersonalAccountView
+                <cn.sanshaoxingqiu.ssbm.widget.PersonalAccountView
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:visibility="gone"
                     app:title_pav="问题反馈"
                     tools:visibility="visible" />
 
-                <com.sanshao.bs.widget.PersonalAccountView
+                <cn.sanshaoxingqiu.ssbm.widget.PersonalAccountView
                     android:id="@+id/pav_about_us"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"

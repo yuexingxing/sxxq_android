@@ -79,7 +79,7 @@
                             android:textSize="11sp" />
                     </LinearLayout>
 
-                    <com.sanshao.bs.module.order.widget.MulitySetMealView
+                    <cn.sanshaoxingqiu.ssbm.module.order.widget.MulitySetMealView
                         android:id="@+id/mulity_set_meal_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
