@@ -35,6 +35,7 @@ import cn.sanshaoxingqiu.ssbm.module.personal.model.IPersonalCallBack;
 import cn.sanshaoxingqiu.ssbm.module.personal.myfans.view.FansActivity;
 import cn.sanshaoxingqiu.ssbm.module.personal.personaldata.dialog.MyInviterDialog;
 import cn.sanshaoxingqiu.ssbm.module.personal.personaldata.view.PersonalDetailActivity;
+import cn.sanshaoxingqiu.ssbm.module.personal.personaldata.view.RecommendCodeActivity;
 import cn.sanshaoxingqiu.ssbm.module.personal.setting.view.SettingActivity;
 import cn.sanshaoxingqiu.ssbm.module.personal.viewmodel.PersonalViewModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
@@ -147,11 +148,15 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             InvitationActivity.start(context, Constants.TAG_ID_INVITE);
         });
         binding.pavMyInviteCode.setOnClickListener(v -> {
+            if (!SSApplication.isLogin()) {
+                LoginActivity.start(context);
+            } else {
+                RecommendCodeActivity.start(context);
+            }
         });
 
-        binding.pavSetting.setOnClickListener(v -> SettingActivity.start(context));
         initOrderList();
-        mViewModel.getUserInfo();
+        binding.pavSetting.setOnClickListener(v -> SettingActivity.start(context));
         binding.guessYouLoveView.getData();
     }
 
@@ -173,8 +178,8 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
 
     @Override
     protected void loadData() {
+        mViewModel.getUserInfo();
         if (SSApplication.isLogin()) {
-            mViewModel.getUserInfo();
             mOrderDetailViewModel.getOrderNumStatus();
         }
     }
@@ -198,19 +203,6 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             mPersonalOrderSubjectAdapter.getData().clear();
             mPersonalOrderSubjectAdapter.addData(mOrderInfoList);
         });
-
-//        for (int i = 0; i < 2; i++) {
-//            OrderInfo orderInfo = new OrderInfo();
-//            orderInfo.name = i + "黄金微针你的美容必备，美容必备…";
-//            mOrderInfoList.add(orderInfo);
-//        }
-
-//        binding.includeOrder.rlOpen.setOnClickListener(v -> {
-//            binding.includeOrder.rlOpen.setVisibility(View.GONE);
-//            mPersonalOrderSubjectAdapter.getData().clear();
-//            mPersonalOrderSubjectAdapter.addData(mOrderInfoList);
-//        });
-//        mPersonalOrderSubjectAdapter.addData(mOrderInfoList.get(0));
     }
 
     @Override

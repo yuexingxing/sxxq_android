@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/white"
+            android:background="@drawable/shape_white_bottom_radius_10"
             android:orientation="horizontal">
 
             <TextView
@@ -45,7 +45,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="购买"
-                android:textColor="@color/red"
+                android:textColor="@color/main_color"
                 android:textSize="15sp" />
         </LinearLayout>
     </LinearLayout>

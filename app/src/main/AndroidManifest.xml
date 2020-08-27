@@ -160,9 +160,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".wxapi.WXEntryActivity"
+            android:name="cn.sanshaoxingqiu.ssbm.wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
+            android:taskAffinity="cn.sanshaoxingqiu.ssbm"
             android:launchMode="singleTask"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="adjustPan|adjustUnspecified|stateHidden" />

@@ -8,9 +8,11 @@ import android.util.Log;
 
 import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -27,6 +29,14 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initData();
+
+        try {
+            if (api != null && !api.handleIntent(getIntent(), this)) {
+                finish();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     protected void onNewIntent(Intent intent) {
@@ -55,6 +65,8 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
         }
 
         if (baseResp.getType() == ConstantsAPI.COMMAND_LAUNCH_WX_MINIPROGRAM) {
+            WXLaunchMiniProgram.Resp launchMiniProResp = (WXLaunchMiniProgram.Resp) baseResp;
+            String extraData = launchMiniProResp.extMsg;
             ToastUtil.showShortToast("onResp-小程序返回");
             finish();
         }
