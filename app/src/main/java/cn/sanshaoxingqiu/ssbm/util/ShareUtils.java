@@ -150,9 +150,15 @@ public class ShareUtils {
             return;
         }
 
+        if (BitmapUtil.getBitmapSize(bitmap) > 32) {
+            bitmap = BitmapUtil.compressBitmap(bitmap, 32);
+        }
+        final Bitmap bitmapShare = bitmap;
+        UMImage umImage = new UMImage(activity, bitmapShare);
+        umImage.setThumb(umImage);
         new ShareAction(activity)
                 .setPlatform(platform)
-                .withMedia(new UMImage(activity, bitmap))
+                .withMedia(umImage)
                 .setCallback(new UMShareListener() {
                     @Override
                     public void onStart(SHARE_MEDIA share_media) {
@@ -165,8 +171,8 @@ public class ShareUtils {
                             @Override
                             public void run() {
 
-                                if (bitmap != null && !bitmap.isRecycled()) {
-                                    bitmap.recycle();
+                                if (bitmapShare != null && !bitmapShare.isRecycled()) {
+                                    bitmapShare.recycle();
                                 }
                                 if (share_media.name().equals("WEIXIN_FAVORITE")) {
                                     Toast.makeText(activity, share_media + " 收藏成功", Toast.LENGTH_SHORT).show();
@@ -174,7 +180,7 @@ public class ShareUtils {
                                     if (callBack != null) {
                                         callBack.callback(0, null);
                                     }
-//                                    Toast.makeText(activity, "分享成功", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(activity, "分享成功", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -188,7 +194,7 @@ public class ShareUtils {
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-//                                Toast.makeText(activity, "分享失败", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(activity, "分享失败", Toast.LENGTH_SHORT).show();
                                 if (callBack != null) {
                                     callBack.callback(-1, null);
                                 }

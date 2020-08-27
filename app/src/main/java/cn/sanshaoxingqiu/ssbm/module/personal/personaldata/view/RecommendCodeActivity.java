@@ -4,6 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -15,6 +18,7 @@ import cn.sanshaoxingqiu.ssbm.module.personal.setting.viewmodel.RecommendCodeVie
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import cn.sanshaoxingqiu.ssbm.util.BitmapUtil;
+import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.GlideUtil;
 import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
 import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
@@ -109,10 +113,16 @@ public class RecommendCodeActivity extends BaseActivity<RecommendCodeViewModel, 
                 .setData(commonDialogInfoList)
                 .setOnItemClickListener(commonDialogInfo -> {
                     if (commonDialogInfo.position == 0) {
-                        Bitmap bitmap = BitmapUtil.viewConversionBitmap(binding.ivQrcode);
-                        ShareUtils.sharePhoto(RecommendCodeActivity.this, bitmap, SHARE_MEDIA.WEIXIN, (postion, object) -> {
+                        new Thread(new Runnable() {
 
-                        });
+                            @Override
+                            public void run() {
+                                Bitmap bitmap = BitmapUtil.getBitmap(SSApplication.getInstance().getUserInfo().invitation_weapp_url);
+                                Message message = new Message();
+                                message.obj = bitmap;
+                                mHandler.sendMessage(message);
+                            }
+                        }).start();
                     } else {
                         new GoodsPosterDialog().show(context, new GoodsDetailInfo());
                     }
@@ -120,8 +130,12 @@ public class RecommendCodeActivity extends BaseActivity<RecommendCodeViewModel, 
                 .show();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
+    public Handler mHandler = new Handler() {
+        public void handleMessage(Message message) {
+            Bitmap bitmap = (Bitmap) message.obj;
+            ShareUtils.sharePhoto(RecommendCodeActivity.this, bitmap, SHARE_MEDIA.WEIXIN, (postion, object) -> {
+
+            });
+        }
+    };
 }

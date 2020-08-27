@@ -3,6 +3,7 @@ package cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean;
 import android.text.TextUtils;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
@@ -141,6 +142,16 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
         UserInfo userInfo = SSApplication.getInstance().getUserInfo();
         String path = "/pages/mall/goodsDetail?sarti_id=" + salebill_id + "&mem=" + userInfo.invitation_code;
         return path;
+    }
+
+    /**
+     * 获取小程序的注册界面
+     * @param artitagId
+     * @return
+     */
+    public String getRegistrationSharePath(String artitagId) {
+        UserInfo userInfo = SSApplication.getInstance().getUserInfo();
+        return String.format("/pages/activity/registration?mem=%s&artitag_id=%s", userInfo.invitation_code, artitagId);
     }
 
     //核销码

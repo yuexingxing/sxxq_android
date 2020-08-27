@@ -2,6 +2,10 @@ package cn.sanshaoxingqiu.ssbm.module.invitation.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -17,13 +21,19 @@ import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsTypeInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.GoodsDetailActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.GoodsListActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.adapter.GoodsTypeDetailVerticalAdapter;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsPosterDialog;
+import cn.sanshaoxingqiu.ssbm.util.BitmapUtil;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.GlideUtil;
 import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
+import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
 
 import com.exam.commonbiz.base.BaseActivity;
+import com.sanshao.commonui.dialog.CommonBottomDialog;
+import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -33,8 +43,8 @@ import androidx.recyclerview.widget.RecyclerView;
 public class InvitationActivity extends BaseActivity<InvitationViewModel, ActivityInvitationBinding> implements InvitationCallBack {
 
     private GoodsTypeDetailVerticalAdapter goodsTypeDetailVerticalAdapter;
-
     private InvitationListAdapter invitationListAdapter;
+    private String mArtiTagId;
 
     public static void start(Context context, String artiTagId) {
         if (TextUtils.isEmpty(artiTagId)) return;
@@ -45,8 +55,8 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
 
     @Override
     public void initData() {
-        String artiTagId = getIntent().getStringExtra(Constants.OPT_DATA);
 
+        mArtiTagId = getIntent().getStringExtra(Constants.OPT_DATA);
         mViewModel.setCallBack(this);
 
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
@@ -68,6 +78,11 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
 
         binding.ivInvitation.setOnClickListener(v -> {
             // TODO
+            GoodsDetailInfo goodsDetailInfo = new GoodsDetailInfo();
+            goodsDetailInfo.sarti_name = "超多福利！价值6400元的医美项目，限时90元领取！";
+            goodsDetailInfo.sarti_intro = "";
+            goodsDetailInfo.thumbnail_img = "https://ssbm-wxapp-static.oss-cn-shanghai.aliyuncs.com/icon/mianfeibm.jpeg";
+            share(goodsDetailInfo);
         });
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(InvitationActivity.this, 2);
@@ -107,7 +122,7 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
         binding.invitationRecyclerView.setAdapter(invitationListAdapter);
 
         LoadDialogMgr.getInstance().show(InvitationActivity.this);
-        mViewModel.getGoodsList(artiTagId);
+        mViewModel.getGoodsList(mArtiTagId);
         if (SSApplication.isLogin()) {
             mViewModel.getUserReferrals();
         }
@@ -173,4 +188,47 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
         binding.invitaionRecord.setVisibility(View.VISIBLE);
         invitationListAdapter.setNewData(userReferrals.referrals);
     }
+
+    private void share(GoodsDetailInfo goodsDetailInfo) {
+
+        List<CommonDialogInfo> commonDialogInfoList = new ArrayList<>();
+        commonDialogInfoList.add(new CommonDialogInfo("分享到微信"));
+//        commonDialogInfoList.add(new CommonDialogInfo("生成海报"));
+
+        new CommonBottomDialog()
+                .init(this)
+                .setData(commonDialogInfoList)
+                .setOnItemClickListener(commonDialogInfo -> {
+                    if (commonDialogInfo.position == 0) {
+                        new Thread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                Bitmap bitmap = BitmapUtil.getBitmap(goodsDetailInfo.thumbnail_img);
+                                Message message = new Message();
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable(Constants.OPT_DATA, goodsDetailInfo);
+                                message.setData(bundle);
+                                message.obj = bitmap;
+                                mHandler.sendMessage(message);
+                            }
+                        }).start();
+                    } else {
+                        new GoodsPosterDialog().show(context, new GoodsDetailInfo());
+                    }
+                })
+                .show();
+    }
+
+    public Handler mHandler = new Handler() {
+        public void handleMessage(Message message) {
+            Bundle bundle = message.getData();
+            GoodsDetailInfo goodsDetailInfo = (GoodsDetailInfo) bundle.getSerializable(Constants.OPT_DATA);
+            Bitmap bitmap = (Bitmap) message.obj;
+            new ShareUtils()
+                    .init(context)
+                    .shareMiniProgram(goodsDetailInfo.sarti_name, goodsDetailInfo.sarti_desc,
+                            bitmap, goodsDetailInfo.getRegistrationSharePath(mArtiTagId));
+        }
+    };
 }
