@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
+
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityConfirmPayBinding;
@@ -36,9 +37,8 @@ import org.greenrobot.eventbus.ThreadMode;
  * @time 2020/6/20
  */
 public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfirmPayBinding> implements IPayModel, IConfirmOrderModel {
-    private final String PAY_BY_WECHAT = "HFWX";
-    private final String PAY_BY_ALI_APP = "HFALIPAYAPP";
-    private final String PAY_BY_ALI_H5 = "HFALIPAYWAP";
+    public static final String PAY_BY_WECHAT = "HFWX";
+    public static final String PAY_BY_ALI_APP = "HFALIPAYAPP";
     private String mPayType = PAY_BY_ALI_APP;//默认支付宝支付
     private String mSalebillId;
     private boolean isFirstIn = true;
@@ -146,11 +146,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         } else {
             binding.checkAlipay.setImageResource(R.drawable.icon_login_checked);
             binding.checkWechat.setImageResource(R.drawable.icon_login_unchecked);
-            if (ShareUtils.checkAliPayInstalled(context)) {
-                mPayType = PAY_BY_ALI_APP;
-            } else {
-                mPayType = PAY_BY_ALI_H5;
-            }
+            mPayType = PAY_BY_ALI_APP;
         }
     }
 
@@ -183,7 +179,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
                 ToastUtil.showShortToast("支付失败");
             }
         });
-        payUtils.startPay(ConfirmPayActivity.this, CommandTools.beanToJson(orderPayInfoResponse));
+        payUtils.startPay(ConfirmPayActivity.this, mPayType, CommandTools.beanToJson(orderPayInfoResponse));
     }
 
     @Override

@@ -14,9 +14,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.exam.commonbiz.util.CommonCallBack;
-
-import cn.sanshaoxingqiu.ssbm.R;
-import cn.sanshaoxingqiu.ssbm.SSApplication;
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
@@ -30,6 +27,9 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 
 import java.util.List;
+
+import cn.sanshaoxingqiu.ssbm.R;
+import cn.sanshaoxingqiu.ssbm.SSApplication;
 
 /**
  * Author     wildma
@@ -345,6 +345,11 @@ public class ShareUtils {
      */
     public void jump2WxMiniProgram(String path) {
 
+        if (!CommandTools.isWeixinAvilible(SSApplication.app)) {
+            ToastUtil.showShortToast("请先安装微信客户端或选择其他方式支付");
+            return;
+        }
+
         WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
         req.userName = Constants.MINI_PROGRAM_USER_NAME; // 填小程序原始id
         req.path = path;//拉起小程序页面的可带参路径，不填默认拉起小程序首页
@@ -353,6 +358,12 @@ public class ShareUtils {
     }
 
     public ShareUtils shareMiniProgram(String title, String desc, Bitmap bitmap, String path) {
+
+        if (!CommandTools.isWeixinAvilible(SSApplication.app)) {
+            ToastUtil.showShortToast("请先安装微信客户端");
+            return this;
+        }
+
         WXMiniProgramObject miniProgram = new WXMiniProgramObject();
         miniProgram.webpageUrl = "http://www.qq.com";//自定义
         miniProgram.userName = Constants.MINI_PROGRAM_USER_NAME;//小程序端提供参数
