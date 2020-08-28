@@ -43,7 +43,7 @@ public class HomeBanner extends ViewPager {
     private int time = 5000;
     private boolean mAutoScroll = true;
     private int mRadius = 10;
-    private int mLeftMargin = 12;
+    private int mLeftMargin = 16;
 
     public HomeBanner(Context context, AttributeSet attrs) {
         super(context, attrs);

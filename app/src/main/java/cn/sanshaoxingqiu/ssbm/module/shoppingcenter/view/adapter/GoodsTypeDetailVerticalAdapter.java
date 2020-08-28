@@ -72,8 +72,10 @@ public class GoodsTypeDetailVerticalAdapter extends BaseMultiItemQuickAdapter<Go
         }
 
         if (helper.getAdapterPosition() % 2 == 0) {
-            helper.getView(R.id.view_right).setVisibility(View.GONE);
+            helper.getView(R.id.view_left).setVisibility(View.GONE);
+            helper.getView(R.id.view_right).setVisibility(View.VISIBLE);
         } else {
+            helper.getView(R.id.view_left).setVisibility(View.VISIBLE);
             helper.getView(R.id.view_right).setVisibility(View.GONE);
         }
 
