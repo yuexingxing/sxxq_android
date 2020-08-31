@@ -18,6 +18,7 @@ import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.PersonalFragmentBinding;
 import cn.sanshaoxingqiu.ssbm.module.TestMenuActivity;
 import cn.sanshaoxingqiu.ssbm.module.invitation.view.InvitationActivity;
+import cn.sanshaoxingqiu.ssbm.module.live.LiveIdentifyActivity;
 import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.AppointmentedInfo;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderInfo;
@@ -155,7 +156,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             }
         });
         binding.includePersonalLive.llLiveLive.setOnClickListener(v -> {
-
+            LiveIdentifyActivity.start(context);
         });
         binding.includePersonalLive.llLiveLike.setOnClickListener(v -> {
 
