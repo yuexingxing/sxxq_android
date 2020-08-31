@@ -147,7 +147,8 @@
                         android:layout_width="210dp"
                         android:layout_height="110dp"
                         android:layout_marginTop="12dp"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/iv_step_1"
@@ -190,7 +191,8 @@
                         android:layout_width="210dp"
                         android:layout_height="110dp"
                         android:layout_marginTop="12dp"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/iv_step_2"
@@ -234,7 +236,8 @@
                         android:layout_height="110dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="12dp"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/iv_step_3"
