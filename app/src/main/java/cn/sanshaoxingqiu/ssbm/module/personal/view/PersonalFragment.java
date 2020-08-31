@@ -1,5 +1,6 @@
 package cn.sanshaoxingqiu.ssbm.module.personal.view;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -12,13 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.util.Res;
 import com.exam.commonbiz.util.ScreenUtil;
+import com.sanshao.livemodule.zhibo.login.TCLoginActivity;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.PersonalFragmentBinding;
 import cn.sanshaoxingqiu.ssbm.module.TestMenuActivity;
 import cn.sanshaoxingqiu.ssbm.module.invitation.view.InvitationActivity;
-import cn.sanshaoxingqiu.ssbm.module.live.LiveIdentifyActivity;
+import cn.sanshaoxingqiu.ssbm.module.live.view.LiveIdentifyActivity;
 import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.AppointmentedInfo;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderInfo;
@@ -159,7 +161,8 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             LiveIdentifyActivity.start(context);
         });
         binding.includePersonalLive.llLiveLike.setOnClickListener(v -> {
-
+            Intent intent = new Intent(context, TCLoginActivity.class);
+            startActivity(intent);
         });
 
         initOrderList();

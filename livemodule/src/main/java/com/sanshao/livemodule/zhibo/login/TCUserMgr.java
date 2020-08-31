@@ -336,6 +336,9 @@ public class TCUserMgr {
                     @Override
                     public void onError(int errCode, String errInfo) {
                         Log.i(TAG, "onError: errorCode = " + errInfo + " info = " + errInfo);
+                        if (callback != null) {
+                            callback.onFailure(errCode, errInfo);
+                        }
                     }
 
                     @Override

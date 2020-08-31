@@ -29,8 +29,12 @@
         android:supportsRtl="true"
         android:theme="@style/MyTheme"
         tools:replace="allowBackup,icon,theme,label">
-        <activity android:name=".module.live.view.IdentityingActivity"></activity>
-        <activity android:name=".module.live.LiveIdentifyActivity" />
+        <activity
+            android:name=".module.live.view.IdentityingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.live.view.LiveIdentifyActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".module.personal.inquiry.view.ToBeInquiryDetailActivity"
             android:screenOrientation="portrait" />
