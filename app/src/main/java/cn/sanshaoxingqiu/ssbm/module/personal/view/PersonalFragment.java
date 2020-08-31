@@ -98,35 +98,35 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
                 PersonalDetailActivity.start(getContext());
             }
         });
-        binding.includeOrder.llAllOrder.setOnClickListener(v -> {
+        binding.includePersonalOrder.llAllOrder.setOnClickListener(v -> {
             if (!SSApplication.isLogin()) {
                 LoginActivity.start(context);
             } else {
                 OrderListActivity.start(context, OrderInfo.State.ALL);
             }
         });
-        binding.includeOrder.llOrderTobepaid.setOnClickListener(v -> {
+        binding.includePersonalOrder.llOrderTobepaid.setOnClickListener(v -> {
             if (!SSApplication.isLogin()) {
                 LoginActivity.start(context);
             } else {
                 OrderListActivity.start(context, OrderInfo.State.ToBePaid);
             }
         });
-        binding.includeOrder.llOrderTobeuse.setOnClickListener(v -> {
+        binding.includePersonalOrder.llOrderTobeuse.setOnClickListener(v -> {
             if (!SSApplication.isLogin()) {
                 LoginActivity.start(context);
             } else {
                 OrderListActivity.start(context, OrderInfo.State.ToBeUse);
             }
         });
-        binding.includeOrder.llOrderTobeinquiry.setOnClickListener(v -> {
+        binding.includePersonalOrder.llOrderTobeinquiry.setOnClickListener(v -> {
             if (!SSApplication.isLogin()) {
                 LoginActivity.start(context);
             } else {
                 ToBeInquiryListActivity.start(context);
             }
         });
-        binding.includeOrder.llOrderComplete.setOnClickListener(v -> {
+        binding.includePersonalOrder.llOrderComplete.setOnClickListener(v -> {
             if (!SSApplication.isLogin()) {
                 LoginActivity.start(context);
             } else {
@@ -153,6 +153,12 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             } else {
                 RecommendCodeActivity.start(context);
             }
+        });
+        binding.includePersonalLive.llLiveLive.setOnClickListener(v -> {
+
+        });
+        binding.includePersonalLive.llLiveLike.setOnClickListener(v -> {
+
         });
 
         initOrderList();
@@ -194,10 +200,10 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         mPersonalOrderSubjectAdapter = new PersonalOrderSubjectAdapter();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        binding.includeOrder.recyclerView.setLayoutManager(linearLayoutManager);
-        binding.includeOrder.recyclerView.setAdapter(mPersonalOrderSubjectAdapter);
-        binding.includeOrder.recyclerView.setNestedScrollingEnabled(false);
-        binding.includeOrder.recyclerView.setFocusable(false);
+        binding.includePersonalOrder.recyclerView.setLayoutManager(linearLayoutManager);
+        binding.includePersonalOrder.recyclerView.setAdapter(mPersonalOrderSubjectAdapter);
+        binding.includePersonalOrder.recyclerView.setNestedScrollingEnabled(false);
+        binding.includePersonalOrder.recyclerView.setFocusable(false);
         mPersonalOrderSubjectAdapter.setOnItemClickListener(() -> {
             mPersonalOrderSubjectAdapter.setShowOpenView(false);
             mPersonalOrderSubjectAdapter.getData().clear();
@@ -329,8 +335,8 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         if (orderNumStatusResponse == null) {
             return;
         }
-        binding.includeOrder.llOrderTobepaid.setUnReadNum(orderNumStatusResponse.pay);
-        binding.includeOrder.llOrderTobeuse.setUnReadNum(orderNumStatusResponse.paid);
+        binding.includePersonalOrder.llOrderTobepaid.setUnReadNum(orderNumStatusResponse.pay);
+        binding.includePersonalOrder.llOrderTobeuse.setUnReadNum(orderNumStatusResponse.paid);
     }
 
     @Override

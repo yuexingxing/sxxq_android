@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -18,7 +17,6 @@
             android:paddingBottom="12dp">
 
             <LinearLayout
-                android:id="@+id/ll_all_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -28,8 +26,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="我的订单"
-                    android:textColor="#FF333333"
+                    android:text="主播中心"
+                    android:textColor="@color/color_333333"
                     android:textSize="17sp"
                     android:textStyle="bold" />
 
@@ -41,7 +39,6 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="11dp"
                     android:src="@drawable/arrow_right" />
@@ -61,59 +58,28 @@
                 android:orientation="horizontal">
 
                 <cn.sanshaoxingqiu.ssbm.widget.PersonalOrderMenuView
-                    android:id="@+id/ll_order_tobepaid"
+                    android:id="@+id/ll_live_live"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    app:PersonalOrderMenuView_icon="@drawable/icon_tobepaid"
-                    app:PersonalOrderMenuView_name="待支付"
-                    app:PersonalOrderMenuView_num="2" />
-
-                <cn.sanshaoxingqiu.ssbm.widget.PersonalOrderMenuView
-                    android:id="@+id/ll_order_tobeuse"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:PersonalOrderMenuView_icon="@drawable/icon_tobeuse"
-                    app:PersonalOrderMenuView_name="待使用"
-                    app:PersonalOrderMenuView_num="2" />
-
-                <cn.sanshaoxingqiu.ssbm.widget.PersonalOrderMenuView
-                    android:id="@+id/ll_order_tobeinquiry"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:visibility="gone"
-                    tools:visibility="visible"
-                    app:PersonalOrderMenuView_icon="@drawable/icon_forvisits"
-                    app:PersonalOrderMenuView_name="待问诊"
-                    app:PersonalOrderMenuView_num="2" />
-
-                <cn.sanshaoxingqiu.ssbm.widget.PersonalOrderMenuView
-                    android:id="@+id/ll_order_complete"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:PersonalOrderMenuView_icon="@drawable/icon_used"
-                    app:PersonalOrderMenuView_name="已完成"
+                    app:PersonalOrderMenuView_icon="@drawable/icon_personal_live"
+                    app:PersonalOrderMenuView_name="我要直播"
                     app:PersonalOrderMenuView_num="0" />
+
+                <cn.sanshaoxingqiu.ssbm.widget.PersonalOrderMenuView
+                    android:id="@+id/ll_live_like"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:PersonalOrderMenuView_icon="@drawable/icon_personal_identify"
+                    app:PersonalOrderMenuView_name="已关注"
+                    app:PersonalOrderMenuView_num="0" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="2" />
             </LinearLayout>
         </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/left_container_margin"
-            android:layout_marginRight="@dimen/right_container_margin"
-            android:background="@drawable/shape_radius_10_f8f7f3"
-            android:descendantFocusability="blocksDescendants"
-            android:paddingBottom="12dp">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:overScrollMode="never" />
-        </RelativeLayout>
     </LinearLayout>
 </layout>

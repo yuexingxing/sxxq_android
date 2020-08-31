@@ -195,8 +195,14 @@
                     android:visibility="gone" />
 
                 <include
-                    android:id="@+id/include_order"
+                    android:id="@+id/include_personal_order"
                     layout="@layout/include_layout_personal_my_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <include
+                    android:id="@+id/include_personal_live"
+                    layout="@layout/include_layout_personal_live"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
