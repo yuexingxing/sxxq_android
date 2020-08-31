@@ -1,9 +1,8 @@
-package cn.sanshaoxingqiu.ssbm.module.live;
+package cn.sanshaoxingqiu.ssbm.module.live.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -12,7 +11,6 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
-import com.exam.commonbiz.base.BaseViewModel;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
@@ -25,7 +23,9 @@ import java.util.List;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityLiveIdentifyBinding;
+import cn.sanshaoxingqiu.ssbm.module.live.viewmodel.IdentityViewModel;
 import cn.sanshaoxingqiu.ssbm.util.BitmapUtil;
+import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 import cn.sanshaoxingqiu.ssbm.util.FileUtil;
 import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
 
@@ -35,7 +35,7 @@ import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
  * @Author yuexingxing
  * @time 2020/8/31
  */
-public class LiveIdentifyActivity extends BaseActivity<BaseViewModel, ActivityLiveIdentifyBinding> {
+public class LiveIdentifyActivity extends BaseActivity<IdentityViewModel, ActivityLiveIdentifyBinding> {
 
     private final static int REQUEST_IMAGE_GET = 1;
     private final static int REQUEST_IMAGE_CAPTURE = 2;
@@ -45,6 +45,11 @@ public class LiveIdentifyActivity extends BaseActivity<BaseViewModel, ActivityLi
     public static void start(Context context) {
         Intent starter = new Intent(context, LiveIdentifyActivity.class);
         context.startActivity(starter);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_live_identify;
     }
 
     @Override
@@ -79,11 +84,9 @@ public class LiveIdentifyActivity extends BaseActivity<BaseViewModel, ActivityLi
             mCurrentIndex = 2;
             takePhoto();
         });
-    }
+        binding.tvSubmit.setOnClickListener(v -> {
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_live_identify;
+        });
     }
 
     private void takePhoto() {
@@ -149,7 +152,7 @@ public class LiveIdentifyActivity extends BaseActivity<BaseViewModel, ActivityLi
             //判断是哪一个的回调
             if (requestCode == REQUEST_IMAGE_GET) {
                 //返回的是content://的样式
-                filePath = getFilePathFromContentUri(data.getData(), this);
+                filePath = CommandTools.getFilePathFromContentUri(data.getData(), this);
             } else if (requestCode == REQUEST_IMAGE_CAPTURE) {
                 if (mCurrentPhotoPath != null) {
                     filePath = mCurrentPhotoPath;
@@ -178,23 +181,6 @@ public class LiveIdentifyActivity extends BaseActivity<BaseViewModel, ActivityLi
 //            //上传图片,需要根据自己的逻辑传参数
 //            ossService.asyncPutImage("图片在阿里上的存储路径", "本地路径", null, "1");
         }
-    }
-
-    /**
-     * @param uri     content:// 样式
-     * @param context
-     * @return real file path
-     */
-    public static String getFilePathFromContentUri(Uri uri, Context context) {
-        String filePath;
-        String[] filePathColumn = {MediaStore.MediaColumns.DATA};
-        Cursor cursor = context.getContentResolver().query(uri, filePathColumn, null, null, null);
-        if (cursor == null) return null;
-        cursor.moveToFirst();
-        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-        filePath = cursor.getString(columnIndex);
-        cursor.close();
-        return filePath;
     }
 
     @SuppressLint("CheckResult")

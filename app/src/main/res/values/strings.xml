@@ -3,6 +3,7 @@
     <string name="main_privacy_text" translatable="false">点击查看<a href="http://privacy.qq.com/">隐私政策</a></string>
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="login_psd" translatable="false">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+—*/#</string>
+    <string name="identity_card" translatable="false">0123456789xX</string>
     <string name="change_host" translatable="false">切换环境</string>
 
     <!--进账-->

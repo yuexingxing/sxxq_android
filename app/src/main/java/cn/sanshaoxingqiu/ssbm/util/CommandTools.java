@@ -6,9 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -164,5 +166,22 @@ public class CommandTools {
         String jsonStr = gson.toJson(bean);
         System.out.println(jsonStr);
         return jsonStr;
+    }
+
+    /**
+     * @param uri     content:// 样式
+     * @param context
+     * @return real file path
+     */
+    public static String getFilePathFromContentUri(Uri uri, Context context) {
+        String filePath;
+        String[] filePathColumn = {MediaStore.MediaColumns.DATA};
+        Cursor cursor = context.getContentResolver().query(uri, filePathColumn, null, null, null);
+        if (cursor == null) return null;
+        cursor.moveToFirst();
+        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+        filePath = cursor.getString(columnIndex);
+        cursor.close();
+        return filePath;
     }
 }
