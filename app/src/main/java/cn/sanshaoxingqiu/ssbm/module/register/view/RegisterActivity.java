@@ -10,12 +10,14 @@ import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityRegisterBinding;
 import cn.sanshaoxingqiu.ssbm.module.login.bean.LoginResponse;
+import cn.sanshaoxingqiu.ssbm.module.login.model.ILoginCallBack;
 import cn.sanshaoxingqiu.ssbm.module.login.viewmodel.LoginViewModel;
 import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.register.model.IRegisterCallBack;
 import cn.sanshaoxingqiu.ssbm.module.register.viewmodel.RegisterViewModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsTypeInfo;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.GoodsDetailActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.GoodsListActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.adapter.GoodsTypeDetailVerticalAdapter;
@@ -34,9 +36,10 @@ import java.util.List;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRegisterBinding> implements IRegisterCallBack {
+public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRegisterBinding> implements IRegisterCallBack, ILoginCallBack {
 
     private GoodsTypeDetailVerticalAdapter goodsTypeDetailVerticalAdapter;
+    private LoginViewModel mLoginViewModel;
 
     public static void start(Context context, String artiTagId) {
         if (TextUtils.isEmpty(artiTagId)) return;
@@ -49,6 +52,8 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
     public void initData() {
         String artiTagId = getIntent().getStringExtra(Constants.OPT_DATA);
 
+        mLoginViewModel = new LoginViewModel();
+        mLoginViewModel.setCallBack(this);
         mViewModel.setCallBack(this);
 
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
@@ -80,19 +85,12 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
         });
 
         binding.ivRegister.setOnClickListener(v -> {
-            String mPhone = binding.edtPhone.getText().toString();
-            String code = binding.edtCode.getText().toString();
-            String referrerMemId = binding.edtInviteCode.getText().toString();
-            if (!CommandTools.isMobileNum(mPhone)) {
-                ToastUtil.showShortToast("请输入正确的手机号");
-                return;
+            String invitationCode = binding.edtInviteCode.getText().toString();
+            if (TextUtils.isEmpty(invitationCode)) {
+                login();
+            } else {
+                mLoginViewModel.getMemInfoByInvitationCode(invitationCode);
             }
-            if (TextUtils.isEmpty(code)) {
-                ToastUtil.showShortToast("验证码不能为空");
-                return;
-            }
-            LoadDialogMgr.getInstance().show(context, "注册中...");
-            mViewModel.reister(mPhone, code, referrerMemId);
         });
 
         if (binding.viewRegisterInfo.getVisibility() == View.VISIBLE) {
@@ -108,7 +106,7 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
         goodsTypeDetailVerticalAdapter.setCommonCallBack((postion, object) -> {
             if (SSApplication.isLogin()) {
                 GoodsTypeInfo goodsTypeInfo = new GoodsTypeInfo();
-                goodsTypeInfo.artitag_id = Constants.TAG_ID_REGISTER;
+                goodsTypeInfo.artitag_id = ShoppingCenterUtil.getRegisterTagId();
                 GoodsListActivity.start(context, goodsTypeInfo);
             } else {
                 binding.nestedScrollview.smoothScrollTo(0, 0);
@@ -142,6 +140,29 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
     public void onGetCode() {
         timer.start();
         binding.tvGetCode.setEnabled(false);
+    }
+
+    @Override
+    public void onLoginSuccess(LoginResponse loginResponse) {
+
+    }
+
+    @Override
+    public void onLoginFailed() {
+
+    }
+
+    @Override
+    public void onModifyPhone(String phone) {
+
+    }
+
+    @Override
+    public void onMemInfoByInvitationCode(UserInfo userInfo) {
+        if (userInfo == null) {
+            return;
+        }
+        login();
     }
 
     @Override
@@ -233,4 +254,20 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
             binding.tvGetCode.setTextColor(Res.getColor(SSApplication.app, R.color.color_333333));
         }
     };
+
+    private void login() {
+        String mPhone = binding.edtPhone.getText().toString();
+        String code = binding.edtCode.getText().toString();
+        String referrerMemId = binding.edtInviteCode.getText().toString();
+        if (!CommandTools.isMobileNum(mPhone)) {
+            ToastUtil.showShortToast("请输入正确的手机号");
+            return;
+        }
+        if (TextUtils.isEmpty(code)) {
+            ToastUtil.showShortToast("验证码不能为空");
+            return;
+        }
+        LoadDialogMgr.getInstance().show(context, "注册中...");
+        mViewModel.reister(mPhone, code, referrerMemId);
+    }
 }

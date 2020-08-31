@@ -26,6 +26,7 @@ import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityGoodsDetailBinding;
 import cn.sanshaoxingqiu.ssbm.module.home.model.BannerInfo;
+import cn.sanshaoxingqiu.ssbm.module.invitation.view.InvitationActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderBenefitResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderNumStatusResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.event.PayStatusChangedEvent;
@@ -40,6 +41,7 @@ import cn.sanshaoxingqiu.ssbm.module.register.view.RegisterActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.VideoInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IGoodsDetailModel;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.adapter.SetMealAdapter;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.BenefitsRightDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsInroductionDialog;
@@ -50,6 +52,7 @@ import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.MathUtil;
 import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
+
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
@@ -155,11 +158,13 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
 
         binding.includeBottom.btnBuy.setOnClickListener(v -> {
             if (!SSApplication.isLogin()) {
-                RegisterActivity.start(context, Constants.TAG_ID_REGISTER);
+                RegisterActivity.start(context, ShoppingCenterUtil.getRegisterTagId());
                 return;
             }
             if (mGoodsDetailInfo.isPayByMoney() && !mGoodsDetailInfo.isFree()) {
                 ConfirmOrderActivity.start(context, mSartiId);
+            } else if (mGoodsDetailInfo.isPayByPoint() && mUserInfo.available_point == 0) {
+                InvitationActivity.start(context, ShoppingCenterUtil.getInviteTagId());
             } else {
                 if (!mUserInfo.hasBenefitsRight()) {
                     new BenefitsRightDialog().show(context, new CommonCallBack() {
@@ -412,7 +417,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         if (goodsDetailInfo == null) {
             return;
         }
-        if (goodsDetailInfo.order_product != null){
+        if (goodsDetailInfo.order_product != null) {
             goodsDetailInfo.sarti_name = goodsDetailInfo.order_product.sarti_name;
             goodsDetailInfo.sarti_saleprice = goodsDetailInfo.order_product.sarti_saleprice;
             goodsDetailInfo.pay_type = goodsDetailInfo.order_product.pay_type;

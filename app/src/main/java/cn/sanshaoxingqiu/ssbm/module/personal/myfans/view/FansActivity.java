@@ -7,6 +7,7 @@ import android.view.View;
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityMyfansBinding;
 import cn.sanshaoxingqiu.ssbm.module.invitation.bean.UserReferrals;
+import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.myfans.model.IFansCallBack;
 import cn.sanshaoxingqiu.ssbm.module.personal.myfans.viewmodel.FansViewModel;
 import cn.sanshaoxingqiu.ssbm.util.OnItemEnterOrExitVisibleHelper;
@@ -90,7 +91,7 @@ public class FansActivity extends BaseActivity<FansViewModel, ActivityMyfansBind
     }
 
     @Override
-    public void showFans(List<UserReferrals.UserReferralsItem> fansList) {
+    public void showFans(List<UserInfo> fansList) {
         binding.swipeRefreshLayout.setRefreshing(false);
         if (ContainerUtil.isEmpty(fansList)) {
             binding.emptyLayout.showEmpty("暂无粉丝", R.drawable.image_nofans);

@@ -1,6 +1,7 @@
 package cn.sanshaoxingqiu.ssbm.module.login.model;
 
 import cn.sanshaoxingqiu.ssbm.module.login.bean.LoginResponse;
+import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
 
 /**
  * @Author yuexingxing
@@ -14,4 +15,6 @@ public interface ILoginCallBack {
     void onLoginFailed();
 
     void onModifyPhone(String phone);
+
+    void onMemInfoByInvitationCode(UserInfo userInfo);
 }

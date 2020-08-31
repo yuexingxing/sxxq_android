@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,30 +17,40 @@
             android:id="@+id/nested_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#fafafa"
-                android:orientation="vertical"
                 android:gravity="center_horizontal"
+                android:orientation="vertical"
                 android:paddingBottom="20dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
+                    android:text="SHARE EVENT"
                     android:textColor="#313131"
-                    android:textSize="17sp"
-                    android:text="邀请有礼 一起变美"/>
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="邀请有礼 一起变美"
+                    android:textColor="#313131"
+                    android:textSize="17sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
                     android:layout_marginLeft="12dp"
+                    android:layout_marginTop="12dp"
                     android:layout_marginRight="12dp"
-                    android:paddingBottom="14dp"
                     android:background="@drawable/shape_radius_10_bee1f4"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingBottom="14dp">
 
                     <TextView
                         android:id="@+id/invitation_count"
@@ -56,14 +66,16 @@
                         android:id="@+id/view_invitatoin_user"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_horizontal">
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal">
+
                         <LinearLayout
                             android:id="@+id/view_user1"
-                            android:layout_width="wrap_content"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="center">
+                            android:gravity="center"
+                            android:orientation="vertical">
+
                             <com.makeramen.roundedimageview.RoundedImageView
                                 android:id="@+id/iv_user_avatar1"
                                 android:layout_width="43dp"
@@ -72,6 +84,7 @@
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/image_graphofbooth_default"
                                 app:riv_corner_radius="43dp" />
+
                             <TextView
                                 android:id="@+id/tv_user_name1"
                                 android:layout_width="wrap_content"
@@ -83,11 +96,12 @@
 
                         <LinearLayout
                             android:id="@+id/view_user2"
-                            android:layout_width="wrap_content"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            android:orientation="vertical"
-                            android:gravity="center">
+                            android:gravity="center"
+                            android:orientation="vertical">
+
                             <com.makeramen.roundedimageview.RoundedImageView
                                 android:id="@+id/iv_user_avatar2"
                                 android:layout_width="43dp"
@@ -96,6 +110,7 @@
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/image_graphofbooth_default"
                                 app:riv_corner_radius="43dp" />
+
                             <TextView
                                 android:id="@+id/tv_user_name2"
                                 android:layout_width="wrap_content"
@@ -107,11 +122,12 @@
 
                         <LinearLayout
                             android:id="@+id/view_user3"
-                            android:layout_width="wrap_content"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            android:orientation="vertical"
-                            android:gravity="center">
+                            android:gravity="center"
+                            android:orientation="vertical">
+
                             <com.makeramen.roundedimageview.RoundedImageView
                                 android:id="@+id/iv_user_avatar3"
                                 android:layout_width="43dp"
@@ -120,6 +136,7 @@
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/image_graphofbooth_default"
                                 app:riv_corner_radius="43dp" />
+
                             <TextView
                                 android:id="@+id/tv_user_name3"
                                 android:layout_width="wrap_content"
@@ -134,30 +151,30 @@
                         android:id="@+id/iv_invitation"
                         android:layout_width="177dp"
                         android:layout_height="31dp"
+                        android:layout_gravity="center_horizontal"
                         android:layout_marginTop="14dp"
+                        android:background="@drawable/bg_invitation_btn"
                         android:gravity="center"
                         android:text="立即邀请"
                         android:textColor="#ffffffff"
-                        android:textSize="15sp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/bg_invitation_btn"/>
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginLeft="10dp"
                         android:layout_gravity="center_horizontal"
-                        android:textSize="14sp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="8dp"
+                        android:text="邀请好友一起免费变美"
                         android:textColor="#000000"
-                        android:text="邀请好友一起免费变美"/>
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/invitation_tip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="22dp"
                         android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="22dp"
                         android:text="已成功邀请0个好友  可免费领取1000个奖励变美专区项目"
                         android:textColor="#ff313131"
                         android:textSize="10sp" />
@@ -168,39 +185,41 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:src="@drawable/img_rewardbecomebeautiful"
-                    android:background="#ececec" />
+                    android:background="#ececec"
+                    android:src="@drawable/img_rewardbecomebeautiful" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/goods_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="12dp"
-                    android:paddingRight="12dp"/>
+                    android:paddingRight="12dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_marginLeft="12dp"
-                    android:layout_marginRight="12dp"
                     android:layout_marginTop="20dp"
-                    android:padding="12dp"
-                    android:background="@drawable/shape_radius_10_ececec">
+                    android:layout_marginRight="12dp"
+                    android:background="@drawable/shape_radius_10_ececec"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="15sp"
+                        android:text="活动细则"
                         android:textColor="#333333"
-                        android:text="活动细则"/>
+                        android:textSize="15sp" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:lineSpacingExtra="6dp"
-                        android:textSize="13sp"
+                        android:text="@string/invitation_tip"
                         android:textColor="#333333"
-                        android:text="@string/invitation_tip"/>
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -209,24 +228,25 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:visibility="gone">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:layout_marginLeft="12dp"
-                        android:layout_marginRight="12dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginRight="12dp"
                         android:background="@drawable/shape_radius_10_fdacab"
                         android:gravity="center"
-                        android:textSize="12sp"
+                        android:text="邀请记录"
                         android:textColor="#ffffff"
-                        android:text="邀请记录"/>
+                        android:textSize="12sp" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/invitation_recycler_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="12dp"
-                        android:layout_marginRight="12dp"/>
+                        android:layout_marginRight="12dp" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

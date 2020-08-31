@@ -22,10 +22,13 @@ public class UserInfo implements Serializable {
     public String mem_class_start_date;
     public String mem_status;//
     public String point;//我的分享金
+    public int available_point;//可用分享金
     public String benefits_level;//是否购买90元商品，0未购买
     public MemberClassInfo mem_class;
     public UserInfo referrer_mem;
     public String commission;//我的分润
+    public String mem_class_key;
+    public String mem_class_name;
 
     /**
      * 是否购买了90元商品

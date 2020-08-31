@@ -9,6 +9,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,13 +21,24 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityGoodsListBinding;
+import cn.sanshaoxingqiu.ssbm.module.invitation.view.InvitationActivity;
+import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderBenefitResponse;
+import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderNumStatusResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.event.PayStatusChangedEvent;
+import cn.sanshaoxingqiu.ssbm.module.order.model.IOrderDetailModel;
+import cn.sanshaoxingqiu.ssbm.module.order.model.IOrderModel;
 import cn.sanshaoxingqiu.ssbm.module.order.view.ConfirmOrderActivity;
+import cn.sanshaoxingqiu.ssbm.module.order.view.ConfirmPayActivity;
+import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderDetailViewModel;
+import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderViewModel;
+import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.register.view.RegisterActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsTypeInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IGoodsListModel;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.adapter.GoodsListAdapter;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.BenefitsRightDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.viewmodel.GoodsListViewModel;
 import cn.sanshaoxingqiu.ssbm.util.BitmapUtil;
@@ -36,7 +49,9 @@ import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.log.XLog;
+import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.ContainerUtil;
+import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
@@ -57,11 +72,14 @@ import cn.jzvd.Jzvd;
  * @time 2020/6/18
  */
 public class GoodsListActivity extends BaseActivity<GoodsListViewModel, ActivityGoodsListBinding> implements BaseQuickAdapter.RequestLoadMoreListener,
-        IGoodsListModel {
+        IGoodsListModel, IOrderModel, IOrderDetailModel {
 
     private String mArtiTagId;
     private int mPageNum = 0;
     private GoodsListAdapter mGoodsListAdapter;
+    private UserInfo mUserInfo;
+    private OrderViewModel mOrderViewModel;
+    private OrderDetailViewModel mOrderDetailViewModel;
 
     public static void start(Context context, GoodsTypeInfo goodsTypeInfo) {
         Intent starter = new Intent(context, GoodsListActivity.class);
@@ -78,11 +96,17 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
     @Override
     public void initData() {
 
+        mUserInfo = SSApplication.getInstance().getUserInfo();
         GoodsTypeInfo goodsTypeInfo = (GoodsTypeInfo) getIntent().getSerializableExtra(Constants.OPT_DATA);
         mArtiTagId = goodsTypeInfo.artitag_id;
         if (!TextUtils.isEmpty(goodsTypeInfo.artitag_name)) {
             binding.titleBar.setTitle(goodsTypeInfo.artitag_name);
         }
+        mOrderViewModel = new OrderViewModel();
+        mOrderDetailViewModel = new OrderDetailViewModel();
+
+        mOrderViewModel.setCallBack(this);
+        mOrderDetailViewModel.setCallBack(this);
         mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
@@ -112,10 +136,25 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
             @Override
             public void onBuyClick(GoodsDetailInfo goodsDetailInfo) {
                 if (!SSApplication.isLogin()) {
-                    RegisterActivity.start(context, Constants.TAG_ID_REGISTER);
+                    RegisterActivity.start(context, ShoppingCenterUtil.getRegisterTagId());
                     return;
                 }
-                ConfirmOrderActivity.start(context, goodsDetailInfo.sarti_id);
+                if (goodsDetailInfo.isPayByMoney() && !goodsDetailInfo.isFree()) {
+                    ConfirmOrderActivity.start(context, goodsDetailInfo.sarti_id);
+                } else if (goodsDetailInfo.isPayByPoint() && mUserInfo.available_point == 0) {
+                    InvitationActivity.start(context, ShoppingCenterUtil.getInviteTagId());
+                } else {
+                    if (!mUserInfo.hasBenefitsRight()) {
+                        new BenefitsRightDialog().show(context, new CommonCallBack() {
+                            @Override
+                            public void callback(int postion, Object object) {
+                                mOrderViewModel.getOrderBenefit();
+                            }
+                        });
+                        return;
+                    }
+                    ConfirmOrderActivity.start(context, goodsDetailInfo.sarti_id);
+                }
             }
 
             @Override
@@ -273,6 +312,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
             binding.emptyLayout.showEmpty("暂无商品", R.drawable.image_nogoods);
             return;
         }
+        mGoodsListAdapter.setEnableLoadMore(true);
         mGoodsListAdapter.setNewData(list);
         binding.emptyLayout.showSuccess();
     }
@@ -285,7 +325,9 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
         }
         List<GoodsDetailInfo> list = (List<GoodsDetailInfo>) object;
         if (ContainerUtil.isEmpty(list)) {
-            mGoodsListAdapter.loadMoreEnd();
+            mGoodsListAdapter.loadMoreComplete();
+            mGoodsListAdapter.setEnableLoadMore(false);
+            addFootView();
             return;
         }
         mGoodsListAdapter.loadMoreComplete();
@@ -330,4 +372,43 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
                             bitmap, goodsDetailInfo.getSharePath());
         }
     };
+
+    private void addFootView() {
+
+        View footView = getLayoutInflater().inflate(R.layout.layout_recyclerview_nomore_data, null);
+        footView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtil.dp2px(context, 45)));
+        mGoodsListAdapter.setFooterView(footView);
+    }
+
+    @Override
+    public void returnOrderBenefit(OrderBenefitResponse orderBenefitResponse) {
+        if (orderBenefitResponse == null) {
+            return;
+        }
+        mOrderDetailViewModel.getOrderDetailInfo(context, orderBenefitResponse.salebill_id);
+    }
+
+    @Override
+    public void returnOrderDetailInfo(GoodsDetailInfo goodsDetailInfo) {
+        if (goodsDetailInfo == null) {
+            return;
+        }
+        if (goodsDetailInfo.order_product != null) {
+            goodsDetailInfo.sarti_name = goodsDetailInfo.order_product.sarti_name;
+            goodsDetailInfo.sarti_saleprice = goodsDetailInfo.order_product.sarti_saleprice;
+            goodsDetailInfo.pay_type = goodsDetailInfo.order_product.pay_type;
+            goodsDetailInfo.sarti_point_price = goodsDetailInfo.order_product.sum_point;
+        }
+        ConfirmPayActivity.start(context, goodsDetailInfo);
+    }
+
+    @Override
+    public void returnOrderNumStatus(OrderNumStatusResponse orderNumStatusResponse) {
+
+    }
+
+    @Override
+    public void returnCancelOrder() {
+
+    }
 }

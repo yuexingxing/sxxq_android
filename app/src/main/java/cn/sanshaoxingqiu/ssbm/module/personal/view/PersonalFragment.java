@@ -39,6 +39,7 @@ import cn.sanshaoxingqiu.ssbm.module.personal.personaldata.view.RecommendCodeAct
 import cn.sanshaoxingqiu.ssbm.module.personal.setting.view.SettingActivity;
 import cn.sanshaoxingqiu.ssbm.module.personal.viewmodel.PersonalViewModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.DateUtil;
 import cn.sanshaoxingqiu.ssbm.util.GlideUtil;
@@ -145,7 +146,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             }
         });
         binding.pavMyShare.setOnClickListener(v -> {
-            InvitationActivity.start(context, Constants.TAG_ID_INVITE);
+            InvitationActivity.start(context, ShoppingCenterUtil.getInviteTagId());
         });
         binding.pavMyInviteCode.setOnClickListener(v -> {
             if (!SSApplication.isLogin()) {

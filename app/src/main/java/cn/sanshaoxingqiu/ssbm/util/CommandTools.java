@@ -37,7 +37,7 @@ public class CommandTools {
      * @return 待检测的字符串
      */
     public static boolean isMobileNum(String phone) {
-        String telRegex = "^((13[0-9])|(14[0-9])|(15[0-9])|(18[0-9])|(17[0-9]))\\d{8}$";
+        String telRegex = "^((13[0-9])|(14[0-9])|(15[0-9])|(16[0-9])|(17[0-9])|(18[0-9]))\\d{8}$";
         if (TextUtils.isEmpty(phone))
             return false;
         else

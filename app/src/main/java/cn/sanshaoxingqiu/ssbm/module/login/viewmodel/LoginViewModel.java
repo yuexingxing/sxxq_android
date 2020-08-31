@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
+
 import cn.sanshaoxingqiu.ssbm.module.login.bean.GetCodeRequest;
 import cn.sanshaoxingqiu.ssbm.module.login.bean.GetCodeResponse;
 import cn.sanshaoxingqiu.ssbm.module.login.bean.LoginRequest;
@@ -13,6 +14,7 @@ import cn.sanshaoxingqiu.ssbm.module.login.bean.LoginResponse;
 import cn.sanshaoxingqiu.ssbm.module.login.bean.ModifyPhoneRequest;
 import cn.sanshaoxingqiu.ssbm.module.login.model.ILoginCallBack;
 import cn.sanshaoxingqiu.ssbm.module.login.model.LoginModel;
+import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
 import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
 
@@ -130,6 +132,38 @@ public class LoginViewModel extends ViewModel {
             @Override
             public void onLoadFailed(String errMsg) {
                 ToastUtil.showShortToast(errMsg);
+            }
+        });
+    }
+
+    public void getMemInfoByInvitationCode(String invitationCode) {
+
+        LoginModel.getMemInfoByInvitationCode(invitationCode, new OnLoadListener<UserInfo>() {
+
+            @Override
+            public void onLoadStart() {
+
+            }
+
+            @Override
+            public void onLoadCompleted() {
+
+            }
+
+            @Override
+            public void onLoadSucessed(BaseResponse<UserInfo> t) {
+                ToastUtil.showShortToast(t.getMsg());
+                if (mLoginCallBack != null) {
+                    mLoginCallBack.onMemInfoByInvitationCode(t.getContent());
+                }
+            }
+
+            @Override
+            public void onLoadFailed(String errMsg) {
+                ToastUtil.showShortToast(errMsg);
+                if (mLoginCallBack != null) {
+                    mLoginCallBack.onMemInfoByInvitationCode(null);
+                }
             }
         });
     }

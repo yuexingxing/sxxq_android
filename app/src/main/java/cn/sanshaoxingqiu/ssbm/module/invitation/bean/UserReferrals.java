@@ -3,22 +3,12 @@ package cn.sanshaoxingqiu.ssbm.module.invitation.bean;
 import java.io.Serializable;
 import java.util.List;
 
+import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+
 public class UserReferrals implements Serializable {
 
     public int referralsTotal;
+    public String point;
 
-    public List<UserReferralsItem> referrals;
-
-    public static class UserReferralsItem  implements Serializable {
-
-        public String avatar;
-
-        public String nickname;
-
-        public String mem_class_key;
-
-        public String mem_class_name;
-
-        public String mem_phone;
-    }
+    public List<UserInfo> referrals;
 }

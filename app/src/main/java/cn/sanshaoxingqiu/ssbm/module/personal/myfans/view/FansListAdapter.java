@@ -11,16 +11,17 @@ import com.makeramen.roundedimageview.RoundedImageView;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.module.invitation.bean.UserReferrals;
+import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.util.GlideUtil;
 
-public class FansListAdapter extends BaseQuickAdapter<UserReferrals.UserReferralsItem, BaseViewHolder> {
+public class FansListAdapter extends BaseQuickAdapter<UserInfo, BaseViewHolder> {
 
     FansListAdapter(){
         super(R.layout.item_myfans, null);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, UserReferrals.UserReferralsItem item) {
+    protected void convert(BaseViewHolder helper, UserInfo item) {
         // 头像
         if (!TextUtils.isEmpty(item.avatar)) {
             RoundedImageView userAvatar = helper.getView(R.id.iv_user_avatar);
