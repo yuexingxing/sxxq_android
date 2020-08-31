@@ -102,8 +102,6 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
                 RegisterActivity.start(context, ShoppingCenterUtil.getRegisterTagId());
             }
         });
-
-        goodsTypeDetailVerticalAdapter.isShowConver(true);
         goodsTypeDetailVerticalAdapter.setOnItemClickListener((adapter, view, position) -> {
             if (!SSApplication.isLogin()) {
                 RegisterActivity.start(context, ShoppingCenterUtil.getRegisterTagId());
@@ -115,7 +113,11 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
         binding.goodsRecyclerView.setNestedScrollingEnabled(false);
         binding.goodsRecyclerView.setLayoutManager(gridLayoutManager);
         binding.goodsRecyclerView.setAdapter(goodsTypeDetailVerticalAdapter);
-
+        if (SSApplication.isLogin()) {
+            goodsTypeDetailVerticalAdapter.isShowConver(true);
+        } else {
+            goodsTypeDetailVerticalAdapter.isShowConver(false);
+        }
 
         invitationListAdapter = new InvitationListAdapter();
 
