@@ -7,4 +7,6 @@ public interface IPayModel {
     void returnOrderPayInfo(int optType, OrderPayInfoResponse orderPayInfoResponse);
 
     void returnOrderStatus(OrderStatusResponse orderStatusResponse);
+
+    void returnFVipPay(int optType, OrderPayInfoResponse orderPayInfoResponse);
 }

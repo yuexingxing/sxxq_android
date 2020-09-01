@@ -187,7 +187,12 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         if (orderStatusResponse == null) {
             return;
         }
-        ;
+
+    }
+
+    @Override
+    public void returnFVipPay(int optType, OrderPayInfoResponse orderPayInfoResponse) {
+
     }
 
     @Override

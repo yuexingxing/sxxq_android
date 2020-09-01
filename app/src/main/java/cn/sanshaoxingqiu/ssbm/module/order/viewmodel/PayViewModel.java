@@ -1,8 +1,11 @@
 package cn.sanshaoxingqiu.ssbm.module.order.viewmodel;
 
+import android.widget.Toast;
+
 import com.exam.commonbiz.base.BaseViewModel;
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
+
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderPayInfoResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderStatusResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.model.IPayModel;
@@ -76,6 +79,37 @@ public class PayViewModel extends BaseViewModel {
             @Override
             public void onLoadFailed(String errMsg) {
 
+            }
+        });
+    }
+
+    public void fVipPay(int optType, String payType) {
+
+        PayModel.fVipPay(payType, new OnLoadListener<OrderPayInfoResponse>() {
+
+            @Override
+            public void onLoadStart() {
+
+            }
+
+            @Override
+            public void onLoadCompleted() {
+
+            }
+
+            @Override
+            public void onLoadSucessed(BaseResponse<OrderPayInfoResponse> t) {
+                if (mCallBack != null) {
+                    mCallBack.returnFVipPay(optType, t.getContent());
+                }
+            }
+
+            @Override
+            public void onLoadFailed(String errMsg) {
+                ToastUtil.showShortToast(errMsg);
+                if (mCallBack != null) {
+                    mCallBack.returnFVipPay(optType,null);
+                }
             }
         });
     }

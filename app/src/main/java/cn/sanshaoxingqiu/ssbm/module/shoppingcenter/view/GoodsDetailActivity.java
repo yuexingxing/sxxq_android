@@ -163,10 +163,14 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             }
             if (mGoodsDetailInfo.isPayByMoney() && !mGoodsDetailInfo.isFree()) {
                 ConfirmOrderActivity.start(context, mSartiId);
-            } else if (mGoodsDetailInfo.isPayByPoint() && mUserInfo.available_point == 0) {
-                InvitationActivity.start(context, ShoppingCenterUtil.getInviteTagId());
+            } else if (mGoodsDetailInfo.isPayByPoint()) {
+                if (mUserInfo.available_point == 0) {
+                    InvitationActivity.start(context, ShoppingCenterUtil.getInviteTagId());
+                } else {
+                    ConfirmOrderActivity.start(context, mGoodsDetailInfo.sarti_id);
+                }
             } else {
-                if (!mUserInfo.hasBenefitsRight()) {
+                if (!mUserInfo.hasBenefitsRight() && mGoodsDetailInfo.isFree()) {
                     new BenefitsRightDialog().show(context, new CommonCallBack() {
                         @Override
                         public void callback(int postion, Object object) {
