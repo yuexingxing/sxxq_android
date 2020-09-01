@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -67,10 +68,18 @@ public abstract class BaseActivity<VM extends ViewModel, VDB extends ViewDataBin
             if (isShouldHideKeyboard(v, me)) { //判断用户点击的是否是输入框以外的区域
                 hideKeyboard(v.getWindowToken());   //收起键盘
             }
-        } else if (me.getAction() == MotionEvent.BUTTON_BACK) {
-            back();
         }
         return super.dispatchTouchEvent(me);
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+            back();
+            return true;
+        }
+        //继续执行父类其他点击事件
+        return super.onKeyUp(keyCode, event);
     }
 
     public void back() {
