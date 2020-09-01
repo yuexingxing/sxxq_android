@@ -43,6 +43,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
     private String mSalebillId;
     private boolean isFirstIn = true;
     private UserInfo mUserInfo;
+    private GoodsDetailInfo mGoodsDetailInfo;
 
     public static void start(Context context, GoodsDetailInfo goodsDetailInfo) {
         Intent starter = new Intent(context, ConfirmPayActivity.class);
@@ -58,8 +59,8 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
     @Override
     public void initData() {
 
-        GoodsDetailInfo goodsDetailInfo = (GoodsDetailInfo) getIntent().getSerializableExtra(Constants.OPT_DATA);
-        if (goodsDetailInfo == null) {
+        mGoodsDetailInfo = (GoodsDetailInfo) getIntent().getSerializableExtra(Constants.OPT_DATA);
+        if (mGoodsDetailInfo == null) {
             finish();
         }
         mViewModel.setCallBack(this);
@@ -79,15 +80,15 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
 
             }
         });
-        mSalebillId = goodsDetailInfo.salebill_id;
-        binding.tvPrice.setText(goodsDetailInfo.getPriceText());
-        binding.tvName.setText(goodsDetailInfo.sarti_name);
-        binding.tvOrderNo.setText("订单编号：" + goodsDetailInfo.salebill_id);
+        mSalebillId = mGoodsDetailInfo.salebill_id;
+        binding.tvPrice.setText(mGoodsDetailInfo.getPriceText());
+        binding.tvName.setText(mGoodsDetailInfo.sarti_name);
+        binding.tvOrderNo.setText("订单编号：" + mGoodsDetailInfo.salebill_id);
         mUserInfo = SSApplication.getInstance().getUserInfo();
-        if (goodsDetailInfo.isFree() && mUserInfo.hasBenefitsRight()) {
+        if (mGoodsDetailInfo.isFree() && mUserInfo.hasBenefitsRight()) {
             binding.rlPay.setVisibility(View.INVISIBLE);
             binding.btnStartPay.setText("免费领取");
-        } else if (goodsDetailInfo.isPayByPoint()) {
+        } else if (mGoodsDetailInfo.isPayByPoint()) {
             binding.rlPay.setVisibility(View.INVISIBLE);
             binding.btnStartPay.setText("确认支付");
         } else {
@@ -95,7 +96,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         }
         binding.btnStartPay.setOnClickListener(v -> {
             if (TextUtils.equals(mPayType, PAY_BY_WECHAT)) {
-                String path = "/pages/order/appPay?" + "salebill_id=" + goodsDetailInfo.salebill_id
+                String path = "/pages/order/appPay?" + "salebill_id=" + mGoodsDetailInfo.salebill_id
                         + "&mem_phone=" + mUserInfo.mem_phone + "&benefits_level=" + mUserInfo.benefits_level;
                 new ShareUtils()
                         .init(context)
@@ -156,8 +157,9 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
             if (orderPayInfoResponse == null) {
                 ToastUtil.showShortToast("支付成功");
                 PayCompleteActivity.start(context, mSalebillId);
-            } else {
-                return;
+            } else if (mGoodsDetailInfo.isPayByPoint()) {
+                ToastUtil.showShortToast("支付成功");
+                PayCompleteActivity.start(context, mSalebillId);
             }
             return;
         }

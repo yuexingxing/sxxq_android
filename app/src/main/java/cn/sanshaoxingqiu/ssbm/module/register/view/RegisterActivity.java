@@ -86,11 +86,11 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
 
         binding.ivRegister.setOnClickListener(v -> {
             String invitationCode = binding.edtInviteCode.getText().toString();
-            if (TextUtils.isEmpty(invitationCode)) {
+//            if (TextUtils.isEmpty(invitationCode)) {
                 login();
-            } else {
-                mLoginViewModel.getMemInfoByInvitationCode(invitationCode);
-            }
+//            } else {
+//                mLoginViewModel.getMemInfoByInvitationCode(invitationCode);
+//            }
         });
 
         if (binding.viewRegisterInfo.getVisibility() == View.VISIBLE) {

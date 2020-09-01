@@ -43,10 +43,10 @@ public class MyInviterDialog {
         UserInfo userInfo = SSApplication.getInstance().getUserInfo();
         if (userInfo == null || userInfo.referrer_mem == null
                 || userInfo.referrer_mem.mem_class == null
-        || TextUtils.isEmpty(userInfo.referrer_mem.nickname)){
+                || TextUtils.isEmpty(userInfo.referrer_mem.nickname)) {
             tvNoInviter.setVisibility(View.VISIBLE);
             llContent.setVisibility(View.GONE);
-        } else{
+        } else {
             tvNoInviter.setVisibility(View.GONE);
             llContent.setVisibility(View.VISIBLE);
 
@@ -58,16 +58,19 @@ public class MyInviterDialog {
             if (TextUtils.equals(userInfo.referrer_mem.mem_class.mem_class_key, "1")) {
                 tvLabel.setText("玉兔");
                 rlBg.setBackground(Res.getDrawable(SSApplication.app, R.drawable.image_onestars));
+                llContent.setBackground(Res.getDrawable(SSApplication.app, R.drawable.image_onecord));
             }
             //二星会员
             else if (TextUtils.equals(userInfo.referrer_mem.mem_class.mem_class_key, "2")) {
                 tvLabel.setText("嫦娥");
                 rlBg.setBackground(Res.getDrawable(SSApplication.app, R.drawable.image_twostars));
+                llContent.setBackground(Res.getDrawable(SSApplication.app, R.drawable.image_twecard));
             }
             //三星会员
             else if (TextUtils.equals(userInfo.referrer_mem.mem_class.mem_class_key, "3")) {
                 tvLabel.setText("悟空");
                 rlBg.setBackground(Res.getDrawable(SSApplication.app, R.drawable.image_threestars));
+                llContent.setBackground(Res.getDrawable(SSApplication.app, R.drawable.image_threecard));
             }
         }
         initView();

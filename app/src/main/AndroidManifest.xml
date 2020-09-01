@@ -28,8 +28,8 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@drawable/image_logo"
         android:supportsRtl="true"
-        tools:replace="allowBackup,icon,theme,label"
-        android:theme="@style/MyTheme">
+        android:theme="@style/MyTheme"
+        tools:replace="allowBackup,icon,theme,label">
         <activity
             android:name=".module.personal.inquiry.view.ToBeInquiryDetailActivity"
             android:screenOrientation="portrait" />
@@ -96,6 +96,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.order.view.OrderListActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.order.view.ConfirmPayActivity"
@@ -163,8 +164,8 @@
             android:name="cn.sanshaoxingqiu.ssbm.wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:taskAffinity="cn.sanshaoxingqiu.ssbm"
             android:launchMode="singleTask"
+            android:taskAffinity="cn.sanshaoxingqiu.ssbm"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="adjustPan|adjustUnspecified|stateHidden" />
         <!-- 百度地图配置； -->

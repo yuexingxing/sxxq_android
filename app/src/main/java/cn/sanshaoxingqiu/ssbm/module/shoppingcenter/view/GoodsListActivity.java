@@ -91,7 +91,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
     private OrderDetailViewModel mOrderDetailViewModel;
     private PayViewModel mPayViewModel;
     private String mPayType;
-    private String mOrderNo;
+    private String mSalebillId;
 
     public static void start(Context context, GoodsTypeInfo goodsTypeInfo) {
         Intent starter = new Intent(context, GoodsListActivity.class);
@@ -153,6 +153,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
                     RegisterActivity.start(context, ShoppingCenterUtil.getRegisterTagId());
                     return;
                 }
+                mSalebillId = goodsDetailInfo.salebill_id;
                 if (goodsDetailInfo.isPayByMoney() && !goodsDetailInfo.isFree()) {
                     ConfirmOrderActivity.start(context, goodsDetailInfo.sarti_id);
                 } else if (goodsDetailInfo.isPayByPoint()) {
@@ -451,7 +452,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
         if (PayViewModel.CHECK_ORDER_STATUS == optType) {
             if (orderPayInfoResponse == null) {
                 ToastUtil.showShortToast("支付成功");
-                PayCompleteActivity.start(context, orderPayInfoResponse.id);
+                PayCompleteActivity.start(context, mSalebillId);
             } else {
                 return;
             }
@@ -460,7 +461,6 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
         if (orderPayInfoResponse == null) {
             return;
         }
-        mOrderNo = orderPayInfoResponse.order_no;
         if (TextUtils.equals(mPayType, ConfirmPayActivity.PAY_BY_WECHAT)) {
             String path = "/pages/order/appPay?" + "salebill_id="
                     + "&mem_phone=" + mUserInfo.mem_phone + "&benefits_level=" + mUserInfo.benefits_level;

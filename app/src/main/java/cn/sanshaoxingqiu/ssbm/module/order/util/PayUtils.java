@@ -51,26 +51,31 @@ public class PayUtils {
             return this;
         }
 
-        AdaPay.doPay(activity, orderInfo, payResult -> {
-            if (payResult == null) {
-                ToastUtil.showShortToast("payResult=null");
-                return;
-            }
-            switch (payResult.getResultCode()) {
-                case ResponseCode.SUCCESS:
-                    if (mOnPayListener != null) {
-                        mOnPayListener.onPaySuccess();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                AdaPay.doPay(activity, orderInfo, payResult -> {
+                    if (payResult == null) {
+                        ToastUtil.showShortToast("支付信息获取失败");
+                        return;
                     }
-                    break;
-                case ResponseCode.PENDING:
-                    break;
-                case ResponseCode.FAILED:
-                    if (mOnPayListener != null) {
-                        mOnPayListener.onPayFailed();
+                    switch (payResult.getResultCode()) {
+                        case ResponseCode.SUCCESS:
+                            if (mOnPayListener != null) {
+                                mOnPayListener.onPaySuccess();
+                            }
+                            break;
+                        case ResponseCode.PENDING:
+                            break;
+                        case ResponseCode.FAILED:
+                            if (mOnPayListener != null) {
+                                mOnPayListener.onPayFailed();
+                            }
+                            break;
                     }
-                    break;
+                });
             }
-        });
+        }).start();
         return this;
     }
 }

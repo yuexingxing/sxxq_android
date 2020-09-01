@@ -27,7 +27,6 @@ public class UserInfo implements Serializable {
     public MemberClassInfo mem_class;
     public UserInfo referrer_mem;
     public String commission;//我的分润
-    public String mem_class_key;
     public String mem_class_name;
 
     /**

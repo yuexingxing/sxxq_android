@@ -32,11 +32,11 @@ public class FansListAdapter extends BaseQuickAdapter<UserInfo, BaseViewHolder> 
         // 星级
         ImageView vipIcon = helper.getView(R.id.iv_vip_icon);
         TextView vipName = helper.getView(R.id.tv_vip_name);
-        if (TextUtils.equals("1", item.mem_class_key)) {
+        if (TextUtils.equals("1", item.mem_class.mem_class_key)) {
             vipIcon.setImageResource(R.drawable.icon_universaldrillmembers);
-        } else if (TextUtils.equals("2", item.mem_class_key)) {
+        } else if (TextUtils.equals("2", item.mem_class.mem_class_key)) {
             vipIcon.setImageResource(R.drawable.icon_universaldrillmembers);
-        } else if (TextUtils.equals("3", item.mem_class_key)) {
+        } else if (TextUtils.equals("3", item.mem_class.mem_class_key)) {
             vipIcon.setImageResource(R.drawable.icon_universaldrillmembers);
         } else {
             vipIcon.setImageResource(R.drawable.icon_commondiamond);

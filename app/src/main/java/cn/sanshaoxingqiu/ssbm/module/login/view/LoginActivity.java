@@ -97,11 +97,11 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
         });
         binding.tvLogin.setOnClickListener(v -> {
             String invitationCode = binding.edtInviteCode.getText().toString();
-            if (TextUtils.isEmpty(invitationCode)) {
+//            if (TextUtils.isEmpty(invitationCode)) {
                 login();
-            } else {
-                mViewModel.getMemInfoByInvitationCode(invitationCode);
-            }
+//            } else {
+//                mViewModel.getMemInfoByInvitationCode(invitationCode);
+//            }
         });
         binding.includePolicy.tvAgreement.setOnClickListener(v -> EmptyWebViewActivity.start(context, "http://www.baidu.com"));
         binding.includePolicy.tvPolicy.setOnClickListener(v -> EmptyWebViewActivity.start(context, "http://www.2345.com"));

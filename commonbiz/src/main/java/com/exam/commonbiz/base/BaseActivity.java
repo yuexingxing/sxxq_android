@@ -51,7 +51,7 @@ public abstract class BaseActivity<VM extends ViewModel, VDB extends ViewDataBin
     protected void onStart() {
         super.onStart();
         if (useEventBus()) {
-            if (!EventBus.getDefault().isRegistered(this)){
+            if (!EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().register(this);
             }
         }
@@ -67,8 +67,14 @@ public abstract class BaseActivity<VM extends ViewModel, VDB extends ViewDataBin
             if (isShouldHideKeyboard(v, me)) { //判断用户点击的是否是输入框以外的区域
                 hideKeyboard(v.getWindowToken());   //收起键盘
             }
+        } else if (me.getAction() == MotionEvent.BUTTON_BACK) {
+            back();
         }
         return super.dispatchTouchEvent(me);
+    }
+
+    public void back() {
+        finish();
     }
 
     /**
@@ -157,7 +163,7 @@ public abstract class BaseActivity<VM extends ViewModel, VDB extends ViewDataBin
     protected void onDestroy() {
         super.onDestroy();
         if (useEventBus()) {
-            if (EventBus.getDefault().isRegistered(this)){
+            if (EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().unregister(this);
             }
         }

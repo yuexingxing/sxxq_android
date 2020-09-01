@@ -80,7 +80,7 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
         mOrderListAdapter.setOnItemClickListener(new OrderListAdapter.OnItemClickListener() {
             @Override
             public void onOrderDetail(OrderInfo item) {
-                OrderDetailActivity.start(context, item.id);
+                OrderDetailActivity.start(context, orderState, item.id);
             }
 
             @Override
@@ -92,7 +92,7 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
             public void onViewCouponCode(OrderInfo item) {
 //                ViewCouponCodeActivity.start(context);
                 //TODO 查看券码先跳转到订单详情
-                OrderDetailActivity.start(context, item.id);
+                OrderDetailActivity.start(context, orderState, item.id);
             }
 
             @Override
