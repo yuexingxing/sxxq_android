@@ -43,14 +43,12 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderInfo, BaseViewHolder
         helper.getView(R.id.ll_complete).setVisibility(View.GONE);
         helper.getView(R.id.ll_canceled).setVisibility(View.GONE);
 
+        helper.setText(R.id.tv_state, item.getOrderStatus(item.saleStatus));
         if (TextUtils.equals(OrderInfo.ORDER_STATUS.PAY, item.saleStatus)) {
-            helper.setText(R.id.tv_state, "待支付");
             helper.getView(R.id.ll_tobe_paid).setVisibility(View.VISIBLE);
         } else if (TextUtils.equals(OrderInfo.ORDER_STATUS.PAID, item.saleStatus)) {
-            helper.setText(R.id.tv_state, "待使用");
             helper.getView(R.id.ll_tobe_use).setVisibility(View.VISIBLE);
         } else if (TextUtils.equals(OrderInfo.ORDER_STATUS.CANCEL, item.saleStatus)) {
-            helper.setText(R.id.tv_state, "已关闭");
             helper.getView(R.id.ll_canceled).setVisibility(View.VISIBLE);
         }
 

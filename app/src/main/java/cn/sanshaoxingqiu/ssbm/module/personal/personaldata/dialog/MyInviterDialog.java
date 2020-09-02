@@ -55,20 +55,18 @@ public class MyInviterDialog {
             GlideUtil.loadImage(userInfo.referrer_mem.avatar, ivAvatar);
 
             //一星会员
+            tvLabel.setText(userInfo.getMember());
             if (TextUtils.equals(userInfo.referrer_mem.mem_class.mem_class_key, "1")) {
-                tvLabel.setText("玉兔");
                 rlBg.setBackground(Res.getDrawable(SSApplication.app, R.drawable.image_onestars));
                 llContent.setBackground(Res.getDrawable(SSApplication.app, R.drawable.image_onecord));
             }
             //二星会员
             else if (TextUtils.equals(userInfo.referrer_mem.mem_class.mem_class_key, "2")) {
-                tvLabel.setText("嫦娥");
                 rlBg.setBackground(Res.getDrawable(SSApplication.app, R.drawable.image_twostars));
                 llContent.setBackground(Res.getDrawable(SSApplication.app, R.drawable.image_twecard));
             }
             //三星会员
             else if (TextUtils.equals(userInfo.referrer_mem.mem_class.mem_class_key, "3")) {
-                tvLabel.setText("悟空");
                 rlBg.setBackground(Res.getDrawable(SSApplication.app, R.drawable.image_threestars));
                 llContent.setBackground(Res.getDrawable(SSApplication.app, R.drawable.image_threecard));
             }

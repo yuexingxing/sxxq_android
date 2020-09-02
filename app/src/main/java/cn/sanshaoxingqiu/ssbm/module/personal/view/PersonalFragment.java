@@ -314,20 +314,18 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.progressHorizontal.setMax(userInfo.mem_class.mem_class_valid_days);
 
         //一星会员
+        binding.tvLabel.setText(userInfo.getMember());
         if (TextUtils.equals(userInfo.mem_class.mem_class_key, "1")) {
-            binding.tvLabel.setText("玉兔");
             binding.rlAvatarBg.setBackground(getResources().getDrawable(R.drawable.image_onestars));
             binding.ivBg.setBackground(getResources().getDrawable(R.drawable.image_onestarbg));
         }
         //二星会员
         else if (TextUtils.equals(userInfo.mem_class.mem_class_key, "2")) {
-            binding.tvLabel.setText("嫦娥");
             binding.rlAvatarBg.setBackground(getResources().getDrawable(R.drawable.image_twostars));
             binding.ivBg.setBackground(getResources().getDrawable(R.drawable.image_twostarsbg));
         }
         //三星会员
         else if (TextUtils.equals(userInfo.mem_class.mem_class_key, "3")) {
-            binding.tvLabel.setText("悟空");
             binding.rlAvatarBg.setBackground(getResources().getDrawable(R.drawable.image_threestars));
             binding.ivBg.setBackground(getResources().getDrawable(R.drawable.image_three_starsbg));
             binding.tvName.setTextColor(getResources().getColor(R.color.white));

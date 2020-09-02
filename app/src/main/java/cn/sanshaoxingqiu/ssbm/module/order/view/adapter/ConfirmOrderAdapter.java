@@ -101,8 +101,7 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
             helper.getView(R.id.ll_count_view).setVisibility(View.GONE);
         }
 
-        //如果有套餐
-        if (item.isMeal() && !ContainerUtil.isEmpty(item.product_list)) {
+        if ((item.isMeal() || item.order_product.isMeal()) && !ContainerUtil.isEmpty(item.product_list)) {
             if (flSetMeal.getVisibility() == View.GONE) {
                 llOpenSetMeal.setVisibility(View.VISIBLE);
             }
@@ -119,25 +118,38 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
             llOpenSetMeal.setVisibility(View.GONE);
         }
 
-        if (mFragmentManager != null && item.order_product != null && !ContainerUtil.isEmpty(item.order_product.write_off)) {
-            List<Fragment> mFragmentList = new ArrayList<>();
-            List<GoodsDetailInfo> orderProductInfoList = new ArrayList<>();
-            orderProductInfoList.add(item.order_product);
-            for (int i = 0; i < orderProductInfoList.size(); i++) {
-                //如果有核销码
-                if (!ContainerUtil.isEmpty(orderProductInfoList.get(i).write_off)) {
-                    orderProductInfoList.get(i).salebill_id = item.salebill_id;
-                    mFragmentList.add(ViewCouponCodeFragment.newInstance(orderProductInfoList.get(i)));
-                }
-            }
-            ViewPager viewPager = helper.getView(R.id.view_pager);
-            viewPager.setVisibility(View.VISIBLE);
-            TabFragmentPagerAdapter adapter = new TabFragmentPagerAdapter(mFragmentManager, mFragmentList);
-            viewPager.setAdapter(adapter);
-            viewPager.setCurrentItem(0);
-            viewPager.setOffscreenPageLimit(mFragmentList.size());
+        List<GoodsDetailInfo> productList = new ArrayList<>();
+        if (item.isMeal() || item.order_product.isMeal()) {
+            productList.addAll(item.order_product.product_list);
         } else {
+            productList.add(item.order_product);
+        }
+        initProductList(helper, productList);
+    }
+
+    private void initProductList(BaseViewHolder helper, List<GoodsDetailInfo> productList) {
+        helper.getView(R.id.view_pager).setVisibility(View.GONE);
+        if (mFragmentManager == null || ContainerUtil.isEmpty(productList)) {
+            return;
+        }
+        List<Fragment> mFragmentList = new ArrayList<>();
+        for (int i = 0; i < productList.size(); i++) {
+            //如果有核销码
+            if (!ContainerUtil.isEmpty(productList.get(i).write_off)) {
+                productList.get(i).salebill_id = productList.get(i).salebill_id;
+                mFragmentList.add(ViewCouponCodeFragment.newInstance(productList.get(i)));
+            }
+        }
+        ViewPager viewPager = helper.getView(R.id.view_pager);
+        viewPager.setVisibility(View.VISIBLE);
+        TabFragmentPagerAdapter adapter = new TabFragmentPagerAdapter(mFragmentManager, mFragmentList);
+        viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(0);
+        viewPager.setOffscreenPageLimit(mFragmentList.size());
+        if (ContainerUtil.isEmpty(mFragmentList)) {
             helper.getView(R.id.view_pager).setVisibility(View.GONE);
+        } else {
+            helper.getView(R.id.view_pager).setVisibility(View.VISIBLE);
         }
     }
 

@@ -151,6 +151,12 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
 //        binding.mulitySetMealView.mConfirmOrderAdapter.addData(orderDetailResponse.goodsDetailInfo);
 
         List<GoodsDetailInfo> goodsDetailInfoList = new ArrayList<>();
+//        GoodsDetailInfo goodsDetailInfo = orderDetailResponse.order_product;
+//        goodsDetailInfo.sum_amt = orderDetailResponse.sum_amt;
+//        goodsDetailInfo.sum_point = orderDetailResponse.sum_point;
+//        goodsDetailInfo.qty = orderDetailResponse.qty;
+//        goodsDetailInfo.sale_status = orderDetailResponse.sale_status;
+
         goodsDetailInfoList.add(orderDetailResponse);
         binding.mulitySetMealView.setData(goodsDetailInfoList);
 
