@@ -178,7 +178,7 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
             if (bannerInfo.action_args != null && !TextUtils.isEmpty(bannerInfo.action_args.artitag_id)) {
                 tagId = bannerInfo.action_args.artitag_id;
             }
-            RegisterActivity.start(context, tagId);
+            RegisterActivity.start(context, bannerInfo.artitag_name, tagId);
         }
     }
 }

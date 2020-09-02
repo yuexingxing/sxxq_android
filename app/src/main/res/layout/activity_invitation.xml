@@ -237,7 +237,7 @@
                         android:layout_marginRight="12dp"
                         android:background="@drawable/shape_radius_10_fdacab"
                         android:gravity="center"
-                        android:text="邀请记录"
+                        android:text="分享金记录"
                         android:textColor="#ffffff"
                         android:textSize="12sp" />
 

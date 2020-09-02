@@ -172,7 +172,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
 
         binding.includeBottom.btnBuy.setOnClickListener(v -> {
             if (!SSApplication.isLogin()) {
-                RegisterActivity.start(context, ShoppingCenterUtil.getRegisterTagId());
+                RegisterActivity.start(context, "", ShoppingCenterUtil.getRegisterTagId());
                 return;
             }
             if (mGoodsDetailInfo.isPayByMoney() && !mGoodsDetailInfo.isFree()) {
@@ -283,6 +283,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                 })
                 .show();
     }
+
     /**
      * @param index 0-商品 1-详情
      */

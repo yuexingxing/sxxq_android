@@ -150,7 +150,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
             @Override
             public void onBuyClick(GoodsDetailInfo goodsDetailInfo) {
                 if (!SSApplication.isLogin()) {
-                    RegisterActivity.start(context, ShoppingCenterUtil.getRegisterTagId());
+                    RegisterActivity.start(context, "", ShoppingCenterUtil.getRegisterTagId());
                     return;
                 }
                 mSalebillId = goodsDetailInfo.salebill_id;

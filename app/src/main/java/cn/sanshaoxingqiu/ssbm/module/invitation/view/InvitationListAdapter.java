@@ -7,16 +7,14 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import cn.sanshaoxingqiu.ssbm.R;
-import cn.sanshaoxingqiu.ssbm.module.invitation.bean.UserReferrals;
 import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.util.GlideUtil;
 
 public class InvitationListAdapter extends BaseQuickAdapter<UserInfo, BaseViewHolder> {
 
-    InvitationListAdapter(){
+    InvitationListAdapter() {
         super(R.layout.item_invitaion_record, null);
     }
-
 
     @Override
     protected void convert(BaseViewHolder helper, UserInfo item) {
@@ -27,5 +25,6 @@ public class InvitationListAdapter extends BaseQuickAdapter<UserInfo, BaseViewHo
         }
         // 名称
         helper.setText(R.id.tv_user_name, item.nickname);
+        helper.setText(R.id.tv_time, item.nickname);
     }
 }

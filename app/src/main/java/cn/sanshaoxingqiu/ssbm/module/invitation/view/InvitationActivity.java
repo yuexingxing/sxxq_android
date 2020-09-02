@@ -29,6 +29,7 @@ import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.GlideUtil;
 import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
 import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
+import cn.sanshaoxingqiu.ssbm.widget.dialog.CommonTipDialog;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.util.ContainerUtil;
@@ -99,21 +100,30 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
                 goodsTypeInfo.artitag_id = ShoppingCenterUtil.getInviteTagId();
                 GoodsListActivity.start(context, goodsTypeInfo);
             } else {
-                RegisterActivity.start(context, ShoppingCenterUtil.getRegisterTagId());
+                RegisterActivity.start(context, "", ShoppingCenterUtil.getRegisterTagId());
             }
         });
         goodsTypeDetailVerticalAdapter.setOnItemClickListener((adapter, view, position) -> {
             if (!SSApplication.isLogin()) {
-                RegisterActivity.start(context, ShoppingCenterUtil.getRegisterTagId());
+                RegisterActivity.start(context, "", ShoppingCenterUtil.getRegisterTagId());
                 return;
             }
             GoodsDetailInfo goodsDetailInfo = goodsTypeDetailVerticalAdapter.getData().get(position);
+            if (goodsDetailInfo.isPayByPoint()) {
+                UserInfo userInfo = SSApplication.getInstance().getUserInfo();
+                if (userInfo.available_point == 0) {
+                    new CommonTipDialog().show(context, "分享金不足", "分享一位体验用户成功注册三少变美APP，即可获得\"奖励变美区\"一个项目，项目任选，多分享多获得。",
+                            "", "确认", null);
+                    return;
+                }
+            }
+
             GoodsDetailActivity.start(view.getContext(), goodsDetailInfo.sarti_id);
         });
         binding.goodsRecyclerView.setNestedScrollingEnabled(false);
         binding.goodsRecyclerView.setLayoutManager(gridLayoutManager);
         binding.goodsRecyclerView.setAdapter(goodsTypeDetailVerticalAdapter);
-        if (SSApplication.isLogin()) {
+        if (!SSApplication.isLogin()) {
             goodsTypeDetailVerticalAdapter.isShowConver(true);
         } else {
             goodsTypeDetailVerticalAdapter.isShowConver(false);
@@ -230,7 +240,7 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
 //        commonDialogInfoList.add(new CommonDialogInfo("生成海报"));
 
         new CommonBottomDialog()
-                .init(this)
+                .init(context)
                 .setData(commonDialogInfoList)
                 .setOnItemClickListener(commonDialogInfo -> {
                     if (commonDialogInfo.position == 0) {

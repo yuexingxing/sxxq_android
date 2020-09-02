@@ -9,6 +9,7 @@ public class Constants {
     public static final int PAGE_SIZE = 10;
     public static final String OPT_TYPE = "opt_type";
     public static final String OPT_DATA = "opt_data";
+    public static final String OPT_DATA2 = "opt_data2";
     public static final String WX_APPID = "wx6d6b82bfd2d23e60";//wx0cb916b177b454f4/wx6d6b82bfd2d23e60
     public static final String WX_APPSECRET = "be8931b1c3097a0d3e778c5baffec10e";
     public static final String UMENG_APP_KEY = "5f447223b4b08b653e98dafb";

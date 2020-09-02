@@ -21,13 +21,16 @@ import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.GoodsDetailActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.GoodsListActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.adapter.GoodsTypeDetailVerticalAdapter;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.BenefitsRightDialog;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.GlideUtil;
 import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
 import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import cn.sanshaoxingqiu.ssbm.widget.dialog.CommonTipDialog;
 
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.Res;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
@@ -41,16 +44,21 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
     private GoodsTypeDetailVerticalAdapter goodsTypeDetailVerticalAdapter;
     private LoginViewModel mLoginViewModel;
 
-    public static void start(Context context, String artiTagId) {
+    public static void start(Context context, String tilte, String artiTagId) {
         if (TextUtils.isEmpty(artiTagId)) return;
         Intent starter = new Intent(context, RegisterActivity.class);
         starter.putExtra(Constants.OPT_DATA, artiTagId);
+        starter.putExtra(Constants.OPT_DATA2, tilte);
         context.startActivity(starter);
     }
 
     @Override
     public void initData() {
         String artiTagId = getIntent().getStringExtra(Constants.OPT_DATA);
+        String title = getIntent().getStringExtra(Constants.OPT_DATA2);
+        if (!TextUtils.isEmpty(title)) {
+            binding.titleBar.setTitle(title);
+        }
 
         mLoginViewModel = new LoginViewModel();
         mLoginViewModel.setCallBack(this);
@@ -87,7 +95,7 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
         binding.ivRegister.setOnClickListener(v -> {
             String invitationCode = binding.edtInviteCode.getText().toString();
 //            if (TextUtils.isEmpty(invitationCode)) {
-                login();
+            login();
 //            } else {
 //                mLoginViewModel.getMemInfoByInvitationCode(invitationCode);
 //            }
@@ -104,16 +112,18 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
         gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
         goodsTypeDetailVerticalAdapter = new GoodsTypeDetailVerticalAdapter();
         goodsTypeDetailVerticalAdapter.setCommonCallBack((postion, object) -> {
-            if (SSApplication.isLogin()) {
-                GoodsTypeInfo goodsTypeInfo = new GoodsTypeInfo();
-                goodsTypeInfo.artitag_id = ShoppingCenterUtil.getRegisterTagId();
-                GoodsListActivity.start(context, goodsTypeInfo);
-            } else {
+            if (!SSApplication.isLogin()) {
                 binding.nestedScrollview.smoothScrollTo(0, 0);
+                return;
             }
+            GoodsTypeInfo goodsTypeInfo = new GoodsTypeInfo();
+            goodsTypeInfo.artitag_id = ShoppingCenterUtil.getRegisterTagId();
+            GoodsListActivity.start(context, goodsTypeInfo);
         });
         if (!SSApplication.isLogin()) {
             goodsTypeDetailVerticalAdapter.isShowConver(true);
+        } else {
+            goodsTypeDetailVerticalAdapter.isShowConver(false);
         }
         goodsTypeDetailVerticalAdapter.setOnItemClickListener((adapter, view, position) -> {
             if (!SSApplication.isLogin()) {
@@ -122,6 +132,13 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
                 return;
             }
             GoodsDetailInfo goodsDetailInfo = goodsTypeDetailVerticalAdapter.getData().get(position);
+            if (goodsDetailInfo.isPayByPoint()) {
+                if (userInfo.available_point == 0) {
+                    new CommonTipDialog().show(context, "分享金不足", "分享一位体验用户成功注册三少变美APP，即可获得\"奖励变美区\"一个项目，项目任选，多分享多获得。",
+                            "", "确认", null);
+                    return;
+                }
+            }
             GoodsDetailActivity.start(view.getContext(), goodsDetailInfo.sarti_id);
         });
         binding.goodsRecyclerView.setNestedScrollingEnabled(false);
