@@ -101,7 +101,7 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
             helper.getView(R.id.ll_count_view).setVisibility(View.GONE);
         }
 
-        if ((item.isMeal() || item.order_product.isMeal()) && !ContainerUtil.isEmpty(item.product_list)) {
+        if ((item.isMeal() || (item.order_product != null && item.order_product.isMeal())) && !ContainerUtil.isEmpty(item.product_list)) {
             if (flSetMeal.getVisibility() == View.GONE) {
                 llOpenSetMeal.setVisibility(View.VISIBLE);
             }
@@ -119,8 +119,10 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
         }
 
         List<GoodsDetailInfo> productList = new ArrayList<>();
-        if (item.isMeal() || item.order_product.isMeal()) {
-            productList.addAll(item.order_product.product_list);
+        if (item.isMeal() || (item.order_product != null && item.order_product.isMeal())) {
+            if (item.order_product != null){
+                productList.addAll(item.order_product.product_list);
+            }
         } else {
             productList.add(item.order_product);
         }
