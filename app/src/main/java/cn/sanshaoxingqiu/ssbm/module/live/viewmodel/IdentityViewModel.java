@@ -8,7 +8,9 @@ import com.exam.commonbiz.net.OnLoadListener;
 import java.util.List;
 
 import cn.sanshaoxingqiu.ssbm.module.invitation.model.InvitationCallBack;
+import cn.sanshaoxingqiu.ssbm.module.live.api.LiveApplyRequest;
 import cn.sanshaoxingqiu.ssbm.module.live.model.IIdentityModel;
+import cn.sanshaoxingqiu.ssbm.module.live.model.IdentityModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.ShoppingCenterModel;
 import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
@@ -21,8 +23,8 @@ public class IdentityViewModel extends ViewModel {
         this.mCallBack = callBack;
     }
 
-    public void getGoodsList(String artiTagId) {
-        ShoppingCenterModel.getGoodsList(artiTagId, 0, 10, new OnLoadListener<List<GoodsDetailInfo>>() {
+    public void liveApply(LiveApplyRequest liveApplyRequest) {
+        IdentityModel.liveApply(liveApplyRequest, new OnLoadListener() {
 
             @Override
             public void onLoadStart() {
@@ -35,9 +37,9 @@ public class IdentityViewModel extends ViewModel {
             }
 
             @Override
-            public void onLoadSucessed(BaseResponse<List<GoodsDetailInfo>> t) {
+            public void onLoadSucessed(BaseResponse t) {
                 if (mCallBack != null) {
-
+                    mCallBack.returnLiveApply();
                 }
             }
 

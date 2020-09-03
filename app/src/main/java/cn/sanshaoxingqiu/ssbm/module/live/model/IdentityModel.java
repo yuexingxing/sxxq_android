@@ -8,14 +8,15 @@ import com.exam.commonbiz.net.XApi;
 
 import cn.sanshaoxingqiu.ssbm.module.invitation.api.InvitationApiService;
 import cn.sanshaoxingqiu.ssbm.module.live.api.LiveApiService;
+import cn.sanshaoxingqiu.ssbm.module.live.api.LiveApplyRequest;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class IdentityModel {
 
-    public static void getUserReferrals(final OnLoadListener onLoadListener) {
+    public static void liveApply(LiveApplyRequest liveApplyRequest, final OnLoadListener onLoadListener) {
         XApi.get(LiveApiService.class, XApi.HOST_TYPE.JAVA)
-                .requestUserReferrals()
+                .liveApply(liveApplyRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver() {

@@ -28,7 +28,7 @@ public class OssViewModel extends ViewModel {
         Log.i(TAG, "onCleared");
     }
 
-    public void uploadPic(String filePath) {
+    public void uploadPic(int type, String filePath) {
         OssModel.uploadPic(filePath, new OnLoadListener<UploadPicResponse>() {
 
             @Override
@@ -38,7 +38,6 @@ public class OssViewModel extends ViewModel {
 
             @Override
             public void onLoadCompleted() {
-                Log.d(TAG, "onLoadCompleted");
                 LoadDialogMgr.getInstance().dismiss();
             }
 
@@ -46,7 +45,7 @@ public class OssViewModel extends ViewModel {
             public void onLoadSucessed(BaseResponse<UploadPicResponse> t) {
                 ToastUtil.showShortToast(t.getMsg());
                 if (mCallBack != null) {
-                    mCallBack.returnUploadPic(t.getContent());
+                    mCallBack.returnUploadPic(type, t.getContent());
                 }
             }
 

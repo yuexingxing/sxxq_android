@@ -5,10 +5,13 @@ import com.exam.commonbiz.net.BaseResponse;
 
 import cn.sanshaoxingqiu.ssbm.module.invitation.bean.UserReferrals;
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 public interface LiveApiService {
 
-    @GET("user/referrals")
-    Observable<BaseResponse<UserReferrals>> requestUserReferrals();
+    //主播认证
+    @POST("api/live/mlive/apply")
+    Observable<BaseResponse> liveApply(@Body LiveApplyRequest liveApplyRequest);
 }

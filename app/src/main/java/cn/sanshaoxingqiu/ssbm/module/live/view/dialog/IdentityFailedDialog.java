@@ -1,4 +1,4 @@
-package cn.sanshaoxingqiu.ssbm.module.live.view;
+package cn.sanshaoxingqiu.ssbm.module.live.view.dialog;
 
 import android.app.Dialog;
 import android.content.Context;

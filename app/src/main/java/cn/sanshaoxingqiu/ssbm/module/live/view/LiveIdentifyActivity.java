@@ -23,6 +23,10 @@ import java.util.List;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityLiveIdentifyBinding;
+import cn.sanshaoxingqiu.ssbm.module.common.oss.IOssModel;
+import cn.sanshaoxingqiu.ssbm.module.common.oss.OssViewModel;
+import cn.sanshaoxingqiu.ssbm.module.common.oss.UploadPicResponse;
+import cn.sanshaoxingqiu.ssbm.module.live.api.LiveApplyRequest;
 import cn.sanshaoxingqiu.ssbm.module.live.viewmodel.IdentityViewModel;
 import cn.sanshaoxingqiu.ssbm.util.BitmapUtil;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
@@ -35,12 +39,20 @@ import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
  * @Author yuexingxing
  * @time 2020/8/31
  */
-public class LiveIdentifyActivity extends BaseActivity<IdentityViewModel, ActivityLiveIdentifyBinding> {
+public class LiveIdentifyActivity extends BaseActivity<IdentityViewModel, ActivityLiveIdentifyBinding> implements IOssModel {
+
+    public static final int UPLOAD_ID_CARD_1 = 1;
+    public static final int UPLOAD_ID_CARD_2 = 2;
+    public static final int UPLOAD_ID_CARD_3 = 3;
 
     private final static int REQUEST_IMAGE_GET = 1;
     private final static int REQUEST_IMAGE_CAPTURE = 2;
     private String mCurrentPhotoPath;
-    private int mCurrentIndex;//当前拍照类型0，1，2
+    private int mUploadType;//当前拍照类型0，1，2
+    private OssViewModel mOssViewModel;
+    private String mIdCard1;
+    private String mIdCard2;
+    private String mIdCard3;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, LiveIdentifyActivity.class);
@@ -55,6 +67,8 @@ public class LiveIdentifyActivity extends BaseActivity<IdentityViewModel, Activi
     @Override
     public void initData() {
 
+        mOssViewModel = new OssViewModel();
+        mOssViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View view) {
@@ -73,20 +87,54 @@ public class LiveIdentifyActivity extends BaseActivity<IdentityViewModel, Activi
         });
 
         binding.llStep1.setOnClickListener(v -> {
-            mCurrentIndex = 0;
+            mUploadType = UPLOAD_ID_CARD_1;
             takePhoto();
         });
         binding.llStep2.setOnClickListener(v -> {
-            mCurrentIndex = 1;
+            mUploadType = UPLOAD_ID_CARD_2;
             takePhoto();
         });
         binding.llStep3.setOnClickListener(v -> {
-            mCurrentIndex = 2;
+            mUploadType = UPLOAD_ID_CARD_3;
             takePhoto();
         });
         binding.tvSubmit.setOnClickListener(v -> {
 
         });
+    }
+
+    private void liveApply() {
+
+        String name = binding.edtName.getText().toString();
+        String idCard = binding.edtId.getText().toString();
+        if (TextUtils.isEmpty(name)) {
+            ToastUtil.showLongToast("姓名不能为空");
+            return;
+        }
+        if (TextUtils.isEmpty(idCard)) {
+            ToastUtil.showLongToast("身份证号不能为空");
+            return;
+        }
+        if (TextUtils.isEmpty(mIdCard1)) {
+            ToastUtil.showLongToast("请上传身份证正面照");
+            return;
+        }
+        if (TextUtils.isEmpty(mIdCard2)) {
+            ToastUtil.showLongToast("请上传身份证反面照");
+            return;
+        }
+        if (TextUtils.isEmpty(mIdCard3)) {
+            ToastUtil.showLongToast("请上传手持身份证照片");
+            return;
+        }
+
+        LiveApplyRequest liveApplyRequest = new LiveApplyRequest();
+        liveApplyRequest.anchor_name = name;
+        liveApplyRequest.identity_number = idCard;
+        liveApplyRequest.identity_card_front = mIdCard1;
+        liveApplyRequest.identity_card_back = mIdCard2;
+        liveApplyRequest.identity_handle = mIdCard3;
+        mViewModel.liveApply(liveApplyRequest);
     }
 
     private void takePhoto() {
@@ -160,11 +208,11 @@ public class LiveIdentifyActivity extends BaseActivity<IdentityViewModel, Activi
             }
             if (!TextUtils.isEmpty(filePath)) {
                 Bitmap bitmap = BitmapUtil.getSmallBitmap(filePath, 200, 200);
-                if (mCurrentIndex == 0) {
+                if (mUploadType == UPLOAD_ID_CARD_1) {
                     binding.ivStep1.setImageBitmap(bitmap);
                     binding.ivStep1.setVisibility(View.VISIBLE);
                     binding.flStep1.setVisibility(View.GONE);
-                } else if (mCurrentIndex == 1) {
+                } else if (mUploadType == UPLOAD_ID_CARD_2) {
                     binding.ivStep2.setImageBitmap(bitmap);
                     binding.ivStep2.setVisibility(View.VISIBLE);
                     binding.flStep2.setVisibility(View.GONE);
@@ -174,12 +222,7 @@ public class LiveIdentifyActivity extends BaseActivity<IdentityViewModel, Activi
                     binding.flStep3.setVisibility(View.GONE);
                 }
             }
-
-            //TODO 上传图片
-            //实例化OSSClient (自己是在onCreate()中实例化的，当然考虑到token的过期问题，也有在onResume()中再次实例化一次)
-//            OssService ossService = OssService.initOSS(tokenBean.getBucket().getEndPoint(), tokenBean.getBucket().getBucketName());
-//            //上传图片,需要根据自己的逻辑传参数
-//            ossService.asyncPutImage("图片在阿里上的存储路径", "本地路径", null, "1");
+            mOssViewModel.uploadPic(mUploadType, filePath);
         }
     }
 
@@ -199,5 +242,19 @@ public class LiveIdentifyActivity extends BaseActivity<IdentityViewModel, Activi
                         selectFromAlbum();
                     }
                 });
+    }
+
+    @Override
+    public void returnUploadPic(int type, UploadPicResponse uploadPicResponse) {
+        if (uploadPicResponse == null) {
+            return;
+        }
+        if (UPLOAD_ID_CARD_1 == type) {
+            mIdCard1 = uploadPicResponse.url;
+        } else if (UPLOAD_ID_CARD_2 == type) {
+            mIdCard2 = uploadPicResponse.url;
+        } else {
+            mIdCard3 = uploadPicResponse.url;
+        }
     }
 }
