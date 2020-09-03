@@ -207,7 +207,7 @@ public class PersonalDetailActivity extends BaseActivity<PersonalViewModel, Acti
                 binding.ivAvatar.setImageBitmap(bitmap);
             }
 
-            if (bitmap == null){
+            if (bitmap == null) {
                 return;
             }
             mOssViewModel.uploadPic(0, bitmap);
@@ -280,6 +280,8 @@ public class PersonalDetailActivity extends BaseActivity<PersonalViewModel, Acti
         if (uploadPicResponse == null) {
             return;
         }
-        ToastUtil.showLongToast(uploadPicResponse.url);
+        UserInfo userInfo = new UserInfo();
+        userInfo.avatar = uploadPicResponse.url;
+        mViewModel.updateUserInfo(userInfo);
     }
 }
