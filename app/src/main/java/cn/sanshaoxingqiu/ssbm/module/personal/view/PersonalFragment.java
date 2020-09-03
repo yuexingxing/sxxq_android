@@ -26,7 +26,11 @@ import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.PersonalFragmentBinding;
 import cn.sanshaoxingqiu.ssbm.module.TestMenuActivity;
 import cn.sanshaoxingqiu.ssbm.module.invitation.view.InvitationActivity;
+import cn.sanshaoxingqiu.ssbm.module.live.bean.LiveApplyResponse;
+import cn.sanshaoxingqiu.ssbm.module.live.model.IIdentityModel;
+import cn.sanshaoxingqiu.ssbm.module.live.view.IdentityingActivity;
 import cn.sanshaoxingqiu.ssbm.module.live.view.LiveIdentifyActivity;
+import cn.sanshaoxingqiu.ssbm.module.live.viewmodel.IdentityViewModel;
 import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.AppointmentedInfo;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderInfo;
@@ -59,13 +63,16 @@ import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
  * @Author yuexingxing
  * @time 2020/6/12
  */
-public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFragmentBinding> implements IPersonalCallBack, IOrderDetailModel, IAppointmentModel {
+public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFragmentBinding> implements IPersonalCallBack, IOrderDetailModel,
+        IAppointmentModel, IIdentityModel {
 
     private List<OrderInfo> mOrderInfoList = new ArrayList<>();
     private PersonalOrderSubjectAdapter mPersonalOrderSubjectAdapter;
     private OrderDetailViewModel mOrderDetailViewModel;
     private AppointmentForConsultationViewModel mAppointmentForConsultationViewModel;
+    private IdentityViewModel mIdentityViewModel;
     private UserInfo mUserInfo;
+    private LiveApplyResponse mLiveApplyResponse;
 
     public static PersonalFragment newInstance() {
         return new PersonalFragment();
@@ -82,8 +89,10 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         mViewModel.setCallBack(this);
         mOrderDetailViewModel = new OrderDetailViewModel();
         mAppointmentForConsultationViewModel = new AppointmentForConsultationViewModel();
+        mIdentityViewModel = new IdentityViewModel();
         mOrderDetailViewModel.setCallBack(this);
         mAppointmentForConsultationViewModel.setCallBack(this);
+        mIdentityViewModel.setCallBack(this);
         binding.nestedScrollview.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -171,6 +180,17 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             }
         });
         binding.includePersonalLive.llLiveLive.setOnClickListener(v -> {
+            if (!SSApplication.isLogin()) {
+                LoginActivity.start(context);
+                return;
+            }
+            if (mLiveApplyResponse == null) {
+                return;
+            }
+            if (mLiveApplyResponse.isAuditing()) {
+                IdentityingActivity.start(context);
+                return;
+            }
             LiveIdentifyActivity.start(context);
         });
         binding.includePersonalLive.llLiveLike.setOnClickListener(v -> {
@@ -204,6 +224,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         mViewModel.getUserInfo();
         if (SSApplication.isLogin()) {
             mOrderDetailViewModel.getOrderNumStatus();
+            mIdentityViewModel.getAnchorDetail();
         }
     }
 
@@ -381,5 +402,18 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     @Override
     public void onNetError() {
 
+    }
+
+    @Override
+    public void returnLiveApply() {
+
+    }
+
+    @Override
+    public void returnAnchorDetail(LiveApplyResponse liveApplyResponse) {
+        if (liveApplyResponse == null) {
+            return;
+        }
+        mLiveApplyResponse = liveApplyResponse;
     }
 }

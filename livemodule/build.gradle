@@ -60,5 +60,5 @@ dependencies {
 //    implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.tencent.imsdk:imsdk:4.8.10'
     implementation project(':beauty')
-//    implementation project(':commonbiz')
+    implementation project(':commonbiz')
 }

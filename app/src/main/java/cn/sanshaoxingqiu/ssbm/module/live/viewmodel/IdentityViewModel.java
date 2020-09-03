@@ -40,7 +40,7 @@ public class IdentityViewModel extends ViewModel {
 
             @Override
             public void onLoadSucessed(BaseResponse t) {
-                if (mCallBack != null) {
+                if (mCallBack != null && t.isOk()) {
                     mCallBack.returnLiveApply();
                 }
             }

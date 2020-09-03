@@ -1,5 +1,7 @@
 package cn.sanshaoxingqiu.ssbm.module.live.bean;
 
+import android.text.TextUtils;
+
 public class LiveApplyResponse {
 
     interface AuditStatus {
@@ -16,4 +18,16 @@ public class LiveApplyResponse {
     public String audit_status;
     public String status;
     public String reason;
+
+    public boolean isAuditSuccess(){
+        return TextUtils.equals(AuditStatus.SUCCESS, audit_status);
+    }
+
+    public boolean isAuditFailed(){
+        return TextUtils.equals(AuditStatus.FAILED, audit_status);
+    }
+
+    public boolean isAuditing(){
+        return TextUtils.equals(AuditStatus.AUDIT, audit_status);
+    }
 }

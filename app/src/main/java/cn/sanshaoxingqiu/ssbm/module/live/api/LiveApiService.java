@@ -17,6 +17,6 @@ public interface LiveApiService {
     Observable<BaseResponse> liveApply(@Body LiveApplyRequest liveApplyRequest);
 
     //主播认证详情
-    @POST("live/mlive/anchorDetail")
+    @GET("live/mlive/anchorDetail")
     Observable<BaseResponse<LiveApplyResponse>> getAnchorDetail();
 }

@@ -11,8 +11,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.exam.commonbiz.net.BaseResponse;
+import com.exam.commonbiz.net.OnLoadListener;
 import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.liveroom.roomutil.misc.NameGenerator;
+import com.sanshao.livemodule.net.LiveRetrofit;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;
 import com.sanshao.livemodule.zhibo.common.net.TCHTTPMgr;
 import com.sanshao.livemodule.zhibo.common.utils.TCUtils;
@@ -148,7 +151,27 @@ public class TCLoginActivity extends Activity {
 
     private void login(String username, String password) {
         final TCUserMgr tcLoginMgr = TCUserMgr.getInstance();
-//        LiveRetrofit.login(username, password);
+        LiveRetrofit.login(username, password, new OnLoadListener() {
+            @Override
+            public void onLoadStart() {
+
+            }
+
+            @Override
+            public void onLoadCompleted() {
+
+            }
+
+            @Override
+            public void onLoadSucessed(BaseResponse t) {
+
+            }
+
+            @Override
+            public void onLoadFailed(String errMsg) {
+                Toast.makeText(TCLoginActivity.this, errMsg, Toast.LENGTH_SHORT).show();
+            }
+        });
         tcLoginMgr.login(username, password, new TCHTTPMgr.Callback() {
             @Override
             public void onSuccess(JSONObject data) {

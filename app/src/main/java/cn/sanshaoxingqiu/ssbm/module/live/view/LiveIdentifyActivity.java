@@ -28,6 +28,8 @@ import cn.sanshaoxingqiu.ssbm.module.common.oss.IOssModel;
 import cn.sanshaoxingqiu.ssbm.module.common.oss.OssViewModel;
 import cn.sanshaoxingqiu.ssbm.module.common.oss.UploadPicResponse;
 import cn.sanshaoxingqiu.ssbm.module.live.api.LiveApplyRequest;
+import cn.sanshaoxingqiu.ssbm.module.live.bean.LiveApplyResponse;
+import cn.sanshaoxingqiu.ssbm.module.live.model.IIdentityModel;
 import cn.sanshaoxingqiu.ssbm.module.live.viewmodel.IdentityViewModel;
 import cn.sanshaoxingqiu.ssbm.util.BitmapUtil;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
@@ -42,7 +44,7 @@ import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
  * @Author yuexingxing
  * @time 2020/8/31
  */
-public class LiveIdentifyActivity extends BaseActivity<IdentityViewModel, ActivityLiveIdentifyBinding> implements IOssModel {
+public class LiveIdentifyActivity extends BaseActivity<IdentityViewModel, ActivityLiveIdentifyBinding> implements IIdentityModel, IOssModel {
 
     public static final int UPLOAD_ID_CARD_1 = 1;
     public static final int UPLOAD_ID_CARD_2 = 2;
@@ -253,20 +255,31 @@ public class LiveIdentifyActivity extends BaseActivity<IdentityViewModel, Activi
             return;
         }
         if (UPLOAD_ID_CARD_1 == type) {
-            mIdCard1 = uploadPicResponse.url;
+            mIdCard1 = uploadPicResponse.fileName;
             GlideUtil.loadImage(uploadPicResponse.url, binding.ivStep1);
             binding.ivStep1.setVisibility(View.VISIBLE);
             binding.flStep1.setVisibility(View.GONE);
         } else if (UPLOAD_ID_CARD_2 == type) {
-            mIdCard2 = uploadPicResponse.url;
+            mIdCard2 = uploadPicResponse.fileName;
             GlideUtil.loadImage(uploadPicResponse.url, binding.ivStep2);
             binding.ivStep2.setVisibility(View.VISIBLE);
             binding.flStep2.setVisibility(View.GONE);
         } else {
-            mIdCard3 = uploadPicResponse.url;
+            mIdCard3 = uploadPicResponse.fileName;
             GlideUtil.loadImage(uploadPicResponse.url, binding.ivStep3);
             binding.ivStep3.setVisibility(View.VISIBLE);
             binding.flStep3.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void returnLiveApply() {
+        ToastUtil.showLongToast("提交成功");
+        finish();
+    }
+
+    @Override
+    public void returnAnchorDetail(LiveApplyResponse liveApplyResponse) {
+
     }
 }
