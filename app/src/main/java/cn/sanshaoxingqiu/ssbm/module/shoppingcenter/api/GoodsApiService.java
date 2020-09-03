@@ -17,20 +17,20 @@ import retrofit2.http.Query;
 public interface GoodsApiService {
 
     //首页数据
-    @GET("home/list")
+    @GET("ssxq/home/list")
     Observable<BaseResponse<ShoppingCenterResponse>> getShoppingCenterList();
 
     //获取商品列表
-    @GET("home/tags")
+    @GET("ssxq/home/tags")
     Observable<BaseResponse<List<GoodsDetailInfo>>> getGoodsList(@Query("artitag_id") String artiTagId,
                                                                  @Query("offset") int offset,
                                                                  @Query("limit") int limit);
 
     //获取商品详情
-    @GET("product/detail")
+    @GET("ssxq/product/detail")
     Observable<BaseResponse<GoodsDetailInfo>> getGoodsDetail(@Query("sarti_id") String sartiId);
 
     //猜你喜欢
-    @GET("product/guess/like")
+    @GET("ssxq/product/guess/like")
     Observable<BaseResponse<List<GoodsDetailInfo>>> getGuessYouLoveData();
 }

@@ -21,34 +21,34 @@ import retrofit2.http.Query;
 public interface OrderApiService {
 
     //创建订单信息
-    @POST("order/create")
+    @POST("ssxq/order/create")
     Observable<BaseResponse<GoodsDetailInfo>> createOrderInfo(@Body CreateOrderRequest createOrderRequest);
 
     //获取订单信息
-    @GET("/util/sms/fetch")
+    @GET("ssxq//util/sms/fetch")
     Observable<BaseResponse<ConfirmOrderResponse>> getOrderInfo();
 
     //提交订单信息
-    @POST("order/create")
+    @POST("ssxq/order/create")
     Observable<BaseResponse> submitOrderInfo(@Body GoodsDetailInfo goodsDetailInfo);
 
     //获取订单列表
-    @GET("salebill/salebillList")
+    @GET("ssxq/salebill/salebillList")
     Observable<BaseResponse<OrderListResponse>> getOrderList(@Query("saleStatus") String saleStatus, @Query("page") int page, @Query("pageSize") int pageSize);
 
     //获取订单详情
-    @GET("order/detail")
+    @GET("ssxq/order/detail")
     Observable<BaseResponse<GoodsDetailInfo>> getOrderDetailInfo(@Query("salebill_id") String salebillId);
 
     //获取订单数量状态
-    @GET("salebill/saleStatus")
+    @GET("ssxq/salebill/saleStatus")
     Observable<BaseResponse<OrderNumStatusResponse>> getOrderNumStatus();
 
     //取消订单
-    @POST("salebill/cancel")
+    @POST("ssxq/salebill/cancel")
     Observable<BaseResponse> cancelOrder(@Query("salebillId") String salebillId);
 
     //用户权益订单
-    @GET("order/benefit")
+    @GET("ssxq/order/benefit")
     Observable<BaseResponse<OrderBenefitResponse>> getOrderBenefit();
 }

@@ -16,8 +16,8 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -265,28 +265,26 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="48dp"
-                    android:gravity="center_horizontal">
-
-                    <TextView
-                        android:id="@+id/tv_submit"
-                        android:layout_width="180dp"
-                        android:layout_height="38dp"
-                        android:background="@drawable/shape_btn_able"
-                        android:digits="@string/login_psd"
-                        android:enabled="false"
-                        android:gravity="center"
-                        android:text="立即提交"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
-                </RelativeLayout>
-
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_submit"
+                android:layout_width="180dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/shape_btn_able"
+                android:gravity="center"
+                android:text="立即提交"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </RelativeLayout>
     </LinearLayout>
 
 </layout>

@@ -8,6 +8,7 @@ import com.exam.commonbiz.net.XApi;
 
 import java.io.File;
 
+import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
@@ -22,9 +23,9 @@ public class OssModel {
 
     public static void uploadPic(String imgPath, final OnLoadListener onLoadListener) {
 
-        String fileNameByTimeStamp = "1.jpg";
+        String fileNameByTimeStamp = CommandTools.getUUID() + ".jpg";
         File file = new File(imgPath);
-        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), file);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", fileNameByTimeStamp, requestFile);
 
         XApi.get(OssApiService.class, XApi.HOST_TYPE.JAVA)

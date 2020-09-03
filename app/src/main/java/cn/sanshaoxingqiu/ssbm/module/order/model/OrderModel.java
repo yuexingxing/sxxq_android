@@ -45,7 +45,7 @@ public class OrderModel {
 
 
     public static void getOrderInfo(final OnLoadListener onLoadListener) {
-        XApi.get(OrderApiService.class)
+        XApi.get(OrderApiService.class, XApi.HOST_TYPE.JAVA)
                 .getOrderInfo()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -75,7 +75,7 @@ public class OrderModel {
     }
 
     public static void submitOrderInfo(GoodsDetailInfo goodsDetailInfo, final OnLoadListener onLoadListener) {
-        XApi.get(OrderApiService.class)
+        XApi.get(OrderApiService.class, XApi.HOST_TYPE.JAVA)
                 .submitOrderInfo(goodsDetailInfo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

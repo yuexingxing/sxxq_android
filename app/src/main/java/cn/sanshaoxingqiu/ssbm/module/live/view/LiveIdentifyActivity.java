@@ -1,6 +1,7 @@
 package cn.sanshaoxingqiu.ssbm.module.live.view;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -31,6 +32,8 @@ import cn.sanshaoxingqiu.ssbm.module.live.viewmodel.IdentityViewModel;
 import cn.sanshaoxingqiu.ssbm.util.BitmapUtil;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 import cn.sanshaoxingqiu.ssbm.util.FileUtil;
+import cn.sanshaoxingqiu.ssbm.util.GlideUtil;
+import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
 import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
 
 /**
@@ -99,7 +102,7 @@ public class LiveIdentifyActivity extends BaseActivity<IdentityViewModel, Activi
             takePhoto();
         });
         binding.tvSubmit.setOnClickListener(v -> {
-
+            liveApply();
         });
     }
 
@@ -134,6 +137,7 @@ public class LiveIdentifyActivity extends BaseActivity<IdentityViewModel, Activi
         liveApplyRequest.identity_card_front = mIdCard1;
         liveApplyRequest.identity_card_back = mIdCard2;
         liveApplyRequest.identity_handle = mIdCard3;
+        LoadDialogMgr.getInstance().show(context);
         mViewModel.liveApply(liveApplyRequest);
     }
 
@@ -206,23 +210,22 @@ public class LiveIdentifyActivity extends BaseActivity<IdentityViewModel, Activi
                     filePath = mCurrentPhotoPath;
                 }
             }
+            Bitmap bitmap = null;
             if (!TextUtils.isEmpty(filePath)) {
-                Bitmap bitmap = BitmapUtil.getSmallBitmap(filePath, 200, 200);
+                bitmap = BitmapUtil.getSmallBitmap(filePath, 200, 200);
                 if (mUploadType == UPLOAD_ID_CARD_1) {
                     binding.ivStep1.setImageBitmap(bitmap);
-                    binding.ivStep1.setVisibility(View.VISIBLE);
-                    binding.flStep1.setVisibility(View.GONE);
                 } else if (mUploadType == UPLOAD_ID_CARD_2) {
                     binding.ivStep2.setImageBitmap(bitmap);
-                    binding.ivStep2.setVisibility(View.VISIBLE);
-                    binding.flStep2.setVisibility(View.GONE);
                 } else {
                     binding.ivStep3.setImageBitmap(bitmap);
-                    binding.ivStep3.setVisibility(View.VISIBLE);
-                    binding.flStep3.setVisibility(View.GONE);
                 }
             }
-            mOssViewModel.uploadPic(mUploadType, filePath);
+
+            if (bitmap == null) {
+                return;
+            }
+            mOssViewModel.uploadPic(mUploadType, bitmap);
         }
     }
 
@@ -251,10 +254,19 @@ public class LiveIdentifyActivity extends BaseActivity<IdentityViewModel, Activi
         }
         if (UPLOAD_ID_CARD_1 == type) {
             mIdCard1 = uploadPicResponse.url;
+            GlideUtil.loadImage(uploadPicResponse.url, binding.ivStep1);
+            binding.ivStep1.setVisibility(View.VISIBLE);
+            binding.flStep1.setVisibility(View.GONE);
         } else if (UPLOAD_ID_CARD_2 == type) {
             mIdCard2 = uploadPicResponse.url;
+            GlideUtil.loadImage(uploadPicResponse.url, binding.ivStep2);
+            binding.ivStep2.setVisibility(View.VISIBLE);
+            binding.flStep2.setVisibility(View.GONE);
         } else {
             mIdCard3 = uploadPicResponse.url;
+            GlideUtil.loadImage(uploadPicResponse.url, binding.ivStep3);
+            binding.ivStep3.setVisibility(View.VISIBLE);
+            binding.flStep3.setVisibility(View.GONE);
         }
     }
 }

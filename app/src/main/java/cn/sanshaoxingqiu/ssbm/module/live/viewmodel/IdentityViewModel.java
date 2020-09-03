@@ -14,6 +14,7 @@ import cn.sanshaoxingqiu.ssbm.module.live.model.IdentityModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.ShoppingCenterModel;
 import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
+import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
 
 public class IdentityViewModel extends ViewModel {
 
@@ -45,9 +46,7 @@ public class IdentityViewModel extends ViewModel {
 
             @Override
             public void onLoadFailed(String errMsg) {
-                if (mCallBack != null) {
-
-                }
+                ToastUtil.showLongToast(errMsg);
             }
         });
     }

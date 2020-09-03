@@ -201,17 +201,16 @@ public class PersonalDetailActivity extends BaseActivity<PersonalViewModel, Acti
                     filePath = mCurrentPhotoPath;
                 }
             }
+            Bitmap bitmap = null;
             if (!TextUtils.isEmpty(filePath)) {
-                Bitmap bitmap = BitmapUtil.getSmallBitmap(filePath, 200, 200);
+                bitmap = BitmapUtil.getSmallBitmap(filePath, 200, 200);
                 binding.ivAvatar.setImageBitmap(bitmap);
             }
 
-            mOssViewModel.uploadPic(filePath);
-            //TODO 上传图片
-            //实例化OSSClient (自己是在onCreate()中实例化的，当然考虑到token的过期问题，也有在onResume()中再次实例化一次)
-//            OssService ossService = OssService.initOSS(tokenBean.getBucket().getEndPoint(), tokenBean.getBucket().getBucketName());
-//            //上传图片,需要根据自己的逻辑传参数
-//            ossService.asyncPutImage("图片在阿里上的存储路径", "本地路径", null, "1");
+            if (bitmap == null){
+                return;
+            }
+            mOssViewModel.uploadPic(0, bitmap);
         }
     }
 
@@ -277,7 +276,7 @@ public class PersonalDetailActivity extends BaseActivity<PersonalViewModel, Acti
     }
 
     @Override
-    public void returnUploadPic(UploadPicResponse uploadPicResponse) {
+    public void returnUploadPic(int type, UploadPicResponse uploadPicResponse) {
         if (uploadPicResponse == null) {
             return;
         }

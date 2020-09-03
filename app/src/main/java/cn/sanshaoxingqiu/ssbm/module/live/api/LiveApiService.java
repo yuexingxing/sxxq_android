@@ -12,6 +12,6 @@ import retrofit2.http.POST;
 public interface LiveApiService {
 
     //主播认证
-    @POST("api/live/mlive/apply")
+    @POST("live/mlive/apply")
     Observable<BaseResponse> liveApply(@Body LiveApplyRequest liveApplyRequest);
 }
