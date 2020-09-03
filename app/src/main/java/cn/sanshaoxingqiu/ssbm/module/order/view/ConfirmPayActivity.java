@@ -43,6 +43,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
     private boolean isFirstIn = true;
     private UserInfo mUserInfo;
     private GoodsDetailInfo mGoodsDetailInfo;
+    private boolean jumpPay;//标记跳转到支付页面，防止无限跳转
 
     public static void start(Context context, GoodsDetailInfo goodsDetailInfo) {
         Intent starter = new Intent(context, ConfirmPayActivity.class);
@@ -100,6 +101,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
                         .init(context)
                         .jump2WxMiniProgram(path);
             } else {
+                jumpPay = true;
                 mViewModel.getOrderPayInfo(PayViewModel.GET_PAY_INFO, mGoodsDetailInfo.salebill_id, mPayType);
             }
         });
@@ -170,7 +172,10 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
                 ToastUtil.showShortToast("支付失败");
             }
         });
-        payUtils.startPay(ConfirmPayActivity.this, mPayType, CommandTools.beanToJson(orderPayInfoResponse));
+        if (jumpPay) {
+            jumpPay = false;
+            payUtils.startPay(ConfirmPayActivity.this, mPayType, CommandTools.beanToJson(orderPayInfoResponse));
+        }
     }
 
     @Override
