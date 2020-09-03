@@ -1,11 +1,12 @@
 package cn.sanshaoxingqiu.ssbm.module.login.model;
 
 import com.exam.commonbiz.net.XApi;
-import cn.sanshaoxingqiu.ssbm.module.login.BaseApiService;
+import cn.sanshaoxingqiu.ssbm.module.login.LoginApiService;
 import com.exam.commonbiz.net.BaseObserver;
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.ExceptionHandle;
 import com.exam.commonbiz.net.OnLoadListener;
+
 import cn.sanshaoxingqiu.ssbm.module.login.bean.GetCodeRequest;
 import cn.sanshaoxingqiu.ssbm.module.login.bean.LoginRequest;
 import cn.sanshaoxingqiu.ssbm.module.login.bean.ModifyPhoneRequest;
@@ -20,7 +21,7 @@ import io.reactivex.schedulers.Schedulers;
 public class LoginModel {
 
     public static void getSMSCode(GetCodeRequest getCodeRequest, final OnLoadListener onLoadListener) {
-        XApi.get(BaseApiService.class, XApi.HOST_TYPE.NODE)
+        XApi.get(LoginApiService.class, XApi.HOST_TYPE.NODE)
                 .getSMSCode(getCodeRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -50,7 +51,7 @@ public class LoginModel {
     }
 
     public static void login(LoginRequest loginRequest, final OnLoadListener onLoadListener) {
-        XApi.get(BaseApiService.class, XApi.HOST_TYPE.NODE)
+        XApi.get(LoginApiService.class, XApi.HOST_TYPE.NODE)
                 .login(loginRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -80,7 +81,7 @@ public class LoginModel {
     }
 
     public static void modifyPhone(ModifyPhoneRequest modifyPhoneRequest, final OnLoadListener onLoadListener) {
-        XApi.get(BaseApiService.class, XApi.HOST_TYPE.NODE)
+        XApi.get(LoginApiService.class, XApi.HOST_TYPE.NODE)
                 .modifyPhone(modifyPhoneRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -110,7 +111,7 @@ public class LoginModel {
     }
 
     public static void getMemInfoByInvitationCode(String invitationCode, final OnLoadListener onLoadListener) {
-        XApi.get(BaseApiService.class, XApi.HOST_TYPE.NODE)
+        XApi.get(LoginApiService.class, XApi.HOST_TYPE.NODE)
                 .getMemInfoByInvitationCode(invitationCode)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

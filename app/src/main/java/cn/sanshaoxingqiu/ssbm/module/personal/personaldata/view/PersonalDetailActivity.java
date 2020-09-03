@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,6 +14,9 @@ import android.view.View;
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityPersonalDetailBinding;
+import cn.sanshaoxingqiu.ssbm.module.common.oss.IOssModel;
+import cn.sanshaoxingqiu.ssbm.module.common.oss.OssViewModel;
+import cn.sanshaoxingqiu.ssbm.module.common.oss.UploadPicResponse;
 import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.model.IPersonalCallBack;
 import cn.sanshaoxingqiu.ssbm.module.personal.personaldata.dialog.SelectBirthdayDialog;
@@ -39,11 +43,12 @@ import java.util.List;
  * @Author yuexingxing
  * @time 2020/6/12
  */
-public class PersonalDetailActivity extends BaseActivity<PersonalViewModel, ActivityPersonalDetailBinding> implements IPersonalCallBack {
+public class PersonalDetailActivity extends BaseActivity<PersonalViewModel, ActivityPersonalDetailBinding> implements IPersonalCallBack, IOssModel {
 
     private final static int REQUEST_IMAGE_GET = 1;
     private final static int REQUEST_IMAGE_CAPTURE = 2;
     private String mCurrentPhotoPath;
+    private OssViewModel mOssViewModel;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, PersonalDetailActivity.class);
@@ -64,6 +69,8 @@ public class PersonalDetailActivity extends BaseActivity<PersonalViewModel, Acti
     @Override
     public void initData() {
 
+        mOssViewModel = new OssViewModel();
+        mOssViewModel.setCallBack(this);
         mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
@@ -84,29 +91,29 @@ public class PersonalDetailActivity extends BaseActivity<PersonalViewModel, Acti
 
         binding.llAvatar.setOnClickListener(v -> {
             //TODO 屏蔽修改头像
-//            List<CommonDialogInfo> commonDialogInfoList = new ArrayList<>();
-//            commonDialogInfoList.add(new CommonDialogInfo("拍照"));
-//            commonDialogInfoList.add(new CommonDialogInfo("相册"));
-//
-//            new CommonBottomDialog()
-//                    .init(this)
-//                    .setData(commonDialogInfoList)
-//                    .setOnItemClickListener(commonDialogInfo -> {
-//                        if (commonDialogInfo.position == 0) {
-//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                                checkPermission(0);
-//                            } else {
-//                                selectFromCamera();
-//                            }
-//                        } else {
-//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                                checkPermission(1);
-//                            } else {
-//                                selectFromAlbum();
-//                            }
-//                        }
-//                    })
-//                    .show();
+            List<CommonDialogInfo> commonDialogInfoList = new ArrayList<>();
+            commonDialogInfoList.add(new CommonDialogInfo("拍照"));
+            commonDialogInfoList.add(new CommonDialogInfo("相册"));
+
+            new CommonBottomDialog()
+                    .init(this)
+                    .setData(commonDialogInfoList)
+                    .setOnItemClickListener(commonDialogInfo -> {
+                        if (commonDialogInfo.position == 0) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                checkPermission(0);
+                            } else {
+                                selectFromCamera();
+                            }
+                        } else {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                checkPermission(1);
+                            } else {
+                                selectFromAlbum();
+                            }
+                        }
+                    })
+                    .show();
         });
 
         binding.lcvNickName.setOnClickListener(v -> SettingNameActivity.start(context));
@@ -199,6 +206,7 @@ public class PersonalDetailActivity extends BaseActivity<PersonalViewModel, Acti
                 binding.ivAvatar.setImageBitmap(bitmap);
             }
 
+            mOssViewModel.uploadPic(filePath);
             //TODO 上传图片
             //实例化OSSClient (自己是在onCreate()中实例化的，当然考虑到token的过期问题，也有在onResume()中再次实例化一次)
 //            OssService ossService = OssService.initOSS(tokenBean.getBucket().getEndPoint(), tokenBean.getBucket().getBucketName());
@@ -266,5 +274,13 @@ public class PersonalDetailActivity extends BaseActivity<PersonalViewModel, Acti
         binding.lcvBirthday.setContent(userInfo.birthday);
         binding.lcvSignature.setContent(userInfo.signature);
         GlideUtil.loadImage(userInfo.avatar, binding.ivAvatar, R.drawable.image_placeholder_two);
+    }
+
+    @Override
+    public void returnUploadPic(UploadPicResponse uploadPicResponse) {
+        if (uploadPicResponse == null) {
+            return;
+        }
+        ToastUtil.showLongToast(uploadPicResponse.url);
     }
 }

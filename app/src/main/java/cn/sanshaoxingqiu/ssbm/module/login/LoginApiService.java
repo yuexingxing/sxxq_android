@@ -18,7 +18,7 @@ import retrofit2.http.Query;
  * @Author yuexingxing
  * @time 2020/6/11
  */
-public interface BaseApiService {
+public interface LoginApiService {
 
     //获取验证码
     @POST("w/auth/pin")
