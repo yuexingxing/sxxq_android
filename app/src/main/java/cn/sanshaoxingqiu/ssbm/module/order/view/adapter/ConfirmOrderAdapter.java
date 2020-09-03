@@ -120,7 +120,7 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
 
         List<GoodsDetailInfo> productList = new ArrayList<>();
         if (item.isMeal() || (item.order_product != null && item.order_product.isMeal())) {
-            if (item.order_product != null){
+            if (item.order_product != null && !ContainerUtil.isEmpty(item.order_product.product_list)) {
                 productList.addAll(item.order_product.product_list);
             }
         } else {

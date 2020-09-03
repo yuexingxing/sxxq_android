@@ -1,6 +1,7 @@
 package com.sanshao.livemodule.net;
 
 import com.exam.commonbiz.net.BaseResponse;
+import com.sanshao.livemodule.liveroom.roomutil.commondef.AnchorInfo;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -25,4 +26,8 @@ public interface LiveRoomApiService {
     //直播列表
     @GET("live/mlive/batchList")
     Observable<BaseResponse<String>> getLiveRoomList();
+
+    //获取主播信息
+    @GET("live/mlive/home")
+    Observable<BaseResponse<AnchorInfo>> getAnchorInfo();
 }
