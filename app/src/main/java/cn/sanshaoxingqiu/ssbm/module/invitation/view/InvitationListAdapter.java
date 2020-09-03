@@ -7,18 +7,18 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import cn.sanshaoxingqiu.ssbm.R;
-import cn.sanshaoxingqiu.ssbm.module.invitation.bean.UserReferrals;
+import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.util.GlideUtil;
 
-public class InvitationListAdapter extends BaseQuickAdapter<UserReferrals.UserReferralsItem, BaseViewHolder> {
+public class InvitationListAdapter extends BaseQuickAdapter<UserInfo, BaseViewHolder> {
 
-    InvitationListAdapter(){
+    InvitationListAdapter() {
         super(R.layout.item_invitaion_record, null);
     }
 
-
     @Override
-    protected void convert(BaseViewHolder helper, UserReferrals.UserReferralsItem item) {
+    protected void convert(BaseViewHolder helper, UserInfo item) {
+
         // 头像
         if (!TextUtils.isEmpty(item.avatar)) {
             RoundedImageView userAvatar = helper.getView(R.id.iv_user_avatar);
@@ -26,5 +26,13 @@ public class InvitationListAdapter extends BaseQuickAdapter<UserReferrals.UserRe
         }
         // 名称
         helper.setText(R.id.tv_user_name, item.nickname);
+        helper.setText(R.id.tv_time, item.mem_class_start_date);
+        if (TextUtils.equals(item.point_status, "APPLY")) {
+            helper.setText(R.id.tv_status, "已使用");
+        } else if (TextUtils.equals(item.point_status, "DISABLE")) {
+            helper.setText(R.id.tv_status, "未激活");
+        } else {
+            helper.setText(R.id.tv_status, "已激活");
+        }
     }
 }

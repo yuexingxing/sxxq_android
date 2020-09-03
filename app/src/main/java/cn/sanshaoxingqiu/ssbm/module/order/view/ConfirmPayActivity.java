@@ -40,9 +40,9 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
     public static final String PAY_BY_WECHAT = "HFWX";
     public static final String PAY_BY_ALI_APP = "HFALIPAYAPP";
     private String mPayType = PAY_BY_ALI_APP;//默认支付宝支付
-    private String mSalebillId;
     private boolean isFirstIn = true;
     private UserInfo mUserInfo;
+    private GoodsDetailInfo mGoodsDetailInfo;
 
     public static void start(Context context, GoodsDetailInfo goodsDetailInfo) {
         Intent starter = new Intent(context, ConfirmPayActivity.class);
@@ -58,8 +58,8 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
     @Override
     public void initData() {
 
-        GoodsDetailInfo goodsDetailInfo = (GoodsDetailInfo) getIntent().getSerializableExtra(Constants.OPT_DATA);
-        if (goodsDetailInfo == null) {
+        mGoodsDetailInfo = (GoodsDetailInfo) getIntent().getSerializableExtra(Constants.OPT_DATA);
+        if (mGoodsDetailInfo == null) {
             finish();
         }
         mViewModel.setCallBack(this);
@@ -79,15 +79,14 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
 
             }
         });
-        mSalebillId = goodsDetailInfo.salebill_id;
-        binding.tvPrice.setText(goodsDetailInfo.getPriceText());
-        binding.tvName.setText(goodsDetailInfo.sarti_name);
-        binding.tvOrderNo.setText("订单编号：" + goodsDetailInfo.salebill_id);
+        binding.tvPrice.setText(mGoodsDetailInfo.getPriceText());
+        binding.tvName.setText(mGoodsDetailInfo.sarti_name);
+        binding.tvOrderNo.setText("订单编号：" + mGoodsDetailInfo.salebill_id);
         mUserInfo = SSApplication.getInstance().getUserInfo();
-        if (goodsDetailInfo.isFree() && mUserInfo.hasBenefitsRight()) {
+        if (mGoodsDetailInfo.isFree() && mUserInfo.hasBenefitsRight()) {
             binding.rlPay.setVisibility(View.INVISIBLE);
             binding.btnStartPay.setText("免费领取");
-        } else if (goodsDetailInfo.isPayByPoint()) {
+        } else if (mGoodsDetailInfo.isPayByPoint()) {
             binding.rlPay.setVisibility(View.INVISIBLE);
             binding.btnStartPay.setText("确认支付");
         } else {
@@ -95,13 +94,13 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         }
         binding.btnStartPay.setOnClickListener(v -> {
             if (TextUtils.equals(mPayType, PAY_BY_WECHAT)) {
-                String path = "/pages/order/appPay?" + "salebill_id=" + goodsDetailInfo.salebill_id
+                String path = "/pages/order/appPay?" + "salebill_id=" + mGoodsDetailInfo.salebill_id
                         + "&mem_phone=" + mUserInfo.mem_phone + "&benefits_level=" + mUserInfo.benefits_level;
                 new ShareUtils()
                         .init(context)
                         .jump2WxMiniProgram(path);
             } else {
-                mViewModel.getOrderPayInfo(PayViewModel.GET_PAY_INFO, mSalebillId, mPayType);
+                mViewModel.getOrderPayInfo(PayViewModel.GET_PAY_INFO, mGoodsDetailInfo.salebill_id, mPayType);
             }
         });
         setCheckStatus(mPayType);
@@ -115,7 +114,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
     protected void onResume() {
         super.onResume();
         if (!isFirstIn) {
-            mViewModel.getOrderPayInfo(PayViewModel.CHECK_ORDER_STATUS, mSalebillId, mPayType);
+            mViewModel.getOrderPayInfo(PayViewModel.CHECK_ORDER_STATUS, mGoodsDetailInfo.salebill_id, mPayType);
         }
         isFirstIn = false;
     }
@@ -155,9 +154,10 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         if (PayViewModel.CHECK_ORDER_STATUS == optType) {
             if (orderPayInfoResponse == null) {
                 ToastUtil.showShortToast("支付成功");
-                PayCompleteActivity.start(context, mSalebillId);
-            } else {
-                return;
+                PayCompleteActivity.start(context, mGoodsDetailInfo.sarti_id);
+            } else if (mGoodsDetailInfo.isPayByPoint()) {
+                ToastUtil.showShortToast("支付成功");
+                PayCompleteActivity.start(context, mGoodsDetailInfo.sarti_id);
             }
             return;
         }
@@ -187,7 +187,12 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         if (orderStatusResponse == null) {
             return;
         }
-        ;
+
+    }
+
+    @Override
+    public void returnFVipPay(int optType, OrderPayInfoResponse orderPayInfoResponse) {
+
     }
 
     @Override

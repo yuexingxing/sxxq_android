@@ -23,4 +23,8 @@ public interface PayApiService {
     //确认订单付款状态
     @GET("orderStatus")
     Observable<BaseResponse<OrderStatusResponse>> getOrderStatus(@Query("salebillId") String salebillId);
+
+    //支付90元免费权益身份接口
+    @GET("w/pay/fvipPay")
+    Observable<BaseResponse<OrderPayInfoResponse>> fVipPay(@Query("pay_type") String payType);
 }

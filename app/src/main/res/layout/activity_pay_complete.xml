@@ -79,62 +79,21 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
+                <include
+                    android:id="@+id/include_star"
+                    layout="@layout/include_layout_pay_complete_star"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/shape_white_radius_10"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_marginTop="12dp" />
 
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal">
-
-                        <ImageView
-                            android:layout_width="197dp"
-                            android:layout_height="224dp"
-                            android:layout_gravity="center_horizontal"
-                            android:src="@drawable/image_threestarpaymentissuccessful" />
-
-                        <TextView
-                            android:id="@+id/tv_paycomplete_tip"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:layout_marginLeft="12dp"
-                            android:layout_marginRight="12dp"
-                            android:layout_marginBottom="14dp"
-                            android:gravity="center"
-                            android:text="恭喜您！核销完成后将成为一星会员！"
-                            android:textColor="@color/color_333333"
-                            android:textSize="17sp" />
-                    </FrameLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_reward"
+                <include
+                    android:id="@+id/include_share"
+                    layout="@layout/include_layout_pay_complete_share"
                     android:layout_width="match_parent"
-                    android:layout_height="42dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/shape_radius_10_b6a57b"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/icon_vipreward" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:text="会员奖励"
-                        android:textColor="#ffc5602d"
-                        android:textSize="17sp" />
-                </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
 
                 <cn.sanshaoxingqiu.ssbm.module.shoppingcenter.widget.GuessYouLoveView
                     android:id="@+id/guess_you_love_view"

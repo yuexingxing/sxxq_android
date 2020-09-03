@@ -22,10 +22,14 @@ public class UserInfo implements Serializable {
     public String mem_class_start_date;
     public String mem_status;//
     public String point;//我的分享金
+    public int available_point;//可用分享金
     public String benefits_level;//是否购买90元商品，0未购买
     public MemberClassInfo mem_class;
     public UserInfo referrer_mem;
     public String commission;//我的分润
+    public String mem_class_name;
+    public String point_status;
+
 
     /**
      * 是否购买了90元商品
@@ -50,13 +54,13 @@ public class UserInfo implements Serializable {
 
     public String getMember() {
         if (mem_class == null || TextUtils.isEmpty(mem_class.mem_class_key)) {
-            return "普通会员";
+            return "普通用户";
         } else if (TextUtils.equals("1", mem_class.mem_class_key)) {
-            return "一星会员";
+            return "一星粉丝";
         } else if (TextUtils.equals("2", mem_class.mem_class_key)) {
-            return "二星会员";
+            return "二星粉丝";
         } else {
-            return "三星会员";
+            return "三星粉丝";
         }
     }
 

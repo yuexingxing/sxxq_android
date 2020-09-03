@@ -21,10 +21,12 @@ import com.exam.commonbiz.net.NetError;
 import com.exam.commonbiz.net.NetProvider;
 import com.exam.commonbiz.net.RequestHandler;
 import com.exam.commonbiz.net.XApi;
+
 import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.setting.dokit.KitChangeHost;
 import cn.sanshaoxingqiu.ssbm.util.AppUtil;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
+
 import com.sanshao.commonui.titlebar.TitleBar;
 import com.sanshao.commonui.titlebar.TitleBarLightStyle;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;
@@ -260,5 +262,17 @@ public class SSApplication extends BasicApplication {
 
     public void saveUserInfo(UserInfo userInfo) {
         ACache.get(app).put(ConfigSP.SP_USER_INFO, userInfo);
+    }
+
+    /**
+     * 当前是否是正式环境
+     * @return
+     */
+    public boolean isProEnvironment() {
+        ConfigSP.HOST_TYPE mCurrentIndex = (ConfigSP.HOST_TYPE) ACache.get(SSApplication.getInstance()).getAsObject(ConfigSP.SP_CURRENT_HOST);
+        if (mCurrentIndex == null || ConfigSP.HOST_TYPE.PRO == mCurrentIndex) {
+            return true;
+        }
+        return false;
     }
 }

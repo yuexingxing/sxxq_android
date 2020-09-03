@@ -15,6 +15,12 @@ import com.exam.commonbiz.util.Res;
 import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.livemodule.zhibo.login.TCLoginActivity;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.PersonalFragmentBinding;
@@ -42,16 +48,10 @@ import cn.sanshaoxingqiu.ssbm.module.personal.personaldata.view.RecommendCodeAct
 import cn.sanshaoxingqiu.ssbm.module.personal.setting.view.SettingActivity;
 import cn.sanshaoxingqiu.ssbm.module.personal.viewmodel.PersonalViewModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
 import cn.sanshaoxingqiu.ssbm.util.DateUtil;
 import cn.sanshaoxingqiu.ssbm.util.GlideUtil;
 import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 我的
@@ -65,6 +65,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     private PersonalOrderSubjectAdapter mPersonalOrderSubjectAdapter;
     private OrderDetailViewModel mOrderDetailViewModel;
     private AppointmentForConsultationViewModel mAppointmentForConsultationViewModel;
+    private UserInfo mUserInfo;
 
     public static PersonalFragment newInstance() {
         return new PersonalFragment();
@@ -88,8 +89,20 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 if (scrollY > ScreenUtil.dp2px(context, 30)) {
                     binding.tvPersonalTitle.setBackgroundColor(Res.getColor(context, R.color.white));
+                    if (mUserInfo != null && mUserInfo.mem_class != null
+                            && TextUtils.equals("3", mUserInfo.mem_class.mem_class_key)) {
+                        binding.tvPersonalTitle.setTextColor(getResources().getColor(R.color.black));
+                    } else {
+                        binding.tvPersonalTitle.setTextColor(getResources().getColor(R.color.black));
+                    }
                 } else {
                     binding.tvPersonalTitle.setBackgroundColor(Res.getColor(context, R.color.transparent));
+                    if (mUserInfo != null && mUserInfo.mem_class != null
+                            && TextUtils.equals("3", mUserInfo.mem_class.mem_class_key)) {
+                        binding.tvPersonalTitle.setTextColor(getResources().getColor(R.color.white));
+                    } else {
+                        binding.tvPersonalTitle.setTextColor(getResources().getColor(R.color.black));
+                    }
                 }
             }
         });
@@ -148,7 +161,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             }
         });
         binding.pavMyShare.setOnClickListener(v -> {
-            InvitationActivity.start(context, Constants.TAG_ID_INVITE);
+            InvitationActivity.start(context, ShoppingCenterUtil.getInviteTagId());
         });
         binding.pavMyInviteCode.setOnClickListener(v -> {
             if (!SSApplication.isLogin()) {
@@ -231,6 +244,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         if (userInfo == null) {
             return;
         }
+        mUserInfo = userInfo;
         SSApplication.getInstance().saveUserInfo(userInfo);
     }
 
@@ -273,7 +287,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         GlideUtil.loadImage(userInfo.avatar, binding.ivAvatar, R.drawable.image_placeholder_two);
 
 //        userInfo.mem_class = new MemberClassInfo();
-//        userInfo.mem_class.mem_class_key = "1";
+//        userInfo.mem_class.mem_class_key = "3";
 //        userInfo.mem_class.mem_class_name = "一星会员";
 //        userInfo.mem_class = null;
 
@@ -310,22 +324,23 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.progressHorizontal.setMax(userInfo.mem_class.mem_class_valid_days);
 
         //一星会员
+        binding.tvLabel.setText(userInfo.getMember());
         if (TextUtils.equals(userInfo.mem_class.mem_class_key, "1")) {
-            binding.tvLabel.setText("玉兔");
             binding.rlAvatarBg.setBackground(getResources().getDrawable(R.drawable.image_onestars));
             binding.ivBg.setBackground(getResources().getDrawable(R.drawable.image_onestarbg));
         }
         //二星会员
         else if (TextUtils.equals(userInfo.mem_class.mem_class_key, "2")) {
-            binding.tvLabel.setText("嫦娥");
             binding.rlAvatarBg.setBackground(getResources().getDrawable(R.drawable.image_twostars));
             binding.ivBg.setBackground(getResources().getDrawable(R.drawable.image_twostarsbg));
         }
         //三星会员
         else if (TextUtils.equals(userInfo.mem_class.mem_class_key, "3")) {
-            binding.tvLabel.setText("悟空");
             binding.rlAvatarBg.setBackground(getResources().getDrawable(R.drawable.image_threestars));
             binding.ivBg.setBackground(getResources().getDrawable(R.drawable.image_three_starsbg));
+            binding.tvName.setTextColor(getResources().getColor(R.color.white));
+            binding.tvLabel.setTextColor(getResources().getColor(R.color.white));
+            binding.tvPersonalTitle.setTextColor(getResources().getColor(R.color.white));
         }
     }
 

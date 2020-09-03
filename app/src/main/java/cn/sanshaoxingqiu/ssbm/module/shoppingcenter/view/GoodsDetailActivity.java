@@ -26,20 +26,29 @@ import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityGoodsDetailBinding;
 import cn.sanshaoxingqiu.ssbm.module.home.model.BannerInfo;
+import cn.sanshaoxingqiu.ssbm.module.invitation.view.InvitationActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderBenefitResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderNumStatusResponse;
+import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderPayInfoResponse;
+import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderStatusResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.event.PayStatusChangedEvent;
 import cn.sanshaoxingqiu.ssbm.module.order.model.IOrderDetailModel;
 import cn.sanshaoxingqiu.ssbm.module.order.model.IOrderModel;
+import cn.sanshaoxingqiu.ssbm.module.order.model.IPayModel;
+import cn.sanshaoxingqiu.ssbm.module.order.model.OnPayListener;
+import cn.sanshaoxingqiu.ssbm.module.order.util.PayUtils;
 import cn.sanshaoxingqiu.ssbm.module.order.view.ConfirmOrderActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.view.ConfirmPayActivity;
+import cn.sanshaoxingqiu.ssbm.module.order.view.PayCompleteActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderDetailViewModel;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderViewModel;
+import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.PayViewModel;
 import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.register.view.RegisterActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.VideoInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IGoodsDetailModel;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.adapter.SetMealAdapter;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.BenefitsRightDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsInroductionDialog;
@@ -50,6 +59,7 @@ import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.MathUtil;
 import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
+
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
@@ -64,6 +74,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.jzvd.Jzvd;
+import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
 
 /**
  * 商品详情
@@ -71,7 +82,8 @@ import cn.jzvd.Jzvd;
  * @Author yuexingxing
  * @time 2020/6/18
  */
-public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, ActivityGoodsDetailBinding> implements IGoodsDetailModel, IOrderModel, IOrderDetailModel {
+public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, ActivityGoodsDetailBinding> implements IGoodsDetailModel, IOrderModel,
+        IOrderDetailModel, IPayModel {
     private final String TAG = GoodsDetailActivity.class.getSimpleName();
     private String mSartiId;
     private SetMealAdapter mSetMealAdapter;
@@ -79,6 +91,8 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
     private UserInfo mUserInfo;
     private OrderViewModel mOrderViewModel;
     private OrderDetailViewModel mOrderDetailViewModel;
+    private PayViewModel mPayViewModel;
+    private String mPayType;
 
     public static void start(Context context, String sartiId) {
         Intent starter = new Intent(context, GoodsDetailActivity.class);
@@ -108,8 +122,11 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         mViewModel.setCallBack(this);
         mOrderViewModel = new OrderViewModel();
         mOrderDetailViewModel = new OrderDetailViewModel();
+        mPayViewModel = new PayViewModel();
+
         mOrderViewModel.setCallBack(this);
         mOrderDetailViewModel.setCallBack(this);
+        mPayViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -155,17 +172,23 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
 
         binding.includeBottom.btnBuy.setOnClickListener(v -> {
             if (!SSApplication.isLogin()) {
-                RegisterActivity.start(context, Constants.TAG_ID_REGISTER);
+                RegisterActivity.start(context, "", ShoppingCenterUtil.getRegisterTagId());
                 return;
             }
             if (mGoodsDetailInfo.isPayByMoney() && !mGoodsDetailInfo.isFree()) {
                 ConfirmOrderActivity.start(context, mSartiId);
+            } else if (mGoodsDetailInfo.isPayByPoint()) {
+                if (mUserInfo.available_point == 0) {
+                    InvitationActivity.start(context, ShoppingCenterUtil.getInviteTagId());
+                } else {
+                    ConfirmOrderActivity.start(context, mGoodsDetailInfo.sarti_id);
+                }
             } else {
-                if (!mUserInfo.hasBenefitsRight()) {
+                if (!mUserInfo.hasBenefitsRight() && mGoodsDetailInfo.isFree()) {
                     new BenefitsRightDialog().show(context, new CommonCallBack() {
                         @Override
                         public void callback(int postion, Object object) {
-                            mOrderViewModel.getOrderBenefit();
+                            showPayTypeBottomDialog();
                         }
                     });
                     return;
@@ -227,25 +250,38 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (!TextUtils.isEmpty(mPayType)) {
+            mPayViewModel.fVipPay(PayViewModel.CHECK_ORDER_STATUS, mPayType);
+        }
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         Jzvd.releaseAllVideos();
     }
 
-    private void scrollToView(View view) {
-        binding.nestedScrollview.post(new Runnable() {
-            @Override
-            public void run() {
-                int[] location = new int[2];
-                view.getLocationOnScreen(location);
-                int offset = location[1] - binding.nestedScrollview.getMeasuredHeight();
-                if (offset < 0) {
-                    offset = 0;
-                }
-                binding.nestedScrollview.fling(location[1]);
-                binding.nestedScrollview.smoothScrollTo(0, location[1]);
-            }
-        });
+    private void showPayTypeBottomDialog() {
+
+        List<CommonDialogInfo> commonDialogInfoList = new ArrayList<>();
+        commonDialogInfoList.add(new CommonDialogInfo("微信支付"));
+        commonDialogInfoList.add(new CommonDialogInfo("支付宝支付"));
+
+        new CommonBottomDialog()
+                .init(this)
+                .setData(commonDialogInfoList)
+                .setOnItemClickListener(commonDialogInfo -> {
+                    if (commonDialogInfo.position == 0) {
+                        mPayType = ConfirmPayActivity.PAY_BY_WECHAT;
+                        mPayViewModel.fVipPay(PayViewModel.GET_PAY_INFO, ConfirmPayActivity.PAY_BY_WECHAT);
+                    } else {
+                        mPayType = ConfirmPayActivity.PAY_BY_ALI_APP;
+                        mPayViewModel.fVipPay(PayViewModel.GET_PAY_INFO, ConfirmPayActivity.PAY_BY_ALI_APP);
+                    }
+                })
+                .show();
     }
 
     /**
@@ -412,7 +448,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         if (goodsDetailInfo == null) {
             return;
         }
-        if (goodsDetailInfo.order_product != null){
+        if (goodsDetailInfo.order_product != null) {
             goodsDetailInfo.sarti_name = goodsDetailInfo.order_product.sarti_name;
             goodsDetailInfo.sarti_saleprice = goodsDetailInfo.order_product.sarti_saleprice;
             goodsDetailInfo.pay_type = goodsDetailInfo.order_product.pay_type;
@@ -464,5 +500,53 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
     @Override
     public boolean viewFinished() {
         return false;
+    }
+
+    @Override
+    public void returnOrderPayInfo(int optType, OrderPayInfoResponse orderPayInfoResponse) {
+
+    }
+
+    @Override
+    public void returnOrderStatus(OrderStatusResponse orderStatusResponse) {
+
+    }
+
+    @Override
+    public void returnFVipPay(int optType, OrderPayInfoResponse orderPayInfoResponse) {
+        if (PayViewModel.CHECK_ORDER_STATUS == optType) {
+            if (orderPayInfoResponse == null) {
+                ToastUtil.showShortToast("支付成功");
+                PayCompleteActivity.start(context, mSartiId);
+            } else {
+                return;
+            }
+            return;
+        }
+        if (orderPayInfoResponse == null) {
+            return;
+        }
+        if (TextUtils.equals(mPayType, ConfirmPayActivity.PAY_BY_WECHAT)) {
+            String path = "/pages/order/appPay?" + "salebill_id="
+                    + "&mem_phone=" + mUserInfo.mem_phone + "&benefits_level=" + mUserInfo.benefits_level;
+            new ShareUtils()
+                    .init(context)
+                    .jump2WxMiniProgram(path);
+        } else {
+            PayUtils payUtils = new PayUtils();
+            payUtils.registerApp(context);
+            payUtils.setOnPayListener(new OnPayListener() {
+                @Override
+                public void onPaySuccess() {
+
+                }
+
+                @Override
+                public void onPayFailed() {
+                    ToastUtil.showShortToast("支付失败");
+                }
+            });
+            payUtils.startPay(GoodsDetailActivity.this, mPayType, CommandTools.beanToJson(orderPayInfoResponse));
+        }
     }
 }

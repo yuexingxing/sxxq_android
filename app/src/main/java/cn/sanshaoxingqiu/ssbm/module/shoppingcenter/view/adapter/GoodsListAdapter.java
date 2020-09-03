@@ -1,6 +1,7 @@
 package cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.adapter;
 
 import android.graphics.Paint;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -71,7 +72,13 @@ public class GoodsListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
         int videoHeight = ScreenUtil.getScreenWidth(SSApplication.app) - ScreenUtil.dp2px(SSApplication.app, 24);
         layoutParams.height = videoHeight;
 
-        if (ContainerUtil.isEmpty(item.sarti_img)) {
+        if (!ContainerUtil.isEmpty(item.sarti_img) && !TextUtils.isEmpty(item.sarti_img.get(0).video)) {
+            ivIcon.setVisibility(View.GONE);
+            int topRadius = ScreenUtil.dp2px(SSApplication.app, 10);
+            videoPlayLayout.setRadius(topRadius, topRadius, 0, 0);
+            videoPlayLayout.setVisibility(View.VISIBLE);
+            videoPlayLayout.setVideoInfo(item.sarti_img.get(0));
+        } else {
             ivIcon.setVisibility(View.VISIBLE);
             videoPlayLayout.setVisibility(View.GONE);
             GlideUtil.loadImage(item.thumbnail_img, ivIcon);
@@ -79,12 +86,6 @@ public class GoodsListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
             if (!item.isPlay) {
                 videoPlayLayout.pausePlay();
             }
-        } else {
-            ivIcon.setVisibility(View.GONE);
-            int topRadius = ScreenUtil.dp2px(SSApplication.app, 10);
-            videoPlayLayout.setRadius(topRadius, topRadius, 0, 0);
-            videoPlayLayout.setVisibility(View.VISIBLE);
-            videoPlayLayout.setVideoInfo(item.sarti_img.get(0));
         }
         viewInclude.setLayoutParams(layoutParams);
 

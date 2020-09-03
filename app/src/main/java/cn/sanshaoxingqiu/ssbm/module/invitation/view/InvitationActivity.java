@@ -15,9 +15,11 @@ import cn.sanshaoxingqiu.ssbm.databinding.ActivityInvitationBinding;
 import cn.sanshaoxingqiu.ssbm.module.invitation.bean.UserReferrals;
 import cn.sanshaoxingqiu.ssbm.module.invitation.model.InvitationCallBack;
 import cn.sanshaoxingqiu.ssbm.module.invitation.viewmodel.InvitationViewModel;
+import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.register.view.RegisterActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsTypeInfo;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.GoodsDetailActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.GoodsListActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.adapter.GoodsTypeDetailVerticalAdapter;
@@ -27,8 +29,10 @@ import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.GlideUtil;
 import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
 import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
+import cn.sanshaoxingqiu.ssbm.widget.dialog.CommonTipDialog;
 
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
@@ -45,6 +49,8 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
     private GoodsTypeDetailVerticalAdapter goodsTypeDetailVerticalAdapter;
     private InvitationListAdapter invitationListAdapter;
     private String mArtiTagId;
+    private int totlalInviteFriendsCount = 0;
+    private int totalSharePoint = 0;
 
     public static void start(Context context, String artiTagId) {
         if (TextUtils.isEmpty(artiTagId)) return;
@@ -91,27 +97,37 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
         goodsTypeDetailVerticalAdapter.setCommonCallBack((postion, object) -> {
             if (SSApplication.isLogin()) {
                 GoodsTypeInfo goodsTypeInfo = new GoodsTypeInfo();
-                goodsTypeInfo.artitag_id = Constants.TAG_ID_INVITE;
+                goodsTypeInfo.artitag_id = ShoppingCenterUtil.getInviteTagId();
                 GoodsListActivity.start(context, goodsTypeInfo);
             } else {
-                RegisterActivity.start(context, Constants.TAG_ID_REGISTER);
+                RegisterActivity.start(context, "", ShoppingCenterUtil.getRegisterTagId());
             }
         });
-        if (!SSApplication.isLogin()) {
-            goodsTypeDetailVerticalAdapter.isShowConver(true);
-        }
         goodsTypeDetailVerticalAdapter.setOnItemClickListener((adapter, view, position) -> {
             if (!SSApplication.isLogin()) {
-                RegisterActivity.start(context, Constants.TAG_ID_REGISTER);
+                RegisterActivity.start(context, "", ShoppingCenterUtil.getRegisterTagId());
                 return;
             }
             GoodsDetailInfo goodsDetailInfo = goodsTypeDetailVerticalAdapter.getData().get(position);
+            if (goodsDetailInfo.isPayByPoint()) {
+                UserInfo userInfo = SSApplication.getInstance().getUserInfo();
+                if (userInfo.available_point == 0) {
+                    new CommonTipDialog().show(context, "分享金不足", "分享一位体验用户成功注册三少变美APP，即可获得\"奖励变美区\"一个项目，项目任选，多分享多获得。",
+                            "", "确认", null);
+                    return;
+                }
+            }
+
             GoodsDetailActivity.start(view.getContext(), goodsDetailInfo.sarti_id);
         });
         binding.goodsRecyclerView.setNestedScrollingEnabled(false);
         binding.goodsRecyclerView.setLayoutManager(gridLayoutManager);
         binding.goodsRecyclerView.setAdapter(goodsTypeDetailVerticalAdapter);
-
+        if (!SSApplication.isLogin()) {
+            goodsTypeDetailVerticalAdapter.isShowConver(true);
+        } else {
+            goodsTypeDetailVerticalAdapter.isShowConver(false);
+        }
 
         invitationListAdapter = new InvitationListAdapter();
 
@@ -126,6 +142,7 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
         if (SSApplication.isLogin()) {
             mViewModel.getUserReferrals();
         }
+        mViewModel.getUserReferralsPoint();
     }
 
     @Override
@@ -140,26 +157,35 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
             binding.goodsRecyclerView.setVisibility(View.GONE);
             return;
         }
+        if (goodsList.size() % 2 != 0) {
+            GoodsDetailInfo goodsDetailInfo = new GoodsDetailInfo();
+            goodsDetailInfo.setItemType(GoodsDetailInfo.GOODS_TYPE.WITH_LAST_DATA);
+            goodsList.add(goodsDetailInfo);
+        }
         goodsTypeDetailVerticalAdapter.setNewData(goodsList);
     }
 
     @Override
     public void showUserReferrals(UserReferrals userReferrals) {
-        if (userReferrals == null || userReferrals.referrals == null || userReferrals.referrals.size() == 0) {
+        if (userReferrals == null) {
             return;
         }
-        int count = userReferrals.referrals.size();
+        int count = 0;
+        if (ContainerUtil.isEmpty(userReferrals.referrals)) {
+            count = userReferrals.referrals.size();
+        }
         binding.invitationCount.setVisibility(View.VISIBLE);
-        binding.invitationCount.setText("已邀请" + count + "人  点亮" + count + "个分享金");
+        binding.invitationCount.setText("已邀请" + userReferrals.referralsTotal + "人  点亮" + userReferrals.point + "个分享金");
 
+        totalSharePoint = userReferrals.referralsTotal;
         binding.invitationTip.setVisibility(View.VISIBLE);
-        binding.invitationTip.setText("已成功邀请" + count + "个好友  可免费领取" + count + "个奖励变美专区项目");
+        binding.invitationTip.setText("已成功邀请" + totalSharePoint + "个好友  可免费领取" + totlalInviteFriendsCount + "个奖励变美专区项目");
 
         binding.viewUser1.setVisibility(View.GONE);
         binding.viewUser2.setVisibility(View.GONE);
         binding.viewUser2.setVisibility(View.GONE);
         if (count > 0) {
-            UserReferrals.UserReferralsItem item = userReferrals.referrals.get(0);
+            UserInfo item = userReferrals.referrals.get(0);
             binding.viewUser1.setVisibility(View.VISIBLE);
             binding.tvUserName1.setText(item.nickname);
             if (!TextUtils.isEmpty(item.avatar)) {
@@ -168,7 +194,7 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
         }
 
         if (count > 1) {
-            UserReferrals.UserReferralsItem item = userReferrals.referrals.get(1);
+            UserInfo item = userReferrals.referrals.get(1);
             binding.viewUser2.setVisibility(View.VISIBLE);
             binding.tvUserName2.setText(item.nickname);
             if (!TextUtils.isEmpty(item.avatar)) {
@@ -177,7 +203,7 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
         }
 
         if (count > 2) {
-            UserReferrals.UserReferralsItem item = userReferrals.referrals.get(2);
+            UserInfo item = userReferrals.referrals.get(2);
             binding.viewUser3.setVisibility(View.VISIBLE);
             binding.tvUserName3.setText(item.nickname);
             if (!TextUtils.isEmpty(item.avatar)) {
@@ -189,6 +215,24 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
         invitationListAdapter.setNewData(userReferrals.referrals);
     }
 
+    @Override
+    public void showUserReferralsPoint(List<UserInfo> userInfoList) {
+        if (ContainerUtil.isEmpty(userInfoList)) {
+            return;
+        }
+
+        totlalInviteFriendsCount = 0;
+        int len = userInfoList.size();
+        for (int i = 0; i < len; i++) {
+            UserInfo userInfo = userInfoList.get(i);
+            if (TextUtils.equals(userInfo.mem_status, "ENABLE")) {
+                totlalInviteFriendsCount += 1;
+            }
+        }
+        binding.invitationTip.setText("已成功邀请" + totalSharePoint + "个好友  可免费领取" + totlalInviteFriendsCount + "个奖励变美专区项目");
+        invitationListAdapter.addData(userInfoList);
+    }
+
     private void share(GoodsDetailInfo goodsDetailInfo) {
 
         List<CommonDialogInfo> commonDialogInfoList = new ArrayList<>();
@@ -196,7 +240,7 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
 //        commonDialogInfoList.add(new CommonDialogInfo("生成海报"));
 
         new CommonBottomDialog()
-                .init(this)
+                .init(context)
                 .setData(commonDialogInfoList)
                 .setOnItemClickListener(commonDialogInfo -> {
                     if (commonDialogInfo.position == 0) {

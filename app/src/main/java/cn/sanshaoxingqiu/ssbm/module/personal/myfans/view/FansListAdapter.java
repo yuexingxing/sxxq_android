@@ -11,16 +11,17 @@ import com.makeramen.roundedimageview.RoundedImageView;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.module.invitation.bean.UserReferrals;
+import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.util.GlideUtil;
 
-public class FansListAdapter extends BaseQuickAdapter<UserReferrals.UserReferralsItem, BaseViewHolder> {
+public class FansListAdapter extends BaseQuickAdapter<UserInfo, BaseViewHolder> {
 
     FansListAdapter(){
         super(R.layout.item_myfans, null);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, UserReferrals.UserReferralsItem item) {
+    protected void convert(BaseViewHolder helper, UserInfo item) {
         // 头像
         if (!TextUtils.isEmpty(item.avatar)) {
             RoundedImageView userAvatar = helper.getView(R.id.iv_user_avatar);
@@ -31,11 +32,11 @@ public class FansListAdapter extends BaseQuickAdapter<UserReferrals.UserReferral
         // 星级
         ImageView vipIcon = helper.getView(R.id.iv_vip_icon);
         TextView vipName = helper.getView(R.id.tv_vip_name);
-        if (TextUtils.equals("1", item.mem_class_key)) {
+        if (TextUtils.equals("1", item.mem_class.mem_class_key)) {
             vipIcon.setImageResource(R.drawable.icon_universaldrillmembers);
-        } else if (TextUtils.equals("2", item.mem_class_key)) {
+        } else if (TextUtils.equals("2", item.mem_class.mem_class_key)) {
             vipIcon.setImageResource(R.drawable.icon_universaldrillmembers);
-        } else if (TextUtils.equals("3", item.mem_class_key)) {
+        } else if (TextUtils.equals("3", item.mem_class.mem_class_key)) {
             vipIcon.setImageResource(R.drawable.icon_universaldrillmembers);
         } else {
             vipIcon.setImageResource(R.drawable.icon_commondiamond);

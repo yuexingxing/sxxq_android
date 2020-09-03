@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityOrderDetailBinding;
+import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderInfo;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderNumStatusResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.event.PayStatusChangedEvent;
 import cn.sanshaoxingqiu.ssbm.module.order.model.IOrderDetailModel;
@@ -16,6 +17,7 @@ import cn.sanshaoxingqiu.ssbm.module.order.view.adapter.ConfirmOrderAdapter;
 import cn.sanshaoxingqiu.ssbm.module.order.view.adapter.RemainingServiceAdapter;
 import cn.sanshaoxingqiu.ssbm.module.order.view.adapter.ServedAdapter;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderDetailViewModel;
+import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderViewModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
@@ -41,10 +43,12 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
     private String mSalebillId;
     private ServedAdapter mServedAdapter;
     private RemainingServiceAdapter mRemainingServiceAdapter;
+    private int mOrderState;
 
-    public static void start(Context context, String salebillId) {
+    public static void start(Context context, int orderState, String salebillId) {
         Intent starter = new Intent(context, OrderDetailActivity.class);
         starter.putExtra(Constants.OPT_DATA, salebillId);
+        starter.putExtra(Constants.OPT_TYPE, orderState);
         context.startActivity(starter);
     }
 
@@ -57,10 +61,12 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
     public void initData() {
 
         mSalebillId = getIntent().getStringExtra(Constants.OPT_DATA);
+        mOrderState = getIntent().getIntExtra(Constants.OPT_TYPE, OrderInfo.State.ALL);
         mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
+                OrderListActivity.start(context, mOrderState);
                 finish();
             }
 
@@ -114,6 +120,13 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
     }
 
     @Override
+    public void back() {
+        super.back();
+        OrderListActivity.start(context, mOrderState);
+        finish();
+    }
+
+    @Override
     public boolean useEventBus() {
         return true;
     }
@@ -138,6 +151,12 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
 //        binding.mulitySetMealView.mConfirmOrderAdapter.addData(orderDetailResponse.goodsDetailInfo);
 
         List<GoodsDetailInfo> goodsDetailInfoList = new ArrayList<>();
+//        GoodsDetailInfo goodsDetailInfo = orderDetailResponse.order_product;
+//        goodsDetailInfo.sum_amt = orderDetailResponse.sum_amt;
+//        goodsDetailInfo.sum_point = orderDetailResponse.sum_point;
+//        goodsDetailInfo.qty = orderDetailResponse.qty;
+//        goodsDetailInfo.sale_status = orderDetailResponse.sale_status;
+
         goodsDetailInfoList.add(orderDetailResponse);
         binding.mulitySetMealView.setData(goodsDetailInfoList);
 

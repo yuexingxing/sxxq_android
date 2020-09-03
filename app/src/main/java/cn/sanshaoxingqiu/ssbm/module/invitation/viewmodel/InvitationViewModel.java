@@ -5,6 +5,7 @@ import com.exam.commonbiz.net.OnLoadListener;
 import cn.sanshaoxingqiu.ssbm.module.invitation.bean.UserReferrals;
 import cn.sanshaoxingqiu.ssbm.module.invitation.model.InvitationCallBack;
 import cn.sanshaoxingqiu.ssbm.module.invitation.model.InvitationModel;
+import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.ShoppingCenterModel;
 import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
@@ -72,6 +73,34 @@ public class InvitationViewModel extends ViewModel {
             @Override
             public void onLoadFailed(String errMsg) {
 
+            }
+        });
+    }
+
+    public void getUserReferralsPoint() {
+        InvitationModel.getUserReferralsPoint(new OnLoadListener<List<UserInfo>>() {
+            @Override
+            public void onLoadStart() {
+
+            }
+
+            @Override
+            public void onLoadCompleted() {
+                LoadDialogMgr.getInstance().dismiss();
+            }
+
+            @Override
+            public void onLoadSucessed(BaseResponse<List<UserInfo>> t) {
+                if(callBack != null){
+                    callBack.showUserReferralsPoint(t.getContent());
+                }
+            }
+
+            @Override
+            public void onLoadFailed(String errMsg) {
+                if(callBack != null){
+                    callBack.showUserReferralsPoint(null);
+                }
             }
         });
     }

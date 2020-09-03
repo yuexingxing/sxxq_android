@@ -8,6 +8,7 @@ public class OrderPayInfoResponse {
     public OrderInfo expend;
     public String pay_channel;
     public String query_url;
+    public String order_no;
 
     public class OrderInfo{
         public String pay_info;

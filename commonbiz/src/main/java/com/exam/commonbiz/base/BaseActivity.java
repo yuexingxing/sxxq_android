@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -51,7 +52,7 @@ public abstract class BaseActivity<VM extends ViewModel, VDB extends ViewDataBin
     protected void onStart() {
         super.onStart();
         if (useEventBus()) {
-            if (!EventBus.getDefault().isRegistered(this)){
+            if (!EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().register(this);
             }
         }
@@ -69,6 +70,20 @@ public abstract class BaseActivity<VM extends ViewModel, VDB extends ViewDataBin
             }
         }
         return super.dispatchTouchEvent(me);
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+            back();
+            return true;
+        }
+        //继续执行父类其他点击事件
+        return super.onKeyUp(keyCode, event);
+    }
+
+    public void back() {
+        finish();
     }
 
     /**
@@ -157,7 +172,7 @@ public abstract class BaseActivity<VM extends ViewModel, VDB extends ViewDataBin
     protected void onDestroy() {
         super.onDestroy();
         if (useEventBus()) {
-            if (EventBus.getDefault().isRegistered(this)){
+            if (EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().unregister(this);
             }
         }

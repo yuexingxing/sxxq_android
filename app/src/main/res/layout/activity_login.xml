@@ -181,8 +181,8 @@
                 layout="@layout/include_layout_login_policy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="26dp"
                 android:layout_marginLeft="16dp"
+                android:layout_marginTop="26dp"
                 android:visibility="visible"
                 tools:visibility="visible" />
 
@@ -197,7 +197,6 @@
                     android:layout_width="180dp"
                     android:layout_height="38dp"
                     android:background="@drawable/selector_btn"
-                    android:digits="@string/login_psd"
                     android:enabled="false"
                     android:gravity="center"
                     android:text="短信验证登录"

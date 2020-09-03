@@ -146,12 +146,25 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
 
     /**
      * 获取小程序的注册界面
+     *
      * @param artitagId
      * @return
      */
     public String getRegistrationSharePath(String artitagId) {
         UserInfo userInfo = SSApplication.getInstance().getUserInfo();
         return String.format("/pages/activity/registration?mem=%s&artitag_id=%s", userInfo.invitation_code, artitagId);
+    }
+
+    public boolean isOneStarMember() {
+        return TextUtils.equals("1", mem_class_key);
+    }
+
+    public boolean isTwoStarMember() {
+        return TextUtils.equals("2", mem_class_key);
+    }
+
+    public boolean isThreeStarMember() {
+        return TextUtils.equals("3", mem_class_key);
     }
 
     //核销码

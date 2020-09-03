@@ -10,22 +10,27 @@ import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityRegisterBinding;
 import cn.sanshaoxingqiu.ssbm.module.login.bean.LoginResponse;
+import cn.sanshaoxingqiu.ssbm.module.login.model.ILoginCallBack;
 import cn.sanshaoxingqiu.ssbm.module.login.viewmodel.LoginViewModel;
 import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.register.model.IRegisterCallBack;
 import cn.sanshaoxingqiu.ssbm.module.register.viewmodel.RegisterViewModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsTypeInfo;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.GoodsDetailActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.GoodsListActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.adapter.GoodsTypeDetailVerticalAdapter;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.BenefitsRightDialog;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.GlideUtil;
 import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
 import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import cn.sanshaoxingqiu.ssbm.widget.dialog.CommonTipDialog;
 
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.Res;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
@@ -34,21 +39,29 @@ import java.util.List;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRegisterBinding> implements IRegisterCallBack {
+public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRegisterBinding> implements IRegisterCallBack, ILoginCallBack {
 
     private GoodsTypeDetailVerticalAdapter goodsTypeDetailVerticalAdapter;
+    private LoginViewModel mLoginViewModel;
 
-    public static void start(Context context, String artiTagId) {
+    public static void start(Context context, String tilte, String artiTagId) {
         if (TextUtils.isEmpty(artiTagId)) return;
         Intent starter = new Intent(context, RegisterActivity.class);
         starter.putExtra(Constants.OPT_DATA, artiTagId);
+        starter.putExtra(Constants.OPT_DATA2, tilte);
         context.startActivity(starter);
     }
 
     @Override
     public void initData() {
         String artiTagId = getIntent().getStringExtra(Constants.OPT_DATA);
+        String title = getIntent().getStringExtra(Constants.OPT_DATA2);
+        if (!TextUtils.isEmpty(title)) {
+            binding.titleBar.setTitle(title);
+        }
 
+        mLoginViewModel = new LoginViewModel();
+        mLoginViewModel.setCallBack(this);
         mViewModel.setCallBack(this);
 
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
@@ -80,19 +93,12 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
         });
 
         binding.ivRegister.setOnClickListener(v -> {
-            String mPhone = binding.edtPhone.getText().toString();
-            String code = binding.edtCode.getText().toString();
-            String referrerMemId = binding.edtInviteCode.getText().toString();
-            if (!CommandTools.isMobileNum(mPhone)) {
-                ToastUtil.showShortToast("请输入正确的手机号");
-                return;
-            }
-            if (TextUtils.isEmpty(code)) {
-                ToastUtil.showShortToast("验证码不能为空");
-                return;
-            }
-            LoadDialogMgr.getInstance().show(context, "注册中...");
-            mViewModel.reister(mPhone, code, referrerMemId);
+            String invitationCode = binding.edtInviteCode.getText().toString();
+//            if (TextUtils.isEmpty(invitationCode)) {
+            login();
+//            } else {
+//                mLoginViewModel.getMemInfoByInvitationCode(invitationCode);
+//            }
         });
 
         if (binding.viewRegisterInfo.getVisibility() == View.VISIBLE) {
@@ -106,16 +112,18 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
         gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
         goodsTypeDetailVerticalAdapter = new GoodsTypeDetailVerticalAdapter();
         goodsTypeDetailVerticalAdapter.setCommonCallBack((postion, object) -> {
-            if (SSApplication.isLogin()) {
-                GoodsTypeInfo goodsTypeInfo = new GoodsTypeInfo();
-                goodsTypeInfo.artitag_id = Constants.TAG_ID_REGISTER;
-                GoodsListActivity.start(context, goodsTypeInfo);
-            } else {
+            if (!SSApplication.isLogin()) {
                 binding.nestedScrollview.smoothScrollTo(0, 0);
+                return;
             }
+            GoodsTypeInfo goodsTypeInfo = new GoodsTypeInfo();
+            goodsTypeInfo.artitag_id = ShoppingCenterUtil.getRegisterTagId();
+            GoodsListActivity.start(context, goodsTypeInfo);
         });
         if (!SSApplication.isLogin()) {
             goodsTypeDetailVerticalAdapter.isShowConver(true);
+        } else {
+            goodsTypeDetailVerticalAdapter.isShowConver(false);
         }
         goodsTypeDetailVerticalAdapter.setOnItemClickListener((adapter, view, position) -> {
             if (!SSApplication.isLogin()) {
@@ -124,6 +132,13 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
                 return;
             }
             GoodsDetailInfo goodsDetailInfo = goodsTypeDetailVerticalAdapter.getData().get(position);
+            if (goodsDetailInfo.isPayByPoint()) {
+                if (userInfo.available_point == 0) {
+                    new CommonTipDialog().show(context, "分享金不足", "分享一位体验用户成功注册三少变美APP，即可获得\"奖励变美区\"一个项目，项目任选，多分享多获得。",
+                            "", "确认", null);
+                    return;
+                }
+            }
             GoodsDetailActivity.start(view.getContext(), goodsDetailInfo.sarti_id);
         });
         binding.goodsRecyclerView.setNestedScrollingEnabled(false);
@@ -142,6 +157,29 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
     public void onGetCode() {
         timer.start();
         binding.tvGetCode.setEnabled(false);
+    }
+
+    @Override
+    public void onLoginSuccess(LoginResponse loginResponse) {
+
+    }
+
+    @Override
+    public void onLoginFailed() {
+
+    }
+
+    @Override
+    public void onModifyPhone(String phone) {
+
+    }
+
+    @Override
+    public void onMemInfoByInvitationCode(UserInfo userInfo) {
+        if (userInfo == null) {
+            return;
+        }
+        login();
     }
 
     @Override
@@ -233,4 +271,20 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
             binding.tvGetCode.setTextColor(Res.getColor(SSApplication.app, R.color.color_333333));
         }
     };
+
+    private void login() {
+        String mPhone = binding.edtPhone.getText().toString();
+        String code = binding.edtCode.getText().toString();
+        String referrerMemId = binding.edtInviteCode.getText().toString();
+        if (!CommandTools.isMobileNum(mPhone)) {
+            ToastUtil.showShortToast("请输入正确的手机号");
+            return;
+        }
+        if (TextUtils.isEmpty(code)) {
+            ToastUtil.showShortToast("验证码不能为空");
+            return;
+        }
+        LoadDialogMgr.getInstance().show(context, "注册中...");
+        mViewModel.reister(mPhone, code, referrerMemId);
+    }
 }

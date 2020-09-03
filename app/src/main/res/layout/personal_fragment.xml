@@ -30,6 +30,7 @@
                         android:id="@+id/iv_bg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:scaleType="centerCrop"
                         android:background="@drawable/image_twostarsbg"
                         android:paddingTop="25dp" />
 

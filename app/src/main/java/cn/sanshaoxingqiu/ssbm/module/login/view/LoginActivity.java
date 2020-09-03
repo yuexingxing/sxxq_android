@@ -19,6 +19,7 @@ import cn.sanshaoxingqiu.ssbm.module.login.bean.LoginResponse;
 import cn.sanshaoxingqiu.ssbm.module.login.model.ILoginCallBack;
 import cn.sanshaoxingqiu.ssbm.module.login.viewmodel.LoginViewModel;
 import cn.sanshaoxingqiu.ssbm.module.personal.account.view.BindWeChatActivity;
+import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
 import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
@@ -95,18 +96,12 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
             mViewModel.getSMSCode(mPhone, LoginViewModel.LoginType.APP_LOGIN);
         });
         binding.tvLogin.setOnClickListener(v -> {
-            mPhone = binding.edtPhone.getText().toString();
-            String code = binding.edtCode.getText().toString();
-            if (TextUtils.isEmpty(code)) {
-                ToastUtil.showShortToast("验证码不能为空");
-                return;
-            }
-            if (!binding.includePolicy.checkbox.isChecked()) {
-                ToastUtil.showShortToast("未勾选协议和隐私政策");
-                return;
-            }
-            LoadDialogMgr.getInstance().show(context, "登录中...");
-            mViewModel.login(mPhone, code, binding.edtInviteCode.getText().toString());
+            String invitationCode = binding.edtInviteCode.getText().toString();
+//            if (TextUtils.isEmpty(invitationCode)) {
+                login();
+//            } else {
+//                mViewModel.getMemInfoByInvitationCode(invitationCode);
+//            }
         });
         binding.includePolicy.tvAgreement.setOnClickListener(v -> EmptyWebViewActivity.start(context, "http://www.baidu.com"));
         binding.includePolicy.tvPolicy.setOnClickListener(v -> EmptyWebViewActivity.start(context, "http://www.2345.com"));
@@ -170,5 +165,28 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     @Override
     public void onModifyPhone(String phone) {
 
+    }
+
+    @Override
+    public void onMemInfoByInvitationCode(UserInfo userInfo) {
+        if (userInfo == null) {
+            return;
+        }
+        login();
+    }
+
+    private void login() {
+        mPhone = binding.edtPhone.getText().toString();
+        String code = binding.edtCode.getText().toString();
+        if (TextUtils.isEmpty(code)) {
+            ToastUtil.showShortToast("验证码不能为空");
+            return;
+        }
+        if (!binding.includePolicy.checkbox.isChecked()) {
+            ToastUtil.showShortToast("未勾选协议和隐私政策");
+            return;
+        }
+        LoadDialogMgr.getInstance().show(context, "登录中...");
+        mViewModel.login(mPhone, code, binding.edtInviteCode.getText().toString());
     }
 }

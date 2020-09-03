@@ -140,4 +140,9 @@ public class BindPhoneActivity extends BaseActivity<LoginViewModel, ActivityBind
         ToastUtil.showShortToast("修改成功");
         finish();
     }
+
+    @Override
+    public void onMemInfoByInvitationCode(UserInfo userInfo) {
+
+    }
 }
