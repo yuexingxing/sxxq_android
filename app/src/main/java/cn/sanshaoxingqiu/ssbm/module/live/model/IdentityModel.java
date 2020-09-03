@@ -44,4 +44,33 @@ public class IdentityModel {
                 });
     }
 
+    public static void getAnchorDetail(final OnLoadListener onLoadListener) {
+        XApi.get(LiveApiService.class, XApi.HOST_TYPE.JAVA)
+                .getAnchorDetail()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver() {
+
+                    @Override
+                    public void onStart() {
+                        onLoadListener.onLoadStart();
+                    }
+
+                    @Override
+                    public void onSuccess(BaseResponse response) {
+                        onLoadListener.onLoadSucessed(response);
+                    }
+
+                    @Override
+                    public void onError(ExceptionHandle.ResponeThrowable responeThrowable) {
+                        onLoadListener.onLoadFailed(responeThrowable.message);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        onLoadListener.onLoadCompleted();
+                    }
+
+                });
+    }
 }

@@ -4,6 +4,7 @@ package cn.sanshaoxingqiu.ssbm.module.live.api;
 import com.exam.commonbiz.net.BaseResponse;
 
 import cn.sanshaoxingqiu.ssbm.module.invitation.bean.UserReferrals;
+import cn.sanshaoxingqiu.ssbm.module.live.bean.LiveApplyResponse;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -14,4 +15,8 @@ public interface LiveApiService {
     //主播认证
     @POST("live/mlive/apply")
     Observable<BaseResponse> liveApply(@Body LiveApplyRequest liveApplyRequest);
+
+    //主播认证详情
+    @POST("live/mlive/anchorDetail")
+    Observable<BaseResponse<LiveApplyResponse>> getAnchorDetail();
 }

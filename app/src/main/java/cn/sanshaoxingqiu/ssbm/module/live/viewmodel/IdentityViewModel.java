@@ -9,6 +9,7 @@ import java.util.List;
 
 import cn.sanshaoxingqiu.ssbm.module.invitation.model.InvitationCallBack;
 import cn.sanshaoxingqiu.ssbm.module.live.api.LiveApplyRequest;
+import cn.sanshaoxingqiu.ssbm.module.live.bean.LiveApplyResponse;
 import cn.sanshaoxingqiu.ssbm.module.live.model.IIdentityModel;
 import cn.sanshaoxingqiu.ssbm.module.live.model.IdentityModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
@@ -41,6 +42,33 @@ public class IdentityViewModel extends ViewModel {
             public void onLoadSucessed(BaseResponse t) {
                 if (mCallBack != null) {
                     mCallBack.returnLiveApply();
+                }
+            }
+
+            @Override
+            public void onLoadFailed(String errMsg) {
+                ToastUtil.showLongToast(errMsg);
+            }
+        });
+    }
+
+    public void getAnchorDetail() {
+        IdentityModel.getAnchorDetail(new OnLoadListener<LiveApplyResponse>() {
+
+            @Override
+            public void onLoadStart() {
+
+            }
+
+            @Override
+            public void onLoadCompleted() {
+                LoadDialogMgr.getInstance().dismiss();
+            }
+
+            @Override
+            public void onLoadSucessed(BaseResponse<LiveApplyResponse> t) {
+                if (mCallBack != null) {
+                    mCallBack.returnAnchorDetail(t.getContent());
                 }
             }
 
