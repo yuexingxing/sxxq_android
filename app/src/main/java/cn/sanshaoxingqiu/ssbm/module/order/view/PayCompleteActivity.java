@@ -42,12 +42,14 @@ import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
  */
 public class PayCompleteActivity extends BaseActivity<GoodsDetailViewModel, ActivityPayCompleteBinding> implements IGoodsDetailModel {
 
-    private String mSalebillId;
+    private String mSartiId;
+    private String mSaleBillId;
     private GoodsDetailInfo mGoodsDetailInfo;
 
-    public static void start(Context context, String salebillId) {
+    public static void start(Context context, String sartiId, String saleBillId) {
         Intent starter = new Intent(context, PayCompleteActivity.class);
-        starter.putExtra(Constants.OPT_DATA, salebillId);
+        starter.putExtra(Constants.OPT_DATA, sartiId);
+        starter.putExtra(Constants.OPT_DATA2, saleBillId);
         context.startActivity(starter);
     }
 
@@ -64,7 +66,8 @@ public class PayCompleteActivity extends BaseActivity<GoodsDetailViewModel, Acti
         EventBus.getDefault().post(payStatusChangedEvent);
 
         mViewModel.setCallBack(this);
-        mSalebillId = getIntent().getStringExtra(Constants.OPT_DATA);
+        mSartiId = getIntent().getStringExtra(Constants.OPT_DATA);
+        mSaleBillId = getIntent().getStringExtra(Constants.OPT_DATA2);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -88,10 +91,10 @@ public class PayCompleteActivity extends BaseActivity<GoodsDetailViewModel, Acti
         });
         binding.tvToMain.setOnClickListener(v -> MainActivity.start(context));
         binding.tvViewOrder.setOnClickListener(v -> {
-            OrderDetailActivity.start(context, OrderInfo.State.ToBeUse, mSalebillId);
+            OrderDetailActivity.start(context, OrderInfo.State.ToBeUse, mSaleBillId);
             finish();
         });
-        mViewModel.getGoodsDetail(context, mSalebillId);
+        mViewModel.getGoodsDetail(context, mSartiId);
         binding.guessYouLoveView.getData();
     }
 

@@ -91,7 +91,8 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
     private OrderDetailViewModel mOrderDetailViewModel;
     private PayViewModel mPayViewModel;
     private String mPayType;
-    private String mSalebillId;
+    private String mSartiId;
+    private GoodsDetailInfo mGoodsDetailInfo;
 
     public static void start(Context context, GoodsTypeInfo goodsTypeInfo) {
         Intent starter = new Intent(context, GoodsListActivity.class);
@@ -153,7 +154,8 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
                     RegisterActivity.start(context, "", ShoppingCenterUtil.getRegisterTagId());
                     return;
                 }
-                mSalebillId = goodsDetailInfo.salebill_id;
+                mSartiId = goodsDetailInfo.sarti_id;
+                mGoodsDetailInfo = goodsDetailInfo;
                 if (goodsDetailInfo.isPayByMoney() && !goodsDetailInfo.isFree()) {
                     ConfirmOrderActivity.start(context, goodsDetailInfo.sarti_id);
                 } else if (goodsDetailInfo.isPayByPoint()) {
@@ -443,8 +445,10 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
 
     @Override
     public void returnOrderStatus(OrderStatusResponse orderStatusResponse) {
-        GoodsDetailInfo goodsDetailInfo = new GoodsDetailInfo();
-        ConfirmPayActivity.start(context, goodsDetailInfo);
+        if (mGoodsDetailInfo == null) {
+            return;
+        }
+        ConfirmPayActivity.start(context, mGoodsDetailInfo);
     }
 
     @Override
@@ -452,7 +456,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
         if (PayViewModel.CHECK_ORDER_STATUS == optType) {
             if (orderPayInfoResponse == null) {
                 ToastUtil.showShortToast("支付成功");
-                PayCompleteActivity.start(context, mSalebillId);
+                PayCompleteActivity.start(context, mSartiId, orderPayInfoResponse.order_no);
             } else {
                 return;
             }
@@ -491,10 +495,12 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
             return;
         }
         if (goodsDetailInfo.order_product != null) {
+            goodsDetailInfo.sarti_id = goodsDetailInfo.order_product.sarti_id;
             goodsDetailInfo.sarti_name = goodsDetailInfo.order_product.sarti_name;
             goodsDetailInfo.sarti_saleprice = goodsDetailInfo.order_product.sarti_saleprice;
             goodsDetailInfo.pay_type = goodsDetailInfo.order_product.pay_type;
             goodsDetailInfo.sarti_point_price = goodsDetailInfo.order_product.sum_point;
+            goodsDetailInfo.salebill_id = goodsDetailInfo.order_product.salebill_id;
         }
         ConfirmPayActivity.start(context, goodsDetailInfo);
     }

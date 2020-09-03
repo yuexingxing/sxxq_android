@@ -43,7 +43,7 @@ public class PayViewModel extends BaseViewModel {
 
             @Override
             public void onLoadSucessed(BaseResponse<OrderPayInfoResponse> t) {
-                if (mCallBack != null) {
+                if (mCallBack != null && t.isOk()) {
                     mCallBack.returnOrderPayInfo(optType, t.getContent());
                 }
             }

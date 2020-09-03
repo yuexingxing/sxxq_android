@@ -192,6 +192,7 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
         if (goodsDetailInfo == null) {
             return;
         }
+        goodsDetailInfo.sarti_id = mGoodsDetailInfo.sarti_id;
         goodsDetailInfo.sarti_name = mGoodsName;
         goodsDetailInfo.sarti_saleprice = mGoodsDetailInfo.sarti_saleprice;
         goodsDetailInfo.pay_type = mGoodsDetailInfo.pay_type;

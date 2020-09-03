@@ -449,6 +449,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             return;
         }
         if (goodsDetailInfo.order_product != null) {
+            goodsDetailInfo.sarti_id = goodsDetailInfo.order_product.sarti_id;
             goodsDetailInfo.sarti_name = goodsDetailInfo.order_product.sarti_name;
             goodsDetailInfo.sarti_saleprice = goodsDetailInfo.order_product.sarti_saleprice;
             goodsDetailInfo.pay_type = goodsDetailInfo.order_product.pay_type;
@@ -517,7 +518,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         if (PayViewModel.CHECK_ORDER_STATUS == optType) {
             if (orderPayInfoResponse == null) {
                 ToastUtil.showShortToast("支付成功");
-                PayCompleteActivity.start(context, mSartiId);
+                PayCompleteActivity.start(context, mSartiId, orderPayInfoResponse.order_no);
             } else {
                 return;
             }
