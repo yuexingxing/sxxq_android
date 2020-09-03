@@ -113,14 +113,19 @@ public class PayCompleteActivity extends BaseActivity<GoodsDetailViewModel, Acti
             binding.includeStar.llReward.getBackground().setAlpha(9);
             UserInfo userInfo = SSApplication.getInstance().getUserInfo();
             if (userInfo != null) {
-                if (userInfo.mem_class == null || TextUtils.isEmpty(userInfo.mem_class.mem_class_key)) {
-                    binding.includeStar.ivStar.setBackgroundResource(R.drawable.image_onestarpaymentissuccessful);
-                } else if (TextUtils.equals("1", userInfo.mem_class.mem_class_key)) {
-                    binding.includeStar.ivStar.setBackgroundResource(R.drawable.image_onestarpaymentissuccessful);
-                } else if (TextUtils.equals("2", userInfo.mem_class.mem_class_key)) {
-                    binding.includeStar.ivStar.setBackgroundResource(R.drawable.image_twostarpaymentissuccessful);
-                } else {
-                    binding.includeStar.ivStar.setBackgroundResource(R.drawable.image_threestarpaymentissuccessful);
+                if (!TextUtils.isEmpty(userInfo.mem_class.mem_class_key)) {
+                    //比较星级，选择最大的
+                    if (!TextUtils.isEmpty(userInfo.mem_class.mem_class_key) && userInfo.mem_class.mem_class_key.compareTo(goodsDetailInfo.mem_class_key) > 0) {
+                        goodsDetailInfo.mem_class_key = userInfo.mem_class.mem_class_key;
+                    }
+                }
+
+                if (goodsDetailInfo.isOneStarMember()) {
+                    binding.includeStar.ivStar.setImageResource(R.drawable.image_onestarpaymentissuccessful);
+                } else if (goodsDetailInfo.isTwoStarMember()) {
+                    binding.includeStar.ivStar.setImageResource(R.drawable.image_twostarpaymentissuccessful);
+                } else if (goodsDetailInfo.isThreeStarMember()) {
+                    binding.includeStar.ivStar.setImageResource(R.drawable.image_threestarpaymentissuccessful);
                 }
 
                 if (userInfo.isMember()) {
