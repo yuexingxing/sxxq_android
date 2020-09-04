@@ -6,7 +6,7 @@ public class RoomInfo {
     public String mem_id;
     public String live_start_time;
     public String live_end_time;
-    public String like_number;
+    public String live_number;
     public String icon;//封面
     public String push_url;//推流地址
     public int live_status;//0 未直播 1直播中 2 结束

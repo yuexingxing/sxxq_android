@@ -256,10 +256,11 @@ public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListe
             @Override
             public void onSuccess(String RoomID, String pushUrl) {
                 Log.w(TAG, String.format("创建直播间%s成功", RoomID));
+
                 UploadRoomInfoRequest uploadRoomInfoRequest = new UploadRoomInfoRequest();
                 uploadRoomInfoRequest.push_url = pushUrl;
                 uploadRoomInfoRequest.live_title = mTitle;
-                uploadRoomInfoRequest.like_number = RoomID;
+                uploadRoomInfoRequest.live_number = RoomID;
                 uploadRoomInfoRequest.address = mLocation;
                 uploadRoomInfoRequest.icon = mCoverPicUrl;
 
