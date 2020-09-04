@@ -37,6 +37,7 @@ public class TCConstants {
     public static final int WRITE_PERMISSION_REQ_CODE    = 2;
     public static final int CAMERA_PERMISSION_REQ_CODE    = 3;
 
+    public static final String ROOM_ID       = "room_id";
     public static final String ROOM_TITLE       = "room_title";
     public static final String COVER_PIC        = "cover_pic";
     public static final String GROUP_ID         = "group_id";

@@ -30,6 +30,11 @@ import androidx.core.content.FileProvider;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.sanshao.livemodule.R;
+import com.sanshao.livemodule.liveroom.model.ILiveRoomModel;
+import com.sanshao.livemodule.liveroom.roomutil.bean.GetRoomIdResponse;
+import com.sanshao.livemodule.liveroom.roomutil.bean.LicenceInfo;
+import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
+import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.anchor.TCCameraAnchorActivity;
 import com.sanshao.livemodule.zhibo.anchor.screen.TCScreenAnchorActivity;
 import com.sanshao.livemodule.zhibo.audience.TCCustomSwitch;
@@ -61,7 +66,8 @@ import java.util.List;
  * <p>
  * 5. 设置分享到微信、微博、QQ等
  */
-public class TCAnchorPrepareActivity extends Activity implements View.OnClickListener, TCUploadHelper.OnUploadListener, TCLocationHelper.OnLocationListener, RadioGroup.OnCheckedChangeListener {
+public class TCAnchorPrepareActivity extends Activity implements View.OnClickListener, TCUploadHelper.OnUploadListener, TCLocationHelper.OnLocationListener,
+        RadioGroup.OnCheckedChangeListener, ILiveRoomModel {
     private static final String TAG = TCAnchorPrepareActivity.class.getSimpleName();
     private static final int CAPTURE_IMAGE_CAMERA = 100;    // 封面：发起拍照
     private static final int IMAGE_STORE = 200;             // 封面：选择图库
@@ -76,12 +82,14 @@ public class TCAnchorPrepareActivity extends Activity implements View.OnClickLis
     private ImageView mIvCover;       // 图片封面
     private TCCustomSwitch mSwitchLocate;  // 发起定位的按钮
     private RadioGroup mRGRecordType;  // 推流类型：摄像头推流或屏幕录制推流
-    private int                             mRecordType = TCConstants.RECORD_TYPE_CAMERA;   // 默认摄像头推流
+    private int mRecordType = TCConstants.RECORD_TYPE_CAMERA;   // 默认摄像头推流
 
     private Uri mSourceFileUri, mCropFileUri;      // 封面图源文件的Uri，裁剪过后的Uri
-    private boolean                          mUploadingCover = false;           // 当前是否正在上传图片
-    private boolean                          mPermission = false;               // 是否已经授权
-    private TCUploadHelper                   mUploadHelper;                     // COS 存储封面图的工具类
+    private boolean mUploadingCover = false;           // 当前是否正在上传图片
+    private boolean mPermission = false;               // 是否已经授权
+    private TCUploadHelper mUploadHelper;                     // COS 存储封面图的工具类
+    private LiveViewModel mLiveViewModel;
+    private String mRoomId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +111,10 @@ public class TCAnchorPrepareActivity extends Activity implements View.OnClickLis
         mSwitchLocate.setOnClickListener(this);
         mRGRecordType.setOnCheckedChangeListener(this);
 
+        mLiveViewModel = new LiveViewModel();
+        mLiveViewModel.setILiveRoomModel(this);
         mPermission = checkPublishPermission();
+        mLiveViewModel.getRoomId();
         initPhotoDialog();
         initCover();
     }
@@ -130,6 +141,9 @@ public class TCAnchorPrepareActivity extends Activity implements View.OnClickLis
         }
     }
 
+    private void getRoomId() {
+
+    }
 
     /**
      * 图片选择对话框
@@ -174,7 +188,6 @@ public class TCAnchorPrepareActivity extends Activity implements View.OnClickLis
     }
 
 
-
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -214,7 +227,6 @@ public class TCAnchorPrepareActivity extends Activity implements View.OnClickLis
 
     /**
      * 发起推流
-     *
      */
     private void startPublish() {
         Intent intent = null;
@@ -226,6 +238,7 @@ public class TCAnchorPrepareActivity extends Activity implements View.OnClickLis
         }
 
         if (intent != null) {
+            intent.putExtra(TCConstants.ROOM_ID, mRoomId);
             intent.putExtra(TCConstants.ROOM_TITLE,
                     TextUtils.isEmpty(mTvTitle.getText().toString()) ? TCUserMgr.getInstance().getNickname() : mTvTitle.getText().toString());
             intent.putExtra(TCConstants.USER_ID, TCUserMgr.getInstance().getUserId());
@@ -240,8 +253,6 @@ public class TCAnchorPrepareActivity extends Activity implements View.OnClickLis
             finish();
         }
     }
-
-
 
 
     /**
@@ -296,7 +307,6 @@ public class TCAnchorPrepareActivity extends Activity implements View.OnClickLis
             }
         });
     }
-
 
 
     /**
@@ -439,8 +449,7 @@ public class TCAnchorPrepareActivity extends Activity implements View.OnClickLis
         switch (type) {
             case CAPTURE_IMAGE_CAMERA:
                 mSourceFileUri = createCoverUri("");
-                if(ContextCompat.checkSelfPermission( TCAnchorPrepareActivity.this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED)
-                {
+                if (ContextCompat.checkSelfPermission(TCAnchorPrepareActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(TCAnchorPrepareActivity.this,
                             new String[]{Manifest.permission.CAMERA},
                             TCConstants.CAMERA_PERMISSION_REQ_CODE);
@@ -459,8 +468,7 @@ public class TCAnchorPrepareActivity extends Activity implements View.OnClickLis
     }
 
     /**
-     *  打开摄像头拍照
-     *
+     * 打开摄像头拍照
      */
     private void takePhoto() {
         Intent intent_photo = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -469,11 +477,11 @@ public class TCAnchorPrepareActivity extends Activity implements View.OnClickLis
     }
 
     /**
-     *     /////////////////////////////////////////////////////////////////////////////////
-     *     //
-     *     //                      动态权限检查相关
-     *     //
-     *     /////////////////////////////////////////////////////////////////////////////////
+     * /////////////////////////////////////////////////////////////////////////////////
+     * //
+     * //                      动态权限检查相关
+     * //
+     * /////////////////////////////////////////////////////////////////////////////////
      */
 
     private boolean checkPublishPermission() {
@@ -550,5 +558,28 @@ public class TCAnchorPrepareActivity extends Activity implements View.OnClickLis
             }
             mRecordType = TCConstants.RECORD_TYPE_SCREEN;
         }
+    }
+
+    @Override
+    public void returnGetLicense(LicenceInfo licenceInfo) {
+
+    }
+
+    @Override
+    public void returnUserSign(UserSignResponse userSignResponse) {
+
+    }
+
+    @Override
+    public void returnGetRoomId(GetRoomIdResponse getRoomIdResponse) {
+        if (getRoomIdResponse == null) {
+            return;
+        }
+        mRoomId = getRoomIdResponse.room_number;
+    }
+
+    @Override
+    public void returnUploadLiveRoomInfo() {
+
     }
 }

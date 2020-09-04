@@ -1,6 +1,7 @@
-package com.sanshao.livemodule.net;
+package com.sanshao.livemodule.liveroom.api;
 
 import com.exam.commonbiz.net.BaseResponse;
+import com.sanshao.livemodule.liveroom.roomutil.bean.LicenceInfo;
 import com.sanshao.livemodule.liveroom.roomutil.bean.UploadRoomInfoRequest;
 import com.sanshao.livemodule.liveroom.roomutil.bean.GetRoomIdResponse;
 import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
@@ -33,6 +34,10 @@ public interface LiveRoomApiService {
     //直播列表
     @GET("live/mlive/batchList")
     Observable<BaseResponse<String>> getLiveRoomList();
+
+    //获取license
+    @GET("live/mlive/license")
+    Observable<BaseResponse<LicenceInfo>> getLicense();
 
     //获取主播信息
     @GET("live/mlive/home")

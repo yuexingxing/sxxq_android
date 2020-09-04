@@ -19,12 +19,19 @@ import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
 import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.liveroom.IMLVBLiveRoomListener;
 import com.sanshao.livemodule.liveroom.MLVBLiveRoom;
+import com.sanshao.livemodule.liveroom.model.ILiveRoomModel;
+import com.sanshao.livemodule.liveroom.roomutil.bean.GetRoomIdResponse;
+import com.sanshao.livemodule.liveroom.roomutil.bean.LicenceInfo;
+import com.sanshao.livemodule.liveroom.roomutil.bean.UploadRoomInfoRequest;
+import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
 import com.sanshao.livemodule.liveroom.roomutil.commondef.AnchorInfo;
 import com.sanshao.livemodule.liveroom.roomutil.commondef.AudienceInfo;
 import com.sanshao.livemodule.liveroom.roomutil.commondef.MLVBCommonDef;
+import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;
 import com.sanshao.livemodule.zhibo.common.msg.TCChatEntity;
 import com.sanshao.livemodule.zhibo.common.msg.TCChatMsgListAdapter;
@@ -56,17 +63,17 @@ import master.flame.danmaku.controller.IDanmakuView;
  * Module:   TCBaseAnchorActivity
  * <p>
  * Function: 主播推流的页面
- *
+ * <p>
  * 1. MLVB 组件的使用，创建或者销毁房间：{@link TCBaseAnchorActivity#startPublish()}; 以及相关事件回调监听
- *
+ * <p>
  * 2. 处理消息接收到的文本信息：{@link TCBaseAnchorActivity#onRecvRoomTextMsg(String, String, String, String, String)}
  */
-public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListener, View.OnClickListener, TCInputTextMsgDialog.OnTextSendListener {
+public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListener, View.OnClickListener, TCInputTextMsgDialog.OnTextSendListener, ILiveRoomModel {
     private static final String TAG = TCBaseAnchorActivity.class.getSimpleName();
 
     // 消息列表相关
     private ListView mLvMessage;             // 消息控件
-    private TCInputTextMsgDialog        mInputTextMsgDialog;    // 消息输入框
+    private TCInputTextMsgDialog mInputTextMsgDialog;    // 消息输入框
     private TCChatMsgListAdapter mChatMsgListAdapter;    // 消息列表的Adapter
     private ArrayList<TCChatEntity> mArrayListChatEntity;   // 消息内容
 
@@ -75,15 +82,16 @@ public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListe
 
     protected TCSwipeAnimationController mTCSwipeAnimationController;  // 动画控制类
 
+    private String mRoomId;
     private String mTitle;                 // 直播标题
     private String mCoverPicUrl;           // 直播封面图
     private String mAvatarPicUrl;          // 个人头像地址
     private String mNickName;              // 个人昵称
     private String mUserId;                // 个人用户id
     private String mLocation;              // 个人定位地址
-    protected long                      mTotalMemberCount = 0;  // 总进房观众数量
-    protected long                      mCurrentMemberCount = 0;// 当前观众数量
-    protected long                      mHeartCount = 0;        // 点赞数量
+    protected long mTotalMemberCount = 0;  // 总进房观众数量
+    protected long mCurrentMemberCount = 0;// 当前观众数量
+    protected long mHeartCount = 0;        // 点赞数量
 
     private TCDanmuMgr mDanmuMgr;              // 弹幕管理类
 
@@ -94,9 +102,10 @@ public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListe
 
     // 定时的 Timer 去更新开播时间
     private Timer mBroadcastTimer;        // 定时的 Timer
-    private BroadcastTimerTask              mBroadcastTimerTask;    // 定时任务
-    protected long                          mSecond = 0;            // 开播的时间，单位为秒
-    private long                            mStartPushPts;          // 开始直播的时间，用于 ELK 上报统计。 您可以不关注
+    private BroadcastTimerTask mBroadcastTimerTask;    // 定时任务
+    protected long mSecond = 0;            // 开播的时间，单位为秒
+    private long mStartPushPts;          // 开始直播的时间，用于 ELK 上报统计。 您可以不关注
+    private LiveViewModel mLiveViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,12 +117,15 @@ public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListe
 
         Intent intent = getIntent();
         mUserId = intent.getStringExtra(TCConstants.USER_ID);
+        mRoomId = intent.getStringExtra(TCConstants.ROOM_ID);
         mTitle = intent.getStringExtra(TCConstants.ROOM_TITLE);
         mCoverPicUrl = intent.getStringExtra(TCConstants.COVER_PIC);
         mAvatarPicUrl = intent.getStringExtra(TCConstants.USER_HEADPIC);
         mNickName = intent.getStringExtra(TCConstants.USER_NICK);
         mLocation = intent.getStringExtra(TCConstants.USER_LOC);
 
+        mLiveViewModel = new LiveViewModel();
+        mLiveViewModel.setILiveRoomModel(this);
         mArrayListChatEntity = new ArrayList<>();
         mErrDlgFragment = new ErrorDialogFragment();
         mLiveRoom = MLVBLiveRoom.sharedInstance(this);
@@ -170,11 +182,11 @@ public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListe
 
 
     /**
-     *     /////////////////////////////////////////////////////////////////////////////////
-     *     //
-     *     //                      Activity声明周期相关
-     *     //
-     *     /////////////////////////////////////////////////////////////////////////////////
+     * /////////////////////////////////////////////////////////////////////////////////
+     * //
+     * //                      Activity声明周期相关
+     * //
+     * /////////////////////////////////////////////////////////////////////////////////
      */
 
     @Override
@@ -214,11 +226,11 @@ public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListe
     }
 
     /**
-     *     /////////////////////////////////////////////////////////////////////////////////
-     *     //
-     *     //                      开始和停止推流相关
-     *     //
-     *     /////////////////////////////////////////////////////////////////////////////////
+     * /////////////////////////////////////////////////////////////////////////////////
+     * //
+     * //                      开始和停止推流相关
+     * //
+     * /////////////////////////////////////////////////////////////////////////////////
      */
     protected void startPublish() {
         mLiveRoom.setListener(this);
@@ -233,17 +245,27 @@ public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListe
         } catch (JSONException e) {
             roomInfo = mTitle;
         }
-        mLiveRoom.createRoom("", roomInfo, new IMLVBLiveRoomListener.CreateRoomCallback() {
-            @Override
-            public void onSuccess(String roomId) {
-                Log.w(TAG, String.format("创建直播间%s成功", roomId));
-                onCreateRoomSuccess();
-            }
+        mLiveRoom.createRoom(mRoomId, roomInfo, new IMLVBLiveRoomListener.CreateRoomCallback() {
 
             @Override
             public void onError(int errCode, String e) {
                 Log.w(TAG, String.format("创建直播间错误, code=%s,error=%s", errCode, e));
                 showErrorAndQuit(errCode, "创建直播房间失败,Error:" + e);
+            }
+
+            @Override
+            public void onSuccess(String RoomID, String pushUrl) {
+                Log.w(TAG, String.format("创建直播间%s成功", RoomID));
+                UploadRoomInfoRequest uploadRoomInfoRequest = new UploadRoomInfoRequest();
+                uploadRoomInfoRequest.push_url = pushUrl;
+                uploadRoomInfoRequest.live_title = mTitle;
+                uploadRoomInfoRequest.like_number = RoomID;
+                uploadRoomInfoRequest.address = mLocation;
+                uploadRoomInfoRequest.icon = mCoverPicUrl;
+
+                //直播间创建成功后，把直播间信息发送给后台
+                mLiveViewModel.uploadLiveRoomInfo(uploadRoomInfoRequest);
+                onCreateRoomSuccess();
             }
         });
     }
@@ -284,11 +306,11 @@ public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListe
     }
 
     /**
-     *     /////////////////////////////////////////////////////////////////////////////////
-     *     //
-     *     //                      MLVB 组件回调
-     *     //
-     *     /////////////////////////////////////////////////////////////////////////////////
+     * /////////////////////////////////////////////////////////////////////////////////
+     * //
+     * //                      MLVB 组件回调
+     * //
+     * /////////////////////////////////////////////////////////////////////////////////
      */
     @Override
     public void onAnchorEnter(AnchorInfo pusherInfo) {
@@ -388,11 +410,11 @@ public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListe
 
 
     /**
-     *     /////////////////////////////////////////////////////////////////////////////////
-     *     //
-     *     //                      处理接收到的各种信息
-     *     //
-     *     /////////////////////////////////////////////////////////////////////////////////
+     * /////////////////////////////////////////////////////////////////////////////////
+     * //
+     * //                      处理接收到的各种信息
+     * //
+     * /////////////////////////////////////////////////////////////////////////////////
      */
     protected void handleTextMsg(TCSimpleUserInfo userInfo, String text) {
         TCChatEntity entity = new TCChatEntity();
@@ -582,7 +604,7 @@ public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListe
 
     /**
      * 显示直播结果的弹窗
-     *
+     * <p>
      * 如：观看数量、点赞数量、直播时长数
      */
     protected void showPublishFinishDetailsDialog() {
@@ -664,13 +686,33 @@ public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListe
     }
 
     /**
-     *     /////////////////////////////////////////////////////////////////////////////////
-     *     //
-     *     //                      开播时长相关
-     *     //
-     *     /////////////////////////////////////////////////////////////////////////////////
+     * /////////////////////////////////////////////////////////////////////////////////
+     * //
+     * //                      开播时长相关
+     * //
+     * /////////////////////////////////////////////////////////////////////////////////
      */
     protected void onBroadcasterTimeUpdate(long second) {
+
+    }
+
+    @Override
+    public void returnGetLicense(LicenceInfo licenceInfo) {
+
+    }
+
+    @Override
+    public void returnUserSign(UserSignResponse userSignResponse) {
+
+    }
+
+    @Override
+    public void returnGetRoomId(GetRoomIdResponse getRoomIdResponse) {
+
+    }
+
+    @Override
+    public void returnUploadLiveRoomInfo() {
 
     }
 

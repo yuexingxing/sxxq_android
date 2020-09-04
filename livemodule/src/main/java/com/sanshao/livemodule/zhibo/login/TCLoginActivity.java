@@ -11,11 +11,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.exam.commonbiz.net.BaseResponse;
-import com.exam.commonbiz.net.OnLoadListener;
 import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.liveroom.roomutil.misc.NameGenerator;
-import com.sanshao.livemodule.net.LiveRetrofit;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;
 import com.sanshao.livemodule.zhibo.common.net.TCHTTPMgr;
 import com.sanshao.livemodule.zhibo.common.utils.TCUtils;

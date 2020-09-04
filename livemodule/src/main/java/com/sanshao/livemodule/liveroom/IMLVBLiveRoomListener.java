@@ -1,6 +1,7 @@
 package com.sanshao.livemodule.liveroom;
 
 import android.os.Bundle;
+import android.view.contentcapture.ContentCaptureSessionId;
 
 import com.sanshao.livemodule.liveroom.roomutil.commondef.AnchorInfo;
 import com.sanshao.livemodule.liveroom.roomutil.commondef.AudienceInfo;
@@ -274,7 +275,7 @@ public interface IMLVBLiveRoomListener {
          *
          * @param RoomID 房间号标识
          */
-        void onSuccess(String RoomID);
+        void onSuccess(String RoomID, String pushUrl);
     }
 
     /**
