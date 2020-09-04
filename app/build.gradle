@@ -5,7 +5,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "cn.sanshaoxingqiu.ssbm"
+        applicationId "cn.sancell.xingqiu"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
@@ -13,7 +13,7 @@ android {
         multiDexEnabled true
 
         ndk {
-            abiFilters "armeabi"
+            abiFilters "armeabi-v7a"
         }
         javaCompileOptions {
             annotationProcessorOptions {
