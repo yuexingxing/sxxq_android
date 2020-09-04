@@ -371,7 +371,8 @@ public class TCAnchorPrepareActivity extends Activity implements View.OnClickLis
         Intent intent = new Intent("com.android.camera.action.CROP");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             File file = new File(uri.getPath());
-            uri = FileProvider.getUriForFile(this, "com.tencent.qcloud.xiaozhibo.fileprovider", file);
+            //TODO 注意包名
+            uri = FileProvider.getUriForFile(this, "cn.sancell.xingqiu.fileprovider", file);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         }
         intent.setDataAndType(uri, "image/*");

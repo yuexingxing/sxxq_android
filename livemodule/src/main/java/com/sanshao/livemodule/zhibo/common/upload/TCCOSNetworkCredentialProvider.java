@@ -17,7 +17,6 @@ public class TCCOSNetworkCredentialProvider {
         this.secretId = secretId;
     }
 
-
 //    @Override
 //    protected QCloudLifecycleCredentials fetchNewCredentials() throws QCloudClientException {
 //        String signKey = null;

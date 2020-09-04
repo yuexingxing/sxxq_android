@@ -12,4 +12,5 @@ public class RoomInfo {
     public int live_status;//0 未直播 1直播中 2 结束
     public String replay_url;//回放地址
     public String channel_id;//通道
+    public String address;
 }
