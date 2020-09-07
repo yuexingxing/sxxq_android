@@ -42,7 +42,7 @@ import cn.sanshaoxingqiu.ssbm.module.order.view.OrderListActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.AppointmentForConsultationViewModel;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderDetailViewModel;
 import cn.sanshaoxingqiu.ssbm.module.personal.adapter.PersonalOrderSubjectAdapter;
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.event.UpdateUserInfoEvent;
 import cn.sanshaoxingqiu.ssbm.module.personal.inquiry.view.ToBeInquiryListActivity;
 import cn.sanshaoxingqiu.ssbm.module.personal.model.IPersonalCallBack;
@@ -57,6 +57,7 @@ import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
 import cn.sanshaoxingqiu.ssbm.util.DateUtil;
 
 import com.exam.commonbiz.util.GlideUtil;
+import com.sanshao.livemodule.zhibo.profile.AnchorInfoActivity;
 
 import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
 
@@ -190,11 +191,15 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             if (mLiveApplyResponse == null) {
                 return;
             }
+            mLiveApplyResponse.audit_status = LiveApplyResponse.AuditStatus.SUCCESS;
             if (mLiveApplyResponse.isAuditing()) {
                 IdentityingActivity.start(context);
-                return;
+            } else if (mLiveApplyResponse.isAuditSuccess()) {
+                AnchorInfoActivity.start(context);
+            } else {
+                LiveIdentifyActivity.start(context);
             }
-            LiveIdentifyActivity.start(context);
+
         });
         binding.includePersonalLive.llLiveLike.setOnClickListener(v -> {
             Intent intent = new Intent(context, TCLoginActivity.class);

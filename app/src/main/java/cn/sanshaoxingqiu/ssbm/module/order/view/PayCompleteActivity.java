@@ -24,7 +24,7 @@ import cn.sanshaoxingqiu.ssbm.databinding.ActivityPayCompleteBinding;
 import cn.sanshaoxingqiu.ssbm.module.MainActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderInfo;
 import cn.sanshaoxingqiu.ssbm.module.order.event.PayStatusChangedEvent;
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IGoodsDetailModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsPosterDialog;

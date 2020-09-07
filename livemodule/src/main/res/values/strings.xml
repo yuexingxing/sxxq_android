@@ -56,8 +56,8 @@
     <!-- pushstream -->
 
     <!-- msgadapter -->
-    <item type="id" name="tag_first"></item>
-    <item type="id" name="tag_second"></item>
+    <item name="tag_first" type="id"></item>
+    <item name="tag_second" type="id"></item>
 
 
     <!-- userinfo fragment-->

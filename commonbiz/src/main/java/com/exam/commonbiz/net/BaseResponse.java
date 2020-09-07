@@ -49,15 +49,15 @@ public class BaseResponse<T> implements Serializable {
     public String toString() {
 
         Log.v("zd", "BaseResponse{" +
-                "code=" + ret +
+                "ret=" + ret +
                 ", msg='" + msg + '\'' +
-                ", data=" + content +
+                ", content=" + content +
                 '}');
 
         return "BaseResponse{" +
-                "code=" + ret +
+                "ret=" + ret +
                 ", msg='" + msg + '\'' +
-                ", data=" + content +
+                ", content=" + content +
                 '}';
     }
 }

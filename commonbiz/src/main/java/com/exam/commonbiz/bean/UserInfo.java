@@ -1,4 +1,4 @@
-package cn.sanshaoxingqiu.ssbm.module.personal.bean;
+package com.exam.commonbiz.bean;
 
 import android.text.TextUtils;
 

@@ -10,7 +10,6 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -38,7 +37,7 @@ import cn.sanshaoxingqiu.ssbm.module.order.view.PayCompleteActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderDetailViewModel;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderViewModel;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.PayViewModel;
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.register.view.RegisterActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsTypeInfo;

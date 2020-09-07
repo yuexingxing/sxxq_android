@@ -15,7 +15,7 @@ import cn.sanshaoxingqiu.ssbm.databinding.ActivityBindPhoneBinding;
 import cn.sanshaoxingqiu.ssbm.module.login.bean.LoginResponse;
 import cn.sanshaoxingqiu.ssbm.module.login.model.ILoginCallBack;
 import cn.sanshaoxingqiu.ssbm.module.login.viewmodel.LoginViewModel;
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
 import cn.sanshaoxingqiu.ssbm.util.ToastUtil;

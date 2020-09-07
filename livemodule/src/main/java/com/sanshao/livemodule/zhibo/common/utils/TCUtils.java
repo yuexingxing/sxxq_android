@@ -415,9 +415,6 @@ public class TCUtils {
         if (TextUtils.isEmpty(url)) {
             view.setImageResource(defResId);
         } else {
-//            Glide.with(context.getApplicationContext())
-//                .load(url)
-//                .into(view);
             GlideUtil.loadImage(url, view);
         }
     }

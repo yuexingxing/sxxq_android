@@ -7,7 +7,7 @@ import java.util.List;
 
 import cn.sanshaoxingqiu.ssbm.module.invitation.bean.UserReferrals;
 
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 

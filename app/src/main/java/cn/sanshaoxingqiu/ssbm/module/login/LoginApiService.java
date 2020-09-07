@@ -7,7 +7,7 @@ import cn.sanshaoxingqiu.ssbm.module.login.bean.LoginRequest;
 import cn.sanshaoxingqiu.ssbm.module.login.bean.LoginResponse;
 import cn.sanshaoxingqiu.ssbm.module.login.bean.ModifyPhoneRequest;
 
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;

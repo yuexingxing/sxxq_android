@@ -1,7 +1,7 @@
 package cn.sanshaoxingqiu.ssbm.module.register.model;
 
 import cn.sanshaoxingqiu.ssbm.module.login.bean.LoginResponse;
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 
 import java.util.List;

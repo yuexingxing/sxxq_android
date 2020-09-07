@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 public class LiveApplyResponse {
 
-    interface AuditStatus {
+   public interface AuditStatus {
         String AUDIT = "AUDIT";//待审核
         String SUCCESS = "SUCCESS";//审核通过
         String FAILED = "FAILED";//审核通不过

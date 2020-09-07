@@ -17,7 +17,7 @@ import cn.sanshaoxingqiu.ssbm.module.personal.model.IPersonalCallBack;
 import cn.sanshaoxingqiu.ssbm.module.personal.viewmodel.PersonalViewModel;
 import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 
 import org.greenrobot.eventbus.EventBus;
 

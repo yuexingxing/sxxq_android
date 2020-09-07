@@ -14,7 +14,7 @@ import com.exam.commonbiz.util.CommonCallBack;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 import com.sanshao.commonui.pickerview.builder.TimePickerBuilder;
 import com.sanshao.commonui.pickerview.listener.OnTimeSelectChangeListener;

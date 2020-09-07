@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import cn.sanshaoxingqiu.ssbm.SSApplication;
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.MathUtil;
 

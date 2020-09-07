@@ -9,7 +9,6 @@ import com.exam.commonbiz.net.OnLoadListener;
 
 import org.greenrobot.eventbus.EventBus;
 
-import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.module.login.bean.GetCodeRequest;
 import cn.sanshaoxingqiu.ssbm.module.login.bean.GetCodeResponse;
 import cn.sanshaoxingqiu.ssbm.module.login.bean.LoginRequest;
@@ -18,7 +17,7 @@ import cn.sanshaoxingqiu.ssbm.module.login.bean.ModifyPhoneRequest;
 import cn.sanshaoxingqiu.ssbm.module.login.event.LoginEvent;
 import cn.sanshaoxingqiu.ssbm.module.login.model.ILoginCallBack;
 import cn.sanshaoxingqiu.ssbm.module.login.model.LoginModel;
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
 import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
 

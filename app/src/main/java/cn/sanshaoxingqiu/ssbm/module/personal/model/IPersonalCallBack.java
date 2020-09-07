@@ -1,6 +1,6 @@
 package cn.sanshaoxingqiu.ssbm.module.personal.model;
 
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 
 /**
  * @Author yuexingxing

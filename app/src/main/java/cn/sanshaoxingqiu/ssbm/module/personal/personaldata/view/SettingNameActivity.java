@@ -9,7 +9,7 @@ import android.view.View;
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivitySettingNameBinding;
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.event.UpdateUserInfoEvent;
 import cn.sanshaoxingqiu.ssbm.module.personal.model.IPersonalCallBack;
 import cn.sanshaoxingqiu.ssbm.module.personal.viewmodel.PersonalViewModel;

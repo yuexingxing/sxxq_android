@@ -5,7 +5,7 @@ import com.exam.commonbiz.net.OnLoadListener;
 import cn.sanshaoxingqiu.ssbm.module.invitation.bean.UserReferrals;
 import cn.sanshaoxingqiu.ssbm.module.invitation.model.InvitationCallBack;
 import cn.sanshaoxingqiu.ssbm.module.invitation.model.InvitationModel;
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.ShoppingCenterModel;
 import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;

@@ -22,14 +22,13 @@ import com.exam.commonbiz.net.NetProvider;
 import com.exam.commonbiz.net.RequestHandler;
 import com.exam.commonbiz.net.XApi;
 
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.setting.dokit.KitChangeHost;
 import cn.sanshaoxingqiu.ssbm.util.AppUtil;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
 
 import com.sanshao.commonui.titlebar.TitleBar;
 import com.sanshao.commonui.titlebar.TitleBarLightStyle;
-import com.sanshao.livemodule.zhibo.TCGlobalConfig;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -251,17 +250,6 @@ public class SSApplication extends BasicApplication {
             ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
         }
         ARouter.init(application);
-    }
-
-    public UserInfo getUserInfo() {
-        if (ACache.get(app).getAsObject(ConfigSP.SP_USER_INFO) == null) {
-            ACache.get(app).put(ConfigSP.SP_USER_INFO, new UserInfo());
-        }
-        return (UserInfo) ACache.get(app).getAsObject(ConfigSP.SP_USER_INFO);
-    }
-
-    public void saveUserInfo(UserInfo userInfo) {
-        ACache.get(app).put(ConfigSP.SP_USER_INFO, userInfo);
     }
 
     /**

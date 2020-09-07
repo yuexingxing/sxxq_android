@@ -2,14 +2,12 @@ package cn.sanshaoxingqiu.ssbm.module.home.view;
 
 import android.content.Intent;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.sanshao.livemodule.zhibo.audience.TCAudienceActivity;
@@ -28,7 +26,7 @@ import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.HomeFragmentBinding;
 import cn.sanshaoxingqiu.ssbm.module.home.viewmodel.HomeViewModel;
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
 
 /**

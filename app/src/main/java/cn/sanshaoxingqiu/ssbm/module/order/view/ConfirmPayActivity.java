@@ -17,7 +17,7 @@ import cn.sanshaoxingqiu.ssbm.module.order.model.IPayModel;
 import cn.sanshaoxingqiu.ssbm.module.order.model.OnPayListener;
 import cn.sanshaoxingqiu.ssbm.module.order.util.PayUtils;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.PayViewModel;
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 import cn.sanshaoxingqiu.ssbm.util.Constants;

@@ -12,7 +12,7 @@ import cn.sanshaoxingqiu.ssbm.databinding.ActivityRegisterBinding;
 import cn.sanshaoxingqiu.ssbm.module.login.bean.LoginResponse;
 import cn.sanshaoxingqiu.ssbm.module.login.model.ILoginCallBack;
 import cn.sanshaoxingqiu.ssbm.module.login.viewmodel.LoginViewModel;
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.register.model.IRegisterCallBack;
 import cn.sanshaoxingqiu.ssbm.module.register.viewmodel.RegisterViewModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;

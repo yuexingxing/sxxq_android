@@ -12,7 +12,7 @@ import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityAccountSafetyBinding;
 import cn.sanshaoxingqiu.ssbm.module.personal.account.viewmodel.AccountSafetyViewModel;
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 
 /**
  * 账户安全

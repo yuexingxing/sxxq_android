@@ -15,7 +15,7 @@ import cn.sanshaoxingqiu.ssbm.databinding.ActivityInvitationBinding;
 import cn.sanshaoxingqiu.ssbm.module.invitation.bean.UserReferrals;
 import cn.sanshaoxingqiu.ssbm.module.invitation.model.InvitationCallBack;
 import cn.sanshaoxingqiu.ssbm.module.invitation.viewmodel.InvitationViewModel;
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.register.view.RegisterActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsTypeInfo;

@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import cn.sanshaoxingqiu.ssbm.R;
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import com.exam.commonbiz.util.GlideUtil;
 
 public class FansListAdapter extends BaseQuickAdapter<UserInfo, BaseViewHolder> {

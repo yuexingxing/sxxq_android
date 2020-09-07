@@ -17,7 +17,7 @@ import cn.sanshaoxingqiu.ssbm.databinding.ActivityPersonalDetailBinding;
 import cn.sanshaoxingqiu.ssbm.module.common.oss.IOssModel;
 import cn.sanshaoxingqiu.ssbm.module.common.oss.OssViewModel;
 import cn.sanshaoxingqiu.ssbm.module.common.oss.UploadPicResponse;
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.model.IPersonalCallBack;
 import cn.sanshaoxingqiu.ssbm.module.personal.personaldata.dialog.SelectBirthdayDialog;
 import cn.sanshaoxingqiu.ssbm.module.personal.viewmodel.PersonalViewModel;

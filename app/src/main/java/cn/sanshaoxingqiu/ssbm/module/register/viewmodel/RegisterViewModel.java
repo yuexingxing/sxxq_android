@@ -7,7 +7,7 @@ import cn.sanshaoxingqiu.ssbm.module.login.bean.GetCodeResponse;
 import cn.sanshaoxingqiu.ssbm.module.login.bean.LoginRequest;
 import cn.sanshaoxingqiu.ssbm.module.login.bean.LoginResponse;
 import cn.sanshaoxingqiu.ssbm.module.login.model.LoginModel;
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.model.PersonalModel;
 import cn.sanshaoxingqiu.ssbm.module.register.model.IRegisterCallBack;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;

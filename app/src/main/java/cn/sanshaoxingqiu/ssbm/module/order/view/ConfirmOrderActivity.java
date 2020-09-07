@@ -14,7 +14,7 @@ import cn.sanshaoxingqiu.ssbm.module.order.event.PayStatusChangedEvent;
 import cn.sanshaoxingqiu.ssbm.module.order.model.IConfirmOrderModel;
 import cn.sanshaoxingqiu.ssbm.module.order.view.adapter.ConfirmOrderAdapter;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.ConfirmOrderViewModel;
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IGoodsDetailModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.viewmodel.GoodsDetailViewModel;

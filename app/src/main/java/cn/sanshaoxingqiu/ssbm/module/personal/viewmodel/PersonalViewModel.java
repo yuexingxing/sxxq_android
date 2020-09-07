@@ -3,7 +3,7 @@ package cn.sanshaoxingqiu.ssbm.module.personal.viewmodel;
 import com.exam.commonbiz.base.BaseViewModel;
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.model.IPersonalCallBack;
 import cn.sanshaoxingqiu.ssbm.module.personal.model.PersonalModel;
 import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;

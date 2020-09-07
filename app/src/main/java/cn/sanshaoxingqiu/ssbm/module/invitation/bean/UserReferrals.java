@@ -3,7 +3,7 @@ package cn.sanshaoxingqiu.ssbm.module.invitation.bean;
 import java.io.Serializable;
 import java.util.List;
 
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 
 public class UserReferrals implements Serializable {
 

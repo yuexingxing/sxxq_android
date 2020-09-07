@@ -6,7 +6,7 @@ import com.exam.commonbiz.net.ExceptionHandle;
 import com.exam.commonbiz.net.OnLoadListener;
 import com.exam.commonbiz.net.XApi;
 
-import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
+import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.personaldata.api.PersonalApiService;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
