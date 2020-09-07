@@ -68,6 +68,10 @@ public class TCVideoListFragment extends Fragment implements SwipeRefreshLayout.
         public ImageView imageView;
     }
 
+    public static TCVideoListFragment newInstance() {
+        return new TCVideoListFragment();
+    }
+
     public TCVideoListFragment() {
     }
 

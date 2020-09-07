@@ -16,10 +16,12 @@ import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.event.IdentityExpiredEvent;
 import com.exam.commonbiz.util.Res;
 import com.google.android.material.tabs.TabLayout;
+import com.sanshao.livemodule.zhibo.main.videolist.ui.TCVideoListFragment;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityMainBinding;
+import cn.sanshaoxingqiu.ssbm.module.home.view.HomeFragment;
 import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.IncomeMenuInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.view.IncomeTabFragmentAdapter;
@@ -111,21 +113,29 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     private void initViewPager() {
 
         mIncomeMenuInfoList = new ArrayList<>();
+
+        IncomeMenuInfo incomeMenuInfoLive = new IncomeMenuInfo();
+        incomeMenuInfoLive.tilte = "直播";
+        incomeMenuInfoLive.iconSelect = R.drawable.tab_home_selected;
+        incomeMenuInfoLive.iconUnSelect = R.drawable.tab_home_normal;
+
         IncomeMenuInfo incomeMenuInfoSort = new IncomeMenuInfo();
         incomeMenuInfoSort.tilte = "商城";
-        incomeMenuInfoSort.iconSelect = R.drawable.tab_home_selected;
-        incomeMenuInfoSort.iconUnSelect = R.drawable.tab_home_normal;
+        incomeMenuInfoSort.iconSelect = R.drawable.tab_shop_selected;
+        incomeMenuInfoSort.iconUnSelect = R.drawable.tab_shop_normal;
 
         IncomeMenuInfo incomeMenuInfo = new IncomeMenuInfo();
         incomeMenuInfo.tilte = "我的";
         incomeMenuInfo.iconSelect = R.drawable.tab_my_selected;
         incomeMenuInfo.iconUnSelect = R.drawable.tab_my_normal;
 
+        mIncomeMenuInfoList.add(incomeMenuInfoLive);
         mIncomeMenuInfoList.add(incomeMenuInfoSort);
         mIncomeMenuInfoList.add(incomeMenuInfo);
 
         //把Fragment添加到List集合里面
         mFragmentList = new ArrayList<>();
+        mFragmentList.add(HomeFragment.newInstance());
         mFragmentList.add(ShoppingCenterFragment.newInstance());
         mFragmentList.add(PersonalFragment.newInstance());
         mIncomeTabFragmentAdapter = new IncomeTabFragmentAdapter(getSupportFragmentManager(), mFragmentList, mIncomeMenuInfoList, context);

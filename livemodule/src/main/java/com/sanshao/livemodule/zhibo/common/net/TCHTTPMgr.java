@@ -50,6 +50,10 @@ public class TCHTTPMgr {
                 .build();
     }
 
+    public boolean isLogin() {
+        return !TextUtils.isEmpty(mUserId);
+    }
+
     public void setUserIdAndToken(String userId, String token) {
         mUserId = userId;
         mToken = token;
