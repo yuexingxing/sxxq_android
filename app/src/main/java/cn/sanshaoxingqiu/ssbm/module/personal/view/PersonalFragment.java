@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.util.Res;
 import com.exam.commonbiz.util.ScreenUtil;
+import com.sanshao.livemodule.zhibo.TCGlobalConfig;
 import com.sanshao.livemodule.zhibo.login.TCLoginActivity;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -225,6 +226,9 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         if (SSApplication.isLogin()) {
             mOrderDetailViewModel.getOrderNumStatus();
             mIdentityViewModel.getAnchorDetail();
+            if (TCGlobalConfig.isLicenseEmpty()){
+                TCGlobalConfig.getLiveLicence(context);
+            }
         }
     }
 

@@ -74,7 +74,7 @@ public class SSApplication extends BasicApplication {
 
         initUMeng();
         closeAndroidPDialog();
-        TCGlobalConfig.init(this);
+//        TCGlobalConfig.init(this);
 
         //bugly日志统计
         CrashReport.initCrashReport(getApplicationContext(), "ea6de64e88", false);

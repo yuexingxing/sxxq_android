@@ -1,8 +1,14 @@
 package com.sanshao.livemodule.zhibo;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.sanshao.livemodule.liveroom.MLVBLiveRoomImpl;
+import com.sanshao.livemodule.liveroom.model.ILiveRoomModel;
+import com.sanshao.livemodule.liveroom.roomutil.bean.GetRoomIdResponse;
+import com.sanshao.livemodule.liveroom.roomutil.bean.LicenceInfo;
+import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
+import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
 import com.tencent.rtmp.TXLiveBase;
 
@@ -20,7 +26,48 @@ import com.tencent.rtmp.TXLiveBase;
 
 public class TCGlobalConfig {
 
+    public static boolean isLicenseEmpty() {
+        return TextUtils.isEmpty(LICENCE_URL);
+    }
+
+    /**
+     * 获取直播licence
+     */
+    public static void getLiveLicence(final Context context) {
+
+        LiveViewModel liveViewModel = new LiveViewModel();
+        liveViewModel.setILiveRoomModel(new ILiveRoomModel() {
+            @Override
+            public void returnGetLicense(LicenceInfo licenceInfo) {
+                if (licenceInfo == null) {
+                    return;
+                }
+                LICENCE_URL = licenceInfo.licenceUrl;
+                LICENCE_KEY = licenceInfo.licenceKey;
+
+                init(context);
+            }
+
+            @Override
+            public void returnUserSign(UserSignResponse userSignResponse) {
+
+            }
+
+            @Override
+            public void returnGetRoomId(GetRoomIdResponse getRoomIdResponse) {
+
+            }
+
+            @Override
+            public void returnUploadLiveRoomInfo() {
+
+            }
+        });
+        liveViewModel.getLicense();
+    }
+
     public static void init(Context context) {
+
         // 必须：初始化 LiteAVSDK Licence。 用于直播推流鉴权。
         TXLiveBase.getInstance().setLicence(context, TCGlobalConfig.LICENCE_URL, TCGlobalConfig.LICENCE_KEY);
 
@@ -38,8 +85,10 @@ public class TCGlobalConfig {
      * test:http://license.vod2.myqcloud.com/license/v1/6c3b1373efc9e16d5b5b85cf29aae7a0/TXLiveSDK.licence
      * test:5cdaa5fc8611da1c9b4a28942042c704
      */
-    public static final String LICENCE_URL = "http://license.vod2.myqcloud.com/license/v1/442a93c113745d2c786b12b0ea3ade73/TXLiveSDK.licence";
-    public static final String LICENCE_KEY = "8671e4a00ab6bad66a635c5ad342ca60";
+//    public static String LICENCE_URL = "http://license.vod2.myqcloud.com/license/v1/442a93c113745d2c786b12b0ea3ade73/TXLiveSDK.licence";
+//    public static String LICENCE_KEY = "8671e4a00ab6bad66a635c5ad342ca60";
+    public static String LICENCE_URL;
+    public static String LICENCE_KEY;
 
     /**
      * 2.1 腾讯云 SDKAppId，需要替换为您自己账号下的 SDKAppId。
