@@ -32,7 +32,8 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <application>
-        <activity android:name=".zhibo.profile.AnchorInfoActivity"></activity>
+        <activity android:name=".zhibo.live.StartLiveActivity"></activity>
+        <activity android:name=".zhibo.profile.AnchorInfoActivity" />
         <activity
             android:name=".zhibo.login.TCLoginActivity"
             android:screenOrientation="portrait" />
@@ -76,7 +77,7 @@
         <service
             android:name=".zhibo.anchor.screen.TCScreenRecordService"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
 
         <activity
             android:name=".zhibo.main.splash.TCSplashActivity"

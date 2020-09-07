@@ -18,8 +18,8 @@ import cn.sanshaoxingqiu.ssbm.module.login.event.LoginEvent;
 import cn.sanshaoxingqiu.ssbm.module.login.model.ILoginCallBack;
 import cn.sanshaoxingqiu.ssbm.module.login.model.LoginModel;
 import com.exam.commonbiz.bean.UserInfo;
-import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.LoadDialogMgr;
+import com.exam.commonbiz.util.ToastUtil;
 
 /**
  * @Author yuexingxing

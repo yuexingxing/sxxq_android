@@ -12,8 +12,8 @@ import cn.sanshaoxingqiu.ssbm.module.personal.model.PersonalModel;
 import cn.sanshaoxingqiu.ssbm.module.register.model.IRegisterCallBack;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.ShoppingCenterModel;
-import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.LoadDialogMgr;
+import com.exam.commonbiz.util.ToastUtil;
 
 import java.util.List;
 

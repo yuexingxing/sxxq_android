@@ -12,6 +12,7 @@ import com.exam.commonbiz.util.GlideUtil;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.databinding.ActivityAnchorInfoBinding;
+import com.sanshao.livemodule.zhibo.live.StartLiveActivity;
 
 /**
  * 主播主页
@@ -45,6 +46,12 @@ public class AnchorInfoActivity extends BaseActivity<BaseViewModel, ActivityAnch
             @Override
             public void onRightClick(View view) {
 
+            }
+        });
+        binding.tvStartLive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StartLiveActivity.start(context);
             }
         });
 

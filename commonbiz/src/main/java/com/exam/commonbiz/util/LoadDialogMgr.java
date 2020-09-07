@@ -1,4 +1,4 @@
-package cn.sanshaoxingqiu.ssbm.util;
+package com.exam.commonbiz.util;
 
 import android.content.Context;
 

@@ -3,6 +3,7 @@ package cn.sanshaoxingqiu.ssbm.util;
 import android.app.Activity;
 import android.graphics.Bitmap;
 
+import com.exam.commonbiz.util.ToastUtil;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;

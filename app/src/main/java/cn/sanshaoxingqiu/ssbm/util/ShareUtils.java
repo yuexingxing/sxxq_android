@@ -13,7 +13,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.exam.commonbiz.util.BitmapUtil;
 import com.exam.commonbiz.util.CommonCallBack;
+import com.exam.commonbiz.util.ToastUtil;
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;

@@ -9,7 +9,7 @@ import cn.sanshaoxingqiu.ssbm.databinding.FragmentRankingBinding;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.RankinglistBean;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.model.RankinglistViewCallBack;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.viewmodel.RankinglistViewModel;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.ToastUtil;
 
 public class RankinglistFragment extends BaseFragment<RankinglistViewModel, FragmentRankingBinding> implements RankinglistViewCallBack {
 

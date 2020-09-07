@@ -14,7 +14,7 @@ import cn.sanshaoxingqiu.ssbm.module.login.viewmodel.LoginViewModel;
 
 import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
-import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
+import com.exam.commonbiz.util.LoadDialogMgr;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.util.Res;

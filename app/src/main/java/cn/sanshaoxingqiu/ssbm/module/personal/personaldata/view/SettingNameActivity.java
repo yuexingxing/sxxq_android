@@ -13,7 +13,7 @@ import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.event.UpdateUserInfoEvent;
 import cn.sanshaoxingqiu.ssbm.module.personal.model.IPersonalCallBack;
 import cn.sanshaoxingqiu.ssbm.module.personal.viewmodel.PersonalViewModel;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.ToastUtil;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;

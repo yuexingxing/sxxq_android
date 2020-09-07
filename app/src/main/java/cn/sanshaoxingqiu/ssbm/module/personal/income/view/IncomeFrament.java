@@ -10,7 +10,7 @@ import cn.sanshaoxingqiu.ssbm.databinding.FragmentIncomeBinding;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.IncomeBean;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.model.IncomeViewCallBack;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.viewmodel.IncomeViewModel;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.ToastUtil;
 
 public class IncomeFrament extends BaseFragment<IncomeViewModel, FragmentIncomeBinding> implements IncomeViewCallBack,View.OnClickListener {
 

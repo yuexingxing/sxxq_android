@@ -1,4 +1,4 @@
-package cn.sanshaoxingqiu.ssbm.module.common.oss;
+package com.exam.commonbiz.api.oss;
 
 import com.exam.commonbiz.net.BaseResponse;
 

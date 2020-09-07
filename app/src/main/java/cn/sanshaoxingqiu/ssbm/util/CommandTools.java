@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.exam.commonbiz.util.ScreenUtil;
+import com.exam.commonbiz.util.ToastUtil;
 import com.google.gson.Gson;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
@@ -44,10 +45,6 @@ public class CommandTools {
             return false;
         else
             return phone.matches(telRegex);
-    }
-
-    public static String getUUID() {
-        return String.valueOf(UUID.randomUUID());
     }
 
     public static boolean isAppInstalled(Context context, String packageName) {

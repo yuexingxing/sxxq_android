@@ -16,7 +16,6 @@ import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.event.IdentityExpiredEvent;
 import com.exam.commonbiz.util.Res;
 import com.google.android.material.tabs.TabLayout;
-import com.sanshao.livemodule.zhibo.main.videolist.ui.TCVideoListFragment;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
@@ -27,7 +26,7 @@ import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.IncomeMenuInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.view.IncomeTabFragmentAdapter;
 import cn.sanshaoxingqiu.ssbm.module.personal.view.PersonalFragment;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.ShoppingCenterFragment;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.ToastUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;

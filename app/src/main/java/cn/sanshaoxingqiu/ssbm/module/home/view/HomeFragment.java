@@ -27,7 +27,7 @@ import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.HomeFragmentBinding;
 import cn.sanshaoxingqiu.ssbm.module.home.viewmodel.HomeViewModel;
 import com.exam.commonbiz.bean.UserInfo;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.ToastUtil;
 
 /**
  * 首页

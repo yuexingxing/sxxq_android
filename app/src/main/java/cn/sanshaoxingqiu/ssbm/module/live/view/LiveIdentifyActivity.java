@@ -23,19 +23,19 @@ import java.util.List;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityLiveIdentifyBinding;
-import cn.sanshaoxingqiu.ssbm.module.common.oss.IOssModel;
-import cn.sanshaoxingqiu.ssbm.module.common.oss.OssViewModel;
-import cn.sanshaoxingqiu.ssbm.module.common.oss.UploadPicResponse;
+import com.exam.commonbiz.api.oss.IOssModel;
+import com.exam.commonbiz.api.oss.OssViewModel;
+import com.exam.commonbiz.api.oss.UploadPicResponse;
 import cn.sanshaoxingqiu.ssbm.module.live.api.LiveApplyRequest;
 import cn.sanshaoxingqiu.ssbm.module.live.bean.LiveApplyResponse;
 import cn.sanshaoxingqiu.ssbm.module.live.model.IIdentityModel;
 import cn.sanshaoxingqiu.ssbm.module.live.viewmodel.IdentityViewModel;
-import cn.sanshaoxingqiu.ssbm.util.BitmapUtil;
+import com.exam.commonbiz.util.BitmapUtil;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 import cn.sanshaoxingqiu.ssbm.util.FileUtil;
 import com.exam.commonbiz.util.GlideUtil;
-import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.LoadDialogMgr;
+import com.exam.commonbiz.util.ToastUtil;
 
 /**
  * 身份认证

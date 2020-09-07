@@ -8,7 +8,7 @@ import cn.sanshaoxingqiu.ssbm.module.invitation.model.InvitationModel;
 import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.ShoppingCenterModel;
-import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
+import com.exam.commonbiz.util.LoadDialogMgr;
 
 import java.util.List;
 

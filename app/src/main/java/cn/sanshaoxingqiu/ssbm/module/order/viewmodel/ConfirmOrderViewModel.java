@@ -10,7 +10,7 @@ import cn.sanshaoxingqiu.ssbm.module.order.model.IConfirmOrderModel;
 import cn.sanshaoxingqiu.ssbm.module.order.model.OrderModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;

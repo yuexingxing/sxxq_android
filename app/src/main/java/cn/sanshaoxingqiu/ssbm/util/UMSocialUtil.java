@@ -9,6 +9,8 @@ import android.widget.Toast;
 import com.exam.commonbiz.util.CommonCallBack;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.module.login.bean.AuthInfo;
+
+import com.exam.commonbiz.util.ToastUtil;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareConfig;

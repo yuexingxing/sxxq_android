@@ -9,6 +9,7 @@ import android.os.Environment;
 import com.exam.commonbiz.log.XLog;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -20,6 +21,9 @@ import java.io.IOException;
  */
 public class FileUtil {
 
+    public static final String FILE_PATH = "/sdcard/sanshao/";
+    public static final String FILE_NAME = "idcard.png";
+
     private static final String TAG = "FileUtil";
     public static String SD_CARD_PATH = Environment.getExternalStorageDirectory().getAbsolutePath();
     public static String FILE_DOWNLOAD_DIR = SD_CARD_PATH + "/sanshao" + "/download/";
@@ -28,6 +32,26 @@ public class FileUtil {
         File f = new File(FILE_DOWNLOAD_DIR);
         if (!f.exists()) {
             f.mkdirs();
+        }
+    }
+
+    /**
+     * 保存方法
+     */
+    public static void saveBitmap(String filePath, String fileName, Bitmap bitmap) {
+        File f = new File(filePath, fileName);
+        if (f.exists()) {
+            f.delete();
+        }
+        try {
+            FileOutputStream out = new FileOutputStream(f);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+            out.flush();
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

@@ -19,9 +19,9 @@ import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
-import cn.sanshaoxingqiu.ssbm.util.BitmapUtil;
+import com.exam.commonbiz.util.BitmapUtil;
 import com.exam.commonbiz.util.GlideUtil;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.ToastUtil;
 import com.sanshao.commonutil.permission.PermissionGroup;
 import com.sanshao.commonutil.permission.RxPermissions;
 

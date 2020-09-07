@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import cn.sanshaoxingqiu.ssbm.util.Constants;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.ToastUtil;
 
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;

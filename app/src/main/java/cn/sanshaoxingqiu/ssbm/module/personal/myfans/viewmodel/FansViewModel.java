@@ -7,7 +7,7 @@ import com.exam.commonbiz.net.OnLoadListener;
 import cn.sanshaoxingqiu.ssbm.module.invitation.bean.UserReferrals;
 import cn.sanshaoxingqiu.ssbm.module.invitation.model.InvitationModel;
 import cn.sanshaoxingqiu.ssbm.module.personal.myfans.model.IFansCallBack;
-import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
+import com.exam.commonbiz.util.LoadDialogMgr;
 
 import androidx.lifecycle.ViewModel;
 

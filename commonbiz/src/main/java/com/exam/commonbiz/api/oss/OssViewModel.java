@@ -1,23 +1,16 @@
-package cn.sanshaoxingqiu.ssbm.module.common.oss;
+package com.exam.commonbiz.api.oss;
 
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
-
-import androidx.lifecycle.ViewModel;
 
 import com.exam.commonbiz.base.BaseViewModel;
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
-
-import java.io.File;
-import java.util.Observable;
-
-import cn.sanshaoxingqiu.ssbm.util.BitmapUtil;
-import cn.sanshaoxingqiu.ssbm.util.FileUtil;
-import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.BitmapUtil;
+import com.exam.commonbiz.util.FileUtil;
+import com.exam.commonbiz.util.LoadDialogMgr;
+import com.exam.commonbiz.util.ToastUtil;
 
 /**
  * @Author yuexingxing

@@ -12,7 +12,7 @@ import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivitySettingAccountBinding;
 import cn.sanshaoxingqiu.ssbm.module.personal.setting.viewmodel.SettingAccountViewModel;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.ToastUtil;
 
 /**
  * 设置账号、密码

@@ -59,7 +59,7 @@ import cn.sanshaoxingqiu.ssbm.util.DateUtil;
 import com.exam.commonbiz.util.GlideUtil;
 import com.sanshao.livemodule.zhibo.profile.AnchorInfoActivity;
 
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.ToastUtil;
 
 /**
  * 我的

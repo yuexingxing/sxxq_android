@@ -1,7 +1,5 @@
 package cn.sanshaoxingqiu.ssbm.module.order.viewmodel;
 
-import android.widget.Toast;
-
 import com.exam.commonbiz.base.BaseViewModel;
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
@@ -10,7 +8,7 @@ import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderPayInfoResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderStatusResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.model.IPayModel;
 import cn.sanshaoxingqiu.ssbm.module.order.model.PayModel;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.ToastUtil;
 
 /**
  * @Author yuexingxing

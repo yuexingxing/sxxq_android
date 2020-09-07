@@ -4,8 +4,8 @@ import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderListResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.model.OrderModel;
-import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.LoadDialogMgr;
+import com.exam.commonbiz.util.ToastUtil;
 
 /**
  * @Author yuexingxing

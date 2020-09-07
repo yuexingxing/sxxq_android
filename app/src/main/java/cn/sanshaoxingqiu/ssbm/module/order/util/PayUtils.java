@@ -13,7 +13,7 @@ import cn.sanshaoxingqiu.ssbm.module.order.model.OnPayListener;
 import cn.sanshaoxingqiu.ssbm.module.order.view.ConfirmPayActivity;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.ToastUtil;
 
 /**
  * 支付类

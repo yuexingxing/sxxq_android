@@ -24,8 +24,8 @@ import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.adapter.GoodsTypeDetail
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
 import com.exam.commonbiz.util.GlideUtil;
-import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.LoadDialogMgr;
+import com.exam.commonbiz.util.ToastUtil;
 import cn.sanshaoxingqiu.ssbm.widget.dialog.CommonTipDialog;
 
 import com.exam.commonbiz.base.BaseActivity;

@@ -7,7 +7,7 @@ import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IGoodsListModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.ShoppingCenterModel;
 
-import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
+import com.exam.commonbiz.util.LoadDialogMgr;
 
 import java.util.List;
 

@@ -5,7 +5,7 @@ import com.exam.commonbiz.net.OnLoadListener;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderBenefitResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.model.IOrderModel;
 import cn.sanshaoxingqiu.ssbm.module.order.model.OrderModel;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.ToastUtil;
 
 public class OrderViewModel {
 

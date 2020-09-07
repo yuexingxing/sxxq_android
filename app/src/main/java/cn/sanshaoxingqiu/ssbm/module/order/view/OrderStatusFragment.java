@@ -21,7 +21,7 @@ import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderListViewModel;
 import cn.sanshaoxingqiu.ssbm.module.personal.inquiry.view.AppointmentForConsultationActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.ToastUtil;
 
 /**
  * 待支付/待使用/已完成

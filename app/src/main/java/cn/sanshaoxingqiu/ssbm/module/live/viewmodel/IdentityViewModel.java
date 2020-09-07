@@ -5,17 +5,12 @@ import androidx.lifecycle.ViewModel;
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
 
-import java.util.List;
-
-import cn.sanshaoxingqiu.ssbm.module.invitation.model.InvitationCallBack;
 import cn.sanshaoxingqiu.ssbm.module.live.api.LiveApplyRequest;
 import cn.sanshaoxingqiu.ssbm.module.live.bean.LiveApplyResponse;
 import cn.sanshaoxingqiu.ssbm.module.live.model.IIdentityModel;
 import cn.sanshaoxingqiu.ssbm.module.live.model.IdentityModel;
-import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
-import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.ShoppingCenterModel;
-import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.LoadDialogMgr;
+import com.exam.commonbiz.util.ToastUtil;
 
 public class IdentityViewModel extends ViewModel {
 

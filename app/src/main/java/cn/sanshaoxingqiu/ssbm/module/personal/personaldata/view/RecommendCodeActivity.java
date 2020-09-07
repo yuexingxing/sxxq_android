@@ -16,11 +16,11 @@ import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.setting.viewmodel.RecommendCodeViewModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsPosterDialog;
-import cn.sanshaoxingqiu.ssbm.util.BitmapUtil;
+import com.exam.commonbiz.util.BitmapUtil;
 
 import com.exam.commonbiz.util.GlideUtil;
 import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.ToastUtil;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.util.FileUtil;

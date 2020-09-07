@@ -47,10 +47,10 @@ import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.adapter.GoodsListAdapte
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.BenefitsRightDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.viewmodel.GoodsListViewModel;
-import cn.sanshaoxingqiu.ssbm.util.BitmapUtil;
+import com.exam.commonbiz.util.BitmapUtil;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
-import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
+import com.exam.commonbiz.util.LoadDialogMgr;
 import cn.sanshaoxingqiu.ssbm.util.OnItemEnterOrExitVisibleHelper;
 import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
 
@@ -71,7 +71,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.jzvd.Jzvd;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.ToastUtil;
 
 /**
  * 商品列表

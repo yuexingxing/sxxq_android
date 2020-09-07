@@ -1,14 +1,14 @@
-package cn.sanshaoxingqiu.ssbm.module.common.oss;
+package com.exam.commonbiz.api.oss;
 
 import com.exam.commonbiz.net.BaseObserver;
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.ExceptionHandle;
 import com.exam.commonbiz.net.OnLoadListener;
 import com.exam.commonbiz.net.XApi;
+import com.exam.commonbiz.util.AppManager;
 
 import java.io.File;
 
-import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
@@ -23,7 +23,7 @@ public class OssModel {
 
     public static void uploadPic(String imgPath, final OnLoadListener onLoadListener) {
 
-        String fileNameByTimeStamp = CommandTools.getUUID() + ".jpg";
+        String fileNameByTimeStamp = AppManager.getUUID() + ".jpg";
         File file = new File(imgPath);
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", fileNameByTimeStamp, requestFile);

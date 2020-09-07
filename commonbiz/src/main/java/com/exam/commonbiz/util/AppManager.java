@@ -8,6 +8,7 @@ import android.text.TextUtils;
 
 import java.util.List;
 import java.util.Stack;
+import java.util.UUID;
 
 /**
  * @Author yuexingxing
@@ -134,6 +135,9 @@ public class AppManager {
         return false;
     }
 
+    public static String getUUID() {
+        return String.valueOf(UUID.randomUUID());
+    }
 }
 
 

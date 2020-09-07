@@ -1,4 +1,4 @@
-package cn.sanshaoxingqiu.ssbm.module.common.oss;
+package com.exam.commonbiz.api.oss;
 
 public interface IOssModel {
     void returnUploadPic(int type, UploadPicResponse uploadPicResponse);

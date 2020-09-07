@@ -10,7 +10,7 @@ import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.ShoppingCenterResponse;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IShoppingCenterModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.ShoppingCenterModel;
 
-import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
+import com.exam.commonbiz.util.LoadDialogMgr;
 
 public class ShoppingCenterViewModel extends BaseViewModel {
 

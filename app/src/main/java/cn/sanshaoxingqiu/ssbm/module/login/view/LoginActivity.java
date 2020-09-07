@@ -21,8 +21,8 @@ import cn.sanshaoxingqiu.ssbm.module.login.viewmodel.LoginViewModel;
 import cn.sanshaoxingqiu.ssbm.module.personal.account.view.BindWeChatActivity;
 import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
-import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
-import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
+import com.exam.commonbiz.util.LoadDialogMgr;
+import com.exam.commonbiz.util.ToastUtil;
 
 /**
  * 登录

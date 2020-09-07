@@ -3,7 +3,7 @@ package cn.sanshaoxingqiu.ssbm.module.splash;
 import com.exam.commonbiz.base.BaseViewModel;
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
-import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
+import com.exam.commonbiz.util.LoadDialogMgr;
 
 public class SplashViewModel extends BaseViewModel {
 
