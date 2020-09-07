@@ -39,12 +39,12 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/edt_name"
+                    android:id="@+id/edt_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="请输入用户名称"
+                    android:hint="请输入直播标题"
                     android:maxLength="20"
                     android:paddingLeft="12dp"
                     android:textColor="@color/color_333333"
@@ -77,34 +77,47 @@
                     android:layout_height="1dp"
                     android:layout_weight="1" />
 
-                <LinearLayout
+                <FrameLayout
+                    android:id="@+id/fl_content"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:orientation="vertical">
 
+                    <ImageView
+                        android:id="@+id/iv_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/cloud_logo" />
+
                     <LinearLayout
                         android:id="@+id/ll_bg"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_height="match_parent"
                         android:background="@color/color_fafafa"
                         android:gravity="center">
 
                         <ImageView
-                            android:id="@+id/iv_label"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/iv_bg"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/cloud_logo" />
+                            android:scaleType="fitXY"
+                            android:visibility="gone"
+                            android:src="@drawable/gray_btn_bg" />
                     </LinearLayout>
 
                     <TextView
                         android:id="@+id/tv_upload"
                         android:layout_width="match_parent"
                         android:layout_height="24dp"
+                        android:layout_gravity="bottom"
+                        android:textColor="@color/white"
                         android:background="@drawable/shape_aeaeae_bottom_radius_10"
                         android:gravity="center"
                         android:text="点击上传" />
-                </LinearLayout>
+                </FrameLayout>
             </LinearLayout>
         </LinearLayout>
 

@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 文件操作工具
@@ -33,6 +35,30 @@ public class FileUtil {
         if (!f.exists()) {
             f.mkdirs();
         }
+    }
+
+    /**
+     * 创建新文件
+     *
+     * @return
+     * @throws IOException
+     */
+    public static File createImageFile() {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory
+                (Environment.DIRECTORY_PICTURES);
+        File image = null;
+        try {
+            image = File.createTempFile(
+                    imageFileName,  /* 文件名 */
+                    ".jpg",         /* 后缀 */
+                    storageDir      /* 路径 */
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return image;
     }
 
     /**
