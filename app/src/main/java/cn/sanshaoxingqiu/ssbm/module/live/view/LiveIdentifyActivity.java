@@ -73,6 +73,7 @@ public class LiveIdentifyActivity extends BaseActivity<IdentityViewModel, Activi
 
         mOssViewModel = new OssViewModel();
         mOssViewModel.setCallBack(this);
+        mViewModel.setCallBack(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View view) {

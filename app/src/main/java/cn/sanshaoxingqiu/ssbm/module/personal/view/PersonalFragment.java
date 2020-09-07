@@ -55,7 +55,9 @@ import cn.sanshaoxingqiu.ssbm.module.personal.viewmodel.PersonalViewModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
 import cn.sanshaoxingqiu.ssbm.util.DateUtil;
+
 import com.exam.commonbiz.util.GlideUtil;
+
 import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
 
 /**
@@ -231,7 +233,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         if (SSApplication.isLogin()) {
             mOrderDetailViewModel.getOrderNumStatus();
             mIdentityViewModel.getAnchorDetail();
-            if (TCGlobalConfig.isLicenseEmpty()){
+            if (TCGlobalConfig.isLicenseEmpty()) {
                 TCGlobalConfig.getLiveLicence(context);
             }
         }
