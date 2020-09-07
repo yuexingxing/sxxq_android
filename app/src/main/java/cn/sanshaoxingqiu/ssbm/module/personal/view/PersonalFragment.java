@@ -55,7 +55,7 @@ import cn.sanshaoxingqiu.ssbm.module.personal.viewmodel.PersonalViewModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
 import cn.sanshaoxingqiu.ssbm.util.DateUtil;
-import cn.sanshaoxingqiu.ssbm.util.GlideUtil;
+import com.exam.commonbiz.util.GlideUtil;
 import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
 
 /**
@@ -221,6 +221,11 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     }
 
     @Override
+    public int getStatusBarColor() {
+        return R.color.transparent;
+    }
+
+    @Override
     protected void loadData() {
         mViewModel.getUserInfo();
         if (SSApplication.isLogin()) {
@@ -230,11 +235,6 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
                 TCGlobalConfig.getLiveLicence(context);
             }
         }
-    }
-
-    @Override
-    public int getStatusBarColor() {
-        return R.color.transparent;
     }
 
     private void initOrderList() {

@@ -44,6 +44,7 @@ import androidx.core.content.PermissionChecker;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.exam.commonbiz.util.GlideUtil;
 import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.zhibo.login.TCLoginActivity;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
@@ -394,7 +395,8 @@ public class TCUtils {
                 view.setImageResource(defResId);
             } else {
                 RequestManager req = Glide.with(context);
-                req.load(url).placeholder(defResId).transform(new TCGlideCircleTransform(context)).into(view);
+//                req.load(url).placeholder(defResId).transform(new TCGlideCircleTransform(context)).into(view);
+                GlideUtil.loadImage(url, view);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -413,9 +415,10 @@ public class TCUtils {
         if (TextUtils.isEmpty(url)) {
             view.setImageResource(defResId);
         } else {
-            Glide.with(context.getApplicationContext())
-                .load(url)
-                .into(view);
+//            Glide.with(context.getApplicationContext())
+//                .load(url)
+//                .into(view);
+            GlideUtil.loadImage(url, view);
         }
     }
 

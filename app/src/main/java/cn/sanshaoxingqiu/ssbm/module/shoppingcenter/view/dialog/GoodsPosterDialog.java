@@ -20,7 +20,7 @@ import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.util.BitmapUtil;
-import cn.sanshaoxingqiu.ssbm.util.GlideUtil;
+import com.exam.commonbiz.util.GlideUtil;
 import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
 import com.sanshao.commonutil.permission.PermissionGroup;
 import com.sanshao.commonutil.permission.RxPermissions;

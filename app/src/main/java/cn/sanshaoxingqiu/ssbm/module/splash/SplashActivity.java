@@ -2,10 +2,9 @@ package cn.sanshaoxingqiu.ssbm.module.splash;
 
 import android.content.Intent;
 import android.os.CountDownTimer;
-
-import com.bumptech.glide.Glide;
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.base.BaseViewModel;
+import com.exam.commonbiz.util.GlideUtil;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
@@ -49,7 +48,7 @@ public class SplashActivity extends BaseActivity<BaseViewModel, ActivitySplashBi
 
         mSplashViewModel = new SplashViewModel();
 //        mSplashViewModel.getSplashInfo("1", this);
-        Glide.with(SSApplication.app).load(Constants.DEFAULT_IMG_URL).into(binding.ivIcon);
+        GlideUtil.loadImage(Constants.DEFAULT_IMG_URL, binding.ivIcon);
         binding.tvTime.getBackground().setAlpha(79);
         binding.tvTime.setOnClickListener(view -> {
             jump();
@@ -81,6 +80,6 @@ public class SplashActivity extends BaseActivity<BaseViewModel, ActivitySplashBi
         if (splashInfo == null) {
             return;
         }
-        Glide.with(SSApplication.app).load(splashInfo.url).into(binding.ivIcon);
+        GlideUtil.loadImage(splashInfo.url, binding.ivIcon);
     }
 }

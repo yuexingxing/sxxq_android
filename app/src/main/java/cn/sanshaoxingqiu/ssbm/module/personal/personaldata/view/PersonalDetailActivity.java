@@ -23,7 +23,7 @@ import cn.sanshaoxingqiu.ssbm.module.personal.personaldata.dialog.SelectBirthday
 import cn.sanshaoxingqiu.ssbm.module.personal.viewmodel.PersonalViewModel;
 import cn.sanshaoxingqiu.ssbm.util.BitmapUtil;
 import cn.sanshaoxingqiu.ssbm.util.FileUtil;
-import cn.sanshaoxingqiu.ssbm.util.GlideUtil;
+import com.exam.commonbiz.util.GlideUtil;
 import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
 
 import com.exam.commonbiz.base.BaseActivity;

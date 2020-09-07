@@ -26,7 +26,7 @@ import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.module.home.model.BannerInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.VideoInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.widget.VideoPlayLayout;
-import cn.sanshaoxingqiu.ssbm.util.GlideUtil;
+import com.exam.commonbiz.util.GlideUtil;
 
 import java.lang.reflect.Field;
 import java.util.List;

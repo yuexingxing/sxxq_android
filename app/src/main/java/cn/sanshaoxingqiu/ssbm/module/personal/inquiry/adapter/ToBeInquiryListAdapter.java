@@ -3,9 +3,9 @@ package cn.sanshaoxingqiu.ssbm.module.personal.inquiry.adapter;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.exam.commonbiz.util.GlideUtil;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
@@ -40,7 +40,7 @@ public class ToBeInquiryListAdapter extends BaseQuickAdapter<OrderInfo, BaseView
 
         helper.setText(R.id.tv_price, "服务次数: 1次");
         ImageView imgIcon = helper.getView(R.id.iv_icon);
-        Glide.with(SSApplication.app).load(Constants.DEFAULT_IMG_URL).into(imgIcon);
+        GlideUtil.loadImage(Constants.DEFAULT_IMG_URL, imgIcon);
         if (helper.getAdapterPosition() == 0) {
             helper.getView(R.id.view_space_top).setVisibility(View.VISIBLE);
         } else {

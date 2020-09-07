@@ -23,8 +23,8 @@ import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IShoppingCenterModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.adapter.GoodsTypeAdapter;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.viewmodel.ShoppingCenterViewModel;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
-import cn.sanshaoxingqiu.ssbm.util.GlideUtil;
+
+import com.exam.commonbiz.util.GlideUtil;
 
 /**
  * 商城
@@ -109,13 +109,13 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
     }
 
     @Override
-    protected void loadData() {
-
+    public int getStatusBarColor() {
+        return R.color.transparent;
     }
 
     @Override
-    public int getStatusBarColor() {
-        return R.color.transparent;
+    protected void loadData() {
+
     }
 
     @Override

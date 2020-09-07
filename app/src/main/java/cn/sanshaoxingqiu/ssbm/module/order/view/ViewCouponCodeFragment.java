@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import com.bumptech.glide.Glide;
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.util.ContainerUtil;
+import com.exam.commonbiz.util.GlideUtil;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
@@ -79,7 +79,7 @@ public class ViewCouponCodeFragment extends BaseFragment<OrderStatusViewModel, F
             mFragmentList.add(ViewCouponCodeDetailFragment.newInstance(writeOffInfo));
         }
         binding.tvTitle.setText(mGoodsDetailInfo.sarti_name);
-        Glide.with(SSApplication.app).load(mGoodsDetailInfo.thumbnail_img).into(binding.ivIcon);
+        GlideUtil.loadImage(mGoodsDetailInfo.thumbnail_img, binding.ivIcon);
         initViewPager();
 
         binding.tvQrCode.setText("券码：" + mGoodsDetailInfo.write_off.get(0).code);

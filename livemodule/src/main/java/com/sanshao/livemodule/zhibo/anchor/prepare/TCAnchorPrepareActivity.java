@@ -237,6 +237,7 @@ public class TCAnchorPrepareActivity extends Activity implements View.OnClickLis
             intent = new Intent(this, TCCameraAnchorActivity.class);
         }
 
+        TCUserMgr.getInstance().setCoverPic("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1599468386991&di=f145949f3a7032422e2da275eacc56c0&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fblog%2F201306%2F26%2F20130626161523_zw25t.jpeg", null);
         if (intent != null) {
             intent.putExtra(TCConstants.ROOM_ID, mRoomId);
             intent.putExtra(TCConstants.ROOM_TITLE,

@@ -1,7 +1,6 @@
 package cn.sanshaoxingqiu.ssbm.module.live.view;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -34,7 +33,7 @@ import cn.sanshaoxingqiu.ssbm.module.live.viewmodel.IdentityViewModel;
 import cn.sanshaoxingqiu.ssbm.util.BitmapUtil;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 import cn.sanshaoxingqiu.ssbm.util.FileUtil;
-import cn.sanshaoxingqiu.ssbm.util.GlideUtil;
+import com.exam.commonbiz.util.GlideUtil;
 import cn.sanshaoxingqiu.ssbm.util.LoadDialogMgr;
 import cn.sanshaoxingqiu.ssbm.util.ToastUtil;
 

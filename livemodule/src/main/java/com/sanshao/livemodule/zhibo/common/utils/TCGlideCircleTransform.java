@@ -12,18 +12,18 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
  * Function: Glide图像裁剪
  *
  */
-public class TCGlideCircleTransform extends BitmapTransformation {
-    public TCGlideCircleTransform(Context context){
-        super(context);
-    }
-
-    @Override
-    protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
-        return TCUtils.createCircleImage(toTransform, 0);
-    }
-
-    @Override
-    public String getId() {
-        return getClass().getName();
-    }
-}
+//public class TCGlideCircleTransform extends BitmapTransformation {
+//    public TCGlideCircleTransform(Context context){
+//        super(context);
+//    }
+//
+//    @Override
+//    protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
+//        return TCUtils.createCircleImage(toTransform, 0);
+//    }
+//
+//    @Override
+//    public String getId() {
+//        return getClass().getName();
+//    }
+//}

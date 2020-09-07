@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.VideoInfo;
-import cn.sanshaoxingqiu.ssbm.util.GlideUtil;
+import com.exam.commonbiz.util.GlideUtil;
 
 import cn.jzvd.Jzvd;
 import cn.jzvd.JzvdStd;

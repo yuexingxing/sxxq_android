@@ -8,7 +8,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.module.personal.bean.UserInfo;
-import cn.sanshaoxingqiu.ssbm.util.GlideUtil;
+import com.exam.commonbiz.util.GlideUtil;
 
 public class InvitationListAdapter extends BaseQuickAdapter<UserInfo, BaseViewHolder> {
 

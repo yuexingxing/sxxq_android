@@ -1,4 +1,4 @@
-package cn.sanshaoxingqiu.ssbm.util;
+package com.exam.commonbiz.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,8 +12,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
-
-import cn.sanshaoxingqiu.ssbm.R;
+import com.exam.commonbiz.R;
 
 /**
  * @Author yuexingxing
