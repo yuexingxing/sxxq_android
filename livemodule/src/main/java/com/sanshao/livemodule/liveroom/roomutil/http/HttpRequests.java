@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.exam.commonbiz.base.BasicApplication;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 

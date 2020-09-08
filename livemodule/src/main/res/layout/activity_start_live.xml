@@ -136,9 +136,9 @@
                         android:id="@+id/ll_location"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
-                        android:visibility="gone"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -172,7 +172,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="58dp"
                     android:layout_marginBottom="59dp"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <include
+                        layout="@layout/include_layout_login_policy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/left_container_margin" />
 
                     <TextView
                         android:id="@+id/tv_start_live"

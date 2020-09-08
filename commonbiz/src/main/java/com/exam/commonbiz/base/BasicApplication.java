@@ -26,7 +26,7 @@ public abstract class BasicApplication extends Application {
         app = this;
     }
 
-    public UserInfo getUserInfo() {
+    public static UserInfo getUserInfo() {
         if (ACache.get(app).getAsObject(ConfigSP.SP_USER_INFO) == null) {
             ACache.get(app).put(ConfigSP.SP_USER_INFO, new UserInfo());
         }

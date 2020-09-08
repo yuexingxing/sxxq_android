@@ -58,7 +58,7 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
     protected static final int LIVEROOM_ROLE_PUSHER = 1;
     protected static final int LIVEROOM_ROLE_PLAYER = 2;
 
-    protected static MLVBLiveRoomImpl mInstance = null;
+    public static MLVBLiveRoomImpl mInstance = null;
     protected static final String mServerDomain = "https://liveroom.qcloud.com/weapp/live_room"; //RoomService后台域名
 
     protected Context mAppContext = null;
@@ -160,6 +160,20 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
             mListenerHandler = listenerHandler;
         } else {
             mListenerHandler = new Handler(mAppContext.getMainLooper());
+        }
+    }
+
+    public void initHttpRequest(){
+
+        if (mHttpRequest != null) {
+            mHttpRequest.cancelAllRequests();
+        }
+        mHttpRequest = new HttpRequests(mServerDomain);
+        mHttpRequest.setHeartBeatCallback(this);
+
+        if (mIMMessageMgr == null) {
+            mIMMessageMgr = new IMMessageMgr(mAppContext);
+            mIMMessageMgr.setIMMessageListener(this);
         }
     }
 
@@ -293,6 +307,7 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
         mHttpRequest.getRoomList(index, count, new HttpRequests.OnResponseCallback<HttpResponse.RoomList>() {
             @Override
             public void onResponse(final int retcode, final String retmsg, HttpResponse.RoomList data) {
+                TXCLog.i(TAG, "API -> getRoomList:" + retmsg);
                 if (retcode != HttpResponse.CODE_OK || data == null || data.rooms == null) {
                     callbackOnThread(callback, "onError", retcode, "[LiveRoom] getRoomList 失败[" + retmsg + "]");
                 } else {

@@ -17,6 +17,7 @@ import com.exam.commonbiz.api.oss.OssViewModel;
 import com.exam.commonbiz.api.oss.UploadPicResponse;
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.base.BasicApplication;
+import com.exam.commonbiz.bean.UserInfo;
 import com.exam.commonbiz.util.BitmapUtil;
 import com.exam.commonbiz.util.FileUtil;
 import com.exam.commonbiz.util.GlideUtil;
@@ -166,16 +167,17 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
             return;
         }
         if (TextUtils.isEmpty(mRoomId)) {
-            mRoomId = BasicApplication.app.getUserInfo().invitation_code;
+            mRoomId = BasicApplication.getUserInfo().invitation_code;
         }
 
+        UserInfo userInfo = BasicApplication.getUserInfo();
         Intent intent = new Intent(this, TCCameraAnchorActivity.class);
         if (intent != null) {
             intent.putExtra(TCConstants.ROOM_ID, mRoomId);
             intent.putExtra(TCConstants.ROOM_TITLE, title);
-            intent.putExtra(TCConstants.USER_ID, TCUserMgr.getInstance().getUserId());
-            intent.putExtra(TCConstants.USER_NICK, TCUserMgr.getInstance().getNickname());
-            intent.putExtra(TCConstants.USER_HEADPIC, TCUserMgr.getInstance().getAvatar());
+            intent.putExtra(TCConstants.USER_ID, userInfo.mem_phone);
+            intent.putExtra(TCConstants.USER_NICK, userInfo.nickname);
+            intent.putExtra(TCConstants.USER_HEADPIC, userInfo.avatar);
             intent.putExtra(TCConstants.COVER_PIC, TCUserMgr.getInstance().getCoverPic());
             intent.putExtra(TCConstants.USER_LOC, TCUserMgr.getInstance().getLocation());
             startActivity(intent);
@@ -228,7 +230,7 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
             Bitmap bitmap = null;
             if (!TextUtils.isEmpty(filePath)) {
                 bitmap = BitmapUtil.getLocalBitmap(filePath);
-//                binding.ivBg.setImageBitmap(bitmap);
+                binding.ivBg.setImageBitmap(bitmap);
             }
 
             if (bitmap == null) {
