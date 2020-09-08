@@ -24,52 +24,104 @@ public class OssViewModel extends BaseViewModel {
         mCallBack = callBack;
     }
 
-    public void uploadPic(int type, Bitmap bitmap) {
+    public void uploadIdCard(int type, Bitmap bitmap) {
         new Thread(new Runnable() {
             @Override
             public void run() {
 
-                Bitmap compressBitmap = BitmapUtil.compressBitmap(bitmap, 1024);
+                Bitmap compressBitmap = BitmapUtil.compressBitmap(bitmap, 1024 * 5);
                 FileUtil.saveBitmap(FileUtil.FILE_PATH, FileUtil.FILE_NAME, compressBitmap);
 
                 Message message = new Message();
                 message.obj = FileUtil.FILE_PATH + "/" + FileUtil.FILE_NAME;
                 message.arg1 = type;
-                mHandler.sendMessage(message);
+                mCommonHandler.sendMessage(message);
             }
         }).start();
     }
 
-    public Handler mHandler = new Handler() {
+    public void uploadPic(String filePath) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                Message message = new Message();
+                message.obj = filePath;
+                mCommonHandler.sendMessage(message);
+            }
+        }).start();
+    }
+
+    public Handler mCommonHandler = new Handler() {
+
+        public void handleMessage(Message message) {
+            String filePath = (String) message.obj;
+            startUploadPic(filePath);
+        }
+    };
+
+    public Handler mIdCardHandler = new Handler() {
 
         public void handleMessage(Message message) {
             int type = message.arg1;
             String filePath = (String) message.obj;
-            OssModel.uploadPic(filePath, new OnLoadListener<UploadPicResponse>() {
-
-                @Override
-                public void onLoadStart() {
-
-                }
-
-                @Override
-                public void onLoadCompleted() {
-                    LoadDialogMgr.getInstance().dismiss();
-                }
-
-                @Override
-                public void onLoadSucessed(BaseResponse<UploadPicResponse> t) {
-                    ToastUtil.showShortToast(t.getMsg());
-                    if (mCallBack != null) {
-                        mCallBack.returnUploadPic(type, t.getContent());
-                    }
-                }
-
-                @Override
-                public void onLoadFailed(String errMsg) {
-                    ToastUtil.showShortToast(errMsg);
-                }
-            });
+            startUploadIdCard(type, filePath);
         }
     };
+
+    private void startUploadPic(String filePath) {
+        OssModel.uploadPic(filePath, new OnLoadListener<UploadPicResponse>() {
+
+            @Override
+            public void onLoadStart() {
+
+            }
+
+            @Override
+            public void onLoadCompleted() {
+                LoadDialogMgr.getInstance().dismiss();
+            }
+
+            @Override
+            public void onLoadSucessed(BaseResponse<UploadPicResponse> t) {
+                ToastUtil.showShortToast(t.getMsg());
+                if (mCallBack != null) {
+                    mCallBack.returnUploadPic(0, t.getContent());
+                }
+            }
+
+            @Override
+            public void onLoadFailed(String errMsg) {
+                ToastUtil.showShortToast(errMsg);
+            }
+        });
+    }
+
+    private void startUploadIdCard(int type, String filePath) {
+        OssModel.uploadIdCard(filePath, new OnLoadListener<UploadPicResponse>() {
+
+            @Override
+            public void onLoadStart() {
+
+            }
+
+            @Override
+            public void onLoadCompleted() {
+                LoadDialogMgr.getInstance().dismiss();
+            }
+
+            @Override
+            public void onLoadSucessed(BaseResponse<UploadPicResponse> t) {
+                ToastUtil.showShortToast(t.getMsg());
+                if (mCallBack != null) {
+                    mCallBack.returnUploadPic(type, t.getContent());
+                }
+            }
+
+            @Override
+            public void onLoadFailed(String errMsg) {
+                ToastUtil.showShortToast(errMsg);
+            }
+        });
+    }
 }

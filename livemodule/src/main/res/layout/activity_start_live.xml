@@ -12,140 +12,182 @@
             android:layout_height="@dimen/title_height"
             app:title="开播设置" />
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/left_container_margin"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="@dimen/right_container_margin"
-            android:background="@drawable/shape_white_radius_10"
-            android:orientation="vertical"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginTop="12dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="标题"
-                    android:textColor="#ff333333"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/edt_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:hint="请输入直播标题"
-                    android:maxLength="15"
-                    android:paddingLeft="12dp"
-                    android:textColor="@color/color_333333"
-                    android:textColorHint="@color/color_999999"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/line" />
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="12dp"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="封面"
-                    android:textColor="#ff333333"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1" />
-
-                <FrameLayout
-                    android:id="@+id/fl_content"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:orientation="vertical">
+                    android:layout_marginLeft="@dimen/left_container_margin"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="@dimen/right_container_margin"
+                    android:background="@drawable/shape_white_radius_10"
+                    android:orientation="vertical"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp">
 
                     <LinearLayout
-                        android:id="@+id/ll_label"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/color_fafafa"
-                        android:gravity="center">
+                        android:layout_height="55dp"
+                        android:layout_marginTop="12dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="标题"
+                            android:textColor="#ff333333"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/edt_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:hint="请输入直播标题"
+                            android:maxLength="15"
+                            android:paddingLeft="12dp"
+                            android:textColor="@color/color_333333"
+                            android:textColorHint="@color/color_999999"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/line" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="12dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="封面"
+                            android:textColor="#ff333333"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <FrameLayout
+                            android:id="@+id/fl_content"
+                            android:layout_width="197dp"
+                            android:layout_height="392dp"
+                            android:layout_marginTop="20dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/ll_label"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/color_fafafa"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginBottom="10dp"
+                                    android:src="@drawable/icon_add" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/ll_bg"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:visibility="gone">
+
+                                <com.makeramen.roundedimageview.RoundedImageView
+                                    android:id="@+id/iv_bg"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/gray_btn_bg"
+                                    app:riv_corner_radius="5dp" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/tv_upload"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_gravity="bottom"
+                                android:background="@drawable/shape_aeaeae_bottom_radius_5"
+                                android:gravity="center"
+                                android:text="上传图片"
+                                android:textColor="@color/white" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:visibility="gone"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="定位"
+                            android:textColor="#ff333333"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_location"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text=""
+                            android:textColor="#ff333333"
+                            android:textSize="14sp" />
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="10dp"
-                            android:src="@drawable/icon_add" />
+                            android:layout_marginLeft="5dp"
+                            android:src="@drawable/arrow_right" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/ll_bg"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:visibility="gone">
+                </LinearLayout>
 
-                        <com.makeramen.roundedimageview.RoundedImageView
-                            android:id="@+id/iv_bg"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/gray_btn_bg"
-                            app:riv_corner_radius="5dp" />
-                    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="58dp"
+                    android:layout_marginBottom="59dp"
+                    android:gravity="center">
 
                     <TextView
-                        android:id="@+id/tv_upload"
-                        android:layout_width="match_parent"
-                        android:layout_height="24dp"
-                        android:layout_gravity="bottom"
-                        android:background="@drawable/shape_aeaeae_bottom_radius_10"
+                        android:id="@+id/tv_start_live"
+                        android:layout_width="180dp"
+                        android:layout_height="38dp"
+                        android:layout_marginRight="@dimen/right_container_margin"
+                        android:background="@drawable/selector_btn"
+                        android:enabled="true"
                         android:gravity="center"
-                        android:text="点击上传"
-                        android:textColor="@color/white" />
-                </FrameLayout>
+                        android:text="开播"
+                        android:textColor="@color/white"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="58dp"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/tv_start_live"
-                android:layout_width="180dp"
-                android:layout_height="38dp"
-                android:layout_marginRight="@dimen/right_container_margin"
-                android:background="@drawable/selector_btn"
-                android:enabled="true"
-                android:gravity="center"
-                android:text="开播"
-                android:textColor="@color/white"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
-
 </layout>

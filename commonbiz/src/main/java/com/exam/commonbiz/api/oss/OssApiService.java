@@ -14,8 +14,13 @@ import retrofit2.http.Part;
  */
 public interface OssApiService {
 
+    //公共图片上传
+    @Multipart
+    @POST("oss/publicUpload")
+    Observable<BaseResponse<UploadPicResponse>> publicUpload(@Part MultipartBody.Part file);
+
     //图片上传
     @Multipart
     @POST("oss/upload")
-    Observable<BaseResponse<UploadPicResponse>> uploadPic(@Part MultipartBody.Part file);
+    Observable<BaseResponse<UploadPicResponse>> uploadIdCard(@Part MultipartBody.Part file);
 }

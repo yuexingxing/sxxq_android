@@ -10,6 +10,7 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 
 import com.exam.commonbiz.api.oss.IOssModel;
 import com.exam.commonbiz.api.oss.OssViewModel;
@@ -34,8 +35,12 @@ import com.sanshao.livemodule.liveroom.roomutil.bean.LicenceInfo;
 import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
 import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.anchor.TCCameraAnchorActivity;
+import com.sanshao.livemodule.zhibo.anchor.prepare.TCLocationHelper;
+import com.sanshao.livemodule.zhibo.common.net.TCHTTPMgr;
 import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -50,13 +55,14 @@ import io.reactivex.disposables.Disposable;
  * @Author yuexingxing
  * @time 2020/8/31
  */
-public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStartLiveBinding> implements IOssModel, ILiveRoomModel {
+public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStartLiveBinding> implements IOssModel, ILiveRoomModel, TCLocationHelper.OnLocationListener {
 
     private final static int REQUEST_IMAGE_GET = 1;
     private final static int REQUEST_IMAGE_CAPTURE = 2;
     private String mCurrentPhotoPath;
     private OssViewModel mOssViewModel;
     private String mRoomId;
+    private String mMyLocation;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, StartLiveActivity.class);
@@ -128,8 +134,25 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
                 startPublish();
             }
         });
+        binding.llLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.tvLocation.setText(R.string.text_live_location);
+                startLocation();
+            }
+        });
 
+        startLocation();
         mViewModel.getRoomId();
+    }
+
+    // 发起定位
+    private void startLocation() {
+        if (TCLocationHelper.checkLocationPermission(StartLiveActivity.this)) {
+            if (!TCLocationHelper.getMyLocation(StartLiveActivity.this, StartLiveActivity.this)) {
+                binding.tvLocation.setText(getString(R.string.text_live_lbs_fail));
+            }
+        }
     }
 
     /**
@@ -154,7 +177,7 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
             intent.putExtra(TCConstants.USER_NICK, TCUserMgr.getInstance().getNickname());
             intent.putExtra(TCConstants.USER_HEADPIC, TCUserMgr.getInstance().getAvatar());
             intent.putExtra(TCConstants.COVER_PIC, TCUserMgr.getInstance().getCoverPic());
-            intent.putExtra(TCConstants.USER_LOC, "");
+            intent.putExtra(TCConstants.USER_LOC, TCUserMgr.getInstance().getLocation());
             startActivity(intent);
             finish();
         }
@@ -204,14 +227,14 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
             }
             Bitmap bitmap = null;
             if (!TextUtils.isEmpty(filePath)) {
-                bitmap = BitmapUtil.getSmallBitmap(filePath, 200, 200);
-                binding.ivBg.setImageBitmap(bitmap);
+                bitmap = BitmapUtil.getLocalBitmap(filePath);
+//                binding.ivBg.setImageBitmap(bitmap);
             }
 
             if (bitmap == null) {
                 return;
             }
-            mOssViewModel.uploadPic(0, bitmap);
+            mOssViewModel.uploadPic(filePath);
         }
     }
 
@@ -302,5 +325,54 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
     @Override
     public void returnUploadLiveRoomInfo() {
 
+    }
+
+    /**
+     *     /////////////////////////////////////////////////////////////////////////////////
+     *     //
+     *     //                      定位相关
+     *     //
+     *     /////////////////////////////////////////////////////////////////////////////////
+     */
+    /**
+     * 定位结果的回调
+     *
+     * @param code
+     * @param lat1
+     * @param long1
+     * @param location
+     */
+    @Override
+    public void onLocationChanged(int code, double lat1, double long1, String location) {
+        if (0 == code) {
+            binding.tvLocation.setText(location);
+            setLocation(location);
+        } else {
+            binding.tvLocation.setText(getString(R.string.text_live_lbs_fail));
+        }
+    }
+
+    /**
+     * 上传定位的结果，设置到开播的信息
+     *
+     * @param location
+     */
+    private void setLocation(String location) {
+        TCUserMgr.getInstance().setLocation(location, new TCHTTPMgr.Callback() {
+            @Override
+            public void onSuccess(JSONObject data) {
+
+            }
+
+            @Override
+            public void onFailure(int code, final String msg) {
+                StartLiveActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "设置位置失败 " + msg, Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
     }
 }

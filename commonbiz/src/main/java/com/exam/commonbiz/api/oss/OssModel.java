@@ -21,6 +21,42 @@ import okhttp3.RequestBody;
  */
 public class OssModel {
 
+    public static void uploadIdCard(String imgPath, final OnLoadListener onLoadListener) {
+
+        String fileNameByTimeStamp = AppManager.getUUID() + ".jpg";
+        File file = new File(imgPath);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", fileNameByTimeStamp, requestFile);
+
+        XApi.get(OssApiService.class, XApi.HOST_TYPE.JAVA)
+                .uploadIdCard(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver() {
+
+                    @Override
+                    public void onStart() {
+                        onLoadListener.onLoadStart();
+                    }
+
+                    @Override
+                    public void onSuccess(BaseResponse response) {
+                        onLoadListener.onLoadSucessed(response);
+                    }
+
+                    @Override
+                    public void onError(ExceptionHandle.ResponeThrowable responeThrowable) {
+                        onLoadListener.onLoadFailed(responeThrowable.message);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        onLoadListener.onLoadCompleted();
+                    }
+
+                });
+    }
+
     public static void uploadPic(String imgPath, final OnLoadListener onLoadListener) {
 
         String fileNameByTimeStamp = AppManager.getUUID() + ".jpg";
@@ -29,7 +65,7 @@ public class OssModel {
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", fileNameByTimeStamp, requestFile);
 
         XApi.get(OssApiService.class, XApi.HOST_TYPE.JAVA)
-                .uploadPic(body)
+                .publicUpload(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver() {

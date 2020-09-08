@@ -14,15 +14,20 @@ import android.view.View;
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityPersonalDetailBinding;
+
 import com.exam.commonbiz.api.oss.IOssModel;
 import com.exam.commonbiz.api.oss.OssViewModel;
 import com.exam.commonbiz.api.oss.UploadPicResponse;
 import com.exam.commonbiz.bean.UserInfo;
+
 import cn.sanshaoxingqiu.ssbm.module.personal.model.IPersonalCallBack;
 import cn.sanshaoxingqiu.ssbm.module.personal.personaldata.dialog.SelectBirthdayDialog;
 import cn.sanshaoxingqiu.ssbm.module.personal.viewmodel.PersonalViewModel;
+
 import com.exam.commonbiz.util.BitmapUtil;
+
 import cn.sanshaoxingqiu.ssbm.util.FileUtil;
+
 import com.exam.commonbiz.util.GlideUtil;
 import com.exam.commonbiz.util.ToastUtil;
 
@@ -207,10 +212,7 @@ public class PersonalDetailActivity extends BaseActivity<PersonalViewModel, Acti
                 binding.ivAvatar.setImageBitmap(bitmap);
             }
 
-            if (bitmap == null) {
-                return;
-            }
-            mOssViewModel.uploadPic(0, bitmap);
+            mOssViewModel.uploadPic(filePath);
         }
     }
 

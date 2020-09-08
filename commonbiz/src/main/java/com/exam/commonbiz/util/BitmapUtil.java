@@ -55,12 +55,9 @@ public class BitmapUtil {
     /**
      * 压缩图片
      *
-     * @param bitmap
-     *          被压缩的图片
-     * @param sizeLimit
-     *          大小限制
-     * @return
-     *          压缩后的图片
+     * @param bitmap    被压缩的图片
+     * @param sizeLimit 大小限制
+     * @return 压缩后的图片
      */
     public static Bitmap compressBitmap(Bitmap bitmap, long sizeLimit) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -68,7 +65,7 @@ public class BitmapUtil {
         bitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);
 
         // 循环判断压缩后图片是否超过限制大小
-        while(baos.toByteArray().length / 1024 > sizeLimit) {
+        while (baos.toByteArray().length / 1024 > sizeLimit) {
             // 清空baos
             baos.reset();
             bitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);
@@ -126,6 +123,16 @@ public class BitmapUtil {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
         return baos.toByteArray();
+    }
+
+    /**
+     * 获取小图片，防止OOM
+     *
+     * @param filePath
+     * @return
+     */
+    public static Bitmap getLocalBitmap(String filePath) {
+        return BitmapFactory.decodeFile(filePath);
     }
 
     public static Bitmap getBitmap(String imgUrl) {

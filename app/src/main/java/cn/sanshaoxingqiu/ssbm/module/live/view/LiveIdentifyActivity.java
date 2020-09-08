@@ -227,7 +227,7 @@ public class LiveIdentifyActivity extends BaseActivity<IdentityViewModel, Activi
             if (bitmap == null) {
                 return;
             }
-            mOssViewModel.uploadPic(mUploadType, bitmap);
+            mOssViewModel.uploadIdCard(mUploadType, bitmap);
         }
     }
 
