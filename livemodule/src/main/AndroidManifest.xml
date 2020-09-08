@@ -32,8 +32,12 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <application>
-        <activity android:name=".zhibo.live.StartLiveActivity"></activity>
-        <activity android:name=".zhibo.profile.AnchorInfoActivity" />
+        <activity
+            android:name=".zhibo.live.StartLiveActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".zhibo.profile.AnchorInfoActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".zhibo.login.TCLoginActivity"
             android:screenOrientation="portrait" />

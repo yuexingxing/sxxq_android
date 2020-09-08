@@ -15,7 +15,7 @@ import com.exam.commonbiz.api.oss.IOssModel;
 import com.exam.commonbiz.api.oss.OssViewModel;
 import com.exam.commonbiz.api.oss.UploadPicResponse;
 import com.exam.commonbiz.base.BaseActivity;
-import com.exam.commonbiz.base.BaseViewModel;
+import com.exam.commonbiz.base.BasicApplication;
 import com.exam.commonbiz.util.BitmapUtil;
 import com.exam.commonbiz.util.FileUtil;
 import com.exam.commonbiz.util.GlideUtil;
@@ -28,6 +28,14 @@ import com.sanshao.commonutil.permission.PermissionGroup;
 import com.sanshao.commonutil.permission.RxPermissions;
 import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.databinding.ActivityStartLiveBinding;
+import com.sanshao.livemodule.liveroom.model.ILiveRoomModel;
+import com.sanshao.livemodule.liveroom.roomutil.bean.GetRoomIdResponse;
+import com.sanshao.livemodule.liveroom.roomutil.bean.LicenceInfo;
+import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
+import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
+import com.sanshao.livemodule.zhibo.anchor.TCCameraAnchorActivity;
+import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
+import com.sanshao.livemodule.zhibo.login.TCUserMgr;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -42,12 +50,13 @@ import io.reactivex.disposables.Disposable;
  * @Author yuexingxing
  * @time 2020/8/31
  */
-public class StartLiveActivity extends BaseActivity<BaseViewModel, ActivityStartLiveBinding> implements IOssModel {
+public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStartLiveBinding> implements IOssModel, ILiveRoomModel {
 
     private final static int REQUEST_IMAGE_GET = 1;
     private final static int REQUEST_IMAGE_CAPTURE = 2;
     private String mCurrentPhotoPath;
     private OssViewModel mOssViewModel;
+    private String mRoomId;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, StartLiveActivity.class);
@@ -64,6 +73,7 @@ public class StartLiveActivity extends BaseActivity<BaseViewModel, ActivityStart
 
         mOssViewModel = new OssViewModel();
         mOssViewModel.setCallBack(this);
+        mViewModel.setILiveRoomModel(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
 
             @Override
@@ -112,8 +122,43 @@ public class StartLiveActivity extends BaseActivity<BaseViewModel, ActivityStart
                         .show();
             }
         });
+        binding.tvStartLive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startPublish();
+            }
+        });
+
+        mViewModel.getRoomId();
     }
 
+    /**
+     * 发起推流
+     */
+    private void startPublish() {
+
+        String title = binding.edtTitle.getText().toString();
+        if (TextUtils.isEmpty(title)) {
+            ToastUtil.showLongToast("请输入直播标题");
+            return;
+        }
+        if (TextUtils.isEmpty(mRoomId)){
+            mRoomId = BasicApplication.app.getUserInfo().invitation_code;
+        }
+
+        Intent intent = new Intent(this, TCCameraAnchorActivity.class);
+        if (intent != null) {
+            intent.putExtra(TCConstants.ROOM_ID, mRoomId);
+            intent.putExtra(TCConstants.ROOM_TITLE, title);
+            intent.putExtra(TCConstants.USER_ID, TCUserMgr.getInstance().getUserId());
+            intent.putExtra(TCConstants.USER_NICK, TCUserMgr.getInstance().getNickname());
+            intent.putExtra(TCConstants.USER_HEADPIC, TCUserMgr.getInstance().getAvatar());
+            intent.putExtra(TCConstants.COVER_PIC, TCUserMgr.getInstance().getCoverPic());
+            intent.putExtra(TCConstants.USER_LOC, "");
+            startActivity(intent);
+            finish();
+        }
+    }
 
     public void selectFromAlbum() {
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -228,10 +273,34 @@ public class StartLiveActivity extends BaseActivity<BaseViewModel, ActivityStart
             return;
         }
 
+        TCUserMgr.getInstance().setCoverPic(uploadPicResponse.url, null);
         GlideUtil.loadImage(uploadPicResponse.url, binding.ivBg);
         binding.tvUpload.setText("重新选择");
         binding.tvUpload.setAlpha(0.7f);
         binding.ivLabel.setVisibility(View.GONE);
         binding.ivBg.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void returnGetLicense(LicenceInfo licenceInfo) {
+
+    }
+
+    @Override
+    public void returnUserSign(UserSignResponse userSignResponse) {
+
+    }
+
+    @Override
+    public void returnGetRoomId(GetRoomIdResponse getRoomIdResponse) {
+        if (getRoomIdResponse == null) {
+            return;
+        }
+        mRoomId = getRoomIdResponse.room_number;
+    }
+
+    @Override
+    public void returnUploadLiveRoomInfo() {
+
     }
 }

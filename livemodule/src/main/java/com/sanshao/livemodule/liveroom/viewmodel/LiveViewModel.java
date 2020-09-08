@@ -2,6 +2,7 @@ package com.sanshao.livemodule.liveroom.viewmodel;
 
 import android.widget.Toast;
 
+import com.exam.commonbiz.base.BaseViewModel;
 import com.exam.commonbiz.base.BasicApplication;
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
@@ -12,7 +13,7 @@ import com.sanshao.livemodule.liveroom.roomutil.bean.LicenceInfo;
 import com.sanshao.livemodule.liveroom.roomutil.bean.UploadRoomInfoRequest;
 import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
 
-public class LiveViewModel {
+public class LiveViewModel extends BaseViewModel {
 
     private ILiveRoomModel mILiveRoomModel;
 
