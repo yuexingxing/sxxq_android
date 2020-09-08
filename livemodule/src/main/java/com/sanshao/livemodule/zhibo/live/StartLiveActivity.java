@@ -142,7 +142,7 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
             ToastUtil.showLongToast("请输入直播标题");
             return;
         }
-        if (TextUtils.isEmpty(mRoomId)){
+        if (TextUtils.isEmpty(mRoomId)) {
             mRoomId = BasicApplication.app.getUserInfo().invitation_code;
         }
 
@@ -205,7 +205,7 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
             Bitmap bitmap = null;
             if (!TextUtils.isEmpty(filePath)) {
                 bitmap = BitmapUtil.getSmallBitmap(filePath, 200, 200);
-                binding.ivLabel.setImageBitmap(bitmap);
+                binding.ivBg.setImageBitmap(bitmap);
             }
 
             if (bitmap == null) {
@@ -277,8 +277,8 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
         GlideUtil.loadImage(uploadPicResponse.url, binding.ivBg);
         binding.tvUpload.setText("重新选择");
         binding.tvUpload.setAlpha(0.7f);
-        binding.ivLabel.setVisibility(View.GONE);
-        binding.ivBg.setVisibility(View.VISIBLE);
+        binding.llLabel.setVisibility(View.GONE);
+        binding.llBg.setVisibility(View.VISIBLE);
     }
 
     @Override

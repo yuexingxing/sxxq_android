@@ -1,4 +1,4 @@
-package com.sanshao.livemodule.zhibo.profile;
+package com.sanshao.livemodule.zhibo.live;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +12,6 @@ import com.exam.commonbiz.util.GlideUtil;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.databinding.ActivityAnchorInfoBinding;
-import com.sanshao.livemodule.zhibo.live.StartLiveActivity;
 
 /**
  * 主播主页
@@ -27,6 +26,11 @@ public class AnchorInfoActivity extends BaseActivity<BaseViewModel, ActivityAnch
     public static void start(Context context) {
         Intent starter = new Intent(context, AnchorInfoActivity.class);
         context.startActivity(starter);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_anchor_info;
     }
 
     @Override
@@ -60,7 +64,18 @@ public class AnchorInfoActivity extends BaseActivity<BaseViewModel, ActivityAnch
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.activity_anchor_info;
+    protected boolean isUseFullScreenMode() {
+        return true;
     }
+
+    @Override
+    protected boolean isUseBlackFontWithStatusBar() {
+        return true;
+    }
+
+    @Override
+    public int getStatusBarColor() {
+        return R.color.transparent;
+    }
+
 }

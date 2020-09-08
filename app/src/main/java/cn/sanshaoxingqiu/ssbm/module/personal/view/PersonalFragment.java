@@ -57,7 +57,7 @@ import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
 import cn.sanshaoxingqiu.ssbm.util.DateUtil;
 
 import com.exam.commonbiz.util.GlideUtil;
-import com.sanshao.livemodule.zhibo.profile.AnchorInfoActivity;
+import com.sanshao.livemodule.zhibo.live.AnchorInfoActivity;
 
 import com.exam.commonbiz.util.ToastUtil;
 

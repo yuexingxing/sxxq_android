@@ -36,7 +36,7 @@
             android:name=".zhibo.live.StartLiveActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".zhibo.profile.AnchorInfoActivity"
+            android:name=".zhibo.live.AnchorInfoActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".zhibo.login.TCLoginActivity"
