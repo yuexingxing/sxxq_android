@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.exam.commonbiz.base.BasicApplication;
+import com.exam.commonbiz.bean.UserInfo;
 import com.sanshao.livemodule.liveroom.IMLVBLiveRoomListener;
 import com.sanshao.livemodule.liveroom.MLVBLiveRoom;
 import com.sanshao.livemodule.liveroom.debug.GenerateTestUserSig;
@@ -85,6 +87,7 @@ public class TCUserMgr {
     public String getUserSign() {
         return mUserSig;
     }
+
     public String getUserToken() {
         return mToken;
     }
@@ -350,9 +353,7 @@ public class TCUserMgr {
                     }
                 });
 
-                if (TextUtils.isEmpty(mNickName)) {
-                    mNickName = NameGenerator.getRandomName();
-                }
+                mNickName = BasicApplication.getUserInfo().nickname;
 
                 // 保存用户信息到本地
                 saveUserInfo();
@@ -367,6 +368,34 @@ public class TCUserMgr {
         }
     }
 
+    public void loginMLVB(){
+
+        UserInfo userInfo = BasicApplication.getUserInfo();
+        mUserId = userInfo.mem_id;
+        mSdkAppID = TCGlobalConfig.SDKAPPID;
+        mUserSig = GenerateTestUserSig.genTestUserSig(mUserId);
+
+        // 登录到 MLVB 组件
+        loginMLVB(new IMLVBLiveRoomListener.LoginCallback() {
+            @Override
+            public void onError(int errCode, String errInfo) {
+                Log.i(TAG, "onError: errorCode = " + errInfo + " info = " + errInfo);
+            }
+
+            @Override
+            public void onSuccess() {
+                Log.i(TAG, "onSuccess: ");
+            }
+        });
+
+        mNickName = BasicApplication.getUserInfo().nickname;
+
+        // 保存用户信息到本地
+        saveUserInfo();
+
+        // 登录成功上报
+        TCELKReportMgr.getInstance().reportELK(TCConstants.ELK_ACTION_LOGIN, mUserId, 0, "登录成功", null);
+    }
     /**
      * 获取用户的信息
      *
@@ -432,10 +461,10 @@ public class TCUserMgr {
         if (mContext == null) return;
         LoginInfo loginInfo = new LoginInfo();
         loginInfo.sdkAppID = getSDKAppID();
-        loginInfo.userID =  getUserId();
+        loginInfo.userID = getUserId();
         loginInfo.userSig = getUserSign();
 
-        String userName =getNickname();
+        String userName = getNickname();
         loginInfo.userName = !TextUtils.isEmpty(userName) ? userName : getUserId();
         loginInfo.userAvatar = getUserAvatar();
         MLVBLiveRoom liveRoom = MLVBLiveRoom.sharedInstance(mContext);

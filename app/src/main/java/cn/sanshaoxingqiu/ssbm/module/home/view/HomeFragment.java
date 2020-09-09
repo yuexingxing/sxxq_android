@@ -10,6 +10,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.util.CommonCallBack;
+import com.sanshao.livemodule.liveroom.MLVBLiveRoomImpl;
 import com.sanshao.livemodule.zhibo.audience.TCAudienceActivity;
 import com.sanshao.livemodule.zhibo.common.net.TCHTTPMgr;
 import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
@@ -66,12 +67,12 @@ public class HomeFragment extends BaseFragment<HomeViewModel, HomeFragmentBindin
 
     @Override
     protected void loadData() {
-        if (!TCHTTPMgr.getInstance().isLogin()) {
-            UserInfo userInfo = SSApplication.getInstance().getUserInfo();
-            if (userInfo != null && !TextUtils.isEmpty(userInfo.mem_phone)) {
-                loginLive("sanshao" + userInfo.mem_phone, userInfo.mem_phone);
-            }
-        }
+//        if (!TCHTTPMgr.getInstance().isLogin()) {
+//            UserInfo userInfo = SSApplication.getInstance().getUserInfo();
+//            if (userInfo != null && !TextUtils.isEmpty(userInfo.mem_phone)) {
+//                loginLive("sanshao" + userInfo.mem_phone, userInfo.mem_phone);
+//            }
+//        }
     }
 
     @Override
@@ -90,12 +91,11 @@ public class HomeFragment extends BaseFragment<HomeViewModel, HomeFragmentBindin
         });
 
         binding.swipeRefreshLayout.setColorSchemeResources(R.color.main_color);
-        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getLiveData();
-            }
-        });
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> getLiveData());
+
+        MLVBLiveRoomImpl.sharedInstance(SSApplication.getInstance());
+        MLVBLiveRoomImpl.mInstance.initHttpRequest();
+        TCUserMgr.getInstance().loginMLVB();
     }
 
     @Override

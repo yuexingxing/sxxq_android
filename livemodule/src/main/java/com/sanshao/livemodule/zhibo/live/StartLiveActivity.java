@@ -63,7 +63,6 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
     private String mCurrentPhotoPath;
     private OssViewModel mOssViewModel;
     private String mRoomId;
-    private String mMyLocation;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, StartLiveActivity.class);
