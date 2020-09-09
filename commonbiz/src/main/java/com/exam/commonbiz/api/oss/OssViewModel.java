@@ -33,20 +33,22 @@ public class OssViewModel extends BaseViewModel {
                 FileUtil.saveBitmap(FileUtil.FILE_PATH, FileUtil.FILE_NAME, compressBitmap);
 
                 Message message = new Message();
-                message.obj = FileUtil.FILE_PATH + "/" + FileUtil.FILE_NAME;
+                message.obj = FileUtil.FILE_PATH + FileUtil.FILE_NAME;
                 message.arg1 = type;
-                mCommonHandler.sendMessage(message);
+                mIdCardHandler.sendMessage(message);
             }
         }).start();
     }
 
-    public void uploadPic(String filePath) {
+    public void uploadPic(Bitmap bitmap) {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Bitmap compressBitmap = BitmapUtil.compressBitmap(bitmap, 1024);
+                FileUtil.saveBitmap(FileUtil.FILE_PATH, FileUtil.FILE_NAME, compressBitmap);
 
                 Message message = new Message();
-                message.obj = filePath;
+                message.obj = FileUtil.FILE_PATH + FileUtil.FILE_NAME;
                 mCommonHandler.sendMessage(message);
             }
         }).start();

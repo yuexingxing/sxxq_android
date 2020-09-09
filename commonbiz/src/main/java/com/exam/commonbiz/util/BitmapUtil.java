@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 
 import java.io.ByteArrayInputStream;
@@ -66,6 +67,7 @@ public class BitmapUtil {
 
         // 循环判断压缩后图片是否超过限制大小
         while (baos.toByteArray().length / 1024 > sizeLimit) {
+            Log.d("zdddz", baos.toByteArray().length / 1024 + "/" + sizeLimit);
             // 清空baos
             baos.reset();
             bitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);

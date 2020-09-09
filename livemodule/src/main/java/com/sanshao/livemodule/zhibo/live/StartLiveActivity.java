@@ -229,14 +229,15 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
             }
             Bitmap bitmap = null;
             if (!TextUtils.isEmpty(filePath)) {
-                bitmap = BitmapUtil.getLocalBitmap(filePath);
+                Bitmap bitmapReal = BitmapUtil.getLocalBitmap(filePath);
+                bitmap = BitmapUtil.getSmallBitmap(filePath, bitmapReal.getWidth() / 5, bitmapReal.getHeight() / 5);
                 binding.ivBg.setImageBitmap(bitmap);
             }
 
             if (bitmap == null) {
                 return;
             }
-            mOssViewModel.uploadPic(filePath);
+            mOssViewModel.uploadPic(bitmap);
         }
     }
 

@@ -212,7 +212,7 @@ public class PersonalDetailActivity extends BaseActivity<PersonalViewModel, Acti
                 binding.ivAvatar.setImageBitmap(bitmap);
             }
 
-            mOssViewModel.uploadPic(filePath);
+            mOssViewModel.uploadPic(bitmap);
         }
     }
 

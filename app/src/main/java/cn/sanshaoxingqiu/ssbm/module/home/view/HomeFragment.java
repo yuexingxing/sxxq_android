@@ -66,7 +66,7 @@ public class HomeFragment extends BaseFragment<HomeViewModel, HomeFragmentBindin
 
     @Override
     protected void loadData() {
-        if (!TCHTTPMgr.getInstance().isLogin()) {
+        if (TCHTTPMgr.getInstance().isLogin()) {
             UserInfo userInfo = SSApplication.getInstance().getUserInfo();
             if (userInfo != null && !TextUtils.isEmpty(userInfo.mem_phone)) {
                 loginLive("sanshao" + userInfo.mem_phone, userInfo.mem_phone);

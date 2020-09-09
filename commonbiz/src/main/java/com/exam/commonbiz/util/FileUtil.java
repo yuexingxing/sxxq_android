@@ -71,7 +71,7 @@ public class FileUtil {
         }
         try {
             FileOutputStream out = new FileOutputStream(f);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
             out.flush();
             out.close();
         } catch (FileNotFoundException e) {
