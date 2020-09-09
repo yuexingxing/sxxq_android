@@ -39,6 +39,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="@dimen/left_container_margin"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/gray_btn_bg"
                     app:riv_corner_radius="80dp" />
 
