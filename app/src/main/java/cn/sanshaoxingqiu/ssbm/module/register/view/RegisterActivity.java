@@ -26,7 +26,7 @@ import cn.sanshaoxingqiu.ssbm.util.Constants;
 import com.exam.commonbiz.util.GlideUtil;
 import com.exam.commonbiz.util.LoadDialogMgr;
 import com.exam.commonbiz.util.ToastUtil;
-import cn.sanshaoxingqiu.ssbm.widget.dialog.CommonTipDialog;
+import com.exam.commonbiz.dialog.CommonTipDialog;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.util.Res;

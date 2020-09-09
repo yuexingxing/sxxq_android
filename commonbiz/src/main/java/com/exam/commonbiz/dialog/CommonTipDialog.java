@@ -1,4 +1,4 @@
-package cn.sanshaoxingqiu.ssbm.widget.dialog;
+package com.exam.commonbiz.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -8,9 +8,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.exam.commonbiz.R;
 import com.exam.commonbiz.util.CommonCallBack;
-
-import cn.sanshaoxingqiu.ssbm.R;
 
 /**
  * 公共弹窗弹窗

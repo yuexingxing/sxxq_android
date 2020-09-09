@@ -368,7 +368,7 @@ public class TCUserMgr {
         }
     }
 
-    public void loginMLVB(){
+    public void loginMLVB() {
 
         UserInfo userInfo = BasicApplication.getUserInfo();
         mUserId = userInfo.mem_id;
@@ -392,10 +392,8 @@ public class TCUserMgr {
 
         // 保存用户信息到本地
         saveUserInfo();
-
-        // 登录成功上报
-        TCELKReportMgr.getInstance().reportELK(TCConstants.ELK_ACTION_LOGIN, mUserId, 0, "登录成功", null);
     }
+
     /**
      * 获取用户的信息
      *

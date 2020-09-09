@@ -110,12 +110,13 @@
 
     <style name="ConfirmDialogStyle" parent="NormalDialog">
 
-        <!--<item name="windowMinWidthMinor">90%</item>-->
+        <item name="windowMinWidthMinor">90%</item>
 
+        <item name="android:textColorPrimary">#000000</item>
 
-        <!--<item name="android:textColorPrimary">#000000</item>-->
+        <item name="colorAccent">#0accac</item>
 
-        <!--<item name="colorAccent">#0accac</item>-->
+        <item name="android:windowBackground">#FFFFFF</item>
     </style>
 
     <style name="BeautyTheme" parent="BeautyPanelStyle">
