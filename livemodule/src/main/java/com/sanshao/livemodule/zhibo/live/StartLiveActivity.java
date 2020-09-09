@@ -8,7 +8,9 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
@@ -21,6 +23,7 @@ import com.exam.commonbiz.bean.UserInfo;
 import com.exam.commonbiz.util.BitmapUtil;
 import com.exam.commonbiz.util.FileUtil;
 import com.exam.commonbiz.util.GlideUtil;
+import com.exam.commonbiz.util.LoadDialogMgr;
 import com.exam.commonbiz.util.ToastUtil;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogAdapter;
@@ -94,6 +97,26 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
 
             @Override
             public void onRightClick(View view) {
+
+            }
+        });
+        binding.edtTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.length() > 15) {
+                    binding.edtTitle.setText(charSequence.subSequence(0, 15));
+                    binding.edtTitle.setSelection(binding.edtTitle.getText().length());
+                    ToastUtil.showShortToast("字数超出范围（15字以内）");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
 
             }
         });
@@ -228,14 +251,16 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
             }
             Bitmap bitmap = null;
             if (!TextUtils.isEmpty(filePath)) {
-                Bitmap bitmapReal = BitmapUtil.getLocalBitmap(filePath);
-                bitmap = BitmapUtil.getSmallBitmap(filePath, bitmapReal.getWidth() / 5, bitmapReal.getHeight() / 5);
+                bitmap = BitmapUtil.getLocalBitmap(filePath);
+                bitmap = BitmapUtil.getSmallBitmap(filePath, bitmap.getWidth() / 5, bitmap.getHeight() / 5);
                 binding.ivBg.setImageBitmap(bitmap);
             }
 
             if (bitmap == null) {
                 return;
             }
+
+            LoadDialogMgr.getInstance().show(context);
             mOssViewModel.uploadPic(bitmap);
         }
     }

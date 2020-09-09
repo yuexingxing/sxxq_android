@@ -60,6 +60,7 @@ import com.exam.commonbiz.util.GlideUtil;
 import com.sanshao.livemodule.zhibo.live.AnchorInfoActivity;
 
 import com.exam.commonbiz.util.ToastUtil;
+import com.sanshao.livemodule.zhibo.login.TCUserMgr;
 
 /**
  * 我的
@@ -278,6 +279,10 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         }
         mUserInfo = userInfo;
         SSApplication.getInstance().saveUserInfo(userInfo);
+
+        TCUserMgr tcUserMgr = TCUserMgr.getInstance();
+        tcUserMgr.setAvatar(userInfo.avatar,null );
+        tcUserMgr.setNickName(userInfo.nickname, null);
     }
 
     @Override

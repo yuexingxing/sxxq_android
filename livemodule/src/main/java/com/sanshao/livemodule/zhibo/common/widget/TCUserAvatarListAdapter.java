@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.exam.commonbiz.util.GlideUtil;
 import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.zhibo.common.msg.TCSimpleUserInfo;
 import com.sanshao.livemodule.zhibo.common.utils.TCUtils;
@@ -89,7 +90,7 @@ public class TCUserAvatarListAdapter extends RecyclerView.Adapter<RecyclerView.V
             @Override
             public void onClick(View view) {
                 TCSimpleUserInfo userInfo = mUserAvatarList.get(avatarViewHolder.getAdapterPosition());
-                Toast.makeText(mContext.getApplicationContext(),"当前点击用户： " + userInfo.userid, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext.getApplicationContext(),"当前点击用户： " + userInfo.userid, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -98,10 +99,7 @@ public class TCUserAvatarListAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
-        TCUtils.showPicWithUrl(mContext, ((AvatarViewHolder)holder).ivAvatar,mUserAvatarList.get(position).avatar,
-                R.drawable.face);
-
+        GlideUtil.loadImage(mUserAvatarList.get(position).avatar, ((AvatarViewHolder)holder).ivAvatar);
     }
 
     @Override
