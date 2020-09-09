@@ -191,6 +191,10 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
         if (TextUtils.isEmpty(mRoomId)) {
             mRoomId = BasicApplication.getUserInfo().invitation_code;
         }
+        if (TextUtils.isEmpty(TCUserMgr.getInstance().getCoverPic())) {
+            ToastUtil.showLongToast("未上传封面");
+            return;
+        }
 
         UserInfo userInfo = BasicApplication.getUserInfo();
         Intent intent = new Intent(this, TCCameraAnchorActivity.class);

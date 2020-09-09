@@ -25,6 +25,7 @@
                 android:layout_marginTop="30dp"
                 android:background="@color/transparent"
                 app:title="主播主页"
+                app:leftIcon="@drawable/icon_back_white"
                 app:titleColor="@color/white" />
 
             <LinearLayout
@@ -34,14 +35,28 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/iv_avatar"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginLeft="@dimen/left_container_margin"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/gray_btn_bg"
-                    app:riv_corner_radius="80dp" />
+                <FrameLayout
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    android:layout_marginLeft="@dimen/left_container_margin">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@color/white"
+                        app:riv_corner_radius="84dp" />
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/iv_avatar"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginTop="2dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/gray_btn_bg"
+                        app:riv_corner_radius="80dp" />
+                </FrameLayout>
 
                 <View
                     android:layout_width="0dp"
@@ -62,7 +77,15 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/left_container_margin"
+                android:layout_marginTop="12dp"
+                android:textColor="#ffffffff"
+                android:textSize="18sp"
+                tools:text="小蝴蝶" />
         </LinearLayout>
     </FrameLayout>
 

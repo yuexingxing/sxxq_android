@@ -6,10 +6,10 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.util.CommonCallBack;
+import com.exam.commonbiz.util.ToastUtil;
 import com.sanshao.livemodule.liveroom.MLVBLiveRoomImpl;
 import com.sanshao.livemodule.zhibo.audience.TCAudienceActivity;
 import com.sanshao.livemodule.zhibo.common.net.TCHTTPMgr;
@@ -27,8 +27,6 @@ import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.HomeFragmentBinding;
 import cn.sanshaoxingqiu.ssbm.module.home.viewmodel.HomeViewModel;
-import com.exam.commonbiz.bean.UserInfo;
-import com.exam.commonbiz.util.ToastUtil;
 
 /**
  * 首页
@@ -62,7 +60,7 @@ public class HomeFragment extends BaseFragment<HomeViewModel, HomeFragmentBindin
 
     @Override
     public int getStatusBarColor() {
-        return R.color.transparent;
+        return R.color.transparent_half;
     }
 
     @Override

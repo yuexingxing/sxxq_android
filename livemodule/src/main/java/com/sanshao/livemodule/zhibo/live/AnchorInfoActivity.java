@@ -60,6 +60,7 @@ public class AnchorInfoActivity extends BaseActivity<BaseViewModel, ActivityAnch
         });
 
         mUserInfo = BasicApplication.app.getUserInfo();
+        binding.tvName.setText(mUserInfo.nickname);
         GlideUtil.loadImage(mUserInfo.avatar, binding.ivAvatar);
     }
 
