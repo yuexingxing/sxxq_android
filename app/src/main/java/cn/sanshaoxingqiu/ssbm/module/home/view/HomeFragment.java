@@ -91,9 +91,9 @@ public class HomeFragment extends BaseFragment<HomeViewModel, HomeFragmentBindin
         binding.swipeRefreshLayout.setColorSchemeResources(R.color.main_color);
         binding.swipeRefreshLayout.setOnRefreshListener(() -> getLiveData());
 
+        binding.tvHomeTitle.setAlpha(0.26f);
         MLVBLiveRoomImpl.sharedInstance(SSApplication.getInstance());
         MLVBLiveRoomImpl.mInstance.initHttpRequest();
-        TCUserMgr.getInstance().loginMLVB();
     }
 
     @Override

@@ -42,7 +42,9 @@ import cn.sanshaoxingqiu.ssbm.module.order.view.OrderListActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.AppointmentForConsultationViewModel;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderDetailViewModel;
 import cn.sanshaoxingqiu.ssbm.module.personal.adapter.PersonalOrderSubjectAdapter;
+
 import com.exam.commonbiz.bean.UserInfo;
+
 import cn.sanshaoxingqiu.ssbm.module.personal.event.UpdateUserInfoEvent;
 import cn.sanshaoxingqiu.ssbm.module.personal.inquiry.view.ToBeInquiryListActivity;
 import cn.sanshaoxingqiu.ssbm.module.personal.model.IPersonalCallBack;
@@ -242,6 +244,9 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             if (TCGlobalConfig.isLicenseEmpty()) {
                 TCGlobalConfig.getLiveLicence(context);
             }
+            if (TCGlobalConfig.isUserSignEmpty()) {
+                TCGlobalConfig.getUserSign();
+            }
         }
     }
 
@@ -281,7 +286,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         SSApplication.getInstance().saveUserInfo(userInfo);
 
         TCUserMgr tcUserMgr = TCUserMgr.getInstance();
-        tcUserMgr.setAvatar(userInfo.avatar,null );
+        tcUserMgr.setAvatar(userInfo.avatar, null);
         tcUserMgr.setNickName(userInfo.nickname, null);
     }
 

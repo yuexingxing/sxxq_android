@@ -36,7 +36,6 @@
                         android:paddingTop="30dp"
                         android:paddingBottom="5dp"
                         android:text="直播（0）"
-                        android:background="@color/transparent_half"
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         android:textStyle="bold" />

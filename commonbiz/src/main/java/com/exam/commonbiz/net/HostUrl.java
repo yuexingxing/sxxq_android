@@ -9,7 +9,7 @@ package com.exam.commonbiz.net;
 public class HostUrl {
 
     public interface DEV {
-        String JAVA = "https://t2javaapi.sancell.top/api/";
+        String JAVA = "https://t2wxapi.sancell.top/api/";
         String NODE = "https://t2wxapi.sancell.top/ssxq/";
     }
 

@@ -30,6 +30,10 @@ public class TCGlobalConfig {
         return TextUtils.isEmpty(LICENCE_URL);
     }
 
+    public static boolean isUserSignEmpty() {
+        return TextUtils.isEmpty(TCUserMgr.getInstance().getUserSign());
+    }
+
     /**
      * 获取直播licence
      */
@@ -63,7 +67,46 @@ public class TCGlobalConfig {
 
             }
         });
+
         liveViewModel.getLicense();
+    }
+
+    /**
+     * 获取用户签名
+     */
+    public static void getUserSign() {
+
+        LiveViewModel liveViewModel = new LiveViewModel();
+        liveViewModel.setILiveRoomModel(new ILiveRoomModel() {
+            @Override
+            public void returnGetLicense(LicenceInfo licenceInfo) {
+
+            }
+
+            @Override
+            public void returnUserSign(UserSignResponse userSignResponse) {
+                if (userSignResponse == null) {
+                    return;
+                }
+                TCUserMgr.getInstance().setUserId(userSignResponse.userID);
+                TCUserMgr.getInstance().setUserSign(userSignResponse.userSig);
+                TCUserMgr.getInstance().setSdkAppId(userSignResponse.sdkAppId);
+
+                TCUserMgr.getInstance().loginMLVB();
+            }
+
+            @Override
+            public void returnGetRoomId(GetRoomIdResponse getRoomIdResponse) {
+
+            }
+
+            @Override
+            public void returnUploadLiveRoomInfo() {
+
+            }
+        });
+
+        liveViewModel.getUserSig();
     }
 
     public static void init(Context context) {

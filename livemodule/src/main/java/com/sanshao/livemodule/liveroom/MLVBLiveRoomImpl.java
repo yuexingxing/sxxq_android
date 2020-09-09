@@ -13,6 +13,8 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import com.exam.commonbiz.base.BasicApplication;
+import com.exam.commonbiz.bean.UserInfo;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sanshao.livemodule.liveroom.roomutil.commondef.AnchorInfo;
@@ -23,6 +25,7 @@ import com.sanshao.livemodule.liveroom.roomutil.commondef.RoomInfo;
 import com.sanshao.livemodule.liveroom.roomutil.http.HttpRequests;
 import com.sanshao.livemodule.liveroom.roomutil.http.HttpResponse;
 import com.sanshao.livemodule.liveroom.roomutil.im.IMMessageMgr;
+import com.sanshao.livemodule.zhibo.TCGlobalConfig;
 import com.tencent.imsdk.TIMUserProfile;
 import com.tencent.imsdk.TIMValueCallBack;
 import com.tencent.liteav.basic.log.TXCLog;
@@ -163,18 +166,13 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
         }
     }
 
-    public void initHttpRequest(){
+    public void initHttpRequest() {
 
         if (mHttpRequest != null) {
             mHttpRequest.cancelAllRequests();
         }
         mHttpRequest = new HttpRequests(mServerDomain);
         mHttpRequest.setHeartBeatCallback(this);
-
-        if (mIMMessageMgr == null) {
-            mIMMessageMgr = new IMMessageMgr(mAppContext);
-            mIMMessageMgr.setIMMessageListener(this);
-        }
     }
 
     /**
@@ -2005,7 +2003,8 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
                 } else {
                     String msg = "[LiveRoom] 推流失败[TXLivePusher未初始化，请确保已经调用startLocalPreview]";
                     TXCLog.e(TAG, msg);
-                    if (callback != null) callback.onError(MLVBCommonDef.LiveRoomErrorCode.ERROR_PUSH, msg);
+                    if (callback != null)
+                        callback.onError(MLVBCommonDef.LiveRoomErrorCode.ERROR_PUSH, msg);
                 }
             }
         });

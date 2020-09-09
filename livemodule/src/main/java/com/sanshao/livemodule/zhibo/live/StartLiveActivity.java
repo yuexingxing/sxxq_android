@@ -165,6 +165,7 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
             }
         });
 
+        setLiveBg(TCUserMgr.getInstance().getCoverPic());
         startLocation();
         mViewModel.getRoomId();
     }
@@ -326,9 +327,16 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
         if (uploadPicResponse == null) {
             return;
         }
+        setLiveBg(uploadPicResponse.url);
+    }
 
-        TCUserMgr.getInstance().setCoverPic(uploadPicResponse.url, null);
-        GlideUtil.loadImage(uploadPicResponse.url, binding.ivBg);
+    private void setLiveBg(String url) {
+
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
+        TCUserMgr.getInstance().setCoverPic(url, null);
+        GlideUtil.loadImage(url, binding.ivBg);
         binding.tvUpload.setText("重新选择");
         binding.tvUpload.setAlpha(0.7f);
         binding.llLabel.setVisibility(View.GONE);

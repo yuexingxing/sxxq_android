@@ -9,6 +9,8 @@ import java.io.Serializable;
  * @time 2020/7/2
  */
 public class UserInfo implements Serializable {
+    public String userId;
+    public String userSign;
     public String mem_id;
     public String gender;
     public String nickname;

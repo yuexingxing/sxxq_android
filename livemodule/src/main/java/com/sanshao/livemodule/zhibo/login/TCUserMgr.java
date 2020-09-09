@@ -70,14 +70,24 @@ public class TCUserMgr {
         public String region = "";
     }
 
-
     public CosInfo getCosInfo() {
         return mCosInfo;
     }
 
     public void initContext(Context context) {
         mContext = context.getApplicationContext();
-        loadUserInfo();
+    }
+
+    public void setUserId(String userId){
+        mUserId = userId;
+    }
+
+    public void setUserSign(String userSign){
+        mUserSig = userSign;
+    }
+
+    public void setSdkAppId(long skdAppId){
+        mSdkAppID = skdAppId;
     }
 
     public boolean hasUser() {
@@ -370,11 +380,6 @@ public class TCUserMgr {
 
     public void loginMLVB() {
 
-        UserInfo userInfo = BasicApplication.getUserInfo();
-        mUserId = userInfo.mem_id;
-        mSdkAppID = TCGlobalConfig.SDKAPPID;
-        mUserSig = GenerateTestUserSig.genTestUserSig(mUserId);
-
         // 登录到 MLVB 组件
         loginMLVB(new IMLVBLiveRoomListener.LoginCallback() {
             @Override
@@ -389,9 +394,6 @@ public class TCUserMgr {
         });
 
         mNickName = BasicApplication.getUserInfo().nickname;
-
-        // 保存用户信息到本地
-        saveUserInfo();
     }
 
     /**
