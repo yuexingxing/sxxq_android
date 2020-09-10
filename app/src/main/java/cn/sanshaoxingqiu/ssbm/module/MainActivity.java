@@ -27,6 +27,7 @@ import cn.sanshaoxingqiu.ssbm.module.personal.income.view.IncomeTabFragmentAdapt
 import cn.sanshaoxingqiu.ssbm.module.personal.view.PersonalFragment;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.ShoppingCenterFragment;
 import com.exam.commonbiz.util.ToastUtil;
+import com.sanshao.livemodule.zhibo.login.TCUserMgr;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -103,6 +104,7 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
             ToastUtil.showShortToast("再按一次退出程序");
             mHandler.sendEmptyMessageDelayed(0, 2000);
         } else {
+            TCUserMgr.getInstance().logout();
             finish();
             System.exit(0);
         }

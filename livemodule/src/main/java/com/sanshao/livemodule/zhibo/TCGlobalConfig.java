@@ -91,8 +91,6 @@ public class TCGlobalConfig {
                 TCUserMgr.getInstance().setUserId(userSignResponse.userID);
                 TCUserMgr.getInstance().setUserSign(userSignResponse.userSig);
                 TCUserMgr.getInstance().setSdkAppId(userSignResponse.sdkAppId);
-
-                TCUserMgr.getInstance().loginMLVB();
             }
 
             @Override

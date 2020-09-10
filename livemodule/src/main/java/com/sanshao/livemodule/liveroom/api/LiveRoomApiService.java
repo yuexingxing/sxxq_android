@@ -24,7 +24,7 @@ public interface LiveRoomApiService {
     Observable<BaseResponse<String>> login(@Query("userid") String userid,
                                            @Query("password") String password);
 
-    @GET("live/tim/getUserSig")
+    @GET("tim/getUserSig")
     Observable<BaseResponse<UserSignResponse>> getUserSig();
 
     //创建直播房间

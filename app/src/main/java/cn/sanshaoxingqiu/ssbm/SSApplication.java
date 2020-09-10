@@ -85,8 +85,6 @@ public class SSApplication extends BasicApplication {
 
         }
 
-        // 必须：初始化全局的 用户信息管理类，记录个人信息。
-        TCUserMgr.getInstance().initContext(getApplicationContext());
 //        PlatformConfig.setWeixin("微信AppId", "微信AppSecret");
 
         //在使用SDK各组件之前初始化context信息，传入ApplicationContext

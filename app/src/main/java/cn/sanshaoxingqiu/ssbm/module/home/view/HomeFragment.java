@@ -153,22 +153,6 @@ public class HomeFragment extends BaseFragment<HomeViewModel, HomeFragmentBindin
         }
     }
 
-    private void loginLive(String username, String password) {
-        TCUserMgr tcLoginMgr = TCUserMgr.getInstance();
-        tcLoginMgr.login(username, password, new TCHTTPMgr.Callback() {
-            @Override
-            public void onSuccess(JSONObject data) {
-                ToastUtil.showLongToast("登录成功");
-                getLiveData();
-            }
-
-            @Override
-            public void onFailure(int code, final String msg) {
-                ToastUtil.showLongToast(msg);
-            }
-        });
-    }
-
     /**
      * 开始播放视频
      *
