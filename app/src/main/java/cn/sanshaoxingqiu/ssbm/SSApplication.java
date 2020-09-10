@@ -3,7 +3,6 @@ package cn.sanshaoxingqiu.ssbm;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 import androidx.multidex.BuildConfig;
 import androidx.multidex.MultiDex;
@@ -21,15 +20,8 @@ import com.exam.commonbiz.net.NetError;
 import com.exam.commonbiz.net.NetProvider;
 import com.exam.commonbiz.net.RequestHandler;
 import com.exam.commonbiz.net.XApi;
-
-import com.exam.commonbiz.bean.UserInfo;
-import cn.sanshaoxingqiu.ssbm.module.personal.setting.dokit.KitChangeHost;
-import cn.sanshaoxingqiu.ssbm.util.AppUtil;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
-
 import com.sanshao.commonui.titlebar.TitleBar;
 import com.sanshao.commonui.titlebar.TitleBarLightStyle;
-import com.sanshao.livemodule.zhibo.login.TCUserMgr;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.commonsdk.UMConfigure;
@@ -43,9 +35,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.functions.Consumer;
-import io.reactivex.plugins.RxJavaPlugins;
-
+import cn.sanshaoxingqiu.ssbm.module.personal.setting.dokit.KitChangeHost;
+import cn.sanshaoxingqiu.ssbm.util.AppUtil;
+import cn.sanshaoxingqiu.ssbm.util.Constants;
+import cn.udesk.UdeskSDKManager;
 
 /**
  * @Author yuexingxing
@@ -95,6 +88,8 @@ public class SSApplication extends BasicApplication {
         if (!LeakCanary.isInAnalyzerProcess(this)) {
             LeakCanary.install(this);
         }
+
+        UdeskSDKManager.getInstance().initApiKey(getApplicationContext(), "sanshaoxingqiu.s2.udesk.cn","e10d38a74025f86a3240885761146d18","49ac88a587043728");
     }
 
     @Override
@@ -187,13 +182,6 @@ public class SSApplication extends BasicApplication {
             @Override
             public void configHttps(okhttp3.OkHttpClient.Builder builder) {
 
-            }
-        });
-        RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
-            @Override
-            public void accept(Throwable throwable) {
-                //异常处理
-                Log.d("zdddz", "exception:" + throwable.getMessage());
             }
         });
     }

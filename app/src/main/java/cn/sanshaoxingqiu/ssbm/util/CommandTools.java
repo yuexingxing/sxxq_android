@@ -15,6 +15,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import com.exam.commonbiz.bean.UserInfo;
 import com.exam.commonbiz.util.ScreenUtil;
 import com.exam.commonbiz.util.ToastUtil;
 import com.google.gson.Gson;
@@ -24,8 +25,15 @@ import com.sanshao.commonui.dialog.CommonDialogInfo;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+
+import cn.sanshaoxingqiu.ssbm.SSApplication;
+import cn.udesk.UdeskSDKManager;
+import cn.udesk.config.UdeskConfig;
+import udesk.core.UdeskConst;
 
 /**
  * @Author yuexingxing
@@ -180,5 +188,43 @@ public class CommandTools {
         filePath = cursor.getString(columnIndex);
         cursor.close();
         return filePath;
+    }
+
+    /**
+     * 跳转客服
+     */
+    public static void startServiceChat() {
+
+        String sdkToken = UUID.randomUUID().toString();
+        UserInfo userInfo = SSApplication.getUserInfo();
+        if (userInfo != null && !TextUtils.isEmpty(userInfo.mem_id)) {
+            sdkToken = userInfo.mem_id;
+        }
+
+        UdeskSDKManager.getInstance().entryChat(SSApplication.getInstance(), getUdeskConfig(userInfo), sdkToken);
+    }
+
+    /**
+     * 配置用户信息
+     *
+     * @return
+     */
+    public static UdeskConfig getUdeskConfig(UserInfo userInfo) {
+
+        if (userInfo == null || TextUtils.isEmpty(userInfo.mem_id)) {
+            return UdeskConfig.createDefualt();
+        }
+
+        Map<String, String> info = new HashMap<>();
+        info.put(UdeskConst.UdeskUserInfo.USER_SDK_TOKEN, userInfo.mem_id);
+        //以下信息是可选
+        info.put(UdeskConst.UdeskUserInfo.NICK_NAME, userInfo.nickname);
+        info.put(UdeskConst.UdeskUserInfo.EMAIL, "");
+        info.put(UdeskConst.UdeskUserInfo.CELLPHONE, userInfo.mem_phone);
+        info.put(UdeskConst.UdeskUserInfo.DESCRIPTION, "");
+
+        UdeskConfig.Builder builder = new UdeskConfig.Builder();
+        builder.setDefualtUserInfo(info);
+        return builder.build();
     }
 }

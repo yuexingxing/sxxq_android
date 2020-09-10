@@ -5,7 +5,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "cn.sancell.xingqiu"
+        applicationId "cn.sancell.ssbm"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
@@ -143,6 +143,7 @@ dependencies {
     implementation project(':commonbiz')
     implementation project(':livemodule')
     implementation project(':videoplaymodule')
+    implementation project(':UdeskSDKUI')
 }
 
 //------------以下代码用于配置一键上传蒲公英----------------

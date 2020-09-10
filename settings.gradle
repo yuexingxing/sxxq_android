@@ -3,4 +3,5 @@ include ':beauty'
 include ':livemodule'
 include ':commonbiz'
 include ':app'
+include ':UdeskSDKUI'
 rootProject.name = "ssxq_android"

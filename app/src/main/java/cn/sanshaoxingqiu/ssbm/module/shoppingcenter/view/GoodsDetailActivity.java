@@ -72,8 +72,12 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import cn.jzvd.Jzvd;
+import cn.udesk.UdeskSDKManager;
+import cn.udesk.config.UdeskConfig;
+
 import com.exam.commonbiz.util.ToastUtil;
 
 /**
@@ -203,6 +207,9 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         binding.llTabGoodsDetail.setOnClickListener(v -> {
             initTabStatus(1);
             binding.nestedScrollview.smoothScrollTo(0, binding.llGoodsDetail.getTop() - ScreenUtil.dp2px(context, 60));
+        });
+        binding.includeBottom.llConsult.setOnClickListener(v->{
+            CommandTools.startServiceChat();
         });
         binding.homeBannerLayout.setDotGravityBottomRight();
 
