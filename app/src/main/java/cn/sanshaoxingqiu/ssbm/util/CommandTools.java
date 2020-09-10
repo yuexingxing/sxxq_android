@@ -11,6 +11,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -195,7 +196,7 @@ public class CommandTools {
      */
     public static void startServiceChat() {
 
-        String sdkToken = UUID.randomUUID().toString();
+        String sdkToken = getSerialNumber();
         UserInfo userInfo = SSApplication.getUserInfo();
         if (userInfo != null && !TextUtils.isEmpty(userInfo.mem_id)) {
             sdkToken = userInfo.mem_id;
@@ -226,5 +227,10 @@ public class CommandTools {
         UdeskConfig.Builder builder = new UdeskConfig.Builder();
         builder.setDefualtUserInfo(info);
         return builder.build();
+    }
+
+    public static String getSerialNumber() {
+        String SerialNumber = android.os.Build.SERIAL;
+        return SerialNumber;
     }
 }

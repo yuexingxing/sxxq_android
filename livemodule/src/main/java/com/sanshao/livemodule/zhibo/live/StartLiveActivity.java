@@ -257,7 +257,7 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
             Bitmap bitmap = null;
             if (!TextUtils.isEmpty(filePath)) {
                 bitmap = BitmapUtil.getLocalBitmap(filePath);
-                bitmap = BitmapUtil.getSmallBitmap(filePath, bitmap.getWidth() / 5, bitmap.getHeight() / 5);
+                bitmap = BitmapUtil.getSmallBitmap(filePath, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
                 binding.ivBg.setImageBitmap(bitmap);
             }
 
