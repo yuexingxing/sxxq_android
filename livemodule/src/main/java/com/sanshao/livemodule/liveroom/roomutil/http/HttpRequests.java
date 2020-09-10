@@ -1,5 +1,6 @@
 package com.sanshao.livemodule.liveroom.roomutil.http;
 
+import android.media.session.MediaSession;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -37,8 +38,12 @@ public class HttpRequests {
     private static final MediaType MEDIA_JSON = MediaType.parse("application/json; charset=utf-8");
     private final String domain;
     private String userID  = "";
-    private String token = "";
+    public static String token = "";
     private HeartBeatCallback heartBeatCallback = null;
+
+    public static String getToken(){
+        return token;
+    }
 
     private class HttpInteraptorLog implements HttpLoggingInterceptor.Logger{
         @Override

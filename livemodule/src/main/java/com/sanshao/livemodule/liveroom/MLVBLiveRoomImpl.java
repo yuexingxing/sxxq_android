@@ -395,7 +395,7 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
             @Override
             public void onResponse(int retcode, String retmsg, HttpResponse.PushUrl data) {
                 if (retcode == HttpResponse.CODE_OK && data != null && data.pushURL != null) {
-                    final String pushURL = data.pushURL;
+                    final String pushURL = data.pushURL + "?uid=" + TCUserMgr.getInstance().getUserId() + "&t=" + HttpRequests.getToken();
                     mSelfPushUrl = data.pushURL;
                     mSelfAccelerateURL = data.accelerateURL;
 

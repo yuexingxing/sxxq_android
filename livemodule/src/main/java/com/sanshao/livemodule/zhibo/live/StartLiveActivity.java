@@ -65,7 +65,6 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
     private final static int REQUEST_IMAGE_CAPTURE = 2;
     private String mCurrentPhotoPath;
     private OssViewModel mOssViewModel;
-    private String mRoomId;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, StartLiveActivity.class);
@@ -167,7 +166,6 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
 
         setLiveBg(TCUserMgr.getInstance().getCoverPic());
         startLocation();
-        mViewModel.getRoomId();
     }
 
     // 发起定位
@@ -189,9 +187,6 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
             ToastUtil.showLongToast("请输入直播标题");
             return;
         }
-        if (TextUtils.isEmpty(mRoomId)) {
-            mRoomId = BasicApplication.getUserInfo().invitation_code;
-        }
         if (TextUtils.isEmpty(TCUserMgr.getInstance().getCoverPic())) {
             ToastUtil.showLongToast("未上传封面");
             return;
@@ -200,7 +195,7 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
         UserInfo userInfo = BasicApplication.getUserInfo();
         Intent intent = new Intent(this, TCCameraAnchorActivity.class);
         if (intent != null) {
-            intent.putExtra(TCConstants.ROOM_ID, mRoomId);
+            intent.putExtra(TCConstants.ROOM_ID, BasicApplication.getUserInfo().invitation_code);
             intent.putExtra(TCConstants.ROOM_TITLE, title);
             intent.putExtra(TCConstants.USER_ID, userInfo.mem_phone);
             intent.putExtra(TCConstants.USER_NICK, userInfo.nickname);
@@ -358,7 +353,6 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
         if (getRoomIdResponse == null) {
             return;
         }
-        mRoomId = getRoomIdResponse.room_number;
     }
 
     @Override

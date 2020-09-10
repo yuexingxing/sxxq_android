@@ -29,6 +29,7 @@ import androidx.core.content.FileProvider;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.exam.commonbiz.base.BasicApplication;
 import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.liveroom.model.ILiveRoomModel;
 import com.sanshao.livemodule.liveroom.roomutil.bean.GetRoomIdResponse;
@@ -89,7 +90,6 @@ public class TCAnchorPrepareActivity extends Activity implements View.OnClickLis
     private boolean mPermission = false;               // 是否已经授权
     private TCUploadHelper mUploadHelper;                     // COS 存储封面图的工具类
     private LiveViewModel mLiveViewModel;
-    private String mRoomId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +114,6 @@ public class TCAnchorPrepareActivity extends Activity implements View.OnClickLis
         mLiveViewModel = new LiveViewModel();
         mLiveViewModel.setILiveRoomModel(this);
         mPermission = checkPublishPermission();
-        mLiveViewModel.getRoomId();
         initPhotoDialog();
         initCover();
     }
@@ -239,7 +238,7 @@ public class TCAnchorPrepareActivity extends Activity implements View.OnClickLis
 
         TCUserMgr.getInstance().setCoverPic("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1599468386991&di=f145949f3a7032422e2da275eacc56c0&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fblog%2F201306%2F26%2F20130626161523_zw25t.jpeg", null);
         if (intent != null) {
-            intent.putExtra(TCConstants.ROOM_ID, mRoomId);
+            intent.putExtra(TCConstants.ROOM_ID, BasicApplication.getUserInfo().invitation_code);
             intent.putExtra(TCConstants.ROOM_TITLE,
                     TextUtils.isEmpty(mTvTitle.getText().toString()) ? TCUserMgr.getInstance().getNickname() : mTvTitle.getText().toString());
             intent.putExtra(TCConstants.USER_ID, TCUserMgr.getInstance().getUserId());
@@ -576,7 +575,6 @@ public class TCAnchorPrepareActivity extends Activity implements View.OnClickLis
         if (getRoomIdResponse == null) {
             return;
         }
-        mRoomId = getRoomIdResponse.room_number;
     }
 
     @Override
