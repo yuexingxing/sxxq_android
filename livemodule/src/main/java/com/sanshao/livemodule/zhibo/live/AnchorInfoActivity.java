@@ -23,8 +23,6 @@ import com.sanshao.livemodule.zhibo.login.TCUserMgr;
  */
 public class AnchorInfoActivity extends BaseActivity<BaseViewModel, ActivityAnchorInfoBinding> {
 
-    private UserInfo mUserInfo;
-
     public static void start(Context context) {
         Intent starter = new Intent(context, AnchorInfoActivity.class);
         context.startActivity(starter);
@@ -61,10 +59,9 @@ public class AnchorInfoActivity extends BaseActivity<BaseViewModel, ActivityAnch
             }
         });
 
-        mUserInfo = BasicApplication.app.getUserInfo();
-        binding.tvName.setText(mUserInfo.nickname);
-        GlideUtil.loadImage(mUserInfo.avatar, binding.ivAvatar);
-        TCUserMgr.getInstance().loginMLVB();
+        TCUserMgr tcUserMgr = TCUserMgr.getInstance();
+        binding.tvName.setText(tcUserMgr.getNickname());
+        GlideUtil.loadImage(tcUserMgr.getAvatar(), binding.ivAvatar);
     }
 
     @Override

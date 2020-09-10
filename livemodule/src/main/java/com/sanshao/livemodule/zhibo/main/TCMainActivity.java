@@ -164,11 +164,11 @@ public class TCMainActivity extends FragmentActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (TextUtils.isEmpty(TCUserMgr.getInstance().getUserToken())) {
-            if (TCUtils.isNetworkAvailable(this) && TCUserMgr.getInstance().hasUser()) {
-                TCUserMgr.getInstance().autoLogin(null);
-            }
-        }
+//        if (TextUtils.isEmpty(TCUserMgr.getInstance().getUserToken())) {
+//            if (TCUtils.isNetworkAvailable(this) && TCUserMgr.getInstance().hasUser()) {
+//                TCUserMgr.getInstance().autoLogin(null);
+//            }
+//        }
     }
 
     /**

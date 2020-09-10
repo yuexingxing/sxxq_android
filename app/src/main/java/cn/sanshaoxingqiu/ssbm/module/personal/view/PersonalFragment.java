@@ -246,6 +246,8 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             }
             if (TCGlobalConfig.isUserSignEmpty()) {
                 TCGlobalConfig.getUserSign();
+            }else{
+                TCUserMgr.getInstance().loginMLVB();
             }
         }
     }

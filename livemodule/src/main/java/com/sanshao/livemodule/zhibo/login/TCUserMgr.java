@@ -40,7 +40,7 @@ public class TCUserMgr {
     private Context mContext;              // context 上下文
     private String mUserId = "";           // 用户id
     private String mUserPwd = "";          // 用户密码
-    private String mToken = "";            // token
+//    private String mToken = "";            // token
     private long mSdkAppID = 0;            // sdkAppId
     private String mUserSig = "";          // 用于登录到 MLVB 的userSign
     private String mAccountType;
@@ -98,9 +98,9 @@ public class TCUserMgr {
         return mUserSig;
     }
 
-    public String getUserToken() {
-        return mToken;
-    }
+//    public String getUserToken() {
+//        return mToken;
+//    }
 
     public String getUserId() {
         return mUserId;
