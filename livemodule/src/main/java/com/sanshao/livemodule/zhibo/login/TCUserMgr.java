@@ -463,7 +463,6 @@ public class TCUserMgr {
         loginInfo.sdkAppID = getSDKAppID();
         loginInfo.userID = getUserId();
         loginInfo.userSig = getUserSign();
-
         String userName = getNickname();
         loginInfo.userName = !TextUtils.isEmpty(userName) ? userName : getUserId();
         loginInfo.userAvatar = getUserAvatar();

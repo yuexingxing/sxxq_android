@@ -26,10 +26,12 @@ import com.sanshao.livemodule.liveroom.roomutil.http.HttpRequests;
 import com.sanshao.livemodule.liveroom.roomutil.http.HttpResponse;
 import com.sanshao.livemodule.liveroom.roomutil.im.IMMessageMgr;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;
+import com.sanshao.livemodule.zhibo.login.TCUserMgr;
 import com.tencent.imsdk.TIMUserProfile;
 import com.tencent.imsdk.TIMValueCallBack;
 import com.tencent.liteav.basic.log.TXCLog;
 import com.tencent.liteav.beauty.TXBeautyManager;
+import com.tencent.openqq.protocol.imsdk.msg;
 import com.tencent.rtmp.ITXLivePlayListener;
 import com.tencent.rtmp.ITXLivePushListener;
 import com.tencent.rtmp.TXLiveConstants;
@@ -552,9 +554,11 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
      */
     @Override
     public void exitRoom(IMLVBLiveRoomListener.ExitRoomCallback callback) {
-        TXCLog.i(TAG, "API -> exitRoom");
+        TXCLog.i(TAG, "API -> exitRoom: " + mCurrRoomID);
         //1. 结束心跳
         mHeartBeatThread.stopHeartbeat();
+
+        destroyRoom(mCurrRoomID, TCUserMgr.getInstance().getUserId(), null);
 
         // 停止 BGM
         stopBGM();
@@ -2028,6 +2032,20 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
                 });
     }
 
+    public void destroyRoom(final String roomID, String userId, final StandardCallback callback) {
+
+        mHttpRequest.destroyRoom(roomID, userId, new HttpRequests.OnResponseCallback<HttpResponse>() {
+            @Override
+            public void onResponse(int retcode, @Nullable String retmsg, @Nullable HttpResponse data) {
+                if (retcode == HttpResponse.CODE_OK) {
+                    TXCLog.d(TAG, "[LiveRoom] 关闭直播间 ID[" + roomID + "] 成功 ");
+                } else {
+                    TXCLog.d(TAG, "[LiveRoom] 关闭直播间 ID[" + roomID + "] 失败 ");
+                }
+            }
+        });
+    }
+
     protected void addAnchor(final String roomID, final String pushURL, final StandardCallback callback) {
         mHasAddAnchor = true;
         mHttpRequest.addPusher(roomID,
@@ -2088,6 +2106,9 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
     }
 
     private void notifyPusherChange() {
+        if (mSelfAccountInfo == null){
+            return;
+        }
         //通知房间内其他主播
         CommonJson<AnchorInfo> msg = new CommonJson<>();
         msg.cmd = "notifyPusherChange";

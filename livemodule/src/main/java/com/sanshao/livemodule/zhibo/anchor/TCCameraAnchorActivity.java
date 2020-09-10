@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.liveroom.IMLVBLiveRoomListener;
+import com.sanshao.livemodule.liveroom.MLVBLiveRoomImpl;
 import com.sanshao.livemodule.liveroom.roomutil.commondef.AnchorInfo;
 import com.sanshao.livemodule.zhibo.anchor.music.TCAudioControl;
 import com.sanshao.livemodule.zhibo.common.msg.TCSimpleUserInfo;
@@ -208,6 +209,7 @@ public class TCCameraAnchorActivity extends TCBaseAnchorActivity {
     @Override
     protected void stopPublish() {
         super.stopPublish();
+
         if (mAudioCtrl != null) {
             mAudioCtrl.unInit();
             mAudioCtrl.setPusher(null);
