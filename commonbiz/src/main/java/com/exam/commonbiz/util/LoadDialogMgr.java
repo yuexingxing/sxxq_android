@@ -32,7 +32,7 @@ public class LoadDialogMgr {
         mLoadingDialog = new LoadingDialog(context);
         mLoadingDialog.setLoadingText("加载中")
                 .setSuccessText("")
-                .setInterceptBack(true)
+                .setInterceptBack(false)
                 .setLoadSpeed(LoadingDialog.Speed.SPEED_ONE)
                 .closeSuccessAnim()
 //                .setDrawColor(color)
@@ -44,7 +44,7 @@ public class LoadDialogMgr {
         mLoadingDialog = new LoadingDialog(context);
         mLoadingDialog.setLoadingText(content)
                 .setSuccessText("")
-                .setInterceptBack(true)
+                .setInterceptBack(false)
                 .setLoadSpeed(LoadingDialog.Speed.SPEED_ONE)
                 .closeSuccessAnim()
 //                .setDrawColor(color)
