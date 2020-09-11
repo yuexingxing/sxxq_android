@@ -71,7 +71,7 @@ public class AnchorWorksFragment extends BaseFragment<LiveViewModel, FragmentLay
         String picUrl = "http://img.cyw.com/shopx/20130606155913125664/shopinfo/201605041441522.jpg";
         for (int i = 0; i < 10; i++) {
             TCVideoInfo tcVideoInfo = new TCVideoInfo();
-            tcVideoInfo.title = i + "";
+            tcVideoInfo.title = i + "大佛家里房间里看书的风景阿迪是否了解";
             tcVideoInfo.frontCover = picUrl;
             mAnchorWorksAdapter.addData(tcVideoInfo);
         }

@@ -10,20 +10,36 @@
     <FrameLayout
         android:id="@+id/fl_content"
         android:layout_width="166dp"
-        android:layout_height="222dp"
-        android:background="@drawable/shape_white_radius_10">
+        android:layout_height="222dp">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/iv_icon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
+            android:src="@drawable/gray_btn_bg"
             app:riv_corner_radius="10dp" />
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="title" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_gravity="bottom"
+            android:background="@color/transparent_half"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="上传图片"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </LinearLayout>
     </FrameLayout>
 </LinearLayout>
