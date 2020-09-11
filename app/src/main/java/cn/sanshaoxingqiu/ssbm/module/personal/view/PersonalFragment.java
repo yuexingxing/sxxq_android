@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.exam.commonbiz.base.BaseFragment;
+import com.exam.commonbiz.dialog.CommonTipDialog;
+import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.Res;
 import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;
@@ -194,13 +196,41 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             if (mLiveApplyResponse == null) {
                 return;
             }
-            mLiveApplyResponse.audit_status = LiveApplyResponse.AuditStatus.SUCCESS;
+//            mLiveApplyResponse.audit_status = LiveApplyResponse.AuditStatus.FAILED;
+            //审核中
             if (mLiveApplyResponse.isAuditing()) {
                 IdentityingActivity.start(context);
-            } else if (mLiveApplyResponse.isAuditSuccess()) {
+            }
+            //认证成功
+            else if (mLiveApplyResponse.isAuditSuccess()) {
                 AnchorInfoActivity.start(context);
-            } else {
+            }
+            //未填写资料
+            else if (mLiveApplyResponse.isUnApply()) {
                 LiveIdentifyActivity.start(context);
+            } else {
+                CommonTipDialog commonTipDialog = new CommonTipDialog();
+                commonTipDialog.init(context)
+                        .setTitle("审核失败")
+                        .setContent("原因: " + mLiveApplyResponse.reason)
+                        .setContentColor(Res.getColor(context, R.color.color_c52d2d))
+                        .setLeftButton("取消")
+                        .showBottomLine(View.VISIBLE)
+                        .setRightButton("重新申请")
+                        .setOnLeftButtonClick(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                commonTipDialog.dismiss();
+                            }
+                        })
+                        .setOnRightButtonClick(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                commonTipDialog.dismiss();
+                                LiveIdentifyActivity.start(context);
+                            }
+                        })
+                        .show();
             }
 
         });
@@ -246,7 +276,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             }
             if (TCGlobalConfig.isUserSignEmpty()) {
                 TCGlobalConfig.getUserSign();
-            }else{
+            } else {
                 TCUserMgr.getInstance().loginMLVB();
             }
         }
@@ -438,5 +468,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             return;
         }
         mLiveApplyResponse = liveApplyResponse;
+        UserInfo userInfo = SSApplication.getUserInfo();
+        userInfo.frontcover = liveApplyResponse.identity_card_front;
     }
 }

@@ -12,8 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:textColor="@color/color_242526"
         android:textSize="15sp"
-        tools:text="分享金不足" />
+        android:textStyle="bold"
+        tools:text="标题" />
 
     <TextView
         android:id="@+id/tv_content"
@@ -46,6 +48,12 @@
             android:text="确认"
             android:textColor="@color/main_color"
             android:textSize="13sp" />
+
+        <View
+            android:id="@+id/view_bottom_line"
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/line" />
 
         <TextView
             android:id="@+id/tv_cancel"

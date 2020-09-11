@@ -15,7 +15,9 @@ import cn.sanshaoxingqiu.ssbm.databinding.ActivityInvitationBinding;
 import cn.sanshaoxingqiu.ssbm.module.invitation.bean.UserReferrals;
 import cn.sanshaoxingqiu.ssbm.module.invitation.model.InvitationCallBack;
 import cn.sanshaoxingqiu.ssbm.module.invitation.viewmodel.InvitationViewModel;
+
 import com.exam.commonbiz.bean.UserInfo;
+
 import cn.sanshaoxingqiu.ssbm.module.register.view.RegisterActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsTypeInfo;
@@ -24,15 +26,21 @@ import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.GoodsDetailActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.GoodsListActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.adapter.GoodsTypeDetailVerticalAdapter;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsPosterDialog;
+
 import com.exam.commonbiz.util.BitmapUtil;
+
 import cn.sanshaoxingqiu.ssbm.util.Constants;
+
 import com.exam.commonbiz.util.GlideUtil;
 import com.exam.commonbiz.util.LoadDialogMgr;
+
 import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
+
 import com.exam.commonbiz.dialog.CommonTipDialog;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.util.ContainerUtil;
+import com.exam.commonbiz.util.Res;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
@@ -112,8 +120,24 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
             if (goodsDetailInfo.isPayByPoint()) {
                 UserInfo userInfo = SSApplication.getInstance().getUserInfo();
                 if (userInfo.available_point == 0) {
-                    new CommonTipDialog().show(context, "分享金不足", "分享一位体验用户成功注册三少变美APP，即可获得\"奖励变美区\"一个项目，项目任选，多分享多获得。",
-                            "", "确认", null);
+                    CommonTipDialog commonTipDialog = new CommonTipDialog();
+                    commonTipDialog.init(context)
+                            .setTitle("分享金不足")
+                            .setContent("分享一位体验用户成功注册三少变美APP，即可获得\"奖励变美区\"一个项目，项目任选，多分享多获得。")
+                            .setRightButton("确认")
+                            .setOnLeftButtonClick(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    commonTipDialog.dismiss();
+                                }
+                            })
+                            .setOnRightButtonClick(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    commonTipDialog.dismiss();
+                                }
+                            })
+                            .show();
                     return;
                 }
             }

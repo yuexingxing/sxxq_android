@@ -11,4 +11,7 @@
     <color name="color_aeaeae">#AEAEAE</color>
     <color name="color_fafafa">#FAFAFA</color>
     <color name="color_c52d2d">#C52D2D</color>
+    <color name="line">#d8d8d8</color>
+    <color name="color_242526">#242526</color>
+
 </resources>

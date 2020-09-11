@@ -15,7 +15,6 @@
     <color name="textColorSecond">#37465F</color>
     <color name="color_cacbcf">#CACBCF</color>
     <color name="color_f9f9fa">#f9f9fa</color>
-    <color name="line">#d8d8d8</color>
     <color name="color_b6a578">#B6A57B</color>
     <color name="color_1ab6a578">#1AB6A57B</color>
     <color name="color_f7f7f7">#f7f7f7</color>
@@ -34,4 +33,5 @@
     <color name="color_3e3f40">#3e3f40</color>
     <color name="color_b0b5af">#B0B5AF</color>
     <color name="color_f2f3f5">#F2F3F5</color>
+
 </resources>

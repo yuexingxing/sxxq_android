@@ -132,8 +132,24 @@ public class RegisterActivity extends BaseActivity<RegisterViewModel, ActivityRe
             GoodsDetailInfo goodsDetailInfo = goodsTypeDetailVerticalAdapter.getData().get(position);
             if (goodsDetailInfo.isPayByPoint()) {
                 if (userInfo.available_point == 0) {
-                    new CommonTipDialog().show(context, "分享金不足", "分享一位体验用户成功注册三少变美APP，即可获得\"奖励变美区\"一个项目，项目任选，多分享多获得。",
-                            "", "确认", null);
+                    CommonTipDialog commonTipDialog = new CommonTipDialog();
+                    commonTipDialog.init(context)
+                            .setTitle("分享金不足")
+                            .setContent("分享一位体验用户成功注册三少变美APP，即可获得\"奖励变美区\"一个项目，项目任选，多分享多获得。")
+                            .setRightButton("确认")
+                            .setOnLeftButtonClick(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    commonTipDialog.dismiss();
+                                }
+                            })
+                            .setOnRightButtonClick(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    commonTipDialog.dismiss();
+                                }
+                            })
+                            .show();
                     return;
                 }
             }

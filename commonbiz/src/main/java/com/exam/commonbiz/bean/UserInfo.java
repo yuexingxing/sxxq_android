@@ -31,6 +31,7 @@ public class UserInfo implements Serializable {
     public String commission;//我的分润
     public String mem_class_name;
     public String point_status;
+    public String frontcover;//直播封面
 
 
     /**
