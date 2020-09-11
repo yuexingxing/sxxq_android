@@ -11,7 +11,6 @@ import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
 
-
 /**
  * @Author yuexingxing
  * @time 2020/7/7
@@ -31,7 +30,7 @@ public class AnchorWorksAdapter extends BaseQuickAdapter<TCVideoInfo, BaseViewHo
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) flContent.getLayoutParams();
 
         //正好最后一排两条数据
-        if ((getData().size() - 1) % 2 == 0) {
+        if (getData().size() % 2 == 0) {
             if (helper.getAdapterPosition() == getData().size() - 1 || helper.getAdapterPosition() == getData().size() - 2) {
                 layoutParams.bottomMargin = ScreenUtil.dp2px(helper.itemView.getContext(), 12);
             }
