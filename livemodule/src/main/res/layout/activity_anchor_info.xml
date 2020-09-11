@@ -1,92 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
             android:scaleType="fitXY"
-            android:src="@drawable/live_image_bg" />
+            android:src="@drawable/live_image_bg"
+            app:layout_collapseMode="parallax" />
 
-        <LinearLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@color/transparent"
+            android:orientation="vertical"
+            app:elevation="0dp">
 
             <com.sanshao.commonui.titlebar.TitleBar
                 android:id="@+id/title_bar"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginTop="30dp"
                 android:background="@color/transparent"
-                app:title="主播主页"
                 app:leftIcon="@drawable/icon_back_white"
+                app:title="主播主页"
                 app:titleColor="@color/white" />
 
-            <LinearLayout
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/third_activity_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_marginBottom="12dp">
 
-                <FrameLayout
-                    android:layout_width="84dp"
-                    android:layout_height="84dp"
-                    android:layout_marginLeft="@dimen/left_container_margin">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <com.makeramen.roundedimageview.RoundedImageView
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@color/white"
-                        app:riv_corner_radius="84dp" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="69dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/iv_avatar"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginTop="2dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/gray_btn_bg"
-                        app:riv_corner_radius="80dp" />
-                </FrameLayout>
+                        <FrameLayout
+                            android:layout_width="84dp"
+                            android:layout_height="84dp"
+                            android:layout_marginLeft="@dimen/left_container_margin">
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1" />
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop"
+                                android:src="@color/white"
+                                app:riv_corner_radius="84dp" />
 
-                <TextView
-                    android:id="@+id/tv_start_live"
-                    android:layout_width="180dp"
-                    android:layout_height="38dp"
-                    android:layout_marginRight="@dimen/right_container_margin"
-                    android:background="@drawable/selector_btn"
-                    android:enabled="true"
-                    android:gravity="center"
-                    android:text="去开播"
-                    android:textColor="@color/white"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:id="@+id/iv_avatar"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginTop="2dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/gray_btn_bg"
+                                app:riv_corner_radius="80dp" />
+                        </FrameLayout>
 
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/left_container_margin"
-                android:layout_marginTop="12dp"
-                android:textColor="#ffffffff"
-                android:textSize="18sp"
-                tools:text="小蝴蝶" />
-        </LinearLayout>
-    </FrameLayout>
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:id="@+id/tv_start_live"
+                            android:layout_width="180dp"
+                            android:layout_height="38dp"
+                            android:layout_marginRight="@dimen/right_container_margin"
+                            android:background="@drawable/selector_btn"
+                            android:enabled="true"
+                            android:gravity="center"
+                            android:text="去开播"
+                            android:textColor="@color/white"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/left_container_margin"
+                        android:layout_marginTop="12dp"
+                        android:textColor="#ffffffff"
+                        android:textSize="18sp"
+                        tools:text="小蝴蝶" />
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:tabBackground="@color/transparent"
+                app:tabIndicatorColor="@color/white"
+                app:tabIndicatorFullWidth="false"
+                app:tabMode="fixed"
+                app:tabRippleColor="@color/transparent" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

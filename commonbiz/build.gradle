@@ -89,6 +89,7 @@ dependencies {
     implementation 'com.squareup.okio:okio:1.9.0'
     api 'com.alibaba:fastjson:1.2.23'
     api 'com.zzhoujay.richtext:richtext:3.0.7'
+    api 'com.github.smarxpan:NotchScreenTool:0.0.1'
 
     compile (name:'commonui-1.0.14', ext: 'aar')
     compile (name:'commonutil-1.0.1', ext: 'aar')
