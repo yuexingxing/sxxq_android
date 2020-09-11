@@ -164,6 +164,8 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
             }
         });
 
+        String picUrl = "http://img.cyw.com/shopx/20130606155913125664/shopinfo/201605041441522.jpg";
+        TCUserMgr.getInstance().setCoverPic(picUrl, null);
         setLiveBg(TCUserMgr.getInstance().getCoverPic());
         startLocation();
     }

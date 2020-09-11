@@ -17,7 +17,6 @@ import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.databinding.ActivityAnchorInfoBinding;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
-import com.smarx.notchlib.NotchScreenManager;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -49,11 +48,15 @@ public class AnchorInfoActivity extends BaseActivity<BaseViewModel, ActivityAnch
     }
 
     @Override
+    protected boolean isUseFullScreenMode() {
+        return false;
+    }
+
+    @Override
     public void initData() {
 
         initTabLayout();
         initViewPager();
-//        NotchScreenManager.getInstance().setDisplayInNotch(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View view) {
