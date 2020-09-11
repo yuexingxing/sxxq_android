@@ -11,12 +11,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.exam.commonbiz.base.BaseFragment;
+import com.exam.commonbiz.bean.UserInfo;
 import com.exam.commonbiz.dialog.CommonTipDialog;
-import com.exam.commonbiz.util.CommonCallBack;
+import com.exam.commonbiz.util.GlideUtil;
 import com.exam.commonbiz.util.Res;
 import com.exam.commonbiz.util.ScreenUtil;
+import com.exam.commonbiz.util.ToastUtil;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;
+import com.sanshao.livemodule.zhibo.live.AnchorInfoActivity;
 import com.sanshao.livemodule.zhibo.login.TCLoginActivity;
+import com.sanshao.livemodule.zhibo.login.TCUserMgr;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -44,9 +48,6 @@ import cn.sanshaoxingqiu.ssbm.module.order.view.OrderListActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.AppointmentForConsultationViewModel;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderDetailViewModel;
 import cn.sanshaoxingqiu.ssbm.module.personal.adapter.PersonalOrderSubjectAdapter;
-
-import com.exam.commonbiz.bean.UserInfo;
-
 import cn.sanshaoxingqiu.ssbm.module.personal.event.UpdateUserInfoEvent;
 import cn.sanshaoxingqiu.ssbm.module.personal.inquiry.view.ToBeInquiryListActivity;
 import cn.sanshaoxingqiu.ssbm.module.personal.model.IPersonalCallBack;
@@ -59,12 +60,6 @@ import cn.sanshaoxingqiu.ssbm.module.personal.viewmodel.PersonalViewModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
 import cn.sanshaoxingqiu.ssbm.util.DateUtil;
-
-import com.exam.commonbiz.util.GlideUtil;
-import com.sanshao.livemodule.zhibo.live.AnchorInfoActivity;
-
-import com.exam.commonbiz.util.ToastUtil;
-import com.sanshao.livemodule.zhibo.login.TCUserMgr;
 
 /**
  * 我的
@@ -468,7 +463,6 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             return;
         }
         mLiveApplyResponse = liveApplyResponse;
-        UserInfo userInfo = SSApplication.getUserInfo();
-        userInfo.frontcover = liveApplyResponse.identity_card_front;
+        TCUserMgr.getInstance().setCoverPic(liveApplyResponse.frontcover, null);
     }
 }

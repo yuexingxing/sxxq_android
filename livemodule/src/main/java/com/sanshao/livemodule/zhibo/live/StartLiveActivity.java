@@ -164,7 +164,7 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
             }
         });
 
-        String picUrl = BasicApplication.getUserInfo().frontcover;
+        String picUrl = TCUserMgr.getInstance().getCoverPic();
         TCUserMgr.getInstance().setCoverPic(picUrl, null);
         setLiveBg(TCUserMgr.getInstance().getCoverPic());
         startLocation();

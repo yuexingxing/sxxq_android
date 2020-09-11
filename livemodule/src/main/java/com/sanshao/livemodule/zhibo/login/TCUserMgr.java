@@ -169,6 +169,8 @@ public class TCUserMgr {
         mCoverPic = "";
         mUserAvatar = "";
         mLocation = "";
+        TCGlobalConfig.LICENCE_URL = "";
+        TCGlobalConfig.LICENCE_KEY = "";
         clearUserInfo();
     }
 

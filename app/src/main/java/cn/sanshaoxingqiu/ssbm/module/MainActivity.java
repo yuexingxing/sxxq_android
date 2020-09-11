@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,6 +27,7 @@ import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.IncomeMenuInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.view.IncomeTabFragmentAdapter;
 import cn.sanshaoxingqiu.ssbm.module.personal.view.PersonalFragment;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.ShoppingCenterFragment;
+
 import com.exam.commonbiz.util.ToastUtil;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
 
@@ -96,6 +98,11 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
             return false;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void back() {
+
     }
 
     private void exit() {
@@ -195,5 +202,11 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     public void onIdentityExpiredEvent(IdentityExpiredEvent identityExpiredEvent) {
         SSApplication.setToken("");//身份过期后token置空
         LoginActivity.start(context);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("zdddz", "main-onDestroy");
     }
 }
