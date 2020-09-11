@@ -8,4 +8,9 @@
         <attr name="radius" format="dimension" />
         <attr name="cover_color" format="color" />
     </declare-styleable>
+    <declare-styleable name="LinearEmptyLayout">
+        <attr name="elEmptyLayout" format="reference" />
+        <attr name="elErrorLayout" format="reference" />
+        <attr name="elLoadingLayout" format="reference" />
+    </declare-styleable>
 </resources>

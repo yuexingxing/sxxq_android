@@ -46,4 +46,8 @@ public interface LiveRoomApiService {
     //获取聊天房间号
     @GET("live/mlive/getRoomId")
     Observable<BaseResponse<GetRoomIdResponse>> getRoomId();
+
+    //获取聊天房间号
+    @GET("live/mlive/getRoomId")
+    Observable<BaseResponse<GetRoomIdResponse>> getBackVideo();
 }

@@ -1,15 +1,20 @@
 package com.sanshao.livemodule.zhibo.live;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseFragment;
-import com.exam.commonbiz.base.BaseViewModel;
 import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.databinding.FragmentLayoutAnchorWorksBinding;
+import com.sanshao.livemodule.liveroom.model.ILiveRoomModel;
+import com.sanshao.livemodule.liveroom.roomutil.bean.GetRoomIdResponse;
+import com.sanshao.livemodule.liveroom.roomutil.bean.LicenceInfo;
+import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
+import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
 
 /**
@@ -18,7 +23,7 @@ import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
  * @Author yuexingxing
  * @time 2020/9/10
  */
-public class AnchorWorksFragment extends BaseFragment<BaseViewModel, FragmentLayoutAnchorWorksBinding> {
+public class AnchorWorksFragment extends BaseFragment<LiveViewModel, FragmentLayoutAnchorWorksBinding> implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener, ILiveRoomModel {
 
     private AnchorWorksAdapter mAnchorWorksAdapter;
 
@@ -46,12 +51,22 @@ public class AnchorWorksFragment extends BaseFragment<BaseViewModel, FragmentLay
     @Override
     public void initData() {
 
+        mViewModel.setILiveRoomModel(this);
         mAnchorWorksAdapter = new AnchorWorksAdapter();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
         binding.recyclerView.setLayoutManager(gridLayoutManager);
         binding.recyclerView.setAdapter(mAnchorWorksAdapter);
         binding.recyclerView.setNestedScrollingEnabled(true);
         binding.recyclerView.setHasFixedSize(true);
+
+        binding.swipeRefreshLayout.setColorSchemeResources(R.color.main_color);
+        binding.swipeRefreshLayout.setOnRefreshListener(this);
+        binding.emptyLayout.setOnButtonClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onRefresh();
+            }
+        });
 
         String picUrl = "http://img.cyw.com/shopx/20130606155913125664/shopinfo/201605041441522.jpg";
         for (int i = 0; i < 10; i++) {
@@ -62,4 +77,34 @@ public class AnchorWorksFragment extends BaseFragment<BaseViewModel, FragmentLay
         }
     }
 
+    @Override
+    public void onRefresh() {
+        mViewModel.getBackVideo();
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+
+    }
+
+    @Override
+    public void returnGetLicense(LicenceInfo licenceInfo) {
+
+    }
+
+    @Override
+    public void returnUserSign(UserSignResponse userSignResponse) {
+
+    }
+
+    @Override
+    public void returnGetBackVideo(GetRoomIdResponse getRoomIdResponse) {
+        binding.swipeRefreshLayout.setRefreshing(false);
+
+    }
+
+    @Override
+    public void returnUploadLiveRoomInfo() {
+
+    }
 }

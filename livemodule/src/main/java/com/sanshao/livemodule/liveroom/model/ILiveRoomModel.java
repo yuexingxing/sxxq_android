@@ -10,7 +10,7 @@ public interface ILiveRoomModel {
 
     void returnUserSign(UserSignResponse userSignResponse);
 
-    void returnGetRoomId(GetRoomIdResponse getRoomIdResponse);
+    void returnGetBackVideo(GetRoomIdResponse getRoomIdResponse);
 
     void returnUploadLiveRoomInfo();
 }

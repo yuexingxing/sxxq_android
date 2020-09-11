@@ -56,11 +56,6 @@
         <attr name="PersonalOrderMenuView_icon" format="reference" />
         <attr name="PersonalOrderMenuView_num" format="integer" />
     </declare-styleable>
-    <declare-styleable name="LinearEmptyLayout">
-        <attr name="elEmptyLayout" format="reference" />
-        <attr name="elErrorLayout" format="reference" />
-        <attr name="elLoadingLayout" format="reference" />
-    </declare-styleable>
     <declare-styleable name="HomeBannerLayout">
         <attr name="HomeBannerLayout_autoScroll" format="boolean" />
     </declare-styleable>

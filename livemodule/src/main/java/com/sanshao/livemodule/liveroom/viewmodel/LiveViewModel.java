@@ -75,9 +75,9 @@ public class LiveViewModel extends BaseViewModel {
         });
     }
 
-    public void getRoomId() {
+    public void getBackVideo() {
 
-        LiveModel.getRoomId(new OnLoadListener<GetRoomIdResponse>() {
+        LiveModel.getBackVideo(new OnLoadListener<GetRoomIdResponse>() {
             @Override
             public void onLoadStart() {
 
@@ -91,12 +91,15 @@ public class LiveViewModel extends BaseViewModel {
             @Override
             public void onLoadSucessed(BaseResponse<GetRoomIdResponse> t) {
                 if (mILiveRoomModel != null) {
-                    mILiveRoomModel.returnGetRoomId(t.getContent());
+                    mILiveRoomModel.returnGetBackVideo(t.getContent());
                 }
             }
 
             @Override
             public void onLoadFailed(String errMsg) {
+                if (mILiveRoomModel != null) {
+                    mILiveRoomModel.returnGetBackVideo(null);
+                }
                 Toast.makeText(BasicApplication.app, errMsg, Toast.LENGTH_SHORT).show();
             }
         });

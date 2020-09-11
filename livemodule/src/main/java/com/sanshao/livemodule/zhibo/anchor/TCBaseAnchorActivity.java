@@ -68,7 +68,7 @@ import master.flame.danmaku.controller.IDanmakuView;
  * <p>
  * 2. 处理消息接收到的文本信息：{@link TCBaseAnchorActivity#onRecvRoomTextMsg(String, String, String, String, String)}
  */
-public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListener, View.OnClickListener, TCInputTextMsgDialog.OnTextSendListener, ILiveRoomModel {
+public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListener, View.OnClickListener, TCInputTextMsgDialog.OnTextSendListener {
     private static final String TAG = TCBaseAnchorActivity.class.getSimpleName();
 
     // 消息列表相关
@@ -105,7 +105,6 @@ public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListe
     private BroadcastTimerTask mBroadcastTimerTask;    // 定时任务
     protected long mSecond = 0;            // 开播的时间，单位为秒
     private long mStartPushPts;          // 开始直播的时间，用于 ELK 上报统计。 您可以不关注
-    private LiveViewModel mLiveViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,8 +123,6 @@ public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListe
         mNickName = intent.getStringExtra(TCConstants.USER_NICK);
         mLocation = intent.getStringExtra(TCConstants.USER_LOC);
 
-        mLiveViewModel = new LiveViewModel();
-        mLiveViewModel.setILiveRoomModel(this);
         mArrayListChatEntity = new ArrayList<>();
         mErrDlgFragment = new ErrorDialogFragment();
         mLiveRoom = MLVBLiveRoom.sharedInstance(this);
@@ -684,26 +681,6 @@ public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListe
      * /////////////////////////////////////////////////////////////////////////////////
      */
     protected void onBroadcasterTimeUpdate(long second) {
-
-    }
-
-    @Override
-    public void returnGetLicense(LicenceInfo licenceInfo) {
-
-    }
-
-    @Override
-    public void returnUserSign(UserSignResponse userSignResponse) {
-
-    }
-
-    @Override
-    public void returnGetRoomId(GetRoomIdResponse getRoomIdResponse) {
-
-    }
-
-    @Override
-    public void returnUploadLiveRoomInfo() {
 
     }
 

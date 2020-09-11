@@ -1,4 +1,4 @@
-package cn.sanshaoxingqiu.ssbm.widget;
+package com.exam.commonbiz.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import cn.sanshaoxingqiu.ssbm.R;
+import com.exam.commonbiz.R;
 
 /**
  * recyclerview空数据/网络错误页面封装

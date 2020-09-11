@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:descendantFocusability="blocksDescendants">
 
-            <cn.sanshaoxingqiu.ssbm.widget.LinearEmptyLayout
+            <com.exam.commonbiz.widget.LinearEmptyLayout
                 android:id="@+id/emptyLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -29,7 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
-            </cn.sanshaoxingqiu.ssbm.widget.LinearEmptyLayout>
+            </com.exam.commonbiz.widget.LinearEmptyLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>
 </layout>

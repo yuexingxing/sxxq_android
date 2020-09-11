@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/transparent">
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="match_parent"
@@ -17,124 +16,130 @@
             android:src="@drawable/live_image_bg"
             app:layout_collapseMode="parallax" />
 
-        <!-- 第二部分:缩放控件-->
-        <com.google.android.material.appbar.AppBarLayout
+        <com.sanshao.commonui.titlebar.TitleBar
+            android:id="@+id/title_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginTop="30dp"
             android:background="@color/transparent"
-            android:orientation="vertical"
-            app:elevation="0dp">
+            app:leftIcon="@drawable/icon_back_white"
+            app:title="主播主页"
+            app:titleColor="@color/white" />
 
-            <!-- |snap吸附效果 -->
-            <com.google.android.material.appbar.CollapsingToolbarLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="75dp"
+            android:background="@color/transparent">
+
+            <!-- 第二部分:缩放控件-->
+            <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:fitsSystemWindows="true"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-                app:titleEnabled="false">
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:orientation="vertical"
+                app:elevation="0dp">
 
-                <LinearLayout
+                <!-- |snap吸附效果 -->
+                <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
-                    android:orientation="vertical">
+                    android:layout_height="200dp"
+                    android:fitsSystemWindows="true"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                    app:titleEnabled="false">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="69dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
-                        <FrameLayout
-                            android:layout_width="84dp"
-                            android:layout_height="84dp"
-                            android:layout_marginLeft="@dimen/left_container_margin">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="69dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                            <com.makeramen.roundedimageview.RoundedImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="centerCrop"
-                                android:src="@color/white"
-                                app:riv_corner_radius="84dp" />
+                            <FrameLayout
+                                android:layout_width="84dp"
+                                android:layout_height="84dp"
+                                android:layout_marginLeft="@dimen/left_container_margin">
 
-                            <com.makeramen.roundedimageview.RoundedImageView
-                                android:id="@+id/iv_avatar"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
-                                android:layout_marginLeft="2dp"
-                                android:layout_marginTop="2dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/gray_btn_bg"
-                                app:riv_corner_radius="80dp" />
-                        </FrameLayout>
+                                <com.makeramen.roundedimageview.RoundedImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"
+                                    android:src="@color/white"
+                                    app:riv_corner_radius="84dp" />
 
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:layout_weight="1" />
+                                <com.makeramen.roundedimageview.RoundedImageView
+                                    android:id="@+id/iv_avatar"
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:layout_marginLeft="2dp"
+                                    android:layout_marginTop="2dp"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/gray_btn_bg"
+                                    app:riv_corner_radius="80dp" />
+                            </FrameLayout>
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:id="@+id/tv_start_live"
+                                android:layout_width="180dp"
+                                android:layout_height="38dp"
+                                android:layout_marginRight="@dimen/right_container_margin"
+                                android:background="@drawable/selector_btn"
+                                android:enabled="true"
+                                android:gravity="center"
+                                android:text="去开播"
+                                android:textColor="@color/white"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
 
                         <TextView
-                            android:id="@+id/tv_start_live"
-                            android:layout_width="180dp"
-                            android:layout_height="38dp"
-                            android:layout_marginRight="@dimen/right_container_margin"
-                            android:background="@drawable/selector_btn"
-                            android:enabled="true"
-                            android:gravity="center"
-                            android:text="去开播"
-                            android:textColor="@color/white"
-                            android:textSize="17sp"
-                            android:textStyle="bold" />
+                            android:id="@+id/tv_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/left_container_margin"
+                            android:layout_marginTop="12dp"
+                            android:textColor="#ffffffff"
+                            android:textSize="18sp"
+                            tools:text="小蝴蝶" />
                     </LinearLayout>
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-                    <TextView
-                        android:id="@+id/tv_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/left_container_margin"
-                        android:layout_marginTop="12dp"
-                        android:textColor="#ffffffff"
-                        android:textSize="18sp"
-                        tools:text="小蝴蝶" />
-                </LinearLayout>
-
-                <com.sanshao.commonui.titlebar.TitleBar
-                    android:id="@+id/title_bar"
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_layout"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:background="@color/transparent"
-                    app:leftIcon="@drawable/icon_back_white"
-                    app:title="主播主页"
-                    app:titleColor="@color/white" />
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:tabBackground="@color/transparent"
+                    app:tabIndicatorColor="@color/white"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabMode="fixed"
+                    app:tabRippleColor="@color/transparent" />
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout"
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                app:layout_scrollFlags="scroll|enterAlways"
-                app:tabBackground="@color/transparent"
-                app:tabIndicatorColor="@color/white"
-                app:tabIndicatorFullWidth="false"
-                app:tabMode="fixed"
-                app:tabRippleColor="@color/transparent" />
+                android:layout_height="match_parent"
+                android:descendantFocusability="blocksDescendants"
+                android:fillViewport="true"
+                android:scrollbars="none"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:descendantFocusability="blocksDescendants"
-            android:fillViewport="true"
-            android:scrollbars="none"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </androidx.core.widget.NestedScrollView>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </androidx.core.widget.NestedScrollView>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </FrameLayout>
 </layout>

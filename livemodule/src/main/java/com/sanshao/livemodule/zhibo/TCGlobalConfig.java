@@ -58,7 +58,7 @@ public class TCGlobalConfig {
             }
 
             @Override
-            public void returnGetRoomId(GetRoomIdResponse getRoomIdResponse) {
+            public void returnGetBackVideo(GetRoomIdResponse getRoomIdResponse) {
 
             }
 
@@ -96,7 +96,7 @@ public class TCGlobalConfig {
             }
 
             @Override
-            public void returnGetRoomId(GetRoomIdResponse getRoomIdResponse) {
+            public void returnGetBackVideo(GetRoomIdResponse getRoomIdResponse) {
 
             }
 

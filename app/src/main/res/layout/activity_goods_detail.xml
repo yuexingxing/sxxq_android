@@ -17,7 +17,7 @@
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <cn.sanshaoxingqiu.ssbm.widget.LinearEmptyLayout
+            <com.exam.commonbiz.widget.LinearEmptyLayout
                 android:id="@+id/emptyLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -385,7 +385,7 @@
                     </LinearLayout>
 
                 </androidx.core.widget.NestedScrollView>
-            </cn.sanshaoxingqiu.ssbm.widget.LinearEmptyLayout>
+            </com.exam.commonbiz.widget.LinearEmptyLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"

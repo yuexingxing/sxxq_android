@@ -351,7 +351,7 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
     }
 
     @Override
-    public void returnGetRoomId(GetRoomIdResponse getRoomIdResponse) {
+    public void returnGetBackVideo(GetRoomIdResponse getRoomIdResponse) {
         if (getRoomIdResponse == null) {
             return;
         }

@@ -571,7 +571,7 @@ public class TCAnchorPrepareActivity extends Activity implements View.OnClickLis
     }
 
     @Override
-    public void returnGetRoomId(GetRoomIdResponse getRoomIdResponse) {
+    public void returnGetBackVideo(GetRoomIdResponse getRoomIdResponse) {
         if (getRoomIdResponse == null) {
             return;
         }
