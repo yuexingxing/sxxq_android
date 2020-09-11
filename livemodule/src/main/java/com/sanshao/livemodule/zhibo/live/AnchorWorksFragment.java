@@ -50,7 +50,7 @@ public class AnchorWorksFragment extends BaseFragment<BaseViewModel, FragmentLay
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
         binding.recyclerView.setLayoutManager(gridLayoutManager);
         binding.recyclerView.setAdapter(mAnchorWorksAdapter);
-        binding.recyclerView.setNestedScrollingEnabled(false);
+        binding.recyclerView.setNestedScrollingEnabled(true);
         binding.recyclerView.setHasFixedSize(true);
 
         String picUrl = "http://img.cyw.com/shopx/20130606155913125664/shopinfo/201605041441522.jpg";
