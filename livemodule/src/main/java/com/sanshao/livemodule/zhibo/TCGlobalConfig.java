@@ -5,12 +5,14 @@ import android.text.TextUtils;
 
 import com.sanshao.livemodule.liveroom.MLVBLiveRoomImpl;
 import com.sanshao.livemodule.liveroom.model.ILiveRoomModel;
-import com.sanshao.livemodule.liveroom.roomutil.bean.GetRoomIdResponse;
 import com.sanshao.livemodule.liveroom.roomutil.bean.LicenceInfo;
 import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
 import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
+import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
 import com.tencent.rtmp.TXLiveBase;
+
+import java.util.List;
 
 /**
  * Module:   TCGlobalConfig
@@ -58,12 +60,7 @@ public class TCGlobalConfig {
             }
 
             @Override
-            public void returnGetBackVideo(GetRoomIdResponse getRoomIdResponse) {
-
-            }
-
-            @Override
-            public void returnUploadLiveRoomInfo() {
+            public void returnGetVideoList(List<TCVideoInfo> tcVideoInfoList) {
 
             }
         });
@@ -96,12 +93,7 @@ public class TCGlobalConfig {
             }
 
             @Override
-            public void returnGetBackVideo(GetRoomIdResponse getRoomIdResponse) {
-
-            }
-
-            @Override
-            public void returnUploadLiveRoomInfo() {
+            public void returnGetVideoList(List<TCVideoInfo> tcVideoInfoList) {
 
             }
         });

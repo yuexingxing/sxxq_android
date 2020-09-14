@@ -11,11 +11,12 @@ import com.exam.commonbiz.base.BaseFragment;
 import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.databinding.FragmentLayoutAnchorWorksBinding;
 import com.sanshao.livemodule.liveroom.model.ILiveRoomModel;
-import com.sanshao.livemodule.liveroom.roomutil.bean.GetRoomIdResponse;
 import com.sanshao.livemodule.liveroom.roomutil.bean.LicenceInfo;
 import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
 import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
+
+import java.util.List;
 
 /**
  * 主播作品
@@ -79,7 +80,7 @@ public class AnchorWorksFragment extends BaseFragment<LiveViewModel, FragmentLay
 
     @Override
     public void onRefresh() {
-        mViewModel.getBackVideo();
+        mViewModel.getVideoList(0, 0);
     }
 
     @Override
@@ -98,13 +99,7 @@ public class AnchorWorksFragment extends BaseFragment<LiveViewModel, FragmentLay
     }
 
     @Override
-    public void returnGetBackVideo(GetRoomIdResponse getRoomIdResponse) {
-        binding.swipeRefreshLayout.setRefreshing(false);
-
-    }
-
-    @Override
-    public void returnUploadLiveRoomInfo() {
+    public void returnGetVideoList(List<TCVideoInfo> tcVideoInfoList) {
 
     }
 }

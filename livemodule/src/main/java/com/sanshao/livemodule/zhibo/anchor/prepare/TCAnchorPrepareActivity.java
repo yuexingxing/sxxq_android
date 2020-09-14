@@ -44,6 +44,7 @@ import com.sanshao.livemodule.zhibo.common.upload.TCUploadHelper;
 import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
 import com.sanshao.livemodule.zhibo.common.utils.TCUtils;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
+import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
 
 import org.json.JSONObject;
 
@@ -571,14 +572,7 @@ public class TCAnchorPrepareActivity extends Activity implements View.OnClickLis
     }
 
     @Override
-    public void returnGetBackVideo(GetRoomIdResponse getRoomIdResponse) {
-        if (getRoomIdResponse == null) {
-            return;
-        }
-    }
-
-    @Override
-    public void returnUploadLiveRoomInfo() {
+    public void returnGetVideoList(List<TCVideoInfo> tcVideoInfoList) {
 
     }
 }

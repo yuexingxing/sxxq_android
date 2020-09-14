@@ -34,7 +34,6 @@ import com.sanshao.commonutil.permission.RxPermissions;
 import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.databinding.ActivityStartLiveBinding;
 import com.sanshao.livemodule.liveroom.model.ILiveRoomModel;
-import com.sanshao.livemodule.liveroom.roomutil.bean.GetRoomIdResponse;
 import com.sanshao.livemodule.liveroom.roomutil.bean.LicenceInfo;
 import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
 import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
@@ -43,6 +42,7 @@ import com.sanshao.livemodule.zhibo.anchor.prepare.TCLocationHelper;
 import com.sanshao.livemodule.zhibo.common.net.TCHTTPMgr;
 import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
+import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
 
 import org.json.JSONObject;
 
@@ -328,7 +328,6 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
     }
 
     private void setLiveBg(String url) {
-
         if (TextUtils.isEmpty(url)) {
             return;
         }
@@ -351,14 +350,7 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
     }
 
     @Override
-    public void returnGetBackVideo(GetRoomIdResponse getRoomIdResponse) {
-        if (getRoomIdResponse == null) {
-            return;
-        }
-    }
-
-    @Override
-    public void returnUploadLiveRoomInfo() {
+    public void returnGetVideoList(List<TCVideoInfo> tcVideoInfoList) {
 
     }
 

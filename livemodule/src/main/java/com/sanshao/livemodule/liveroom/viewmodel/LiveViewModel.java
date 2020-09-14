@@ -8,10 +8,11 @@ import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
 import com.sanshao.livemodule.liveroom.model.ILiveRoomModel;
 import com.sanshao.livemodule.liveroom.model.LiveModel;
-import com.sanshao.livemodule.liveroom.roomutil.bean.GetRoomIdResponse;
 import com.sanshao.livemodule.liveroom.roomutil.bean.LicenceInfo;
-import com.sanshao.livemodule.liveroom.roomutil.bean.UploadRoomInfoRequest;
 import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
+import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
+
+import java.util.List;
 
 public class LiveViewModel extends BaseViewModel {
 
@@ -75,9 +76,9 @@ public class LiveViewModel extends BaseViewModel {
         });
     }
 
-    public void getBackVideo() {
+    public void getVideoList(int page, int pageSize) {
 
-        LiveModel.getBackVideo(new OnLoadListener<GetRoomIdResponse>() {
+        LiveModel.getVideoList(page, pageSize, new OnLoadListener<List<TCVideoInfo>>() {
             @Override
             public void onLoadStart() {
 
@@ -89,39 +90,9 @@ public class LiveViewModel extends BaseViewModel {
             }
 
             @Override
-            public void onLoadSucessed(BaseResponse<GetRoomIdResponse> t) {
+            public void onLoadSucessed(BaseResponse<List<TCVideoInfo>> t) {
                 if (mILiveRoomModel != null) {
-                    mILiveRoomModel.returnGetBackVideo(t.getContent());
-                }
-            }
-
-            @Override
-            public void onLoadFailed(String errMsg) {
-                if (mILiveRoomModel != null) {
-                    mILiveRoomModel.returnGetBackVideo(null);
-                }
-                Toast.makeText(BasicApplication.app, errMsg, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    public void uploadLiveRoomInfo(UploadRoomInfoRequest uploadRoomInfoRequest) {
-
-        LiveModel.uploadLiveRoomInfo(uploadRoomInfoRequest, new OnLoadListener() {
-            @Override
-            public void onLoadStart() {
-
-            }
-
-            @Override
-            public void onLoadCompleted() {
-
-            }
-
-            @Override
-            public void onLoadSucessed(BaseResponse t) {
-                if (mILiveRoomModel != null) {
-                    mILiveRoomModel.returnUploadLiveRoomInfo();
+                    mILiveRoomModel.returnGetVideoList(t.getContent());
                 }
             }
 

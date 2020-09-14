@@ -7,22 +7,27 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.util.CommonCallBack;
+import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.livemodule.liveroom.MLVBLiveRoomImpl;
+import com.sanshao.livemodule.liveroom.model.ILiveRoomModel;
+import com.sanshao.livemodule.liveroom.roomutil.bean.LicenceInfo;
+import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
+import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.audience.TCAudienceActivity;
 import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
-import com.sanshao.livemodule.zhibo.login.TCUserMgr;
 import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
-import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoListMgr;
 import com.sanshao.livemodule.zhibo.playback.TCPlaybackActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.HomeFragmentBinding;
-import cn.sanshaoxingqiu.ssbm.module.home.viewmodel.HomeViewModel;
+import cn.sanshaoxingqiu.ssbm.util.Constants;
 
 /**
  * 首页
@@ -30,10 +35,11 @@ import cn.sanshaoxingqiu.ssbm.module.home.viewmodel.HomeViewModel;
  * @Author yuexingxing
  * @time 2020/6/12
  */
-public class HomeFragment extends BaseFragment<HomeViewModel, HomeFragmentBinding> {
+public class HomeFragment extends BaseFragment<LiveViewModel, HomeFragmentBinding> implements ILiveRoomModel, BaseQuickAdapter.RequestLoadMoreListener {
 
     public static final int START_LIVE_PLAY = 100;
     private HomeAdapter mHomeAdapter;
+    private int mPageNum = 0;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -61,12 +67,7 @@ public class HomeFragment extends BaseFragment<HomeViewModel, HomeFragmentBindin
 
     @Override
     protected void loadData() {
-//        if (!TCHTTPMgr.getInstance().isLogin()) {
-//            UserInfo userInfo = SSApplication.getInstance().getUserInfo();
-//            if (userInfo != null && !TextUtils.isEmpty(userInfo.mem_phone)) {
-//                loginLive("sanshao" + userInfo.mem_phone, userInfo.mem_phone);
-//            }
-//        }
+
     }
 
     @Override
@@ -84,8 +85,12 @@ public class HomeFragment extends BaseFragment<HomeViewModel, HomeFragmentBindin
             }
         });
 
+        mHomeAdapter.setOnLoadMoreListener(this, binding.recyclerView);
         binding.swipeRefreshLayout.setColorSchemeResources(R.color.main_color);
-        binding.swipeRefreshLayout.setOnRefreshListener(() -> getLiveData());
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> {
+            mPageNum = 0;
+            getLiveData();
+        });
 
         binding.tvHomeTitle.setAlpha(0.26f);
         MLVBLiveRoomImpl.sharedInstance(SSApplication.getInstance());
@@ -99,12 +104,7 @@ public class HomeFragment extends BaseFragment<HomeViewModel, HomeFragmentBindin
     }
 
     private void getLiveData() {
-        TCVideoListMgr.getInstance().fetchLiveList(getActivity(), new TCVideoListMgr.Listener() {
-            @Override
-            public void onVideoList(int retCode, ArrayList<TCVideoInfo> result, boolean refresh) {
-                onRefreshVideoList(retCode, result);
-            }
-        });
+        mViewModel.getVideoList(mPageNum, Constants.PAGE_SIZE);
     }
 
     @Override
@@ -176,5 +176,38 @@ public class HomeFragment extends BaseFragment<HomeViewModel, HomeFragmentBindin
         intent.putExtra(TCConstants.TIMESTAMP, item.createTime);
         intent.putExtra(TCConstants.ROOM_TITLE, item.title);
         startActivityForResult(intent, START_LIVE_PLAY);
+    }
+
+    @Override
+    public void returnGetLicense(LicenceInfo licenceInfo) {
+
+    }
+
+    @Override
+    public void returnUserSign(UserSignResponse userSignResponse) {
+
+    }
+
+    @Override
+    public void returnGetVideoList(List<TCVideoInfo> tcVideoInfoList) {
+        binding.swipeRefreshLayout.setRefreshing(false);
+        if (ContainerUtil.isEmpty(tcVideoInfoList)) {
+            return;
+        }
+
+        if (mPageNum == 0) {
+            mHomeAdapter.setNewData(tcVideoInfoList);
+        } else {
+            mHomeAdapter.addData(tcVideoInfoList);
+        }
+
+        binding.tvHomeTitle.setText(String.format("直播（%s）", mHomeAdapter.getData().size()));
+        binding.swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        mPageNum++;
+        getLiveData();
     }
 }
