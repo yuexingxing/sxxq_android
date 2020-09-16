@@ -20,6 +20,7 @@ import java.util.List;
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.HomeFragmentBinding;
+import cn.sanshaoxingqiu.ssbm.module.home.view.adapter.LiveTabFragmentAdapter;
 
 /**
  * 首页

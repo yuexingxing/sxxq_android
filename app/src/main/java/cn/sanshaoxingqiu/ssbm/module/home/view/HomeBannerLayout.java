@@ -17,6 +17,7 @@ import com.exam.commonbiz.util.ScreenUtil;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.module.home.model.BannerInfo;
+import cn.sanshaoxingqiu.ssbm.module.home.view.adapter.HomeBanner;
 
 import java.util.ArrayList;
 import java.util.Calendar;

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:paddingTop="@dimen/y8">
 
-    <cn.sanshaoxingqiu.ssbm.module.home.view.HomeBanner
+    <cn.sanshaoxingqiu.ssbm.module.home.view.adapter.HomeBanner
         android:id="@+id/home_banner"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

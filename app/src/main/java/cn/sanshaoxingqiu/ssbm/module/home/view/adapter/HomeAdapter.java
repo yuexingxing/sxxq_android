@@ -1,4 +1,4 @@
-package cn.sanshaoxingqiu.ssbm.module.home.view;
+package cn.sanshaoxingqiu.ssbm.module.home.view.adapter;
 
 import android.view.View;
 import android.widget.FrameLayout;
@@ -7,18 +7,17 @@ import android.widget.RelativeLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.exam.commonbiz.util.CommonCallBack;
+import com.exam.commonbiz.util.GlideUtil;
 import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.livemodule.liveroom.roomutil.bean.VideoInfo;
-import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
 
 import cn.sanshaoxingqiu.ssbm.R;
-import com.exam.commonbiz.util.GlideUtil;
 
 public class HomeAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder> {
 
     private CommonCallBack mCommonCallBack;
 
-    HomeAdapter() {
+    public HomeAdapter() {
         super(R.layout.item_layout_home, null);
     }
 

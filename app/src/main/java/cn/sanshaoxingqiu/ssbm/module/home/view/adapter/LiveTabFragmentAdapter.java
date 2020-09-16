@@ -1,4 +1,4 @@
-package cn.sanshaoxingqiu.ssbm.module.home.view;
+package cn.sanshaoxingqiu.ssbm.module.home.view.adapter;
 
 
 import android.content.Context;

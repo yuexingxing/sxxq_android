@@ -11,8 +11,6 @@ import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.base.IBaseModel;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.ContainerUtil;
-import com.sanshao.livemodule.liveroom.model.ILiveRoomModel;
-import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
 import com.sanshao.livemodule.liveroom.roomutil.bean.VideoInfo;
 import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
 import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
@@ -21,6 +19,7 @@ import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.FragmentLayoutLiveListBinding;
+import cn.sanshaoxingqiu.ssbm.module.home.view.adapter.HomeAdapter;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
 
 /**
