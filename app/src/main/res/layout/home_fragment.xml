@@ -17,7 +17,7 @@
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <FrameLayout
                     android:id="@+id/content"
@@ -30,12 +30,13 @@
                 android:id="@+id/tab_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="40dp"
                 app:tabBackground="@color/transparent"
-                app:tabIndicatorColor="@color/color_b6a578"
+                app:tabIndicatorColor="@color/white"
                 app:tabIndicatorFullWidth="false"
                 app:tabMode="fixed"
-                app:tabRippleColor="@color/transparent" />
+                app:tabRippleColor="@color/transparent"
+                app:tabTextAppearance="@style/MyTabLayoutTextAppearance" />
         </FrameLayout>
     </RelativeLayout>
 </layout>

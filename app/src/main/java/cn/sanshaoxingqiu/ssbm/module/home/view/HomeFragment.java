@@ -1,28 +1,25 @@
 package cn.sanshaoxingqiu.ssbm.module.home.view;
 
-import androidx.core.content.ContextCompat;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.base.BaseViewModel;
+import com.exam.commonbiz.util.Res;
 import com.google.android.material.tabs.TabLayout;
 import com.sanshao.livemodule.liveroom.MLVBLiveRoomImpl;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.HomeFragmentBinding;
-import cn.sanshaoxingqiu.ssbm.module.order.view.adapter.TabFragmentPagerAdapter;
-
-import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_DRAGGING;
-import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE;
-import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_SETTLING;
 
 /**
  * 首页
@@ -31,9 +28,10 @@ import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_SETTLING;
  * @time 2020/6/12
  */
 public class HomeFragment extends BaseFragment<BaseViewModel, HomeFragmentBinding> {
-
+    private final String TAG = HomeFragment.class.getSimpleName();
     private List<Fragment> mFragmentList;
-    private TabFragmentPagerAdapter adapter;
+    private LiveTabFragmentAdapter mLiveTabFragmentAdapter;
+    private String[] mTitleList = new String[2];
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -75,98 +73,72 @@ public class HomeFragment extends BaseFragment<BaseViewModel, HomeFragmentBindin
 
         MLVBLiveRoomImpl.sharedInstance(SSApplication.getInstance());
         MLVBLiveRoomImpl.mInstance.initHttpRequest();
-        initTabLayout();
         initViewPager();
+        initTabLayout();
     }
 
     private void initTabLayout() {
 
-        binding.tabLayout.setTabTextColors(ContextCompat.getColor(getContext(), R.color.white), ContextCompat.getColor(getContext(), R.color.white));
-        binding.tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getContext(), R.color.color_b6a578));
-
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("直播"));
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("推荐"));
-
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                binding.viewPager.setCurrentItem(tab.getPosition());
+                //选中了tab的逻辑
+                Log.i(TAG, "======我选中了====");
+                onTabSelectView(tab);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                //未选中tab的逻辑
+                Log.i(TAG, "======我未被选中====");
+                onTabUnSelectView(tab);
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                //再次选中tab的逻辑
+                Log.i(TAG, "======我再次被选中====");
             }
         });
     }
 
     private void initViewPager() {
 
-        //绑定点击事件
-        binding.viewPager.setOnPageChangeListener(new TabLayoutOnPageChangeListener(binding.tabLayout));
+        mTitleList[0] = "直播";
+        mTitleList[1] = "推荐";
+
         //把Fragment添加到List集合里面
         mFragmentList = new ArrayList<>();
         mFragmentList.add(LiveListFragment.newInstance());
         mFragmentList.add(VideoBackListFragment.newInstance());
-        adapter = new TabFragmentPagerAdapter(getChildFragmentManager(), mFragmentList);
-        binding.viewPager.setAdapter(adapter);
+
+        mLiveTabFragmentAdapter = new LiveTabFragmentAdapter(mFragmentList, mTitleList, getChildFragmentManager(), context);
+        binding.viewPager.setAdapter(mLiveTabFragmentAdapter);
         binding.viewPager.setOffscreenPageLimit(mFragmentList.size());
+        binding.tabLayout.setupWithViewPager(binding.viewPager);
+
+        for (int i = 0; i < binding.tabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = binding.tabLayout.getTabAt(i);
+            if (tab != null) {
+                tab.setCustomView(mLiveTabFragmentAdapter.getTabView(i));
+            }
+        }
+
+        binding.viewPager.setCurrentItem(0);
+        onTabSelectView(binding.tabLayout.getTabAt(0));
     }
 
-    public class TabLayoutOnPageChangeListener implements ViewPager.OnPageChangeListener {
-        private final WeakReference<TabLayout> mTabLayoutRef;
-        private int mPreviousScrollState;
-        private int mScrollState;
+    private void onTabSelectView(TabLayout.Tab tab) {
+        View view = tab.getCustomView();
+        TextView textView = view.findViewById(R.id.tv_title);
+        textView.setTextColor(Res.getColor(context, R.color.white));
+        textView.setTextSize(17f);
+    }
 
-        public TabLayoutOnPageChangeListener(TabLayout tabLayout) {
-            mTabLayoutRef = new WeakReference<>(tabLayout);
-        }
-
-        @Override
-        public void onPageScrollStateChanged(final int state) {
-            mPreviousScrollState = mScrollState;
-            mScrollState = state;
-        }
-
-        @Override
-        public void onPageScrolled(final int position, final float positionOffset,
-                                   final int positionOffsetPixels) {
-            final TabLayout tabLayout = mTabLayoutRef.get();
-            if (tabLayout != null) {
-                // Only update the text selection if we're not settling, or we are settling after
-                // being dragged
-                final boolean updateText = mScrollState != SCROLL_STATE_SETTLING ||
-                        mPreviousScrollState == SCROLL_STATE_DRAGGING;
-                // Update the indicator if we're not settling after being idle. This is caused
-                // from a setCurrentItem() call and will be handled by an animation from
-                // onPageSelected() instead.
-                final boolean updateIndicator = !(mScrollState == SCROLL_STATE_SETTLING
-                        && mPreviousScrollState == SCROLL_STATE_IDLE);
-                tabLayout.setScrollPosition(position, positionOffset, updateText, updateIndicator);
-            }
-        }
-
-        @Override
-        public void onPageSelected(final int position) {
-            final TabLayout tabLayout = mTabLayoutRef.get();
-            if (tabLayout != null && tabLayout.getSelectedTabPosition() != position
-                    && position < tabLayout.getTabCount()) {
-                // Select the tab, only updating the indicator if we're not being dragged/settled
-                // (since onPageScrolled will handle that).
-                final boolean updateIndicator = mScrollState == SCROLL_STATE_IDLE
-                        || (mScrollState == SCROLL_STATE_SETTLING
-                        && mPreviousScrollState == SCROLL_STATE_IDLE);
-                tabLayout.selectTab(tabLayout.getTabAt(position), updateIndicator);
-            }
-        }
-
-        void reset() {
-            mPreviousScrollState = mScrollState = SCROLL_STATE_IDLE;
-        }
+    private void onTabUnSelectView(TabLayout.Tab tab) {
+        View view = tab.getCustomView();
+        TextView textView = view.findViewById(R.id.tv_title);
+        textView.setTextColor(Res.getColor(context, R.color.white));
+        textView.setTextSize(15f);
     }
 }

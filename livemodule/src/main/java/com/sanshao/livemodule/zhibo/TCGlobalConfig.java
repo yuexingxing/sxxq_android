@@ -10,6 +10,7 @@ import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
 import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
 import com.tencent.rtmp.TXLiveBase;
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 
 /**
  * Module:   TCGlobalConfig
@@ -35,7 +36,7 @@ public class TCGlobalConfig {
     public static void getUserSign() {
 
         LiveViewModel liveViewModel = new LiveViewModel();
-        liveViewModel.setILiveRoomModel(new ILiveRoomModel() {
+        liveViewModel.setILiveRoomModel(new ILiveRoomModel(){
 
             @Override
             public void returnUserSign(UserSignResponse userSignResponse) {

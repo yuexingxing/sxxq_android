@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseFragment;
+import com.exam.commonbiz.base.IBaseModel;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.ContainerUtil;
-import com.sanshao.livemodule.liveroom.MLVBLiveRoomImpl;
 import com.sanshao.livemodule.liveroom.model.ILiveRoomModel;
 import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
 import com.sanshao.livemodule.liveroom.roomutil.bean.VideoInfo;
@@ -18,10 +18,8 @@ import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
 import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.audience.TCAudienceActivity;
 import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
-import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
 
 import cn.sanshaoxingqiu.ssbm.R;
-import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.FragmentLayoutLiveListBinding;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
 
@@ -31,7 +29,7 @@ import cn.sanshaoxingqiu.ssbm.util.Constants;
  * @Author yuexingxing
  * @time 2020/9/16
  */
-public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayoutLiveListBinding> implements ILiveRoomModel, BaseQuickAdapter.RequestLoadMoreListener {
+public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayoutLiveListBinding> implements IBaseModel, BaseQuickAdapter.RequestLoadMoreListener {
 
     public static final int START_LIVE_PLAY = 100;
     private HomeAdapter mHomeAdapter;
@@ -50,7 +48,7 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
     @Override
     public void initData() {
 
-        mViewModel.setILiveRoomModel(this);
+        mViewModel.setIBaseModel(this);
         mHomeAdapter = new HomeAdapter();
         binding.emptyLayout.showSuccess();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
@@ -107,29 +105,50 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
     }
 
     @Override
-    public void returnUserSign(UserSignResponse userSignResponse) {
-
-    }
-
-    @Override
-    public void returnGetVideoList(VideoListResponse videoListResponse) {
-        binding.swipeRefreshLayout.setRefreshing(false);
-        if (videoListResponse == null || ContainerUtil.isEmpty(videoListResponse.rows)) {
-            return;
-        }
-
-        if (mPageNum == 0) {
-            mHomeAdapter.setNewData(videoListResponse.rows);
-        } else {
-            mHomeAdapter.addData(videoListResponse.rows);
-        }
-
-        binding.swipeRefreshLayout.setRefreshing(false);
-    }
-
-    @Override
     public void onLoadMoreRequested() {
         mPageNum++;
         getLiveData();
+    }
+
+    @Override
+    public void onRefreshData(Object object) {
+        binding.swipeRefreshLayout.setRefreshing(false);
+        if (object == null) {
+            return;
+        }
+
+        VideoListResponse videoListResponse = (VideoListResponse) object;
+        if (ContainerUtil.isEmpty(videoListResponse.rows)) {
+            binding.emptyLayout.showEmpty("暂无直播", R.drawable.image_nolive);
+            return;
+        }
+
+        mHomeAdapter.setNewData(videoListResponse.rows);
+        mHomeAdapter.loadMoreComplete();
+        binding.emptyLayout.showSuccess();
+    }
+
+    @Override
+    public void onLoadMoreData(Object object) {
+        binding.swipeRefreshLayout.setRefreshing(false);
+        if (object == null) {
+            return;
+        }
+
+        VideoListResponse videoListResponse = (VideoListResponse) object;
+        if (ContainerUtil.isEmpty(videoListResponse.rows)) {
+            mHomeAdapter.loadMoreEnd();
+            return;
+        }
+
+        mHomeAdapter.addData(videoListResponse.rows);
+        mHomeAdapter.loadMoreComplete();
+        binding.emptyLayout.showSuccess();
+        binding.swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onNetError() {
+
     }
 }

@@ -4,6 +4,7 @@ import android.widget.Toast;
 
 import com.exam.commonbiz.base.BaseViewModel;
 import com.exam.commonbiz.base.BasicApplication;
+import com.exam.commonbiz.base.IBaseModel;
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
 import com.sanshao.livemodule.liveroom.model.ILiveRoomModel;
@@ -14,9 +15,14 @@ import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
 public class LiveViewModel extends BaseViewModel {
 
     private ILiveRoomModel mILiveRoomModel;
+    private IBaseModel mIBaseModel;
 
     public void setILiveRoomModel(ILiveRoomModel iLiveRoomModel) {
         mILiveRoomModel = iLiveRoomModel;
+    }
+
+    public void setIBaseModel(IBaseModel iBaseModel){
+        mIBaseModel = iBaseModel;
     }
 
     public void getUserSig() {
@@ -46,7 +52,7 @@ public class LiveViewModel extends BaseViewModel {
         });
     }
 
-    public void getVideoList(int page, int pageSize) {
+    public void getVideoList(final int page, int pageSize) {
 
         LiveModel.getVideoList(page, pageSize, new OnLoadListener<VideoListResponse>() {
             @Override
@@ -61,22 +67,26 @@ public class LiveViewModel extends BaseViewModel {
 
             @Override
             public void onLoadSucessed(BaseResponse<VideoListResponse> t) {
-                if (mILiveRoomModel != null) {
-                    mILiveRoomModel.returnGetVideoList(t.getContent());
+                if (mIBaseModel != null) {
+                    if (page == 1) {
+                        mIBaseModel.onRefreshData(t.getContent());
+                    } else {
+                        mIBaseModel.onLoadMoreData(t.getContent());
+                    }
                 }
             }
 
             @Override
             public void onLoadFailed(String errMsg) {
                 Toast.makeText(BasicApplication.app, errMsg, Toast.LENGTH_SHORT).show();
-                if (mILiveRoomModel != null) {
-                    mILiveRoomModel.returnGetVideoList(null);
+                if (mIBaseModel != null) {
+                    mIBaseModel.onRefreshData(null);
                 }
             }
         });
     }
 
-    public void getVideoBackList(int page, int pageSize) {
+    public void getVideoBackList(final int page, int pageSize) {
 
         LiveModel.getVideoBackList(page, pageSize, new OnLoadListener<VideoListResponse>() {
             @Override
@@ -91,16 +101,20 @@ public class LiveViewModel extends BaseViewModel {
 
             @Override
             public void onLoadSucessed(BaseResponse<VideoListResponse> t) {
-                if (mILiveRoomModel != null) {
-                    mILiveRoomModel.returnGetVideoList(t.getContent());
+                if (mIBaseModel != null) {
+                    if (page == 1) {
+                        mIBaseModel.onRefreshData(t.getContent());
+                    } else {
+                        mIBaseModel.onLoadMoreData(t.getContent());
+                    }
                 }
             }
 
             @Override
             public void onLoadFailed(String errMsg) {
                 Toast.makeText(BasicApplication.app, errMsg, Toast.LENGTH_SHORT).show();
-                if (mILiveRoomModel != null) {
-                    mILiveRoomModel.returnGetVideoList(null);
+                if (mIBaseModel != null) {
+                    mIBaseModel.onRefreshData(null);
                 }
             }
         });
