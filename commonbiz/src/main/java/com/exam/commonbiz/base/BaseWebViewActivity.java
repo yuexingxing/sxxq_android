@@ -22,6 +22,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.exam.commonbiz.R;
 import com.exam.commonbiz.util.JavaScriptInterface;
+import com.github.lzyzsd.jsbridge.BridgeHandler;
+import com.github.lzyzsd.jsbridge.BridgeWebView;
+import com.github.lzyzsd.jsbridge.CallBackFunction;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.sanshao.commonui.titlebar.TitleBar;
 
@@ -33,8 +36,9 @@ import java.util.Map;
  */
 public abstract class BaseWebViewActivity extends AppCompatActivity {
 
+    public final String TAG = BaseWebViewActivity.class.getSimpleName();
     private TitleBar mTitleBar;
-    private WebView mWebView;
+    private BridgeWebView mWebView;
     private ProgressBar mProgressBar;
     private LinearLayout layoutBody;
     protected View contentView;
@@ -67,6 +71,19 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
             public void onRightClick(View v) {
 
             }
+        });
+
+        mWebView.registerHandler("submitFromWeb", new BridgeHandler() {
+
+            @Override
+            public void handler(String data, CallBackFunction function) {
+
+                String str ="这是html返回给java的数据:" + data;
+                
+                Log.i(TAG, "handler = submitFromWeb, data from web = " + data);
+                function.onCallBack( str + ",Java经过处理后截取了一部分："+ str.substring(0,5));
+            }
+
         });
     }
 

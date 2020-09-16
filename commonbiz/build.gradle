@@ -90,6 +90,7 @@ dependencies {
     api 'com.alibaba:fastjson:1.2.23'
     api 'com.zzhoujay.richtext:richtext:3.0.7'
     api 'com.github.smarxpan:NotchScreenTool:0.0.1'
+    api 'com.github.lzyzsd:jsbridge:1.0.4'
 
     compile (name:'commonui-1.0.14', ext: 'aar')
     compile (name:'commonutil-1.0.1', ext: 'aar')
