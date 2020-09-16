@@ -79,7 +79,7 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
             public void handler(String data, CallBackFunction function) {
 
                 String str ="这是html返回给java的数据:" + data;
-                
+
                 Log.i(TAG, "handler = submitFromWeb, data from web = " + data);
                 function.onCallBack( str + ",Java经过处理后截取了一部分："+ str.substring(0,5));
             }

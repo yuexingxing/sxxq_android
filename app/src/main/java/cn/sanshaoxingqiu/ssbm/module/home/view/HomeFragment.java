@@ -1,33 +1,28 @@
 package cn.sanshaoxingqiu.ssbm.module.home.view;
 
-import android.content.Intent;
-import android.text.TextUtils;
-import android.widget.Toast;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseFragment;
-import com.exam.commonbiz.util.CommonCallBack;
-import com.exam.commonbiz.util.ContainerUtil;
+import com.exam.commonbiz.base.BaseViewModel;
+import com.google.android.material.tabs.TabLayout;
 import com.sanshao.livemodule.liveroom.MLVBLiveRoomImpl;
-import com.sanshao.livemodule.liveroom.model.ILiveRoomModel;
-import com.sanshao.livemodule.liveroom.roomutil.bean.LicenceInfo;
-import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
-import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
-import com.sanshao.livemodule.zhibo.audience.TCAudienceActivity;
-import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
-import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
-import com.sanshao.livemodule.zhibo.playback.TCPlaybackActivity;
+import com.sanshao.livemodule.zhibo.TCGlobalConfig;
+import com.sanshao.livemodule.zhibo.login.TCUserMgr;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.HomeFragmentBinding;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
+import cn.sanshaoxingqiu.ssbm.module.order.view.adapter.TabFragmentPagerAdapter;
+
+import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_DRAGGING;
+import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE;
+import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_SETTLING;
 
 /**
  * 首页
@@ -35,11 +30,10 @@ import cn.sanshaoxingqiu.ssbm.util.Constants;
  * @Author yuexingxing
  * @time 2020/6/12
  */
-public class HomeFragment extends BaseFragment<LiveViewModel, HomeFragmentBinding> implements ILiveRoomModel, BaseQuickAdapter.RequestLoadMoreListener {
+public class HomeFragment extends BaseFragment<BaseViewModel, HomeFragmentBinding> {
 
-    public static final int START_LIVE_PLAY = 100;
-    private HomeAdapter mHomeAdapter;
-    private int mPageNum = 0;
+    private List<Fragment> mFragmentList;
+    private TabFragmentPagerAdapter adapter;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -67,147 +61,112 @@ public class HomeFragment extends BaseFragment<LiveViewModel, HomeFragmentBindin
 
     @Override
     protected void loadData() {
-
+        if (SSApplication.isLogin()) {
+            if (TCGlobalConfig.isUserSignEmpty()) {
+                TCGlobalConfig.getUserSign();
+            } else {
+                TCUserMgr.getInstance().loginMLVB();
+            }
+        }
     }
 
     @Override
     public void initData() {
 
-        mHomeAdapter = new HomeAdapter();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        binding.recyclerView.setLayoutManager(linearLayoutManager);
-        binding.recyclerView.setAdapter(mHomeAdapter);
-        mHomeAdapter.setCommonCallBack(new CommonCallBack() {
-            @Override
-            public void callback(int postion, Object object) {
-                startLivePlay(mHomeAdapter.getItem(postion));
-            }
-        });
-
-        mHomeAdapter.setOnLoadMoreListener(this, binding.recyclerView);
-        binding.swipeRefreshLayout.setColorSchemeResources(R.color.main_color);
-        binding.swipeRefreshLayout.setOnRefreshListener(() -> {
-            mPageNum = 0;
-            getLiveData();
-        });
-
-        binding.tvHomeTitle.setAlpha(0.26f);
         MLVBLiveRoomImpl.sharedInstance(SSApplication.getInstance());
         MLVBLiveRoomImpl.mInstance.initHttpRequest();
+        initTabLayout();
+        initViewPager();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadData();
-    }
+    private void initTabLayout() {
 
-    private void getLiveData() {
-        mViewModel.getVideoList(mPageNum, Constants.PAGE_SIZE);
-    }
+        binding.tabLayout.setTabTextColors(ContextCompat.getColor(getContext(), R.color.white), ContextCompat.getColor(getContext(), R.color.white));
+        binding.tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getContext(), R.color.color_b6a578));
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("直播"));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("推荐"));
 
-        try {
-            if (START_LIVE_PLAY == requestCode) {
-                if (0 != resultCode) {
-                    //观看直播返回错误信息后，刷新列表，但是不显示动画
-
-                } else {
-                    if (data == null) {
-                        return;
-                    }
-                    //更新列表项的观看人数和点赞数
-                }
+        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                binding.viewPager.setCurrentItem(tab.getPosition());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
+    private void initViewPager() {
 
-    private void onRefreshVideoList(final int retCode, final ArrayList<TCVideoInfo> result) {
-        if (getActivity() != null) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (retCode == 0) {
-                        mHomeAdapter.getData().clear();
-                        if (result != null) {
-                            mHomeAdapter.addData((ArrayList<TCVideoInfo>) result.clone());
-                        }
-                    } else {
-                        Toast.makeText(getActivity(), "刷新列表失败", Toast.LENGTH_LONG).show();
-                    }
-                    binding.tvHomeTitle.setText(String.format("直播（%s）", mHomeAdapter.getData().size()));
-                    binding.swipeRefreshLayout.setRefreshing(false);
-                }
-            });
-        }
+        //绑定点击事件
+        binding.viewPager.setOnPageChangeListener(new TabLayoutOnPageChangeListener(binding.tabLayout));
+        //把Fragment添加到List集合里面
+        mFragmentList = new ArrayList<>();
+        mFragmentList.add(LiveListFragment.newInstance());
+        mFragmentList.add(VideoBackListFragment.newInstance());
+        adapter = new TabFragmentPagerAdapter(getChildFragmentManager(), mFragmentList);
+        binding.viewPager.setAdapter(adapter);
+        binding.viewPager.setOffscreenPageLimit(mFragmentList.size());
     }
 
-    /**
-     * 开始播放视频
-     *
-     * @param item 视频数据
-     */
-    private void startLivePlay(final TCVideoInfo item) {
-        Intent intent;
-        if (item.livePlay) {
-            intent = new Intent(getActivity(), TCAudienceActivity.class);
-            intent.putExtra(TCConstants.PLAY_URL, item.playUrl);
-        } else {
-            intent = new Intent(getActivity(), TCPlaybackActivity.class);
-            intent.putExtra(TCConstants.PLAY_URL, TextUtils.isEmpty(item.hlsPlayUrl) ? item.playUrl : item.hlsPlayUrl);
+    public class TabLayoutOnPageChangeListener implements ViewPager.OnPageChangeListener {
+        private final WeakReference<TabLayout> mTabLayoutRef;
+        private int mPreviousScrollState;
+        private int mScrollState;
+
+        public TabLayoutOnPageChangeListener(TabLayout tabLayout) {
+            mTabLayoutRef = new WeakReference<>(tabLayout);
         }
 
-        intent.putExtra(TCConstants.PUSHER_ID, item.userId != null ? item.userId : "");
-        intent.putExtra(TCConstants.PUSHER_NAME, TextUtils.isEmpty(item.nickname) ? item.userId : item.nickname);
-        intent.putExtra(TCConstants.PUSHER_AVATAR, item.avatar);
-        intent.putExtra(TCConstants.HEART_COUNT, "" + item.likeCount);
-        intent.putExtra(TCConstants.MEMBER_COUNT, "" + item.viewerCount);
-        intent.putExtra(TCConstants.GROUP_ID, item.groupId);
-        intent.putExtra(TCConstants.PLAY_TYPE, item.livePlay);
-        intent.putExtra(TCConstants.FILE_ID, item.fileId != null ? item.fileId : "");
-        intent.putExtra(TCConstants.COVER_PIC, item.frontCover);
-        intent.putExtra(TCConstants.TIMESTAMP, item.createTime);
-        intent.putExtra(TCConstants.ROOM_TITLE, item.title);
-        startActivityForResult(intent, START_LIVE_PLAY);
-    }
-
-    @Override
-    public void returnGetLicense(LicenceInfo licenceInfo) {
-
-    }
-
-    @Override
-    public void returnUserSign(UserSignResponse userSignResponse) {
-
-    }
-
-    @Override
-    public void returnGetVideoList(List<TCVideoInfo> tcVideoInfoList) {
-        binding.swipeRefreshLayout.setRefreshing(false);
-        if (ContainerUtil.isEmpty(tcVideoInfoList)) {
-            return;
+        @Override
+        public void onPageScrollStateChanged(final int state) {
+            mPreviousScrollState = mScrollState;
+            mScrollState = state;
         }
 
-        if (mPageNum == 0) {
-            mHomeAdapter.setNewData(tcVideoInfoList);
-        } else {
-            mHomeAdapter.addData(tcVideoInfoList);
+        @Override
+        public void onPageScrolled(final int position, final float positionOffset,
+                                   final int positionOffsetPixels) {
+            final TabLayout tabLayout = mTabLayoutRef.get();
+            if (tabLayout != null) {
+                // Only update the text selection if we're not settling, or we are settling after
+                // being dragged
+                final boolean updateText = mScrollState != SCROLL_STATE_SETTLING ||
+                        mPreviousScrollState == SCROLL_STATE_DRAGGING;
+                // Update the indicator if we're not settling after being idle. This is caused
+                // from a setCurrentItem() call and will be handled by an animation from
+                // onPageSelected() instead.
+                final boolean updateIndicator = !(mScrollState == SCROLL_STATE_SETTLING
+                        && mPreviousScrollState == SCROLL_STATE_IDLE);
+                tabLayout.setScrollPosition(position, positionOffset, updateText, updateIndicator);
+            }
         }
 
-        binding.tvHomeTitle.setText(String.format("直播（%s）", mHomeAdapter.getData().size()));
-        binding.swipeRefreshLayout.setRefreshing(false);
-    }
+        @Override
+        public void onPageSelected(final int position) {
+            final TabLayout tabLayout = mTabLayoutRef.get();
+            if (tabLayout != null && tabLayout.getSelectedTabPosition() != position
+                    && position < tabLayout.getTabCount()) {
+                // Select the tab, only updating the indicator if we're not being dragged/settled
+                // (since onPageScrolled will handle that).
+                final boolean updateIndicator = mScrollState == SCROLL_STATE_IDLE
+                        || (mScrollState == SCROLL_STATE_SETTLING
+                        && mPreviousScrollState == SCROLL_STATE_IDLE);
+                tabLayout.selectTab(tabLayout.getTabAt(position), updateIndicator);
+            }
+        }
 
-    @Override
-    public void onLoadMoreRequested() {
-        mPageNum++;
-        getLiveData();
+        void reset() {
+            mPreviousScrollState = mScrollState = SCROLL_STATE_IDLE;
+        }
     }
 }

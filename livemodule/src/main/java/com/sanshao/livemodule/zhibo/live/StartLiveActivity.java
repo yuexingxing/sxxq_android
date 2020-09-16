@@ -34,15 +34,14 @@ import com.sanshao.commonutil.permission.RxPermissions;
 import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.databinding.ActivityStartLiveBinding;
 import com.sanshao.livemodule.liveroom.model.ILiveRoomModel;
-import com.sanshao.livemodule.liveroom.roomutil.bean.LicenceInfo;
 import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
+import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
 import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.anchor.TCCameraAnchorActivity;
 import com.sanshao.livemodule.zhibo.anchor.prepare.TCLocationHelper;
 import com.sanshao.livemodule.zhibo.common.net.TCHTTPMgr;
 import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
-import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
 
 import org.json.JSONObject;
 
@@ -340,17 +339,12 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
     }
 
     @Override
-    public void returnGetLicense(LicenceInfo licenceInfo) {
-
-    }
-
-    @Override
     public void returnUserSign(UserSignResponse userSignResponse) {
 
     }
 
     @Override
-    public void returnGetVideoList(List<TCVideoInfo> tcVideoInfoList) {
+    public void returnGetVideoList(VideoListResponse videoListResponse) {
 
     }
 

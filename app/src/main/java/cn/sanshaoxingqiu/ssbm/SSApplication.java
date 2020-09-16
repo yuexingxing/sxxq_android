@@ -22,6 +22,7 @@ import com.exam.commonbiz.net.RequestHandler;
 import com.exam.commonbiz.net.XApi;
 import com.sanshao.commonui.titlebar.TitleBar;
 import com.sanshao.commonui.titlebar.TitleBarLightStyle;
+import com.sanshao.livemodule.zhibo.TCGlobalConfig;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.commonsdk.UMConfigure;
@@ -80,6 +81,7 @@ public class SSApplication extends BasicApplication {
 
 //        PlatformConfig.setWeixin("微信AppId", "微信AppSecret");
 
+        TCGlobalConfig.init(this);
         //在使用SDK各组件之前初始化context信息，传入ApplicationContext
         SDKInitializer.initialize(this);
         //自4.3.0起，百度地图SDK所有接口均支持百度坐标和国测局坐标，用此方法设置您使用的坐标类型.
@@ -89,7 +91,7 @@ public class SSApplication extends BasicApplication {
             LeakCanary.install(this);
         }
 
-        UdeskSDKManager.getInstance().initApiKey(getApplicationContext(), "sanshaoxingqiu.s2.udesk.cn","e10d38a74025f86a3240885761146d18","49ac88a587043728");
+        UdeskSDKManager.getInstance().initApiKey(getApplicationContext(), "sanshaoxingqiu.s2.udesk.cn", "e10d38a74025f86a3240885761146d18", "49ac88a587043728");
     }
 
     @Override
@@ -239,6 +241,7 @@ public class SSApplication extends BasicApplication {
 
     /**
      * 当前是否是正式环境
+     *
      * @return
      */
     public boolean isProEnvironment() {

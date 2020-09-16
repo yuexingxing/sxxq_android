@@ -8,42 +8,12 @@ import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
 import com.sanshao.livemodule.liveroom.model.ILiveRoomModel;
 import com.sanshao.livemodule.liveroom.model.LiveModel;
-import com.sanshao.livemodule.liveroom.roomutil.bean.LicenceInfo;
 import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
-import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
-
-import java.util.List;
+import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
 
 public class LiveViewModel extends BaseViewModel {
 
     private ILiveRoomModel mILiveRoomModel;
-
-    public void getLicense() {
-
-        LiveModel.getLicense(new OnLoadListener<LicenceInfo>() {
-            @Override
-            public void onLoadStart() {
-
-            }
-
-            @Override
-            public void onLoadCompleted() {
-
-            }
-
-            @Override
-            public void onLoadSucessed(BaseResponse<LicenceInfo> t) {
-                if (mILiveRoomModel != null) {
-                    mILiveRoomModel.returnGetLicense(t.getContent());
-                }
-            }
-
-            @Override
-            public void onLoadFailed(String errMsg) {
-                Toast.makeText(BasicApplication.app, errMsg, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     public void setILiveRoomModel(ILiveRoomModel iLiveRoomModel) {
         mILiveRoomModel = iLiveRoomModel;
@@ -78,7 +48,7 @@ public class LiveViewModel extends BaseViewModel {
 
     public void getVideoList(int page, int pageSize) {
 
-        LiveModel.getVideoList(page, pageSize, new OnLoadListener<List<TCVideoInfo>>() {
+        LiveModel.getVideoList(page, pageSize, new OnLoadListener<VideoListResponse>() {
             @Override
             public void onLoadStart() {
 
@@ -90,7 +60,7 @@ public class LiveViewModel extends BaseViewModel {
             }
 
             @Override
-            public void onLoadSucessed(BaseResponse<List<TCVideoInfo>> t) {
+            public void onLoadSucessed(BaseResponse<VideoListResponse> t) {
                 if (mILiveRoomModel != null) {
                     mILiveRoomModel.returnGetVideoList(t.getContent());
                 }
@@ -99,6 +69,39 @@ public class LiveViewModel extends BaseViewModel {
             @Override
             public void onLoadFailed(String errMsg) {
                 Toast.makeText(BasicApplication.app, errMsg, Toast.LENGTH_SHORT).show();
+                if (mILiveRoomModel != null) {
+                    mILiveRoomModel.returnGetVideoList(null);
+                }
+            }
+        });
+    }
+
+    public void getVideoBackList(int page, int pageSize) {
+
+        LiveModel.getVideoBackList(page, pageSize, new OnLoadListener<VideoListResponse>() {
+            @Override
+            public void onLoadStart() {
+
+            }
+
+            @Override
+            public void onLoadCompleted() {
+
+            }
+
+            @Override
+            public void onLoadSucessed(BaseResponse<VideoListResponse> t) {
+                if (mILiveRoomModel != null) {
+                    mILiveRoomModel.returnGetVideoList(t.getContent());
+                }
+            }
+
+            @Override
+            public void onLoadFailed(String errMsg) {
+                Toast.makeText(BasicApplication.app, errMsg, Toast.LENGTH_SHORT).show();
+                if (mILiveRoomModel != null) {
+                    mILiveRoomModel.returnGetVideoList(null);
+                }
             }
         });
     }

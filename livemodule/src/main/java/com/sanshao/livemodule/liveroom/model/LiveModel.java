@@ -42,36 +42,6 @@ public class LiveModel {
                 });
     }
 
-    public static void getLicense(final OnLoadListener onLoadListener) {
-        XApi.get(LiveRoomApiService.class, XApi.HOST_TYPE.JAVA)
-                .getLicense()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver() {
-
-                    @Override
-                    public void onStart() {
-                        onLoadListener.onLoadStart();
-                    }
-
-                    @Override
-                    public void onSuccess(BaseResponse response) {
-                        onLoadListener.onLoadSucessed(response);
-                    }
-
-                    @Override
-                    public void onError(ExceptionHandle.ResponeThrowable responeThrowable) {
-                        onLoadListener.onLoadFailed(responeThrowable.message);
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        onLoadListener.onLoadCompleted();
-                    }
-
-                });
-    }
-
     public static void getAnchorInfo(final OnLoadListener onLoadListener) {
         XApi.get(LiveRoomApiService.class, XApi.HOST_TYPE.JAVA)
                 .getAnchorInfo()
@@ -105,6 +75,36 @@ public class LiveModel {
     public static void getVideoList(int page, int pageSize, final OnLoadListener onLoadListener) {
         XApi.get(LiveRoomApiService.class, XApi.HOST_TYPE.JAVA)
                 .getVideoList(page, pageSize)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver() {
+
+                    @Override
+                    public void onStart() {
+                        onLoadListener.onLoadStart();
+                    }
+
+                    @Override
+                    public void onSuccess(BaseResponse response) {
+                        onLoadListener.onLoadSucessed(response);
+                    }
+
+                    @Override
+                    public void onError(ExceptionHandle.ResponeThrowable responeThrowable) {
+                        onLoadListener.onLoadFailed(responeThrowable.message);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        onLoadListener.onLoadCompleted();
+                    }
+
+                });
+    }
+
+    public static void getVideoBackList(int page, int pageSize, final OnLoadListener onLoadListener) {
+        XApi.get(LiveRoomApiService.class, XApi.HOST_TYPE.JAVA)
+                .getVideoBackList(page, pageSize)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver() {

@@ -266,9 +266,6 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         if (SSApplication.isLogin()) {
             mOrderDetailViewModel.getOrderNumStatus();
             mIdentityViewModel.getAnchorDetail();
-            if (TCGlobalConfig.isLicenseEmpty()) {
-                TCGlobalConfig.getLiveLicence(context);
-            }
             if (TCGlobalConfig.isUserSignEmpty()) {
                 TCGlobalConfig.getUserSign();
             } else {

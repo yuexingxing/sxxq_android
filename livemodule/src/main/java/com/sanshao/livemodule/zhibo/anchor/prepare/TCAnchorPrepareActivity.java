@@ -32,9 +32,8 @@ import com.bumptech.glide.RequestManager;
 import com.exam.commonbiz.base.BasicApplication;
 import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.liveroom.model.ILiveRoomModel;
-import com.sanshao.livemodule.liveroom.roomutil.bean.GetRoomIdResponse;
-import com.sanshao.livemodule.liveroom.roomutil.bean.LicenceInfo;
 import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
+import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
 import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.anchor.TCCameraAnchorActivity;
 import com.sanshao.livemodule.zhibo.anchor.screen.TCScreenAnchorActivity;
@@ -44,7 +43,6 @@ import com.sanshao.livemodule.zhibo.common.upload.TCUploadHelper;
 import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
 import com.sanshao.livemodule.zhibo.common.utils.TCUtils;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
-import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
 
 import org.json.JSONObject;
 
@@ -562,17 +560,12 @@ public class TCAnchorPrepareActivity extends Activity implements View.OnClickLis
     }
 
     @Override
-    public void returnGetLicense(LicenceInfo licenceInfo) {
-
-    }
-
-    @Override
     public void returnUserSign(UserSignResponse userSignResponse) {
 
     }
 
     @Override
-    public void returnGetVideoList(List<TCVideoInfo> tcVideoInfoList) {
+    public void returnGetVideoList(VideoListResponse videoListResponse) {
 
     }
 }

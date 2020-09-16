@@ -23,6 +23,7 @@ public class TCVideoInfo {
     public String avatar;         // 头像
     public String createTime;     // 开播时间
     public String hlsPlayUrl;     // HLS播放链接
+    public String replayUrl;//回放地址
 
     public TCVideoInfo() {}
 
@@ -40,6 +41,8 @@ public class TCVideoInfo {
             this.createTime = data.optString("create_time");
             this.likeCount  = data.optInt("likecount");
             this.viewerCount  = data.optInt("viewer_count");
+            this.groupId = data.optString("live_batch_id");
+            this.replayUrl = data.optString("replay_url");
 
         } catch (Exception e) {
             e.printStackTrace();

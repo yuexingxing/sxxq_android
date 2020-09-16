@@ -8,12 +8,13 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.ScreenUtil;
+import com.sanshao.livemodule.liveroom.roomutil.bean.VideoInfo;
 import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import com.exam.commonbiz.util.GlideUtil;
 
-public class HomeAdapter extends BaseQuickAdapter<TCVideoInfo, BaseViewHolder> {
+public class HomeAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder> {
 
     private CommonCallBack mCommonCallBack;
 
@@ -26,11 +27,11 @@ public class HomeAdapter extends BaseQuickAdapter<TCVideoInfo, BaseViewHolder> {
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, TCVideoInfo item) {
+    protected void convert(BaseViewHolder helper, VideoInfo item) {
 
-        helper.setText(R.id.tv_title, item.title);
-        helper.setText(R.id.tv_content, item.nickname);
-        GlideUtil.loadImage(item.frontCover, helper.getView(R.id.iv_bg), R.drawable.icon_goods_type_six);
+        helper.setText(R.id.tv_title, item.live_title);
+//        helper.setText(R.id.tv_content, item.nickname);
+        GlideUtil.loadImage(item.frontcover, helper.getView(R.id.iv_bg), R.drawable.icon_goods_type_six);
 
         FrameLayout frameLayout = helper.getView(R.id.fl_content);
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) frameLayout.getLayoutParams();

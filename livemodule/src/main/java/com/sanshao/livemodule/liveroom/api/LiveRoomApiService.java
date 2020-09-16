@@ -3,10 +3,8 @@ package com.sanshao.livemodule.liveroom.api;
 import com.exam.commonbiz.net.BaseResponse;
 import com.sanshao.livemodule.liveroom.roomutil.bean.LicenceInfo;
 import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
+import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
 import com.sanshao.livemodule.liveroom.roomutil.commondef.AnchorInfo;
-import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
-
-import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -27,15 +25,15 @@ public interface LiveRoomApiService {
     @GET("tim/getUserSig")
     Observable<BaseResponse<UserSignResponse>> getUserSig();
 
-    //获取license
-    @GET("live/mlive/license")
-    Observable<BaseResponse<LicenceInfo>> getLicense();
-
     //获取主播信息
     @GET("live/mlive/home")
     Observable<BaseResponse<AnchorInfo>> getAnchorInfo();
 
     //直播回放列表
     @GET("live/mlive/video/list")
-    Observable<BaseResponse<List<TCVideoInfo>>> getVideoList(@Query("page") int page, @Query("pageSize") int pageSize);
+    Observable<BaseResponse<VideoListResponse>> getVideoList(@Query("page") int page, @Query("pageSize") int pageSize);
+
+    //回放列表
+    @GET("live/mlive/record/list")
+    Observable<BaseResponse<VideoListResponse>> getVideoBackList(@Query("page") int page, @Query("pageSize") int pageSize);
 }
