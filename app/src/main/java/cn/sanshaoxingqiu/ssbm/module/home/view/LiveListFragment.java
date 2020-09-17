@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -30,7 +31,6 @@ import cn.sanshaoxingqiu.ssbm.util.Constants;
  */
 public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayoutLiveListBinding> implements IBaseModel, BaseQuickAdapter.RequestLoadMoreListener {
 
-    public static final int START_LIVE_PLAY = 100;
     private HomeAdapter mHomeAdapter;
     private int mPageNum = 1;
 
@@ -54,6 +54,8 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         binding.recyclerView.setLayoutManager(linearLayoutManager);
         binding.recyclerView.setAdapter(mHomeAdapter);
+        PagerSnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(binding.recyclerView);
         mHomeAdapter.setCommonCallBack(new CommonCallBack() {
             @Override
             public void callback(int postion, Object object) {
@@ -95,7 +97,7 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         intent.putExtra(TCConstants.COVER_PIC, item.frontcover);
         intent.putExtra(TCConstants.TIMESTAMP, item.live_start_time);
         intent.putExtra(TCConstants.ROOM_TITLE, item.live_title);
-        startActivityForResult(intent, START_LIVE_PLAY);
+        startActivity(intent);
     }
 
     @Override
