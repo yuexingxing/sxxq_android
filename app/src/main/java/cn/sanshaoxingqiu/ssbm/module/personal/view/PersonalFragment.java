@@ -19,6 +19,7 @@ import com.exam.commonbiz.util.ScreenUtil;
 import com.exam.commonbiz.util.ToastUtil;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;
 import com.sanshao.livemodule.zhibo.live.AnchorInfoActivity;
+import com.sanshao.livemodule.zhibo.live.StartLiveActivity;
 import com.sanshao.livemodule.zhibo.login.TCLoginActivity;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
 
@@ -198,7 +199,8 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             }
             //认证成功
             else if (mLiveApplyResponse.isAuditSuccess()) {
-                AnchorInfoActivity.start(context);
+//                AnchorInfoActivity.start(context);
+                StartLiveActivity.start(context);
             }
             //未填写资料
             else if (mLiveApplyResponse.isUnApply()) {

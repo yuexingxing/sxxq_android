@@ -210,7 +210,7 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
         }
     }
 
-    public void selectFromAlbum() {
+    private void selectFromAlbum() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         //判断系统中是否有处理该Intent的Activity
@@ -273,7 +273,7 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
      * @param context
      * @return real file path
      */
-    public static String getFilePathFromContentUri(Uri uri, Context context) {
+    private String getFilePathFromContentUri(Uri uri, Context context) {
         String filePath;
         String[] filePathColumn = {MediaStore.MediaColumns.DATA};
         Cursor cursor = context.getContentResolver().query(uri, filePathColumn, null, null, null);

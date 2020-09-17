@@ -122,6 +122,7 @@ public class HomeFragment extends BaseFragment<BaseViewModel, HomeFragmentBindin
             TabLayout.Tab tab = binding.tabLayout.getTabAt(i);
             if (tab != null) {
                 tab.setCustomView(mLiveTabFragmentAdapter.getTabView(i));
+                onTabUnSelectView(tab);
             }
         }
 
@@ -139,7 +140,7 @@ public class HomeFragment extends BaseFragment<BaseViewModel, HomeFragmentBindin
     private void onTabUnSelectView(TabLayout.Tab tab) {
         View view = tab.getCustomView();
         TextView textView = view.findViewById(R.id.tv_title);
-        textView.setTextColor(Res.getColor(context, R.color.white));
+        textView.setTextColor(Res.getColor(context, R.color.color_bbbbbb));
         textView.setTextSize(15f);
     }
 }

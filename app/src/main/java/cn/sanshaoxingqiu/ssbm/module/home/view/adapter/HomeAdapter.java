@@ -2,6 +2,7 @@ package cn.sanshaoxingqiu.ssbm.module.home.view.adapter;
 
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -37,6 +38,8 @@ public class HomeAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder> {
         layoutParams.height = ScreenUtil.getScreenHeight(helper.itemView.getContext());
         frameLayout.setLayoutParams(layoutParams);
 
+        LinearLayout llBottomContent = helper.getView(R.id.ll_bottom_content);
+        llBottomContent.setAlpha(0.31f);
         frameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
