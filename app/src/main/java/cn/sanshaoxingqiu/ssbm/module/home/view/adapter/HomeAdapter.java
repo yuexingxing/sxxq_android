@@ -39,7 +39,7 @@ public class HomeAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder> {
         frameLayout.setLayoutParams(layoutParams);
 
         LinearLayout llBottomContent = helper.getView(R.id.ll_bottom_content);
-        llBottomContent.setAlpha(0.31f);
+//        llBottomContent.setAlpha(0.31f);
         frameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

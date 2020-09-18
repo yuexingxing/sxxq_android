@@ -29,7 +29,7 @@
                 android:id="@+id/ll_bottom_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_item_live"
+                android:background="@drawable/image_bottomtranslucency"
                 android:orientation="vertical">
 
                 <LinearLayout

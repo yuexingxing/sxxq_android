@@ -144,12 +144,12 @@ public class TCChatMsgListAdapter extends BaseAdapter implements AbsListView.OnS
 //            playViewAnimator(convertView, position, item);
 //        }
 
-        spanString = new SpannableString(item.getSenderName() + "  " + item.getContent());
+        spanString = new SpannableString(item.getSenderName() + " " + item.getContent());
         if (item.getType() != TCConstants.TEXT_TYPE) {
             // 设置名称为粗体
             StyleSpan boldStyle = new StyleSpan(Typeface.BOLD_ITALIC);
             spanString.setSpan(boldStyle, 0, item.getSenderName().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            holder.sendContext.setTextColor(mContext.getResources().getColor(R.color.colorSendName1));
+            holder.sendContext.setTextColor(mContext.getResources().getColor(R.color.main_color));
         } else {
             // 根据名称计算颜色
             spanString.setSpan(new ForegroundColorSpan(calcNameColor(item.getSenderName())),

@@ -18,7 +18,6 @@ import com.exam.commonbiz.util.Res;
 import com.exam.commonbiz.util.ScreenUtil;
 import com.exam.commonbiz.util.ToastUtil;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;
-import com.sanshao.livemodule.zhibo.live.AnchorInfoActivity;
 import com.sanshao.livemodule.zhibo.live.StartLiveActivity;
 import com.sanshao.livemodule.zhibo.login.TCLoginActivity;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;

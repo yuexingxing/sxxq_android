@@ -1,77 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:background="@color/colorDarkTransparentGray"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorDarkTransparentGray"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        android:layout_marginTop="78dp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@color/white"
+            app:riv_corner_radius="42dp" />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="2dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/gray_btn_bg"
+            app:riv_corner_radius="40dp" />
+    </FrameLayout>
 
     <TextView
-        android:gravity="center"
-        android:textSize="24sp"
-        android:textColor="@color/colorLight"
-        android:text="@string/live_end_tips"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:text="小蝴蝶"
+        android:textColor="#ffffffff"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
     <!-- 直播时长 -->
     <TextView
         android:id="@+id/tv_time"
-        android:layout_marginTop="55dp"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:textColor="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:gravity="center"
+        android:textColor="@color/main_color"
+        android:textSize="17sp" />
+
     <TextView
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:textSize="@dimen/sub_content"
-        android:textColor="@color/white"
-        android:text="@string/live_time_tips"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="@string/live_time_tips"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sub_content" />
+
     <!-- 观看人数 -->
     <TextView
         android:id="@+id/tv_members"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:textColor="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:gravity="center"
+        android:textColor="@color/main_color"
+        android:textSize="20sp" />
+
     <TextView
-        android:gravity="center"
-        android:textSize="@dimen/sub_content"
-        android:textColor="@color/white"
-        android:text="@string/live_members_tips"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="@string/live_members_tips"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sub_content" />
+
     <!-- 获赞数量 -->
     <TextView
         android:id="@+id/tv_admires"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:textColor="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:gravity="center"
+        android:textColor="@color/main_color"
+        android:textSize="20sp" />
+
     <TextView
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:textSize="@dimen/sub_content"
-        android:textColor="@color/white"
-        android:text="@string/live_admires_tips"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="@string/live_admires_tips"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sub_content" />
+
+    <TextView
+        android:id="@+id/anchor_btn_continue"
+        android:layout_width="180dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/shape_radius_20_b6a57b"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="继续直播"
+        android:textColor="@color/white"
+        android:textSize="@dimen/title" />
+
     <TextView
         android:id="@+id/anchor_btn_cancel"
-        android:layout_marginTop="50dp"
+        android:layout_width="180dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/shape_radius_20_b6a57b"
+        android:gravity="center"
         android:padding="5dp"
         android:text="@string/btn_return_home"
-        android:textSize="@dimen/title"
-        android:textColor="@color/colorLight"
-        android:gravity="center"
-        android:background="@drawable/button_return_home_page"
-        android:layout_width="225dp"
-        android:layout_height="35dp" />
+        android:textColor="@color/white"
+        android:textSize="@dimen/title" />
 </LinearLayout>

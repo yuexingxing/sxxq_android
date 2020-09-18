@@ -73,7 +73,6 @@ public class TCCameraAnchorActivity extends TCBaseAnchorActivity {
     private TextView mBroadcastTime;         // 已经开播的时间
     private TextView mMemberCount;           // 观众数量
 
-
     private TCAudioControl mAudioCtrl;             // 音效控制面板
     private LinearLayout mAudioPluginLayout;
 
@@ -126,7 +125,7 @@ public class TCCameraAnchorActivity extends TCBaseAnchorActivity {
         mHeadIcon = (ImageView) findViewById(R.id.anchor_iv_head_icon);
         showHeadIcon(mHeadIcon, TCUserMgr.getInstance().getAvatar());
         mMemberCount = (TextView) findViewById(R.id.anchor_tv_member_counts);
-        mMemberCount.setText("0");
+        mMemberCount.setText("在线：0");
 
         //AudioControl
         mAudioCtrl = (TCAudioControl) findViewById(R.id.anchor_audio_control);
@@ -502,16 +501,15 @@ public class TCCameraAnchorActivity extends TCBaseAnchorActivity {
         //更新头像列表 返回false表明已存在相同用户，将不会更新数据
         if (mAvatarListAdapter.addItem(userInfo))
             super.handleMemberJoinMsg(userInfo);
-        mMemberCount.setText(String.format(Locale.CHINA, "%d", mCurrentMemberCount));
+        mMemberCount.setText("在线：" + String.format(Locale.CHINA, "%d", mCurrentMemberCount));
     }
 
     @Override
     protected void handleMemberQuitMsg(TCSimpleUserInfo userInfo) {
         mAvatarListAdapter.removeItem(userInfo.userid);
         super.handleMemberQuitMsg(userInfo);
-        mMemberCount.setText(String.format(Locale.CHINA, "%d", mCurrentMemberCount));
+        mMemberCount.setText("在线：" + String.format(Locale.CHINA, "%d", mCurrentMemberCount));
     }
-
 
     /**
      * /////////////////////////////////////////////////////////////////////////////////

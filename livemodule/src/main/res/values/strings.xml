@@ -36,7 +36,7 @@
     <!-- permission check-->
     <string name="float_window_not_allow">悬浮窗权限未开启 请在应用-权限中打开悬浮窗权限</string>
 
-    <string name="dialog_input_text_hint">开启弹幕互动吧</string>
+    <string name="dialog_input_text_hint">看都看了，还不撩一下～</string>
 
     <string name="dialog_selectSex">请选择</string>
     <!-- live fragment-->
@@ -49,7 +49,7 @@
     <!-- live play -->
     <string name="send">发送</string>
     <string name="live_end_tips">直播结束啦!</string>
-    <string name="live_time_tips">直播时长</string>
+    <string name="live_time_tips">开播时长</string>
     <string name="live_members_tips">观看人数</string>
     <string name="live_admires_tips">获赞数量</string>
 

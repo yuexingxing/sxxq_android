@@ -68,7 +68,7 @@ public class TCInputTextMsgDialog extends Dialog {
                     messageTextView.setText("");
                     dismiss();
                 } else {
-                    Toast.makeText(mContext, "input can not be empty!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "内容不能为空", Toast.LENGTH_LONG).show();
                 }
                 messageTextView.setText(null);
             }

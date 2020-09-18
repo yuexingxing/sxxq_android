@@ -104,7 +104,7 @@ public class TCHeartLayout extends RelativeLayout {
             mHeartsDrawable[i] = new BitmapDrawable(getResources(), mHearts[i]);
         }
     }
-    private static int[] drawableIds = new int[]{R.drawable.heart0, R.drawable.heart1, R.drawable.heart2, R.drawable.heart3, R.drawable.heart4, R.drawable.heart5, R.drawable.heart6, R.drawable.heart7, R.drawable.heart8,};
+    private static int[] drawableIds = new int[]{R.drawable.heart0, R.drawable.heart1, R.drawable.heart2, R.drawable.heart3, R.drawable.heart4};
     private Random mRandom = new Random();
     private static Drawable[] sDrawables;
     private Bitmap[] mHearts;
@@ -120,7 +120,7 @@ public class TCHeartLayout extends RelativeLayout {
 
     public void addFavor() {
         TCHeartView heartView = new TCHeartView(getContext());
-        heartView.setDrawable(mHeartsDrawable[mRandom.nextInt(8)]);
+        heartView.setDrawable(mHeartsDrawable[mRandom.nextInt(5)]);
 //        heartView.setImageDrawable(sDrawables[random.nextInt(8)]);
 //        init(attrs, defStyleAttr);
         mAnimator.start(heartView, this);

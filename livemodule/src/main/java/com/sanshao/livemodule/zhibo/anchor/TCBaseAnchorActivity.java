@@ -593,6 +593,8 @@ public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListe
         //确认则显示观看detail
         FinishDetailDialogFragment dialogFragment = new FinishDetailDialogFragment();
         Bundle args = new Bundle();
+        args.putString("name", mNickName);
+        args.putString("avatar", mAvatarPicUrl);
         args.putString("time", TCUtils.formattedTime(mSecond));
         args.putString("heartCount", String.format(Locale.CHINA, "%d", mHeartCount));
         args.putString("totalMemberCount", String.format(Locale.CHINA, "%d", mTotalMemberCount));

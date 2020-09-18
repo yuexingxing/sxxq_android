@@ -159,13 +159,32 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/anchor_rv_avatar"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginRight="15dp"
-            android:layout_toRightOf="@+id/layout_live_pusher_info" />
+            android:layout_toRightOf="@+id/layout_live_pusher_info"
+            android:orientation="horizontal">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/anchor_rv_avatar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/btn_close"
+                android:layout_width="@dimen/live_btn_size"
+                android:layout_height="@dimen/live_btn_size"
+                android:background="@drawable/btn_close"
+                android:onClick="onClick" />
+        </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/tool_bar"
@@ -237,13 +256,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/btn_close"
-                android:layout_width="@dimen/live_btn_size"
-                android:layout_height="@dimen/live_btn_size"
-                android:background="@drawable/btn_close"
-                android:onClick="onClick" />
         </LinearLayout>
 
         <LinearLayout
