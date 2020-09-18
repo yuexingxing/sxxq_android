@@ -48,19 +48,19 @@ import java.util.Locale;
  * <p>
  * Function: 主播推流的页面
  * <p>
- *
+ * <p>
  * 1. MLVB 其他观众发起连麦请求处理：{@link TCCameraAnchorActivity#onRequestJoinAnchor(AnchorInfo, String)}
- *
+ * <p>
  * 2. MLVB 其他主播连麦，结束连麦处理：{@link TCCameraAnchorActivity#onAnchorEnter(AnchorInfo)} {@link TCCameraAnchorActivity#onAnchorExit(AnchorInfo)}
- *
+ * <p>
  * 3. 音效控制面板类 {@link TCAudioControl}
- *
+ * <p>
  * 4. 美颜特效控制类 {@link BeautyPanel}
  */
 public class TCCameraAnchorActivity extends TCBaseAnchorActivity {
     private static final String TAG = TCCameraAnchorActivity.class.getSimpleName();
 
-    private TXCloudVideoView                mTXCloudVideoView;      // 主播本地预览的 View
+    private TXCloudVideoView mTXCloudVideoView;      // 主播本地预览的 View
     private Button mFlashView;             // 闪光灯按钮
 
     // 观众头像列表控件
@@ -80,16 +80,16 @@ public class TCCameraAnchorActivity extends TCBaseAnchorActivity {
     private BeautyPanel mBeautyControl;          // 美颜设置的控制类
 
     // log相关
-    private boolean                         mShowLog;               // 是否打开 log 面板
-    private boolean                         mFlashOn;               // 是否打开闪光灯
+    private boolean mShowLog;               // 是否打开 log 面板
+    private boolean mFlashOn;               // 是否打开闪光灯
 
     // 连麦主播
-    private boolean                         mPendingRequest;        // 主播是否正在处理请求
+    private boolean mPendingRequest;        // 主播是否正在处理请求
     private TCVideoViewMgr mPlayerVideoViewList;   // 主播视频列表的View
     private List<AnchorInfo> mPusherList;            // 当前在麦上的主播
 
     private ObjectAnimator mObjAnim;               // 动画
-
+    private TextView mTvToomId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +118,7 @@ public class TCCameraAnchorActivity extends TCBaseAnchorActivity {
 
         mFlashView = (Button) findViewById(R.id.anchor_btn_flash);
 
+        mTvToomId = findViewById(R.id.tv_room_id);
         mBroadcastTime = (TextView) findViewById(R.id.anchor_tv_broadcasting_time);
         mBroadcastTime.setText(String.format(Locale.US, "%s", "00:00:00"));
         mRecordBall = (ImageView) findViewById(R.id.anchor_iv_record_ball);
@@ -132,6 +133,7 @@ public class TCCameraAnchorActivity extends TCBaseAnchorActivity {
         mAudioPluginLayout = (LinearLayout) findViewById(R.id.anchor_ll_audio_plugin);
 
         mBeautyControl = (BeautyPanel) findViewById(R.id.beauty_panel);
+        mTvToomId.setText(String.format("直播间号：%s", mRoomId));
 
         // 监听踢出的回调
         mPlayerVideoViewList = new TCVideoViewMgr(this, new TCVideoView.OnRoomViewListener() {

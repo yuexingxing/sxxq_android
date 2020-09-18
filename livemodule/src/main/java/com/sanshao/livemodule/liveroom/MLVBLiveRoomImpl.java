@@ -453,7 +453,7 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
                                                         mJoinPusher = true;
                                                         mHeartBeatThread.startHeartbeat(); //启动心跳
                                                         mStreamMixturer.setMainVideoStream(pushURL);
-                                                        callbackOnThread(callback, "onSuccess", mCurrRoomID);
+                                                        callbackOnThread(callback, "onSuccess", mCurrRoomID, pushURL);
                                                     } else {
                                                         callbackOnThread(callback, "onError", errCode, errInfo);
                                                     }

@@ -1,72 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="110dp"
-    android:layout_height="35dp"
-    android:background="@drawable/pusher_info_background"
-    android:orientation="horizontal"
-    android:paddingLeft="1dp"
-    android:paddingTop="1dp"
-    android:paddingRight="1dp"
-    android:paddingBottom="1dp"
-    tools:ignore="contentDescription">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/anchor_iv_head_icon"
-        android:layout_width="35dp"
+    <RelativeLayout
+        android:layout_width="110dp"
         android:layout_height="35dp"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/face"
-        android:scaleType="centerCrop"
-        app:riv_corner_radius="35dp" />
+        android:background="@drawable/pusher_info_background"
+        android:orientation="horizontal"
+        android:paddingLeft="1dp"
+        android:paddingTop="1dp"
+        android:paddingRight="1dp"
+        android:paddingBottom="1dp"
+        tools:ignore="contentDescription">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/anchor_iv_head_icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:scaleType="centerCrop"
+            android:src="@drawable/face"
+            app:riv_corner_radius="35dp" />
+
+        <TextView
+            android:id="@+id/anchor_tv_broadcasting_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/anchor_iv_record_ball"
+            android:maxLines="1"
+            android:paddingTop="2.5dp"
+            android:paddingRight="10dp"
+            android:singleLine="true"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="10sp" />
+
+        <ImageView
+            android:id="@+id/anchor_iv_record_ball"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="6dp"
+            android:layout_toRightOf="@id/anchor_iv_head_icon"
+            android:background="@drawable/liveshow_item_dot"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/anchor_iv_record_ball"
+            android:layout_toEndOf="@+id/anchor_iv_head_icon"
+            android:layout_toRightOf="@+id/anchor_iv_head_icon"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="10sp"
+            android:visibility="gone" />
+
+
+        <TextView
+            android:id="@+id/anchor_tv_member_counts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/anchor_tv_broadcasting_time"
+            android:layout_alignLeft="@+id/anchor_tv_broadcasting_time"
+            android:layout_gravity="center"
+            android:drawablePadding="5dp"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="10sp" />
+    </RelativeLayout>
 
     <TextView
-        android:id="@+id/anchor_tv_broadcasting_time"
+        android:id="@+id/tv_room_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@+id/anchor_iv_record_ball"
-        android:maxLines="1"
-        android:paddingTop="2.5dp"
-        android:paddingRight="10dp"
-        android:singleLine="true"
-        android:textColor="@color/colorTextWhite"
-        android:textSize="10sp" />
-
-    <ImageView
-        android:id="@+id/anchor_iv_record_ball"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="6dp"
-        android:layout_toRightOf="@id/anchor_iv_head_icon"
-        android:background="@drawable/liveshow_item_dot"
-        android:scaleType="fitXY" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/anchor_iv_record_ball"
-        android:layout_toEndOf="@+id/anchor_iv_head_icon"
-        android:layout_toRightOf="@+id/anchor_iv_head_icon"
-        android:textColor="@color/colorTextWhite"
-        android:textSize="10sp"
-        android:visibility="gone" />
-
-
-    <TextView
-        android:id="@+id/anchor_tv_member_counts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/anchor_tv_broadcasting_time"
-        android:layout_alignLeft="@+id/anchor_tv_broadcasting_time"
-        android:layout_gravity="center"
-        android:drawablePadding="5dp"
-        android:textColor="@color/colorTextWhite"
-        android:textSize="10sp" />
-
-
-</RelativeLayout>
+        android:layout_marginTop="8dp"
+        android:shadowColor="#7f000000"
+        android:shadowDx="1.0"
+        android:shadowDy="1.0"
+        android:shadowRadius="3.0"
+        android:textColor="#ffffffff"
+        android:textSize="11sp"
+        tools:text="直播间号：123456" />
+</LinearLayout>

@@ -76,7 +76,7 @@ public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListe
 
     protected TCSwipeAnimationController mTCSwipeAnimationController;  // 动画控制类
 
-    private String mRoomId;
+    public String mRoomId;
     private String mTitle;                 // 直播标题
     private String mCoverPicUrl;           // 直播封面图
     private String mAvatarPicUrl;          // 个人头像地址
