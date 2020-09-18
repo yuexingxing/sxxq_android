@@ -166,7 +166,7 @@ public abstract class MLVBLiveRoom {
      * @param callback 进入房间的结果回调
      *
      */
-    public abstract void enterRoom(final String roomID, final TXCloudVideoView view, final IMLVBLiveRoomListener.EnterRoomCallback callback);
+    public abstract void enterRoom(final String roomID, String mPlayUrl, final TXCloudVideoView view, final IMLVBLiveRoomListener.EnterRoomCallback callback);
 
     /**
      * 离开房间

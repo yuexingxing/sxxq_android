@@ -493,7 +493,7 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
      * @param callback 进入房间的结果回调
      */
     @Override
-    public void enterRoom(final String roomID, final TXCloudVideoView view, final IMLVBLiveRoomListener.EnterRoomCallback callback) {
+    public void enterRoom(final String roomID, final String playUrl, final TXCloudVideoView view, final IMLVBLiveRoomListener.EnterRoomCallback callback) {
         TXCLog.i(TAG, "API -> enterRoom:" + roomID);
         if (roomID == null || roomID.length() == 0) {
             callbackOnThread(callback, "onError", MLVBCommonDef.LiveRoomErrorCode.ERROR_PARAMETERS_INVALID, "[LiveRoom] 进房失败[房间号为空]");
@@ -519,7 +519,8 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
                         if (view != null) {
                             view.setVisibility(View.VISIBLE);
                         }
-                        String mixedPlayUrl = getMixedPlayUrlByRoomID(roomID);
+//                        String mixedPlayUrl = getMixedPlayUrlByRoomID(roomID);
+                        String mixedPlayUrl = playUrl;
                         if (mixedPlayUrl != null && mixedPlayUrl.length() > 0) {
                             int playType = getPlayType(mixedPlayUrl);
                             mTXLivePlayer.setPlayerView(view);

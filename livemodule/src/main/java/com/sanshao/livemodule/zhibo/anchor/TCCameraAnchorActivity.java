@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.exam.commonbiz.util.CommonCallBack;
 import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.liveroom.IMLVBLiveRoomListener;
 import com.sanshao.livemodule.liveroom.MLVBLiveRoomImpl;
@@ -33,6 +34,7 @@ import com.sanshao.livemodule.zhibo.common.widget.TCUserAvatarListAdapter;
 import com.sanshao.livemodule.zhibo.common.widget.beauty.LiveRoomBeautyKit;
 import com.sanshao.livemodule.zhibo.common.widget.video.TCVideoView;
 import com.sanshao.livemodule.zhibo.common.widget.video.TCVideoViewMgr;
+import com.sanshao.livemodule.zhibo.live.ShareLiveDialog;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
 import com.tencent.liteav.demo.beauty.BeautyPanel;
 import com.tencent.liteav.demo.beauty.BeautyParams;
@@ -72,6 +74,9 @@ public class TCCameraAnchorActivity extends TCBaseAnchorActivity {
     private ImageView mRecordBall;            // 表明正在录制的红点球
     private TextView mBroadcastTime;         // 已经开播的时间
     private TextView mMemberCount;           // 观众数量
+    private ImageView mIvReversePhoto;//反转摄像头
+    private ImageView mIvBeauty;
+    private ImageView mIvShare;
 
     private TCAudioControl mAudioCtrl;             // 音效控制面板
     private LinearLayout mAudioPluginLayout;
@@ -121,6 +126,13 @@ public class TCCameraAnchorActivity extends TCBaseAnchorActivity {
         mBroadcastTime = (TextView) findViewById(R.id.anchor_tv_broadcasting_time);
         mBroadcastTime.setText(String.format(Locale.US, "%s", "00:00:00"));
         mRecordBall = (ImageView) findViewById(R.id.anchor_iv_record_ball);
+
+        mIvReversePhoto = findViewById(R.id.iv_reverse_photo);
+        mIvBeauty = findViewById(R.id.iv_beauty);
+        mIvShare = findViewById(R.id.iv_share);
+        mIvReversePhoto.setOnClickListener(this);
+        mIvBeauty.setOnClickListener(this);
+        mIvShare.setOnClickListener(this);
 
         mHeadIcon = (ImageView) findViewById(R.id.anchor_iv_head_icon);
         showHeadIcon(mHeadIcon, TCUserMgr.getInstance().getAvatar());
@@ -429,7 +441,7 @@ public class TCCameraAnchorActivity extends TCBaseAnchorActivity {
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.switch_cam) {
+        if (id == R.id.iv_reverse_photo) {
             if (mLiveRoom != null) {
                 mLiveRoom.switchCamera();
             }
@@ -442,7 +454,7 @@ public class TCCameraAnchorActivity extends TCBaseAnchorActivity {
             mFlashView.setBackgroundDrawable(mFlashOn ?
                     getResources().getDrawable(R.drawable.flash_on) :
                     getResources().getDrawable(R.drawable.flash_off));
-        } else if (id == R.id.beauty_btn) {
+        } else if (id == R.id.iv_beauty) {
             if (mBeautyControl.isShown()) {
                 mBeautyControl.setVisibility(View.GONE);
             } else {
@@ -462,6 +474,13 @@ public class TCCameraAnchorActivity extends TCBaseAnchorActivity {
             mAudioCtrl.setVisibility(View.GONE);
         } else if (id == R.id.btn_log) {
             showLog();
+        } else if (id == R.id.iv_share) {
+            new ShareLiveDialog().show(TCCameraAnchorActivity.this, new CommonCallBack() {
+                @Override
+                public void callback(int postion, Object object) {
+
+                }
+            });
         } else {
             super.onClick(v);
         }

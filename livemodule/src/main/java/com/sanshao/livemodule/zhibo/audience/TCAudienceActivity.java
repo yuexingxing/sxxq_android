@@ -116,6 +116,7 @@ public class TCAudienceActivity extends Activity implements IMLVBLiveRoomListene
     private String mAvatar = "";           // 我的头像
     private String mFileId = "";
     private String mTimeStamp = "";
+    private String mPlayUrl;
 
     //头像列表控件
     private RecyclerView mUserAvatarList;
@@ -183,6 +184,7 @@ public class TCAudienceActivity extends Activity implements IMLVBLiveRoomListene
         mNickname = TCUserMgr.getInstance().getNickname();
         mAvatar = TCUserMgr.getInstance().getAvatar();
         mCoverUrl = getIntent().getStringExtra(TCConstants.COVER_PIC);
+        mPlayUrl = intent.getStringExtra(TCConstants.PLAY_URL);
 
         mVideoViewMgr = new TCVideoViewMgr(this, null);
 
@@ -353,10 +355,10 @@ public class TCAudienceActivity extends Activity implements IMLVBLiveRoomListene
         if (mPlaying) return;
         mLiveRoom.setSelfProfile(mNickname, mAvatar);
         mLiveRoom.setListener(this);
-        mLiveRoom.enterRoom(mGroupId, mTXCloudVideoView, new IMLVBLiveRoomListener.EnterRoomCallback() {
+        mLiveRoom.enterRoom(mGroupId, mPlayUrl, mTXCloudVideoView, new IMLVBLiveRoomListener.EnterRoomCallback() {
             @Override
             public void onError(int errCode, String errInfo) {
-                showErrorAndQuit("加入房间失败，Error:" + errCode);
+                showErrorAndQuit("加入房间失败，Error:" + errCode + "/" + errInfo);
                 TCELKReportMgr.getInstance().reportELK(TCConstants.ELK_ACTION_LIVE_PLAY, TCUserMgr.getInstance().getUserId(), -10001, "进入LiveRoom失败", null);
             }
 
