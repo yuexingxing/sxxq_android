@@ -196,6 +196,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                             .setTitle("分享金不足")
                             .setContent("啊哦，您的分享金不足，赶快邀请好友赚取分享金吧~")
                             .setLeftButton("取消")
+                            .showBottomLine(View.VISIBLE)
                             .setRightButton("获取分享金")
                             .setOnRightButtonClick(new View.OnClickListener() {
                                 @Override
@@ -216,6 +217,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                             .setTitle("提示")
                             .setContent("您已经成功领取一个免费变美专区项目，查看订单请至我的-订单列表查看")
                             .setLeftButton("取消")
+                            .showBottomLine(View.VISIBLE)
                             .setOnLeftButtonClick(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {

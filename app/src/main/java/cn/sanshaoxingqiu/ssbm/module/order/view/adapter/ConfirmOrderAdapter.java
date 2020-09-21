@@ -19,7 +19,9 @@ import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.module.order.view.ViewCouponCodeFragment;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
+
 import com.exam.commonbiz.util.GlideUtil;
+
 import cn.sanshaoxingqiu.ssbm.util.MathUtil;
 
 import java.util.ArrayList;
@@ -163,7 +165,11 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
         helper.setText(R.id.tv_total_count, "x" + item.qty);
         helper.setText(R.id.tv_goods_count, String.format("共计%s件商品；实收：%s元", item.qty, item.sum_amt));
         GlideUtil.loadImage(item.thumbnail_img, helper.getView(R.id.iv_icon));
-        helper.setText(R.id.tv_price_2, item.getPriceText());
+        if (item.isPayByDisposit()) {
+            helper.setText(R.id.tv_price_2, "¥" + MathUtil.getNumExclude0(item.deposit_price));
+        } else {
+            helper.setText(R.id.tv_price_2, item.getPriceText());
+        }
     }
 
     private void initOrderDetailView(BaseViewHolder helper, GoodsDetailInfo item) {

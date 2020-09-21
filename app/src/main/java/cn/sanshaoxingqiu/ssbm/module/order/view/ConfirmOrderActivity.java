@@ -2,6 +2,7 @@ package cn.sanshaoxingqiu.ssbm.module.order.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -24,6 +25,7 @@ import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.viewmodel.GoodsDetailViewMod
 import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.MathUtil;
 
+import com.exam.commonbiz.util.Res;
 import com.exam.commonbiz.util.ToastUtil;
 
 import com.exam.commonbiz.base.BaseActivity;
@@ -172,7 +174,11 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
         for (int i = 0; i < goodsDetailInfoList.size(); i++) {
             GoodsDetailInfo goodsDetailInfo = goodsDetailInfoList.get(i);
             mTotalBuyNum += goodsDetailInfo.buyNum;
-            mTotalPrice += MathUtil.multiply(goodsDetailInfo.buyNum, goodsDetailInfo.sarti_saleprice);
+            if (mGoodsDetailInfo.isPayByDisposit()){
+                mTotalPrice += MathUtil.multiply(goodsDetailInfo.buyNum, goodsDetailInfo.deposit_price);
+            }else{
+                mTotalPrice += MathUtil.multiply(goodsDetailInfo.buyNum, goodsDetailInfo.sarti_saleprice);
+            }
             mTotalSharePoint += goodsDetailInfo.buyNum * goodsDetailInfo.sarti_point_price;
         }
 
@@ -184,7 +190,12 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
             setTextInfo("免费领取");
         } else if (mGoodsDetailInfo.isPayByPoint()) {
             setTextInfo(mTotalSharePoint + "分享金");
-        } else {
+        } else if (mGoodsDetailInfo.isPayByDisposit()){
+            setTextInfo(showPrice);
+            double price = (mGoodsDetailInfo.sarti_saleprice - mGoodsDetailInfo.deposit_price) * mTotalBuyNum;
+            binding.tvTotalPrice2.setText(MathUtil.getNumExclude0(price) + "元");
+            binding.tvDeposit.setText("定金:" + MathUtil.getNumExclude0(mTotalPrice) + "元");
+        }else {
             setTextInfo(showPrice);
         }
     }
@@ -205,6 +216,7 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
         goodsDetailInfo.sarti_saleprice = mGoodsDetailInfo.sarti_saleprice;
         goodsDetailInfo.pay_type = mGoodsDetailInfo.pay_type;
         goodsDetailInfo.sarti_point_price = goodsDetailInfo.sum_point;
+        goodsDetailInfo.deposit_price = mGoodsDetailInfo.deposit_price;
 
         ConfirmPayActivity.start(context, goodsDetailInfo);
     }
@@ -244,6 +256,19 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
 
         mGoodsDetailInfo = goodsDetailInfo;
         mGoodsName = goodsDetailInfo.sarti_name;
+        if (mGoodsDetailInfo.isPayByDisposit()) {
+            binding.tvDeposit.setVisibility(View.VISIBLE);
+            binding.tvDeposit.setText("定金:" + MathUtil.getNumExclude0(goodsDetailInfo.deposit_price) + "元");
+            binding.tvPrice2Title.setText("尾款:");
+            binding.tvPrice2Title.setTextSize(12f);
+            binding.tvPrice2Title.setTextColor(Res.getColor(context, R.color.color_333333));
+            binding.tvTotalPrice2.setText(MathUtil.getNumExclude0(goodsDetailInfo.sarti_saleprice - goodsDetailInfo.deposit_price) + "元");
+            binding.tvTotalPrice2.setTextSize(12f);
+            binding.tvTotalPrice2.setTextColor(Res.getColor(context, R.color.color_333333));
+
+            binding.tvPrice2Title.getPaint().setFakeBoldText(false);
+            binding.tvTotalPrice2.getPaint().setFakeBoldText(false);
+        }
         List<GoodsDetailInfo> goodsDetailInfoList = new ArrayList<>();
         goodsDetailInfoList.add(goodsDetailInfo);
         binding.mulitySetMealView.setData(goodsDetailInfoList);
