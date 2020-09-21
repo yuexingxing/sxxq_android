@@ -22,8 +22,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.exam.commonbiz.R;
 import com.exam.commonbiz.util.JavaScriptInterface;
+import com.exam.commonbiz.util.MyHandlerCallBack;
+import com.exam.commonbiz.util.ToastUtil;
 import com.github.lzyzsd.jsbridge.BridgeHandler;
 import com.github.lzyzsd.jsbridge.BridgeWebView;
+import com.github.lzyzsd.jsbridge.BridgeWebViewClient;
 import com.github.lzyzsd.jsbridge.CallBackFunction;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.sanshao.commonui.titlebar.TitleBar;
@@ -38,7 +41,7 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
 
     public final String TAG = BaseWebViewActivity.class.getSimpleName();
     private TitleBar mTitleBar;
-    private BridgeWebView mWebView;
+    public BridgeWebView mWebView;
     private ProgressBar mProgressBar;
     private LinearLayout layoutBody;
     protected View contentView;
@@ -70,18 +73,6 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
             @Override
             public void onRightClick(View v) {
 
-            }
-        });
-
-        mWebView.registerHandler("submitFromWeb", new BridgeHandler() {
-
-            @Override
-            public void handler(String data, CallBackFunction function) {
-
-                String str ="这是html返回给java的数据:" + data;
-
-                Log.i(TAG, "handler = submitFromWeb, data from web = " + data);
-                function.onCallBack( str + ",Java经过处理后截取了一部分："+ str.substring(0,5));
             }
         });
     }
@@ -148,8 +139,10 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
     }
 
     public void initSetting() {
+        mWebView.setWebViewClient(new MyWebViewClient(mWebView));
         mWebView.addJavascriptInterface(new JavaScriptInterface(this), "android");//JS交互
         mWebView.setWebChromeClient(webChromeClient);
+        mWebView.setDefaultHandler(new MyHandlerCallBack());
 
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);//允许使用js
@@ -165,7 +158,7 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
         // 自适应 屏幕大小界面
         webSettings.setLoadWithOverviewMode(true);
 
-//        webSettings.setUserAgentString("BookEdu Client/Android V" + AppInfo.getAppVersionName(MyApplication.getInstance()));
+        webSettings.setUserAgentString("BookEdu Client/Android V");
 
         //加载https处理
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -184,7 +177,6 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
                 }
             }
         });
-        mWebView.setWebViewClient(new MyWebViewClient());
         /**
          * LOAD_CACHE_ONLY: 不使用网络，只读取本地缓存数据
          * LOAD_DEFAULT: （默认）根据cache-control决定是否从网络上取数据。
@@ -202,22 +194,26 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
      * webview客户端
      * 监听 所有点击的链接，如果拦截到我们需要的，就跳转到相对应的页面。
      */
-    private class MyWebViewClient extends WebViewClient {
+    private class MyWebViewClient extends BridgeWebViewClient {
 
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            try {
-                //在这里你可以拦截url，然后自己处理一些事情，比如跳转app内部网页
-
-                Log.v("webview", url);
-                view.loadUrl(url);
-                return true;
-            } catch (Exception e) {
-                Log.i("webview", "该链接无效");
-                return true;
-            }
+        public MyWebViewClient(BridgeWebView webView) {
+            super(webView);
         }
-
+//
+//        @Override
+//        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//            try {
+//                //在这里你可以拦截url，然后自己处理一些事情，比如跳转app内部网页
+//
+//                Log.v("webview", url);
+////                view.loadUrl(url);
+//                return true;
+//            } catch (Exception e) {
+//                Log.i("webview", "该链接无效");
+//                return true;
+//            }
+//        }
+//
         @Override
         public void onPageFinished(WebView view, String url) {
             view.getSettings().setJavaScriptEnabled(true);

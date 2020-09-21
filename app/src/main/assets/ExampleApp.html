@@ -1,0 +1,208 @@
+<!doctype html>
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<style type='text/css'>
+		html { font-family:Helvetica; color:#222; }
+		h1 { color:steelblue; font-size:24px; margin-top:24px; }
+		button { margin:0 3px 10px; font-size:12px; }
+		hr { border-bottom:1px solid #ccc; padding:4px 2px; font-family:courier; font-size:11px; }
+	</style>
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+	<h1>WebViewJavascriptBridge Demo</h1>
+	<script>
+	window.onerror = function(err) {
+		log('window.onerror: ' + err)
+	}
+    
+    // <!-- 这段代码固定必须有 -->
+    // 配置JavascriptBridge
+    function setupWebViewJavascriptBridge(callback) {
+        // for android
+        if (window.WebViewJavascriptBridge) {
+            callback(window.WebViewJavascriptBridge)
+        } else {
+            document.addEventListener(
+                'WebViewJavascriptBridgeReady'
+                , function() {
+                    callback(window.WebViewJavascriptBridge)
+                },
+                false
+            );
+        }
+        // for ios
+        if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+        if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+        window.WVJBCallbacks = [callback];
+        var WVJBIframe = document.createElement('iframe');
+        WVJBIframe.style.display = 'none';
+        WVJBIframe.src = 'https://__bridge_loaded__';
+        document.documentElement.appendChild(WVJBIframe);
+        setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+    }
+
+    app = {
+            bridge: null,
+            token: null
+        }
+    
+    /**
+     bridge方法
+     */
+    
+    /// web端注册方法让app调用
+    function registerHandler(bridge) {
+        // 本地缓存bridge
+        app.bridge = bridge
+        
+        /// H5注册方法，给app主动调用
+        /// app会在h5页面加载完毕时调用该方法
+        app.bridge.registerHandler('initToken', initTokenCallback)
+        
+        /// 其它方法
+        /// TODO:
+    }
+    
+    /// web端调用app已注册的方法
+    function call_app_function(function_name, param, callback) {
+        if(app.bridge != null) {
+            app.bridge.callHandler(function_name, param, callback)
+        }
+    }
+    
+    /// app调用了注册的"initToken"后回调方法
+    function initTokenCallback(data, responseCallback) {
+        //app.token = data.token
+        
+        // app的回调
+        var responseData = {
+            'errorCode': 200,
+            'message': '',
+            'result': data
+        }
+        
+        responseCallback(responseData)
+    }
+    
+    /**
+    app方法
+    */
+    
+    /// app登陆
+    function app_login(callback) {
+        call_app_function('loginFunction', {}, callback)
+    }
+    
+    /// app弹窗
+    function app_alert(title, content, callback) {
+        call_app_function('alertFunction', {'title':title, 'content':content}, callback)
+    }
+    
+    /// 跳转到产品页
+    function app_product_detail(param, callback) {
+        // 产品必须的数据结构
+        product_info = {
+            'sarti_id':param.sarti_id,
+            'sarti_name':param.sarti_name,
+            'thumbnail_img':param.thumbnail_img
+        }
+        call_app_function('productDetailFunction', product_info, callback)
+    }
+    
+    /// 分享产品
+    function app_share_product(param, callback) {
+        // 产品必须的数据结构
+        product_info = {
+            'sarti_id':param.sarti_id,
+            'sarti_name':param.sarti_name,
+            'thumbnail_img':param.thumbnail_img
+        }
+        call_app_function('shareProductFunction', product_info, callback)
+    }
+    
+    /**
+     H5的方法
+     */
+    
+    /**
+     业务方法
+     */
+    
+    /// 某项业务
+    function buinessOne() {
+        app_alert('我是标题', '我是内容', function(response){
+            
+        })
+    }
+    
+    /**
+     通用方法
+     */
+    
+    /// 打印日志
+    function log(message, data) {
+        var msg = "message:" + message + "\n data:" + JSON.stringify(data)
+        $("#log").prepend("<p>" + msg + "</p><hr>")
+        
+        console.log(msg)
+    }
+
+    $(function(){
+        /**
+        当前页面业务处理
+        */
+        setupWebViewJavascriptBridge(function (bridge) {
+            registerHandler(bridge)
+        })
+
+        $("#login").click(function(){
+            // 未登陆
+            if (app.token == null) {
+                app_login(function (response) {
+                    // app的回调
+                    log('JS got response', response)
+                    app.token = response.token
+                })
+
+                return;
+            }
+
+            // TODO:要处理的业务
+            buinessOne()
+        })
+        
+        $("#share").click(function(){
+            product = {
+                'sarti_id':"9c80960c12e641e6a6f9db7153c86521",
+                'sarti_name':"M22非剥脱式点阵测试",
+                'thumbnail_img':"https://ssxq-t2-files.oss-cn-shanghai.aliyuncs.com/products/2020/7/5/925600f32e791168fcf9e5b07182b2fd.jpg"
+            }
+            
+            app_share_product(product, function(response) {
+                
+            })
+        })
+        
+        $("#detail").click(function(){
+            product = {
+                'sarti_id':"9c80960c12e641e6a6f9db7153c86521",
+                'sarti_name':"M22非剥脱式点阵测试",
+                'thumbnail_img':"https://ssxq-t2-files.oss-cn-shanghai.aliyuncs.com/products/2020/7/5/925600f32e791168fcf9e5b07182b2fd.jpg"
+            }
+            
+            app_product_detail(product, function(response) {
+                
+            })
+        })
+    })
+	</script>
+    <div id='buttons'>
+        <button id='login' type="button">Click Me!</button>
+        <button id='share' type="button">Share Me!</button>
+        <button id='detail' type="button">Product Detail!</button>
+    </div> 
+    <div id='log'>
+    </div>
+</body></html>

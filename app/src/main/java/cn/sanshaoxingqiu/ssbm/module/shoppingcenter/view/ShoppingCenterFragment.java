@@ -15,6 +15,7 @@ import com.exam.commonbiz.util.ScreenUtil;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.ShoppingCenterFragmentBinding;
+import cn.sanshaoxingqiu.ssbm.module.EmptyWebViewActivity;
 import cn.sanshaoxingqiu.ssbm.module.home.model.BannerInfo;
 import cn.sanshaoxingqiu.ssbm.module.invitation.view.InvitationActivity;
 import cn.sanshaoxingqiu.ssbm.module.register.view.RegisterActivity;
@@ -169,6 +170,7 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
      * @param bannerInfo
      */
     private void jumpBanner(BannerInfo bannerInfo) {
+
         if (bannerInfo == null) {
             return;
         }
