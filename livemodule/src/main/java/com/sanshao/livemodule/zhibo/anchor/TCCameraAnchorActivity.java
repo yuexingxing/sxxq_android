@@ -120,7 +120,6 @@ public class TCCameraAnchorActivity extends TCBaseAnchorActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mUserAvatarList.setLayoutManager(linearLayoutManager);
-
         mFlashView = (Button) findViewById(R.id.anchor_btn_flash);
 
         mTvToomId = findViewById(R.id.tv_room_id);
@@ -150,8 +149,8 @@ public class TCCameraAnchorActivity extends TCBaseAnchorActivity {
         mTXCloudVideoView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mBeautyControl != null){
-                    if (mBeautyControl.isShown()){
+                if (mBeautyControl != null) {
+                    if (mBeautyControl.isShown()) {
                         mBeautyControl.setVisibility(View.GONE);
                     }
                 }

@@ -169,10 +169,6 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/anchor_rv_avatar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
@@ -181,6 +177,7 @@
                 android:id="@+id/btn_close"
                 android:layout_width="@dimen/live_btn_size"
                 android:layout_height="@dimen/live_btn_size"
+                android:layout_marginLeft="5dp"
                 android:background="@drawable/btn_close"
                 android:onClick="onClick" />
         </LinearLayout>

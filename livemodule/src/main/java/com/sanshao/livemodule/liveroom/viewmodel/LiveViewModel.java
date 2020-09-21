@@ -21,7 +21,7 @@ public class LiveViewModel extends BaseViewModel {
         mILiveRoomModel = iLiveRoomModel;
     }
 
-    public void setIBaseModel(IBaseModel iBaseModel){
+    public void setIBaseModel(IBaseModel iBaseModel) {
         mIBaseModel = iBaseModel;
     }
 
@@ -52,9 +52,9 @@ public class LiveViewModel extends BaseViewModel {
         });
     }
 
-    public void getVideoList(final int page, int pageSize) {
+    public void getLiveVideoList() {
 
-        LiveModel.getVideoList(page, pageSize, new OnLoadListener<VideoListResponse>() {
+        LiveModel.getLiveVideoList(new OnLoadListener<VideoListResponse>() {
             @Override
             public void onLoadStart() {
 
@@ -68,11 +68,7 @@ public class LiveViewModel extends BaseViewModel {
             @Override
             public void onLoadSucessed(BaseResponse<VideoListResponse> t) {
                 if (mIBaseModel != null) {
-                    if (page == 1) {
-                        mIBaseModel.onRefreshData(t.getContent());
-                    } else {
-                        mIBaseModel.onLoadMoreData(t.getContent());
-                    }
+                    mIBaseModel.onRefreshData(t.getContent());
                 }
             }
 

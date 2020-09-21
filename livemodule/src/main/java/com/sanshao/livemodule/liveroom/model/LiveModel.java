@@ -72,9 +72,9 @@ public class LiveModel {
                 });
     }
 
-    public static void getVideoList(int page, int pageSize, final OnLoadListener onLoadListener) {
+    public static void getLiveVideoList(final OnLoadListener onLoadListener) {
         XApi.get(LiveRoomApiService.class, XApi.HOST_TYPE.JAVA)
-                .getVideoList(page, pageSize)
+                .getLiveVideoList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver() {

@@ -30,8 +30,8 @@ public interface LiveRoomApiService {
     Observable<BaseResponse<AnchorInfo>> getAnchorInfo();
 
     //直播回放列表
-    @GET("live/mlive/video/list")
-    Observable<BaseResponse<VideoListResponse>> getVideoList(@Query("page") int page, @Query("pageSize") int pageSize);
+    @GET("live/mlive/batchList")
+    Observable<BaseResponse<VideoListResponse>> getLiveVideoList();
 
     //回放列表
     @GET("live/mlive/record/list")

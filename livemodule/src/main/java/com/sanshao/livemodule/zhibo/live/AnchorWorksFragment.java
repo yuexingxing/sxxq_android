@@ -78,7 +78,7 @@ public class AnchorWorksFragment extends BaseFragment<LiveViewModel, FragmentLay
 
     @Override
     public void onRefresh() {
-        mViewModel.getVideoList(0, 0);
+        mViewModel.getLiveVideoList();
     }
 
     @Override

@@ -74,6 +74,7 @@
     
     /// app调用了注册的"initToken"后回调方法
     function initTokenCallback(data, responseCallback) {
+        log("initTokenCallback", data)
         //app.token = data.token
         
         // app的回调
@@ -120,6 +121,18 @@
             'thumbnail_img':param.thumbnail_img
         }
         call_app_function('shareProductFunction', product_info, callback)
+    }
+    
+    /// 分享到微信小程序
+    function app_share_mini_app(param, callback) {
+        // 必须的数据结构
+        info = {
+            'title':param.title,
+            'thumbnail_img':param.thumbnail,
+            'shared_URL':param.sharedURL,
+            'shared_URL_with_host':param.sharedURLWithHost,
+        }
+        call_app_function('shareToMiniAppFunction', product_info, callback)
     }
     
     /**
@@ -185,6 +198,19 @@
             })
         })
         
+        $("#shareToMiniApp").click(function(){
+            info = {
+                'title': "超多福利！价值6400元的医美项目，限时90元领取！",
+                'thumbnail':"https://ssbm-wxapp-static.oss-cn-shanghai.aliyuncs.com/icon/mianfeibm.jpeg",
+                'sharedURL':"/pages/activity/registration",
+                'sharedURLWithHost': "https://t2wxapi.sancell.top/pages/activity/registration",
+            }
+            
+            app_share_mini_app(info, function(){
+                
+            })
+        }
+        
         $("#detail").click(function(){
             product = {
                 'sarti_id':"9c80960c12e641e6a6f9db7153c86521",
@@ -201,6 +227,7 @@
     <div id='buttons'>
         <button id='login' type="button">Click Me!</button>
         <button id='share' type="button">Share Me!</button>
+        <button id='shareToMiniApp' type="button">Share Me!</button>
         <button id='detail' type="button">Product Detail!</button>
     </div> 
     <div id='log'>

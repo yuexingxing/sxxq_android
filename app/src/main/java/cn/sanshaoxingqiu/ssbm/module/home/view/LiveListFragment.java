@@ -2,8 +2,6 @@ package cn.sanshaoxingqiu.ssbm.module.home.view;
 
 import android.content.Intent;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,15 +18,12 @@ import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
 import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.audience.TCAudienceActivity;
 import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
-import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
-import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoListMgr;
 
 import java.util.ArrayList;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.FragmentLayoutLiveListBinding;
 import cn.sanshaoxingqiu.ssbm.module.home.view.adapter.HomeAdapter;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 
 /**
  * 首页-直播列表
@@ -39,7 +34,6 @@ import cn.sanshaoxingqiu.ssbm.util.Constants;
 public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayoutLiveListBinding> implements IBaseModel, BaseQuickAdapter.RequestLoadMoreListener {
 
     private HomeAdapter mHomeAdapter;
-    private int mPageNum = 1;
 
     public static LiveListFragment newInstance() {
         LiveListFragment fragment = new LiveListFragment();
@@ -73,7 +67,6 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         mHomeAdapter.setOnLoadMoreListener(this, binding.recyclerView);
         binding.swipeRefreshLayout.setColorSchemeResources(R.color.main_color);
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {
-            mPageNum = 1;
             getLiveData();
         });
 
@@ -81,19 +74,19 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
     }
 
     private void getLiveData() {
-//        mViewModel.getVideoList(mPageNum, Constants.PAGE_SIZE);
+        mViewModel.getLiveVideoList();
 
-        TCVideoListMgr.getInstance().fetchLiveVideoList(getActivity(), new TCVideoListMgr.Listener() {
-            @Override
-            public void onVideoList(int retCode, ArrayList<TCVideoInfo> result, boolean refresh) {
-
-            }
-
-            @Override
-            public void onLiveVideoList(int retCode, ArrayList<VideoInfo> result, boolean refresh) {
-                onRefreshVideoList(retCode, result);
-            }
-        });
+//        TCVideoListMgr.getInstance().fetchLiveVideoList(getActivity(), new TCVideoListMgr.Listener() {
+//            @Override
+//            public void onVideoList(int retCode, ArrayList<TCVideoInfo> result, boolean refresh) {
+//
+//            }
+//
+//            @Override
+//            public void onLiveVideoList(int retCode, ArrayList<VideoInfo> result, boolean refresh) {
+//                onRefreshVideoList(retCode, result);
+//            }
+//        });
     }
 
     private void onRefreshVideoList(final int retCode, final ArrayList<VideoInfo> result) {
@@ -150,7 +143,6 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
 
     @Override
     public void onLoadMoreRequested() {
-        mPageNum++;
         getLiveData();
     }
 
