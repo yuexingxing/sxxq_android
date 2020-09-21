@@ -523,7 +523,7 @@ public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListe
         }
 
         TCChatEntity entity = new TCChatEntity();
-        entity.setSenderName("我:");
+        entity.setSenderName("我");
         entity.setContent(msg);
         entity.setType(TCConstants.TEXT_TYPE);
         notifyMsg(entity);

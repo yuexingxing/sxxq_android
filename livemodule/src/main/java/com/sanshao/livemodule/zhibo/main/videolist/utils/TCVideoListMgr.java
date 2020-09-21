@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import com.sanshao.livemodule.liveroom.IMLVBLiveRoomListener;
 import com.sanshao.livemodule.liveroom.MLVBLiveRoom;
+import com.sanshao.livemodule.liveroom.roomutil.bean.VideoInfo;
 import com.sanshao.livemodule.liveroom.roomutil.commondef.AnchorInfo;
 import com.sanshao.livemodule.liveroom.roomutil.commondef.RoomInfo;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;
@@ -145,6 +146,70 @@ public class TCVideoListMgr {
         }
     }
 
+    /**
+     * 获取正在直播的列表
+     *
+     * @param listener
+     */
+    public void fetchLiveVideoList(Context context, final Listener listener) {
+        MLVBLiveRoom liveRoom = MLVBLiveRoom.sharedInstance(context);
+        liveRoom.getRoomList(0, PAGE_SIZE, new IMLVBLiveRoomListener.GetRoomListCallback() {
+            @Override
+            public void onError(int errCode, String errInfo) {
+                if (listener != null) {
+                    listener.onVideoList(errCode, null, false);
+                }
+                TXLog.w(TAG, "xzb_process: get_live_list error, code:"+errCode+", errInfo:"+errInfo);
+            }
+
+            @Override
+            public void onSuccess(ArrayList<RoomInfo> data) {
+                ArrayList<VideoInfo> infos = new ArrayList();
+                if (data != null && data.size() > 0) {
+                    for (RoomInfo value : data) {
+                        List<AnchorInfo> pushers = value.pushers;
+
+                        VideoInfo info = new VideoInfo();
+                        info.playUrl = value.mixedPlayURL;
+                        info.userId = value.roomCreator;
+                        info.room_id = value.roomID;
+                        info.viewer_count= value.audienceCount;
+                        info.livePlay   = true;
+                        if (pushers != null && !pushers.isEmpty()) {
+                            AnchorInfo pusher = pushers.get(0);
+                            info.nickname   = pusher.userName;
+                            info.avatar     = pusher.userAvatar;
+                        }
+
+                        try {
+                            JSONObject jsonRoomInfo = new JSONObject(value.roomInfo);
+                            info.live_title      = jsonRoomInfo.optString("title");
+                            info.frontcover = jsonRoomInfo.optString("frontcover");
+                            info.location   = jsonRoomInfo.optString("location");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            if (!TextUtils.isEmpty(value.roomInfo)) {
+                                info.title = value.roomInfo;
+                            }
+                        }
+
+                        try {
+                            JSONObject jsonCunstomInfo = new JSONObject(value.custom);
+                            info.likeCount   = jsonCunstomInfo.optInt("praise");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        infos.add(info);
+                    }
+                }
+                if (listener != null) {
+                    listener.onLiveVideoList(0, infos, true);
+                }
+                TXLog.w(TAG, "xzb_process: get_live_list success");
+            }
+        });
+    }
 
 
     /**
@@ -157,6 +222,8 @@ public class TCVideoListMgr {
          * @param refresh 是否需要刷新界面，首页需要刷新
          */
         void onVideoList(int retCode, final ArrayList<TCVideoInfo> result, boolean refresh);
+
+        void onLiveVideoList(int retCode, final ArrayList<VideoInfo> result, boolean refresh);
     }
 }
 

@@ -19,7 +19,6 @@ public class TCChatEntity {
         this.grpSendName = grpSendName;
     }
 
-
     public String getContent() {
         return content;
     }
@@ -27,7 +26,6 @@ public class TCChatEntity {
     public void setContent(String context) {
         this.content = context;
     }
-
 
     public int getType() {
         return type;

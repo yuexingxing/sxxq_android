@@ -13,6 +13,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:src="@drawable/face"
+        android:scaleType="centerCrop"
         app:riv_corner_radius="35dp" />
 
 </LinearLayout>

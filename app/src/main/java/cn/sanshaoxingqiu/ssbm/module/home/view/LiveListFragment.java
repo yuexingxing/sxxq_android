@@ -2,6 +2,9 @@ package cn.sanshaoxingqiu.ssbm.module.home.view;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
@@ -17,6 +20,10 @@ import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
 import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.audience.TCAudienceActivity;
 import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
+import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
+import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoListMgr;
+
+import java.util.ArrayList;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.FragmentLayoutLiveListBinding;
@@ -74,7 +81,43 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
     }
 
     private void getLiveData() {
-        mViewModel.getVideoList(mPageNum, Constants.PAGE_SIZE);
+//        mViewModel.getVideoList(mPageNum, Constants.PAGE_SIZE);
+
+        TCVideoListMgr.getInstance().fetchLiveVideoList(getActivity(), new TCVideoListMgr.Listener() {
+            @Override
+            public void onVideoList(int retCode, ArrayList<TCVideoInfo> result, boolean refresh) {
+
+            }
+
+            @Override
+            public void onLiveVideoList(int retCode, ArrayList<VideoInfo> result, boolean refresh) {
+                onRefreshVideoList(retCode, result);
+            }
+        });
+    }
+
+    private void onRefreshVideoList(final int retCode, final ArrayList<VideoInfo> result) {
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (retCode == 0) {
+                        mHomeAdapter.getData().clear();
+                        if (result != null) {
+                            mHomeAdapter.addData((ArrayList<VideoInfo>) result.clone());
+                        }
+                    } else {
+                        Toast.makeText(getActivity(), "刷新列表失败", Toast.LENGTH_LONG).show();
+                    }
+                    if (mHomeAdapter.getData().size() > 0) {
+                        binding.emptyLayout.showSuccess();
+                    } else {
+                        binding.emptyLayout.showEmpty("暂无直播", R.drawable.image_nolive);
+                    }
+                    binding.swipeRefreshLayout.setRefreshing(false);
+                }
+            });
+        }
     }
 
     /**
@@ -85,12 +128,12 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
     private void startLivePlay(final VideoInfo item) {
 
         Intent intent = new Intent(getActivity(), TCAudienceActivity.class);
-        intent.putExtra(TCConstants.PLAY_URL, item.rtmp_pull_url);
-        intent.putExtra(TCConstants.PUSHER_ID, item.pushers != null ? item.pushers.invitation_code : "");
-        intent.putExtra(TCConstants.PUSHER_NAME, item.pushers.anchor_name);
-        intent.putExtra(TCConstants.PUSHER_AVATAR, item.pushers.avatar);
+        intent.putExtra(TCConstants.PLAY_URL, item.playUrl);
+        intent.putExtra(TCConstants.PUSHER_ID, item.userId);
+        intent.putExtra(TCConstants.PUSHER_NAME, item.nickname);
+        intent.putExtra(TCConstants.PUSHER_AVATAR, item.avatar);
         intent.putExtra(TCConstants.HEART_COUNT, TextUtils.isEmpty(item.like_number) ? "0" : item.like_number);
-        intent.putExtra(TCConstants.MEMBER_COUNT, item.viewer_count);
+        intent.putExtra(TCConstants.MEMBER_COUNT, item.viewer_count + "");
         intent.putExtra(TCConstants.GROUP_ID, item.room_id);
         intent.putExtra(TCConstants.PLAY_TYPE, item.meta_type);
         intent.putExtra(TCConstants.FILE_ID, "");

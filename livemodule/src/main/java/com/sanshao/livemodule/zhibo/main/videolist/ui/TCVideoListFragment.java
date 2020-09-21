@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.sanshao.livemodule.R;
+import com.sanshao.livemodule.liveroom.roomutil.bean.VideoInfo;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;
 import com.sanshao.livemodule.zhibo.audience.TCAudienceActivity;
 import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
@@ -198,6 +199,11 @@ public class TCVideoListFragment extends Fragment implements SwipeRefreshLayout.
                     public void onVideoList(int retCode, ArrayList<TCVideoInfo> result, boolean refresh) {
                         onRefreshVideoList(retCode, result, refresh, mVideoListViewAdapter);
                     }
+
+                    @Override
+                    public void onLiveVideoList(int retCode, ArrayList<VideoInfo> result, boolean refresh) {
+
+                    }
                 });
                 return true;
             case LIST_TYPE_VOD:
@@ -205,6 +211,11 @@ public class TCVideoListFragment extends Fragment implements SwipeRefreshLayout.
                     @Override
                     public void onVideoList(int retCode, ArrayList<TCVideoInfo> result, boolean refresh) {
                         onRefreshVideoList(retCode, result, refresh, mVideoListViewAdapter);
+                    }
+
+                    @Override
+                    public void onLiveVideoList(int retCode, ArrayList<VideoInfo> result, boolean refresh) {
+
                     }
                 });
                 return true;

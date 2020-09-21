@@ -29,8 +29,8 @@ public class HomeAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, VideoInfo item) {
 
-        helper.setText(R.id.tv_title, item.live_title);
-//        helper.setText(R.id.tv_content, item.nickname);
+        helper.setText(R.id.tv_title, "@" + item.nickname);
+        helper.setText(R.id.tv_content, item.live_title);
         GlideUtil.loadImage(item.frontcover, helper.getView(R.id.iv_bg), R.drawable.icon_goods_type_six);
 
         FrameLayout frameLayout = helper.getView(R.id.fl_content);

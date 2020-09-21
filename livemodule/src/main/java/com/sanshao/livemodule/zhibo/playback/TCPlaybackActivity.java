@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -107,11 +108,16 @@ public class TCPlaybackActivity extends Activity implements View.OnClickListener
         setContentView(R.layout.activity_vod_play);
 
         Intent intent = getIntent();
+        String strMemberCount = intent.getStringExtra(TCConstants.MEMBER_COUNT);
+        if (TextUtils.isEmpty(strMemberCount)){
+            strMemberCount = "0";
+        }
+
         mPusherId = intent.getStringExtra(TCConstants.PUSHER_ID);
         mPlayUrl = intent.getStringExtra(TCConstants.PLAY_URL);
         mPusherNickname = intent.getStringExtra(TCConstants.PUSHER_NAME);
         mPusherAvatar = intent.getStringExtra(TCConstants.PUSHER_AVATAR);
-        mViewedCount = Long.decode(intent.getStringExtra(TCConstants.MEMBER_COUNT));
+        mViewedCount = Long.decode(strMemberCount);
         mFileId = intent.getStringExtra(TCConstants.FILE_ID);
         mTimeStamp = intent.getStringExtra(TCConstants.TIMESTAMP);
         mTitle = intent.getStringExtra(TCConstants.ROOM_TITLE);

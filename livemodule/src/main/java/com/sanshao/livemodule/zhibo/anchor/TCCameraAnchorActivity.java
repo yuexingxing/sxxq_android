@@ -25,6 +25,7 @@ import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.liveroom.IMLVBLiveRoomListener;
 import com.sanshao.livemodule.liveroom.MLVBLiveRoomImpl;
 import com.sanshao.livemodule.liveroom.roomutil.commondef.AnchorInfo;
+import com.sanshao.livemodule.liveroom.roomutil.commondef.AudienceInfo;
 import com.sanshao.livemodule.zhibo.anchor.music.TCAudioControl;
 import com.sanshao.livemodule.zhibo.common.msg.TCSimpleUserInfo;
 import com.sanshao.livemodule.zhibo.common.report.TCELKReportMgr;
