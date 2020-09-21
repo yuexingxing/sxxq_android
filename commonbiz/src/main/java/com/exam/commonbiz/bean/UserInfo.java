@@ -25,6 +25,7 @@ public class UserInfo implements Serializable {
     public String mem_status;//
     public String point;//我的分享金
     public int available_point;//可用分享金
+    public int free_sarti_count;
     public String benefits_level;//是否购买90元商品，0未购买
     public MemberClassInfo mem_class;
     public UserInfo referrer_mem;

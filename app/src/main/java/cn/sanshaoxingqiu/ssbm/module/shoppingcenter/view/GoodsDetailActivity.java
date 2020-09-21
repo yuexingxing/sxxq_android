@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.dialog.CommonTipDialog;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.exam.commonbiz.util.Res;
@@ -28,6 +29,7 @@ import cn.sanshaoxingqiu.ssbm.databinding.ActivityGoodsDetailBinding;
 import cn.sanshaoxingqiu.ssbm.module.home.model.BannerInfo;
 import cn.sanshaoxingqiu.ssbm.module.invitation.view.InvitationActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderBenefitResponse;
+import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderInfo;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderNumStatusResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderPayInfoResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderStatusResponse;
@@ -39,6 +41,7 @@ import cn.sanshaoxingqiu.ssbm.module.order.model.OnPayListener;
 import cn.sanshaoxingqiu.ssbm.module.order.util.PayUtils;
 import cn.sanshaoxingqiu.ssbm.module.order.view.ConfirmOrderActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.view.ConfirmPayActivity;
+import cn.sanshaoxingqiu.ssbm.module.order.view.OrderListActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.view.PayCompleteActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderDetailViewModel;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderViewModel;
@@ -186,19 +189,48 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             if (mGoodsDetailInfo.isPayByMoney() && !mGoodsDetailInfo.isFree()) {
                 ConfirmOrderActivity.start(context, mSartiId);
             } else if (mGoodsDetailInfo.isPayByPoint()) {
+                //TODO 积分为0弹窗，点击跳到活动页
                 if (mUserInfo.available_point == 0) {
-                    InvitationActivity.start(context, ShoppingCenterUtil.getInviteTagId());
+                    CommonTipDialog commonTipDialog = new CommonTipDialog();
+                    commonTipDialog.init(context)
+                            .setTitle("分享金不足")
+                            .setContent("啊哦，您的分享金不足，赶快邀请好友赚取分享金吧~")
+                            .setLeftButton("取消")
+                            .setRightButton("获取分享金")
+                            .setOnRightButtonClick(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    commonTipDialog.dismiss();
+                                    InvitationActivity.start(context, ShoppingCenterUtil.getInviteTagId());
+                                }
+                            })
+                            .show();
                 } else {
                     ConfirmOrderActivity.start(context, mGoodsDetailInfo.sarti_id);
                 }
             } else {
-                if (!mUserInfo.hasBenefitsRight() && mGoodsDetailInfo.isFree()) {
-                    new BenefitsRightDialog().show(context, new CommonCallBack() {
-                        @Override
-                        public void callback(int postion, Object object) {
-                            showPayTypeBottomDialog();
-                        }
-                    });
+                if (mGoodsDetailInfo.isFree() && mUserInfo.free_sarti_count < 1) {
+                    CommonTipDialog commonTipDialog = new CommonTipDialog();
+                    commonTipDialog.init(context)
+                            .init(context)
+                            .setTitle("提示")
+                            .setContent("您已经成功领取一个免费变美专区项目，查看订单请至我的-订单列表查看")
+                            .setLeftButton("取消")
+                            .setOnLeftButtonClick(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    commonTipDialog.dismiss();
+                                }
+                            })
+                            .setRightButton("查看订单")
+                            .setOnRightButtonClick(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    commonTipDialog.dismiss();
+                                    OrderListActivity.start(context, OrderInfo.State.ALL);
+                                }
+                            })
+                            .show();
                     return;
                 }
                 ConfirmOrderActivity.start(context, mSartiId);
