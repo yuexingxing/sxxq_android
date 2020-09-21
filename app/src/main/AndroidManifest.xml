@@ -13,7 +13,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 这个权限用于访问GPS定位 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-
     <uses-permission
         android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
         tools:ignore="ProtectedPermissions" />
@@ -31,6 +30,7 @@
         android:supportsRtl="true"
         android:theme="@style/MyTheme"
         tools:replace="allowBackup,icon,theme,label">
+        <activity android:name=".module.shoppingcenter.view.ExerciseActivity"></activity>
         <activity
             android:name=".module.live.view.IdentityingActivity"
             android:screenOrientation="portrait" />

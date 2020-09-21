@@ -8,7 +8,9 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.exam.commonbiz.base.BaseFragment;
+import com.exam.commonbiz.router.Router;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.exam.commonbiz.util.GlideUtil;
 import com.exam.commonbiz.util.ScreenUtil;
@@ -16,6 +18,7 @@ import com.exam.commonbiz.util.ToastUtil;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.ShoppingCenterFragmentBinding;
+import cn.sanshaoxingqiu.ssbm.module.EmptyWebViewActivity;
 import cn.sanshaoxingqiu.ssbm.module.home.model.BannerInfo;
 import cn.sanshaoxingqiu.ssbm.module.invitation.view.InvitationActivity;
 import cn.sanshaoxingqiu.ssbm.module.register.view.RegisterActivity;
@@ -69,17 +72,13 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
         binding.activitysRecyclerView.setLayoutManager(linearLayoutManager2);
         binding.activitysRecyclerView.setAdapter(mAdAdapter);
         mAdAdapter.setOnItemClickListener((adapter, view, position) -> {
-            ToastUtil.showShortToast("123");
+            if (mAdAdapter.getData().get(position).action_args != null) {
+                ExerciseActivity.start(context, mAdAdapter.getData().get(position).action_args.activityUrl);
+            }
         });
 
         binding.homeBannerLayout.setOnBannerClick(bannerInfo -> {
             jumpBanner(bannerInfo);
-        });
-        binding.ivAd.setOnClickListener(v -> {
-            if (mAdBannerInfo == null) {
-                return;
-            }
-            jumpBanner(mAdBannerInfo);
         });
 
         binding.emptyLayout.setOnButtonClick(new View.OnClickListener() {
@@ -139,15 +138,13 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
         }
         binding.emptyLayout.showSuccess();
         binding.homeBannerLayout.setData(shoppingCenterResponse.slideshow);
+
+        mAdAdapter.getData().clear();
         if (!ContainerUtil.isEmpty(shoppingCenterResponse.static_advertising)) {
             mAdBannerInfo = shoppingCenterResponse.static_advertising.get(0);
-            GlideUtil.loadImage(mAdBannerInfo.artitag_url, binding.ivAd);
-            binding.ivAd.setVisibility(View.VISIBLE);
-
             mAdAdapter.addData(shoppingCenterResponse.static_advertising);
-        } else {
-            binding.ivAd.setVisibility(View.GONE);
         }
+
         if (!ContainerUtil.isEmpty(shoppingCenterResponse.classify)) {
             for (int i = 0; i < shoppingCenterResponse.classify.size(); i++) {
                 GoodsTypeInfo goodsTypeInfo = shoppingCenterResponse.classify.get(i);

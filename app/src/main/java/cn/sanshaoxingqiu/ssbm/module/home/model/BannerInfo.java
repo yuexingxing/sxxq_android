@@ -13,6 +13,7 @@ public class BannerInfo {
     public String videoUrl;
     public String videoPic;
     public String sarti_id;
+    public String activityUrl;
     public BannerInfo action_args;
 
     public interface ActionType{

@@ -228,17 +228,17 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
                 mTitleBar.setTitle(view.getTitle());
             }
         }
-
-        @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            view.getSettings().setJavaScriptEnabled(true);
-            super.onPageStarted(view, url, favicon);
-        }
-
-        @Override
-        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-            handler.proceed();
-        }
+//
+//        @Override
+//        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+//            view.getSettings().setJavaScriptEnabled(true);
+//            super.onPageStarted(view, url, favicon);
+//        }
+//
+//        @Override
+//        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+//            handler.proceed();
+//        }
     }
 
     //WebChromeClient主要辅助WebView处理Javascript的对话框、网站图标、网站title、加载进度等
