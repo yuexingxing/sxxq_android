@@ -121,7 +121,7 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
     private void startLivePlay(final VideoInfo item) {
 
         Intent intent = new Intent(getActivity(), TCAudienceActivity.class);
-        intent.putExtra(TCConstants.PLAY_URL, item.playUrl);
+        intent.putExtra(TCConstants.PLAY_URL, item.rtmp_pull_url);
         intent.putExtra(TCConstants.PUSHER_ID, item.userId);
         intent.putExtra(TCConstants.PUSHER_NAME, item.nickname);
         intent.putExtra(TCConstants.PUSHER_AVATAR, item.avatar);
@@ -161,6 +161,7 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
 
         mHomeAdapter.setNewData(videoListResponse.rows);
         mHomeAdapter.loadMoreComplete();
+        mHomeAdapter.loadMoreEnd();
         binding.emptyLayout.showSuccess();
     }
 

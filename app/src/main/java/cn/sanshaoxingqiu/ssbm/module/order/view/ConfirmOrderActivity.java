@@ -2,6 +2,7 @@ package cn.sanshaoxingqiu.ssbm.module.order.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 
 import cn.sanshaoxingqiu.ssbm.R;
@@ -14,12 +15,15 @@ import cn.sanshaoxingqiu.ssbm.module.order.event.PayStatusChangedEvent;
 import cn.sanshaoxingqiu.ssbm.module.order.model.IConfirmOrderModel;
 import cn.sanshaoxingqiu.ssbm.module.order.view.adapter.ConfirmOrderAdapter;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.ConfirmOrderViewModel;
+
 import com.exam.commonbiz.bean.UserInfo;
+
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IGoodsDetailModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.MathUtil;
+
 import com.exam.commonbiz.util.ToastUtil;
 
 import com.exam.commonbiz.base.BaseActivity;
@@ -134,7 +138,11 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
 
         UserInfo userInfo = SSApplication.getInstance().getUserInfo();
         binding.tvNickName.setText(userInfo.nickname);
-        binding.tvPhone.setText(userInfo.mem_phone);
+        if (!TextUtils.isEmpty(userInfo.mem_phone) && userInfo.mem_phone.length() > 10) {
+            String phone = userInfo.mem_phone.substring(0, 3) + "****" + userInfo.mem_phone.substring(7, 11);
+            binding.tvPhone.setText(phone);
+        }
+
         mGoodsDetailViewModel.getGoodsDetail(context, mSartiId);
     }
 
