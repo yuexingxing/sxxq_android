@@ -2034,7 +2034,9 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
     }
 
     public void destroyRoom(final String roomID, String userId, final StandardCallback callback) {
-
+        if (mHttpRequest == null) {
+            return;
+        }
         mHttpRequest.destroyRoom(roomID, userId, new HttpRequests.OnResponseCallback<HttpResponse>() {
             @Override
             public void onResponse(int retcode, @Nullable String retmsg, @Nullable HttpResponse data) {
@@ -2107,7 +2109,7 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
     }
 
     private void notifyPusherChange() {
-        if (mSelfAccountInfo == null){
+        if (mSelfAccountInfo == null) {
             return;
         }
         //通知房间内其他主播

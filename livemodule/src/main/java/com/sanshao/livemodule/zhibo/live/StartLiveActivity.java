@@ -254,8 +254,10 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
             }
             Bitmap bitmap = null;
             if (!TextUtils.isEmpty(filePath)) {
+                int degree = BitmapUtil.readPictureDegree(filePath);
                 bitmap = BitmapUtil.getLocalBitmap(filePath);
-                bitmap = BitmapUtil.getSmallBitmap(filePath, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+                bitmap = BitmapUtil.getSmallBitmap(filePath, bitmap.getWidth() / 4, bitmap.getHeight() / 4);
+                bitmap = BitmapUtil.rotaingImageView(degree, bitmap);
                 binding.ivBg.setImageBitmap(bitmap);
             }
 
