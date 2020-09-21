@@ -405,7 +405,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         binding.tvGoodsName.setText(goodsDetailInfo.sarti_name);
         binding.tvOldPrice.setText("¥" + MathUtil.getNumExclude0(goodsDetailInfo.sarti_mkprice));
         binding.tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
-        binding.tvSellNum.setText("已售" + goodsDetailInfo.sell_num);
+        binding.tvSellNum.setText("已售" + (TextUtils.isEmpty(goodsDetailInfo.sell_num) ? "0" : goodsDetailInfo.sell_num));
         binding.tvGoodsIntro.setText(goodsDetailInfo.sarti_intro);
 
         binding.tvPrice.setText(goodsDetailInfo.getPriceText());
