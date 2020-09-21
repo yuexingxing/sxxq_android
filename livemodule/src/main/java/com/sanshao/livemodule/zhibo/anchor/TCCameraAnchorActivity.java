@@ -147,6 +147,17 @@ public class TCCameraAnchorActivity extends TCBaseAnchorActivity {
         mBeautyControl = (BeautyPanel) findViewById(R.id.beauty_panel);
         mTvToomId.setText(String.format("直播间号：%s", mRoomId));
 
+        mTXCloudVideoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mBeautyControl != null){
+                    if (mBeautyControl.isShown()){
+                        mBeautyControl.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+
         // 监听踢出的回调
         mPlayerVideoViewList = new TCVideoViewMgr(this, new TCVideoView.OnRoomViewListener() {
             @Override
