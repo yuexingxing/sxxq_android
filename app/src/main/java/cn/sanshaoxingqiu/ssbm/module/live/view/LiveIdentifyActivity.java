@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.util.FileUtil;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
@@ -32,7 +33,6 @@ import cn.sanshaoxingqiu.ssbm.module.live.model.IIdentityModel;
 import cn.sanshaoxingqiu.ssbm.module.live.viewmodel.IdentityViewModel;
 import com.exam.commonbiz.util.BitmapUtil;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
-import cn.sanshaoxingqiu.ssbm.util.FileUtil;
 import com.exam.commonbiz.util.GlideUtil;
 import com.exam.commonbiz.util.LoadDialogMgr;
 import com.exam.commonbiz.util.ToastUtil;
@@ -241,6 +241,7 @@ public class LiveIdentifyActivity extends BaseActivity<IdentityViewModel, Activi
 //                                    PermissionGroups.GENERAL_PERMISSION_DESCRIPTION);
                         return;
                     }
+                    FileUtil.initPath();
                     if (index == 0) {
                         selectFromCamera();
                     } else {

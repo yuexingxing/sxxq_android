@@ -298,9 +298,9 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
                     @Override
                     public void onNext(Boolean aBoolean) {
                         if (!aBoolean) {
-
                             return;
                         }
+                        FileUtil.initPath();
                         if (index == 0) {
                             selectFromCamera();
                         } else {
