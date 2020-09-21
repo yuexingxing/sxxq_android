@@ -108,6 +108,9 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
             @Override
             public void onPay(OrderInfo item) {
                 GoodsDetailInfo goodsDetailInfo = new GoodsDetailInfo();
+                if (item.shopSartiInfo != null){
+                    goodsDetailInfo.sarti_name = item.shopSartiInfo.sarti_name;
+                }
                 goodsDetailInfo.sarti_id = item.shopSartiInfo.sarti_id;
                 goodsDetailInfo.salebill_id = item.id;
                 goodsDetailInfo.sum_amt = item.totalPrice;
