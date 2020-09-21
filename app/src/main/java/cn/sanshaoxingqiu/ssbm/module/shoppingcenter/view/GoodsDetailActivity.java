@@ -43,7 +43,9 @@ import cn.sanshaoxingqiu.ssbm.module.order.view.PayCompleteActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderDetailViewModel;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderViewModel;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.PayViewModel;
+
 import com.exam.commonbiz.bean.UserInfo;
+
 import cn.sanshaoxingqiu.ssbm.module.register.view.RegisterActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.VideoInfo;
@@ -54,7 +56,9 @@ import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.BenefitsRightDia
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsInroductionDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
+
 import com.exam.commonbiz.util.BitmapUtil;
+
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.MathUtil;
@@ -208,7 +212,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             initTabStatus(1);
             binding.nestedScrollview.smoothScrollTo(0, binding.llGoodsDetail.getTop() - ScreenUtil.dp2px(context, 60));
         });
-        binding.includeBottom.llConsult.setOnClickListener(v->{
+        binding.includeBottom.llConsult.setOnClickListener(v -> {
             CommandTools.startServiceChat();
         });
         binding.homeBannerLayout.setDotGravityBottomRight();
@@ -365,7 +369,6 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         binding.emptyLayout.showSuccess();
 
         binding.tvGoodsName.setText(goodsDetailInfo.sarti_name);
-        binding.tvPrice.setText(MathUtil.getNumExclude0(goodsDetailInfo.sarti_saleprice));
         binding.tvOldPrice.setText("¥" + MathUtil.getNumExclude0(goodsDetailInfo.sarti_mkprice));
         binding.tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         binding.tvSellNum.setText("已售" + goodsDetailInfo.sell_num);
@@ -383,6 +386,15 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                 binding.tvOldPrice.setVisibility(View.GONE);
                 binding.includeBottom.btnBuy.setText("分享金购买");
                 binding.ivRecommendReward.setBackgroundResource(R.drawable.share_icon);
+            } else if (goodsDetailInfo.isPayByDisposit()) {
+                binding.tvDepositFee.setVisibility(View.VISIBLE);
+                binding.tvDepositFee.setText(goodsDetailInfo.getPriceText());
+                binding.tvPrice.setText("零售价：¥" + MathUtil.getNumExclude0(goodsDetailInfo.sarti_saleprice));
+                binding.tvOldPrice.setText("原价：" + binding.tvOldPrice.getText().toString());
+
+                binding.tvPrice.setTextSize(12f);
+                binding.tvOldPrice.setTextSize(12f);
+                binding.tvPrice.setTextColor(Res.getColor(context, R.color.color_999999));
             }
             if (!SSApplication.isLogin()) {
                 binding.includeBottom.btnBuy.setText("免费领取");

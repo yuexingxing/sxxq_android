@@ -56,12 +56,25 @@
                             android:background="@drawable/shape_white_radius_10"
                             android:orientation="vertical">
 
+                            <TextView
+                                android:id="@+id/tv_deposit_fee"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="14dp"
+                                android:text="¥0"
+                                android:textColor="@color/color_c5602d"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                android:visibility="gone"
+                                tools:visibility="visible" />
+
                             <LinearLayout
                                 android:id="@+id/ll_goods"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="12dp"
-                                android:layout_marginTop="14dp"
+                                android:layout_marginTop="6dp"
                                 android:layout_marginRight="12dp"
                                 android:gravity="center_vertical|bottom"
                                 android:orientation="horizontal">

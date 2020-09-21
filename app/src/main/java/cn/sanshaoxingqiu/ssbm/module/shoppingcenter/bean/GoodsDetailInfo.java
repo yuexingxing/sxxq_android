@@ -98,7 +98,7 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
      * @return
      */
     public boolean isPayByMoney() {
-        return !isFree() && !isPayByPoint();
+        return !isFree() && !isPayByPoint() && !isPayByDisposit();
     }
 
     public String getPriceText() {
