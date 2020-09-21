@@ -18,6 +18,7 @@ import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.widget.VideoPlayLayout;
 
 import com.exam.commonbiz.util.GlideUtil;
+
 import cn.sanshaoxingqiu.ssbm.util.MathUtil;
 
 /**
@@ -55,15 +56,12 @@ public class GoodsListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
         tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
 
         if (item.isFree()) {
-            helper.setText(R.id.tv_price, "免费领取");
             helper.setText(R.id.btn_buy, "免费领取");
         } else if (item.isPayByPoint()) {
-            helper.setText(R.id.tv_price, item.getPointTip());
             tvOldPrice.setVisibility(View.GONE);
             helper.setText(R.id.btn_buy, "分享金购买");
-        } else {
-            helper.setText(R.id.tv_price, "¥" + MathUtil.getNumExclude0(item.sarti_saleprice));
         }
+        helper.setText(R.id.tv_price, item.getPriceText());
 
         View viewInclude = helper.getView(R.id.include_video);
         ImageView ivIcon = helper.getView(R.id.iv_icon);

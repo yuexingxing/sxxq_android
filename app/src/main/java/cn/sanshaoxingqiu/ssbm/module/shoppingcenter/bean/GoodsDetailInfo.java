@@ -5,7 +5,9 @@ import android.text.TextUtils;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import cn.sanshaoxingqiu.ssbm.SSApplication;
+
 import com.exam.commonbiz.bean.UserInfo;
+
 import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.MathUtil;
 
@@ -23,6 +25,7 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
     public interface PAY_TYPE {
         String MONEY = "MONEY";
         String POINT = "POINT";
+        String DEPOSIT = "DEPOSIT";//定金
     }
 
     public String sarti_id;//商品子ID
@@ -52,6 +55,7 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
     public String unused;//未使用服务次数
     public String pay_type;
     public int sarti_point_price;
+    public double deposit_price;
     public String type;
     public String code;
     public String salebill_id;
@@ -81,6 +85,14 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
     }
 
     /**
+     * 是不是定金支付
+     * @return
+     */
+    public boolean isPayByDisposit() {
+        return TextUtils.equals(PAY_TYPE.DEPOSIT, pay_type);
+    }
+
+    /**
      * 是不是金钱购买
      *
      * @return
@@ -94,6 +106,8 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
             return "免费领取";
         } else if (isPayByPoint()) {
             return sarti_point_price + "分享金";
+        }else if (isPayByDisposit()){
+            return "定金 ¥" + MathUtil.getNumExclude0(deposit_price);
         }
         return "¥" + MathUtil.getNumExclude0(sarti_saleprice);
     }

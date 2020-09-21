@@ -9,7 +9,9 @@ import com.chad.library.adapter.base.BaseViewHolder;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
+
 import com.exam.commonbiz.util.GlideUtil;
+
 import cn.sanshaoxingqiu.ssbm.util.MathUtil;
 
 /**
@@ -31,14 +33,10 @@ public class GoodsTypeDetailHorizontalAdapter extends BaseQuickAdapter<GoodsDeta
         tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         GlideUtil.loadImage(item.thumbnail_img, helper.getView(R.id.iv_icon));
 
-        if (item.isFree()) {
-            helper.setText(R.id.tv_price, "免费领取");
-        } else if (item.isPayByPoint()) {
-            helper.setText(R.id.tv_price, item.getPointTip());
+        if (item.isPayByPoint()) {
             tvOldPrice.setVisibility(View.GONE);
-        } else {
-            helper.setText(R.id.tv_price, "¥" + MathUtil.getNumExclude0(item.sarti_saleprice));
         }
+        helper.setText(R.id.tv_price, item.getPriceText());
 
         if (helper.getAdapterPosition() == 0) {
             helper.getView(R.id.view_left).setVisibility(View.VISIBLE);

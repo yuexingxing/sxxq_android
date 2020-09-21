@@ -13,7 +13,9 @@ import com.exam.commonbiz.util.ScreenUtil;
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
+
 import com.exam.commonbiz.util.GlideUtil;
+
 import cn.sanshaoxingqiu.ssbm.util.MathUtil;
 
 /**
@@ -62,14 +64,10 @@ public class GoodsTypeDetailVerticalAdapter extends BaseMultiItemQuickAdapter<Go
             helper.getView(R.id.view_conver).setVisibility(View.GONE);
         }
 
-        if (item.isFree()) {
-            helper.setText(R.id.tv_price, "免费领取");
-        } else if (item.isPayByPoint()) {
-            helper.setText(R.id.tv_price, item.getPointTip());
+        if (item.isPayByPoint()) {
             tvOldPrice.setVisibility(View.GONE);
-        } else {
-            helper.setText(R.id.tv_price, "¥" + MathUtil.getNumExclude0(item.sarti_saleprice));
         }
+        helper.setText(R.id.tv_price, item.getPriceText());
 
         if (helper.getAdapterPosition() % 2 == 0) {
             helper.getView(R.id.view_left).setVisibility(View.GONE);
