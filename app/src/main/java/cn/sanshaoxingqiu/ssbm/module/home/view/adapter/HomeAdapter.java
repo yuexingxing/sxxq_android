@@ -2,7 +2,6 @@ package cn.sanshaoxingqiu.ssbm.module.home.view.adapter;
 
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -28,18 +27,16 @@ public class HomeAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, VideoInfo item) {
-
-        helper.setText(R.id.tv_title, "@" + item.nickname);
+        if (item.pushers != null) {
+            helper.setText(R.id.tv_title, "@" + item.pushers.anchor_name);
+        }
         helper.setText(R.id.tv_content, item.live_title);
-        GlideUtil.loadImage(item.frontcover, helper.getView(R.id.iv_bg), R.drawable.icon_goods_type_six);
+        GlideUtil.loadImage(item.frontcover, helper.getView(R.id.iv_bg), R.drawable.image_graphofbooth_default);
 
         FrameLayout frameLayout = helper.getView(R.id.fl_content);
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) frameLayout.getLayoutParams();
         layoutParams.height = ScreenUtil.getScreenHeight(helper.itemView.getContext());
         frameLayout.setLayoutParams(layoutParams);
-
-        LinearLayout llBottomContent = helper.getView(R.id.ll_bottom_content);
-//        llBottomContent.setAlpha(0.31f);
         frameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

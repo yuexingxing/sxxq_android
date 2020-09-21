@@ -61,7 +61,7 @@
                                     android:layout_height="@dimen/avatar_height"
                                     android:layout_marginBottom="2dp"
                                     android:scaleType="centerCrop"
-                                    android:src="@drawable/image_graphofbooth_default"
+                                    android:src="@drawable/image_graphofbooth_avatar"
                                     app:riv_corner_radius="@dimen/avatar_height" />
                             </RelativeLayout>
 

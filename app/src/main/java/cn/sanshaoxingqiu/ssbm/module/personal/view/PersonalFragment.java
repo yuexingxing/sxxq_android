@@ -351,7 +351,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.tvName.setText(userInfo.nickname);
         binding.ivZuan.setVisibility(View.VISIBLE);
 
-        GlideUtil.loadImage(userInfo.avatar, binding.ivAvatar, R.drawable.image_placeholder_two);
+        GlideUtil.loadImage(userInfo.avatar, binding.ivAvatar, R.drawable.image_graphofbooth_avatar);
 
 //        userInfo.mem_class = new MemberClassInfo();
 //        userInfo.mem_class.mem_class_key = "3";

@@ -274,7 +274,7 @@ public class PersonalDetailActivity extends BaseActivity<PersonalViewModel, Acti
         binding.lcvSex.setContent(userInfo.getGender());
         binding.lcvBirthday.setContent(userInfo.birthday);
         binding.lcvSignature.setContent(userInfo.signature);
-        GlideUtil.loadImage(userInfo.avatar, binding.ivAvatar, R.drawable.image_placeholder_two);
+        GlideUtil.loadImage(userInfo.avatar, binding.ivAvatar, R.drawable.image_graphofbooth_avatar);
     }
 
     @Override

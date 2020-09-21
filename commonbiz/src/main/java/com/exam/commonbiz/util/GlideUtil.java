@@ -163,7 +163,7 @@ public class GlideUtil extends AppGlideModule {
      */
     private static @DrawableRes
     int getErrorImage() {
-        return R.drawable.gray_btn_bg;
+        return R.drawable.image_graphofbooth_default;
     }
 
     /**
@@ -172,7 +172,7 @@ public class GlideUtil extends AppGlideModule {
      */
     private static @DrawableRes
     int getPlaceholder() {
-        return R.drawable.gray_btn_bg;
+        return R.drawable.image_graphofbooth_default;
     }
 
     /**
