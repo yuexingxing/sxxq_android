@@ -3,6 +3,7 @@ package cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toolbar;
 
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,10 +22,12 @@ import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsTypeInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.ShoppingCenterResponse;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IShoppingCenterModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.adapter.AdAdapter;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.adapter.GoodsTypeAdapter;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.viewmodel.ShoppingCenterViewModel;
 
 import com.exam.commonbiz.util.GlideUtil;
+import com.exam.commonbiz.util.ToastUtil;
 
 /**
  * 商城
@@ -35,6 +38,7 @@ import com.exam.commonbiz.util.GlideUtil;
 public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel, ShoppingCenterFragmentBinding> implements IShoppingCenterModel {
 
     private GoodsTypeAdapter mGoodsTypeAdapter;
+    private AdAdapter mAdAdapter;
     private BannerInfo mAdBannerInfo;
 
     public static ShoppingCenterFragment newInstance() {
@@ -58,6 +62,16 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
         binding.goodsTypeRecyclerView.setAdapter(mGoodsTypeAdapter);
         mGoodsTypeAdapter.setOnItemClickListener((adapter, view, position) -> {
             GoodsListActivity.start(context, mGoodsTypeAdapter.getData().get(position));
+        });
+
+        mAdAdapter = new AdAdapter();
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getContext());
+        linearLayoutManager2.setOrientation(RecyclerView.VERTICAL);
+        binding.activitysRecyclerView.setNestedScrollingEnabled(false);
+        binding.activitysRecyclerView.setLayoutManager(linearLayoutManager2);
+        binding.activitysRecyclerView.setAdapter(mAdAdapter);
+        mAdAdapter.setOnItemClickListener((adapter, view, position) -> {
+            ToastUtil.showShortToast("123");
         });
 
         binding.homeBannerLayout.setOnBannerClick(bannerInfo -> {
@@ -131,6 +145,8 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
             mAdBannerInfo = shoppingCenterResponse.static_advertising.get(0);
             GlideUtil.loadImage(mAdBannerInfo.artitag_url, binding.ivAd);
             binding.ivAd.setVisibility(View.VISIBLE);
+
+            mAdAdapter.addData(shoppingCenterResponse.static_advertising);
         } else {
             binding.ivAd.setVisibility(View.GONE);
         }

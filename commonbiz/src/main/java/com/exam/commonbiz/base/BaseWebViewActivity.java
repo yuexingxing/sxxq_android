@@ -83,7 +83,6 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
                 Log.i(TAG, "handler = submitFromWeb, data from web = " + data);
                 function.onCallBack( str + ",Java经过处理后截取了一部分："+ str.substring(0,5));
             }
-
         });
     }
 
