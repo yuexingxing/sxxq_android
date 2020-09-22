@@ -98,7 +98,7 @@ public class RecommendCodeActivity extends BaseActivity<RecommendCodeViewModel, 
             binding.tvInviteCode.setText("我的推荐码：" + userInfo.invitation_code);
         }
         GlideUtil.loadImage(userInfo.invitation_weapp_url, binding.ivQrcode);
-        GlideUtil.loadImage(userInfo.avatar, binding.ivAvatar, R.drawable.image_placeholder_two);
+        GlideUtil.loadImage(userInfo.avatar, binding.ivAvatar, R.drawable.image_graphofbooth_avatar);
     }
 
     private void share() {

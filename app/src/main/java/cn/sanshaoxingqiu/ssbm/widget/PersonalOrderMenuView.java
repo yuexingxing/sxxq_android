@@ -37,7 +37,7 @@ public class PersonalOrderMenuView extends LinearLayout {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.PersonalOrderMenuView, 0, 0);
         try {
             mName = ta.getString(R.styleable.PersonalOrderMenuView_PersonalOrderMenuView_name);
-            mIcon = ta.getResourceId(R.styleable.PersonalOrderMenuView_PersonalOrderMenuView_icon, R.drawable.image_logo_smal);
+            mIcon = ta.getResourceId(R.styleable.PersonalOrderMenuView_PersonalOrderMenuView_icon, R.drawable.image_graphofbooth_avatar);
             mUnReadNum = ta.getInteger(R.styleable.PersonalOrderMenuView_PersonalOrderMenuView_num, 0);
             initView();
         } finally {

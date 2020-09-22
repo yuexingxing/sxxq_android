@@ -147,7 +147,7 @@ public class ToBeInquiryDetailActivity extends BaseActivity<BaseViewModel, Activ
         BaiduMap baiduMap = binding.bmapView.getMap();
         LatLng latLng = baiduMap.getMapStatus().target;
         //准备 marker 的图片
-        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.image_logo_smal);
+        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.image_graphofbooth_avatar);
         //准备 marker option 添加 marker 使用
         MarkerOptions markerOptions = new MarkerOptions().icon(bitmap).position(latLng);
         //获取添加的 marker 这样便于后续的操作

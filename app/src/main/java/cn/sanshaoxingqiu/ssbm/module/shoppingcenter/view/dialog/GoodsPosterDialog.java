@@ -54,7 +54,7 @@ public class GoodsPosterDialog {
         if (goodsDetailInfo != null) {
             tvTitle.setText(goodsDetailInfo.sarti_name);
             tvPrice.setText(goodsDetailInfo.sarti_saleprice + "");
-            GlideUtil.loadImage(goodsDetailInfo.share_url, imgIcon, R.drawable.image_placeholder_two);
+            GlideUtil.loadImage(goodsDetailInfo.share_url, imgIcon, R.drawable.image_graphofbooth_default);
         }
         String userId = SSApplication.getInstance().getUserInfo().nickname;
         if (TextUtils.isEmpty(userId)) {
@@ -67,7 +67,7 @@ public class GoodsPosterDialog {
 
         tvName.setText(userInfo.nickname);
         tvInviteCode.setText("我的邀请码：" + userInfo.invitation_code);
-        GlideUtil.loadImage(userInfo.avatar, imgAvatar, R.drawable.image_placeholder_two);
+        GlideUtil.loadImage(userInfo.avatar, imgAvatar, R.drawable.image_graphofbooth_avatar);
         GlideUtil.loadImage(userInfo.invitation_weapp_url, imgQrcode, R.drawable.img_qrcode);
 
         rootView.findViewById(R.id.iv_close).setOnClickListener(view -> dialog.dismiss());

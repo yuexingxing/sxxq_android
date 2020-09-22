@@ -34,7 +34,7 @@
                 android:layout_width="66dp"
                 android:layout_height="66dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/image_placeholder_two"
+                android:src="@drawable/image_graphofbooth_avatar"
                 app:riv_corner_radius="10dp" />
 
             <LinearLayout

@@ -106,7 +106,7 @@ public class ToBeInquiryListActivity extends BaseActivity<ToBeInquiryListViewMod
         mToBeInquiryListAdapter.getData().clear();
         binding.swipeRefreshLayout.setRefreshing(false);
         if (ContainerUtil.isEmpty(orderInfoList)) {
-            binding.emptyLayout.showEmpty("数据为空", R.drawable.image_logo);
+            binding.emptyLayout.showEmpty("数据为空", R.drawable.image_graphofbooth_default2);
             return;
         }
         mToBeInquiryListAdapter.setNewData(orderInfoList);

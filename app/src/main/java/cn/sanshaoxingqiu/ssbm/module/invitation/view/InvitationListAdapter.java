@@ -22,7 +22,7 @@ public class InvitationListAdapter extends BaseQuickAdapter<UserInfo, BaseViewHo
         // 头像
         if (!TextUtils.isEmpty(item.avatar)) {
             RoundedImageView userAvatar = helper.getView(R.id.iv_user_avatar);
-            GlideUtil.loadImage(item.avatar, userAvatar, R.drawable.image_placeholder_two);
+            GlideUtil.loadImage(item.avatar, userAvatar, R.drawable.image_graphofbooth_avatar);
         }
         // 名称
         helper.setText(R.id.tv_user_name, item.nickname);

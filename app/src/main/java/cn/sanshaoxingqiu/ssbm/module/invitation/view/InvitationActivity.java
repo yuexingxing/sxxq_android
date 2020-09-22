@@ -213,7 +213,7 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
             binding.viewUser1.setVisibility(View.VISIBLE);
             binding.tvUserName1.setText(item.nickname);
             if (!TextUtils.isEmpty(item.avatar)) {
-                GlideUtil.loadImage(item.avatar, binding.ivUserAvatar1, R.drawable.image_placeholder_two);
+                GlideUtil.loadAvatar(item.avatar, binding.ivUserAvatar1);
             }
         }
 
@@ -222,7 +222,7 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
             binding.viewUser2.setVisibility(View.VISIBLE);
             binding.tvUserName2.setText(item.nickname);
             if (!TextUtils.isEmpty(item.avatar)) {
-                GlideUtil.loadImage(item.avatar, binding.ivUserAvatar2, R.drawable.image_placeholder_two);
+                GlideUtil.loadAvatar(item.avatar, binding.ivUserAvatar2);
             }
         }
 
@@ -231,7 +231,7 @@ public class InvitationActivity extends BaseActivity<InvitationViewModel, Activi
             binding.viewUser3.setVisibility(View.VISIBLE);
             binding.tvUserName3.setText(item.nickname);
             if (!TextUtils.isEmpty(item.avatar)) {
-                GlideUtil.loadImage(item.avatar, binding.ivUserAvatar3, R.drawable.image_placeholder_two);
+                GlideUtil.loadAvatar(item.avatar, binding.ivUserAvatar3);
             }
         }
 

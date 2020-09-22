@@ -77,6 +77,26 @@ public class GlideUtil extends AppGlideModule {
         }
     }
 
+    public static void loadAvatar(Object obj, ImageView imageView) {
+        if (obj instanceof String) {
+            Glide.with(imageView.getContext()).load(obj).apply(initOptions())
+                    .skipMemoryCache(isSkipMemoryCache()).error(R.drawable.image_graphofbooth_avatar)
+                    .placeholder(R.drawable.image_graphofbooth_avatar).into(imageView);
+        }
+        if (obj instanceof Bitmap) {
+            Glide.with(imageView.getContext()).load(obj).apply(initOptions())
+                    .skipMemoryCache(isSkipMemoryCache()).error(R.drawable.image_graphofbooth_avatar)
+                    .fallback(R.drawable.image_graphofbooth_avatar).placeholder(R.drawable.image_graphofbooth_avatar).into(imageView);
+        }
+        if (obj instanceof Drawable) {
+            Glide.with(imageView.getContext()).load(obj).apply(initOptions())
+                    .skipMemoryCache(isSkipMemoryCache()).error(R.drawable.image_graphofbooth_avatar)
+                    .fallback(R.drawable.image_graphofbooth_avatar)
+                    .placeholder(R.drawable.image_graphofbooth_avatar)
+                    .into(imageView);
+        }
+    }
+
     /**
      * @param context   当前Activity的上下文对象
      * @param obj

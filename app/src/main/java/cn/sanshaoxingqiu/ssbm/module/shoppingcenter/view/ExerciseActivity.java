@@ -53,7 +53,6 @@ public class ExerciseActivity extends BaseWebViewActivity {
             public void handler(String data, CallBackFunction function) {
                 String str = "这是html返回给java的数据:" + data;
                 Log.i(TAG, "handler = submitFromWeb, data from web = " + data);
-                ToastUtil.showShortToast("app_share_product-" + data);
                 function.onCallBack(CommandTools.beanToJson(new WebViewBaseInfo()));
 
                 try {

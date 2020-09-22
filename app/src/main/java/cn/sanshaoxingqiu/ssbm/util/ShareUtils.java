@@ -382,7 +382,7 @@ public class ShareUtils {
         mediaMessage.description = desc;//自定义
         Bitmap sendBitmap;
         if (bitmap == null) {
-            sendBitmap = BitmapFactory.decodeResource(SSApplication.app.getResources(), R.drawable.image_logo_smal);
+            sendBitmap = BitmapFactory.decodeResource(SSApplication.app.getResources(), R.drawable.image_graphofbooth_avatar);
         } else {
             sendBitmap = Bitmap.createScaledBitmap(bitmap, 300, 240, true);
             bitmap.recycle();
