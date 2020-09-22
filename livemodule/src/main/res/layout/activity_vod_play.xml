@@ -2,16 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/audience_play_root"
-    tools:ignore="contentDescription"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:ignore="contentDescription">
 
     <com.tencent.rtmp.ui.TXCloudVideoView
         android:id="@+id/anchor_video_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/background"
@@ -23,27 +23,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include android:id="@+id/layout_live_pusher_info"
-            layout="@layout/layout_live_pusher_info"
-            android:layout_margin="5dp"
-            android:layout_width="110dp"
-            android:layout_height="35dp"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/anchor_rv_avatar"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_toRightOf="@+id/layout_live_pusher_info"
+        <LinearLayout
+            android:id="@+id/ll_author_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/layout_live_pusher_info"
+                layout="@layout/layout_live_pusher_info"
+                android:layout_width="110dp"
+                android:layout_height="35dp"
+                android:layout_margin="5dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/anchor_rv_avatar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/btn_vod_back"
+                android:layout_width="@dimen/live_btn_size"
+                android:layout_height="@dimen/live_btn_size"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/btn_close"
+                android:onClick="onClick" />
+        </LinearLayout>
 
         <include
             layout="@layout/layout_progress_bar"
-            android:layout_marginBottom="15dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp" />
     </RelativeLayout>
 
 
