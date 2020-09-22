@@ -15,6 +15,9 @@ import com.sanshao.livemodule.liveroom.MLVBLiveRoomImpl;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +25,8 @@ import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.HomeFragmentBinding;
 import cn.sanshaoxingqiu.ssbm.module.home.view.adapter.LiveTabFragmentAdapter;
+import cn.sanshaoxingqiu.ssbm.module.login.event.LoginEvent;
+import cn.sanshaoxingqiu.ssbm.module.order.event.PayStatusChangedEvent;
 
 /**
  * 首页
@@ -143,5 +148,18 @@ public class HomeFragment extends BaseFragment<BaseViewModel, HomeFragmentBindin
         TextView textView = view.findViewById(R.id.tv_title);
         textView.setTextColor(Res.getColor(context, R.color.color_bbbbbb));
         textView.setTextSize(15f);
+    }
+
+    @Override
+    public boolean useEventBus() {
+        return true;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLoginEvent(LoginEvent loginEvent) {
+        if (loginEvent == null) {
+            return;
+        }
+        TCUserMgr.getInstance().loginMLVB();
     }
 }

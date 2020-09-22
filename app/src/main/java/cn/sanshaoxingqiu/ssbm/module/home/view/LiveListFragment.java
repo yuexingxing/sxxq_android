@@ -25,8 +25,10 @@ import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
 import java.util.ArrayList;
 
 import cn.sanshaoxingqiu.ssbm.R;
+import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.FragmentLayoutLiveListBinding;
 import cn.sanshaoxingqiu.ssbm.module.home.view.adapter.HomeAdapter;
+import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 
 /**
  * 首页-直播列表
@@ -65,6 +67,10 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         mHomeAdapter.setCommonCallBack(new CommonCallBack() {
             @Override
             public void callback(int postion, Object object) {
+                if (!SSApplication.isLogin()) {
+                    LoginActivity.start(context);
+                    return;
+                }
                 startLivePlay(mHomeAdapter.getItem(postion));
             }
         });

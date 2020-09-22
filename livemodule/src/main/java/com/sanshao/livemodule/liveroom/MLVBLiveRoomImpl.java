@@ -107,7 +107,6 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
     //观众列表
     private LinkedHashMap<String/*userID*/, AudienceInfo> mAudiences = null;
 
-
     private static final int LIVEROOM_CAMERA_PREVIEW = 0;
     private static final int LIVEROOM_SCREEN_PREVIEW = 1;
     private int mPreviewType = LIVEROOM_CAMERA_PREVIEW;
@@ -1770,6 +1769,9 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
      */
     @Override
     public void sendRoomCustomMsg(String cmd, String message, final IMLVBLiveRoomListener.SendRoomCustomMsgCallback callback) {
+        if (mSelfAccountInfo == null){
+            return;
+        }
         CommonJson<CustomMessage> customMessage = new CommonJson<>();
         customMessage.cmd = "CustomCmdMsg";
         customMessage.data = new CustomMessage();

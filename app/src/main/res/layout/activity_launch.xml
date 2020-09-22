@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/image_graphofbooth_avatar" />
+        android:src="@drawable/image_logo_word" />
 
     <TextView
         android:id="@+id/tv_tip"
@@ -21,7 +21,7 @@
         android:layout_below="@+id/iv_icon"
         android:layout_marginTop="16dp"
         android:gravity="center_horizontal"
-        android:text="健康不能少  美丽不能少  财富不能少"
+        android:text="不讨好世界·只变美自己"
         android:textColor="@color/color_333333"
         android:textSize="12sp" />
 
@@ -32,7 +32,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginBottom="52dp"
         android:gravity="center_horizontal"
-        android:text="健康美丽财富一个都不能少"
+        android:text="Be Beautiful Be You"
         android:textColor="@color/color_333333"
         android:textSize="12sp" />
 </RelativeLayout>

@@ -22,8 +22,10 @@ import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
 import com.sanshao.livemodule.zhibo.playback.TCPlaybackActivity;
 
 import cn.sanshaoxingqiu.ssbm.R;
+import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.FragmentLayoutVideoBackListBinding;
 import cn.sanshaoxingqiu.ssbm.module.home.view.adapter.HomeAdapter;
+import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
 
 /**
@@ -64,6 +66,10 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
         mHomeAdapter.setCommonCallBack(new CommonCallBack() {
             @Override
             public void callback(int postion, Object object) {
+                if (!SSApplication.isLogin()) {
+                    LoginActivity.start(context);
+                    return;
+                }
                 startLivePlay(mHomeAdapter.getItem(postion));
             }
         });
