@@ -44,8 +44,9 @@ public class OssViewModel extends BaseViewModel {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Bitmap compressBitmap = BitmapUtil.compressBitmap(bitmap, 1024);
-                FileUtil.saveBitmap(FileUtil.FILE_PATH, FileUtil.FILE_NAME, compressBitmap);
+//                Bitmap compressBitmap = BitmapUtil.compressBitmap(bitmap, 1024);
+
+                FileUtil.saveBitmap(FileUtil.FILE_PATH, FileUtil.FILE_NAME, bitmap);
 
                 Message message = new Message();
                 message.obj = FileUtil.FILE_PATH + FileUtil.FILE_NAME;

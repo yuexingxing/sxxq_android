@@ -214,7 +214,7 @@ public class LiveIdentifyActivity extends BaseActivity<IdentityViewModel, Activi
             }
             Bitmap bitmap = null;
             if (!TextUtils.isEmpty(filePath)) {
-                bitmap = BitmapUtil.getSmallBitmap(filePath, 200, 200);
+                bitmap = BitmapUtil.getSmallBitmap(filePath, 800, 1080);
                 if (mUploadType == UPLOAD_ID_CARD_1) {
                     binding.ivStep1.setImageBitmap(bitmap);
                 } else if (mUploadType == UPLOAD_ID_CARD_2) {
@@ -227,6 +227,7 @@ public class LiveIdentifyActivity extends BaseActivity<IdentityViewModel, Activi
             if (bitmap == null) {
                 return;
             }
+            LoadDialogMgr.getInstance().show(context, "图片上传中");
             mOssViewModel.uploadIdCard(mUploadType, bitmap);
         }
     }
