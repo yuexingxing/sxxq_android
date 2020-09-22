@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.base.BaseViewModel;
 import com.exam.commonbiz.util.Res;
+import com.exam.commonbiz.util.StatusBarUtil;
 import com.google.android.material.tabs.TabLayout;
 import com.sanshao.livemodule.liveroom.MLVBLiveRoomImpl;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;

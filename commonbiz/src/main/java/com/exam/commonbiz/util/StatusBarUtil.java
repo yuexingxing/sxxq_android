@@ -3,12 +3,16 @@ package com.exam.commonbiz.util;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import androidx.annotation.RequiresApi;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -243,5 +247,30 @@ public class StatusBarUtil {
             e1.printStackTrace();
         }
         return statusBarHeight;
+    }
+
+    /**
+     * 添加状态栏占位视图
+     *
+     * @param activity
+     */
+    public static void addStatusViewWithDrawble(Activity activity, Drawable drawable) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //占位状态栏
+            View statusBarView = new View(activity);
+            ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    getStatusBarHeight(activity));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                statusBarView.setBackground(drawable);
+            } else {
+                statusBarView.setBackgroundDrawable(drawable);
+            }
+            //增加占位状态栏，并增加状态栏高度的 paddingTop
+            ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
+            decorView.addView(statusBarView, lp);
+            //设置 paddingTop
+            ViewGroup rootView = (ViewGroup) activity.getWindow().getDecorView().findViewById(android.R.id.content);
+            rootView.setPadding(0, getStatusBarHeight(activity), 0, 0);
+        }
     }
 }
