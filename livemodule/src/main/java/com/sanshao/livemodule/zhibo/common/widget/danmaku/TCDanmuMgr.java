@@ -326,7 +326,7 @@ public class TCDanmuMgr {
 //                        .get();
         }
         if (headBitmap == null) {
-            headBitmap = getDefaultBitmap(R.drawable.face);
+            headBitmap = getDefaultBitmap(R.drawable.image_graphofbooth_avatar);
         }
         TCCircleDrawable circleDrawable = new TCCircleDrawable(mContext, headBitmap, danmaku.isGuest);
         circleDrawable.setBounds(0, 0, BITMAP_WIDTH, BITMAP_HEIGHT);

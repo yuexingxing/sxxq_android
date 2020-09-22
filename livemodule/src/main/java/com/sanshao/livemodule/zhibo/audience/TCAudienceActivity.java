@@ -273,7 +273,7 @@ public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudi
         mInputTextMsgDialog.setmOnTextSendListener(this);
 
         mIvAvatar = (ImageView) findViewById(R.id.anchor_iv_head_icon);
-        TCUtils.showPicWithUrl(this, mIvAvatar, mPusherAvatar, R.drawable.face);
+        TCUtils.showPicWithUrl(this, mIvAvatar, mPusherAvatar, R.drawable.image_graphofbooth_avatar);
         mMemberCount = (TextView) findViewById(R.id.anchor_tv_member_counts);
         mMemberCount.setText("在线：0");
 

@@ -84,7 +84,7 @@ public class TCUserInfoFragment extends Fragment implements View.OnClickListener
                     public void run() {
                         mNickName.setText(TCUserMgr.getInstance().getNickname());
                         mUserId.setText("ID:" + TCUserMgr.getInstance().getUserId());
-                        TCUtils.showPicWithUrl(getActivity(), mAvatar, TCUserMgr.getInstance().getAvatar(), R.drawable.face);
+                        TCUtils.showPicWithUrl(getActivity(), mAvatar, TCUserMgr.getInstance().getAvatar(), R.drawable.image_graphofbooth_avatar);
                     }
                 });
             }

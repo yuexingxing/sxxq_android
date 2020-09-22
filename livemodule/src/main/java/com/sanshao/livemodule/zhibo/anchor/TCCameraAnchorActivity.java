@@ -182,7 +182,7 @@ public class TCCameraAnchorActivity extends TCBaseAnchorActivity {
      * @param avatar 头像链接
      */
     private void showHeadIcon(ImageView view, String avatar) {
-        TCUtils.showPicWithUrl(this, view, avatar, R.drawable.face);
+        TCUtils.showPicWithUrl(this, view, avatar, R.drawable.image_graphofbooth_avatar);
     }
 
 

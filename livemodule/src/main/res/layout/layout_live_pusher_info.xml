@@ -23,7 +23,7 @@
             android:layout_height="35dp"
             android:layout_gravity="center_vertical"
             android:scaleType="centerCrop"
-            android:src="@drawable/face"
+            android:src="@drawable/image_graphofbooth_avatar"
             app:riv_corner_radius="35dp" />
 
         <TextView

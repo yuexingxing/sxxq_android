@@ -12,7 +12,7 @@
         android:id="@+id/iv_avatar"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:src="@drawable/face"
+        android:src="@drawable/image_graphofbooth_avatar"
         android:scaleType="centerCrop"
         app:riv_corner_radius="35dp" />
 

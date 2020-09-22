@@ -78,7 +78,7 @@ public class TCVideoListAdapter extends ArrayAdapter<TCVideoInfo> {
         }
 
         //主播头像
-        TCUtils.showPicWithUrl(mActivity,holder.ivAvatar,data.avatar,R.drawable.face);
+        TCUtils.showPicWithUrl(mActivity,holder.ivAvatar,data.avatar,R.drawable.image_graphofbooth_avatar);
         //主播昵称
         if (TextUtils.isEmpty(data.nickname)){
             holder.tvHost.setText(TCUtils.getLimitString(data.userId, 10));

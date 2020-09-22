@@ -132,14 +132,13 @@ public class TCPlaybackActivity extends Activity implements View.OnClickListener
         initPhoneListener();
     }
 
-
     private void initView() {
         //左上直播信息
         mTvPusherName = (TextView) findViewById(R.id.anchor_tv_broadcasting_time);
         mTvPusherName.setText(TCUtils.getLimitString(mPusherNickname, 10));
         findViewById(R.id.anchor_iv_record_ball).setVisibility(View.GONE);
         mIvAvatar = (ImageView) findViewById(R.id.anchor_iv_head_icon);
-        TCUtils.showPicWithUrl(this, mIvAvatar, mPusherAvatar, R.drawable.face);
+        TCUtils.showPicWithUrl(this, mIvAvatar, mPusherAvatar, R.drawable.image_graphofbooth_avatar);
 
         mTvViewed = (TextView) findViewById(R.id.anchor_tv_member_counts);
 

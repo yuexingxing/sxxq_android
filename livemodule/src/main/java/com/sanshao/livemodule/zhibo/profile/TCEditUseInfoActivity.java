@@ -86,7 +86,7 @@ public class TCEditUseInfoActivity extends Activity implements View.OnClickListe
             }
         });
         mEditView.setContent(TCUserMgr.getInstance().getNickname());
-        TCUtils.showPicWithUrl(this, mIvAvatar,TCUserMgr.getInstance().getAvatar(),R.drawable.face);
+        TCUtils.showPicWithUrl(this, mIvAvatar,TCUserMgr.getInstance().getAvatar(),R.drawable.image_graphofbooth_avatar);
         mTcControllerView.setContent(TCUtils.EnumGenderToString(TCUserMgr.getInstance().getUserSex()));
     }
 
