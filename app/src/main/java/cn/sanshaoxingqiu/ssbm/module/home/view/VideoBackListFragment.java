@@ -92,8 +92,10 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
         Intent intent = new Intent(getActivity(), TCPlaybackActivity.class);
         intent.putExtra(TCConstants.PLAY_URL, item.rtmp_pull_url);
         intent.putExtra(TCConstants.PUSHER_ID, item.pushers.invitation_code);
-        intent.putExtra(TCConstants.PUSHER_NAME, item.pushers.anchor_name);
-        intent.putExtra(TCConstants.PUSHER_AVATAR, item.pushers.anchor_name);
+        if (item.pushers != null) {
+            intent.putExtra(TCConstants.PUSHER_NAME, item.pushers.anchor_name);
+            intent.putExtra(TCConstants.PUSHER_AVATAR, item.pushers.avatar);
+        }
         intent.putExtra(TCConstants.HEART_COUNT, TextUtils.isEmpty(item.like_number) ? "0" : item.like_number);
         intent.putExtra(TCConstants.MEMBER_COUNT, item.viewer_count);
         intent.putExtra(TCConstants.GROUP_ID, item.room_id);
