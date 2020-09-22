@@ -66,6 +66,7 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
     public int qty;
     public String sale_status;//PAY=顾客待付款，PAYING=顾客付款中，PAID=顾客已付款 (金额进入第三方支付机构)，FINISH=订单已完成 (全部核销完毕)，CANCEL=顾客取消订单/订单支付超时，REFUNDING=顾客已申请退款，REFUNDED=顾客退款完成 ,
     public int itemType = GOODS_TYPE.REAL_DATA;
+    public List<MemberCommissionInfo> mem_commission_config;
 
     public String getPointTip() {
         return sarti_point_price + "分享金";
@@ -186,6 +187,23 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
 
     public boolean isThreeStarMember() {
         return TextUtils.equals("3", mem_class_key);
+    }
+
+    public static class MemberCommissionInfo {
+        public String amt;
+        public String mem_class_key;
+
+        public String getMember() {
+            if (TextUtils.equals("1", mem_class_key)) {
+                return "一星粉丝";
+            } else if (TextUtils.equals("2", mem_class_key)) {
+                return "二星粉丝";
+            } else if (TextUtils.equals("3", mem_class_key)) {
+                return "三星粉丝";
+            } else {
+                return "普通用户";
+            }
+        }
     }
 
     //核销码

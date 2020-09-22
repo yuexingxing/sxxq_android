@@ -27,7 +27,6 @@ import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityGoodsDetailBinding;
 import cn.sanshaoxingqiu.ssbm.module.home.model.BannerInfo;
-import cn.sanshaoxingqiu.ssbm.module.invitation.view.InvitationActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderBenefitResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderInfo;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderNumStatusResponse;
@@ -55,9 +54,9 @@ import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.VideoInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IGoodsDetailModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.adapter.SetMealAdapter;
-import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.BenefitsRightDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsInroductionDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsPosterDialog;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.RecommendRewardDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
 
 import com.exam.commonbiz.util.BitmapUtil;
@@ -79,11 +78,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import cn.jzvd.Jzvd;
-import cn.udesk.UdeskSDKManager;
-import cn.udesk.config.UdeskConfig;
 
 import com.exam.commonbiz.util.ToastUtil;
 
@@ -296,17 +292,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                     if (mGoodsDetailInfo == null) {
                         return;
                     }
-                    String title = "推荐有奖";
-                    String content = getResources().getString(R.string.invitation_tip);
-                    if (mGoodsDetailInfo.isFree()) {
-                        title = "上三少免费变美";
-                        content = getResources().getString(R.string.register_tip);
-                    } else if (mGoodsDetailInfo.isPayByPoint()) {
-                        title = "邀请有礼 一起变美";
-                        content = getResources().getString(R.string.invitation_tip);
-                    }
-
-                    new GoodsInroductionDialog().show(context, title, content);
+                    new RecommendRewardDialog().show(context, mGoodsDetailInfo);
                 }
         );
         initTabStatus(1);

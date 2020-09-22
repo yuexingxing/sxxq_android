@@ -44,7 +44,7 @@ import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsTypeInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IGoodsListModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.adapter.GoodsListAdapter;
-import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.BenefitsRightDialog;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.RecommendRewardDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.viewmodel.GoodsListViewModel;
 import com.exam.commonbiz.util.BitmapUtil;
@@ -165,12 +165,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
                     }
                 } else {
                     if (goodsDetailInfo.isFree()) {
-                        new BenefitsRightDialog().show(context, new CommonCallBack() {
-                            @Override
-                            public void callback(int postion, Object object) {
-                                showPayTypeBottomDialog();
-                            }
-                        });
+//                        new RecommendRewardDialog().show(context, null);
                         return;
                     }
                     ConfirmOrderActivity.start(context, goodsDetailInfo.sarti_id);
