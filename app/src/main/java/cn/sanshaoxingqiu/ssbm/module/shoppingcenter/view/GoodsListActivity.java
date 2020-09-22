@@ -37,7 +37,9 @@ import cn.sanshaoxingqiu.ssbm.module.order.view.PayCompleteActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderDetailViewModel;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderViewModel;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.PayViewModel;
+
 import com.exam.commonbiz.bean.UserInfo;
+
 import cn.sanshaoxingqiu.ssbm.module.register.view.RegisterActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsTypeInfo;
@@ -47,10 +49,14 @@ import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.adapter.GoodsListAdapte
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.RecommendRewardDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.viewmodel.GoodsListViewModel;
+
 import com.exam.commonbiz.util.BitmapUtil;
+
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
+
 import com.exam.commonbiz.util.LoadDialogMgr;
+
 import cn.sanshaoxingqiu.ssbm.util.OnItemEnterOrExitVisibleHelper;
 import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
 
@@ -71,6 +77,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.jzvd.Jzvd;
+
 import com.exam.commonbiz.util.ToastUtil;
 
 /**
@@ -164,10 +171,6 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
                         ConfirmOrderActivity.start(context, goodsDetailInfo.sarti_id);
                     }
                 } else {
-                    if (goodsDetailInfo.isFree()) {
-//                        new RecommendRewardDialog().show(context, null);
-                        return;
-                    }
                     ConfirmOrderActivity.start(context, goodsDetailInfo.sarti_id);
                 }
             }
