@@ -7,16 +7,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.exam.commonbiz.widget.LinearEmptyLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/empty_layout"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </com.exam.commonbiz.widget.LinearEmptyLayout>
+            android:layout_height="match_parent" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

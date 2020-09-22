@@ -52,11 +52,10 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
     public void initData() {
 
         mViewModel.setIBaseModel(this);
-        LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View emptyLayout = inflater.inflate(R.layout.item_layout_empty_live, null);
         mHomeAdapter = new HomeAdapter();
         mHomeAdapter.setEmptyView(emptyLayout);
-        binding.emptyLayout.showSuccess();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         binding.recyclerView.setLayoutManager(linearLayoutManager);
@@ -93,30 +92,6 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
 //                onRefreshVideoList(retCode, result);
 //            }
 //        });
-    }
-
-    private void onRefreshVideoList(final int retCode, final ArrayList<VideoInfo> result) {
-        if (getActivity() != null) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (retCode == 0) {
-                        mHomeAdapter.getData().clear();
-                        if (result != null) {
-                            mHomeAdapter.addData((ArrayList<VideoInfo>) result.clone());
-                        }
-                    } else {
-                        Toast.makeText(getActivity(), "刷新列表失败", Toast.LENGTH_LONG).show();
-                    }
-                    if (mHomeAdapter.getData().size() > 0) {
-                        binding.emptyLayout.showSuccess();
-                    } else {
-                        binding.emptyLayout.showEmpty("暂无直播", R.drawable.image_nolive);
-                    }
-                    binding.swipeRefreshLayout.setRefreshing(false);
-                }
-            });
-        }
     }
 
     /**
@@ -161,14 +136,15 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
 
         VideoListResponse videoListResponse = (VideoListResponse) object;
         if (ContainerUtil.isEmpty(videoListResponse.rows)) {
-            binding.emptyLayout.showEmpty("暂无直播", R.drawable.image_nolive);
+            mHomeAdapter.isUseEmpty(true);
             return;
         }
 
+        mHomeAdapter.isUseEmpty(false);
         mHomeAdapter.setNewData(videoListResponse.rows);
         mHomeAdapter.loadMoreComplete();
         mHomeAdapter.loadMoreEnd();
-        binding.emptyLayout.showSuccess();
+
     }
 
     @Override
@@ -186,7 +162,6 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
 
         mHomeAdapter.addData(videoListResponse.rows);
         mHomeAdapter.loadMoreComplete();
-        binding.emptyLayout.showSuccess();
         binding.swipeRefreshLayout.setRefreshing(false);
     }
 
