@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.exam.commonbiz.util.ContainerUtil;
+import com.exam.commonbiz.util.Res;
 import com.exam.commonbiz.util.ScreenUtil;
 
 import cn.sanshaoxingqiu.ssbm.R;
@@ -51,17 +52,27 @@ public class GoodsListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
     protected void convert(BaseViewHolder helper, GoodsDetailInfo item) {
         helper.setText(R.id.tv_title, item.sarti_name);
 
+        TextView tvPrice = helper.getView(R.id.tv_price);
         TextView tvOldPrice = helper.getView(R.id.tv_old_price);
         tvOldPrice.setText("¥" + MathUtil.getNumExclude0(item.sarti_mkprice));
         tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+        helper.setText(R.id.tv_price, item.getPriceText());
 
         if (item.isFree()) {
             helper.setText(R.id.btn_buy, "免费领取");
         } else if (item.isPayByPoint()) {
             tvOldPrice.setVisibility(View.GONE);
             helper.setText(R.id.btn_buy, "分享金购买");
+        } else if (item.isPayByDisposit()) {
+            helper.getView(R.id.tv_deposit_price).setVisibility(View.VISIBLE);
+            helper.setText(R.id.tv_deposit_price, "定金 ¥" + MathUtil.getNumExclude0(item.deposit_price));
+            tvPrice.setText("零售价: ¥" + MathUtil.getNumExclude0(item.sarti_saleprice));
+            tvOldPrice.setText("原价: ¥" + MathUtil.getNumExclude0(item.sarti_mkprice));
+
+            tvPrice.setTextColor(Res.getColor(helper.itemView.getContext(), R.color.color_999999));
+            tvPrice.setTextSize(12f);
+            tvOldPrice.setTextSize(12f);
         }
-        helper.setText(R.id.tv_price, item.getPriceText());
 
         View viewInclude = helper.getView(R.id.include_video);
         ImageView ivIcon = helper.getView(R.id.iv_icon);

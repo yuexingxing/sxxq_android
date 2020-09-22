@@ -189,7 +189,7 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
         return TextUtils.equals("3", mem_class_key);
     }
 
-    public static class MemberCommissionInfo {
+    public static class MemberCommissionInfo implements Serializable {
         public String amt;
         public String mem_class_key;
 
