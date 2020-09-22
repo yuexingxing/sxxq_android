@@ -149,7 +149,7 @@
                     android:id="@+id/layout_live_pusher_info"
                     layout="@layout/layout_live_pusher_info"
                     android:layout_width="110dp"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="5dp" />
 
                 <androidx.recyclerview.widget.RecyclerView

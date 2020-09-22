@@ -58,6 +58,7 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         View emptyLayout = inflater.inflate(R.layout.item_layout_empty_live, null);
         mHomeAdapter = new HomeAdapter(HomeAdapter.VIDEO_TYPE_LIVE);
         mHomeAdapter.setEmptyView(emptyLayout);
+        mHomeAdapter.isUseEmpty(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         binding.recyclerView.setLayoutManager(linearLayoutManager);
@@ -152,7 +153,6 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         mHomeAdapter.setNewData(videoListResponse.rows);
         mHomeAdapter.loadMoreComplete();
         mHomeAdapter.loadMoreEnd();
-
     }
 
     @Override

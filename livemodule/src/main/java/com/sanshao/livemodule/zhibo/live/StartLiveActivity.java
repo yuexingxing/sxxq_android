@@ -264,7 +264,7 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
                 return;
             }
 
-            LoadDialogMgr.getInstance().show(context);
+            LoadDialogMgr.getInstance().show(context, "图片上传中");
             mOssViewModel.uploadPic(bitmap);
         }
     }
