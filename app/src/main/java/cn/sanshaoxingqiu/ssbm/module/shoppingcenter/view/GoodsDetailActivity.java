@@ -189,12 +189,35 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             if (mGoodsDetailInfo.isPayByMoney() && !mGoodsDetailInfo.isFree()) {
                 ConfirmOrderActivity.start(context, mSartiId);
             } else if (mGoodsDetailInfo.isPayByPoint()) {
-                //TODO 积分为0弹窗，点击跳到活动页
-                if (mUserInfo.available_point == 0) {
+
+                //是星级会员
+                if (mUserInfo.mem_class.isMember()) {
+                    //TODO 积分为0弹窗，点击跳到活动页
+                    if (mUserInfo.available_point == 0) {
+                        CommonTipDialog commonTipDialog = new CommonTipDialog();
+                        commonTipDialog.init(context)
+                                .setTitle("分享金不足")
+                                .setContent("啊哦，您的分享金不足，赶快邀请好友赚取分享金吧~")
+                                .setLeftButton("取消")
+                                .showBottomLine(View.VISIBLE)
+                                .setRightButton("获取分享金")
+                                .setOnRightButtonClick(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        commonTipDialog.dismiss();
+                                        //TODO 一起拉用户
+                                        ExerciseActivity.start(context, "http://139.224.220.161/toUser.html");
+                                    }
+                                })
+                                .show();
+                    } else {
+                        ConfirmOrderActivity.start(context, mGoodsDetailInfo.sarti_id);
+                    }
+                } else {
                     CommonTipDialog commonTipDialog = new CommonTipDialog();
                     commonTipDialog.init(context)
                             .setTitle("分享金不足")
-                            .setContent("啊哦，您的分享金不足，赶快邀请好友赚取分享金吧~")
+                            .setContent("您还不是我们的星级用户，分享好友不能领取分享金，是否立即购买项目成为星级用户？")
                             .setLeftButton("取消")
                             .showBottomLine(View.VISIBLE)
                             .setRightButton("获取分享金")
@@ -202,13 +225,14 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                                 @Override
                                 public void onClick(View view) {
                                     commonTipDialog.dismiss();
-                                    InvitationActivity.start(context, ShoppingCenterUtil.getInviteTagId());
+                                    //TODO 一起拉粉丝
+                                    ExerciseActivity.start(context, "http://139.224.220.161/toFans.html");
                                 }
                             })
                             .show();
-                } else {
-                    ConfirmOrderActivity.start(context, mGoodsDetailInfo.sarti_id);
                 }
+                //TODO 先判断是不是星级会员
+
             } else {
                 if (mGoodsDetailInfo.isFree() && mUserInfo.free_sarti_count < 1) {
                     CommonTipDialog commonTipDialog = new CommonTipDialog();
@@ -415,7 +439,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         } else {
             if (goodsDetailInfo.isFree()) {
                 binding.includeBottom.btnBuy.setText("免费领取");
-                binding.ivRecommendReward.setBackgroundResource(R.drawable.regactivity);
+                binding.ivRecommendReward.setBackgroundResource(R.drawable.image_new_user_free_get);
             } else if (goodsDetailInfo.isPayByPoint()) {
                 binding.tvOldPrice.setVisibility(View.GONE);
                 binding.includeBottom.btnBuy.setText("分享金购买");
@@ -582,7 +606,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         }
         if (TextUtils.equals(mPayType, ConfirmPayActivity.PAY_BY_WECHAT)) {
             String path = "/pages/order/appPay?" + "salebill_id="
-                    + "&mem_phone=" + mUserInfo.mem_phone + "&benefits_level=" + mUserInfo.benefits_level;
+                    + "&mem_phone=" + mUserInfo.mem_phone;
             new ShareUtils()
                     .init(context)
                     .jump2WxMiniProgram(path);

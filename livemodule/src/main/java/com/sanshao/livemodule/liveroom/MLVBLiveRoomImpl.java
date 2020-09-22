@@ -539,7 +539,7 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
                             }
                             callbackOnThread(callback, "onSuccess");
                         } else {
-                            callbackOnThread(callback, "onError", MLVBCommonDef.LiveRoomErrorCode.ERROR_PLAY, "[LiveRoom] 未找到CDN播放地址");
+                            callbackOnThread(callback, "onError", MLVBCommonDef.LiveRoomErrorCode.ERROR_PLAY, "未找到CDN播放地址");
                         }
                     }
                 });
@@ -1769,7 +1769,7 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
      */
     @Override
     public void sendRoomCustomMsg(String cmd, String message, final IMLVBLiveRoomListener.SendRoomCustomMsgCallback callback) {
-        if (mSelfAccountInfo == null){
+        if (mSelfAccountInfo == null) {
             return;
         }
         CommonJson<CustomMessage> customMessage = new CommonJson<>();
@@ -2099,7 +2099,7 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
                 public void onError(int code, String errInfo) {
                     String msg = "[IM] 进群失败[" + errInfo + ":" + code + "]";
                     TXCLog.e(TAG, msg);
-                    callback.onError(code, msg);
+                    callback.onError(code, String.format("进群失败[%s]", errInfo));
                 }
 
                 @Override

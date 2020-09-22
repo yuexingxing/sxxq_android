@@ -25,23 +25,13 @@ public class UserInfo implements Serializable {
     public String mem_status;//
     public String point;//我的分享金
     public int available_point;//可用分享金
-    public int free_sarti_count;
-    public String benefits_level;//是否购买90元商品，0未购买
+    public int free_sarti_count;//免费商品领取次数
     public MemberClassInfo mem_class;
     public UserInfo referrer_mem;
     public String commission;//我的分润
     public String mem_class_name;
     public String point_status;
     public String frontcover;//直播封面
-
-
-    /**
-     * 是否购买了90元商品
-     * @return
-     */
-    public boolean hasBenefitsRight() {
-        return TextUtils.equals(benefits_level, "1");
-    }
 
     //有没有分享金
     public boolean isZeroPoint() {

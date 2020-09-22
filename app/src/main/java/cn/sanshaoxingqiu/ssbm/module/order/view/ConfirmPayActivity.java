@@ -84,7 +84,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         binding.tvName.setText(mGoodsDetailInfo.sarti_name);
         binding.tvOrderNo.setText("订单编号：" + mGoodsDetailInfo.salebill_id);
         mUserInfo = SSApplication.getInstance().getUserInfo();
-        if (mGoodsDetailInfo.isFree() && mUserInfo.hasBenefitsRight()) {
+        if (mGoodsDetailInfo.isFree()) {
             binding.rlPay.setVisibility(View.INVISIBLE);
             binding.btnStartPay.setText("免费领取");
         } else if (mGoodsDetailInfo.isPayByPoint()) {
@@ -96,7 +96,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         binding.btnStartPay.setOnClickListener(v -> {
             if (TextUtils.equals(mPayType, PAY_BY_WECHAT)) {
                 String path = "/pages/order/appPay?" + "salebill_id=" + mGoodsDetailInfo.salebill_id
-                        + "&mem_phone=" + mUserInfo.mem_phone + "&benefits_level=" + mUserInfo.benefits_level;
+                        + "&mem_phone=" + mUserInfo.mem_phone;
                 new ShareUtils()
                         .init(context)
                         .jump2WxMiniProgram(path);

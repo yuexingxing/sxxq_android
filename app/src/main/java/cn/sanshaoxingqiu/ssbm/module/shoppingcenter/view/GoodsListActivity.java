@@ -164,7 +164,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
                         ConfirmOrderActivity.start(context, goodsDetailInfo.sarti_id);
                     }
                 } else {
-                    if (!mUserInfo.hasBenefitsRight() && goodsDetailInfo.isFree()) {
+                    if (goodsDetailInfo.isFree()) {
                         new BenefitsRightDialog().show(context, new CommonCallBack() {
                             @Override
                             public void callback(int postion, Object object) {
@@ -466,7 +466,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
         }
         if (TextUtils.equals(mPayType, ConfirmPayActivity.PAY_BY_WECHAT)) {
             String path = "/pages/order/appPay?" + "salebill_id="
-                    + "&mem_phone=" + mUserInfo.mem_phone + "&benefits_level=" + mUserInfo.benefits_level;
+                    + "&mem_phone=" + mUserInfo.mem_phone;
             new ShareUtils()
                     .init(context)
                     .jump2WxMiniProgram(path);

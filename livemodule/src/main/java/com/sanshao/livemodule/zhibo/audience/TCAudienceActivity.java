@@ -388,7 +388,8 @@ public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudi
         mLiveRoom.enterRoom(mGroupId, mPlayUrl, mTXCloudVideoView, new IMLVBLiveRoomListener.EnterRoomCallback() {
             @Override
             public void onError(int errCode, String errInfo) {
-                showErrorAndQuit("加入房间失败，Error:" + errCode + "/" + errInfo);
+                Log.e(TAG, "加入房间失败，Error:" + errCode + "/" + errInfo);
+                showErrorAndQuit("加入房间失败," + errInfo);
                 TCELKReportMgr.getInstance().reportELK(TCConstants.ELK_ACTION_LIVE_PLAY, TCUserMgr.getInstance().getUserId(), -10001, "进入LiveRoom失败", null);
             }
 

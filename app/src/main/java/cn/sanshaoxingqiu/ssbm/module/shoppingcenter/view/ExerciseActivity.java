@@ -46,7 +46,12 @@ public class ExerciseActivity extends BaseWebViewActivity {
         String url = getIntent().getStringExtra(Constants.OPT_DATA);
         initWebView(url);
 
-        getWebView().loadUrl("file:///android_asset/ExampleApp.html");
+//        getWebView().loadUrl("file:///android_asset/ExampleApp.html");
+        registerHandler();
+    }
+
+    private void registerHandler() {
+
         mWebView.registerHandler("shareProductFunction", new BridgeHandler() {
 
             @Override
@@ -65,6 +70,17 @@ public class ExerciseActivity extends BaseWebViewActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        mWebView.registerHandler("shareProductFunction", new BridgeHandler() {
+
+            @Override
+            public void handler(String data, CallBackFunction function) {
+                String str = "这是html返回给java的数据:" + data;
+                Log.i(TAG, "handler = submitFromWeb, data from web = " + data);
+                function.onCallBack(CommandTools.beanToJson(new WebViewBaseInfo()));
+
             }
         });
     }
