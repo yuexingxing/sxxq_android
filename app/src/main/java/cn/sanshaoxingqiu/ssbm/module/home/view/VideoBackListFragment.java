@@ -53,7 +53,7 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
         mViewModel.setIBaseModel(this);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View emptyLayout = inflater.inflate(R.layout.item_layout_empty_live, null);
-        mHomeAdapter = new HomeAdapter();
+        mHomeAdapter = new HomeAdapter(HomeAdapter.VIDEO_TYPE_BACK);
         mHomeAdapter.setEmptyView(emptyLayout);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -128,7 +128,7 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
             mHomeAdapter.isUseEmpty(true);
             return;
         }
-   
+
         mHomeAdapter.isUseEmpty(false);
         mHomeAdapter.setNewData(videoListResponse.rows);
         mHomeAdapter.loadMoreComplete();

@@ -54,7 +54,7 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         mViewModel.setIBaseModel(this);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View emptyLayout = inflater.inflate(R.layout.item_layout_empty_live, null);
-        mHomeAdapter = new HomeAdapter();
+        mHomeAdapter = new HomeAdapter(HomeAdapter.VIDEO_TYPE_LIVE);
         mHomeAdapter.setEmptyView(emptyLayout);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);

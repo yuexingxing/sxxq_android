@@ -16,10 +16,15 @@ import cn.sanshaoxingqiu.ssbm.R;
 
 public class HomeAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder> {
 
+    public static final int VIDEO_TYPE_LIVE = 0;
+    public static final int VIDEO_TYPE_BACK = 1;
+
+    private int videoType;
     private CommonCallBack mCommonCallBack;
 
-    public HomeAdapter() {
+    public HomeAdapter(int optType) {
         super(R.layout.item_layout_home, null);
+        videoType = optType;
     }
 
     public void setCommonCallBack(CommonCallBack commonCallBack) {
@@ -28,13 +33,21 @@ public class HomeAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, VideoInfo item) {
+        //直播
+        if (VIDEO_TYPE_LIVE == videoType) {
+            helper.getView(R.id.iv_play).setVisibility(View.VISIBLE);
+            GlideUtil.loadgifImage(R.drawable.image_liveanimation, helper.getView(R.id.iv_play));
+        }
+        //回放
+        else {
+            helper.getView(R.id.iv_play).setVisibility(View.INVISIBLE);
+        }
         if (item.pushers != null) {
             helper.setText(R.id.tv_title, "@" + item.pushers.anchor_name);
         }
         helper.setText(R.id.tv_content, item.live_title);
         GlideUtil.loadImage(item.frontcover, helper.getView(R.id.iv_bg), R.drawable.image_graphofbooth_default);
 
-        GlideUtil.loadgifImage(R.drawable.image_liveanimation, helper.getView(R.id.iv_play));
         FrameLayout frameLayout = helper.getView(R.id.fl_content);
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) frameLayout.getLayoutParams();
         layoutParams.height = ScreenUtil.getScreenHeight(helper.itemView.getContext()) + StatusBarUtil.getStatusBarHeight(helper.itemView.getContext());
