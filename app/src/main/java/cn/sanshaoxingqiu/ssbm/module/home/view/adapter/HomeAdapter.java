@@ -4,6 +4,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.exam.commonbiz.util.CommonCallBack;
@@ -33,6 +35,7 @@ public class HomeAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder> {
         helper.setText(R.id.tv_content, item.live_title);
         GlideUtil.loadImage(item.frontcover, helper.getView(R.id.iv_bg), R.drawable.image_graphofbooth_default);
 
+        GlideUtil.loadgifImage(R.drawable.image_liveanimation, helper.getView(R.id.iv_play));
         FrameLayout frameLayout = helper.getView(R.id.fl_content);
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) frameLayout.getLayoutParams();
         layoutParams.height = ScreenUtil.getScreenHeight(helper.itemView.getContext());

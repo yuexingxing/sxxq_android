@@ -9,7 +9,9 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
+
 import com.exam.commonbiz.util.GlideUtil;
+
 import cn.sanshaoxingqiu.ssbm.util.MathUtil;
 
 /**
@@ -42,7 +44,9 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderInfo, BaseViewHolder
         helper.getView(R.id.ll_tobe_use).setVisibility(View.GONE);
         helper.getView(R.id.ll_complete).setVisibility(View.GONE);
         helper.getView(R.id.ll_canceled).setVisibility(View.GONE);
+        helper.getView(R.id.ll_deposit).setVisibility(View.GONE);
 
+        helper.setText(R.id.tv_content_tip, String.format("共计%s件商品；实收：%s元", item.count, MathUtil.getNumExclude0(item.totalPrice)));
         helper.setText(R.id.tv_state, item.getOrderStatus(item.saleStatus));
         if (TextUtils.equals(OrderInfo.ORDER_STATUS.PAY, item.saleStatus)) {
             helper.getView(R.id.ll_tobe_paid).setVisibility(View.VISIBLE);
@@ -50,9 +54,16 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderInfo, BaseViewHolder
             helper.getView(R.id.ll_tobe_use).setVisibility(View.VISIBLE);
         } else if (TextUtils.equals(OrderInfo.ORDER_STATUS.CANCEL, item.saleStatus)) {
             helper.getView(R.id.ll_canceled).setVisibility(View.VISIBLE);
+        } else if (TextUtils.equals(OrderInfo.ORDER_STATUS.PAY_GAP, item.saleStatus)) {
+            if (item.shopSartiInfo != null) {
+                String lastFee = MathUtil.getNumExclude0(item.count * (item.shopSartiInfo.sarti_saleprice - item.shopSartiInfo.deposit_price));
+                String fundFee = MathUtil.getNumExclude0(item.count * item.shopSartiInfo.deposit_price);
+                helper.getView(R.id.ll_deposit).setVisibility(View.VISIBLE);
+                helper.setText(R.id.tv_content_tip, String.format("尾款: %s元 共计%s件商品；定金实付：%s元",
+                        lastFee, item.count, fundFee));
+            }
         }
 
-        helper.setText(R.id.tv_content_tip, String.format("共计%s件商品；实收：%s元", item.count, MathUtil.getNumExclude0(item.totalPrice)));
         GlideUtil.loadImage(item.shopSartiInfo.thumbnail_img, helper.getView(R.id.iv_icon));
 
         helper.getView(R.id.rl_bg).setOnClickListener(v -> {
@@ -94,6 +105,9 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderInfo, BaseViewHolder
             if (mCallBack != null) {
                 mCallBack.onDeleteOrder(helper.getAdapterPosition(), item);
             }
+        });
+        helper.getView(R.id.tv_deposit).setOnClickListener(v -> {
+
         });
 
         if (helper.getAdapterPosition() == getData().size() - 1) {

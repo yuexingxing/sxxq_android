@@ -9,6 +9,8 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.bean.UserInfo;
+import com.exam.commonbiz.util.BitmapUtil;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
@@ -24,13 +26,12 @@ import cn.sanshaoxingqiu.ssbm.databinding.ActivityPayCompleteBinding;
 import cn.sanshaoxingqiu.ssbm.module.MainActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderInfo;
 import cn.sanshaoxingqiu.ssbm.module.order.event.PayStatusChangedEvent;
-import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IGoodsDetailModel;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.ExerciseActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.PaySuccessDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
-import com.exam.commonbiz.util.BitmapUtil;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
 
@@ -89,6 +90,10 @@ public class PayCompleteActivity extends BaseActivity<GoodsDetailViewModel, Acti
                 share();
             }
         });
+        binding.includeStar.tvMember.setOnClickListener(v -> {
+            //TODO 会员权益
+            ExerciseActivity.start(context, "");
+        });
         binding.tvToMain.setOnClickListener(v -> MainActivity.start(context));
         binding.tvViewOrder.setOnClickListener(v -> {
             OrderDetailActivity.start(context, OrderInfo.State.ToBeUse, mSaleBillId);
@@ -104,13 +109,12 @@ public class PayCompleteActivity extends BaseActivity<GoodsDetailViewModel, Acti
             return;
         }
         mGoodsDetailInfo = goodsDetailInfo;
-        if (goodsDetailInfo.isFree() || goodsDetailInfo.isPayByPoint() || TextUtils.isEmpty(goodsDetailInfo.mem_class_key)) {
+        if (goodsDetailInfo.isFree() || goodsDetailInfo.isPayByPoint()) {
             binding.includeStar.layoutBg.setVisibility(View.GONE);
             binding.includeShare.layoutBg.setVisibility(View.VISIBLE);
         } else {
             binding.includeStar.layoutBg.setVisibility(View.VISIBLE);
             binding.includeShare.layoutBg.setVisibility(View.GONE);
-            binding.includeStar.llReward.getBackground().setAlpha(9);
             UserInfo userInfo = SSApplication.getInstance().getUserInfo();
             if (userInfo != null) {
                 if (!TextUtils.isEmpty(userInfo.mem_class.mem_class_key)) {
@@ -131,7 +135,7 @@ public class PayCompleteActivity extends BaseActivity<GoodsDetailViewModel, Acti
                 if (userInfo.isMember()) {
                     binding.includeStar.tvPaycompleteTip.setText(String.format("您已经是%s啦！快去分享赚钱吧！", userInfo.getMember()));
                 } else {
-                    binding.includeStar.tvPaycompleteTip.setText("恭喜您！核销完成后将成为一星粉丝！");
+                    binding.includeStar.tvPaycompleteTip.setText("恭喜您已成为【三少变美】一星粉丝");
                 }
             }
 

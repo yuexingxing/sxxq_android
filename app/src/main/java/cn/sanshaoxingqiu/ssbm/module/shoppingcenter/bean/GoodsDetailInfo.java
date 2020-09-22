@@ -63,7 +63,7 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
     public String optr_date;
     public String sum_amt;
     public int sum_point;
-    public String qty;
+    public int qty;
     public String sale_status;//PAY=顾客待付款，PAYING=顾客付款中，PAID=顾客已付款 (金额进入第三方支付机构)，FINISH=订单已完成 (全部核销完毕)，CANCEL=顾客取消订单/订单支付超时，REFUNDING=顾客已申请退款，REFUNDED=顾客退款完成 ,
     public int itemType = GOODS_TYPE.REAL_DATA;
 
@@ -86,10 +86,17 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
 
     /**
      * 是不是定金支付
+     *
      * @return
      */
     public boolean isPayByDisposit() {
-        return TextUtils.equals(PAY_TYPE.DEPOSIT, pay_type);
+        if (TextUtils.equals(PAY_TYPE.DEPOSIT, pay_type)) {
+            return true;
+        }
+        if (order_product == null) {
+            return false;
+        }
+        return TextUtils.equals(PAY_TYPE.DEPOSIT, order_product.pay_type);
     }
 
     /**
@@ -106,7 +113,7 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
             return "免费领取";
         } else if (isPayByPoint()) {
             return sarti_point_price + "分享金";
-        }else if (isPayByDisposit()){
+        } else if (isPayByDisposit()) {
             return "定金 ¥" + MathUtil.getNumExclude0(deposit_price);
         }
         return "¥" + MathUtil.getNumExclude0(sarti_saleprice);

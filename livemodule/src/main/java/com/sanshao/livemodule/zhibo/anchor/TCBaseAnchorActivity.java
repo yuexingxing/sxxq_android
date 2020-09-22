@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.exam.commonbiz.dialog.CommonTipDialog;
 import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.liveroom.IMLVBLiveRoomListener;
 import com.sanshao.livemodule.liveroom.MLVBLiveRoom;
@@ -613,39 +614,44 @@ public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListe
      * @param isError true错误消息（必须退出） false提示消息（可选择是否退出）
      */
     public void showExitInfoDialog(String msg, Boolean isError) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.ConfirmDialogStyle);
-        builder.setCancelable(true);
-        builder.setTitle(msg);
-
+        final CommonTipDialog commonTipDialog = new CommonTipDialog(TCBaseAnchorActivity.this);
+        commonTipDialog.setTitle("提示");
+        commonTipDialog.setContent(msg);
         if (!isError) {
-            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    stopPublish();
-                    showPublishFinishDetailsDialog();
-                }
-            });
-            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
+            commonTipDialog
+                    .setLeftButton("取消")
+                    .setOnLeftButtonClick(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            commonTipDialog.dismiss();
+                        }
+                    })
+                    .showBottomLine(View.VISIBLE)
+                    .setRightButton("确定")
+                    .setOnRightButtonClick(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            commonTipDialog.dismiss();
+                            stopPublish();
+                            showPublishFinishDetailsDialog();
+                        }
+                    });
         } else {
             //当情况为错误的时候，直接停止推流
             stopPublish();
-            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    showPublishFinishDetailsDialog();
-                }
-            });
+            commonTipDialog
+                    .setCanceledOnTouchOutside(false)
+                    .setCancelable(false)
+                    .setRightButton("确定")
+                    .setOnRightButtonClick(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            commonTipDialog.dismiss();
+                            showPublishFinishDetailsDialog();
+                        }
+                    });
         }
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-        alertDialog.setCanceledOnTouchOutside(false);
+        commonTipDialog.show();
     }
 
     /**

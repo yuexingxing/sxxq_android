@@ -71,6 +71,8 @@ public class OrderInfo implements Serializable {
             return "";
         } else if (TextUtils.equals(status, ORDER_STATUS.PAY)) {
             return "待支付";
+        }else if (TextUtils.equals(status, ORDER_STATUS.PAY_GAP)) {
+            return "待支付尾款";
         } else if (TextUtils.equals(status, ORDER_STATUS.PAID)) {
             return "待使用";
         } else if (TextUtils.equals(status, ORDER_STATUS.FINISH)) {
@@ -94,6 +96,7 @@ public class OrderInfo implements Serializable {
         String CANCEL = "CANCEL";
         String REFUNDING = "REFUNDING";
         String REFUNDED = "REFUNDED";
+        String PAY_GAP = "PAY_GAP";
     }
 
     public interface State {

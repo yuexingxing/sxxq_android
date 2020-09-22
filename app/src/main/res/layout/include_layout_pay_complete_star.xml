@@ -2,6 +2,7 @@
 <layout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/layout_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,33 +41,22 @@
                     android:layout_marginRight="12dp"
                     android:layout_marginBottom="8dp"
                     android:gravity="center"
-                    android:text="恭喜您！核销完成后将成为一星会员！"
+                    android:text="恭喜您已成为【三少变美】一星粉丝"
                     android:textColor="@color/color_333333"
                     android:textSize="15sp" />
             </FrameLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_reward"
-            android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/shape_radius_10_b6a57b"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_vipreward" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="会员奖励"
-                android:textColor="#ffc5602d"
-                android:textSize="17sp" />
+                android:id="@+id/tv_member"
+                android:layout_width="80dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/shape_radius_20_b6a57b"
+                android:gravity="center"
+                android:text="会员权益"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
         </LinearLayout>
 
     </LinearLayout>

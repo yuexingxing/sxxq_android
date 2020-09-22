@@ -29,6 +29,14 @@ public class CommonTipDialog {
     private Dialog mDialog;
     private View mViewBottomLine;
 
+    public CommonTipDialog(){
+
+    }
+
+    public CommonTipDialog(Context context){
+        init(context);
+    }
+
     public CommonTipDialog init(Context context) {
         LinearLayout layout = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.dialog_layout_common_tip_dialog, null);
         mDialog = new Dialog(context, R.style.BottomSheetDialog);
@@ -47,6 +55,16 @@ public class CommonTipDialog {
         mViewBottomLine.setVisibility(View.GONE);
 
         setDialog(mDialog);
+        return this;
+    }
+
+    public CommonTipDialog setCanceledOnTouchOutside(boolean flag){
+        setCanceledOnTouchOutside(flag);
+        return this;
+    }
+
+    public CommonTipDialog setCancelable(boolean flag){
+        setCancelable(flag);
         return this;
     }
 

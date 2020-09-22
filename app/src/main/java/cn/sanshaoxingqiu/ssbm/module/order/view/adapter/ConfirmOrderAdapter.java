@@ -83,6 +83,7 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
 
         LinearLayout llConentTop = helper.getView(R.id.ll_content_top);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) llConentTop.getLayoutParams();
+
         //确认订单
         if (mOptType == OPT_TYPE_CONFIRM_ORDER) {
             helper.getView(R.id.ll_right_price).setVisibility(View.GONE);
@@ -163,12 +164,19 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
         helper.setText(R.id.tv_buy_count, item.buyNum + "");
         helper.setText(R.id.tv_price_1, "¥" + MathUtil.getNumExclude0(item.sum_amt));
         helper.setText(R.id.tv_total_count, "x" + item.qty);
-        helper.setText(R.id.tv_goods_count, String.format("共计%s件商品；实收：%s元", item.qty, item.sum_amt));
         GlideUtil.loadImage(item.thumbnail_img, helper.getView(R.id.iv_icon));
+
         if (item.isPayByDisposit()) {
-            helper.setText(R.id.tv_price_2, "¥" + MathUtil.getNumExclude0(item.deposit_price));
+            if (item.order_product != null) {
+                helper.setText(R.id.tv_price_2, "¥" + MathUtil.getNumExclude0(item.deposit_price));
+                String lastFee = MathUtil.getNumExclude0(item.qty * (item.order_product.sarti_saleprice - item.order_product.deposit_price));
+                String fundFee = MathUtil.getNumExclude0(item.qty * item.order_product.deposit_price);
+                helper.setText(R.id.tv_goods_count, String.format("尾款: %s元 共计%s件商品；定金实付：%s元",
+                        lastFee, item.qty, fundFee));
+            }
         } else {
             helper.setText(R.id.tv_price_2, item.getPriceText());
+            helper.setText(R.id.tv_goods_count, String.format("共计%s件商品；实收：%s元", item.qty, item.sum_amt));
         }
     }
 
@@ -179,9 +187,17 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
         helper.setText(R.id.tv_title, item.order_product.sarti_name);
         helper.setText(R.id.tv_buy_count, item.buyNum + "");
         helper.setText(R.id.tv_price_1, "¥" + MathUtil.getNumExclude0(item.sum_amt));
-        helper.setText(R.id.tv_price_2, "上海市");
         helper.setText(R.id.tv_total_count, "x" + item.qty);
-        helper.setText(R.id.tv_goods_count, String.format("共计%s件商品；实收：%s元", item.qty, MathUtil.getNumExclude0(item.sum_amt)));
+        if (item.isPayByDisposit()) {
+            helper.setText(R.id.tv_price_2, "¥" + MathUtil.getNumExclude0(item.order_product.deposit_price));
+            String lastFee = MathUtil.getNumExclude0(item.qty * (item.order_product.sarti_saleprice - item.order_product.deposit_price));
+            String fundFee = MathUtil.getNumExclude0(item.qty * item.order_product.deposit_price);
+            helper.setText(R.id.tv_goods_count, String.format("尾款: %s元 共计%s件商品；定金实付：%s元",
+                    lastFee, item.qty, fundFee));
+        } else {
+            helper.setText(R.id.tv_price_2, "上海市");
+            helper.setText(R.id.tv_goods_count, String.format("共计%s件商品；实收：%s元", item.qty, MathUtil.getNumExclude0(item.sum_amt)));
+        }
         GlideUtil.loadImage(item.order_product.thumbnail_img, helper.getView(R.id.iv_icon));
     }
 

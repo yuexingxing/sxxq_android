@@ -31,7 +31,6 @@ import com.exam.commonbiz.util.ToastUtil;
  */
 public class OrderStatusFragment extends BaseFragment<OrderListViewModel, FragmentOrderStatusBinding> implements IOrderDetailModel, SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
 
-    private int mTotalCount;
     private int curPage = 1;
     private int orderState;
     private OrderListAdapter mOrderListAdapter;
@@ -157,7 +156,6 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
             binding.emptyLayout.showEmpty("暂无数据", R.drawable.imsge_noorder);
             return;
         }
-        mTotalCount = orderListResponse.count;
         mOrderListAdapter.setNewData(orderListResponse.content);
         binding.emptyLayout.showSuccess();
     }

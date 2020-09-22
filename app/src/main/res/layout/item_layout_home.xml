@@ -32,43 +32,18 @@
                 android:background="@drawable/image_bottomtranslucency"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/iv_play"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_marginLeft="@dimen/left_container_margin"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:background="@color/color_c5602d" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="点击进入直播间"
-                        android:textColor="#ffc5602d"
-                        android:textSize="17sp" />
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="@dimen/right_container_margin"
-                        android:layout_weight="1"
-                        android:background="@color/color_c5602d" />
-                </LinearLayout>
+                    android:src="@drawable/image_liveanimation"/>
 
                 <TextView
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/left_container_margin"
-                    android:layout_marginTop="18sp"
+                    android:layout_marginTop="38dp"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 

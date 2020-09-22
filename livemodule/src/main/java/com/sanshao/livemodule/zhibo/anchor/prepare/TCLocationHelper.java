@@ -120,6 +120,9 @@ public class TCLocationHelper {
             mLocationListener = new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
+                    if (locationManager == null){
+                        return;
+                    }
                     String strAddr = getAddressFromLocation(activity, location);
                     if (TextUtils.isEmpty(strAddr)) {
                         listener.onLocationChanged(-1, 0, 0, strAddr);
@@ -131,16 +134,25 @@ public class TCLocationHelper {
 
                 @Override
                 public void onStatusChanged(String provider, int status, Bundle extras) {
+                    if (locationManager == null){
+                        return;
+                    }
                     locationManager.removeUpdates(this);
                 }
 
                 @Override
                 public void onProviderEnabled(String provider) {
+                    if (locationManager == null){
+                        return;
+                    }
                     locationManager.removeUpdates(this);
                 }
 
                 @Override
                 public void onProviderDisabled(String provider) {
+                    if (locationManager == null){
+                        return;
+                    }
                     locationManager.removeUpdates(this);
                 }
             };
