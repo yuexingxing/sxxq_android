@@ -1,7 +1,10 @@
 package cn.sanshaoxingqiu.ssbm.module.home.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -49,7 +52,10 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
     public void initData() {
 
         mViewModel.setIBaseModel(this);
+        LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View emptyLayout = inflater.inflate(R.layout.item_layout_empty_live, null);
         mHomeAdapter = new HomeAdapter();
+        mHomeAdapter.setEmptyView(emptyLayout);
         binding.emptyLayout.showSuccess();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
