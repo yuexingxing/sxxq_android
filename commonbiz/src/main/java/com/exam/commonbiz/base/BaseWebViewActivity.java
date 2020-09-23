@@ -193,8 +193,6 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
     @JavascriptInterface
     public void initWebView(String url) {
         initSetting();
-        mWebView.setDefaultHandler(new DefaultHandler());
-        mWebView.setWebChromeClient(new WebChromeClient());
         mWebView.loadUrl(url);
     }
 
@@ -267,21 +265,20 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
             super(webView);
         }
 
-        //
-//        @Override
-//        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//            try {
-//                //在这里你可以拦截url，然后自己处理一些事情，比如跳转app内部网页
-//
-//                Log.v("webview", url);
-////                view.loadUrl(url);
-//                return true;
-//            } catch (Exception e) {
-//                Log.i("webview", "该链接无效");
-//                return true;
-//            }
-//        }
-//
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            try {
+                //在这里你可以拦截url，然后自己处理一些事情，比如跳转app内部网页
+
+                Log.v("webview", url);
+                view.loadUrl(url);
+                return true;
+            } catch (Exception e) {
+                Log.i("webview", "该链接无效");
+                return true;
+            }
+        }
+
         @Override
         public void onPageFinished(WebView view, String url) {
             view.getSettings().setJavaScriptEnabled(true);

@@ -272,6 +272,16 @@
                     app:title_pav="我的分润" />
 
                 <cn.sanshaoxingqiu.ssbm.widget.PersonalAccountView
+                    android:id="@+id/pav_aboutus"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:paddingLeft="@dimen/left_container_margin"
+                    android:paddingRight="@dimen/right_container_margin"
+                    app:icon_pav="@drawable/icon_fenrun"
+                    app:isShowLine_pav="true"
+                    app:title_pav="关于我们" />
+
+                <cn.sanshaoxingqiu.ssbm.widget.PersonalAccountView
                     android:id="@+id/pav_setting"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"

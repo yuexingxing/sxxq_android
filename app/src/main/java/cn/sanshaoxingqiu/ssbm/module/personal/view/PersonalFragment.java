@@ -47,6 +47,7 @@ import cn.sanshaoxingqiu.ssbm.module.order.model.IOrderDetailModel;
 import cn.sanshaoxingqiu.ssbm.module.order.view.OrderListActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.AppointmentForConsultationViewModel;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderDetailViewModel;
+import cn.sanshaoxingqiu.ssbm.module.personal.about.AboutUsActivity;
 import cn.sanshaoxingqiu.ssbm.module.personal.adapter.PersonalOrderSubjectAdapter;
 import cn.sanshaoxingqiu.ssbm.module.personal.event.UpdateUserInfoEvent;
 import cn.sanshaoxingqiu.ssbm.module.personal.inquiry.view.ToBeInquiryListActivity;
@@ -228,11 +229,13 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
                         })
                         .show();
             }
-
         });
         binding.includePersonalLive.llLiveLike.setOnClickListener(v -> {
             Intent intent = new Intent(context, TCLoginActivity.class);
             startActivity(intent);
+        });
+        binding.pavAboutus.setOnClickListener(v -> {
+            AboutUsActivity.start(context);
         });
 
         initOrderList();

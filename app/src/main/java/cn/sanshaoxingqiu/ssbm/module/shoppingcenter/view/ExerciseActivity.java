@@ -30,6 +30,12 @@ import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
 
+/**
+ * 活动h5
+ *
+ * @Author yuexingxing
+ * @time 2020/9/21
+ */
 public class ExerciseActivity extends BaseWebViewActivity {
 
     private GoodsDetailInfo mGoodsDetailInfo;
@@ -54,7 +60,7 @@ public class ExerciseActivity extends BaseWebViewActivity {
     public void initData() {
 
         String url = getIntent().getStringExtra(Constants.OPT_DATA);
-        url = "file:///android_asset/ExampleApp.html";//ExampleApp
+//        url = "file:///android_asset/ExampleApp.html";//ExampleApp
         initWebView(url);
         registerHandler();
     }
