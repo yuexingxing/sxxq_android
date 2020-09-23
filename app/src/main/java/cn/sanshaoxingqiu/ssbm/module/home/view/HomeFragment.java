@@ -61,7 +61,7 @@ public class HomeFragment extends BaseFragment<BaseViewModel, HomeFragmentBindin
 
     @Override
     public int getStatusBarColor() {
-        return R.color.transparent_half;
+        return R.color.transparent;
     }
 
     @Override

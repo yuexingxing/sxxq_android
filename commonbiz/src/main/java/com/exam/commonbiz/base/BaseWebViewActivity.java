@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.exam.commonbiz.R;
 import com.exam.commonbiz.util.JavaScriptInterface;
 import com.exam.commonbiz.util.MyHandlerCallBack;
+import com.exam.commonbiz.util.StatusBarUtil;
 import com.exam.commonbiz.util.ToastUtil;
 import com.github.lzyzsd.jsbridge.BridgeHandler;
 import com.github.lzyzsd.jsbridge.BridgeWebView;
@@ -59,6 +60,7 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
         }
         initView();
         initData();
+        setStatusBar();
         mTitleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -86,6 +88,42 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
         }
     }
 
+    private void setStatusBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (isUseFullScreenMode()) {
+                StatusBarUtil.transparencyBar(this);
+            } else {
+                StatusBarUtil.setStatusBarColor(this, getStatusBarColor());
+            }
+
+            if (isUseBlackFontWithStatusBar()) {
+                StatusBarUtil.setLightStatusBar(this, true, isUseFullScreenMode());
+            }
+        }
+    }
+
+    /**
+     * 是否设置成透明状态栏，即就是全屏模式
+     */
+    protected boolean isUseFullScreenMode() {
+        return false;
+    }
+
+    /**
+     * 更改状态栏颜色，只有非全屏模式下有效
+     */
+    public int getStatusBarColor() {
+        return R.color.white;
+    }
+
+    /**
+     * 是否改变状态栏文字颜色为黑色，默认为黑色
+     */
+    protected boolean isUseBlackFontWithStatusBar() {
+        return true;
+    }
+
+
     public void setContentViewId(int layoutId) {
         contentView = getLayoutInflater().inflate(layoutId, null);
         if (layoutBody.getChildCount() > 0) {
@@ -95,14 +133,6 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             layoutBody.addView(contentView, params);
         }
-    }
-
-    public WebView getWebView() {
-        return mWebView;
-    }
-
-    public ProgressBar getProgressBar() {
-        return mProgressBar;
     }
 
     /**
@@ -199,7 +229,8 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
         public MyWebViewClient(BridgeWebView webView) {
             super(webView);
         }
-//
+
+        //
 //        @Override
 //        public boolean shouldOverrideUrlLoading(WebView view, String url) {
 //            try {

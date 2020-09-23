@@ -64,6 +64,12 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderInfo, BaseViewHolder
             }
         }
 
+        if (item.shopSartiInfo != null) {
+            if (TextUtils.equals(item.shopSartiInfo.pay_type, GoodsDetailInfo.PAY_TYPE.DEPOSIT)){
+                helper.setText(R.id.tv_total_price1, "¥" + MathUtil.getNumExclude0(item.shopSartiInfo.deposit_price));
+            }
+        }
+
         GlideUtil.loadImage(item.shopSartiInfo.thumbnail_img, helper.getView(R.id.iv_icon));
 
         helper.getView(R.id.rl_bg).setOnClickListener(v -> {

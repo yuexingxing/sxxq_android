@@ -128,6 +128,7 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
     public void onRefreshData(Object object) {
         binding.swipeRefreshLayout.setRefreshing(false);
         if (object == null) {
+            mHomeAdapter.isUseEmpty(true);
             return;
         }
 

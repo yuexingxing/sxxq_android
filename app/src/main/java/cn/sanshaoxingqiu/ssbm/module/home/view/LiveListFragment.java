@@ -58,7 +58,7 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         View emptyLayout = inflater.inflate(R.layout.item_layout_empty_live, null);
         mHomeAdapter = new HomeAdapter(HomeAdapter.VIDEO_TYPE_LIVE);
         mHomeAdapter.setEmptyView(emptyLayout);
-        mHomeAdapter.isUseEmpty(false);
+//        mHomeAdapter.isUseEmpty(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         binding.recyclerView.setLayoutManager(linearLayoutManager);
@@ -140,6 +140,7 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
     public void onRefreshData(Object object) {
         binding.swipeRefreshLayout.setRefreshing(false);
         if (object == null) {
+            mHomeAdapter.isUseEmpty(true);
             return;
         }
 
