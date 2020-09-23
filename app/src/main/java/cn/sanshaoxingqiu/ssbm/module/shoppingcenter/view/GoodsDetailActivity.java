@@ -170,95 +170,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         });
 
         binding.includeBottom.btnBuy.setOnClickListener(v -> {
-            if (!SSApplication.isLogin()) {
-                RegisterActivity.start(context, "", ShoppingCenterUtil.getRegisterTagId());
-                return;
-            }
-            if (mGoodsDetailInfo.isPayByMoney() && !mGoodsDetailInfo.isFree()) {
-                ConfirmOrderActivity.start(context, mSartiId);
-            } else if (mGoodsDetailInfo.isPayByPoint()) {
-
-                //是星级会员
-                if (mUserInfo.mem_class.isMember()) {
-                    //TODO 积分为0弹窗，点击跳到活动页
-                    if (mUserInfo.available_point == 0) {
-                        CommonTipDialog commonTipDialog = new CommonTipDialog();
-                        commonTipDialog.init(context)
-                                .setTitle("分享金不足")
-                                .setContent("啊哦，您的分享金不足，赶快邀请好友赚取分享金吧~")
-                                .setLeftButton("取消")
-                                .setOnLeftButtonClick(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        commonTipDialog.dismiss();
-                                    }
-                                })
-                                .showBottomLine(View.VISIBLE)
-                                .setRightButton("获取分享金")
-                                .setOnRightButtonClick(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        commonTipDialog.dismiss();
-                                        ExerciseActivity.start(context, "一起拉用户", Constants.userUrl);
-                                    }
-                                })
-                                .show();
-                    } else {
-                        ConfirmOrderActivity.start(context, mGoodsDetailInfo.sarti_id);
-                    }
-                } else {
-                    CommonTipDialog commonTipDialog = new CommonTipDialog();
-                    commonTipDialog.init(context)
-                            .setTitle("提示")
-                            .setContent("您还不是我们的星级用户，分享好友不能领取分享金，是否立即购买项目成为星级用户？")
-                            .setLeftButton("取消")
-                            .setOnLeftButtonClick(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    commonTipDialog.dismiss();
-                                }
-                            })
-                            .showBottomLine(View.VISIBLE)
-                            .setRightButton("立即前往")
-                            .setOnRightButtonClick(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    commonTipDialog.dismiss();
-                                    ExerciseActivity.start(context, "一起拉粉丝", Constants.fansUrl);
-                                }
-                            })
-                            .show();
-                }
-                //TODO 先判断是不是星级会员
-
-            } else {
-                if (mGoodsDetailInfo.isFree() && mUserInfo.free_sarti_count < 1) {
-                    CommonTipDialog commonTipDialog = new CommonTipDialog();
-                    commonTipDialog.init(context)
-                            .init(context)
-                            .setTitle("提示")
-                            .setContent("您已经成功领取一个免费变美专区项目，查看订单请至我的-订单列表查看")
-                            .setLeftButton("取消")
-                            .showBottomLine(View.VISIBLE)
-                            .setOnLeftButtonClick(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    commonTipDialog.dismiss();
-                                }
-                            })
-                            .setRightButton("查看订单")
-                            .setOnRightButtonClick(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    commonTipDialog.dismiss();
-                                    OrderListActivity.start(context, OrderInfo.State.ALL);
-                                }
-                            })
-                            .show();
-                    return;
-                }
-                ConfirmOrderActivity.start(context, mSartiId);
-            }
+            GoodsPresenter.startBuy(context, mGoodsDetailInfo);
         });
         binding.llTabGoods.setOnClickListener(v -> {
             initTabStatus(0);
@@ -318,27 +230,6 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
     protected void onPause() {
         super.onPause();
         Jzvd.releaseAllVideos();
-    }
-
-    private void showPayTypeBottomDialog() {
-
-        List<CommonDialogInfo> commonDialogInfoList = new ArrayList<>();
-        commonDialogInfoList.add(new CommonDialogInfo("微信支付"));
-        commonDialogInfoList.add(new CommonDialogInfo("支付宝支付"));
-
-        new CommonBottomDialog()
-                .init(this)
-                .setData(commonDialogInfoList)
-                .setOnItemClickListener(commonDialogInfo -> {
-                    if (commonDialogInfo.position == 0) {
-                        mPayType = ConfirmPayActivity.PAY_BY_WECHAT;
-                        mPayViewModel.fVipPay(PayViewModel.GET_PAY_INFO, ConfirmPayActivity.PAY_BY_WECHAT);
-                    } else {
-                        mPayType = ConfirmPayActivity.PAY_BY_ALI_APP;
-                        mPayViewModel.fVipPay(PayViewModel.GET_PAY_INFO, ConfirmPayActivity.PAY_BY_ALI_APP);
-                    }
-                })
-                .show();
     }
 
     /**
