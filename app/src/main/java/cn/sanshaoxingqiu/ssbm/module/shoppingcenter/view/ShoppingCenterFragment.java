@@ -75,10 +75,6 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
             if (mAdAdapter.getData().get(position).action_args != null) {
                 ExerciseActivity.start(context, mAdAdapter.getData().get(position).action_args.activity_url);
             }
-//            String fans = "http://139.224.220.161/toFans.html";
-//            String user = "http://139.224.220.161/toUser.html";
-//            String guimi = "http://139.224.220.161/toGuimi.html";
-//            ExerciseActivity.start(context, user);
         });
 
         binding.homeBannerLayout.setOnBannerClick(bannerInfo -> {

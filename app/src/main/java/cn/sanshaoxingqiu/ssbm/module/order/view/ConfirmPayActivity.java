@@ -203,7 +203,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
 
     @Override
     public void returnGoodsDetail(GoodsDetailInfo goodsDetailInfo) {
-        if (goodsDetailInfo == null){
+        if (goodsDetailInfo == null) {
             return;
         }
         binding.tvPrice.setText(goodsDetailInfo.getPriceText());
@@ -211,7 +211,9 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
             binding.rlPay.setVisibility(View.INVISIBLE);
             binding.btnStartPay.setText("免费领取");
         } else if (goodsDetailInfo.isPayByPoint()) {
-            binding.rlPay.setVisibility(View.INVISIBLE);
+            binding.llPayWechat.setVisibility(View.GONE);
+            binding.llPayAli.setVisibility(View.GONE);
+            binding.llPayPoint.setVisibility(View.VISIBLE);
             binding.btnStartPay.setText("确认支付");
         } else {
             binding.rlPay.setVisibility(View.VISIBLE);

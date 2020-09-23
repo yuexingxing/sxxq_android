@@ -17,12 +17,27 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.bean.UserInfo;
 import com.exam.commonbiz.dialog.CommonTipDialog;
-import com.exam.commonbiz.util.CommonCallBack;
+import com.exam.commonbiz.util.BitmapUtil;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.exam.commonbiz.util.Res;
 import com.exam.commonbiz.util.ScreenUtil;
+import com.exam.commonbiz.util.ToastUtil;
+import com.sanshao.commonui.dialog.CommonBottomDialog;
+import com.sanshao.commonui.dialog.CommonDialogInfo;
+import com.sanshao.commonui.titlebar.OnTitleBarListener;
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
+import com.zzhoujay.richtext.ImageHolder;
+import com.zzhoujay.richtext.RichText;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.jzvd.Jzvd;
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityGoodsDetailBinding;
@@ -45,9 +60,6 @@ import cn.sanshaoxingqiu.ssbm.module.order.view.PayCompleteActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderDetailViewModel;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderViewModel;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.PayViewModel;
-
-import com.exam.commonbiz.bean.UserInfo;
-
 import cn.sanshaoxingqiu.ssbm.module.register.view.RegisterActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.VideoInfo;
@@ -58,30 +70,10 @@ import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsInroduction
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.RecommendRewardDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
-
-import com.exam.commonbiz.util.BitmapUtil;
-
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.MathUtil;
 import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
-
-import com.sanshao.commonui.dialog.CommonBottomDialog;
-import com.sanshao.commonui.dialog.CommonDialogInfo;
-import com.sanshao.commonui.titlebar.OnTitleBarListener;
-import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
-import com.zzhoujay.richtext.ImageHolder;
-import com.zzhoujay.richtext.RichText;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import cn.jzvd.Jzvd;
-
-import com.exam.commonbiz.util.ToastUtil;
 
 /**
  * 商品详情
@@ -195,14 +187,19 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                                 .setTitle("分享金不足")
                                 .setContent("啊哦，您的分享金不足，赶快邀请好友赚取分享金吧~")
                                 .setLeftButton("取消")
+                                .setOnLeftButtonClick(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        commonTipDialog.dismiss();
+                                    }
+                                })
                                 .showBottomLine(View.VISIBLE)
                                 .setRightButton("获取分享金")
                                 .setOnRightButtonClick(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
                                         commonTipDialog.dismiss();
-                                        //TODO 一起拉用户
-                                        ExerciseActivity.start(context, "http://139.224.220.161/toUser.html");
+                                        ExerciseActivity.start(context, Constants.userUrl);
                                     }
                                 })
                                 .show();
@@ -212,17 +209,22 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                 } else {
                     CommonTipDialog commonTipDialog = new CommonTipDialog();
                     commonTipDialog.init(context)
-                            .setTitle("分享金不足")
+                            .setTitle("提示")
                             .setContent("您还不是我们的星级用户，分享好友不能领取分享金，是否立即购买项目成为星级用户？")
                             .setLeftButton("取消")
+                            .setOnLeftButtonClick(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    commonTipDialog.dismiss();
+                                }
+                            })
                             .showBottomLine(View.VISIBLE)
-                            .setRightButton("获取分享金")
+                            .setRightButton("立即前往")
                             .setOnRightButtonClick(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     commonTipDialog.dismiss();
-                                    //TODO 一起拉粉丝
-                                    ExerciseActivity.start(context, "http://139.224.220.161/toFans.html");
+                                    ExerciseActivity.start(context, Constants.fansUrl);
                                 }
                             })
                             .show();

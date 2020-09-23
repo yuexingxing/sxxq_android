@@ -8,6 +8,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.AppointmentedInfo;
+import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderInfo;
+import cn.sanshaoxingqiu.ssbm.module.order.view.adapter.OrderListAdapter;
 import cn.sanshaoxingqiu.ssbm.widget.countdowntimer.CountdownView;
 
 /**
@@ -18,6 +20,16 @@ public class PersonalOrderSubjectAdapter extends BaseQuickAdapter<AppointmentedI
 
     public PersonalOrderSubjectAdapter() {
         super(R.layout.item_layout_personal_order_subject, null);
+    }
+
+    private OnItemTimeEndListener mCallBack;
+
+    public void setOnItemTimeEndListener(OnItemTimeEndListener onItemClickListener) {
+        mCallBack = onItemClickListener;
+    }
+
+    public interface OnItemTimeEndListener {
+        void onTimeEnd(AppointmentedInfo appointmentedInfo);
     }
 
     @Override
@@ -32,7 +44,9 @@ public class PersonalOrderSubjectAdapter extends BaseQuickAdapter<AppointmentedI
         countdownView.setOnCountdownEndListener(new CountdownView.OnCountdownEndListener() {
             @Override
             public void onEnd(CountdownView cv) {
-
+                if (mCallBack != null) {
+                    mCallBack.onTimeEnd(item);
+                }
             }
         });
 

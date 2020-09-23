@@ -73,7 +73,7 @@ import cn.sanshaoxingqiu.ssbm.util.DateUtil;
 public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFragmentBinding> implements IPersonalCallBack, IOrderDetailModel,
         IAppointmentModel, IIdentityModel {
 
-    private List<OrderInfo> mOrderInfoList = new ArrayList<>();
+    private List<AppointmentedInfo> mAppointmentedInfoList = new ArrayList<>();
     private PersonalOrderSubjectAdapter mPersonalOrderSubjectAdapter;
     private OrderDetailViewModel mOrderDetailViewModel;
     private AppointmentForConsultationViewModel mAppointmentForConsultationViewModel;
@@ -239,6 +239,13 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.pavAboutus.setOnClickListener(v -> {
             AboutUsActivity.start(context);
         });
+        binding.includePersonalOrder.rlOpen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.includePersonalOrder.rlOpen.setVisibility(View.GONE);
+                mPersonalOrderSubjectAdapter.setNewData(mAppointmentedInfoList);
+            }
+        });
 
         initOrderList();
         binding.pavSetting.setOnClickListener(v -> SettingActivity.start(context));
@@ -288,10 +295,14 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.includePersonalOrder.recyclerView.setAdapter(mPersonalOrderSubjectAdapter);
         binding.includePersonalOrder.recyclerView.setNestedScrollingEnabled(false);
         binding.includePersonalOrder.recyclerView.setFocusable(false);
-//        mPersonalOrderSubjectAdapter.setOnItemClickListener(() -> {
-//            mPersonalOrderSubjectAdapter.getData().clear();
-////            mPersonalOrderSubjectAdapter.addData(mOrderInfoList);
-//        });
+        mPersonalOrderSubjectAdapter.setOnItemTimeEndListener(new PersonalOrderSubjectAdapter.OnItemTimeEndListener() {
+            @Override
+            public void onTimeEnd(AppointmentedInfo appointmentedInfo) {
+                if (mAppointmentForConsultationViewModel != null) {
+                    mAppointmentForConsultationViewModel.getAppointmentedList();
+                }
+            }
+        });
     }
 
     @Override
@@ -469,11 +480,14 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
 
     @Override
     public void returnAppointmentedList(List<AppointmentedInfo> list) {
+
+        mPersonalOrderSubjectAdapter.getData().clear();
+        mPersonalOrderSubjectAdapter.notifyDataSetChanged();
         if (ContainerUtil.isEmpty(list)) {
+            binding.includePersonalOrder.rlOpen.setVisibility(View.GONE);
             return;
         }
-
-        List<AppointmentedInfo> appointmentedInfoList = new ArrayList<>();
+        mAppointmentedInfoList.clear();
         for (int i = 0; i < list.size(); i++) {
             AppointmentedInfo appointmentedInfo = list.get(i);
             long second = DateUtil.getDiffDaySecond(DateUtil.getCurrentTime(), appointmentedInfo.reservation_time);
@@ -482,9 +496,17 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
                 continue;
             }
             appointmentedInfo.remainSeconds = second;
-            appointmentedInfoList.add(appointmentedInfo);
+            mAppointmentedInfoList.add(appointmentedInfo);
+        }
+        if (ContainerUtil.isEmpty(mAppointmentedInfoList)) {
+            binding.includePersonalOrder.rlOpen.setVisibility(View.GONE);
+            return;
         }
 
-        mPersonalOrderSubjectAdapter.addData(appointmentedInfoList);
+        if (mAppointmentedInfoList.size() == 1) {
+            binding.includePersonalOrder.rlOpen.setVisibility(View.GONE);
+        }
+
+        mPersonalOrderSubjectAdapter.addData(mAppointmentedInfoList.get(0));
     }
 }
