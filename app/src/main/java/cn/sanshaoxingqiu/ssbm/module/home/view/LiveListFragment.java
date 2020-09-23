@@ -21,6 +21,7 @@ import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
 import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.audience.TCAudienceActivity;
 import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
+import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
 
 import java.util.ArrayList;
 
@@ -37,7 +38,7 @@ import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
  * @time 2020/9/16
  */
 public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayoutLiveListBinding> implements IBaseModel, BaseQuickAdapter.RequestLoadMoreListener {
-
+    public static final int START_LIVE_PLAY = 100;
     private HomeAdapter mHomeAdapter;
 
     public static LiveListFragment newInstance() {
@@ -120,14 +121,18 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         intent.putExtra(TCConstants.COVER_PIC, item.frontcover);
         intent.putExtra(TCConstants.TIMESTAMP, item.live_start_time);
         intent.putExtra(TCConstants.ROOM_TITLE, item.live_title);
-        startActivity(intent);
+        startActivityForResult(intent, START_LIVE_PLAY);
     }
 
     @Override
     protected void loadData() {
-        if (isVisiable) {
-            getLiveData();
-        }
+
+    }
+
+    @Override
+    protected void onVisible() {
+        super.onVisible();
+        getLiveData();
     }
 
     @Override
@@ -138,6 +143,8 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
     @Override
     public void onRefreshData(Object object) {
         binding.swipeRefreshLayout.setRefreshing(false);
+        mHomeAdapter.getData().clear();
+        mHomeAdapter.notifyDataSetChanged();
         if (object == null) {
             mHomeAdapter.isUseEmpty(true);
             return;
@@ -176,5 +183,13 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
     @Override
     public void onNetError() {
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (START_LIVE_PLAY == requestCode) {
+            getLiveData();
+        }
     }
 }

@@ -86,10 +86,8 @@ public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudi
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
-
     private TXCloudVideoView mTXCloudVideoView;      // 观看大主播的 View
     private MLVBLiveRoom mLiveRoom;              // MLVB 组件
-
 
     // 消息相关
     private TCInputTextMsgDialog mInputTextMsgDialog;    // 消息输入框

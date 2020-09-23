@@ -147,7 +147,7 @@ public class HomeFragment extends BaseFragment<BaseViewModel, HomeFragmentBindin
     private void onTabUnSelectView(TabLayout.Tab tab) {
         View view = tab.getCustomView();
         TextView textView = view.findViewById(R.id.tv_title);
-        textView.setTextColor(Res.getColor(context, R.color.color_bbbbbb));
+        textView.setTextColor(Res.getColor(context, R.color.white));
         textView.setTextSize(15f);
     }
 

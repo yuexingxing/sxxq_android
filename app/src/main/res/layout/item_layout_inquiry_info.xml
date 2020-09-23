@@ -31,7 +31,8 @@
                 android:layout_height="wrap_content"
                 android:text="项目："
                 android:textColor="@color/color_333333"
-                android:textSize="11sp" />
+                android:textSize="11sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_title"
@@ -41,6 +42,7 @@
                 android:maxLines="1"
                 android:textColor="@color/color_333333"
                 android:textSize="14sp"
+                android:textStyle="bold"
                 tools:text="黄金微针你的美容必备，美容必备…" />
         </LinearLayout>
 
@@ -84,9 +86,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="1.3dp"
+                android:text="@string/store_address"
                 android:textColor="@color/color_666666"
-                android:textSize="11sp"
-                tools:text="上海市静安区新闸路829号丽都新贵大厦304、305、306室上海市静安区新闸路829号丽都新贵大厦304、305、306室" />
+                android:textSize="11sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -94,7 +96,7 @@
         android:id="@+id/view_space_bottom"
         android:layout_width="match_parent"
         android:layout_height="12dp"
+        android:layout_below="@+id/ll_content"
         android:visibility="gone"
-        tools:visibility="visible"
-        android:layout_below="@+id/ll_content" />
+        tools:visibility="visible" />
 </RelativeLayout>

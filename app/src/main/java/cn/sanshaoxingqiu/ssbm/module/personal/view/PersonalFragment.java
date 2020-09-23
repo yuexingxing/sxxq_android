@@ -2,6 +2,7 @@ package cn.sanshaoxingqiu.ssbm.module.personal.view;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.bean.UserInfo;
 import com.exam.commonbiz.dialog.CommonTipDialog;
+import com.exam.commonbiz.util.ContainerUtil;
 import com.exam.commonbiz.util.GlideUtil;
 import com.exam.commonbiz.util.Res;
 import com.exam.commonbiz.util.ScreenUtil;
@@ -241,6 +243,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         initOrderList();
         binding.pavSetting.setOnClickListener(v -> SettingActivity.start(context));
         binding.guessYouLoveView.getData();
+        mAppointmentForConsultationViewModel.getAppointmentedList();
     }
 
     @Override
@@ -285,11 +288,10 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.includePersonalOrder.recyclerView.setAdapter(mPersonalOrderSubjectAdapter);
         binding.includePersonalOrder.recyclerView.setNestedScrollingEnabled(false);
         binding.includePersonalOrder.recyclerView.setFocusable(false);
-        mPersonalOrderSubjectAdapter.setOnItemClickListener(() -> {
-            mPersonalOrderSubjectAdapter.setShowOpenView(false);
-            mPersonalOrderSubjectAdapter.getData().clear();
-            mPersonalOrderSubjectAdapter.addData(mOrderInfoList);
-        });
+//        mPersonalOrderSubjectAdapter.setOnItemClickListener(() -> {
+//            mPersonalOrderSubjectAdapter.getData().clear();
+////            mPersonalOrderSubjectAdapter.addData(mOrderInfoList);
+//        });
     }
 
     @Override
@@ -437,11 +439,6 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     }
 
     @Override
-    public void returnAppointmentedList(AppointmentedInfo appointmentedInfo) {
-
-    }
-
-    @Override
     public void onRefreshData(Object object) {
 
     }
@@ -468,5 +465,26 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         }
         mLiveApplyResponse = liveApplyResponse;
         TCUserMgr.getInstance().setCoverPic(liveApplyResponse.frontcover, null);
+    }
+
+    @Override
+    public void returnAppointmentedList(List<AppointmentedInfo> list) {
+        if (ContainerUtil.isEmpty(list)) {
+            return;
+        }
+
+        List<AppointmentedInfo> appointmentedInfoList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            AppointmentedInfo appointmentedInfo = list.get(i);
+            long second = DateUtil.getDiffDaySecond(DateUtil.getCurrentTime(), appointmentedInfo.reservation_time);
+            Log.d("zdddz", DateUtil.getCurrentTime() + "/" + appointmentedInfo.reservation_time + "/" + second);
+            if (second < 1) {
+                continue;
+            }
+            appointmentedInfo.remainSeconds = second;
+            appointmentedInfoList.add(appointmentedInfo);
+        }
+
+        mPersonalOrderSubjectAdapter.addData(appointmentedInfoList);
     }
 }

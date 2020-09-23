@@ -9,7 +9,6 @@ import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.bean.UserInfo;
 import com.exam.commonbiz.util.ToastUtil;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
-import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -18,16 +17,13 @@ import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityConfirmPayBinding;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.ConfirmOrderResponse;
-import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderNumStatusResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderPayInfoResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderStatusResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.event.PayStatusChangedEvent;
 import cn.sanshaoxingqiu.ssbm.module.order.model.IConfirmOrderModel;
-import cn.sanshaoxingqiu.ssbm.module.order.model.IOrderDetailModel;
 import cn.sanshaoxingqiu.ssbm.module.order.model.IPayModel;
 import cn.sanshaoxingqiu.ssbm.module.order.model.OnPayListener;
 import cn.sanshaoxingqiu.ssbm.module.order.util.PayUtils;
-import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderDetailViewModel;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.PayViewModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IGoodsDetailModel;
@@ -183,7 +179,6 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         if (orderStatusResponse == null) {
             return;
         }
-
     }
 
     @Override
@@ -212,7 +207,6 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
             return;
         }
         binding.tvPrice.setText(goodsDetailInfo.getPriceText());
-        binding.tvName.setText(goodsDetailInfo.sarti_name);
         if (goodsDetailInfo.isFree()) {
             binding.rlPay.setVisibility(View.INVISIBLE);
             binding.btnStartPay.setText("免费领取");

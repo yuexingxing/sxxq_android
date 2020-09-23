@@ -31,9 +31,9 @@ import java.util.List;
  * Module:   TCLocationHelper
  * <p>
  * Function: 定位服务的工具类
- *
+ * <p>
  * 该工具能提供粗略的定位服务，若您需要高精度定位，可以使用腾讯云 LBS SDK进行位置定位。
- *
+ * <p>
  * 详情见：https://lbs.qq.com/geo/index.html
  */
 public class TCLocationHelper {
@@ -65,8 +65,8 @@ public class TCLocationHelper {
                 Address address = list.get(0);
                 String sAddress;
 
-                if(!TextUtils.isEmpty(address.getLocality())) {
-                    if(!TextUtils.isEmpty(address.getFeatureName())) {
+                if (!TextUtils.isEmpty(address.getLocality())) {
+                    if (!TextUtils.isEmpty(address.getFeatureName())) {
                         sAddress = address.getLocality() + " " + address.getFeatureName();
                     } else {
                         sAddress = address.getLocality();
@@ -86,7 +86,7 @@ public class TCLocationHelper {
     static public boolean getMyLocation(final @NonNull Activity activity, final @NonNull OnLocationListener listener) {
         final LocationManager locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
 
-        if(!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+        if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             // notify user
             AlertDialog.Builder dialog = new AlertDialog.Builder(activity, R.style.ConfirmDialogStyle);
             dialog.setMessage("尚未开启位置定位服务");
@@ -94,7 +94,7 @@ public class TCLocationHelper {
                 @Override
                 public void onClick(DialogInterface paramDialogInterface, int paramInt) {
                     // TODO Auto-generated method stub
-                    Intent myIntent = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     activity.startActivity(myIntent);
                     //get gps
                 }
@@ -120,7 +120,7 @@ public class TCLocationHelper {
             mLocationListener = new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
-                    if (locationManager == null){
+                    if (locationManager == null) {
                         return;
                     }
                     String strAddr = getAddressFromLocation(activity, location);
@@ -129,12 +129,16 @@ public class TCLocationHelper {
                     } else {
                         listener.onLocationChanged(0, location.getLatitude(), location.getLongitude(), strAddr);
                     }
-                    locationManager.removeUpdates(this);
+                    try {
+                        locationManager.removeUpdates(this);
+                    } catch (Exception e) {
+
+                    }
                 }
 
                 @Override
                 public void onStatusChanged(String provider, int status, Bundle extras) {
-                    if (locationManager == null){
+                    if (locationManager == null) {
                         return;
                     }
                     locationManager.removeUpdates(this);
@@ -142,7 +146,7 @@ public class TCLocationHelper {
 
                 @Override
                 public void onProviderEnabled(String provider) {
-                    if (locationManager == null){
+                    if (locationManager == null) {
                         return;
                     }
                     locationManager.removeUpdates(this);
@@ -150,7 +154,7 @@ public class TCLocationHelper {
 
                 @Override
                 public void onProviderDisabled(String provider) {
-                    if (locationManager == null){
+                    if (locationManager == null) {
                         return;
                     }
                     locationManager.removeUpdates(this);

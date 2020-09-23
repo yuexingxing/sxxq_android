@@ -8,7 +8,7 @@
     <View
         android:id="@+id/view_space_top"
         android:layout_width="match_parent"
-        android:layout_height="12dp"/>
+        android:layout_height="12dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,63 +42,48 @@
             android:layout_marginLeft="8dp"
             android:orientation="vertical">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="22dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
                     android:text="剩余时间"
                     android:textColor="@color/color_333333"
                     android:textSize="13sp" />
 
-                <TextView
-                    android:id="@+id/tv_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:text="6天12小时9分"
-                    android:textColor="@color/color_c5602d"
-                    android:textSize="13sp" />
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <RelativeLayout
-                android:id="@+id/rl_open"
-                android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/shape_white_radius_10"
-                android:gravity="center">
-
-                <ImageView
-                    android:id="@+id/iv_open"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/icon_open" />
-
-                <TextView
+                <cn.sanshaoxingqiu.ssbm.widget.countdowntimer.CountdownView
+                    android:id="@+id/tv_last_time"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="4dp"
-                    android:layout_toRightOf="@+id/iv_open"
-                    android:gravity="center"
-                    android:text="展开"
-                    android:textColor="@color/color_333333" />
-            </RelativeLayout>
+                    android:layout_marginLeft="6dp"
+                    app:isHideTimeBackground="true"
+                    app:isShowDay="true"
+                    app:isShowHour="true"
+                    app:isShowMinute="true"
+                    app:isShowSecond="true"
+                    app:isTimeTextBold="true"
+                    app:suffixDay="天"
+                    app:suffixGravity="bottom"
+                    app:suffixHour="时"
+                    app:suffixMinute="分"
+                    app:suffixSecond="秒"
+                    app:suffixTextColor="@color/color_c5602d"
+                    app:suffixTextSize="13sp"
+                    app:timeTextColor="@color/color_c5602d"
+                    app:timeTextSize="13sp" />
+            </LinearLayout>
+
+            <include layout="@layout/item_layout_inquiry_info" />
 
             <View
                 android:id="@+id/view_space_bottom"
                 android:layout_width="match_parent"
-                android:layout_height="12dp"/>
+                android:layout_height="12dp" />
         </LinearLayout>
 
     </LinearLayout>

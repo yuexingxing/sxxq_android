@@ -95,6 +95,40 @@ public class DateUtil {
     }
 
     /**
+     * 获取两个日期间隔秒数
+     *
+     * @param beginTime
+     * @param endTime
+     * @return
+     */
+    public static long getDiffDaySecond(String beginTime, String endTime) {
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        long timeMillis = System.currentTimeMillis();
+        if (null == beginTime) {
+            beginTime = stampToDate(timeMillis);
+        }
+
+        if (null == endTime) {
+            endTime = stampToDate(timeMillis);
+        }
+
+        //将时间戳转为日期格式
+        Date curDate = null;
+        Date endDate = null;
+
+        try {
+            curDate = df.parse(beginTime);
+            endDate = df.parse(endTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        long diff = endDate.getTime() - curDate.getTime();
+        return diff / 1000;
+    }
+
+    /**
      * 将时间戳转换为时间
      */
     public static String stampToDate(long timeMillis) {
