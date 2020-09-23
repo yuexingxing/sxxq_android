@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="分享继续免费领"
+            android:text="再邀请一位新用户，继续免费领项目"
             android:textColor="#ff333333"
             android:textSize="17sp" />
 
@@ -29,7 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="再邀请一位新用户，可免费领一份奖励～"
+            android:visibility="gone"
+            android:text="再邀请一位新用户，继续免费领项目"
             android:textColor="#ff666666"
             android:textSize="12sp" />
 
@@ -41,7 +42,7 @@
             android:layout_marginBottom="24dp"
             android:background="@drawable/shape_btn_able"
             android:gravity="center"
-            android:text="立即分享"
+            android:text="去邀请好友"
             android:textColor="@color/white"
             android:textSize="16sp" />
     </LinearLayout>

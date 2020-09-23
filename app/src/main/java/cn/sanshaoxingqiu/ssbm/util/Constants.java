@@ -29,4 +29,5 @@ public class Constants {
     public static final String fansUrl = "http://139.224.220.161/toFans.html";
     public static final String userUrl = "http://139.224.220.161/touser.html";
     public static final String guimiUrl = "http://139.224.220.161/toGuimi.html";
+    public static final String memberBenefitUrl = "http://h5.sanshaoxingqiu.cn/vip/";//会员权益
 }

@@ -41,7 +41,7 @@ import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
 public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfirmPayBinding> implements IPayModel, IConfirmOrderModel, IGoodsDetailModel {
     public static final String PAY_BY_WECHAT = "HFWX";
     public static final String PAY_BY_ALI_APP = "HFALIPAYAPP";
-    private String mPayType = PAY_BY_ALI_APP;//默认支付宝支付
+    private String mPayType = PAY_BY_WECHAT;//默认微信支付
     private boolean isFirstIn = true;
     private UserInfo mUserInfo;
     private GoodsDetailInfo mGoodsDetailInfo;
@@ -89,15 +89,23 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         mUserInfo = SSApplication.getInstance().getUserInfo();
 
         binding.btnStartPay.setOnClickListener(v -> {
-            if (TextUtils.equals(mPayType, PAY_BY_WECHAT)) {
-                String path = "/pages/order/appPay?" + "salebill_id=" + mGoodsDetailInfo.salebill_id
-                        + "&mem_phone=" + mUserInfo.mem_phone;
-                new ShareUtils()
-                        .init(context)
-                        .jump2WxMiniProgram(path);
+            if (mGoodsDetailInfo == null) {
+                return;
+            }
+            if (mGoodsDetailInfo.isFree() || mGoodsDetailInfo.isPayByPoint()) {
+                jumpPay = false;
+                mViewModel.getOrderPayInfo(PayViewModel.CHECK_ORDER_STATUS, mGoodsDetailInfo.salebill_id, mPayType);
             } else {
-                jumpPay = true;
-                mViewModel.getOrderPayInfo(PayViewModel.GET_PAY_INFO, mGoodsDetailInfo.salebill_id, mPayType);
+                if (TextUtils.equals(mPayType, PAY_BY_WECHAT)) {
+                    String path = "/pages/order/appPay?" + "salebill_id=" + mGoodsDetailInfo.salebill_id
+                            + "&mem_phone=" + mUserInfo.mem_phone;
+                    new ShareUtils()
+                            .init(context)
+                            .jump2WxMiniProgram(path);
+                } else {
+                    jumpPay = true;
+                    mViewModel.getOrderPayInfo(PayViewModel.GET_PAY_INFO, mGoodsDetailInfo.salebill_id, mPayType);
+                }
             }
         });
         mGoodsDetailViewModel.getGoodsDetail(context, mGoodsDetailInfo.sarti_id);
@@ -206,6 +214,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         if (goodsDetailInfo == null) {
             return;
         }
+        mGoodsDetailInfo = goodsDetailInfo;
         binding.tvPrice.setText(goodsDetailInfo.getPriceText());
         if (goodsDetailInfo.isFree()) {
             binding.rlPay.setVisibility(View.INVISIBLE);

@@ -40,9 +40,10 @@ public class ExerciseActivity extends BaseWebViewActivity {
 
     private GoodsDetailInfo mGoodsDetailInfo;
 
-    public static void start(Context context, String url) {
+    public static void start(Context context, String title, String url) {
         Intent starter = new Intent(context, ExerciseActivity.class);
-        starter.putExtra(Constants.OPT_DATA, url);
+        starter.putExtra(Constants.OPT_DATA, title);
+        starter.putExtra(Constants.OPT_DATA2, url);
         context.startActivity(starter);
     }
 
@@ -59,7 +60,9 @@ public class ExerciseActivity extends BaseWebViewActivity {
     @Override
     public void initData() {
 
-        String url = getIntent().getStringExtra(Constants.OPT_DATA);
+        String title = getIntent().getStringExtra(Constants.OPT_DATA);
+        String url = getIntent().getStringExtra(Constants.OPT_DATA2);
+        mTitleBar.setTitle(title);
 //        url = "file:///android_asset/ExampleApp.html";//ExampleApp
         initWebView(url);
         registerHandler();

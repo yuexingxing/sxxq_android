@@ -199,7 +199,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                                     @Override
                                     public void onClick(View view) {
                                         commonTipDialog.dismiss();
-                                        ExerciseActivity.start(context, Constants.userUrl);
+                                        ExerciseActivity.start(context, "一起拉用户", Constants.userUrl);
                                     }
                                 })
                                 .show();
@@ -224,7 +224,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                                 @Override
                                 public void onClick(View view) {
                                     commonTipDialog.dismiss();
-                                    ExerciseActivity.start(context, Constants.fansUrl);
+                                    ExerciseActivity.start(context, "一起拉粉丝", Constants.fansUrl);
                                 }
                             })
                             .show();

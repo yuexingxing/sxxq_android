@@ -86,13 +86,10 @@ public class PayCompleteActivity extends BaseActivity<GoodsDetailViewModel, Acti
             }
         });
         binding.includeShare.tvShare.setOnClickListener(v -> {
-            if (mGoodsDetailInfo != null) {
-                share();
-            }
+            ExerciseActivity.start(context, "一起拉用户", Constants.userUrl);
         });
         binding.includeStar.tvMember.setOnClickListener(v -> {
-            //TODO 会员权益
-            ExerciseActivity.start(context, "");
+            ExerciseActivity.start(context, "会员权益", Constants.memberBenefitUrl);
         });
         binding.tvToMain.setOnClickListener(v -> MainActivity.start(context));
         binding.tvViewOrder.setOnClickListener(v -> {
