@@ -97,6 +97,7 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
     private IMLVBLiveRoomListener.RequestRoomPKCallback mRequestPKCallback = null;
     private Runnable mRequestPKTimeoutTask = null;
     private AnchorInfo mPKAnchorInfo = null;
+    private boolean isLoginLiveRoom = false;//是否成功登录MLVB Liveroom
 
     //观众列表最大长度
     private static final int MAX_MEMBER_SIZE = 20;
@@ -150,6 +151,10 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
     public void setListener(IMLVBLiveRoomListener listener) {
         TXCLog.i(TAG, "API -> setListener");
         mListener = listener;
+    }
+
+    public boolean isLoginLiveRoom() {
+        return isLoginLiveRoom;
     }
 
     /**
@@ -220,6 +225,7 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
                             @Override
                             public void onSuccess(Object... args) {
                                 //设置IM的个人信息
+                                isLoginLiveRoom = true;
                                 String msg = String.format("[LiveRoom] 登录成功, userID {%s}, userName {%s} " + "sdkAppID {%s}", mSelfAccountInfo.userID, mSelfAccountInfo.userName, mSelfAccountInfo.sdkAppID);
                                 IMMessageMgr imMessageMgr = mIMMessageMgr;
                                 if (imMessageMgr != null) {
@@ -247,6 +253,7 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
     @Override
     public void logout() {
         TXCLog.i(TAG, "API -> logout");
+        isLoginLiveRoom = false;
         callbackOnThread(mListener, "onDebugLog", "[LiveRoom] 注销");
         if (mHttpRequest != null) {
             mHttpRequest.logout(new HttpRequests.OnResponseCallback<HttpResponse>() {

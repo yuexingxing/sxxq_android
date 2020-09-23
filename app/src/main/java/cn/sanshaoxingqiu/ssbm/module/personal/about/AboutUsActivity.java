@@ -13,6 +13,7 @@ import com.exam.commonbiz.base.BasicApplication;
 import com.exam.commonbiz.cache.ACache;
 import com.exam.commonbiz.dialog.CommonTipDialog;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
+import com.sanshao.livemodule.liveroom.MLVBLiveRoomImpl;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
 
 import cn.sanshaoxingqiu.ssbm.R;
@@ -82,6 +83,9 @@ public class AboutUsActivity extends BaseActivity<AboutUsViewModel, ActivityAbou
                             @Override
                             public void onClick(View view) {
                                 commonTipDialog.dismiss();
+                                if (MLVBLiveRoomImpl.mInstance != null) {
+                                    MLVBLiveRoomImpl.mInstance.logout();
+                                }
                                 TCUserMgr.getInstance().logout();
                                 BasicApplication.app.logout();
                                 LoginActivity.start(context);

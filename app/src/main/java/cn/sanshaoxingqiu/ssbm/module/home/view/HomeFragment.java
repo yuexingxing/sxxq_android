@@ -66,11 +66,12 @@ public class HomeFragment extends BaseFragment<BaseViewModel, HomeFragmentBindin
 
     @Override
     protected void loadData() {
+        if (MLVBLiveRoomImpl.mInstance != null && !MLVBLiveRoomImpl.mInstance.isLoginLiveRoom()) {
+            TCUserMgr.getInstance().loginMLVB();
+        }
         if (SSApplication.isLogin()) {
             if (TCGlobalConfig.isUserSignEmpty()) {
                 TCGlobalConfig.getUserSign();
-            } else {
-                TCUserMgr.getInstance().loginMLVB();
             }
         }
     }
