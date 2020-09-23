@@ -32,6 +32,7 @@ public class UserInfo implements Serializable {
     public String mem_class_name;
     public String point_status;
     public String frontcover;//直播封面
+    public String mem_class_key;//1，2，3对应一星，二星，三星会员
 
     //有没有分享金
     public boolean isZeroPoint() {
