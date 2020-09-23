@@ -30,7 +30,9 @@
         android:supportsRtl="true"
         android:theme="@style/MyTheme"
         tools:replace="allowBackup,icon,theme,label">
-        <activity android:name=".module.shoppingcenter.view.ExerciseActivity"></activity>
+        <activity
+            android:name=".module.shoppingcenter.view.ExerciseActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".module.live.view.IdentityingActivity"
             android:screenOrientation="portrait" />

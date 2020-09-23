@@ -30,9 +30,9 @@
                         android:id="@+id/iv_bg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:scaleType="centerCrop"
                         android:background="@drawable/image_twostarsbg"
-                        android:paddingTop="25dp" />
+                        android:paddingTop="25dp"
+                        android:scaleType="centerCrop" />
 
                     <RelativeLayout
                         android:id="@+id/rl_header"
@@ -213,9 +213,11 @@
                     android:layout_height="45dp"
                     android:paddingLeft="@dimen/left_container_margin"
                     android:paddingRight="@dimen/right_container_margin"
+                    android:visibility="gone"
                     app:icon_pav="@drawable/icon_income"
                     app:isShowLine_pav="true"
-                    app:title_pav="进账" />
+                    app:title_pav="进账"
+                    tools:visibility="visible" />
 
                 <cn.sanshaoxingqiu.ssbm.widget.PersonalAccountView
                     android:id="@+id/pav_my_referrer"

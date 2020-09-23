@@ -48,7 +48,8 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderInfo, BaseViewHolder
 
         helper.setText(R.id.tv_content_tip, String.format("共计%s件商品；实收：%s元", item.count, MathUtil.getNumExclude0(item.totalPrice)));
         helper.setText(R.id.tv_state, item.getOrderStatus(item.saleStatus));
-        if (TextUtils.equals(OrderInfo.ORDER_STATUS.PAY, item.saleStatus)) {
+        if (TextUtils.equals(OrderInfo.ORDER_STATUS.PAY, item.saleStatus) ||
+                TextUtils.equals(OrderInfo.ORDER_STATUS.PAYING, item.saleStatus)) {
             helper.getView(R.id.ll_tobe_paid).setVisibility(View.VISIBLE);
         } else if (TextUtils.equals(OrderInfo.ORDER_STATUS.PAID, item.saleStatus)) {
             helper.getView(R.id.ll_tobe_use).setVisibility(View.VISIBLE);
@@ -65,7 +66,7 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderInfo, BaseViewHolder
         }
 
         if (item.shopSartiInfo != null) {
-            if (TextUtils.equals(item.shopSartiInfo.pay_type, GoodsDetailInfo.PAY_TYPE.DEPOSIT)){
+            if (TextUtils.equals(item.shopSartiInfo.pay_type, GoodsDetailInfo.PAY_TYPE.DEPOSIT)) {
                 helper.setText(R.id.tv_total_price1, "¥" + MathUtil.getNumExclude0(item.shopSartiInfo.deposit_price));
             }
         }

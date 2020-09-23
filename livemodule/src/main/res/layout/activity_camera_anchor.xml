@@ -178,6 +178,7 @@
                 android:layout_width="@dimen/live_btn_size"
                 android:layout_height="@dimen/live_btn_size"
                 android:layout_marginLeft="5dp"
+                android:layout_marginBottom="15dp"
                 android:background="@drawable/btn_close"
                 android:onClick="onClick" />
         </LinearLayout>

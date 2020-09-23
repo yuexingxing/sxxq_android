@@ -11,6 +11,7 @@ import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -18,9 +19,14 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.exam.commonbiz.R;
+import com.exam.commonbiz.bean.InitTokenInfo;
+import com.exam.commonbiz.bean.UserInfo;
+import com.exam.commonbiz.bean.WebViewBaseInfo;
+import com.exam.commonbiz.util.BeanUtil;
 import com.exam.commonbiz.util.JavaScriptInterface;
 import com.exam.commonbiz.util.MyHandlerCallBack;
 import com.exam.commonbiz.util.StatusBarUtil;
@@ -29,8 +35,13 @@ import com.github.lzyzsd.jsbridge.BridgeHandler;
 import com.github.lzyzsd.jsbridge.BridgeWebView;
 import com.github.lzyzsd.jsbridge.BridgeWebViewClient;
 import com.github.lzyzsd.jsbridge.CallBackFunction;
+import com.github.lzyzsd.jsbridge.DefaultHandler;
+import com.google.gson.Gson;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.sanshao.commonui.titlebar.TitleBar;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Map;
 
@@ -102,6 +113,30 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
         }
     }
 
+    public void initToken() {
+
+        if (mWebView == null) {
+            return;
+        }
+
+        UserInfo userInfo = BasicApplication.getUserInfo();
+        WebViewBaseInfo<InitTokenInfo> webViewBaseInfo = new WebViewBaseInfo();
+        webViewBaseInfo.errorCode = 0;
+        webViewBaseInfo.message = "initToken";
+        InitTokenInfo initTokenInfo = new InitTokenInfo();
+        initTokenInfo.userId = userInfo.mem_id;
+        initTokenInfo.invatationCode = userInfo.invitation_code;
+        initTokenInfo.token = BasicApplication.getToken();
+        webViewBaseInfo.result = initTokenInfo;
+
+        mWebView.callHandler("initToken", new Gson().toJson(webViewBaseInfo), new CallBackFunction() {
+            @Override
+            public void onCallBack(String data) {
+                Log.d(TAG, "data123---: " + data);
+            }
+        });
+    }
+
     /**
      * 是否设置成透明状态栏，即就是全屏模式
      */
@@ -158,6 +193,8 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
     @JavascriptInterface
     public void initWebView(String url) {
         initSetting();
+        mWebView.setDefaultHandler(new DefaultHandler());
+        mWebView.setWebChromeClient(new WebChromeClient());
         mWebView.loadUrl(url);
     }
 
@@ -170,7 +207,7 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
 
     public void initSetting() {
         mWebView.setWebViewClient(new MyWebViewClient(mWebView));
-        mWebView.addJavascriptInterface(new JavaScriptInterface(this), "android");//JS交互
+        mWebView.addJavascriptInterface(new JavaScriptInterface(this), "app");//JS交互
         mWebView.setWebChromeClient(webChromeClient);
         mWebView.setDefaultHandler(new MyHandlerCallBack());
 
@@ -258,18 +295,19 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
             if (mTitleBar != null) {
                 mTitleBar.setTitle(view.getTitle());
             }
+            initToken();
         }
-//
-//        @Override
-//        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-//            view.getSettings().setJavaScriptEnabled(true);
-//            super.onPageStarted(view, url, favicon);
-//        }
-//
-//        @Override
-//        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-//            handler.proceed();
-//        }
+
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            view.getSettings().setJavaScriptEnabled(true);
+            super.onPageStarted(view, url, favicon);
+        }
+
+        @Override
+        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+            handler.proceed();
+        }
     }
 
     //WebChromeClient主要辅助WebView处理Javascript的对话框、网站图标、网站title、加载进度等

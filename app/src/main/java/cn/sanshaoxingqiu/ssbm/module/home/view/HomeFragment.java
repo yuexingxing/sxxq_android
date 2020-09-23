@@ -111,13 +111,13 @@ public class HomeFragment extends BaseFragment<BaseViewModel, HomeFragmentBindin
 
     private void initViewPager() {
 
-        mTitleList[0] = "直播";
-        mTitleList[1] = "推荐";
+        mTitleList[0] = "推荐";
+        mTitleList[1] = "直播";
 
         //把Fragment添加到List集合里面
         mFragmentList = new ArrayList<>();
-        mFragmentList.add(LiveListFragment.newInstance());
         mFragmentList.add(VideoBackListFragment.newInstance());
+        mFragmentList.add(LiveListFragment.newInstance());
 
         mLiveTabFragmentAdapter = new LiveTabFragmentAdapter(mFragmentList, mTitleList, getChildFragmentManager(), context);
         binding.viewPager.setAdapter(mLiveTabFragmentAdapter);

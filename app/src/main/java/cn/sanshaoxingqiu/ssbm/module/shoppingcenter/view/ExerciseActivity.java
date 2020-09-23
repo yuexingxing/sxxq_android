@@ -7,11 +7,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 
 import com.exam.commonbiz.base.BaseWebViewActivity;
 import com.exam.commonbiz.bean.WebViewBaseInfo;
 import com.exam.commonbiz.util.BitmapUtil;
-import com.exam.commonbiz.util.ToastUtil;
 import com.github.lzyzsd.jsbridge.BridgeHandler;
 import com.github.lzyzsd.jsbridge.CallBackFunction;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
@@ -41,17 +41,58 @@ public class ExerciseActivity extends BaseWebViewActivity {
     }
 
     @Override
+    protected int getLayoutId() {
+        return R.layout.activity_exercise;
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
     public void initData() {
 
         String url = getIntent().getStringExtra(Constants.OPT_DATA);
+        url = "file:///android_asset/ExampleApp.html";//ExampleApp
         initWebView(url);
-
-//        getWebView().loadUrl("file:///android_asset/ExampleApp.html");
         registerHandler();
     }
 
     private void registerHandler() {
 
+        //app登陆
+        mWebView.registerHandler("loginFunction", new BridgeHandler() {
+
+            @Override
+            public void handler(String data, CallBackFunction function) {
+                String str = "这是html返回给java的数据:" + data;
+                Log.i(TAG, "handler = submitFromWeb, data from web = " + data);
+                function.onCallBack(CommandTools.beanToJson(new WebViewBaseInfo()));
+
+            }
+        });
+        // app弹窗
+        mWebView.registerHandler("alertFunction", new BridgeHandler() {
+
+            @Override
+            public void handler(String data, CallBackFunction function) {
+                String str = "这是html返回给java的数据:" + data;
+                Log.i(TAG, "handler = submitFromWeb, data from web = " + data);
+                function.onCallBack(CommandTools.beanToJson(new WebViewBaseInfo()));
+            }
+        });
+        // 跳转到产品页
+        mWebView.registerHandler("productDetailFunction", new BridgeHandler() {
+
+            @Override
+            public void handler(String data, CallBackFunction function) {
+                String str = "这是html返回给java的数据:" + data;
+                Log.i(TAG, "handler = submitFromWeb, data from web = " + data);
+                function.onCallBack(CommandTools.beanToJson(new WebViewBaseInfo()));
+            }
+        });
+        // 分享产品
         mWebView.registerHandler("shareProductFunction", new BridgeHandler() {
 
             @Override
@@ -72,27 +113,6 @@ public class ExerciseActivity extends BaseWebViewActivity {
                 }
             }
         });
-
-        mWebView.registerHandler("shareProductFunction", new BridgeHandler() {
-
-            @Override
-            public void handler(String data, CallBackFunction function) {
-                String str = "这是html返回给java的数据:" + data;
-                Log.i(TAG, "handler = submitFromWeb, data from web = " + data);
-                function.onCallBack(CommandTools.beanToJson(new WebViewBaseInfo()));
-
-            }
-        });
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_exercise;
-    }
-
-    @Override
-    protected void initView() {
-
     }
 
     /**

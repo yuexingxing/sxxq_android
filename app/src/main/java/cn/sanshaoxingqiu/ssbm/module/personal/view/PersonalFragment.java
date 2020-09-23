@@ -383,10 +383,15 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.pavMyFenrun.setContent("¥ " + userInfo.commission);
 
         String memberStartTime = DateUtil.timeFormat(userInfo.mem_class_start_date);
-        int diffDays = DateUtil.getDiffDay(memberStartTime, DateUtil.getCurrentTime());
+        int diffDays = userInfo.mem_class.mem_class_valid_days - DateUtil.getDiffDay(memberStartTime, DateUtil.getCurrentTime());
+        if (diffDays < 0) {
+            diffDays = 0;
+            binding.tvMembersDateEnd.setText(DateUtil.getDateStr(memberStartTime, userInfo.mem_class.mem_class_valid_days) + " 到期");
+        } else {
+            binding.tvMembersDateEnd.setText(DateUtil.getDateStr(memberStartTime, userInfo.mem_class.mem_class_valid_days));
+        }
         binding.tvMembersDate.setText("会员期限" + diffDays
                 + "/" + userInfo.mem_class.mem_class_valid_days);
-        binding.tvMembersDateEnd.setText(DateUtil.getDateStr(memberStartTime, userInfo.mem_class.mem_class_valid_days));
         binding.progressHorizontal.setProgress(diffDays);
         binding.progressHorizontal.setMax(userInfo.mem_class.mem_class_valid_days);
 

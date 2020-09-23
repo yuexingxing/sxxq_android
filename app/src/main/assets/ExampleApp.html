@@ -3,10 +3,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<style type='text/css'>
+        html, body { width:100%; height:100% }
 		html { font-family:Helvetica; color:#222; }
 		h1 { color:steelblue; font-size:24px; margin-top:24px; }
 		button { margin:0 3px 10px; font-size:12px; }
-		hr { border-bottom:1px solid #ccc; padding:4px 2px; font-family:courier; font-size:11px; }
 	</style>
     <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
 </head>
@@ -74,8 +74,10 @@
     
     /// app调用了注册的"initToken"后回调方法
     function initTokenCallback(data, responseCallback) {
-        //app.token = data.token
-        
+        log("initTokenCallback", data)
+        app.token = data.result.token
+         log("token", app.token)
+
         // app的回调
         var responseData = {
             'errorCode': 200,
@@ -96,8 +98,13 @@
     }
     
     /// app弹窗
-    function app_alert(title, content, callback) {
-        call_app_function('alertFunction', {'title':title, 'content':content}, callback)
+    function app_alert(param, callback) {
+        message_info = {
+            'title': param.title,
+            'content': param.content,
+            'otherButtonTitle': param.otherButtonTitle
+        }
+        call_app_function('alertFunction', message_info, callback)
     }
     
     /// 跳转到产品页
@@ -110,6 +117,11 @@
         }
         call_app_function('productDetailFunction', product_info, callback)
     }
+
+    /// 跳转到订单列表页
+    function app_order(callback) {
+        call_app_function('orderFunction', {}, callback)
+    }
     
     /// 分享产品
     function app_share_product(param, callback) {
@@ -120,6 +132,18 @@
             'thumbnail_img':param.thumbnail_img
         }
         call_app_function('shareProductFunction', product_info, callback)
+    }
+    
+    /// 分享到微信小程序
+    function app_share_mini_app(param, callback) {
+        // 必须的数据结构
+        info = {
+            'title':param.title,
+            'thumbnail_img':param.thumbnail,
+            'shared_URL':param.sharedURL,
+            'shared_URL_with_host':param.sharedURLWithHost
+        }
+        call_app_function('shareToMiniAppFunction', product_info, callback)
     }
     
     /**
@@ -154,7 +178,14 @@
         当前页面业务处理
         */
         setupWebViewJavascriptBridge(function (bridge) {
-            registerHandler(bridge)
+        //初始化
+        bridge.init(function(message, responseCallback) {
+            var data = {
+                'Javascript Responds': 'Wee!'
+            };
+            responseCallback(data);
+        });
+        registerHandler(bridge)
         })
 
         $("#login").click(function(){
@@ -185,6 +216,19 @@
             })
         })
         
+        $("#shareToMiniApp").click(function(){
+            info = {
+                'title': "超多福利！价值6400元的医美项目，限时90元领取！",
+                'thumbnail':"https://ssbm-wxapp-static.oss-cn-shanghai.aliyuncs.com/icon/mianfeibm.jpeg",
+                'sharedURL':"/pages/activity/registration",
+                'sharedURLWithHost': "https://t2wxapi.sancell.top/pages/activity/registration"
+            }
+            
+            app_share_mini_app(info, function(){
+                
+            })
+        })
+        
         $("#detail").click(function(){
             product = {
                 'sarti_id':"9c80960c12e641e6a6f9db7153c86521",
@@ -196,12 +240,55 @@
                 
             })
         })
+
+        $("#userInfo").click(function() {
+            app.token = "b0a072bb5c5b4a619aeff8bcde89fc4b"
+            log("token", app.token)
+            
+            url = "https://t2wxapi.sancell.top/ssxq/w/meminfo/getMemInfo";
+            headers = {
+                "wx-token": app.token
+            }
+            $.ajax({
+                url: url,
+                headers: headers,
+                type: "get",
+                success: function (data) {
+                    log("success_call_back", "")
+                    log("userInfo", JSON.stringify(data))
+                },
+                error: function(data) {
+                    log("error_call_back", JSON.stringify(data))
+                }
+            });
+        });
+        
+        $("#alert").click(function() {
+            info = {
+                'title': "超多福利！价值6400元的医美项目，限时90元领取！",
+                'content': "https://ssbm-wxapp-static.oss-cn-shanghai.aliyuncs.com/icon/mianfeibm.jpeg",
+                'otherButtonTitle': '去xx'
+            }
+            
+            app_alert(info, function(response){
+                log("alert_用户点击了:", response)
+            })
+        });
+        
+        $("#order").click(function() {
+            app_order(function(response){
+            })
+        });
     })
 	</script>
     <div id='buttons'>
         <button id='login' type="button">Click Me!</button>
         <button id='share' type="button">Share Me!</button>
+        <button id='shareToMiniApp' type="button">Share Me!</button>
         <button id='detail' type="button">Product Detail!</button>
+        <button id='userInfo' type="button">Get User Info!</button>
+        <button id='alert' type="button">Alert!</button>
+        <button id='order' type="button">Order!</button>
     </div> 
     <div id='log'>
     </div>
