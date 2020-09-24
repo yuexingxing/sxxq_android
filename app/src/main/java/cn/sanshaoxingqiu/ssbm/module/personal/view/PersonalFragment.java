@@ -203,7 +203,22 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             }
             //认证成功
             else if (mLiveApplyResponse.isAuditSuccess()) {
-//                AnchorInfoActivity.start(context);
+                if (!mLiveApplyResponse.isAllowLive()) {
+                    CommonTipDialog commonTipDialog = new CommonTipDialog(context);
+                    commonTipDialog.setTitle("提示")
+                            .setContent("您已被处罚，暂不能开启直播，请咨询客服解除处罚。\n 客服电话：400-7163188")
+                            .setLeftButton("确定")
+                            .setCancelable(true)
+                            .setCanceledOnTouchOutside(false)
+                            .setOnLeftButtonClick(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    commonTipDialog.dismiss();
+                                }
+                            })
+                            .show();
+                    return;
+                }
                 StartLiveActivity.start(context);
             }
             //未填写资料
