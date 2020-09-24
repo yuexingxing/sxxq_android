@@ -221,6 +221,18 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
         }
     }
 
+    public String getMember() {
+        if (TextUtils.isEmpty(mem_class_key)) {
+            return "普通用户";
+        } else if (TextUtils.equals("1", mem_class_key)) {
+            return "一星粉丝";
+        } else if (TextUtils.equals("2", mem_class_key)) {
+            return "二星粉丝";
+        } else {
+            return "三星粉丝";
+        }
+    }
+
     //核销码
     public class WriteOffInfo implements Serializable {
         public String salebillId;

@@ -130,7 +130,7 @@ public class PayCompleteActivity extends BaseActivity<GoodsDetailViewModel, Acti
                 }
 
                 if (userInfo.isMember()) {
-                    binding.includeStar.tvPaycompleteTip.setText(String.format("您已经是%s啦！快去分享赚钱吧！", userInfo.getMember()));
+                    binding.includeStar.tvPaycompleteTip.setText(String.format("您已经是%s啦！快去分享赚钱吧！", goodsDetailInfo.getMember()));
                 } else {
                     binding.includeStar.tvPaycompleteTip.setText("恭喜您已成为【三少变美】一星粉丝");
                 }
