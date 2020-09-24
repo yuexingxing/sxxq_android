@@ -1,5 +1,7 @@
 package com.sanshao.livemodule.liveroom.roomutil.bean;
 
+import android.text.TextUtils;
+
 import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
 
 public class VideoInfo extends TCVideoInfo {
@@ -16,6 +18,14 @@ public class VideoInfo extends TCVideoInfo {
     public String frontcover;
     public AnchorInfo pushers;
     public String room_id;
-    public String meta_type;
+    public String meta_type;//1 直播 2回放 3短视频
     public String live_start_time;
+
+    /**
+     * 是不是直播
+     * @return
+     */
+    public boolean isLive(){
+        return TextUtils.equals("1", meta_type);
+    }
 }

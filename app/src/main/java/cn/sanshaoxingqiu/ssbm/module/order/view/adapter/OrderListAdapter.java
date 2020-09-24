@@ -65,18 +65,16 @@ public class OrderListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
         } else if (TextUtils.equals(OrderInfo.ORDER_STATUS.CANCEL, item.sale_status)) {
             helper.getView(R.id.ll_canceled).setVisibility(View.VISIBLE);
         } else if (TextUtils.equals(OrderInfo.ORDER_STATUS.PAY_GAP, item.sale_status)) {
-            if (item.shopSartiInfo != null) {
-                String lastFee = MathUtil.getNumExclude0(item.qty * (item.shopSartiInfo.sarti_saleprice - item.shopSartiInfo.deposit_price));
-                String fundFee = MathUtil.getNumExclude0(item.qty * item.shopSartiInfo.deposit_price);
-                helper.getView(R.id.ll_deposit).setVisibility(View.VISIBLE);
-                helper.setText(R.id.tv_content_tip, String.format("尾款: %s元 共计%s件商品；定金实付：%s元",
-                        lastFee, item.qty, fundFee));
-            }
+            helper.getView(R.id.ll_deposit).setVisibility(View.VISIBLE);
         }
 
         if (item.shopSartiInfo != null) {
-            if (TextUtils.equals(item.shopSartiInfo.pay_type, GoodsDetailInfo.PAY_TYPE.DEPOSIT)) {
+            if (item.shopSartiInfo.isPayByDisposit()){
                 helper.setText(R.id.tv_total_price1, "¥" + MathUtil.getNumExclude0(item.shopSartiInfo.deposit_price));
+                String lastFee = MathUtil.getNumExclude0(item.qty * (item.shopSartiInfo.sarti_saleprice - item.shopSartiInfo.deposit_price));
+                String fundFee = MathUtil.getNumExclude0(item.qty * item.shopSartiInfo.deposit_price);
+                helper.setText(R.id.tv_content_tip, String.format("尾款: %s元 共计%s件商品；定金实付：%s元",
+                        lastFee, item.qty, fundFee));
             }
         }
 

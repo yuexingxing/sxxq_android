@@ -18,6 +18,7 @@ import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.livemodule.liveroom.roomutil.bean.VideoInfo;
 import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
 import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
+import com.sanshao.livemodule.zhibo.audience.TCAudienceActivity;
 import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
 import com.sanshao.livemodule.zhibo.playback.TCPlaybackActivity;
 
@@ -88,7 +89,7 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
         mViewModel.getVideoBackList(mPageNum, Constants.PAGE_SIZE);
     }
 
-    public void scrollToTop(){
+    public void scrollToTop() {
         binding.recyclerView.scrollToPosition(0);
     }
 
@@ -100,8 +101,11 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
     private void startLivePlay(final VideoInfo item) {
 
         Intent intent = new Intent(getActivity(), TCPlaybackActivity.class);
-        intent.putExtra(TCConstants.PLAY_URL, item.rtmp_pull_url);
+        if (item.isLive()) {
+            intent = new Intent(getActivity(), TCAudienceActivity.class);
+        }
         intent.putExtra(TCConstants.PUSHER_ID, item.pushers.invitation_code);
+        intent.putExtra(TCConstants.PLAY_URL, item.rtmp_pull_url);
         if (item.pushers != null) {
             intent.putExtra(TCConstants.PUSHER_NAME, item.pushers.anchor_name);
             intent.putExtra(TCConstants.PUSHER_AVATAR, item.pushers.avatar);
