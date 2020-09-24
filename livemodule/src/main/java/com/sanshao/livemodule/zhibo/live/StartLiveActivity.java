@@ -139,13 +139,13 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
                             public void onItemClick(CommonDialogInfo commonDialogInfo) {
                                 if (commonDialogInfo.position == 0) {
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                        checkPermission(0);
+                                        checkPhotoPermission(0);
                                     } else {
                                         selectFromCamera();
                                     }
                                 } else {
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                        checkPermission(1);
+                                        checkPhotoPermission(1);
                                     } else {
                                         selectFromAlbum();
                                     }
@@ -177,38 +177,41 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
 
     // 发起定位
     private void startLocation() {
+
         if (TCLocationHelper.checkLocationPermission(StartLiveActivity.this)) {
             if (!TCLocationHelper.getMyLocation(StartLiveActivity.this, StartLiveActivity.this)) {
                 binding.tvLocation.setText(getString(R.string.text_live_lbs_fail));
             }
-        } else {
-            final CommonTipDialog commonTipDialog = new CommonTipDialog(context);
-            commonTipDialog.setContent("您没开启定位功能，请在手机设置中开启定位功能！")
-                    .setLeftButton("取消")
-                    .setOnLeftButtonClick(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            commonTipDialog.dismiss();
-                        }
-                    })
-                    .setRightButton("前往开启")
-                    .setCancelable(false)
-                    .setCanceledOnTouchOutside(false)
-                    .setOnRightButtonClick(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            commonTipDialog.dismiss();
-                            if (!LocationUtil.isLocServiceEnable(context)) {
-                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                context.startActivity(intent);
-                            } else {
-                                AppManager.getAppDetailSettingIntent(context);
-                            }
-                        }
-                    })
-                    .showBottomLine(View.VISIBLE)
-                    .show();
         }
+    }
+
+    private void showLocation() {
+        final CommonTipDialog commonTipDialog = new CommonTipDialog(context);
+        commonTipDialog.setContent("您没开启定位功能，请在手机设置中开启定位功能！")
+                .setLeftButton("取消")
+                .setOnLeftButtonClick(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        commonTipDialog.dismiss();
+                    }
+                })
+                .setRightButton("前往开启")
+                .setCancelable(false)
+                .setCanceledOnTouchOutside(false)
+                .setOnRightButtonClick(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        commonTipDialog.dismiss();
+                        if (!LocationUtil.isLocServiceEnable(context)) {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            context.startActivity(intent);
+                        } else {
+                            AppManager.getAppDetailSettingIntent(context);
+                        }
+                    }
+                })
+                .showBottomLine(View.VISIBLE)
+                .show();
     }
 
     /**
@@ -223,6 +226,10 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
         }
         if (TextUtils.isEmpty(TCUserMgr.getInstance().getCoverPic())) {
             ToastUtil.showLongToast("未上传封面");
+            return;
+        }
+        if (TextUtils.isEmpty(TCUserMgr.getInstance().getLocation())) {
+            showLocation();
             return;
         }
 
@@ -317,8 +324,35 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
         return filePath;
     }
 
-    @SuppressLint("CheckResult")
-    private void checkPermission(final int index) {
+    private void checkLocationermission() {
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.request(PermissionGroup.LOCATION)
+                .subscribe(new Observer<Boolean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+                        if (!aBoolean) {
+                            return;
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    private void checkPhotoPermission(final int index) {
         RxPermissions rxPermissions = new RxPermissions(this);
         rxPermissions.request(PermissionGroup.TAKE_PHOTO)
                 .subscribe(new Observer<Boolean>() {

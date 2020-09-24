@@ -196,7 +196,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             if (mLiveApplyResponse == null) {
                 return;
             }
-            mLiveApplyResponse.audit_status = LiveApplyResponse.AuditStatus.UNAPPLY;
+//            mLiveApplyResponse.audit_status = LiveApplyResponse.AuditStatus.UNAPPLY;
             //审核中
             if (mLiveApplyResponse.isAuditing()) {
                 IdentityingActivity.start(context);
