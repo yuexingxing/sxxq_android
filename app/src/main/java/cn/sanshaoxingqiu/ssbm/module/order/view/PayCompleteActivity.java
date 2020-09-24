@@ -2,23 +2,14 @@ package cn.sanshaoxingqiu.ssbm.module.order.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.bean.UserInfo;
-import com.exam.commonbiz.util.BitmapUtil;
-import com.sanshao.commonui.dialog.CommonBottomDialog;
-import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
@@ -29,11 +20,9 @@ import cn.sanshaoxingqiu.ssbm.module.order.event.PayStatusChangedEvent;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IGoodsDetailModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.ExerciseActivity;
-import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.PaySuccessDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
-import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
 
 /**
  * 支付完成
@@ -140,42 +129,4 @@ public class PayCompleteActivity extends BaseActivity<GoodsDetailViewModel, Acti
             paySuccessDialog.show(context, goodsDetailInfo);
         }
     }
-
-    private void share() {
-
-        List<CommonDialogInfo> commonDialogInfoList = new ArrayList<>();
-        commonDialogInfoList.add(new CommonDialogInfo("分享到微信"));
-//        commonDialogInfoList.add(new CommonDialogInfo("生成海报"));
-
-        new CommonBottomDialog()
-                .init(this)
-                .setData(commonDialogInfoList)
-                .setOnItemClickListener(commonDialogInfo -> {
-                    if (commonDialogInfo.position == 0) {
-
-                        new Thread(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                Bitmap bitmap = BitmapUtil.getBitmap(mGoodsDetailInfo.thumbnail_img);
-                                Message message = new Message();
-                                message.obj = bitmap;
-                                mHandler.sendMessage(message);
-                            }
-                        }).start();
-                    } else {
-                        new GoodsPosterDialog().show(context, new GoodsDetailInfo());
-                    }
-                })
-                .show();
-    }
-
-    public Handler mHandler = new Handler() {
-        public void handleMessage(Message message) {
-            new ShareUtils()
-                    .init(context)
-                    .shareMiniProgram(mGoodsDetailInfo.sarti_name, mGoodsDetailInfo.sarti_desc,
-                            (Bitmap) message.obj, mGoodsDetailInfo.getSharePath());
-        }
-    };
 }
