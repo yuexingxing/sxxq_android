@@ -179,7 +179,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             }
         });
         binding.pavMyShare.setOnClickListener(v -> {
-            InvitationActivity.start(context, ShoppingCenterUtil.getInviteTagId());
+
         });
         binding.pavMyInviteCode.setOnClickListener(v -> {
             if (!SSApplication.isLogin()) {

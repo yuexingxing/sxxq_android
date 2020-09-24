@@ -64,7 +64,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
 
         mGoodsDetailViewModel = new GoodsDetailViewModel();
         mGoodsDetailViewModel.setCallBack(this);
-        GoodsDetailInfo mGoodsDetailInfo = (GoodsDetailInfo) getIntent().getSerializableExtra(Constants.OPT_DATA);
+        mGoodsDetailInfo = (GoodsDetailInfo) getIntent().getSerializableExtra(Constants.OPT_DATA);
         if (mGoodsDetailInfo == null) {
             finish();
         }
@@ -214,7 +214,6 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         if (goodsDetailInfo == null) {
             return;
         }
-        mGoodsDetailInfo = goodsDetailInfo;
         binding.tvPrice.setText(goodsDetailInfo.getPriceText());
         if (goodsDetailInfo.isFree()) {
             binding.rlPay.setVisibility(View.INVISIBLE);
