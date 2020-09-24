@@ -443,7 +443,6 @@ public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudi
 
         showNoticeToast("等待主播接受......");
 
-
         mLiveRoom.requestJoinAnchor("", new IMLVBLiveRoomListener.RequestJoinAnchorCallback() {
             @Override
             public void onAccept() {

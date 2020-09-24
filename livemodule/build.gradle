@@ -41,7 +41,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 //    implementation fileTree(include: ['*.jar'], dir: 'libs/upload')
-    implementation 'com.tencent.liteav:LiteAVSDK_Professional:7.2.8927'
+    api 'com.tencent.liteav:LiteAVSDK_Professional:7.2.8927'
     //noinspection GradleCompatible
     implementation 'com.android.support:design:23.2.1'
     //noinspection GradleCompatible

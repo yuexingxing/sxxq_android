@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
@@ -21,14 +20,11 @@ import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
 import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.audience.TCAudienceActivity;
 import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
-import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
-
-import java.util.ArrayList;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.FragmentLayoutLiveListBinding;
-import cn.sanshaoxingqiu.ssbm.module.home.view.adapter.HomeAdapter;
+import cn.sanshaoxingqiu.ssbm.module.home.view.adapter.HomeLiveAdapter;
 import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 
 /**
@@ -39,7 +35,7 @@ import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
  */
 public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayoutLiveListBinding> implements IBaseModel, BaseQuickAdapter.RequestLoadMoreListener {
     public static final int START_LIVE_PLAY = 100;
-    private HomeAdapter mHomeAdapter;
+    private HomeLiveAdapter mHomeAdapter;
 
     public static LiveListFragment newInstance() {
         LiveListFragment fragment = new LiveListFragment();
@@ -57,7 +53,7 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         mViewModel.setIBaseModel(this);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View emptyLayout = inflater.inflate(R.layout.item_layout_empty_live, null);
-        mHomeAdapter = new HomeAdapter(HomeAdapter.VIDEO_TYPE_LIVE);
+        mHomeAdapter = new HomeLiveAdapter();
         mHomeAdapter.setEmptyView(emptyLayout);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
