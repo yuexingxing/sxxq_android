@@ -84,8 +84,12 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
         getLiveData();
     }
 
-    private void getLiveData() {
+    public void getLiveData() {
         mViewModel.getVideoBackList(mPageNum, Constants.PAGE_SIZE);
+    }
+
+    public void scrollToTop(){
+        binding.recyclerView.scrollToPosition(0);
     }
 
     /**

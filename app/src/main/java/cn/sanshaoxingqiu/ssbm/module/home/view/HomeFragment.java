@@ -39,6 +39,8 @@ public class HomeFragment extends BaseFragment<BaseViewModel, HomeFragmentBindin
     private List<Fragment> mFragmentList;
     private LiveTabFragmentAdapter mLiveTabFragmentAdapter;
     private String[] mTitleList = new String[2];
+    private VideoBackListFragment mVideoBackListFragment;
+    private LiveListFragment mLiveListFragment;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -105,7 +107,11 @@ public class HomeFragment extends BaseFragment<BaseViewModel, HomeFragmentBindin
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
                 //再次选中tab的逻辑
-                Log.i(TAG, "======我再次被选中====");
+                if (tab.getPosition() == 0 && mVideoBackListFragment != null) {
+                    mVideoBackListFragment.scrollToTop();
+                } else if (tab.getPosition() == 1 && mLiveListFragment != null) {
+                    mLiveListFragment.scrollToTop();
+                }
             }
         });
     }
@@ -114,11 +120,13 @@ public class HomeFragment extends BaseFragment<BaseViewModel, HomeFragmentBindin
 
         mTitleList[0] = "推荐";
         mTitleList[1] = "直播";
+        mVideoBackListFragment = VideoBackListFragment.newInstance();
+        mLiveListFragment = LiveListFragment.newInstance();
 
         //把Fragment添加到List集合里面
         mFragmentList = new ArrayList<>();
-        mFragmentList.add(VideoBackListFragment.newInstance());
-        mFragmentList.add(LiveListFragment.newInstance());
+        mFragmentList.add(mVideoBackListFragment);
+        mFragmentList.add(mLiveListFragment);
 
         mLiveTabFragmentAdapter = new LiveTabFragmentAdapter(mFragmentList, mTitleList, getChildFragmentManager(), context);
         binding.viewPager.setAdapter(mLiveTabFragmentAdapter);

@@ -85,7 +85,7 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         });
     }
 
-    private void getLiveData() {
+    public void getLiveData() {
         mViewModel.getLiveVideoList();
 
 //        TCVideoListMgr.getInstance().fetchLiveVideoList(getActivity(), new TCVideoListMgr.Listener() {
@@ -99,6 +99,10 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
 //                onRefreshVideoList(retCode, result);
 //            }
 //        });
+    }
+
+    public void scrollToTop(){
+        binding.recyclerView.scrollToPosition(0);
     }
 
     /**
