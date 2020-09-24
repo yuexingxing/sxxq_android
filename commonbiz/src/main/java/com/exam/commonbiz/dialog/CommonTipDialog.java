@@ -59,12 +59,12 @@ public class CommonTipDialog {
     }
 
     public CommonTipDialog setCanceledOnTouchOutside(boolean flag){
-        setCanceledOnTouchOutside(flag);
+        mDialog.setCanceledOnTouchOutside(flag);
         return this;
     }
 
     public CommonTipDialog setCancelable(boolean flag){
-        setCancelable(flag);
+        mDialog.setCancelable(flag);
         return this;
     }
 

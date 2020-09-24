@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -20,10 +21,13 @@ import com.exam.commonbiz.api.oss.UploadPicResponse;
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.base.BasicApplication;
 import com.exam.commonbiz.bean.UserInfo;
+import com.exam.commonbiz.dialog.CommonTipDialog;
+import com.exam.commonbiz.util.AppManager;
 import com.exam.commonbiz.util.BitmapUtil;
 import com.exam.commonbiz.util.FileUtil;
 import com.exam.commonbiz.util.GlideUtil;
 import com.exam.commonbiz.util.LoadDialogMgr;
+import com.exam.commonbiz.util.LocationUtil;
 import com.exam.commonbiz.util.ToastUtil;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogAdapter;
@@ -177,6 +181,33 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
             if (!TCLocationHelper.getMyLocation(StartLiveActivity.this, StartLiveActivity.this)) {
                 binding.tvLocation.setText(getString(R.string.text_live_lbs_fail));
             }
+        } else {
+            final CommonTipDialog commonTipDialog = new CommonTipDialog(context);
+            commonTipDialog.setContent("您没开启定位功能，请在手机设置中开启定位功能！")
+                    .setLeftButton("取消")
+                    .setOnLeftButtonClick(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            commonTipDialog.dismiss();
+                        }
+                    })
+                    .setRightButton("前往开启")
+                    .setCancelable(false)
+                    .setCanceledOnTouchOutside(false)
+                    .setOnRightButtonClick(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            commonTipDialog.dismiss();
+                            if (!LocationUtil.isLocServiceEnable(context)) {
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                context.startActivity(intent);
+                            } else {
+                                AppManager.getAppDetailSettingIntent(context);
+                            }
+                        }
+                    })
+                    .showBottomLine(View.VISIBLE)
+                    .show();
         }
     }
 
