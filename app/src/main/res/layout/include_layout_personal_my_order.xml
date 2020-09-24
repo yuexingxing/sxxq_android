@@ -124,6 +124,8 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="12dp"
                 android:layout_marginBottom="10dp"
+                android:visibility="gone"
+                tools:visibility="visible"
                 android:background="@drawable/shape_white_radius_10"
                 android:gravity="center">
 

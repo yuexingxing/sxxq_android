@@ -6,8 +6,10 @@ import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.util.GlideUtil;
 import com.exam.commonbiz.util.Res;
 
 import cn.sanshaoxingqiu.ssbm.R;
@@ -19,8 +21,11 @@ import cn.sanshaoxingqiu.ssbm.module.login.bean.LoginResponse;
 import cn.sanshaoxingqiu.ssbm.module.login.model.ILoginCallBack;
 import cn.sanshaoxingqiu.ssbm.module.login.viewmodel.LoginViewModel;
 import cn.sanshaoxingqiu.ssbm.module.personal.account.view.BindWeChatActivity;
+
 import com.exam.commonbiz.bean.UserInfo;
+
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
+
 import com.exam.commonbiz.util.LoadDialogMgr;
 import com.exam.commonbiz.util.ToastUtil;
 
@@ -33,6 +38,7 @@ import com.exam.commonbiz.util.ToastUtil;
 public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBinding> implements ILoginCallBack {
     private final String TAG = LoginActivity.class.getSimpleName();
     private String mPhone;
+    private String mInviteId;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, LoginActivity.class);
@@ -96,16 +102,30 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
             mViewModel.getSMSCode(mPhone, LoginViewModel.LoginType.APP_LOGIN);
         });
         binding.tvLogin.setOnClickListener(v -> {
-            String invitationCode = binding.edtInviteCode.getText().toString();
-//            if (TextUtils.isEmpty(invitationCode)) {
-                login();
-//            } else {
-//                mViewModel.getMemInfoByInvitationCode(invitationCode);
-//            }
+            login();
         });
         binding.includePolicy.tvAgreement.setOnClickListener(v -> EmptyWebViewActivity.start(context, "http://www.baidu.com"));
         binding.includePolicy.tvPolicy.setOnClickListener(v -> EmptyWebViewActivity.start(context, "http://www.2345.com"));
         binding.rlLoginWechat.setOnClickListener(view -> BindWeChatActivity.start(context));
+
+        binding.edtInviteCode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.length() == 6) {
+                    mViewModel.getMemInfoByInvitationCode(charSequence.toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     /**
@@ -169,10 +189,17 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
 
     @Override
     public void onMemInfoByInvitationCode(UserInfo userInfo) {
+        binding.flInvite.setVisibility(View.GONE);
+        binding.llInviteCode.setVisibility(View.VISIBLE);
         if (userInfo == null) {
             return;
         }
-        login();
+        mInviteId = userInfo.mem_id;
+        binding.flInvite.setVisibility(View.VISIBLE);
+        binding.llInviteCode.setVisibility(View.GONE);
+        binding.tvInviteName.setText(userInfo.nickname);
+        binding.tvInviteCode.setText("邀请码: " + userInfo.invitation_code);
+        GlideUtil.loadAvatar(userInfo.avatar, binding.ivInviteAvatar);
     }
 
     private void login() {
@@ -187,6 +214,9 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
             return;
         }
         LoadDialogMgr.getInstance().show(context, "登录中...");
-        mViewModel.login(mPhone, code, binding.edtInviteCode.getText().toString());
+        if (TextUtils.isEmpty(mInviteId)) {
+            mInviteId = "";
+        }
+        mViewModel.login(mPhone, code, mInviteId);
     }
 }

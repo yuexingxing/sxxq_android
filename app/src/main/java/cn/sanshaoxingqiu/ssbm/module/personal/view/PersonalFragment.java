@@ -505,6 +505,8 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
 
         if (mAppointmentedInfoList.size() == 1) {
             binding.includePersonalOrder.rlOpen.setVisibility(View.GONE);
+        } else {
+            binding.includePersonalOrder.rlOpen.setVisibility(View.VISIBLE);
         }
 
         mPersonalOrderSubjectAdapter.addData(mAppointmentedInfoList.get(0));
