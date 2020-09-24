@@ -92,8 +92,8 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
             if (mGoodsDetailInfo == null) {
                 return;
             }
+            jumpPay = true;
             if (mGoodsDetailInfo.isFree() || mGoodsDetailInfo.isPayByPoint()) {
-                jumpPay = false;
                 mViewModel.getOrderPayInfo(PayViewModel.CHECK_ORDER_STATUS, mGoodsDetailInfo.salebill_id, mPayType);
             } else {
                 if (TextUtils.equals(mPayType, PAY_BY_WECHAT)) {
@@ -103,7 +103,6 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
                             .init(context)
                             .jump2WxMiniProgram(path);
                 } else {
-                    jumpPay = true;
                     mViewModel.getOrderPayInfo(PayViewModel.GET_PAY_INFO, mGoodsDetailInfo.salebill_id, mPayType);
                 }
             }
