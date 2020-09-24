@@ -140,6 +140,14 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
     }
 
     /**
+     * 获取推流地址
+     * @return
+     */
+    public String getSelfPushUrl(){
+        return mSelfPushUrl;
+    }
+
+    /**
      * 设置回调接口
      * <p>
      * 您可以通过 IMLVBLiveRoomListener 获得 MLVBLiveRoom 的各种状态通知

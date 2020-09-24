@@ -9,6 +9,7 @@ import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
 import com.sanshao.livemodule.liveroom.model.ILiveRoomModel;
 import com.sanshao.livemodule.liveroom.model.LiveModel;
+import com.sanshao.livemodule.liveroom.roomutil.bean.RoomInfo;
 import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
 import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
 
@@ -112,6 +113,31 @@ public class LiveViewModel extends BaseViewModel {
                 if (mIBaseModel != null) {
                     mIBaseModel.onRefreshData(null);
                 }
+            }
+        });
+    }
+
+    public void createLive(RoomInfo roomInfo) {
+
+        LiveModel.createLive(roomInfo, new OnLoadListener() {
+            @Override
+            public void onLoadStart() {
+
+            }
+
+            @Override
+            public void onLoadCompleted() {
+
+            }
+
+            @Override
+            public void onLoadSucessed(BaseResponse t) {
+
+            }
+
+            @Override
+            public void onLoadFailed(String errMsg) {
+                Toast.makeText(BasicApplication.app, errMsg, Toast.LENGTH_SHORT).show();
             }
         });
     }

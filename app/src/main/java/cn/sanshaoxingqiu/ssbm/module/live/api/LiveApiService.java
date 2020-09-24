@@ -3,7 +3,6 @@ package cn.sanshaoxingqiu.ssbm.module.live.api;
 
 import com.exam.commonbiz.net.BaseResponse;
 
-import cn.sanshaoxingqiu.ssbm.module.invitation.bean.UserReferrals;
 import cn.sanshaoxingqiu.ssbm.module.live.bean.LiveApplyResponse;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
