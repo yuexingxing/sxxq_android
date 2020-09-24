@@ -24,9 +24,11 @@ public class FansListAdapter extends BaseQuickAdapter<UserInfo, BaseViewHolder> 
     @Override
     protected void convert(BaseViewHolder helper, UserInfo item) {
         // 头像
+        RoundedImageView userAvatar = helper.getView(R.id.iv_user_avatar);
         if (!TextUtils.isEmpty(item.avatar)) {
-            RoundedImageView userAvatar = helper.getView(R.id.iv_user_avatar);
             GlideUtil.loadAvatar(item.avatar, userAvatar);
+        } else {
+            userAvatar.setImageResource(R.drawable.image_graphofbooth_avatar);
         }
         // 名称
         helper.setText(R.id.tv_user_name, item.nickname);
@@ -37,12 +39,16 @@ public class FansListAdapter extends BaseQuickAdapter<UserInfo, BaseViewHolder> 
             vipName.setText(item.mem_class_name);
         }
         if (TextUtils.equals("1", item.mem_class_key)) {
+            vipName.setText("一星会员");
             vipIcon.setImageResource(R.drawable.icon_universaldrillmembers);
         } else if (TextUtils.equals("2", item.mem_class_key)) {
+            vipName.setText("二星会员");
             vipIcon.setImageResource(R.drawable.icon_universaldrillmembers);
         } else if (TextUtils.equals("3", item.mem_class_key)) {
+            vipName.setText("三星会员");
             vipIcon.setImageResource(R.drawable.icon_universaldrillmembers);
         } else {
+            vipName.setText("普通用户");
             vipIcon.setImageResource(R.drawable.icon_commondiamond);
         }
 

@@ -53,28 +53,12 @@ public class FansActivity extends BaseActivity<FansViewModel, ActivityMyfansBind
         });
 
         adapter = new FansListAdapter();
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         binding.fansRecyclerView.setLayoutManager(linearLayoutManager);
         binding.fansRecyclerView.setAdapter(adapter);
 
         binding.ivToTop.setOnClickListener(view -> binding.fansRecyclerView.smoothScrollToPosition(0));
-        OnItemEnterOrExitVisibleHelper helper = new OnItemEnterOrExitVisibleHelper();
-        helper.setRecyclerScrollListener(binding.fansRecyclerView);
-        helper.setOnScrollStatusListener(new OnItemEnterOrExitVisibleHelper.OnScrollStatusListener() {
-            public void onSelectEnterPosition(int postion) {
-                if (postion >= 10) {
-                    binding.ivToTop.setVisibility(View.VISIBLE);
-                } else {
-                    binding.ivToTop.setVisibility(View.GONE);
-                }
-            }
-
-            public void onSelectExitPosition(int postion) {
-
-            }
-        });
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

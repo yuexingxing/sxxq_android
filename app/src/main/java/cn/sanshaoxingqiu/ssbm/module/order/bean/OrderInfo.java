@@ -3,6 +3,7 @@ package cn.sanshaoxingqiu.ssbm.module.order.bean;
 import android.text.TextUtils;
 
 import com.google.gson.annotations.SerializedName;
+
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 
 import java.io.Serializable;
@@ -60,6 +61,12 @@ public class OrderInfo implements Serializable {
     // 订单时间
     public String time;
 
+    public String is_package;
+
+    public boolean isMeal() {
+        return TextUtils.equals("1", is_package);
+    }
+
     // 是否是套餐
     public boolean isSalesPackage;
 
@@ -71,7 +78,7 @@ public class OrderInfo implements Serializable {
             return "";
         } else if (TextUtils.equals(status, ORDER_STATUS.PAY)) {
             return "待支付";
-        }else if (TextUtils.equals(status, ORDER_STATUS.PAY_GAP)) {
+        } else if (TextUtils.equals(status, ORDER_STATUS.PAY_GAP)) {
             return "待支付尾款";
         } else if (TextUtils.equals(status, ORDER_STATUS.PAID)) {
             return "待使用";
