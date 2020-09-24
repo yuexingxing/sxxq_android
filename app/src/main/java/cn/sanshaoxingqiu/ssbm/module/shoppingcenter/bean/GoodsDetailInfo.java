@@ -71,6 +71,7 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
     public List<MemberCommissionInfo> mem_commission_config;
     public GoodsDetailInfo shopSartiInfo;
     public String unit_price;
+    public String sharePath;
 
     public static String getOrderStatus(String status) {
         if (TextUtils.isEmpty(status)) {
@@ -172,6 +173,9 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
     }
 
     public String getSharePath() {
+        if (!TextUtils.isEmpty(sharePath)){
+            return sharePath;
+        }
         UserInfo userInfo = SSApplication.getInstance().getUserInfo();
         String path = "/pages/mall/goodsDetail?sarti_id=" + salebill_id + "&mem=" + userInfo.invitation_code;
         return path;

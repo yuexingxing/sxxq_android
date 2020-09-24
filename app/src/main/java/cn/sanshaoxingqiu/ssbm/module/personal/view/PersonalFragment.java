@@ -62,6 +62,8 @@ import cn.sanshaoxingqiu.ssbm.module.personal.setting.view.SettingActivity;
 import cn.sanshaoxingqiu.ssbm.module.personal.viewmodel.PersonalViewModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.ExerciseActivity;
+import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.DateUtil;
 
 /**
@@ -246,6 +248,12 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
                 mPersonalOrderSubjectAdapter.setNewData(mAppointmentedInfoList);
             }
         });
+        binding.pavMyBenefit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ExerciseActivity.start(context, "我的权益", Constants.memberBenefitUrl);
+            }
+        });
 
         initOrderList();
         binding.pavSetting.setOnClickListener(v -> SettingActivity.start(context));
@@ -398,14 +406,9 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
 
         String memberStartTime = DateUtil.timeFormat(userInfo.mem_class_start_date);
         int diffDays = userInfo.mem_class.mem_class_valid_days - DateUtil.getDiffDay(memberStartTime, DateUtil.getCurrentTime());
-        if (diffDays < 0) {
-            diffDays = 0;
-            binding.tvMembersDateEnd.setText(DateUtil.getDateStr(memberStartTime, userInfo.mem_class.mem_class_valid_days) + " 到期");
-        } else {
-            binding.tvMembersDateEnd.setText(DateUtil.getDateStr(memberStartTime, userInfo.mem_class.mem_class_valid_days));
-        }
         binding.tvMembersDate.setText("会员期限" + diffDays
                 + "/" + userInfo.mem_class.mem_class_valid_days);
+        binding.tvMembersDateEnd.setText(DateUtil.getDateStr(memberStartTime, userInfo.mem_class.mem_class_valid_days) + "到期");
         binding.progressHorizontal.setProgress(diffDays);
         binding.progressHorizontal.setMax(userInfo.mem_class.mem_class_valid_days);
 

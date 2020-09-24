@@ -24,7 +24,9 @@ import cn.sanshaoxingqiu.ssbm.module.personal.account.view.BindWeChatActivity;
 
 import com.exam.commonbiz.bean.UserInfo;
 
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.ExerciseActivity;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
+import cn.sanshaoxingqiu.ssbm.util.Constants;
 
 import com.exam.commonbiz.util.LoadDialogMgr;
 import com.exam.commonbiz.util.ToastUtil;
@@ -37,11 +39,20 @@ import com.exam.commonbiz.util.ToastUtil;
  */
 public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBinding> implements ILoginCallBack {
     private final String TAG = LoginActivity.class.getSimpleName();
+    public static final int FROM_PAGE_HOME = 0;
+    public static final int FROM_PAGE_EXERCISE = 1;
     private String mPhone;
     private String mInviteId;
+    private int mFromPage;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, LoginActivity.class);
+        context.startActivity(starter);
+    }
+
+    public static void start(Context context, int fromPage) {
+        Intent starter = new Intent(context, LoginActivity.class);
+        starter.putExtra(Constants.OPT_DATA, fromPage);
         context.startActivity(starter);
     }
 
@@ -68,6 +79,9 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     @Override
     public void initData() {
 
+        if (getIntent() != null && getIntent().hasExtra(Constants.OPT_DATA)) {
+            mFromPage = getIntent().getIntExtra(Constants.OPT_DATA, FROM_PAGE_HOME);
+        }
         mViewModel.setCallBack(this);
         binding.tvJump.setOnClickListener(v -> {
             MainActivity.start(context);
@@ -174,7 +188,11 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
             return;
         }
         SSApplication.setToken(loginResponse.token);
-        MainActivity.start(context);
+        if (FROM_PAGE_EXERCISE == mFromPage) {
+            finish();
+        } else {
+            MainActivity.start(context);
+        }
     }
 
     @Override
@@ -189,14 +207,12 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
 
     @Override
     public void onMemInfoByInvitationCode(UserInfo userInfo) {
-        binding.flInvite.setVisibility(View.GONE);
-        binding.llInviteCode.setVisibility(View.VISIBLE);
+        binding.flInvite.setVisibility(View.INVISIBLE);
         if (userInfo == null) {
             return;
         }
         mInviteId = userInfo.mem_id;
         binding.flInvite.setVisibility(View.VISIBLE);
-        binding.llInviteCode.setVisibility(View.GONE);
         binding.tvInviteName.setText(userInfo.nickname);
         binding.tvInviteCode.setText("邀请码: " + userInfo.invitation_code);
         GlideUtil.loadAvatar(userInfo.avatar, binding.ivInviteAvatar);

@@ -57,6 +57,7 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
     private ProgressBar mProgressBar;
     private LinearLayout layoutBody;
     protected View contentView;
+    private boolean isInitToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +133,8 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
         mWebView.callHandler("initToken", new Gson().toJson(webViewBaseInfo), new CallBackFunction() {
             @Override
             public void onCallBack(String data) {
-                Log.d(TAG, "data123---: " + data);
+                Log.d(TAG, "initToken--data--: " + data);
+                isInitToken = true;
             }
         });
     }
@@ -265,19 +267,19 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
             super(webView);
         }
 
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            try {
-                //在这里你可以拦截url，然后自己处理一些事情，比如跳转app内部网页
-
-                Log.v("webview", url);
-                view.loadUrl(url);
-                return true;
-            } catch (Exception e) {
-                Log.i("webview", "该链接无效");
-                return true;
-            }
-        }
+//        @Override
+//        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//            try {
+//                //在这里你可以拦截url，然后自己处理一些事情，比如跳转app内部网页
+//
+//                Log.v("webview", url);
+//                view.loadUrl(url);
+//                return true;
+//            } catch (Exception e) {
+//                Log.i("webview", "该链接无效");
+//                return true;
+//            }
+//        }
 
         @Override
         public void onPageFinished(WebView view, String url) {
@@ -292,7 +294,9 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
 //            if (mTitleBar != null) {
 //                mTitleBar.setTitle(view.getTitle());
 //            }
-            initToken();
+            if (!isInitToken) {
+                initToken();
+            }
         }
 
         @Override
