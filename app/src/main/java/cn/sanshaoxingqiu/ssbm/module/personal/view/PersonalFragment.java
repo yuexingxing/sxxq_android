@@ -273,7 +273,6 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         initOrderList();
         binding.pavSetting.setOnClickListener(v -> SettingActivity.start(context));
         binding.guessYouLoveView.getData();
-        mAppointmentForConsultationViewModel.getAppointmentedList();
     }
 
     @Override
@@ -303,6 +302,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         if (SSApplication.isLogin()) {
             mOrderDetailViewModel.getOrderNumStatus();
             mIdentityViewModel.getAnchorDetail();
+            mAppointmentForConsultationViewModel.getAppointmentedList();
             if (TCGlobalConfig.isUserSignEmpty()) {
                 TCGlobalConfig.getUserSign();
             }

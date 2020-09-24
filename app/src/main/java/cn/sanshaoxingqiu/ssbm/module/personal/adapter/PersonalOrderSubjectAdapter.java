@@ -8,8 +8,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.AppointmentedInfo;
-import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderInfo;
-import cn.sanshaoxingqiu.ssbm.module.order.view.adapter.OrderListAdapter;
 import cn.sanshaoxingqiu.ssbm.widget.countdowntimer.CountdownView;
 
 /**
@@ -34,8 +32,6 @@ public class PersonalOrderSubjectAdapter extends BaseQuickAdapter<AppointmentedI
 
     @Override
     protected void convert(BaseViewHolder helper, AppointmentedInfo item) {
-        helper.setText(R.id.tv_time, item.reservation_time);
-        helper.setText(R.id.tv_title, item.sarti_name);
         helper.setText(R.id.tv_title, item.sarti_name);
 
         Log.d("zdddz", item.sarti_name + "/" + item.remainSeconds);

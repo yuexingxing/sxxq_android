@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_666666"
                 android:textSize="11sp"
-                tools:text="周一至周五：10:00-22:00" />
+                android:text="@string/store_service_time" />
         </LinearLayout>
 
         <LinearLayout
