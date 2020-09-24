@@ -79,7 +79,8 @@ import master.flame.danmaku.controller.IDanmakuView;
  * <p>
  * 3. 房间消息、弹幕、点赞处理
  **/
-public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudienceBinding> implements IMLVBLiveRoomListener, View.OnClickListener, TCInputTextMsgDialog.OnTextSendListener {
+public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudienceBinding> implements IMLVBLiveRoomListener, View.OnClickListener, TCInputTextMsgDialog.OnTextSendListener,
+        IMLVBLiveRoomListener.GetAudienceListCallback {
     private static final String TAG = TCAudienceActivity.class.getSimpleName();
     //连麦间隔控制
     private static final long LINK_MIC_INTERVAL = 3 * 1000;
@@ -170,10 +171,9 @@ public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudi
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         Intent intent = getIntent();
         String strMemberCount = intent.getStringExtra(TCConstants.MEMBER_COUNT);
-        if (TextUtils.isEmpty(strMemberCount)){
+        if (TextUtils.isEmpty(strMemberCount)) {
             strMemberCount = "0";
         }
         mPusherId = intent.getStringExtra(TCConstants.PUSHER_ID);
@@ -201,6 +201,7 @@ public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudi
         mLiveRoom = MLVBLiveRoom.sharedInstance(this);
         mTvToomId = findViewById(R.id.tv_room_id);
         mTvToomId.setText(String.format("直播间号：%s", mGroupId));
+        mLiveRoom.getAudienceList( mGroupId,this);
 
         initView();
         LiveRoomBeautyKit manager = new LiveRoomBeautyKit(mLiveRoom);
@@ -1126,7 +1127,30 @@ public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudi
             case TXLiveConstants.PLAY_ERR_GET_PLAYINFO_FAIL:
                 TCELKReportMgr.getInstance().reportELK(TCConstants.ELK_ACTION_LIVE_PLAY, TCUserMgr.getInstance().getUserId(), -6, "获取点播文件信息失败", null);
                 break;
+        }
+    }
 
+    @Override
+    public void onError(int errCode, String errInfo) {
+        Log.d(TAG, "getaAdienceInfoList/" + errInfo);
+    }
+
+    @Override
+    public void onSuccess(ArrayList<AudienceInfo> audienceInfoList) {
+        if (audienceInfoList == null) {
+            return;
+        }
+
+        mCurrentAudienceCount = audienceInfoList.size();
+        mMemberCount.setText("在线：" + String.format(Locale.CHINA, "%d", mCurrentAudienceCount));
+        for (int i = 0; i < audienceInfoList.size(); i++) {
+            AudienceInfo audienceInfo = audienceInfoList.get(i);
+            Log.d(TAG, audienceInfo.userID + "/" + audienceInfo.userName + "/" + audienceInfo.userAvatar);
+            if (TextUtils.equals(audienceInfo.userID, TCUserMgr.getInstance().getUserId())) {
+
+            }
+            TCSimpleUserInfo tcSimpleUserInfo = new TCSimpleUserInfo(audienceInfo.userID, audienceInfo.userName, audienceInfo.userAvatar);
+            mAvatarListAdapter.addItem(tcSimpleUserInfo);
         }
     }
 }

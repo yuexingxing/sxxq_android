@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
@@ -49,6 +50,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -141,9 +143,10 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
 
     /**
      * 获取推流地址
+     *
      * @return
      */
-    public String getSelfPushUrl(){
+    public String getSelfPushUrl() {
         return mSelfPushUrl;
     }
 
@@ -343,22 +346,22 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
      * @note 观众列表最多只保存30人，因为对于常规的 UI 展示来说这已经足够，保存更多除了浪费存储空间，也会拖慢列表返回的速度。
      */
     @Override
-    public void getAudienceList(final IMLVBLiveRoomListener.GetAudienceListCallback callback) {
+    public void getAudienceList(String roomId, final IMLVBLiveRoomListener.GetAudienceListCallback callback) {
         TXCLog.i(TAG, "API -> getAudienceList");
-        if (mCurrRoomID == null || mCurrRoomID.length() > 0) {
+        if (TextUtils.isEmpty(roomId)) {
             callbackOnThread(callback, "onError", MLVBCommonDef.LiveRoomErrorCode.ERROR_NOT_IN_ROOM, "[LiveRoom] getAudienceList 失败[房间号为空]");
             return;
         }
-        if (mAudiences != null) {
-            final ArrayList<AudienceInfo> audienceList = new ArrayList<>();
-            for (Map.Entry<String, AudienceInfo> item : mAudiences.entrySet()) {
-                audienceList.add(item.getValue());
-            }
-            callbackOnThread(callback, "onSuccess", audienceList);
-        } else {
+//        if (mAudiences != null) {
+//            final ArrayList<AudienceInfo> audienceList = new ArrayList<>();
+//            for (Map.Entry<String, AudienceInfo> item : mAudiences.entrySet()) {
+//                audienceList.add(item.getValue());
+//            }
+//            callbackOnThread(callback, "onSuccess", audienceList);
+//        } else {
             IMMessageMgr imMessageMgr = mIMMessageMgr;
             if (imMessageMgr != null) {
-                imMessageMgr.getGroupMembers(mCurrRoomID, MAX_MEMBER_SIZE, new TIMValueCallBack<List<TIMUserProfile>>() {
+                imMessageMgr.getGroupMembers(roomId, MAX_MEMBER_SIZE, new TIMValueCallBack<List<TIMUserProfile>>() {
                     @Override
                     public void onError(final int i, final String s) {
                         callbackOnThread(callback, "onError", i, "[IM] 获取群成员失败[" + s + "]");
@@ -366,12 +369,18 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
 
                     @Override
                     public void onSuccess(List<TIMUserProfile> timUserProfiles) {
+                        if (mAudiences == null) {
+                            mAudiences = new LinkedHashMap<>();
+                        }
+                        mAudiences.clear();
                         for (TIMUserProfile userProfile : timUserProfiles) {
                             AudienceInfo audienceInfo = new AudienceInfo();
                             audienceInfo.userID = userProfile.getIdentifier();
                             audienceInfo.userName = userProfile.getNickName();
                             audienceInfo.userAvatar = userProfile.getFaceUrl();
-                            mAudiences.put(userProfile.getIdentifier(), audienceInfo);
+                            if (!TextUtils.isEmpty(userProfile.getIdentifier())) {
+                                mAudiences.put(userProfile.getIdentifier(), audienceInfo);
+                            }
                         }
 
                         final ArrayList<AudienceInfo> audienceList = new ArrayList<>();
@@ -381,7 +390,7 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
                         callbackOnThread(callback, "onSuccess", audienceList);
                     }
                 });
-            }
+//            }
         }
     }
 

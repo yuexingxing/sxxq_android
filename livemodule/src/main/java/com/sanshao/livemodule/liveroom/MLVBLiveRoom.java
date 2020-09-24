@@ -139,7 +139,7 @@ public abstract class MLVBLiveRoom {
      *
      * @param callback 获取观众列表的结果回调。
      */
-    public abstract void getAudienceList(IMLVBLiveRoomListener.GetAudienceListCallback callback);
+    public abstract void getAudienceList(String roomId, IMLVBLiveRoomListener.GetAudienceListCallback callback);
 
 	/**
      * 创建房间（主播调用）
