@@ -9,8 +9,8 @@ package com.exam.commonbiz.net;
 public class HostUrl {
 
     public interface DEV {
-        String JAVA = "http://t2wxapi.sancell.top/api/";
-        String NODE = "http://t2wxapi.sancell.top/ssxq/";
+        String JAVA = "https://t2wxapi.sancell.top/api/";
+        String NODE = "https://t2wxapi.sancell.top/ssxq/";
     }
 
     public interface PRE {

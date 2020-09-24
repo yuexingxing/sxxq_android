@@ -104,7 +104,7 @@ public class AboutUsActivity extends BaseActivity<AboutUsViewModel, ActivityAbou
         mAboutUsAdapter.setOnItemClickListener(new AboutUsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(AgreementInfo agreementInfo) {
-                EmptyWebViewActivity.start(context, agreementInfo.url);
+                ExerciseActivity.start(context, agreementInfo.title, agreementInfo.url);
             }
         });
 
