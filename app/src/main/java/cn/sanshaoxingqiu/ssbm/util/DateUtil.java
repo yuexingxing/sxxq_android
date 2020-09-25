@@ -1,5 +1,7 @@
 package cn.sanshaoxingqiu.ssbm.util;
 
+import android.text.TextUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,6 +18,9 @@ public class DateUtil {
 
     // 转换日期格式
     public static String timeFormat(String time) {
+        if (TextUtils.isEmpty(time)){
+            return "";
+        }
         String temp = time.replace("Z", " UTC");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS Z");
         Date date = null;

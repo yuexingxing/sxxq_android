@@ -430,13 +430,18 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.pavMyShare.setContent(userInfo.point + "个");
         binding.pavMyFenrun.setContent("¥ " + userInfo.commission);
 
-        String memberStartTime = DateUtil.timeFormat(userInfo.mem_class_start_date);
-        int diffDays = userInfo.mem_class.mem_class_valid_days - DateUtil.getDiffDay(memberStartTime, DateUtil.getCurrentTime());
-        binding.tvMembersDate.setText("会员期限" + diffDays
-                + "/" + userInfo.mem_class.mem_class_valid_days);
-        binding.tvMembersDateEnd.setText(DateUtil.getDateStr(memberStartTime, userInfo.mem_class.mem_class_valid_days) + "到期");
-        binding.progressHorizontal.setProgress(diffDays);
-        binding.progressHorizontal.setMax(userInfo.mem_class.mem_class_valid_days);
+        if (!TextUtils.isEmpty(userInfo.mem_class_start_date)) {
+            String memberStartTime = DateUtil.timeFormat(userInfo.mem_class_start_date);
+            int diffDays = userInfo.mem_class.mem_class_valid_days - DateUtil.getDiffDay(memberStartTime, DateUtil.getCurrentTime());
+            binding.tvMembersDate.setText("会员期限" + diffDays
+                    + "/" + userInfo.mem_class.mem_class_valid_days);
+            binding.tvMembersDateEnd.setText(DateUtil.getDateStr(memberStartTime, userInfo.mem_class.mem_class_valid_days) + "到期");
+            binding.progressHorizontal.setProgress(diffDays);
+            binding.progressHorizontal.setMax(userInfo.mem_class.mem_class_valid_days);
+            binding.rlVipBg.setVisibility(View.VISIBLE);
+        } else {
+            binding.rlVipBg.setVisibility(View.INVISIBLE);
+        }
 
         //一星会员
         binding.tvLabel.setText(userInfo.getMember());
