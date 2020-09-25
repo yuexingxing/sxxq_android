@@ -88,8 +88,8 @@ android {
         }
         flavorDimensions "default"
         productFlavors {
-            kuan {
-                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "kuan"]
+            myapp {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "myapp"]
             }
             xiaomi {
                 manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
