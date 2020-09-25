@@ -263,7 +263,6 @@
                         android:layout_width="@dimen/live_btn_size"
                         android:layout_height="@dimen/live_btn_size"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="12dp"
                         android:background="@drawable/selector_icon_like"
                         android:onClick="onClick" />
                 </LinearLayout>

@@ -201,7 +201,7 @@ public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudi
         mLiveRoom = MLVBLiveRoom.sharedInstance(this);
         mTvToomId = findViewById(R.id.tv_room_id);
         mTvToomId.setText(String.format("直播间号：%s", mGroupId));
-        mLiveRoom.getAudienceList( mGroupId,this);
+        mLiveRoom.getAudienceList(mGroupId, this);
 
         initView();
         LiveRoomBeautyKit manager = new LiveRoomBeautyKit(mLiveRoom);

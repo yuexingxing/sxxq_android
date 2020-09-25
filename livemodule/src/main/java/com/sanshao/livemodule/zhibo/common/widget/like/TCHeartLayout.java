@@ -57,7 +57,7 @@ public class TCHeartLayout extends RelativeLayout {
 
     private void findViewById(Context context) {
         LayoutInflater.from(context).inflate(R.layout.layout_periscope, this);
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_like_png);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_like);
         dHeight = bitmap.getWidth();
         dWidth = bitmap.getHeight();
         textHight = sp2px(getContext(), 20) + dHeight / 2;
