@@ -43,7 +43,8 @@ public class MyInviterDialog {
 
         UserInfo userInfo = SSApplication.getInstance().getUserInfo();
         if (userInfo == null || userInfo.referrer_mem == null
-                || userInfo.referrer_mem.mem_class == null) {
+                || userInfo.referrer_mem.mem_class == null
+                || TextUtils.isEmpty(userInfo.referrer_mem.invitation_code)) {
             tvNoInviter.setVisibility(View.VISIBLE);
             llContent.setVisibility(View.GONE);
         } else {
