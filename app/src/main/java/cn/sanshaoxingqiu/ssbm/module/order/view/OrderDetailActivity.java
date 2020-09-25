@@ -109,6 +109,10 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
             }
         });
 
+        binding.llService.setOnClickListener(view -> {
+            CommandTools.startServiceChat();
+        });
+
         binding.llCall.setOnClickListener(view -> {
             CommandTools.showCall(context);
         });
