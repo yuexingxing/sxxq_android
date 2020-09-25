@@ -387,6 +387,8 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
 
         binding.tvName.setText(userInfo.nickname);
         binding.ivZuan.setVisibility(View.VISIBLE);
+        binding.pavMyShare.setContent(String.format("%s个", userInfo.point));
+        binding.pavMyFenrun.setContent(String.format("¥%s", userInfo.commission));
 
         GlideUtil.loadImage(userInfo.avatar, binding.ivAvatar, R.drawable.image_graphofbooth_avatar);
 
@@ -509,7 +511,6 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         for (int i = 0; i < list.size(); i++) {
             AppointmentedInfo appointmentedInfo = list.get(i);
             long second = DateUtil.getDiffDaySecond(DateUtil.getCurrentTime(), appointmentedInfo.reservation_time);
-            Log.d("zdddz", DateUtil.getCurrentTime() + "/" + appointmentedInfo.reservation_time + "/" + second);
             if (second < 1) {
                 continue;
             }
@@ -527,6 +528,8 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             binding.includePersonalOrder.rlOpen.setVisibility(View.VISIBLE);
         }
 
-        mPersonalOrderSubjectAdapter.addData(mAppointmentedInfoList.get(0));
+        List<AppointmentedInfo> newList = new ArrayList<>();
+        newList.add(mAppointmentedInfoList.get(0));
+        mPersonalOrderSubjectAdapter.setNewData(newList);
     }
 }

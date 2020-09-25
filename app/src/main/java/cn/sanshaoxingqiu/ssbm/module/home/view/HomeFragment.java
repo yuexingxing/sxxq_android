@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.base.BaseViewModel;
 import com.exam.commonbiz.util.Res;
-import com.exam.commonbiz.util.StatusBarUtil;
 import com.google.android.material.tabs.TabLayout;
 import com.sanshao.livemodule.liveroom.MLVBLiveRoomImpl;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;
@@ -26,7 +25,6 @@ import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.HomeFragmentBinding;
 import cn.sanshaoxingqiu.ssbm.module.home.view.adapter.LiveTabFragmentAdapter;
 import cn.sanshaoxingqiu.ssbm.module.login.event.LoginEvent;
-import cn.sanshaoxingqiu.ssbm.module.order.event.PayStatusChangedEvent;
 
 /**
  * 首页

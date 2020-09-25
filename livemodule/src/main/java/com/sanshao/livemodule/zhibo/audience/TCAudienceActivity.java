@@ -208,6 +208,12 @@ public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudi
         mBeautyControl.setProxy(manager);
         startPlay();
 
+//        String avatar = "http://img.cyw.com/shopx/20130606155913125664/shopinfo/201605041441522.jpg";
+//        for (int i = 0; i < 10; i++) {
+//            TCSimpleUserInfo tcSimpleUserInfo = new TCSimpleUserInfo("123" + i, "123", avatar);
+//            mAvatarListAdapter.addItem(tcSimpleUserInfo);
+//        }
+
         //在这里停留，让列表界面卡住几百毫秒，给sdk一点预加载的时间，形成秒开的视觉效果
         try {
             Thread.sleep(500);

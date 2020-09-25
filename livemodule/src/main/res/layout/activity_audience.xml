@@ -154,15 +154,10 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/anchor_rv_avatar"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="15dp"
-                    android:visibility="gone" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
                     android:layout_weight="1" />
 
                 <Button
@@ -171,6 +166,7 @@
                     android:layout_height="@dimen/live_btn_size"
                     android:layout_gravity="center"
                     android:layout_marginRight="16dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@drawable/btn_close"
                     android:onClick="onClick" />
             </LinearLayout>

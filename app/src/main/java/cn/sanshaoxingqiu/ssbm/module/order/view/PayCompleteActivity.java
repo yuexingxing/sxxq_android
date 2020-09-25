@@ -34,7 +34,6 @@ public class PayCompleteActivity extends BaseActivity<GoodsDetailViewModel, Acti
 
     private String mSartiId;
     private String mSaleBillId;
-    private GoodsDetailInfo mGoodsDetailInfo;
 
     public static void start(Context context, String sartiId, String saleBillId) {
         Intent starter = new Intent(context, PayCompleteActivity.class);
@@ -94,7 +93,6 @@ public class PayCompleteActivity extends BaseActivity<GoodsDetailViewModel, Acti
         if (goodsDetailInfo == null) {
             return;
         }
-        mGoodsDetailInfo = goodsDetailInfo;
         if (goodsDetailInfo.isFree() || goodsDetailInfo.isPayByPoint()) {
             binding.includeStar.layoutBg.setVisibility(View.GONE);
             binding.includeShare.layoutBg.setVisibility(View.VISIBLE);
@@ -110,16 +108,20 @@ public class PayCompleteActivity extends BaseActivity<GoodsDetailViewModel, Acti
                     }
                 }
 
+                String star = "一星粉丝";
                 if (goodsDetailInfo.isOneStarMember()) {
+                    star = "一星粉丝";
                     binding.includeStar.ivStar.setImageResource(R.drawable.image_onestarpaymentissuccessful);
                 } else if (goodsDetailInfo.isTwoStarMember()) {
+                    star = "二星粉丝";
                     binding.includeStar.ivStar.setImageResource(R.drawable.image_twostarpaymentissuccessful);
                 } else if (goodsDetailInfo.isThreeStarMember()) {
+                    star = "三星粉丝";
                     binding.includeStar.ivStar.setImageResource(R.drawable.image_threestarpaymentissuccessful);
                 }
 
                 if (userInfo.isMember()) {
-                    binding.includeStar.tvPaycompleteTip.setText(String.format("您已经是%s啦！快去分享赚钱吧！", goodsDetailInfo.getMember()));
+                    binding.includeStar.tvPaycompleteTip.setText(String.format("您已经是%s啦！快去分享赚钱吧！", star));
                 } else {
                     binding.includeStar.tvPaycompleteTip.setText("恭喜您已成为【三少变美】一星粉丝");
                 }

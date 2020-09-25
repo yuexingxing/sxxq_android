@@ -178,15 +178,13 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
             if (item.order_product != null) {
                 helper.setText(R.id.tv_price_2, "¥" + MathUtil.getNumExclude0(item.deposit_price));
                 String lastFee = MathUtil.getNumExclude0(item.qty * (item.order_product.sarti_saleprice - item.order_product.deposit_price));
-                String fundFee = MathUtil.getNumExclude0(item.qty * item.order_product.deposit_price);
                 helper.setText(R.id.tv_goods_count, String.format("尾款: %s元 共计%s件商品；定金实付：%s元",
-                        lastFee, item.qty, fundFee));
+                        lastFee, item.qty, item.sum_amt));
             } else {
                 helper.setText(R.id.tv_price_2, "¥" + MathUtil.getNumExclude0(item.deposit_price));
                 String lastFee = MathUtil.getNumExclude0(item.qty * (item.sarti_saleprice - item.deposit_price));
-                String fundFee = MathUtil.getNumExclude0(item.qty * item.deposit_price);
                 helper.setText(R.id.tv_goods_count, String.format("尾款: %s元 共计%s件商品；定金实付：%s元",
-                        lastFee, item.qty, fundFee));
+                        lastFee, item.qty, item.sum_amt));
             }
         } else {
             helper.setText(R.id.tv_price_2, item.getPriceText());

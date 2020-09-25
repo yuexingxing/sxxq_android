@@ -55,7 +55,7 @@ public class OrderListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
         helper.getView(R.id.ll_canceled).setVisibility(View.GONE);
         helper.getView(R.id.ll_deposit).setVisibility(View.GONE);
 
-        helper.setText(R.id.tv_content_tip, String.format("共计%s件商品；实收：%s元", item.qty, MathUtil.getNumExclude0(item.total_amt)));
+        helper.setText(R.id.tv_content_tip, String.format("共计%s件商品；实收：%s元", item.qty, MathUtil.getNumExclude0(item.sum_amt)));
         helper.setText(R.id.tv_state, item.getOrderStatus(item.sale_status));
         if (TextUtils.equals(OrderInfo.ORDER_STATUS.PAY, item.sale_status) ||
                 TextUtils.equals(OrderInfo.ORDER_STATUS.PAYING, item.sale_status)) {
@@ -72,9 +72,8 @@ public class OrderListAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseView
             if (item.shopSartiInfo.isPayByDisposit()){
                 helper.setText(R.id.tv_total_price1, "¥" + MathUtil.getNumExclude0(item.shopSartiInfo.deposit_price));
                 String lastFee = MathUtil.getNumExclude0(item.qty * (item.shopSartiInfo.sarti_saleprice - item.shopSartiInfo.deposit_price));
-                String fundFee = MathUtil.getNumExclude0(item.qty * item.shopSartiInfo.deposit_price);
                 helper.setText(R.id.tv_content_tip, String.format("尾款: %s元 共计%s件商品；定金实付：%s元",
-                        lastFee, item.qty, fundFee));
+                        lastFee, item.qty, item.sum_amt));
             }
         }
 
