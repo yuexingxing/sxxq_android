@@ -71,13 +71,13 @@ public class SSApplication extends BasicApplication {
         //bugly日志统计
         CrashReport.initCrashReport(getApplicationContext(), "ea6de64e88", false);
 
-        if (AppUtil.isDebug(app)) {
-            List<IKit> kits = new ArrayList<>();
-            kits.add(new KitChangeHost());
-            DoraemonKit.install(this, kits);
-        } else {
-
-        }
+//        if (AppUtil.isDebug(app)) {
+//            List<IKit> kits = new ArrayList<>();
+//            kits.add(new KitChangeHost());
+//            DoraemonKit.install(this, kits);
+//        } else {
+//
+//        }
 
 //        PlatformConfig.setWeixin("微信AppId", "微信AppSecret");
 
@@ -88,7 +88,7 @@ public class SSApplication extends BasicApplication {
         //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
         SDKInitializer.setCoordType(CoordType.BD09LL);
         if (!LeakCanary.isInAnalyzerProcess(this)) {
-            LeakCanary.install(this);
+//            LeakCanary.install(this);
         }
 
         UdeskSDKManager.getInstance().initApiKey(getApplicationContext(), "sanshaoxingqiu.s2.udesk.cn", "e10d38a74025f86a3240885761146d18", "49ac88a587043728");

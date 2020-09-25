@@ -57,7 +57,6 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
     private ProgressBar mProgressBar;
     private LinearLayout layoutBody;
     protected View contentView;
-    private boolean isInitToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +133,7 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
             @Override
             public void onCallBack(String data) {
                 Log.d(TAG, "initToken--data--: " + data);
-                isInitToken = true;
+
             }
         });
     }
@@ -294,9 +293,7 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
 //            if (mTitleBar != null) {
 //                mTitleBar.setTitle(view.getTitle());
 //            }
-            if (!isInitToken) {
-                initToken();
-            }
+            initToken();
         }
 
         @Override
