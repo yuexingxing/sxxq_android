@@ -14,12 +14,12 @@ public class HostUrl {
     }
 
     public interface PRE {
-        String JAVA = "https://apij.sancell.top/api/";
+        String JAVA = "https://apin.sancell.top/api/";
         String NODE = "https://apin.sancell.top/ssxq/";
     }
 
     public interface PRO {
-        String JAVA = "https://apij.sancell.top/api/";
-        String NODE = "https://apin.sancell.top/ssxq/";
+        String JAVA = "https://api.sancellvarymay.com/api/";
+        String NODE = "https://api.sancellvarymay.com/ssxq/";
     }
 }
