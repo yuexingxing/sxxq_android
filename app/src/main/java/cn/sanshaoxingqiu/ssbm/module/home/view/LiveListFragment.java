@@ -111,6 +111,7 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
     @Override
     protected void onVisible() {
         super.onVisible();
+        Log.d(TAG, "LiveListFragment-onVisible");
         if (mCurrentTXLivePlayer != null) {
             mCurrentTXLivePlayer.resume();
             Log.d(TAG, "LiveListFragment-直播播放了");
@@ -119,7 +120,8 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
 
     @Override
     protected void onInVisible() {
-        if (mCurrentTXLivePlayer != null && mCurrentTXLivePlayer.isPlaying()) {
+        Log.d(TAG, "LiveListFragment-onInVisible");
+        if (mCurrentTXLivePlayer != null) {
             mCurrentTXLivePlayer.pause();
             Log.d(TAG, "LiveListFragment-直播暂停播放了");
         }
@@ -135,11 +137,16 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         VideoInfo videoInfo = (VideoInfo) txCloudVideoView.getTag();
         TXLivePlayer txLivePlayer = (TXLivePlayer) ivLiveBg.getTag();
         if (txLivePlayer != null) {
+            mCurrentTXLivePlayer = txLivePlayer;
+            if (!isVisible()) {
+                return;
+            }
             txLivePlayer.setPlayerView(txCloudVideoView);
             txLivePlayer.startPlay(videoInfo.flv_pull_url, TXLivePlayer.PLAY_TYPE_LIVE_FLV);
-            mCurrentTXLivePlayer = txLivePlayer;
             ivLiveBg.setVisibility(View.GONE);
-            Log.d(TAG, "播放成功：" + videoInfo.room_id);
+            if (videoInfo.pushers != null) {
+                Log.d(TAG, "LiveListFragment-播放成功：" + videoInfo.pushers.anchor_name);
+            }
         }
     }
 

@@ -64,6 +64,7 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
         emptyLayout.findViewById(R.id.ll_bg).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mPageNum = 1;
                 getLiveData();
             }
         });
@@ -118,6 +119,7 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
     @Override
     protected void onVisible() {
         super.onVisible();
+        Log.d(TAG, "VideoBackListFragment-onVisible");
         if (mCurrentTXLivePlayer != null) {
             mCurrentTXLivePlayer.resume();
             Log.d(TAG, "VideoBackListFragment-直播播放了");
@@ -126,6 +128,7 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
 
     @Override
     protected void onInVisible() {
+        Log.d(TAG, "VideoBackListFragment-onInVisible");
         if (mCurrentTXLivePlayer != null && mCurrentTXLivePlayer.isPlaying()) {
             mCurrentTXLivePlayer.pause();
             Log.d(TAG, "VideoBackListFragment-直播暂停播放了");
@@ -146,11 +149,16 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
 
         TXLivePlayer txLivePlayer = (TXLivePlayer) ivLiveBg.getTag();
         if (txLivePlayer != null) {
+            mCurrentTXLivePlayer = txLivePlayer;
+            if (!isVisible()){
+                return;
+            }
             txLivePlayer.setPlayerView(txCloudVideoView);
             txLivePlayer.startPlay(videoInfo.flv_pull_url, TXLivePlayer.PLAY_TYPE_LIVE_FLV);
             ivLiveBg.setVisibility(View.GONE);
-            mCurrentTXLivePlayer = txLivePlayer;
-            Log.d(TAG, "播放成功：" + videoInfo.room_id);
+            if (videoInfo.pushers != null) {
+                Log.d(TAG, "VideoBackListFragment-播放成功：" + videoInfo.pushers.anchor_name);
+            }
         }
     }
 
