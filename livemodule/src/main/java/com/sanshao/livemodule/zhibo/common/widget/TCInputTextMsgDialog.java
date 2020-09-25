@@ -42,7 +42,7 @@ public class TCInputTextMsgDialog extends Dialog {
     private int mLastDiff = 0;
     private LinearLayout mConfirmArea;
     private OnTextSendListener mOnTextSendListener;
-    private boolean mDanmuOpen = false;
+    private boolean mDanmuOpen = true;
 
     public TCInputTextMsgDialog(Context context, int theme) {
         super(context, theme);
@@ -115,7 +115,8 @@ public class TCInputTextMsgDialog extends Dialog {
 //                            messageTextView.setText("");
                             dismiss();
                         } else {
-                            ToastUtil.showShortToast("内容不能为空");;
+                            ToastUtil.showShortToast("内容不能为空");
+                            ;
                         }
                         return true;
                     case KeyEvent.KEYCODE_BACK:

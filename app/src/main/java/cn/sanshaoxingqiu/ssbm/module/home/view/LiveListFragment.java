@@ -60,6 +60,12 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         mViewModel.setIBaseModel(this);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View emptyLayout = inflater.inflate(R.layout.item_layout_empty_live, null);
+        emptyLayout.findViewById(R.id.ll_bg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getLiveData();
+            }
+        });
         mHomeAdapter = new HomeLiveAdapter(null);
         mHomeAdapter.setEmptyView(emptyLayout);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
@@ -99,6 +105,7 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {
             getLiveData();
         });
+        getLiveData();
     }
 
     @Override
