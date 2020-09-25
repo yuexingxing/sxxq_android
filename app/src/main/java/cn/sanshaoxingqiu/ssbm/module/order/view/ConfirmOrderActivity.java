@@ -187,7 +187,7 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
         binding.tvBuyNum2.setText("共" + mTotalBuyNum + "件");
 
         if (mGoodsDetailInfo.isFree()) {
-            setTextInfo("免费领取");
+            setTextInfo("0元");
         } else if (mGoodsDetailInfo.isPayByPoint()) {
             setTextInfo(mTotalSharePoint + "分享金");
         } else if (mGoodsDetailInfo.isPayByDisposit()){
