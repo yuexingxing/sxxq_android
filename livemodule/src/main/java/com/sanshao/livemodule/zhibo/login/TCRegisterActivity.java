@@ -218,7 +218,7 @@ public class TCRegisterActivity extends Activity {
                     public void onFailure(int code, final String msg) {
                         showToast("自动登录失败");
                         showOnLoadingInUIThread(false);
-                        jumpToLoginActivity(); // 登录失败，登录界面。
+//                        jumpToLoginActivity(); // 登录失败，登录界面。
                     }
                 });
                 TCELKReportMgr.getInstance().reportELK(TCConstants.ELK_ACTION_REGISTER, username, 0, "注册成功", null);
