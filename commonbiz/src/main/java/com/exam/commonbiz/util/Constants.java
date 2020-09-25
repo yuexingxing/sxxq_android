@@ -26,11 +26,11 @@ public class Constants {
     public static final String DEFAULT_IMG_URL = "http://img.cyw.com/shopx/20130606155913125664/shopinfo/201605041441522.jpg";
     public static final String VIDEO_PLAY_URL = "http://vfx.mtime.cn/Video/2019/06/29/mp4/190629004821240734.mp4";
 
-    public static final String fansUrl = "http://139.224.220.161/tofans.html";
-    public static final String userUrl = "http://139.224.220.161/touser.html";
-    public static final String guimiUrl = "http://139.224.220.161/toguimi.html";
-    public static final String memberBenefitUrl = "http://h5.sanshaoxingqiu.cn/vip/";//会员权益
-    public static final String userPolicyUrl = "https://h5.sanshaoxingqiu.cn/agree/service.html";//用户服务协议
-    public static final String userSecretUrl = "https://h5.sanshaoxingqiu.cn/agree/clause.html";//用户隐私协议
-    public static final String liveServiceUrl = "https://h5.sanshaoxingqiu.cn/agree/live.html";//直播服务协议
+    public static final String fansUrl = "https://vip.sancellvarymay.com/edm/threeactivity/tofans.html";
+    public static final String userUrl = "https://vip.sancellvarymay.com/edm/threeactivity/touser.html";
+    public static final String guimiUrl = "https://vip.sancellvarymay.com/edm/threeactivity/toguimi.html";
+    public static final String memberBenefitUrl = "https://h5.sanshaoxingqiu.cn/vip/";//会员权益
+    public static final String userPolicyUrl = "https://vip.sancellvarymay.com/edm/agree/service.html";//用户服务协议
+    public static final String userSecretUrl = "https://vip.sancellvarymay.com/edm/agree/clause.html";//用户隐私协议
+    public static final String liveServiceUrl = "https://vip.sancellvarymay.com/edm/agree/live.html";//直播服务协议
 }
