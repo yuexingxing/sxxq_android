@@ -120,9 +120,10 @@ public class PayCompleteActivity extends BaseActivity<GoodsDetailViewModel, Acti
                     binding.includeStar.ivStar.setImageResource(R.drawable.image_threestarpaymentissuccessful);
                 }
 
-                if (userInfo.isMember()) {
+                if (userInfo.isMember() || goodsDetailInfo.isMember()) {
                     binding.includeStar.tvPaycompleteTip.setText(String.format("您已经是%s啦！快去分享赚钱吧！", star));
                 } else {
+                    binding.includeStar.ivStar.setImageResource(R.drawable.image_onestarpaymentissuccessful);
                     binding.includeStar.tvPaycompleteTip.setText("恭喜您已成为【三少变美】一星粉丝");
                 }
             }

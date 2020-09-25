@@ -171,7 +171,7 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
     }
 
     public String getSharePath() {
-        if (!TextUtils.isEmpty(sharePath)){
+        if (!TextUtils.isEmpty(sharePath)) {
             return sharePath;
         }
         UserInfo userInfo = SSApplication.getInstance().getUserInfo();
@@ -218,6 +218,15 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
             }
         }
     }
+
+    //是不是会员
+    public boolean isMember() {
+        if (mem_class_key == null || TextUtils.isEmpty(mem_class_key)) {
+            return false;
+        }
+        return true;
+    }
+
 
     public String getMember() {
         if (TextUtils.isEmpty(mem_class_key)) {

@@ -85,6 +85,26 @@ public class HomeFragment extends BaseFragment<BaseViewModel, HomeFragmentBindin
         initTabLayout();
     }
 
+    @Override
+    protected void onVisible() {
+        if (mLiveListFragment != null){
+            mLiveListFragment.onVisible();
+        }
+        if (mVideoBackListFragment != null){
+            mVideoBackListFragment.onVisible();
+        }
+    }
+
+    @Override
+    protected void onInVisible() {
+        if (mLiveListFragment != null){
+            mLiveListFragment.onInVisible();
+        }
+        if (mVideoBackListFragment != null){
+            mVideoBackListFragment.onInVisible();
+        }
+    }
+
     private void initTabLayout() {
 
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

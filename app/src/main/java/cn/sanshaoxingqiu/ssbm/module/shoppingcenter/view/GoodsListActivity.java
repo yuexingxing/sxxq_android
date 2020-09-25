@@ -18,7 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import cn.sanshaoxingqiu.ssbm.R;
+import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityGoodsListBinding;
+import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderBenefitResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderNumStatusResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderPayInfoResponse;
@@ -152,6 +154,10 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
 
             @Override
             public void onConsultClick() {
+                if (!SSApplication.isLogin()) {
+                    LoginActivity.start(context);
+                    return;
+                }
                 CommandTools.startServiceChat();
             }
         });

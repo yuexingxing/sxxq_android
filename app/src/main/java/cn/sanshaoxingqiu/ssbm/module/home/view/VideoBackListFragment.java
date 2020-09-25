@@ -110,6 +110,15 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
     }
 
     @Override
+    protected void onVisible() {
+        super.onVisible();
+        if (mCurrentTXLivePlayer != null) {
+            mCurrentTXLivePlayer.resume();
+            Log.d(TAG, "VideoBackListFragment-直播播放了");
+        }
+    }
+
+    @Override
     protected void onInVisible() {
         if (mCurrentTXLivePlayer != null && mCurrentTXLivePlayer.isPlaying()) {
             mCurrentTXLivePlayer.pause();

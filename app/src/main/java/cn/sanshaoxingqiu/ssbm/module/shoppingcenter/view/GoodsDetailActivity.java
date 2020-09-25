@@ -42,6 +42,7 @@ import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityGoodsDetailBinding;
 import cn.sanshaoxingqiu.ssbm.module.home.model.BannerInfo;
+import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderBenefitResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderNumStatusResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderPayInfoResponse;
@@ -175,6 +176,10 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             binding.nestedScrollview.smoothScrollTo(0, binding.llGoodsDetail.getTop() - ScreenUtil.dp2px(context, 60));
         });
         binding.includeBottom.llConsult.setOnClickListener(v -> {
+            if (!SSApplication.isLogin()) {
+                LoginActivity.start(context);
+                return;
+            }
             CommandTools.startServiceChat();
         });
         binding.homeBannerLayout.setDotGravityBottomRight();

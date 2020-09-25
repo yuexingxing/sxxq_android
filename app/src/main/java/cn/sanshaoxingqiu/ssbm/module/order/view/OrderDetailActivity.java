@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import cn.sanshaoxingqiu.ssbm.R;
+import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityOrderDetailBinding;
+import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderInfo;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderNumStatusResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.event.PayStatusChangedEvent;
@@ -109,6 +111,10 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
         });
 
         binding.llService.setOnClickListener(view -> {
+            if (!SSApplication.isLogin()) {
+                LoginActivity.start(context);
+                return;
+            }
             CommandTools.startServiceChat();
         });
 

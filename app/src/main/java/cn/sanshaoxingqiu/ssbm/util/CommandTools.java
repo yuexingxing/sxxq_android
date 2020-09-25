@@ -220,7 +220,7 @@ public class CommandTools {
         //以下信息是可选
         info.put(UdeskConst.UdeskUserInfo.NICK_NAME, userInfo.nickname);
         info.put(UdeskConst.UdeskUserInfo.EMAIL, "");
-        info.put(UdeskConst.UdeskUserInfo.CELLPHONE, "");
+        info.put(UdeskConst.UdeskUserInfo.CELLPHONE, userInfo.mem_phone);
         info.put(UdeskConst.UdeskUserInfo.DESCRIPTION, "");
 
         UdeskConfig.Builder builder = new UdeskConfig.Builder();

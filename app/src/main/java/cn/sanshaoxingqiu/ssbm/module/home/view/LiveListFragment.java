@@ -102,6 +102,15 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
     }
 
     @Override
+    protected void onVisible() {
+        super.onVisible();
+        if (mCurrentTXLivePlayer != null) {
+            mCurrentTXLivePlayer.resume();
+            Log.d(TAG, "LiveListFragment-直播播放了");
+        }
+    }
+
+    @Override
     protected void onInVisible() {
         if (mCurrentTXLivePlayer != null && mCurrentTXLivePlayer.isPlaying()) {
             mCurrentTXLivePlayer.pause();
@@ -190,12 +199,6 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
     @Override
     protected void loadData() {
 
-    }
-
-    @Override
-    protected void onVisible() {
-        super.onVisible();
-        getLiveData();
     }
 
     @Override
