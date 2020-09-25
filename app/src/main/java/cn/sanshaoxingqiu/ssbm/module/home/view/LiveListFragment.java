@@ -3,6 +3,7 @@ package cn.sanshaoxingqiu.ssbm.module.home.view;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -41,7 +42,6 @@ import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayoutLiveListBinding> implements IBaseModel, BaseQuickAdapter.RequestLoadMoreListener {
     public static final int START_LIVE_PLAY = 100;
     private HomeLiveAdapter mHomeAdapter;
-    private TXLivePlayer mTXLivePlayer;
 
     public static LiveListFragment newInstance() {
         LiveListFragment fragment = new LiveListFragment();
@@ -107,12 +107,13 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
             return;
         }
         VideoInfo videoInfo = (VideoInfo) txCloudVideoView.getTag();
-        if (mTXLivePlayer == null) {
-            mTXLivePlayer = new TXLivePlayer(context);
+        TXLivePlayer txLivePlayer = (TXLivePlayer) ivLiveBg.getTag();
+        if (txLivePlayer != null) {
+            txLivePlayer.setPlayerView(txCloudVideoView);
+            txLivePlayer.startPlay(videoInfo.flv_pull_url, TXLivePlayer.PLAY_TYPE_LIVE_FLV);
+            ivLiveBg.setVisibility(View.GONE);
+            Log.d(TAG, "播放成功：" + videoInfo.room_id);
         }
-        mTXLivePlayer.setPlayerView(txCloudVideoView);
-        mTXLivePlayer.startPlay(videoInfo.flv_pull_url, TXLivePlayer.PLAY_TYPE_LIVE_FLV);
-        ivLiveBg.setVisibility(View.GONE);
     }
 
     private void leaveLiveRoom(View view) {
@@ -121,9 +122,12 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         if (txCloudVideoView == null || ivLiveBg == null) {
             return;
         }
-        if (mTXLivePlayer != null) {
-            mTXLivePlayer.pause();
+        VideoInfo videoInfo = (VideoInfo) txCloudVideoView.getTag();
+        TXLivePlayer txLivePlayer = (TXLivePlayer) ivLiveBg.getTag();
+        if (txLivePlayer != null) {
+            txLivePlayer.pause();
             ivLiveBg.setVisibility(View.VISIBLE);
+            Log.d(TAG, "暂停成功：" + videoInfo.room_id);
         }
     }
 

@@ -1,8 +1,8 @@
 package cn.sanshaoxingqiu.ssbm.module.home.view.adapter;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -11,12 +11,8 @@ import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.GlideUtil;
 import com.exam.commonbiz.util.ScreenUtil;
 import com.exam.commonbiz.util.StatusBarUtil;
-import com.sanshao.livemodule.liveroom.IMLVBLiveRoomListener;
-import com.sanshao.livemodule.liveroom.MLVBLiveRoom;
 import com.sanshao.livemodule.liveroom.roomutil.bean.VideoInfo;
-import com.sanshao.livemodule.zhibo.common.report.TCELKReportMgr;
-import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
-import com.sanshao.livemodule.zhibo.login.TCUserMgr;
+import com.tencent.rtmp.TXLivePlayer;
 import com.tencent.rtmp.ui.TXCloudVideoView;
 
 import cn.sanshaoxingqiu.ssbm.R;
@@ -42,7 +38,13 @@ public class HomeLiveAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder>
             helper.setText(R.id.tv_title, "@" + item.pushers.anchor_name);
         }
         helper.setText(R.id.tv_content, item.live_title);
-        GlideUtil.loadImage(item.frontcover, helper.getView(R.id.iv_bg), R.drawable.image_graphofbooth_default);
+
+        ImageView ivLiveBg = helper.getView(R.id.iv_bg);
+        GlideUtil.loadImage(item.frontcover, ivLiveBg, R.drawable.image_graphofbooth_default);
+        if (ivLiveBg.getTag() == null) {
+            TXLivePlayer txLivePlayer = new TXLivePlayer(helper.itemView.getContext());
+            ivLiveBg.setTag(txLivePlayer);
+        }
 
         FrameLayout frameLayout = helper.getView(R.id.fl_content);
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) frameLayout.getLayoutParams();
