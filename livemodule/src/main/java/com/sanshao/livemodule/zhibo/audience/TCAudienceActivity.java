@@ -373,7 +373,6 @@ public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudi
 
         hideNoticeToast();
 
-
         long endPushPts = System.currentTimeMillis();
         long diff = (endPushPts - mStartPlayPts) / 1000;
         TCELKReportMgr.getInstance().reportELK(TCConstants.ELK_ACTION_LIVE_PLAY_DURATION, TCUserMgr.getInstance().getUserId(), diff, "直播播放时长", null);

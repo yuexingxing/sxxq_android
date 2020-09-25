@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
@@ -15,7 +16,6 @@ import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.base.IBaseModel;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.ContainerUtil;
-import com.exam.commonbiz.util.ToastUtil;
 import com.sanshao.livemodule.liveroom.MLVBLiveRoomImpl;
 import com.sanshao.livemodule.liveroom.roomutil.bean.VideoInfo;
 import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
@@ -23,9 +23,9 @@ import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.audience.TCAudienceActivity;
 import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
+import com.tencent.rtmp.TXLivePlayer;
 import com.tencent.rtmp.ui.TXCloudVideoView;
 
-import cn.jzvd.Jzvd;
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.FragmentLayoutLiveListBinding;
@@ -41,6 +41,7 @@ import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayoutLiveListBinding> implements IBaseModel, BaseQuickAdapter.RequestLoadMoreListener {
     public static final int START_LIVE_PLAY = 100;
     private HomeLiveAdapter mHomeAdapter;
+    private TXLivePlayer mTXLivePlayer;
 
     public static LiveListFragment newInstance() {
         LiveListFragment fragment = new LiveListFragment();
@@ -69,17 +70,12 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         binding.recyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
-
-//                TXCloudVideoView txCloudVideoView = view.findViewById(R.id.anchor_video_view);
-//                String userId = txCloudVideoView.getUserId();
-//                ToastUtil.showShortToast("enter:" + userId);
+                enterLiveRoom(view);
             }
 
             @Override
             public void onChildViewDetachedFromWindow(View view) {
-//                TXCloudVideoView txCloudVideoView = view.findViewById(R.id.anchor_video_view);
-//                String userId = txCloudVideoView.getUserId();
-//                ToastUtil.showShortToast("leave:" + userId);
+                leaveLiveRoom(view);
             }
         });
         mHomeAdapter.setCommonCallBack(new CommonCallBack() {
@@ -102,6 +98,33 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {
             getLiveData();
         });
+    }
+
+    private void enterLiveRoom(View view) {
+        TXCloudVideoView txCloudVideoView = view.findViewById(R.id.anchor_video_view);
+        ImageView ivLiveBg = view.findViewById(R.id.iv_bg);
+        if (txCloudVideoView == null || ivLiveBg == null) {
+            return;
+        }
+        VideoInfo videoInfo = (VideoInfo) txCloudVideoView.getTag();
+        if (mTXLivePlayer == null) {
+            mTXLivePlayer = new TXLivePlayer(context);
+        }
+        mTXLivePlayer.setPlayerView(txCloudVideoView);
+        mTXLivePlayer.startPlay(videoInfo.flv_pull_url, TXLivePlayer.PLAY_TYPE_LIVE_FLV);
+        ivLiveBg.setVisibility(View.GONE);
+    }
+
+    private void leaveLiveRoom(View view) {
+        TXCloudVideoView txCloudVideoView = view.findViewById(R.id.anchor_video_view);
+        ImageView ivLiveBg = view.findViewById(R.id.iv_bg);
+        if (txCloudVideoView == null || ivLiveBg == null) {
+            return;
+        }
+        if (mTXLivePlayer != null) {
+            mTXLivePlayer.pause();
+            ivLiveBg.setVisibility(View.VISIBLE);
+        }
     }
 
     public void getLiveData() {

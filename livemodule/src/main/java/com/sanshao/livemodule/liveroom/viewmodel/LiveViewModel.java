@@ -75,7 +75,6 @@ public class LiveViewModel extends BaseViewModel {
 
             @Override
             public void onLoadFailed(String errMsg) {
-                Toast.makeText(BasicApplication.app, errMsg, Toast.LENGTH_SHORT).show();
                 if (mIBaseModel != null) {
                     mIBaseModel.onRefreshData(null);
                 }
@@ -109,7 +108,6 @@ public class LiveViewModel extends BaseViewModel {
 
             @Override
             public void onLoadFailed(String errMsg) {
-                Toast.makeText(BasicApplication.app, errMsg, Toast.LENGTH_SHORT).show();
                 if (mIBaseModel != null) {
                     mIBaseModel.onRefreshData(null);
                 }

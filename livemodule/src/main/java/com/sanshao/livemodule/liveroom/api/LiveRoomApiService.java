@@ -31,12 +31,12 @@ public interface LiveRoomApiService {
     @GET("live/mlive/home")
     Observable<BaseResponse<AnchorInfo>> getAnchorInfo();
 
-    //直播回放列表
+    //直播列表
     @GET("live/mlive/batchList")
     Observable<BaseResponse<VideoListResponse>> getLiveVideoList();
 
-    //回放列表
-    @GET("live/mlive/record/list")
+    //直播回放列表
+    @GET("live/mlive/video/list")
     Observable<BaseResponse<VideoListResponse>> getVideoBackList(@Query("page") int page, @Query("pageSize") int pageSize);
 
     //创建直播房间

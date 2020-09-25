@@ -57,23 +57,7 @@ public class HomeLiveAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder>
             }
         });
 
-        MLVBLiveRoom mLiveRoom = MLVBLiveRoom.sharedInstance(helper.itemView.getContext());
         TXCloudVideoView txCloudVideoView = helper.getView(R.id.anchor_video_view);
-        txCloudVideoView.setLogMargin(10, 10, 45, 55);
-        mLiveRoom.enterRoom(item.room_id, item.rtmp_pull_url, txCloudVideoView, new IMLVBLiveRoomListener.EnterRoomCallback() {
-            @Override
-            public void onError(int errCode, String errInfo) {
-                Log.e(TAG, "加入房间失败--" + item.room_id + "/" + errInfo);
-                txCloudVideoView.setVisibility(View.GONE);
-                helper.getView(R.id.iv_bg).setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onSuccess() {
-                Log.e(TAG, "加入房间成功--" + item.room_id);
-                helper.getView(R.id.iv_bg).setVisibility(View.GONE);
-                txCloudVideoView.setVisibility(View.VISIBLE);
-            }
-        });
+        txCloudVideoView.setTag(item);
     }
 }
