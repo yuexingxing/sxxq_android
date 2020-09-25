@@ -71,13 +71,13 @@ public class SSApplication extends BasicApplication {
         //bugly日志统计
         CrashReport.initCrashReport(getApplicationContext(), "ea6de64e88", false);
 
-        if (AppUtil.isDebug(app)) {
-            List<IKit> kits = new ArrayList<>();
-            kits.add(new KitChangeHost());
-            DoraemonKit.install(this, kits);
-        } else {
-
-        }
+//        if (AppUtil.isDebug(app)) {
+//            List<IKit> kits = new ArrayList<>();
+//            kits.add(new KitChangeHost());
+//            DoraemonKit.install(this, kits);
+//        } else {
+//
+//        }
 
 //        PlatformConfig.setWeixin("微信AppId", "微信AppSecret");
 

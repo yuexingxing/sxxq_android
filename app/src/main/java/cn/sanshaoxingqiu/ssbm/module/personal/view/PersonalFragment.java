@@ -353,6 +353,9 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         if (userInfo == null) {
             return;
         }
+        if (TextUtils.isEmpty(userInfo.nickname)){
+            userInfo.nickname = userInfo.invitation_code;
+        }
         mUserInfo = userInfo;
         SSApplication.getInstance().saveUserInfo(userInfo);
 
