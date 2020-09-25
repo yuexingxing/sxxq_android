@@ -147,7 +147,18 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
         } else if (isPayByPoint()) {
             return sarti_point_price + "分享金";
         } else if (isPayByDisposit()) {
-            return "定金 ¥" + MathUtil.getNumExclude0(deposit_price);
+            return "¥" + MathUtil.getNumExclude0(deposit_price);
+        }
+        return "¥" + MathUtil.getNumExclude0(sarti_saleprice);
+    }
+
+    public String getOrderDetailPriceText() {
+        if (isFree()) {
+            return "¥0";
+        } else if (isPayByPoint()) {
+            return sarti_point_price + "分享金";
+        } else if (isPayByDisposit()) {
+            return "¥" + MathUtil.getNumExclude0(deposit_price);
         }
         return "¥" + MathUtil.getNumExclude0(sarti_saleprice);
     }

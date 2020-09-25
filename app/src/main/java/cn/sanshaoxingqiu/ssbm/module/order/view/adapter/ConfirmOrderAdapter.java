@@ -198,7 +198,7 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
         }
         helper.setText(R.id.tv_title, item.order_product.sarti_name);
         helper.setText(R.id.tv_buy_count, item.buyNum + "");
-        helper.setText(R.id.tv_price_1, "¥" + MathUtil.getNumExclude0(item.sum_amt));
+        helper.setText(R.id.tv_price_1, item.order_product.getOrderDetailPriceText());
         helper.setText(R.id.tv_total_count, "x" + item.qty);
         if (item.isPayByDisposit()) {
             helper.setText(R.id.tv_price_2, "¥" + MathUtil.getNumExclude0(item.order_product.deposit_price));
