@@ -6,7 +6,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.GlideUtil;
@@ -20,6 +19,12 @@ import java.util.List;
 
 import cn.sanshaoxingqiu.ssbm.R;
 
+/**
+ * 直播/回放
+ *
+ * @Author yuexingxing
+ * @time 2020/9/16
+ */
 public class HomeLiveAdapter extends BaseMultiItemQuickAdapter<VideoInfo, BaseViewHolder> {
     public static final int TYPE_VIDEO_LIVE = 1;
     public static final int TYPE_VIDEO_BACK = 0;
@@ -28,7 +33,7 @@ public class HomeLiveAdapter extends BaseMultiItemQuickAdapter<VideoInfo, BaseVi
     public HomeLiveAdapter(List<VideoInfo> data) {
         super(data);
         addItemType(TYPE_VIDEO_LIVE, R.layout.item_layout_home_live);
-        addItemType(TYPE_VIDEO_BACK, R.layout.item_layout_home);
+        addItemType(TYPE_VIDEO_BACK, R.layout.item_layout_home_video_back);
     }
 
     public void setCommonCallBack(CommonCallBack commonCallBack) {
