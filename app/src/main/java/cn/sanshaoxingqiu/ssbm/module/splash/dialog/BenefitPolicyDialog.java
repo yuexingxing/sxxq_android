@@ -2,7 +2,6 @@ package cn.sanshaoxingqiu.ssbm.module.splash.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -49,9 +48,6 @@ public class BenefitPolicyDialog {
         String str4 = "《用户隐私政策》";
         String str5 = "。";
         SpannableString spannableString = new SpannableString(str1 + str2 + str3 + str4 + str5);
-        spannableString.setSpan(new ForegroundColorSpan(Res.getColor(context, R.color.color_b6a57b)), str1.length(), (str1 + str2).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); //设置前景色为洋红色
-        spannableString.setSpan(new ForegroundColorSpan(Res.getColor(context, R.color.color_b6a57b)), (str1 + str2 + str3).length(),
-                (str1 + str2 + str3 + str4).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); //设置前景色为洋红色
 
         ClickableSpan spanPolicy1 = new ClickableSpan() {
             @Override
@@ -81,6 +77,10 @@ public class BenefitPolicyDialog {
         int start = (str1 + str2 + str3).length();
         int end = (str1 + str2 + str3 + str4).length();
         spannableString.setSpan(spanPolicy2, start, end, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+
+        spannableString.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.color_b6a57b)), str1.length(), (str1 + str2).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(Res.getColor(context, R.color.color_b6a57b)), (str1 + str2 + str3).length(),
+                (str1 + str2 + str3 + str4).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         tvPolicy.setText(spannableString);
         tvPolicy.setMovementMethod(LinkMovementMethod.getInstance());

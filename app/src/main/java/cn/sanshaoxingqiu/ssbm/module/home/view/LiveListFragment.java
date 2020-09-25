@@ -70,16 +70,16 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
             @Override
             public void onChildViewAttachedToWindow(View view) {
 
-                TXCloudVideoView txCloudVideoView = view.findViewById(R.id.anchor_video_view);
-                String userId = txCloudVideoView.getUserId();
-                ToastUtil.showShortToast("enter:" + userId);
+//                TXCloudVideoView txCloudVideoView = view.findViewById(R.id.anchor_video_view);
+//                String userId = txCloudVideoView.getUserId();
+//                ToastUtil.showShortToast("enter:" + userId);
             }
 
             @Override
             public void onChildViewDetachedFromWindow(View view) {
-                TXCloudVideoView txCloudVideoView = view.findViewById(R.id.anchor_video_view);
-                String userId = txCloudVideoView.getUserId();
-                ToastUtil.showShortToast("leave:" + userId);
+//                TXCloudVideoView txCloudVideoView = view.findViewById(R.id.anchor_video_view);
+//                String userId = txCloudVideoView.getUserId();
+//                ToastUtil.showShortToast("leave:" + userId);
             }
         });
         mHomeAdapter.setCommonCallBack(new CommonCallBack() {

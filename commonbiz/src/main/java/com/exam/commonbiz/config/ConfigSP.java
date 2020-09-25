@@ -11,6 +11,7 @@ public class ConfigSP {
     public static final String SP_TOKEN = "sp_token";//token
     public static final String SP_USER_INFO = "sp_user_info";
     public static final String SP_CURRENT_HOST = "sp_current_host";
+    public static final String SP_PERSONAL_POLICY = "sp_personal_policy";//用户权益弹窗
 
     public enum HOST_TYPE {
         PRO,
