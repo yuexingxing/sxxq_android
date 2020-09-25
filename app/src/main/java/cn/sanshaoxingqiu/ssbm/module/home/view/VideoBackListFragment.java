@@ -3,8 +3,10 @@ package cn.sanshaoxingqiu.ssbm.module.home.view;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
@@ -21,11 +23,13 @@ import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.audience.TCAudienceActivity;
 import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
 import com.sanshao.livemodule.zhibo.playback.TCPlaybackActivity;
+import com.tencent.rtmp.TXLivePlayer;
+import com.tencent.rtmp.ui.TXCloudVideoView;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.FragmentLayoutVideoBackListBinding;
-import cn.sanshaoxingqiu.ssbm.module.home.view.adapter.HomeAdapter;
+import cn.sanshaoxingqiu.ssbm.module.home.view.adapter.HomeLiveAdapter;
 import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 import cn.sanshaoxingqiu.ssbm.util.Constants;
 
@@ -37,8 +41,9 @@ import cn.sanshaoxingqiu.ssbm.util.Constants;
  */
 public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentLayoutVideoBackListBinding> implements IBaseModel, BaseQuickAdapter.RequestLoadMoreListener {
 
-    private HomeAdapter mHomeAdapter;
+    private HomeLiveAdapter mHomeAdapter;
     private int mPageNum = 1;
+    private TXLivePlayer mCurrentTXLivePlayer;
 
     public static VideoBackListFragment newInstance() {
         VideoBackListFragment fragment = new VideoBackListFragment();
@@ -56,7 +61,7 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
         mViewModel.setIBaseModel(this);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View emptyLayout = inflater.inflate(R.layout.item_layout_empty_live, null);
-        mHomeAdapter = new HomeAdapter(HomeAdapter.VIDEO_TYPE_BACK);
+        mHomeAdapter = new HomeLiveAdapter(null);
         mHomeAdapter.setEmptyView(emptyLayout);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -64,6 +69,17 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
         binding.recyclerView.setAdapter(mHomeAdapter);
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(binding.recyclerView);
+        binding.recyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(View view) {
+                enterLiveRoom(view);
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(View view) {
+                leaveLiveRoom(view);
+            }
+        });
         mHomeAdapter.setCommonCallBack(new CommonCallBack() {
             @Override
             public void callback(int postion, Object object) {
@@ -91,6 +107,54 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
 
     public void scrollToTop() {
         binding.recyclerView.scrollToPosition(0);
+    }
+
+    @Override
+    protected void onInVisible() {
+        if (mCurrentTXLivePlayer != null && mCurrentTXLivePlayer.isPlaying()) {
+            mCurrentTXLivePlayer.pause();
+            Log.d(TAG, "VideoBackListFragment-直播暂停播放了");
+        }
+    }
+
+    private void enterLiveRoom(View view) {
+        mCurrentTXLivePlayer = null;
+        TXCloudVideoView txCloudVideoView = view.findViewById(R.id.anchor_video_view);
+        ImageView ivLiveBg = view.findViewById(R.id.iv_bg);
+        if (txCloudVideoView == null || ivLiveBg == null) {
+            return;
+        }
+        VideoInfo videoInfo = (VideoInfo) txCloudVideoView.getTag();
+        if (!videoInfo.isLive()) {
+            return;
+        }
+
+        TXLivePlayer txLivePlayer = (TXLivePlayer) ivLiveBg.getTag();
+        if (txLivePlayer != null) {
+            txLivePlayer.setPlayerView(txCloudVideoView);
+            txLivePlayer.startPlay(videoInfo.flv_pull_url, TXLivePlayer.PLAY_TYPE_LIVE_FLV);
+            ivLiveBg.setVisibility(View.GONE);
+            mCurrentTXLivePlayer = txLivePlayer;
+            Log.d(TAG, "播放成功：" + videoInfo.room_id);
+        }
+    }
+
+    private void leaveLiveRoom(View view) {
+        TXCloudVideoView txCloudVideoView = view.findViewById(R.id.anchor_video_view);
+        ImageView ivLiveBg = view.findViewById(R.id.iv_bg);
+        if (txCloudVideoView == null || ivLiveBg == null) {
+            return;
+        }
+        VideoInfo videoInfo = (VideoInfo) txCloudVideoView.getTag();
+        if (!videoInfo.isLive()) {
+            return;
+        }
+        TXLivePlayer txLivePlayer = (TXLivePlayer) ivLiveBg.getTag();
+        if (txLivePlayer != null) {
+            txLivePlayer.pause();
+            ivLiveBg.setVisibility(View.VISIBLE);
+            Log.d(TAG, "暂停成功：" + videoInfo.room_id);
+        }
     }
 
     /**

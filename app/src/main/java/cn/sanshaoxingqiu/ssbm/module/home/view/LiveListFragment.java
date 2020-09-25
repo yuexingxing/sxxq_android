@@ -42,6 +42,7 @@ import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayoutLiveListBinding> implements IBaseModel, BaseQuickAdapter.RequestLoadMoreListener {
     public static final int START_LIVE_PLAY = 100;
     private HomeLiveAdapter mHomeAdapter;
+    private TXLivePlayer mCurrentTXLivePlayer;
 
     public static LiveListFragment newInstance() {
         LiveListFragment fragment = new LiveListFragment();
@@ -59,7 +60,7 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         mViewModel.setIBaseModel(this);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View emptyLayout = inflater.inflate(R.layout.item_layout_empty_live, null);
-        mHomeAdapter = new HomeLiveAdapter();
+        mHomeAdapter = new HomeLiveAdapter(null);
         mHomeAdapter.setEmptyView(emptyLayout);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -102,13 +103,14 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
 
     @Override
     protected void onInVisible() {
-        if (mHomeAdapter != null && !ContainerUtil.isEmpty(mHomeAdapter.getData())) {
-            mHomeAdapter.getData().clear();
-            mHomeAdapter.notifyDataSetChanged();
+        if (mCurrentTXLivePlayer != null && mCurrentTXLivePlayer.isPlaying()) {
+            mCurrentTXLivePlayer.pause();
+            Log.d(TAG, "LiveListFragment-直播暂停播放了");
         }
     }
 
     private void enterLiveRoom(View view) {
+        mCurrentTXLivePlayer = null;
         TXCloudVideoView txCloudVideoView = view.findViewById(R.id.anchor_video_view);
         ImageView ivLiveBg = view.findViewById(R.id.iv_bg);
         if (txCloudVideoView == null || ivLiveBg == null) {
@@ -119,6 +121,7 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         if (txLivePlayer != null) {
             txLivePlayer.setPlayerView(txCloudVideoView);
             txLivePlayer.startPlay(videoInfo.flv_pull_url, TXLivePlayer.PLAY_TYPE_LIVE_FLV);
+            mCurrentTXLivePlayer = txLivePlayer;
             ivLiveBg.setVisibility(View.GONE);
             Log.d(TAG, "播放成功：" + videoInfo.room_id);
         }
