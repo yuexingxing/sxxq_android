@@ -95,7 +95,6 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
     private String mArtiTagId;
     private int mPageNum = 0;
     private GoodsListAdapter mGoodsListAdapter;
-    private UserInfo mUserInfo;
     private OrderViewModel mOrderViewModel;
     private OrderDetailViewModel mOrderDetailViewModel;
     private PayViewModel mPayViewModel;
@@ -115,7 +114,6 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
     @Override
     public void initData() {
 
-        mUserInfo = SSApplication.getInstance().getUserInfo();
         GoodsTypeInfo goodsTypeInfo = (GoodsTypeInfo) getIntent().getSerializableExtra(Constants.OPT_DATA);
         mArtiTagId = goodsTypeInfo.artitag_id;
         if (!TextUtils.isEmpty(goodsTypeInfo.artitag_name)) {

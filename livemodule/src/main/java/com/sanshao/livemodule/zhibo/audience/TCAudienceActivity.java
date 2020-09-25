@@ -694,7 +694,6 @@ public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudi
         }
     }
 
-
     @Override
     public void onRoomDestroy(String roomID) {
         stopLinkMic();
@@ -706,7 +705,7 @@ public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudi
         if (errorCode == MLVBCommonDef.LiveRoomErrorCode.ERROR_IM_FORCE_OFFLINE) { // IM 被强制下线。
             TCUtils.showKickOut(TCAudienceActivity.this);
         } else {
-            showErrorAndQuit("视频流播放失败，Error:");
+            showErrorAndQuit("视频流播放失败");
         }
     }
 

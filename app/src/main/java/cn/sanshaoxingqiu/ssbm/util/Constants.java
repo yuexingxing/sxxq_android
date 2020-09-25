@@ -30,4 +30,6 @@ public class Constants {
     public static final String userUrl = "http://139.224.220.161/touser.html";
     public static final String guimiUrl = "http://139.224.220.161/toguimi.html";
     public static final String memberBenefitUrl = "http://h5.sanshaoxingqiu.cn/vip/";//会员权益
+    public static final String userPolicyUrl = "https://h5.sanshaoxingqiu.cn/agree/service.html";//用户服务协议
+    public static final String userSecretUrl = "https://h5.sanshaoxingqiu.cn/agree/clause.html";//用户隐私协议
 }

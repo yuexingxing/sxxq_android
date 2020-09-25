@@ -15,6 +15,7 @@ import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.base.IBaseModel;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.ContainerUtil;
+import com.exam.commonbiz.util.ToastUtil;
 import com.sanshao.livemodule.liveroom.MLVBLiveRoomImpl;
 import com.sanshao.livemodule.liveroom.roomutil.bean.VideoInfo;
 import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
@@ -22,7 +23,9 @@ import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.audience.TCAudienceActivity;
 import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
+import com.tencent.rtmp.ui.TXCloudVideoView;
 
+import cn.jzvd.Jzvd;
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.FragmentLayoutLiveListBinding;
@@ -63,6 +66,22 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         binding.recyclerView.setAdapter(mHomeAdapter);
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(binding.recyclerView);
+        binding.recyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(View view) {
+
+                TXCloudVideoView txCloudVideoView = view.findViewById(R.id.anchor_video_view);
+                String userId = txCloudVideoView.getUserId();
+                ToastUtil.showShortToast("enter:" + userId);
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(View view) {
+                TXCloudVideoView txCloudVideoView = view.findViewById(R.id.anchor_video_view);
+                String userId = txCloudVideoView.getUserId();
+                ToastUtil.showShortToast("leave:" + userId);
+            }
+        });
         mHomeAdapter.setCommonCallBack(new CommonCallBack() {
             @Override
             public void callback(int postion, Object object) {
@@ -101,7 +120,7 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
 //        });
     }
 
-    public void scrollToTop(){
+    public void scrollToTop() {
         binding.recyclerView.scrollToPosition(0);
     }
 

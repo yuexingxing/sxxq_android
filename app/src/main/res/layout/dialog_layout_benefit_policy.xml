@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_white_radius_10"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/left_container_margin"
+    android:paddingRight="@dimen/right_container_margin">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="用户隐私政策概要"
+        android:textColor="#ff333333"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_policy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="请您充分阅读并理解《用户服务协议》及《用户隐私政策》。"
+        android:textColor="#ff333333"
+        android:textSize="13sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:lineSpacingExtra="2dp"
+        android:lineSpacingMultiplier="1"
+        android:text="
+1、在您浏览时，我们会收集您的设备信息、操作日志等用于平台安全风控，并申请存储权限用于下载及缓存。\n
+2、在您使用上传、分享、语音等服务时，我们需要获取您设备的摄像头、麦克风、相册、地理位置、存储空间等权限，但该等权限均需经您明示授权才会为实现功能或服务时使用。
+您可以在相关页面访问、修改、删除您的个人信息或管理您的授权。"
+        android:textColor="#ff333333"
+        android:textSize="13sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="暂不使用"
+            android:textColor="#ff87898c"
+            android:textSize="13sp" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/line" />
+
+        <TextView
+            android:id="@+id/tv_ok"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="同意"
+            android:textColor="#ffb6a57b"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+
+</LinearLayout>
