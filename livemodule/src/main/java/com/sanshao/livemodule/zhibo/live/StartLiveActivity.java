@@ -169,6 +169,7 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
             }
         });
 
+        TCUserMgr.getInstance().loginMLVB();
         String picUrl = TCUserMgr.getInstance().getCoverPic();
         TCUserMgr.getInstance().setCoverPic(picUrl, null);
         setLiveBg(TCUserMgr.getInstance().getCoverPic());
@@ -229,8 +230,7 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
             return;
         }
         if (TextUtils.isEmpty(TCUserMgr.getInstance().getLocation())) {
-            showLocation();
-            return;
+            TCUserMgr.getInstance().setLocation("定位失败", null);
         }
 
         UserInfo userInfo = BasicApplication.getUserInfo();
