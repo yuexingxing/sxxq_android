@@ -9,6 +9,7 @@ import com.exam.commonbiz.dialog.CommonTipDialog;
 import com.exam.commonbiz.util.Constants;
 
 import cn.sanshaoxingqiu.ssbm.SSApplication;
+import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderInfo;
 import cn.sanshaoxingqiu.ssbm.module.order.view.ConfirmOrderActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.view.OrderListActivity;
@@ -23,7 +24,7 @@ public class GoodsPresenter {
             return;
         }
         if (!SSApplication.isLogin()) {
-            RegisterActivity.start(context, "", ShoppingCenterUtil.getRegisterTagId());
+            LoginActivity.start(context);
             return;
         }
         UserInfo userInfo = BasicApplication.getUserInfo();
