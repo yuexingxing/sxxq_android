@@ -324,34 +324,6 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
         return filePath;
     }
 
-    private void checkLocationermission() {
-        RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(PermissionGroup.LOCATION)
-                .subscribe(new Observer<Boolean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Boolean aBoolean) {
-                        if (!aBoolean) {
-                            return;
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-    }
-
     private void checkPhotoPermission(final int index) {
         RxPermissions rxPermissions = new RxPermissions(this);
         rxPermissions.request(PermissionGroup.TAKE_PHOTO)
@@ -438,6 +410,7 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
             setLocation(location);
         } else {
             binding.tvLocation.setText(getString(R.string.text_live_lbs_fail));
+            setLocation("定位失败");
         }
     }
 

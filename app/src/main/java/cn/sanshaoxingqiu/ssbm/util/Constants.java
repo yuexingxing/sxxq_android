@@ -26,8 +26,8 @@ public class Constants {
     public static final String DEFAULT_IMG_URL = "http://img.cyw.com/shopx/20130606155913125664/shopinfo/201605041441522.jpg";
     public static final String VIDEO_PLAY_URL = "http://vfx.mtime.cn/Video/2019/06/29/mp4/190629004821240734.mp4";
 
-    public static final String fansUrl = "http://139.224.220.161/toFans.html";
+    public static final String fansUrl = "http://139.224.220.161/tofans.html";
     public static final String userUrl = "http://139.224.220.161/touser.html";
-    public static final String guimiUrl = "http://139.224.220.161/toGuimi.html";
+    public static final String guimiUrl = "http://139.224.220.161/toguimi.html";
     public static final String memberBenefitUrl = "http://h5.sanshaoxingqiu.cn/vip/";//会员权益
 }
