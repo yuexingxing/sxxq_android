@@ -1,4 +1,4 @@
-package cn.sanshaoxingqiu.ssbm.util;
+package com.exam.commonbiz.util;
 
 /**
  * @Author yuexingxing
@@ -32,4 +32,5 @@ public class Constants {
     public static final String memberBenefitUrl = "http://h5.sanshaoxingqiu.cn/vip/";//会员权益
     public static final String userPolicyUrl = "https://h5.sanshaoxingqiu.cn/agree/service.html";//用户服务协议
     public static final String userSecretUrl = "https://h5.sanshaoxingqiu.cn/agree/clause.html";//用户隐私协议
+    public static final String liveServiceUrl = "https://h5.sanshaoxingqiu.cn/agree/live.html";//直播服务协议
 }

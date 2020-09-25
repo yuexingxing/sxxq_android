@@ -6,6 +6,7 @@ import android.view.View;
 import com.exam.commonbiz.base.BasicApplication;
 import com.exam.commonbiz.bean.UserInfo;
 import com.exam.commonbiz.dialog.CommonTipDialog;
+import com.exam.commonbiz.util.Constants;
 
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderInfo;
@@ -14,7 +15,6 @@ import cn.sanshaoxingqiu.ssbm.module.order.view.OrderListActivity;
 import cn.sanshaoxingqiu.ssbm.module.register.view.RegisterActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 
 public class GoodsPresenter {
 

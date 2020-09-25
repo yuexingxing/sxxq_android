@@ -5,13 +5,11 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.GlideUtil;
 
 import cn.sanshaoxingqiu.ssbm.R;
-import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderInfo;
-
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 
 /**
  * @Author yuexingxing

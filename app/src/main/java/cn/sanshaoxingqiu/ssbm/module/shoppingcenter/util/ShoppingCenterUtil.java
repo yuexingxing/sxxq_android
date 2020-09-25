@@ -1,7 +1,8 @@
 package cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util;
 
+import com.exam.commonbiz.util.Constants;
+
 import cn.sanshaoxingqiu.ssbm.SSApplication;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 
 public class ShoppingCenterUtil {
 

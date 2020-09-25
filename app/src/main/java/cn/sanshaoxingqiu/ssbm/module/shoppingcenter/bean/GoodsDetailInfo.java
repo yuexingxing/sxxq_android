@@ -8,11 +8,9 @@ import cn.sanshaoxingqiu.ssbm.SSApplication;
 
 import com.exam.commonbiz.bean.UserInfo;
 
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.MathUtil;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GoodsDetailInfo implements Serializable, MultiItemEntity {

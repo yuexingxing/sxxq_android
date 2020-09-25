@@ -2,7 +2,6 @@ package cn.sanshaoxingqiu.ssbm.module.order.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -22,9 +21,9 @@ import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IGoodsDetailModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.MathUtil;
 
+import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.Res;
 import com.exam.commonbiz.util.ToastUtil;
 

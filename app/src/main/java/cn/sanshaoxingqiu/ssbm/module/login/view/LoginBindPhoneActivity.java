@@ -6,10 +6,10 @@ import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.base.BaseViewModel;
+import com.exam.commonbiz.base.EmptyWebViewActivity;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityLoginBindPhoneBinding;
-import cn.sanshaoxingqiu.ssbm.module.EmptyWebViewActivity;
 
 
 /**
@@ -46,13 +46,13 @@ public class LoginBindPhoneActivity extends BaseActivity<BaseViewModel, Activity
         binding.includePolicy.tvAgreement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EmptyWebViewActivity.start(context, "http://www.baidu.com");
+
             }
         });
         binding.includePolicy.tvPolicy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EmptyWebViewActivity.start(context, "http://www.2345.com");
+
             }
         });
     }

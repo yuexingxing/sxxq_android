@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.bean.UserInfo;
+import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.ToastUtil;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
@@ -29,7 +30,6 @@ import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IGoodsDetailModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
 
 /**

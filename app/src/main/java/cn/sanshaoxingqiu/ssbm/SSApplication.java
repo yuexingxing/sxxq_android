@@ -10,8 +10,6 @@ import androidx.multidex.MultiDex;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
-import com.didichuxing.doraemonkit.DoraemonKit;
-import com.didichuxing.doraemonkit.kit.IKit;
 import com.exam.commonbiz.base.BasicApplication;
 import com.exam.commonbiz.cache.ACache;
 import com.exam.commonbiz.config.ConfigSP;
@@ -20,6 +18,7 @@ import com.exam.commonbiz.net.NetError;
 import com.exam.commonbiz.net.NetProvider;
 import com.exam.commonbiz.net.RequestHandler;
 import com.exam.commonbiz.net.XApi;
+import com.exam.commonbiz.util.Constants;
 import com.sanshao.commonui.titlebar.TitleBar;
 import com.sanshao.commonui.titlebar.TitleBarLightStyle;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;
@@ -31,14 +30,10 @@ import com.umeng.socialize.PlatformConfig;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import cn.sanshaoxingqiu.ssbm.module.personal.setting.dokit.KitChangeHost;
 import cn.sanshaoxingqiu.ssbm.util.AppUtil;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.udesk.UdeskSDKManager;
 
 /**

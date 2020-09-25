@@ -18,11 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import cn.sanshaoxingqiu.ssbm.R;
-import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityGoodsListBinding;
-import cn.sanshaoxingqiu.ssbm.module.invitation.view.InvitationActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderBenefitResponse;
-import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderInfo;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderNumStatusResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderPayInfoResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderStatusResponse;
@@ -30,34 +27,23 @@ import cn.sanshaoxingqiu.ssbm.module.order.event.PayStatusChangedEvent;
 import cn.sanshaoxingqiu.ssbm.module.order.model.IOrderDetailModel;
 import cn.sanshaoxingqiu.ssbm.module.order.model.IOrderModel;
 import cn.sanshaoxingqiu.ssbm.module.order.model.IPayModel;
-import cn.sanshaoxingqiu.ssbm.module.order.model.OnPayListener;
-import cn.sanshaoxingqiu.ssbm.module.order.util.PayUtils;
-import cn.sanshaoxingqiu.ssbm.module.order.view.ConfirmOrderActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.view.ConfirmPayActivity;
-import cn.sanshaoxingqiu.ssbm.module.order.view.OrderListActivity;
-import cn.sanshaoxingqiu.ssbm.module.order.view.PayCompleteActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderDetailViewModel;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderViewModel;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.PayViewModel;
 
-import com.exam.commonbiz.bean.UserInfo;
-
-import cn.sanshaoxingqiu.ssbm.module.register.view.RegisterActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsTypeInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IGoodsListModel;
-import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.adapter.GoodsListAdapter;
-import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.RecommendRewardDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.viewmodel.GoodsListViewModel;
 
-import com.exam.commonbiz.dialog.CommonTipDialog;
 import com.exam.commonbiz.util.BitmapUtil;
 
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 
+import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.LoadDialogMgr;
 
 import cn.sanshaoxingqiu.ssbm.util.OnItemEnterOrExitVisibleHelper;
@@ -65,7 +51,6 @@ import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.log.XLog;
-import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
@@ -80,8 +65,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.jzvd.Jzvd;
-
-import com.exam.commonbiz.util.ToastUtil;
 
 /**
  * 商品列表

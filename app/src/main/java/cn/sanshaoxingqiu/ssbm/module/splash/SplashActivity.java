@@ -4,13 +4,12 @@ import android.content.Intent;
 import android.os.CountDownTimer;
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.base.BaseViewModel;
+import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.GlideUtil;
 
 import cn.sanshaoxingqiu.ssbm.R;
-import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivitySplashBinding;
 import cn.sanshaoxingqiu.ssbm.module.MainActivity;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 
 /**
  * 闪屏广告页

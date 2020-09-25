@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.exam.commonbiz.bean.UserInfo;
+import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.ScreenUtil;
 import com.exam.commonbiz.util.ToastUtil;
 import com.google.gson.Gson;

@@ -8,17 +8,12 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.exam.commonbiz.base.BaseFragment;
-import com.exam.commonbiz.router.Router;
 import com.exam.commonbiz.util.ContainerUtil;
-import com.exam.commonbiz.util.GlideUtil;
 import com.exam.commonbiz.util.ScreenUtil;
-import com.exam.commonbiz.util.ToastUtil;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.ShoppingCenterFragmentBinding;
-import cn.sanshaoxingqiu.ssbm.module.EmptyWebViewActivity;
 import cn.sanshaoxingqiu.ssbm.module.home.model.BannerInfo;
 import cn.sanshaoxingqiu.ssbm.module.invitation.view.InvitationActivity;
 import cn.sanshaoxingqiu.ssbm.module.register.view.RegisterActivity;

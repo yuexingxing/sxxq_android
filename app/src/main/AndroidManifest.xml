@@ -114,9 +114,6 @@
             android:name=".module.order.view.PayCompleteActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.EmptyWebViewActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".module.order.view.ConfirmOrderActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />

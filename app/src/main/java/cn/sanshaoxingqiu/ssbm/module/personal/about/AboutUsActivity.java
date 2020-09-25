@@ -7,23 +7,19 @@ import android.view.View;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.base.BasicApplication;
-import com.exam.commonbiz.cache.ACache;
 import com.exam.commonbiz.dialog.CommonTipDialog;
+import com.exam.commonbiz.util.Constants;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.sanshao.livemodule.liveroom.MLVBLiveRoomImpl;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
 
 import cn.sanshaoxingqiu.ssbm.R;
-import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityAboutUsBinding;
-import cn.sanshaoxingqiu.ssbm.module.EmptyWebViewActivity;
 import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 import cn.sanshaoxingqiu.ssbm.module.personal.about.adapter.AboutUsAdapter;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.ExerciseActivity;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 
 /**
  * 账户安全
@@ -109,7 +105,7 @@ public class AboutUsActivity extends BaseActivity<AboutUsViewModel, ActivityAbou
             }
         });
 
-        mAboutUsAdapter.addData(new AgreementInfo("三少变美直播服务协议", "https://h5.sanshaoxingqiu.cn/agree/live.html"));
+        mAboutUsAdapter.addData(new AgreementInfo("三少变美直播服务协议", Constants.liveServiceUrl));
         mAboutUsAdapter.addData(new AgreementInfo("三少变美用户服务协议", Constants.userPolicyUrl));
         mAboutUsAdapter.addData(new AgreementInfo("三少变美隐私协议", Constants.userSecretUrl));
         mAboutUsAdapter.addData(new AgreementInfo("三少变美提现协议", "https://h5.sanshaoxingqiu.cn/agree/withdrawalrules.html"));

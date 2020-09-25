@@ -1,6 +1,5 @@
 package com.sanshao.livemodule.zhibo.live;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -20,10 +19,12 @@ import com.exam.commonbiz.api.oss.OssViewModel;
 import com.exam.commonbiz.api.oss.UploadPicResponse;
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.base.BasicApplication;
+import com.exam.commonbiz.base.EmptyWebViewActivity;
 import com.exam.commonbiz.bean.UserInfo;
 import com.exam.commonbiz.dialog.CommonTipDialog;
 import com.exam.commonbiz.util.AppManager;
 import com.exam.commonbiz.util.BitmapUtil;
+import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.FileUtil;
 import com.exam.commonbiz.util.GlideUtil;
 import com.exam.commonbiz.util.LoadDialogMgr;
@@ -38,7 +39,6 @@ import com.sanshao.commonutil.permission.RxPermissions;
 import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.databinding.ActivityStartLiveBinding;
 import com.sanshao.livemodule.liveroom.model.ILiveRoomModel;
-import com.sanshao.livemodule.liveroom.roomutil.bean.LicenceInfo;
 import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
 import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
 import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
@@ -47,7 +47,6 @@ import com.sanshao.livemodule.zhibo.anchor.prepare.TCLocationHelper;
 import com.sanshao.livemodule.zhibo.common.net.TCHTTPMgr;
 import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
-import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
 
 import org.json.JSONObject;
 
@@ -168,6 +167,13 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
                 startLocation();
             }
         });
+        binding.tvAgreement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EmptyWebViewActivity.start(context, "直播服务协议", Constants.liveServiceUrl);
+            }
+        });
+
 
         TCUserMgr.getInstance().loginMLVB();
         String picUrl = TCUserMgr.getInstance().getCoverPic();
@@ -231,6 +237,10 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
         }
         if (TextUtils.isEmpty(TCUserMgr.getInstance().getLocation())) {
             TCUserMgr.getInstance().setLocation("定位失败", null);
+        }
+        if (!binding.checkbox.isChecked()) {
+            ToastUtil.showLongToast("请先勾选协议");
+            return;
         }
 
         UserInfo userInfo = BasicApplication.getUserInfo();

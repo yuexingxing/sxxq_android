@@ -8,6 +8,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseFragment;
+import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.ContainerUtil;
 
 import cn.sanshaoxingqiu.ssbm.R;
@@ -20,7 +21,7 @@ import cn.sanshaoxingqiu.ssbm.module.order.view.adapter.OrderListAdapter;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderListViewModel;
 import cn.sanshaoxingqiu.ssbm.module.personal.inquiry.view.AppointmentForConsultationActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
+
 import com.exam.commonbiz.util.ToastUtil;
 
 /**

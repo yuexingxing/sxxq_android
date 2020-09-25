@@ -18,11 +18,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.exam.commonbiz.util.CommonCallBack;
+import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.Res;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.ExerciseActivity;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 
 /**
  * 商品海报

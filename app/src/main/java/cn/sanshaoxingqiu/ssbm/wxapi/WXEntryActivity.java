@@ -6,7 +6,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 
-import cn.sanshaoxingqiu.ssbm.util.Constants;
+import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.ToastUtil;
 
 import com.tencent.mm.opensdk.constants.ConstantsAPI;

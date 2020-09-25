@@ -13,6 +13,7 @@ import com.exam.commonbiz.base.BaseWebViewActivity;
 import com.exam.commonbiz.bean.WebViewBaseInfo;
 import com.exam.commonbiz.dialog.CommonTipDialog;
 import com.exam.commonbiz.util.BitmapUtil;
+import com.exam.commonbiz.util.Constants;
 import com.github.lzyzsd.jsbridge.BridgeHandler;
 import com.github.lzyzsd.jsbridge.CallBackFunction;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
@@ -31,7 +32,6 @@ import cn.sanshaoxingqiu.ssbm.module.order.view.OrderListActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
 
 /**
@@ -77,8 +77,6 @@ public class ExerciseActivity extends BaseWebViewActivity {
         mTitle = getIntent().getStringExtra(Constants.OPT_DATA);
         mUrl = getIntent().getStringExtra(Constants.OPT_DATA2);
         mTitleBar.setTitle(mTitle);
-//        url = "file:///android_asset/ExampleApp.html";//ExampleApp
-//        initWebView(mUrl);
         registerHandler();
     }
 

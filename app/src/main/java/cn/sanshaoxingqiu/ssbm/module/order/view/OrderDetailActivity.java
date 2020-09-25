@@ -17,12 +17,11 @@ import cn.sanshaoxingqiu.ssbm.module.order.view.adapter.ConfirmOrderAdapter;
 import cn.sanshaoxingqiu.ssbm.module.order.view.adapter.RemainingServiceAdapter;
 import cn.sanshaoxingqiu.ssbm.module.order.view.adapter.ServedAdapter;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderDetailViewModel;
-import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderViewModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.util.Constants;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 

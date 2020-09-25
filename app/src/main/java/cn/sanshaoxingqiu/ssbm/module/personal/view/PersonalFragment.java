@@ -2,7 +2,6 @@ package cn.sanshaoxingqiu.ssbm.module.personal.view;
 
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -14,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.bean.UserInfo;
 import com.exam.commonbiz.dialog.CommonTipDialog;
+import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.exam.commonbiz.util.GlideUtil;
 import com.exam.commonbiz.util.Res;
@@ -34,7 +34,6 @@ import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.PersonalFragmentBinding;
 import cn.sanshaoxingqiu.ssbm.module.TestMenuActivity;
-import cn.sanshaoxingqiu.ssbm.module.invitation.view.InvitationActivity;
 import cn.sanshaoxingqiu.ssbm.module.live.bean.LiveApplyResponse;
 import cn.sanshaoxingqiu.ssbm.module.live.model.IIdentityModel;
 import cn.sanshaoxingqiu.ssbm.module.live.view.IdentityingActivity;
@@ -61,9 +60,7 @@ import cn.sanshaoxingqiu.ssbm.module.personal.personaldata.view.RecommendCodeAct
 import cn.sanshaoxingqiu.ssbm.module.personal.setting.view.SettingActivity;
 import cn.sanshaoxingqiu.ssbm.module.personal.viewmodel.PersonalViewModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
-import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.ExerciseActivity;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.DateUtil;
 
 /**
@@ -169,7 +166,11 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         });
         binding.pavIncome.setOnClickListener(v -> ToastUtil.showShortToast("开发中"));
         binding.pavMyReferrer.setOnClickListener(v -> {
-            new MyInviterDialog().show(context);
+            if (!SSApplication.isLogin()) {
+                LoginActivity.start(context);
+            } else {
+                new MyInviterDialog().show(context);
+            }
         });
         binding.pavMyFans.setOnClickListener(v -> {
             if (!SSApplication.isLogin()) {
@@ -254,7 +255,11 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             startActivity(intent);
         });
         binding.pavAboutus.setOnClickListener(v -> {
-            AboutUsActivity.start(context);
+            if (!SSApplication.isLogin()) {
+                LoginActivity.start(context);
+            } else {
+                AboutUsActivity.start(context);
+            }
         });
         binding.includePersonalOrder.rlOpen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -266,7 +271,11 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.pavMyBenefit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ExerciseActivity.start(context, "我的权益", Constants.memberBenefitUrl);
+                if (!SSApplication.isLogin()) {
+                    LoginActivity.start(context);
+                } else {
+                    ExerciseActivity.start(context, "我的权益", Constants.memberBenefitUrl);
+                }
             }
         });
 

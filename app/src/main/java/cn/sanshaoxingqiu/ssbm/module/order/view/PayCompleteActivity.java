@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.bean.UserInfo;
+import com.exam.commonbiz.util.Constants;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
 import org.greenrobot.eventbus.EventBus;
@@ -22,7 +23,6 @@ import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IGoodsDetailModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.ExerciseActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.PaySuccessDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 
 /**
  * 支付完成

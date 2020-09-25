@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.base.IBaseModel;
 import com.exam.commonbiz.util.CommonCallBack;
+import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.livemodule.liveroom.roomutil.bean.VideoInfo;
 import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
@@ -31,7 +32,6 @@ import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.FragmentLayoutVideoBackListBinding;
 import cn.sanshaoxingqiu.ssbm.module.home.view.adapter.HomeLiveAdapter;
 import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 
 /**
  * 首页-回放列表

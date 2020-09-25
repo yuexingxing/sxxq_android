@@ -9,13 +9,14 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.base.EmptyWebViewActivity;
+import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.GlideUtil;
 import com.exam.commonbiz.util.Res;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityLoginBinding;
-import cn.sanshaoxingqiu.ssbm.module.EmptyWebViewActivity;
 import cn.sanshaoxingqiu.ssbm.module.MainActivity;
 import cn.sanshaoxingqiu.ssbm.module.login.bean.LoginResponse;
 import cn.sanshaoxingqiu.ssbm.module.login.model.ILoginCallBack;
@@ -24,9 +25,7 @@ import cn.sanshaoxingqiu.ssbm.module.personal.account.view.BindWeChatActivity;
 
 import com.exam.commonbiz.bean.UserInfo;
 
-import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.ExerciseActivity;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 
 import com.exam.commonbiz.util.LoadDialogMgr;
 import com.exam.commonbiz.util.ToastUtil;
@@ -118,8 +117,8 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
         binding.tvLogin.setOnClickListener(v -> {
             login();
         });
-        binding.includePolicy.tvAgreement.setOnClickListener(v -> EmptyWebViewActivity.start(context, "http://www.baidu.com"));
-        binding.includePolicy.tvPolicy.setOnClickListener(v -> EmptyWebViewActivity.start(context, "http://www.2345.com"));
+        binding.includePolicy.tvAgreement.setOnClickListener(v -> EmptyWebViewActivity.start(context, "平台协议", Constants.userPolicyUrl));
+        binding.includePolicy.tvPolicy.setOnClickListener(v -> EmptyWebViewActivity.start(context, "隐私政策", Constants.userSecretUrl));
         binding.rlLoginWechat.setOnClickListener(view -> BindWeChatActivity.start(context));
 
         binding.edtInviteCode.addTextChangedListener(new TextWatcher() {
