@@ -176,12 +176,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_margin="15dp">
+                android:layout_margin="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="11dp"
+                    android:gravity="bottom"
                     android:orientation="horizontal">
 
                     <FrameLayout
@@ -263,6 +263,7 @@
                         android:layout_width="@dimen/live_btn_size"
                         android:layout_height="@dimen/live_btn_size"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="12dp"
                         android:background="@drawable/selector_icon_like"
                         android:onClick="onClick" />
                 </LinearLayout>
