@@ -175,18 +175,12 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
                 goodsTypeInfo.artitag_name = bannerInfo.action_args.artitag_name;
                 GoodsListActivity.start(context, goodsTypeInfo);
             }
-        } else if (TextUtils.equals(bannerInfo.action_type, BannerInfo.ActionType.NEW_MEM)) {
-            String tagId = ShoppingCenterUtil.getInviteTagId();
-            if (bannerInfo.action_args != null && !TextUtils.isEmpty(bannerInfo.action_args.artitag_id)) {
-                tagId = bannerInfo.action_args.artitag_id;
+        } else if (TextUtils.equals(bannerInfo.action_type, BannerInfo.ActionType.NO_ACTION)) {
+
+        } else {
+            if (bannerInfo.action_args != null) {
+                ExerciseActivity.start(context, bannerInfo.artitag_name, bannerInfo.action_args.activity_url);
             }
-            InvitationActivity.start(context, tagId);
-        } else if (TextUtils.equals(bannerInfo.action_type, BannerInfo.ActionType.REG)) {
-            String tagId = ShoppingCenterUtil.getRegisterTagId();
-            if (bannerInfo.action_args != null && !TextUtils.isEmpty(bannerInfo.action_args.artitag_id)) {
-                tagId = bannerInfo.action_args.artitag_id;
-            }
-            RegisterActivity.start(context, bannerInfo.artitag_name, tagId);
         }
     }
 }

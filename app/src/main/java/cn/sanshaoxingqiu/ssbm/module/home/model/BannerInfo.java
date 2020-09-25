@@ -17,8 +17,7 @@ public class BannerInfo {
     public BannerInfo action_args;
 
     public interface ActionType{
-        String REG = "REG";
-        String NEW_MEM = "NEW_MEM";
+        String NO_ACTION = "NO_ACTION";
         String GOODS = "GOODS";
         String GOODS_LIST = "GOODS_LIST";
     }
