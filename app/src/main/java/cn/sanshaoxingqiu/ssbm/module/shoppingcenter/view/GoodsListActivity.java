@@ -169,7 +169,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
 
             @Override
             public void onConsultClick() {
-
+                CommandTools.startServiceChat();
             }
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);

@@ -3,7 +3,6 @@ package com.sanshao.livemodule.liveroom.roomutil.bean;
 import android.text.TextUtils;
 
 import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
-import com.tencent.rtmp.TXLivePlayer;
 
 public class VideoInfo extends TCVideoInfo {
 

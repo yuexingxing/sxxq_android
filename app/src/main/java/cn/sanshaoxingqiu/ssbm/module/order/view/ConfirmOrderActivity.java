@@ -90,6 +90,10 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
         });
 
         binding.btnConfirm.setOnClickListener(v -> {
+            if (!binding.checkbox.isChecked()) {
+                ToastUtil.showShortToast("请先勾选协议");
+                return;
+            }
             if (mTotalBuyNum <= 0) {
                 ToastUtil.showShortToast("至少选择一件商品");
                 return;
@@ -174,9 +178,9 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
         for (int i = 0; i < goodsDetailInfoList.size(); i++) {
             GoodsDetailInfo goodsDetailInfo = goodsDetailInfoList.get(i);
             mTotalBuyNum += goodsDetailInfo.buyNum;
-            if (mGoodsDetailInfo.isPayByDisposit()){
+            if (mGoodsDetailInfo.isPayByDisposit()) {
                 mTotalPrice += MathUtil.multiply(goodsDetailInfo.buyNum, goodsDetailInfo.deposit_price);
-            }else{
+            } else {
                 mTotalPrice += MathUtil.multiply(goodsDetailInfo.buyNum, goodsDetailInfo.sarti_saleprice);
             }
             mTotalSharePoint += goodsDetailInfo.buyNum * goodsDetailInfo.sarti_point_price;
@@ -190,12 +194,12 @@ public class ConfirmOrderActivity extends BaseActivity<ConfirmOrderViewModel, Ac
             setTextInfo("0元");
         } else if (mGoodsDetailInfo.isPayByPoint()) {
             setTextInfo(mTotalSharePoint + "分享金");
-        } else if (mGoodsDetailInfo.isPayByDisposit()){
+        } else if (mGoodsDetailInfo.isPayByDisposit()) {
             setTextInfo(showPrice);
             double price = (mGoodsDetailInfo.sarti_saleprice - mGoodsDetailInfo.deposit_price) * mTotalBuyNum;
             binding.tvTotalPrice2.setText(MathUtil.getNumExclude0(price) + "元");
             binding.tvDeposit.setText("定金:" + MathUtil.getNumExclude0(mTotalPrice) + "元");
-        }else {
+        } else {
             setTextInfo(showPrice);
         }
     }

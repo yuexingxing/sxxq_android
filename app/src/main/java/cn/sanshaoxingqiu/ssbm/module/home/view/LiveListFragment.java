@@ -100,6 +100,14 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         });
     }
 
+    @Override
+    protected void onInVisible() {
+        if (mHomeAdapter != null && !ContainerUtil.isEmpty(mHomeAdapter.getData())) {
+            mHomeAdapter.getData().clear();
+            mHomeAdapter.notifyDataSetChanged();
+        }
+    }
+
     private void enterLiveRoom(View view) {
         TXCloudVideoView txCloudVideoView = view.findViewById(R.id.anchor_video_view);
         ImageView ivLiveBg = view.findViewById(R.id.iv_bg);

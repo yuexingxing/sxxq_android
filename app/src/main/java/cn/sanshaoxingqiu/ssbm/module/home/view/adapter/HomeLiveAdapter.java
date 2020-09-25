@@ -62,4 +62,8 @@ public class HomeLiveAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder>
         TXCloudVideoView txCloudVideoView = helper.getView(R.id.anchor_video_view);
         txCloudVideoView.setTag(item);
     }
+
+    public void stopPlay() {
+
+    }
 }
