@@ -172,7 +172,7 @@ def getApkName() {
 //设定添加打包时间
 def getDate() {
     def date = new Date()
-    def formattedDate = date.format('yyyyMMddHHmmss')
+    def formattedDate = date.format('yyyyMMddHHmm')
     return formattedDate
 }
 //将密钥存在本地 防止泄露 local.properties 在Git的时候不会被上传

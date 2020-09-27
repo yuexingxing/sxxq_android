@@ -186,7 +186,7 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
             return sharePath;
         }
         UserInfo userInfo = SSApplication.getInstance().getUserInfo();
-        String path = "/pages/mall/goodsDetail?sarti_id=" + salebill_id + "&mem=" + userInfo.invitation_code;
+        String path = "/pages/mall/goodsDetail?sarti_id=" + sarti_id + "&mem=" + userInfo.invitation_code;
         return path;
     }
 

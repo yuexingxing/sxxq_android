@@ -37,7 +37,7 @@ public class EmptyWebViewActivity extends BaseWebViewActivity {
         super.initData();
         String title = getIntent().getStringExtra(Constants.OPT_DATA);
         String url = getIntent().getStringExtra(Constants.OPT_DATA2);
-        mTitleBar.setTitle(title);
+//        mTitleBar.setTitle(title);
         if (!TextUtils.isEmpty(url)) {
             initWebView(url);
         }

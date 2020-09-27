@@ -290,9 +290,9 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
             // 重新测量
             view.measure(w, h);
             super.onPageFinished(view, url);
-//            if (mTitleBar != null) {
-//                mTitleBar.setTitle(view.getTitle());
-//            }
+            if (mTitleBar != null) {
+                mTitleBar.setTitle(view.getTitle());
+            }
             initToken();
         }
 
