@@ -33,7 +33,7 @@
                 android:id="@+id/tv_agreement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="《三少医美平台协议》"
+                android:text="《三少变美平台协议》"
                 android:textColor="@color/color_c52d2d"
                 android:textSize="12sp" />
 
