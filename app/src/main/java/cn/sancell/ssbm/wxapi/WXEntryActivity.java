@@ -1,4 +1,4 @@
-package cn.sanshaoxingqiu.ssbm.wxapi;
+package cn.sancell.ssbm.wxapi;
 
 import android.content.Intent;
 import android.os.Bundle;

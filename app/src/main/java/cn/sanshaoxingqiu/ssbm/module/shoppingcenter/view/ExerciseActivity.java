@@ -76,7 +76,7 @@ public class ExerciseActivity extends BaseWebViewActivity {
 
         mTitle = getIntent().getStringExtra(Constants.OPT_DATA);
         mUrl = getIntent().getStringExtra(Constants.OPT_DATA2);
-        mTitleBar.setTitle(mTitle);
+//        mTitleBar.setTitle(mTitle);
         registerHandler();
     }
 

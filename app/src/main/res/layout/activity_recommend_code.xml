@@ -53,7 +53,7 @@
                     android:layout_marginTop="14dp"
                     android:layout_marginRight="16dp"
                     android:gravity="center_horizontal"
-                    android:text="扫一扫，成为三少医美的商友，一起享实惠"
+                    android:text="扫一扫，成为三少变美的好友，一起享实惠"
                     android:textColor="@color/color_999999"
                     android:textSize="12sp" />
 
@@ -94,7 +94,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
-                            android:text="我的推荐码：sjjhd7895"
+                            android:text="我的邀请码：sjjhd7895"
                             android:textColor="#FF999999"
                             android:textSize="12sp" />
                     </LinearLayout>

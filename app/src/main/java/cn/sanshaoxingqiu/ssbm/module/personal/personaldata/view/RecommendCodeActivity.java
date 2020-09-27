@@ -95,7 +95,7 @@ public class RecommendCodeActivity extends BaseActivity<RecommendCodeViewModel, 
         UserInfo userInfo = SSApplication.getInstance().getUserInfo();
         binding.tvName.setText(userInfo.nickname);
         if (!TextUtils.isEmpty(userInfo.invitation_code)) {
-            binding.tvInviteCode.setText("我的推荐码：" + userInfo.invitation_code);
+            binding.tvInviteCode.setText("我的邀请码：" + userInfo.invitation_code);
         }
         GlideUtil.loadImage(userInfo.invitation_weapp_url, binding.ivQrcode);
         GlideUtil.loadImage(userInfo.avatar, binding.ivAvatar, R.drawable.image_graphofbooth_avatar);
