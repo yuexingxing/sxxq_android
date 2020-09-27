@@ -13,6 +13,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.exam.commonbiz.cache.ACache;
+import com.exam.commonbiz.config.ConfigSP;
 import com.exam.commonbiz.util.BitmapUtil;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.Constants;
@@ -377,7 +379,16 @@ public class ShareUtils {
         miniProgram.webpageUrl = "http://www.qq.com";//自定义
         miniProgram.userName = Constants.MINI_PROGRAM_USER_NAME;//小程序端提供参数
         miniProgram.path = path;//小程序端提供参数
-        miniProgram.miniprogramType = WXLaunchMiniProgram.Req.MINIPROGRAM_TYPE_PREVIEW;
+
+        ConfigSP.HOST_TYPE mCurrentIndex = (ConfigSP.HOST_TYPE) ACache.get(SSApplication.getInstance()).getAsObject(ConfigSP.SP_CURRENT_HOST);
+        if (ConfigSP.HOST_TYPE.DEV == mCurrentIndex) {
+            miniProgram.miniprogramType = WXLaunchMiniProgram.Req.MINIPROGRAM_TYPE_PREVIEW;
+        } else if (ConfigSP.HOST_TYPE.PRE == mCurrentIndex) {
+            miniProgram.miniprogramType = WXLaunchMiniProgram.Req.MINIPROGRAM_TYPE_PREVIEW;
+        } else {
+            miniProgram.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;
+        }
+
         WXMediaMessage mediaMessage = new WXMediaMessage(miniProgram);
         mediaMessage.title = title;//自定义
         mediaMessage.description = desc;//自定义
