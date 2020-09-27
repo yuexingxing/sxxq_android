@@ -30,7 +30,8 @@
         android:supportsRtl="true"
         android:theme="@style/MyTheme"
         android:usesCleartextTraffic="true"
-        tools:replace="allowBackup,icon,theme,label">
+        tools:replace="allowBackup,icon,theme,label"
+        tools:targetApi="m">
         <activity
             android:name=".module.shoppingcenter.view.ExerciseActivity"
             android:screenOrientation="portrait" />
