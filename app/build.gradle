@@ -47,6 +47,7 @@ android {
         //配置apk名称
         android.applicationVariants.all { variant ->
             variant.outputs.all {
+                if (variant.name == "debug") return
                 def date = getDate()
                 outputFileName = "${variant.flavorName}-${variant.buildType.name}-${variant.versionName}-${variant.versionCode}-${date}.apk"
 
