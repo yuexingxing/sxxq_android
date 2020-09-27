@@ -3,6 +3,7 @@ package cn.sanshaoxingqiu.ssbm.module.order.util;
 import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.chinapnr.android.adapay.AdaPay;
 import com.chinapnr.android.adapay.bean.ResponseCode;
@@ -22,7 +23,7 @@ import com.exam.commonbiz.util.ToastUtil;
  * @time 2020/7/23
  */
 public class PayUtils {
-
+    private final String TAG = PayUtils.class.getSimpleName();
     private IWXAPI api;
     private OnPayListener mOnPayListener;
 
@@ -61,13 +62,16 @@ public class PayUtils {
                     }
                     switch (payResult.getResultCode()) {
                         case ResponseCode.SUCCESS:
+                            Log.d(TAG, "支付成功");
                             if (mOnPayListener != null) {
                                 mOnPayListener.onPaySuccess();
                             }
                             break;
                         case ResponseCode.PENDING:
+                            Log.d(TAG, "取消支付");
                             break;
                         case ResponseCode.FAILED:
+                            Log.d(TAG, "支付失败");
                             if (mOnPayListener != null) {
                                 mOnPayListener.onPayFailed();
                             }
