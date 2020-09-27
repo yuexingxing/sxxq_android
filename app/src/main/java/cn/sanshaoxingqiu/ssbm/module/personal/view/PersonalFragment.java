@@ -180,7 +180,18 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             }
         });
         binding.pavMyShare.setOnClickListener(v -> {
+            if (!SSApplication.isLogin()) {
+                LoginActivity.start(context);
+            } else {
+                ExerciseActivity.start(context, "一起拉用户", Constants.userUrl);
+            }
+        });
+        binding.pavMyFenrun.setOnClickListener(v -> {
+            if (!SSApplication.isLogin()) {
+                LoginActivity.start(context);
+            } else {
 
+            }
         });
         binding.pavMyInviteCode.setOnClickListener(v -> {
             if (!SSApplication.isLogin()) {
