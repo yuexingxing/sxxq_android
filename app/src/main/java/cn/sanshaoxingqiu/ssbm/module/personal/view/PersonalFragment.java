@@ -190,7 +190,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             if (!SSApplication.isLogin()) {
                 LoginActivity.start(context);
             } else {
-
+                ToastUtil.showShortToast(String.format("当前分润：¥%s", mUserInfo.commission));
             }
         });
         binding.pavMyInviteCode.setOnClickListener(v -> {
