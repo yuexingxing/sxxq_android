@@ -248,7 +248,7 @@ public class ExerciseActivity extends BaseWebViewActivity {
             new ShareUtils()
                     .init(ExerciseActivity.this)
                     .shareMiniProgram(mGoodsDetailInfo.sarti_name, mGoodsDetailInfo.sarti_desc,
-                            (Bitmap) message.obj, mGoodsDetailInfo.getSharePath());
+                            (Bitmap) message.obj, mGoodsDetailInfo.share_url);
         }
     };
 }

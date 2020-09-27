@@ -16,7 +16,9 @@ import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.TextView;
 
+import com.exam.commonbiz.dialog.CommonTipDialog;
 import com.sanshao.livemodule.R;
+import com.sanshao.livemodule.zhibo.anchor.TCBaseAnchorActivity;
 
 import static com.sanshao.livemodule.liveroom.roomutil.commondef.MLVBCommonDef.LiveRoomErrorCode.ERROR_LICENSE_INVALID;
 
@@ -26,46 +28,65 @@ import static com.sanshao.livemodule.liveroom.roomutil.commondef.MLVBCommonDef.L
 public class ErrorDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int errorCode = getArguments().getInt("errorCode");
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.ConfirmDialogStyle)
-                .setCancelable(true)
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
 
+        final CommonTipDialog commonTipDialog = new CommonTipDialog(getActivity());
+        commonTipDialog.setTitle("提示");
+        commonTipDialog
+                .setCancelable(false)
+                .setCanceledOnTouchOutside(false)
+                .showBottomLine(View.GONE)
+                .setRightButton("确定")
+                .setOnRightButtonClick(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        commonTipDialog.dismiss();
                         getActivity().finish();
                     }
                 });
+
+        int errorCode = getArguments().getInt("errorCode");
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.ConfirmDialogStyle)
+//                .setCancelable(true)
+//                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//
+//                        getActivity().finish();
+//                    }
+//                });
         if (errorCode == ERROR_LICENSE_INVALID) {
-            String errInfo = "License 校验失败";
-            int start = (errInfo + " 详情请点击[").length();
-            int end = (errInfo + " 详情请点击[License 使用指南").length();
-            SpannableStringBuilder spannableStrBuidler = new SpannableStringBuilder(errInfo + " 详情请点击[License 使用指南]");
-            ClickableSpan clickableSpan = new ClickableSpan() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent();
-                    intent.setAction("android.intent.action.VIEW");
-                    Uri content_url = Uri.parse("https://cloud.tencent.com/document/product/454/34750");
-                    intent.setData(content_url);
-                    startActivity(intent);
-                }
-            };
-            spannableStrBuidler.setSpan(new ForegroundColorSpan(Color.BLUE), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            spannableStrBuidler.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            TextView tv = new TextView(this.getActivity());
-            tv.setMovementMethod(LinkMovementMethod.getInstance());
-            tv.setText(spannableStrBuidler);
-            tv.setPadding(20, 50, 20, 0);
-            builder.setView(tv).setTitle("推流失败");
+//            String errInfo = "License 校验失败";
+//            int start = (errInfo + " 详情请点击[").length();
+//            int end = (errInfo + " 详情请点击[License 使用指南").length();
+//            SpannableStringBuilder spannableStrBuidler = new SpannableStringBuilder(errInfo + " 详情请点击[License 使用指南]");
+//            ClickableSpan clickableSpan = new ClickableSpan() {
+//                @Override
+//                public void onClick(View view) {
+//                    Intent intent = new Intent();
+//                    intent.setAction("android.intent.action.VIEW");
+//                    Uri content_url = Uri.parse("https://cloud.tencent.com/document/product/454/34750");
+//                    intent.setData(content_url);
+//                    startActivity(intent);
+//                }
+//            };
+//            spannableStrBuidler.setSpan(new ForegroundColorSpan(Color.BLUE), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            spannableStrBuidler.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            TextView tv = new TextView(this.getActivity());
+//            tv.setMovementMethod(LinkMovementMethod.getInstance());
+//            tv.setText(spannableStrBuidler);
+//            tv.setPadding(20, 50, 20, 0);
+//            builder.setView(tv).setTitle("推流失败");
+            commonTipDialog.setContent("推流失败，License 校验失败");
         } else {
             String errInfo = getArguments().getString("errorMsg");
-            builder.setTitle(errInfo);
+//            builder.setTitle(errInfo);
+            commonTipDialog.setContent(errInfo);
         }
-        AlertDialog alertDialog = builder.create();
-        alertDialog.setCancelable(false);
-        alertDialog.setCanceledOnTouchOutside(false);
-        return alertDialog;
+//        AlertDialog alertDialog = builder.create();
+//        alertDialog.setCancelable(false);
+//        alertDialog.setCanceledOnTouchOutside(false);
+//        return alertDialog;
+        return commonTipDialog.mDialog;
     }
 }

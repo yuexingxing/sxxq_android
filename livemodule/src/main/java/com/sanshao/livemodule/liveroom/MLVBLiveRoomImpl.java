@@ -1987,7 +1987,7 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
                     String msg = "[LivePlayer] 拉流失败[" + param.getString(TXLiveConstants.EVT_DESCRIPTION) + "]";
                     TXCLog.e(TAG, msg);
                     callbackOnThread(mListener, "onDebugLog", msg);
-                    callbackOnThread(mListener, "onError", event, msg, param);
+                    callbackOnThread(mListener, "onError", event, msg);
                 } else if (event == TXLiveConstants.PLAY_EVT_CHANGE_RESOLUTION) {
                     int width = param.getInt(TXLiveConstants.EVT_PARAM1, 0);
                     int height = param.getInt(TXLiveConstants.EVT_PARAM2, 0);

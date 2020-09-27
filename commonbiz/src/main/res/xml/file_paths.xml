@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <paths>
-        <external-path
-            name="sanshao"
-            path="sanshao/"/>
-        <external-path
-            name="external_storage_root"
-            path=""/>
-        <external-files-path
-            name="external_file_dir"
-            path=""/>
-        <external-cache-path
-            name="external_cache_dir"
-            path=""/>
-        <files-path
-            name="file_dir"
-            path=""/>
-        <cache-path
-            name="cache_dir"
-            path=""/>
+        <external-path path="." name="external_storage_root" />
     </paths>
 </resources>

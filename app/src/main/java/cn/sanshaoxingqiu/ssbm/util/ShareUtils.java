@@ -42,7 +42,7 @@ import cn.sanshaoxingqiu.ssbm.SSApplication;
  * Des	      ${友盟分享工具类}
  */
 public class ShareUtils {
-
+    private final String TAG = ShareUtils.class.getSimpleName();
     public static String url = "https://mobile.umeng.com/";
     public static String text = "在这里和3千万有梦想的人一道实现大学梦!";
     public static String title = "轻松考大学，自考用布克";
@@ -369,7 +369,7 @@ public class ShareUtils {
     }
 
     public ShareUtils shareMiniProgram(String title, String desc, Bitmap bitmap, String path) {
-
+        Log.d(TAG, "shareMiniProgram-path-" + path);
         if (!CommandTools.isWeixinAvilible(SSApplication.app)) {
             ToastUtil.showShortToast("请先安装微信客户端");
             return this;

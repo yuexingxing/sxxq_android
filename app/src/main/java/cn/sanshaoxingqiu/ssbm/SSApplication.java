@@ -1,9 +1,13 @@
 package cn.sanshaoxingqiu.ssbm;
 
 import android.app.Application;
+import android.content.ClipData;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.os.StrictMode;
 
+import androidx.annotation.RequiresApi;
 import androidx.multidex.BuildConfig;
 import androidx.multidex.MultiDex;
 
@@ -49,6 +53,7 @@ public class SSApplication extends BasicApplication {
 
     public static SSApplication mInstance;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     public void onCreate() {
         super.onCreate();
@@ -62,6 +67,11 @@ public class SSApplication extends BasicApplication {
             }
 
         });
+
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
+
         initHttpConfig();
         initRouter(this);
 

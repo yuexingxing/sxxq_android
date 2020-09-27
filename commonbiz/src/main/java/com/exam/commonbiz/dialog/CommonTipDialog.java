@@ -26,7 +26,7 @@ public class CommonTipDialog {
     private TextView tvContent;
     private TextView tvLeft;
     private TextView tvRight;
-    private Dialog mDialog;
+    public Dialog mDialog;
     private View mViewBottomLine;
 
     public CommonTipDialog(){
