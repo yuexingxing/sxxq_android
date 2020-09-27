@@ -88,6 +88,9 @@ android {
         }
         flavorDimensions "default"
         productFlavors {
+            sanshao {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "sanshao"]
+            }
             myapp {
                 manifestPlaceholders = [UMENG_CHANNEL_VALUE: "myapp"]
             }
@@ -97,11 +100,17 @@ android {
             qh360 {
                 manifestPlaceholders = [UMENG_CHANNEL_VALUE: "qh360"]
             }
-            baidu {
-                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
+            huawei {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "huawei"]
             }
-            wandoujia {
-                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "wandoujia"]
+            oppo {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo"]
+            }
+            vivo {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "vivo"]
+            }
+            meizu {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "meizu"]
             }
         }
     }
