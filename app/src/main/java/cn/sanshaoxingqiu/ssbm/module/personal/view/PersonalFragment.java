@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.bean.UserInfo;
 import com.exam.commonbiz.dialog.CommonTipDialog;
+import com.exam.commonbiz.util.Constants;
+import com.exam.commonbiz.util.ContainerUtil;
 import com.exam.commonbiz.util.GlideUtil;
 import com.exam.commonbiz.util.Res;
 import com.exam.commonbiz.util.ScreenUtil;
@@ -32,7 +34,6 @@ import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.PersonalFragmentBinding;
 import cn.sanshaoxingqiu.ssbm.module.TestMenuActivity;
-import cn.sanshaoxingqiu.ssbm.module.invitation.view.InvitationActivity;
 import cn.sanshaoxingqiu.ssbm.module.live.bean.LiveApplyResponse;
 import cn.sanshaoxingqiu.ssbm.module.live.model.IIdentityModel;
 import cn.sanshaoxingqiu.ssbm.module.live.view.IdentityingActivity;
@@ -47,6 +48,7 @@ import cn.sanshaoxingqiu.ssbm.module.order.model.IOrderDetailModel;
 import cn.sanshaoxingqiu.ssbm.module.order.view.OrderListActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.AppointmentForConsultationViewModel;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderDetailViewModel;
+import cn.sanshaoxingqiu.ssbm.module.personal.about.AboutUsActivity;
 import cn.sanshaoxingqiu.ssbm.module.personal.adapter.PersonalOrderSubjectAdapter;
 import cn.sanshaoxingqiu.ssbm.module.personal.event.UpdateUserInfoEvent;
 import cn.sanshaoxingqiu.ssbm.module.personal.inquiry.view.ToBeInquiryListActivity;
@@ -58,7 +60,7 @@ import cn.sanshaoxingqiu.ssbm.module.personal.personaldata.view.RecommendCodeAct
 import cn.sanshaoxingqiu.ssbm.module.personal.setting.view.SettingActivity;
 import cn.sanshaoxingqiu.ssbm.module.personal.viewmodel.PersonalViewModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
-import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.ExerciseActivity;
 import cn.sanshaoxingqiu.ssbm.util.DateUtil;
 
 /**
@@ -70,7 +72,7 @@ import cn.sanshaoxingqiu.ssbm.util.DateUtil;
 public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFragmentBinding> implements IPersonalCallBack, IOrderDetailModel,
         IAppointmentModel, IIdentityModel {
 
-    private List<OrderInfo> mOrderInfoList = new ArrayList<>();
+    private List<AppointmentedInfo> mAppointmentedInfoList = new ArrayList<>();
     private PersonalOrderSubjectAdapter mPersonalOrderSubjectAdapter;
     private OrderDetailViewModel mOrderDetailViewModel;
     private AppointmentForConsultationViewModel mAppointmentForConsultationViewModel;
@@ -164,7 +166,11 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         });
         binding.pavIncome.setOnClickListener(v -> ToastUtil.showShortToast("开发中"));
         binding.pavMyReferrer.setOnClickListener(v -> {
-            new MyInviterDialog().show(context);
+            if (!SSApplication.isLogin()) {
+                LoginActivity.start(context);
+            } else {
+                new MyInviterDialog().show(context);
+            }
         });
         binding.pavMyFans.setOnClickListener(v -> {
             if (!SSApplication.isLogin()) {
@@ -174,7 +180,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             }
         });
         binding.pavMyShare.setOnClickListener(v -> {
-            InvitationActivity.start(context, ShoppingCenterUtil.getInviteTagId());
+
         });
         binding.pavMyInviteCode.setOnClickListener(v -> {
             if (!SSApplication.isLogin()) {
@@ -191,14 +197,29 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             if (mLiveApplyResponse == null) {
                 return;
             }
-//            mLiveApplyResponse.audit_status = LiveApplyResponse.AuditStatus.FAILED;
+//            mLiveApplyResponse.audit_status = LiveApplyResponse.AuditStatus.UNAPPLY;
             //审核中
             if (mLiveApplyResponse.isAuditing()) {
                 IdentityingActivity.start(context);
             }
             //认证成功
             else if (mLiveApplyResponse.isAuditSuccess()) {
-//                AnchorInfoActivity.start(context);
+                if (!mLiveApplyResponse.isAllowLive()) {
+                    CommonTipDialog commonTipDialog = new CommonTipDialog(context);
+                    commonTipDialog.setTitle("提示")
+                            .setContent("您已被处罚，暂不能开启直播，请咨询客服解除处罚。\n 客服电话：400-7163188")
+                            .setLeftButton("确定")
+                            .setCancelable(true)
+                            .setCanceledOnTouchOutside(false)
+                            .setOnLeftButtonClick(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    commonTipDialog.dismiss();
+                                }
+                            })
+                            .show();
+                    return;
+                }
                 StartLiveActivity.start(context);
             }
             //未填写资料
@@ -228,11 +249,34 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
                         })
                         .show();
             }
-
         });
         binding.includePersonalLive.llLiveLike.setOnClickListener(v -> {
             Intent intent = new Intent(context, TCLoginActivity.class);
             startActivity(intent);
+        });
+        binding.pavAboutus.setOnClickListener(v -> {
+            if (!SSApplication.isLogin()) {
+                LoginActivity.start(context);
+            } else {
+                AboutUsActivity.start(context);
+            }
+        });
+        binding.includePersonalOrder.rlOpen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.includePersonalOrder.rlOpen.setVisibility(View.GONE);
+                mPersonalOrderSubjectAdapter.setNewData(mAppointmentedInfoList);
+            }
+        });
+        binding.pavMyBenefit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!SSApplication.isLogin()) {
+                    LoginActivity.start(context);
+                } else {
+                    ExerciseActivity.start(context, "我的权益", Constants.memberBenefitUrl);
+                }
+            }
         });
 
         initOrderList();
@@ -267,10 +311,9 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         if (SSApplication.isLogin()) {
             mOrderDetailViewModel.getOrderNumStatus();
             mIdentityViewModel.getAnchorDetail();
+            mAppointmentForConsultationViewModel.getAppointmentedList();
             if (TCGlobalConfig.isUserSignEmpty()) {
                 TCGlobalConfig.getUserSign();
-            } else {
-                TCUserMgr.getInstance().loginMLVB();
             }
         }
     }
@@ -284,10 +327,13 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.includePersonalOrder.recyclerView.setAdapter(mPersonalOrderSubjectAdapter);
         binding.includePersonalOrder.recyclerView.setNestedScrollingEnabled(false);
         binding.includePersonalOrder.recyclerView.setFocusable(false);
-        mPersonalOrderSubjectAdapter.setOnItemClickListener(() -> {
-            mPersonalOrderSubjectAdapter.setShowOpenView(false);
-            mPersonalOrderSubjectAdapter.getData().clear();
-            mPersonalOrderSubjectAdapter.addData(mOrderInfoList);
+        mPersonalOrderSubjectAdapter.setOnItemTimeEndListener(new PersonalOrderSubjectAdapter.OnItemTimeEndListener() {
+            @Override
+            public void onTimeEnd(AppointmentedInfo appointmentedInfo) {
+                if (mAppointmentForConsultationViewModel != null) {
+                    mAppointmentForConsultationViewModel.getAppointmentedList();
+                }
+            }
         });
     }
 
@@ -350,6 +396,8 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
 
         binding.tvName.setText(userInfo.nickname);
         binding.ivZuan.setVisibility(View.VISIBLE);
+        binding.pavMyShare.setContent(String.format("%s个", userInfo.point));
+        binding.pavMyFenrun.setContent(String.format("¥%s", userInfo.commission));
 
         GlideUtil.loadImage(userInfo.avatar, binding.ivAvatar, R.drawable.image_graphofbooth_avatar);
 
@@ -382,13 +430,18 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         binding.pavMyShare.setContent(userInfo.point + "个");
         binding.pavMyFenrun.setContent("¥ " + userInfo.commission);
 
-        String memberStartTime = DateUtil.timeFormat(userInfo.mem_class_start_date);
-        int diffDays = DateUtil.getDiffDay(memberStartTime, DateUtil.getCurrentTime());
-        binding.tvMembersDate.setText("会员期限" + diffDays
-                + "/" + userInfo.mem_class.mem_class_valid_days);
-        binding.tvMembersDateEnd.setText(DateUtil.getDateStr(memberStartTime, userInfo.mem_class.mem_class_valid_days));
-        binding.progressHorizontal.setProgress(diffDays);
-        binding.progressHorizontal.setMax(userInfo.mem_class.mem_class_valid_days);
+        if (!TextUtils.isEmpty(userInfo.mem_class_start_date)) {
+            String memberStartTime = DateUtil.timeFormat(userInfo.mem_class_start_date);
+            int diffDays = userInfo.mem_class.mem_class_valid_days - DateUtil.getDiffDay(memberStartTime, DateUtil.getCurrentTime());
+            binding.tvMembersDate.setText("会员期限" + diffDays
+                    + "/" + userInfo.mem_class.mem_class_valid_days);
+            binding.tvMembersDateEnd.setText(DateUtil.getDateStr(memberStartTime, userInfo.mem_class.mem_class_valid_days) + "到期");
+            binding.progressHorizontal.setProgress(diffDays);
+            binding.progressHorizontal.setMax(userInfo.mem_class.mem_class_valid_days);
+            binding.rlVipBg.setVisibility(View.VISIBLE);
+        } else {
+            binding.rlVipBg.setVisibility(View.INVISIBLE);
+        }
 
         //一星会员
         binding.tvLabel.setText(userInfo.getMember());
@@ -431,11 +484,6 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     }
 
     @Override
-    public void returnAppointmentedList(AppointmentedInfo appointmentedInfo) {
-
-    }
-
-    @Override
     public void onRefreshData(Object object) {
 
     }
@@ -462,5 +510,40 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
         }
         mLiveApplyResponse = liveApplyResponse;
         TCUserMgr.getInstance().setCoverPic(liveApplyResponse.frontcover, null);
+    }
+
+    @Override
+    public void returnAppointmentedList(List<AppointmentedInfo> list) {
+
+        mPersonalOrderSubjectAdapter.getData().clear();
+        mPersonalOrderSubjectAdapter.notifyDataSetChanged();
+        if (ContainerUtil.isEmpty(list)) {
+            binding.includePersonalOrder.rlOpen.setVisibility(View.GONE);
+            return;
+        }
+        mAppointmentedInfoList.clear();
+        for (int i = 0; i < list.size(); i++) {
+            AppointmentedInfo appointmentedInfo = list.get(i);
+            long second = DateUtil.getDiffDaySecond(DateUtil.getCurrentTime(), appointmentedInfo.reservation_time);
+            if (second < 1) {
+                continue;
+            }
+            appointmentedInfo.remainSeconds = second;
+            mAppointmentedInfoList.add(appointmentedInfo);
+        }
+        if (ContainerUtil.isEmpty(mAppointmentedInfoList)) {
+            binding.includePersonalOrder.rlOpen.setVisibility(View.GONE);
+            return;
+        }
+
+        if (mAppointmentedInfoList.size() == 1) {
+            binding.includePersonalOrder.rlOpen.setVisibility(View.GONE);
+        } else {
+            binding.includePersonalOrder.rlOpen.setVisibility(View.VISIBLE);
+        }
+
+        List<AppointmentedInfo> newList = new ArrayList<>();
+        newList.add(mAppointmentedInfoList.get(0));
+        mPersonalOrderSubjectAdapter.setNewData(newList);
     }
 }

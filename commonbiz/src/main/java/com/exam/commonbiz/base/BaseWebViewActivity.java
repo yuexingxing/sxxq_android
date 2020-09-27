@@ -11,6 +11,7 @@ import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -18,18 +19,29 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.exam.commonbiz.R;
+import com.exam.commonbiz.bean.InitTokenInfo;
+import com.exam.commonbiz.bean.UserInfo;
+import com.exam.commonbiz.bean.WebViewBaseInfo;
+import com.exam.commonbiz.util.BeanUtil;
 import com.exam.commonbiz.util.JavaScriptInterface;
 import com.exam.commonbiz.util.MyHandlerCallBack;
+import com.exam.commonbiz.util.StatusBarUtil;
 import com.exam.commonbiz.util.ToastUtil;
 import com.github.lzyzsd.jsbridge.BridgeHandler;
 import com.github.lzyzsd.jsbridge.BridgeWebView;
 import com.github.lzyzsd.jsbridge.BridgeWebViewClient;
 import com.github.lzyzsd.jsbridge.CallBackFunction;
+import com.github.lzyzsd.jsbridge.DefaultHandler;
+import com.google.gson.Gson;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.sanshao.commonui.titlebar.TitleBar;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Map;
 
@@ -40,7 +52,7 @@ import java.util.Map;
 public abstract class BaseWebViewActivity extends AppCompatActivity {
 
     public final String TAG = BaseWebViewActivity.class.getSimpleName();
-    private TitleBar mTitleBar;
+    public TitleBar mTitleBar;
     public BridgeWebView mWebView;
     private ProgressBar mProgressBar;
     private LinearLayout layoutBody;
@@ -59,6 +71,7 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
         }
         initView();
         initData();
+        setStatusBar();
         mTitleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
@@ -86,6 +99,67 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
         }
     }
 
+    private void setStatusBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (isUseFullScreenMode()) {
+                StatusBarUtil.transparencyBar(this);
+            } else {
+                StatusBarUtil.setStatusBarColor(this, getStatusBarColor());
+            }
+
+            if (isUseBlackFontWithStatusBar()) {
+                StatusBarUtil.setLightStatusBar(this, true, isUseFullScreenMode());
+            }
+        }
+    }
+
+    public void initToken() {
+
+        if (mWebView == null) {
+            return;
+        }
+
+        UserInfo userInfo = BasicApplication.getUserInfo();
+        WebViewBaseInfo<InitTokenInfo> webViewBaseInfo = new WebViewBaseInfo();
+        webViewBaseInfo.errorCode = 0;
+        webViewBaseInfo.message = "initToken";
+        InitTokenInfo initTokenInfo = new InitTokenInfo();
+        initTokenInfo.userId = userInfo.mem_id;
+        initTokenInfo.invatationCode = userInfo.invitation_code;
+        initTokenInfo.token = BasicApplication.getToken();
+        webViewBaseInfo.result = initTokenInfo;
+
+        mWebView.callHandler("initToken", new Gson().toJson(webViewBaseInfo), new CallBackFunction() {
+            @Override
+            public void onCallBack(String data) {
+                Log.d(TAG, "initToken--data--: " + data);
+
+            }
+        });
+    }
+
+    /**
+     * 是否设置成透明状态栏，即就是全屏模式
+     */
+    protected boolean isUseFullScreenMode() {
+        return false;
+    }
+
+    /**
+     * 更改状态栏颜色，只有非全屏模式下有效
+     */
+    public int getStatusBarColor() {
+        return R.color.white;
+    }
+
+    /**
+     * 是否改变状态栏文字颜色为黑色，默认为黑色
+     */
+    protected boolean isUseBlackFontWithStatusBar() {
+        return true;
+    }
+
+
     public void setContentViewId(int layoutId) {
         contentView = getLayoutInflater().inflate(layoutId, null);
         if (layoutBody.getChildCount() > 0) {
@@ -95,14 +169,6 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             layoutBody.addView(contentView, params);
         }
-    }
-
-    public WebView getWebView() {
-        return mWebView;
-    }
-
-    public ProgressBar getProgressBar() {
-        return mProgressBar;
     }
 
     /**
@@ -140,7 +206,7 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
 
     public void initSetting() {
         mWebView.setWebViewClient(new MyWebViewClient(mWebView));
-        mWebView.addJavascriptInterface(new JavaScriptInterface(this), "android");//JS交互
+        mWebView.addJavascriptInterface(new JavaScriptInterface(this), "app");//JS交互
         mWebView.setWebChromeClient(webChromeClient);
         mWebView.setDefaultHandler(new MyHandlerCallBack());
 
@@ -199,21 +265,21 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
         public MyWebViewClient(BridgeWebView webView) {
             super(webView);
         }
-//
+
 //        @Override
 //        public boolean shouldOverrideUrlLoading(WebView view, String url) {
 //            try {
 //                //在这里你可以拦截url，然后自己处理一些事情，比如跳转app内部网页
 //
 //                Log.v("webview", url);
-////                view.loadUrl(url);
+//                view.loadUrl(url);
 //                return true;
 //            } catch (Exception e) {
 //                Log.i("webview", "该链接无效");
 //                return true;
 //            }
 //        }
-//
+
         @Override
         public void onPageFinished(WebView view, String url) {
             view.getSettings().setJavaScriptEnabled(true);
@@ -224,21 +290,22 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
             // 重新测量
             view.measure(w, h);
             super.onPageFinished(view, url);
-            if (mTitleBar != null) {
-                mTitleBar.setTitle(view.getTitle());
-            }
+//            if (mTitleBar != null) {
+//                mTitleBar.setTitle(view.getTitle());
+//            }
+            initToken();
         }
-//
-//        @Override
-//        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-//            view.getSettings().setJavaScriptEnabled(true);
-//            super.onPageStarted(view, url, favicon);
-//        }
-//
-//        @Override
-//        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-//            handler.proceed();
-//        }
+
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            view.getSettings().setJavaScriptEnabled(true);
+            super.onPageStarted(view, url, favicon);
+        }
+
+        @Override
+        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+            handler.proceed();
+        }
     }
 
     //WebChromeClient主要辅助WebView处理Javascript的对话框、网站图标、网站title、加载进度等

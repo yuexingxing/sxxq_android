@@ -172,6 +172,12 @@ public class TCCameraAnchorActivity extends TCBaseAnchorActivity {
                 }
             }
         });
+
+//        String avatar = "http://img.cyw.com/shopx/20130606155913125664/shopinfo/201605041441522.jpg";
+//        for (int i = 0; i < 10; i++) {
+//            TCSimpleUserInfo tcSimpleUserInfo = new TCSimpleUserInfo("123" + i, "123", avatar);
+//            mAvatarListAdapter.addItem(tcSimpleUserInfo);
+//        }
     }
 
 

@@ -7,8 +7,8 @@ public class MyHandlerCallBack extends DefaultHandler {
 
     @Override
     public void handler(String data, CallBackFunction function) {
-        if (function != null) {
+//        if (function != null) {
             ToastUtil.showShortToast(data);
-        }
+//        }
     }
 }

@@ -5,10 +5,12 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
+
 public class OrderListResponse implements Serializable {
 
     public int count;
 
     @SerializedName("rows")
-    public List<OrderInfo> content;
+    public List<GoodsDetailInfo> content;
 }

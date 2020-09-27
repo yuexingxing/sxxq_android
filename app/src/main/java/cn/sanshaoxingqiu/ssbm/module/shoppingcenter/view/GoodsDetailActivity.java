@@ -17,56 +17,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.exam.commonbiz.base.BaseActivity;
-import com.exam.commonbiz.dialog.CommonTipDialog;
-import com.exam.commonbiz.util.CommonCallBack;
+import com.exam.commonbiz.bean.UserInfo;
+import com.exam.commonbiz.util.BitmapUtil;
+import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.exam.commonbiz.util.Res;
 import com.exam.commonbiz.util.ScreenUtil;
-
-import cn.sanshaoxingqiu.ssbm.R;
-import cn.sanshaoxingqiu.ssbm.SSApplication;
-import cn.sanshaoxingqiu.ssbm.databinding.ActivityGoodsDetailBinding;
-import cn.sanshaoxingqiu.ssbm.module.home.model.BannerInfo;
-import cn.sanshaoxingqiu.ssbm.module.invitation.view.InvitationActivity;
-import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderBenefitResponse;
-import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderInfo;
-import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderNumStatusResponse;
-import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderPayInfoResponse;
-import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderStatusResponse;
-import cn.sanshaoxingqiu.ssbm.module.order.event.PayStatusChangedEvent;
-import cn.sanshaoxingqiu.ssbm.module.order.model.IOrderDetailModel;
-import cn.sanshaoxingqiu.ssbm.module.order.model.IOrderModel;
-import cn.sanshaoxingqiu.ssbm.module.order.model.IPayModel;
-import cn.sanshaoxingqiu.ssbm.module.order.model.OnPayListener;
-import cn.sanshaoxingqiu.ssbm.module.order.util.PayUtils;
-import cn.sanshaoxingqiu.ssbm.module.order.view.ConfirmOrderActivity;
-import cn.sanshaoxingqiu.ssbm.module.order.view.ConfirmPayActivity;
-import cn.sanshaoxingqiu.ssbm.module.order.view.OrderListActivity;
-import cn.sanshaoxingqiu.ssbm.module.order.view.PayCompleteActivity;
-import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderDetailViewModel;
-import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderViewModel;
-import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.PayViewModel;
-
-import com.exam.commonbiz.bean.UserInfo;
-
-import cn.sanshaoxingqiu.ssbm.module.register.view.RegisterActivity;
-import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
-import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.VideoInfo;
-import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IGoodsDetailModel;
-import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
-import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.adapter.SetMealAdapter;
-import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.BenefitsRightDialog;
-import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsInroductionDialog;
-import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsPosterDialog;
-import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
-
-import com.exam.commonbiz.util.BitmapUtil;
-
-import cn.sanshaoxingqiu.ssbm.util.CommandTools;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
-import cn.sanshaoxingqiu.ssbm.util.MathUtil;
-import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
-
+import com.exam.commonbiz.util.ToastUtil;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
@@ -79,13 +36,39 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import cn.jzvd.Jzvd;
-import cn.udesk.UdeskSDKManager;
-import cn.udesk.config.UdeskConfig;
-
-import com.exam.commonbiz.util.ToastUtil;
+import cn.sanshaoxingqiu.ssbm.R;
+import cn.sanshaoxingqiu.ssbm.SSApplication;
+import cn.sanshaoxingqiu.ssbm.databinding.ActivityGoodsDetailBinding;
+import cn.sanshaoxingqiu.ssbm.module.home.model.BannerInfo;
+import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
+import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderBenefitResponse;
+import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderNumStatusResponse;
+import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderPayInfoResponse;
+import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderStatusResponse;
+import cn.sanshaoxingqiu.ssbm.module.order.event.PayStatusChangedEvent;
+import cn.sanshaoxingqiu.ssbm.module.order.model.IOrderDetailModel;
+import cn.sanshaoxingqiu.ssbm.module.order.model.IOrderModel;
+import cn.sanshaoxingqiu.ssbm.module.order.model.IPayModel;
+import cn.sanshaoxingqiu.ssbm.module.order.model.OnPayListener;
+import cn.sanshaoxingqiu.ssbm.module.order.util.PayUtils;
+import cn.sanshaoxingqiu.ssbm.module.order.view.ConfirmPayActivity;
+import cn.sanshaoxingqiu.ssbm.module.order.view.PayCompleteActivity;
+import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderDetailViewModel;
+import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderViewModel;
+import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.PayViewModel;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.VideoInfo;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IGoodsDetailModel;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.adapter.SetMealAdapter;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsInroductionDialog;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsPosterDialog;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.RecommendRewardDialog;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
+import cn.sanshaoxingqiu.ssbm.util.CommandTools;
+import cn.sanshaoxingqiu.ssbm.util.MathUtil;
+import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
 
 /**
  * 商品详情
@@ -182,61 +165,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         });
 
         binding.includeBottom.btnBuy.setOnClickListener(v -> {
-            if (!SSApplication.isLogin()) {
-                RegisterActivity.start(context, "", ShoppingCenterUtil.getRegisterTagId());
-                return;
-            }
-            if (mGoodsDetailInfo.isPayByMoney() && !mGoodsDetailInfo.isFree()) {
-                ConfirmOrderActivity.start(context, mSartiId);
-            } else if (mGoodsDetailInfo.isPayByPoint()) {
-                //TODO 积分为0弹窗，点击跳到活动页
-                if (mUserInfo.available_point == 0) {
-                    CommonTipDialog commonTipDialog = new CommonTipDialog();
-                    commonTipDialog.init(context)
-                            .setTitle("分享金不足")
-                            .setContent("啊哦，您的分享金不足，赶快邀请好友赚取分享金吧~")
-                            .setLeftButton("取消")
-                            .showBottomLine(View.VISIBLE)
-                            .setRightButton("获取分享金")
-                            .setOnRightButtonClick(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    commonTipDialog.dismiss();
-                                    InvitationActivity.start(context, ShoppingCenterUtil.getInviteTagId());
-                                }
-                            })
-                            .show();
-                } else {
-                    ConfirmOrderActivity.start(context, mGoodsDetailInfo.sarti_id);
-                }
-            } else {
-                if (mGoodsDetailInfo.isFree() && mUserInfo.free_sarti_count < 1) {
-                    CommonTipDialog commonTipDialog = new CommonTipDialog();
-                    commonTipDialog.init(context)
-                            .init(context)
-                            .setTitle("提示")
-                            .setContent("您已经成功领取一个免费变美专区项目，查看订单请至我的-订单列表查看")
-                            .setLeftButton("取消")
-                            .showBottomLine(View.VISIBLE)
-                            .setOnLeftButtonClick(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    commonTipDialog.dismiss();
-                                }
-                            })
-                            .setRightButton("查看订单")
-                            .setOnRightButtonClick(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    commonTipDialog.dismiss();
-                                    OrderListActivity.start(context, OrderInfo.State.ALL);
-                                }
-                            })
-                            .show();
-                    return;
-                }
-                ConfirmOrderActivity.start(context, mSartiId);
-            }
+            GoodsPresenter.startBuy(context, mGoodsDetailInfo);
         });
         binding.llTabGoods.setOnClickListener(v -> {
             initTabStatus(0);
@@ -247,6 +176,10 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
             binding.nestedScrollview.smoothScrollTo(0, binding.llGoodsDetail.getTop() - ScreenUtil.dp2px(context, 60));
         });
         binding.includeBottom.llConsult.setOnClickListener(v -> {
+            if (!SSApplication.isLogin()) {
+                LoginActivity.start(context);
+                return;
+            }
             CommandTools.startServiceChat();
         });
         binding.homeBannerLayout.setDotGravityBottomRight();
@@ -272,17 +205,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
                     if (mGoodsDetailInfo == null) {
                         return;
                     }
-                    String title = "推荐有奖";
-                    String content = getResources().getString(R.string.invitation_tip);
-                    if (mGoodsDetailInfo.isFree()) {
-                        title = "上三少免费变美";
-                        content = getResources().getString(R.string.register_tip);
-                    } else if (mGoodsDetailInfo.isPayByPoint()) {
-                        title = "邀请有礼 一起变美";
-                        content = getResources().getString(R.string.invitation_tip);
-                    }
-
-                    new GoodsInroductionDialog().show(context, title, content);
+                    new RecommendRewardDialog().show(context, mGoodsDetailInfo);
                 }
         );
         initTabStatus(1);
@@ -306,27 +229,6 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
     protected void onPause() {
         super.onPause();
         Jzvd.releaseAllVideos();
-    }
-
-    private void showPayTypeBottomDialog() {
-
-        List<CommonDialogInfo> commonDialogInfoList = new ArrayList<>();
-        commonDialogInfoList.add(new CommonDialogInfo("微信支付"));
-        commonDialogInfoList.add(new CommonDialogInfo("支付宝支付"));
-
-        new CommonBottomDialog()
-                .init(this)
-                .setData(commonDialogInfoList)
-                .setOnItemClickListener(commonDialogInfo -> {
-                    if (commonDialogInfo.position == 0) {
-                        mPayType = ConfirmPayActivity.PAY_BY_WECHAT;
-                        mPayViewModel.fVipPay(PayViewModel.GET_PAY_INFO, ConfirmPayActivity.PAY_BY_WECHAT);
-                    } else {
-                        mPayType = ConfirmPayActivity.PAY_BY_ALI_APP;
-                        mPayViewModel.fVipPay(PayViewModel.GET_PAY_INFO, ConfirmPayActivity.PAY_BY_ALI_APP);
-                    }
-                })
-                .show();
     }
 
     /**
@@ -415,7 +317,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         } else {
             if (goodsDetailInfo.isFree()) {
                 binding.includeBottom.btnBuy.setText("免费领取");
-                binding.ivRecommendReward.setBackgroundResource(R.drawable.regactivity);
+                binding.ivRecommendReward.setBackgroundResource(R.drawable.image_new_user_free_get);
             } else if (goodsDetailInfo.isPayByPoint()) {
                 binding.tvOldPrice.setVisibility(View.GONE);
                 binding.includeBottom.btnBuy.setText("分享金购买");
@@ -582,7 +484,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         }
         if (TextUtils.equals(mPayType, ConfirmPayActivity.PAY_BY_WECHAT)) {
             String path = "/pages/order/appPay?" + "salebill_id="
-                    + "&mem_phone=" + mUserInfo.mem_phone + "&benefits_level=" + mUserInfo.benefits_level;
+                    + "&mem_phone=" + mUserInfo.mem_phone;
             new ShareUtils()
                     .init(context)
                     .jump2WxMiniProgram(path);

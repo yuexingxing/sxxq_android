@@ -36,6 +36,7 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
     public static final int OPT_TYPE_VIEW_CODE = 2;
     public static final int OPT_TYPE_ORDER_DETAIL = 3;
     public static final int OPT_TYPE_APPOINTMENT = 4;//预约问诊
+    public static final int OPT_TYPE_ORDER_LIST = 4;
 
     private int mOptType;
     private OnItemClickListener mCallBack;
@@ -102,21 +103,28 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
         } else if (mOptType == OPT_TYPE_APPOINTMENT) {
             helper.getView(R.id.ll_right_price).setVisibility(View.GONE);
             helper.getView(R.id.ll_count_view).setVisibility(View.GONE);
+        } else if (mOptType == OPT_TYPE_APPOINTMENT) {
+
         }
 
-        if ((item.isMeal() || (item.order_product != null && item.order_product.isMeal())) && !ContainerUtil.isEmpty(item.product_list)) {
+        if ((item.isMeal() || (item.order_product != null && item.order_product.isMeal()))) {
             if (flSetMeal.getVisibility() == View.GONE) {
                 llOpenSetMeal.setVisibility(View.VISIBLE);
             }
             RecyclerView recyclerView = helper.getView(R.id.recycler_view);
             SetMealAdapter setMealAdapter = new SetMealAdapter();
+            setMealAdapter.setOptType(mOptType);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(flSetMeal.getContext());
             linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
             recyclerView.setLayoutManager(linearLayoutManager);
             recyclerView.setAdapter(setMealAdapter);
             recyclerView.setNestedScrollingEnabled(false);
             recyclerView.setFocusable(false);
-            setMealAdapter.setNewData(item.product_list);
+            if (!ContainerUtil.isEmpty(item.product_list)) {
+                setMealAdapter.setNewData(item.product_list);
+            } else if (item.order_product != null && !ContainerUtil.isEmpty(item.order_product.product_list)) {
+                setMealAdapter.setNewData(item.order_product.product_list);
+            }
         } else {
             llOpenSetMeal.setVisibility(View.GONE);
         }
@@ -170,9 +178,13 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
             if (item.order_product != null) {
                 helper.setText(R.id.tv_price_2, "¥" + MathUtil.getNumExclude0(item.deposit_price));
                 String lastFee = MathUtil.getNumExclude0(item.qty * (item.order_product.sarti_saleprice - item.order_product.deposit_price));
-                String fundFee = MathUtil.getNumExclude0(item.qty * item.order_product.deposit_price);
                 helper.setText(R.id.tv_goods_count, String.format("尾款: %s元 共计%s件商品；定金实付：%s元",
-                        lastFee, item.qty, fundFee));
+                        lastFee, item.qty, item.sum_amt));
+            } else {
+                helper.setText(R.id.tv_price_2, "¥" + MathUtil.getNumExclude0(item.deposit_price));
+                String lastFee = MathUtil.getNumExclude0(item.qty * (item.sarti_saleprice - item.deposit_price));
+                helper.setText(R.id.tv_goods_count, String.format("尾款: %s元 共计%s件商品；定金实付：%s元",
+                        lastFee, item.qty, item.sum_amt));
             }
         } else {
             helper.setText(R.id.tv_price_2, item.getPriceText());
@@ -186,7 +198,7 @@ public class ConfirmOrderAdapter extends BaseQuickAdapter<GoodsDetailInfo, BaseV
         }
         helper.setText(R.id.tv_title, item.order_product.sarti_name);
         helper.setText(R.id.tv_buy_count, item.buyNum + "");
-        helper.setText(R.id.tv_price_1, "¥" + MathUtil.getNumExclude0(item.sum_amt));
+        helper.setText(R.id.tv_price_1, item.order_product.getOrderDetailPriceText());
         helper.setText(R.id.tv_total_count, "x" + item.qty);
         if (item.isPayByDisposit()) {
             helper.setText(R.id.tv_price_2, "¥" + MathUtil.getNumExclude0(item.order_product.deposit_price));

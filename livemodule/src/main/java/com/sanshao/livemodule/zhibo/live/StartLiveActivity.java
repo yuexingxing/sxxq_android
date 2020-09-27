@@ -1,6 +1,5 @@
 package com.sanshao.livemodule.zhibo.live;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -8,6 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -19,11 +19,16 @@ import com.exam.commonbiz.api.oss.OssViewModel;
 import com.exam.commonbiz.api.oss.UploadPicResponse;
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.base.BasicApplication;
+import com.exam.commonbiz.base.EmptyWebViewActivity;
 import com.exam.commonbiz.bean.UserInfo;
+import com.exam.commonbiz.dialog.CommonTipDialog;
+import com.exam.commonbiz.util.AppManager;
 import com.exam.commonbiz.util.BitmapUtil;
+import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.FileUtil;
 import com.exam.commonbiz.util.GlideUtil;
 import com.exam.commonbiz.util.LoadDialogMgr;
+import com.exam.commonbiz.util.LocationUtil;
 import com.exam.commonbiz.util.ToastUtil;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogAdapter;
@@ -34,7 +39,6 @@ import com.sanshao.commonutil.permission.RxPermissions;
 import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.databinding.ActivityStartLiveBinding;
 import com.sanshao.livemodule.liveroom.model.ILiveRoomModel;
-import com.sanshao.livemodule.liveroom.roomutil.bean.LicenceInfo;
 import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
 import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
 import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
@@ -43,7 +47,6 @@ import com.sanshao.livemodule.zhibo.anchor.prepare.TCLocationHelper;
 import com.sanshao.livemodule.zhibo.common.net.TCHTTPMgr;
 import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
-import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
 
 import org.json.JSONObject;
 
@@ -135,13 +138,13 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
                             public void onItemClick(CommonDialogInfo commonDialogInfo) {
                                 if (commonDialogInfo.position == 0) {
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                        checkPermission(0);
+                                        checkPhotoPermission(0);
                                     } else {
                                         selectFromCamera();
                                     }
                                 } else {
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                        checkPermission(1);
+                                        checkPhotoPermission(1);
                                     } else {
                                         selectFromAlbum();
                                     }
@@ -164,7 +167,15 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
                 startLocation();
             }
         });
+        binding.tvAgreement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EmptyWebViewActivity.start(context, "直播服务协议", Constants.liveServiceUrl);
+            }
+        });
 
+
+        TCUserMgr.getInstance().loginMLVB();
         String picUrl = TCUserMgr.getInstance().getCoverPic();
         TCUserMgr.getInstance().setCoverPic(picUrl, null);
         setLiveBg(TCUserMgr.getInstance().getCoverPic());
@@ -173,11 +184,41 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
 
     // 发起定位
     private void startLocation() {
+
         if (TCLocationHelper.checkLocationPermission(StartLiveActivity.this)) {
             if (!TCLocationHelper.getMyLocation(StartLiveActivity.this, StartLiveActivity.this)) {
                 binding.tvLocation.setText(getString(R.string.text_live_lbs_fail));
             }
         }
+    }
+
+    private void showLocation() {
+        final CommonTipDialog commonTipDialog = new CommonTipDialog(context);
+        commonTipDialog.setContent("您没开启定位功能，请在手机设置中开启定位功能！")
+                .setLeftButton("取消")
+                .setOnLeftButtonClick(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        commonTipDialog.dismiss();
+                    }
+                })
+                .setRightButton("前往开启")
+                .setCancelable(false)
+                .setCanceledOnTouchOutside(false)
+                .setOnRightButtonClick(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        commonTipDialog.dismiss();
+                        if (!LocationUtil.isLocServiceEnable(context)) {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            context.startActivity(intent);
+                        } else {
+                            AppManager.getAppDetailSettingIntent(context);
+                        }
+                    }
+                })
+                .showBottomLine(View.VISIBLE)
+                .show();
     }
 
     /**
@@ -192,6 +233,13 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
         }
         if (TextUtils.isEmpty(TCUserMgr.getInstance().getCoverPic())) {
             ToastUtil.showLongToast("未上传封面");
+            return;
+        }
+        if (TextUtils.isEmpty(TCUserMgr.getInstance().getLocation())) {
+            TCUserMgr.getInstance().setLocation("定位失败", null);
+        }
+        if (!binding.checkbox.isChecked()) {
+            ToastUtil.showLongToast("请先勾选协议");
             return;
         }
 
@@ -255,8 +303,7 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
             Bitmap bitmap = null;
             if (!TextUtils.isEmpty(filePath)) {
                 int degree = BitmapUtil.readPictureDegree(filePath);
-                bitmap = BitmapUtil.getLocalBitmap(filePath);
-                bitmap = BitmapUtil.getSmallBitmap(filePath, bitmap.getWidth() / 4, bitmap.getHeight() / 4);
+                bitmap = BitmapUtil.getSmallBitmap(filePath, 800, 1080);
                 bitmap = BitmapUtil.rotaingImageView(degree, bitmap);
                 binding.ivBg.setImageBitmap(bitmap);
             }
@@ -265,7 +312,7 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
                 return;
             }
 
-            LoadDialogMgr.getInstance().show(context);
+            LoadDialogMgr.getInstance().show(context, "图片上传中");
             mOssViewModel.uploadPic(bitmap);
         }
     }
@@ -287,8 +334,7 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
         return filePath;
     }
 
-    @SuppressLint("CheckResult")
-    private void checkPermission(final int index) {
+    private void checkPhotoPermission(final int index) {
         RxPermissions rxPermissions = new RxPermissions(this);
         rxPermissions.request(PermissionGroup.TAKE_PHOTO)
                 .subscribe(new Observer<Boolean>() {
@@ -374,6 +420,7 @@ public class StartLiveActivity extends BaseActivity<LiveViewModel, ActivityStart
             setLocation(location);
         } else {
             binding.tvLocation.setText(getString(R.string.text_live_lbs_fail));
+            setLocation("定位失败");
         }
     }
 

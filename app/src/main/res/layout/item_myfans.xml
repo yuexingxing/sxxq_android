@@ -1,75 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/shape_white_radius_10">
+
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/iv_user_avatar"
             android:layout_width="52dp"
             android:layout_height="52dp"
-            android:scaleType="centerCrop"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/image_graphofbooth_default"
             app:riv_corner_radius="52dp" />
+
         <TextView
             android:id="@+id/tv_user_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="12dp"
+            android:text="182****6876"
             android:textColor="#999999"
-            android:textSize="12sp"
-            android:text="182****6876"/>
+            android:textSize="12sp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_toRightOf="@+id/iv_user_avatar"
             android:layout_toLeftOf="@+id/tv_user_phone"
+            android:layout_toRightOf="@+id/iv_user_avatar"
             android:gravity="center_vertical"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tv_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
+                android:text=""
                 android:textColor="#333333"
-                android:textSize="17sp"
-                android:text=""/>
+                android:textSize="17sp" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="4dp"
                 android:background="@drawable/shape_3e3f40_radius_9"
                 android:gravity="center_vertical"
-                android:layout_marginTop="4dp"
+                android:orientation="horizontal"
                 android:paddingLeft="3dp"
-                android:paddingRight="3dp"
                 android:paddingTop="2dp"
+                android:paddingRight="3dp"
                 android:paddingBottom="2dp">
+
                 <ImageView
                     android:id="@+id/iv_vip_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/icon_commondiamond"/>
+                    android:src="@drawable/icon_commondiamond" />
+
                 <TextView
                     android:id="@+id/tv_vip_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="普通用户"
                     android:textColor="#ffffff"
-                    android:textSize="12sp"
-                    android:text="普通"/>
+                    android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

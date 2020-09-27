@@ -1,5 +1,7 @@
 package cn.sanshaoxingqiu.ssbm.util;
 
+import android.text.TextUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,6 +18,9 @@ public class DateUtil {
 
     // 转换日期格式
     public static String timeFormat(String time) {
+        if (TextUtils.isEmpty(time)){
+            return "";
+        }
         String temp = time.replace("Z", " UTC");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS Z");
         Date date = null;
@@ -92,6 +97,40 @@ public class DateUtil {
         //以秒为单位
         Long second = (diff / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
         return day;
+    }
+
+    /**
+     * 获取两个日期间隔秒数
+     *
+     * @param beginTime
+     * @param endTime
+     * @return
+     */
+    public static long getDiffDaySecond(String beginTime, String endTime) {
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        long timeMillis = System.currentTimeMillis();
+        if (null == beginTime) {
+            beginTime = stampToDate(timeMillis);
+        }
+
+        if (null == endTime) {
+            endTime = stampToDate(timeMillis);
+        }
+
+        //将时间戳转为日期格式
+        Date curDate = null;
+        Date endDate = null;
+
+        try {
+            curDate = df.parse(beginTime);
+            endDate = df.parse(endTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        long diff = endDate.getTime() - curDate.getTime();
+        return diff / 1000;
     }
 
     /**

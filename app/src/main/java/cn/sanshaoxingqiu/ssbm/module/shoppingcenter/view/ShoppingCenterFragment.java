@@ -8,17 +8,12 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.exam.commonbiz.base.BaseFragment;
-import com.exam.commonbiz.router.Router;
 import com.exam.commonbiz.util.ContainerUtil;
-import com.exam.commonbiz.util.GlideUtil;
 import com.exam.commonbiz.util.ScreenUtil;
-import com.exam.commonbiz.util.ToastUtil;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.ShoppingCenterFragmentBinding;
-import cn.sanshaoxingqiu.ssbm.module.EmptyWebViewActivity;
 import cn.sanshaoxingqiu.ssbm.module.home.model.BannerInfo;
 import cn.sanshaoxingqiu.ssbm.module.invitation.view.InvitationActivity;
 import cn.sanshaoxingqiu.ssbm.module.register.view.RegisterActivity;
@@ -73,7 +68,8 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
         binding.activitysRecyclerView.setAdapter(mAdAdapter);
         mAdAdapter.setOnItemClickListener((adapter, view, position) -> {
             if (mAdAdapter.getData().get(position).action_args != null) {
-                ExerciseActivity.start(context, mAdAdapter.getData().get(position).action_args.activityUrl);
+                ExerciseActivity.start(context, mAdAdapter.getData().get(position).artitag_name,
+                        mAdAdapter.getData().get(position).action_args.activity_url);
             }
         });
 
@@ -179,18 +175,12 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
                 goodsTypeInfo.artitag_name = bannerInfo.action_args.artitag_name;
                 GoodsListActivity.start(context, goodsTypeInfo);
             }
-        } else if (TextUtils.equals(bannerInfo.action_type, BannerInfo.ActionType.NEW_MEM)) {
-            String tagId = ShoppingCenterUtil.getInviteTagId();
-            if (bannerInfo.action_args != null && !TextUtils.isEmpty(bannerInfo.action_args.artitag_id)) {
-                tagId = bannerInfo.action_args.artitag_id;
+        } else if (TextUtils.equals(bannerInfo.action_type, BannerInfo.ActionType.NO_ACTION)) {
+
+        } else {
+            if (bannerInfo.action_args != null) {
+                ExerciseActivity.start(context, bannerInfo.artitag_name, bannerInfo.action_args.activity_url);
             }
-            InvitationActivity.start(context, tagId);
-        } else if (TextUtils.equals(bannerInfo.action_type, BannerInfo.ActionType.REG)) {
-            String tagId = ShoppingCenterUtil.getRegisterTagId();
-            if (bannerInfo.action_args != null && !TextUtils.isEmpty(bannerInfo.action_args.artitag_id)) {
-                tagId = bannerInfo.action_args.artitag_id;
-            }
-            RegisterActivity.start(context, bannerInfo.artitag_name, tagId);
         }
     }
 }

@@ -24,7 +24,7 @@ public class HeadInterceptor implements Interceptor {
         builder.addHeader("Accept", "application/json");
         builder.addHeader("User-Agent", "Client/Android V1.0");
         builder.addHeader("wx-token", BasicApplication.getToken());
-        builder.addHeader("we-app", "ssxq-android");
+        builder.addHeader("we-app", "ssxq-mini");
         builder.addHeader("we-plat-id", "SSBM");
 
 //        we-app: ssxq-mini

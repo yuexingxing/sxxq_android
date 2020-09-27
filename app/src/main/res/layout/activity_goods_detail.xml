@@ -201,7 +201,7 @@
                             android:layout_marginLeft="@dimen/left_container_margin"
                             android:layout_marginTop="12dp"
                             android:layout_marginRight="@dimen/right_container_margin"
-                            android:background="@drawable/regactivity"
+                            android:background="@drawable/tuijianyou"
                             android:scaleType="centerCrop" />
 
                         <cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.TryMatchingView

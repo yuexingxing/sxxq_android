@@ -3,6 +3,9 @@ package cn.sanshaoxingqiu.ssbm.module.order.viewmodel;
 import com.exam.commonbiz.base.BaseViewModel;
 import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
+
+import java.util.List;
+
 import cn.sanshaoxingqiu.ssbm.module.order.bean.AppointmentedInfo;
 import cn.sanshaoxingqiu.ssbm.module.order.model.AppointMentModel;
 import cn.sanshaoxingqiu.ssbm.module.order.model.IAppointmentModel;
@@ -22,7 +25,7 @@ public class AppointmentForConsultationViewModel extends BaseViewModel {
 
     public void getAppointmentedList() {
 
-        AppointMentModel.getAppointmentedList(new OnLoadListener<AppointmentedInfo>() {
+        AppointMentModel.getAppointmentedList(new OnLoadListener<List<AppointmentedInfo>>() {
 
             @Override
             public void onLoadStart() {
@@ -35,7 +38,7 @@ public class AppointmentForConsultationViewModel extends BaseViewModel {
             }
 
             @Override
-            public void onLoadSucessed(BaseResponse<AppointmentedInfo> t) {
+            public void onLoadSucessed(BaseResponse<List<AppointmentedInfo>> t) {
                 if (mCallBack != null) {
                     mCallBack.returnAppointmentedList(t.getContent());
                 }
@@ -43,7 +46,9 @@ public class AppointmentForConsultationViewModel extends BaseViewModel {
 
             @Override
             public void onLoadFailed(String errMsg) {
-
+                if (mCallBack != null) {
+                    mCallBack.returnAppointmentedList(null);
+                }
             }
         });
     }

@@ -5,15 +5,11 @@ import com.exam.commonbiz.net.BaseResponse;
 import com.exam.commonbiz.net.OnLoadListener;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.ConfirmOrderResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.CreateOrderRequest;
-import cn.sanshaoxingqiu.ssbm.module.order.bean.StoreInfo;
 import cn.sanshaoxingqiu.ssbm.module.order.model.IConfirmOrderModel;
 import cn.sanshaoxingqiu.ssbm.module.order.model.OrderModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
-import com.exam.commonbiz.util.ToastUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.exam.commonbiz.util.ToastUtil;
 
 /**
  * @Author yuexingxing
@@ -61,7 +57,7 @@ public class ConfirmOrderViewModel extends BaseViewModel {
 
             @Override
             public void onLoadStart() {
-                loadData();
+
             }
 
             @Override
@@ -107,32 +103,5 @@ public class ConfirmOrderViewModel extends BaseViewModel {
 
             }
         });
-    }
-
-    private void loadData() {
-
-        ConfirmOrderResponse confirmOrderResponse = new ConfirmOrderResponse();
-        StoreInfo storeInfo = new StoreInfo();
-        storeInfo.time = "周一至周五：10:00-22:00";
-        storeInfo.tel = "021-4563125/18756531425";
-        storeInfo.address = "上海市静安区新闸路829号丽都新贵上海市静安区新闸路829号丽都新贵大厦304、305、306室大厦304、305、306室";
-
-        List<GoodsDetailInfo> goodsTypeDetailInfoList = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            GoodsDetailInfo orderInfo = GoodsDetailInfo.getGoodsDetailInfo();
-            orderInfo.sarti_name = "玻尿酸美容护肤不二之选，还你天使容颜，变美不容错误。";
-            orderInfo.stock = 5;
-            orderInfo.buyNum = 1;
-            orderInfo.sarti_mkprice = 102.2;
-            orderInfo.thumbnail_img = Constants.DEFAULT_IMG_URL;
-            goodsTypeDetailInfoList.add(orderInfo);
-        }
-        confirmOrderResponse.nickName = "王小丫";
-        confirmOrderResponse.phone = "13343223367";
-        confirmOrderResponse.storeInfo = storeInfo;
-        confirmOrderResponse.goodsTypeDetailInfoList = goodsTypeDetailInfoList;
-        if (mCallBack != null) {
-            mCallBack.returnConfirmOrder(confirmOrderResponse);
-        }
     }
 }

@@ -1,6 +1,7 @@
 package cn.sanshaoxingqiu.ssbm.module.order.api;
 
 import com.exam.commonbiz.net.BaseResponse;
+
 import cn.sanshaoxingqiu.ssbm.module.order.bean.ConfirmOrderResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.CreateOrderRequest;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderBenefitResponse;
@@ -51,4 +52,8 @@ public interface OrderApiService {
     //用户权益订单
     @GET("ssxq/order/benefit")
     Observable<BaseResponse<OrderBenefitResponse>> getOrderBenefit();
+
+    //获取预约信息列表
+    @GET("ssxq/salebill/getReservationInfo")
+    Observable<BaseResponse<OrderBenefitResponse>> getReservationInfo();
 }

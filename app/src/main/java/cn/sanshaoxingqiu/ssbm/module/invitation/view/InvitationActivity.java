@@ -29,8 +29,7 @@ import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsPosterDialo
 
 import com.exam.commonbiz.util.BitmapUtil;
 
-import cn.sanshaoxingqiu.ssbm.util.Constants;
-
+import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.GlideUtil;
 import com.exam.commonbiz.util.LoadDialogMgr;
 
@@ -40,7 +39,6 @@ import com.exam.commonbiz.dialog.CommonTipDialog;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.util.ContainerUtil;
-import com.exam.commonbiz.util.Res;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
 import com.sanshao.commonui.dialog.CommonDialogInfo;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;

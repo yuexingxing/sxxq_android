@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import cn.sanshaoxingqiu.ssbm.R;
+import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityOrderDetailBinding;
+import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderInfo;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderNumStatusResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.event.PayStatusChangedEvent;
@@ -17,12 +19,11 @@ import cn.sanshaoxingqiu.ssbm.module.order.view.adapter.ConfirmOrderAdapter;
 import cn.sanshaoxingqiu.ssbm.module.order.view.adapter.RemainingServiceAdapter;
 import cn.sanshaoxingqiu.ssbm.module.order.view.adapter.ServedAdapter;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderDetailViewModel;
-import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderViewModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.util.Constants;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 
@@ -107,6 +108,14 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailViewModel, Acti
                 binding.recyclerViewServed.setVisibility(View.GONE);
                 binding.recyclerViewRemainingService.setVisibility(View.GONE);
             }
+        });
+
+        binding.llService.setOnClickListener(view -> {
+            if (!SSApplication.isLogin()) {
+                LoginActivity.start(context);
+                return;
+            }
+            CommandTools.startServiceChat();
         });
 
         binding.llCall.setOnClickListener(view -> {

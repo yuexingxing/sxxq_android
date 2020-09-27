@@ -9,11 +9,13 @@ import androidx.fragment.app.Fragment;
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.base.BaseViewModel;
 import com.exam.commonbiz.util.Res;
-import com.exam.commonbiz.util.StatusBarUtil;
 import com.google.android.material.tabs.TabLayout;
 import com.sanshao.livemodule.liveroom.MLVBLiveRoomImpl;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.HomeFragmentBinding;
 import cn.sanshaoxingqiu.ssbm.module.home.view.adapter.LiveTabFragmentAdapter;
+import cn.sanshaoxingqiu.ssbm.module.login.event.LoginEvent;
 
 /**
  * 首页
@@ -34,6 +37,8 @@ public class HomeFragment extends BaseFragment<BaseViewModel, HomeFragmentBindin
     private List<Fragment> mFragmentList;
     private LiveTabFragmentAdapter mLiveTabFragmentAdapter;
     private String[] mTitleList = new String[2];
+    private VideoBackListFragment mVideoBackListFragment;
+    private LiveListFragment mLiveListFragment;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -56,16 +61,17 @@ public class HomeFragment extends BaseFragment<BaseViewModel, HomeFragmentBindin
 
     @Override
     public int getStatusBarColor() {
-        return R.color.transparent_half;
+        return R.color.transparent;
     }
 
     @Override
     protected void loadData() {
+        if (MLVBLiveRoomImpl.mInstance != null && !MLVBLiveRoomImpl.mInstance.isLoginLiveRoom()) {
+            TCUserMgr.getInstance().loginMLVB();
+        }
         if (SSApplication.isLogin()) {
             if (TCGlobalConfig.isUserSignEmpty()) {
                 TCGlobalConfig.getUserSign();
-            } else {
-                TCUserMgr.getInstance().loginMLVB();
             }
         }
     }
@@ -77,6 +83,26 @@ public class HomeFragment extends BaseFragment<BaseViewModel, HomeFragmentBindin
         MLVBLiveRoomImpl.mInstance.initHttpRequest();
         initViewPager();
         initTabLayout();
+    }
+
+    @Override
+    protected void onVisible() {
+        if (mLiveListFragment != null){
+            mLiveListFragment.onVisible();
+        }
+        if (mVideoBackListFragment != null){
+            mVideoBackListFragment.onVisible();
+        }
+    }
+
+    @Override
+    protected void onInVisible() {
+        if (mLiveListFragment != null){
+            mLiveListFragment.onInVisible();
+        }
+        if (mVideoBackListFragment != null){
+            mVideoBackListFragment.onInVisible();
+        }
     }
 
     private void initTabLayout() {
@@ -99,20 +125,26 @@ public class HomeFragment extends BaseFragment<BaseViewModel, HomeFragmentBindin
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
                 //再次选中tab的逻辑
-                Log.i(TAG, "======我再次被选中====");
+                if (tab.getPosition() == 0 && mVideoBackListFragment != null) {
+                    mVideoBackListFragment.scrollToTop();
+                } else if (tab.getPosition() == 1 && mLiveListFragment != null) {
+                    mLiveListFragment.scrollToTop();
+                }
             }
         });
     }
 
     private void initViewPager() {
 
-        mTitleList[0] = "直播";
-        mTitleList[1] = "推荐";
+        mTitleList[0] = "推荐";
+        mTitleList[1] = "直播";
+        mVideoBackListFragment = VideoBackListFragment.newInstance();
+        mLiveListFragment = LiveListFragment.newInstance();
 
         //把Fragment添加到List集合里面
         mFragmentList = new ArrayList<>();
-        mFragmentList.add(LiveListFragment.newInstance());
-        mFragmentList.add(VideoBackListFragment.newInstance());
+        mFragmentList.add(mVideoBackListFragment);
+        mFragmentList.add(mLiveListFragment);
 
         mLiveTabFragmentAdapter = new LiveTabFragmentAdapter(mFragmentList, mTitleList, getChildFragmentManager(), context);
         binding.viewPager.setAdapter(mLiveTabFragmentAdapter);
@@ -141,7 +173,20 @@ public class HomeFragment extends BaseFragment<BaseViewModel, HomeFragmentBindin
     private void onTabUnSelectView(TabLayout.Tab tab) {
         View view = tab.getCustomView();
         TextView textView = view.findViewById(R.id.tv_title);
-        textView.setTextColor(Res.getColor(context, R.color.color_bbbbbb));
+        textView.setTextColor(Res.getColor(context, R.color.white));
         textView.setTextSize(15f);
+    }
+
+    @Override
+    public boolean useEventBus() {
+        return true;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLoginEvent(LoginEvent loginEvent) {
+        if (loginEvent == null) {
+            return;
+        }
+        TCUserMgr.getInstance().loginMLVB();
     }
 }

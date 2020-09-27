@@ -20,7 +20,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityGoodsListBinding;
-import cn.sanshaoxingqiu.ssbm.module.invitation.view.InvitationActivity;
+import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderBenefitResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderNumStatusResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderPayInfoResponse;
@@ -29,34 +29,30 @@ import cn.sanshaoxingqiu.ssbm.module.order.event.PayStatusChangedEvent;
 import cn.sanshaoxingqiu.ssbm.module.order.model.IOrderDetailModel;
 import cn.sanshaoxingqiu.ssbm.module.order.model.IOrderModel;
 import cn.sanshaoxingqiu.ssbm.module.order.model.IPayModel;
-import cn.sanshaoxingqiu.ssbm.module.order.model.OnPayListener;
-import cn.sanshaoxingqiu.ssbm.module.order.util.PayUtils;
-import cn.sanshaoxingqiu.ssbm.module.order.view.ConfirmOrderActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.view.ConfirmPayActivity;
-import cn.sanshaoxingqiu.ssbm.module.order.view.PayCompleteActivity;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderDetailViewModel;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderViewModel;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.PayViewModel;
-import com.exam.commonbiz.bean.UserInfo;
-import cn.sanshaoxingqiu.ssbm.module.register.view.RegisterActivity;
+
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsTypeInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IGoodsListModel;
-import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.util.ShoppingCenterUtil;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.adapter.GoodsListAdapter;
-import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.BenefitsRightDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.dialog.GoodsPosterDialog;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.viewmodel.GoodsListViewModel;
+
 import com.exam.commonbiz.util.BitmapUtil;
+
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
+
+import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.LoadDialogMgr;
+
 import cn.sanshaoxingqiu.ssbm.util.OnItemEnterOrExitVisibleHelper;
 import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.log.XLog;
-import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.exam.commonbiz.util.ScreenUtil;
 import com.sanshao.commonui.dialog.CommonBottomDialog;
@@ -71,7 +67,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.jzvd.Jzvd;
-import com.exam.commonbiz.util.ToastUtil;
 
 /**
  * 商品列表
@@ -85,13 +80,9 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
     private String mArtiTagId;
     private int mPageNum = 0;
     private GoodsListAdapter mGoodsListAdapter;
-    private UserInfo mUserInfo;
     private OrderViewModel mOrderViewModel;
     private OrderDetailViewModel mOrderDetailViewModel;
     private PayViewModel mPayViewModel;
-    private String mPayType;
-    private String mSartiId;
-    private GoodsDetailInfo mGoodsDetailInfo;
 
     public static void start(Context context, GoodsTypeInfo goodsTypeInfo) {
         Intent starter = new Intent(context, GoodsListActivity.class);
@@ -108,7 +99,6 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
     @Override
     public void initData() {
 
-        mUserInfo = SSApplication.getInstance().getUserInfo();
         GoodsTypeInfo goodsTypeInfo = (GoodsTypeInfo) getIntent().getSerializableExtra(Constants.OPT_DATA);
         mArtiTagId = goodsTypeInfo.artitag_id;
         if (!TextUtils.isEmpty(goodsTypeInfo.artitag_name)) {
@@ -149,32 +139,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
         mGoodsListAdapter.setOnItemClickListener(new GoodsListAdapter.OnItemClickListener() {
             @Override
             public void onBuyClick(GoodsDetailInfo goodsDetailInfo) {
-                if (!SSApplication.isLogin()) {
-                    RegisterActivity.start(context, "", ShoppingCenterUtil.getRegisterTagId());
-                    return;
-                }
-                mSartiId = goodsDetailInfo.sarti_id;
-                mGoodsDetailInfo = goodsDetailInfo;
-                if (goodsDetailInfo.isPayByMoney() && !goodsDetailInfo.isFree()) {
-                    ConfirmOrderActivity.start(context, goodsDetailInfo.sarti_id);
-                } else if (goodsDetailInfo.isPayByPoint()) {
-                    if (mUserInfo.available_point == 0) {
-                        InvitationActivity.start(context, ShoppingCenterUtil.getInviteTagId());
-                    } else {
-                        ConfirmOrderActivity.start(context, goodsDetailInfo.sarti_id);
-                    }
-                } else {
-                    if (!mUserInfo.hasBenefitsRight() && goodsDetailInfo.isFree()) {
-                        new BenefitsRightDialog().show(context, new CommonCallBack() {
-                            @Override
-                            public void callback(int postion, Object object) {
-                                showPayTypeBottomDialog();
-                            }
-                        });
-                        return;
-                    }
-                    ConfirmOrderActivity.start(context, goodsDetailInfo.sarti_id);
-                }
+                GoodsPresenter.startBuy(context, goodsDetailInfo);
             }
 
             @Override
@@ -189,7 +154,11 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
 
             @Override
             public void onConsultClick() {
-
+                if (!SSApplication.isLogin()) {
+                    LoginActivity.start(context);
+                    return;
+                }
+                CommandTools.startServiceChat();
             }
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -256,9 +225,7 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
     @Override
     public void onResume() {
         super.onResume();
-        if (!TextUtils.isEmpty(mPayType)) {
-            mPayViewModel.fVipPay(PayViewModel.CHECK_ORDER_STATUS, mPayType);
-        }
+
     }
 
     @Override
@@ -309,27 +276,6 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
                         }).start();
                     } else {
                         new GoodsPosterDialog().show(context, new GoodsDetailInfo());
-                    }
-                })
-                .show();
-    }
-
-    private void showPayTypeBottomDialog() {
-
-        List<CommonDialogInfo> commonDialogInfoList = new ArrayList<>();
-        commonDialogInfoList.add(new CommonDialogInfo("微信支付"));
-        commonDialogInfoList.add(new CommonDialogInfo("支付宝支付"));
-
-        new CommonBottomDialog()
-                .init(this)
-                .setData(commonDialogInfoList)
-                .setOnItemClickListener(commonDialogInfo -> {
-                    if (commonDialogInfo.position == 0) {
-                        mPayType = ConfirmPayActivity.PAY_BY_WECHAT;
-                        mPayViewModel.fVipPay(PayViewModel.GET_PAY_INFO, ConfirmPayActivity.PAY_BY_WECHAT);
-                    } else {
-                        mPayType = ConfirmPayActivity.PAY_BY_ALI_APP;
-                        mPayViewModel.fVipPay(PayViewModel.GET_PAY_INFO, ConfirmPayActivity.PAY_BY_ALI_APP);
                     }
                 })
                 .show();
@@ -444,48 +390,12 @@ public class GoodsListActivity extends BaseActivity<GoodsListViewModel, Activity
 
     @Override
     public void returnOrderStatus(OrderStatusResponse orderStatusResponse) {
-        if (mGoodsDetailInfo == null) {
-            return;
-        }
-        ConfirmPayActivity.start(context, mGoodsDetailInfo);
+
     }
 
     @Override
     public void returnFVipPay(int optType, OrderPayInfoResponse orderPayInfoResponse) {
-        if (PayViewModel.CHECK_ORDER_STATUS == optType) {
-            if (orderPayInfoResponse == null) {
-                ToastUtil.showShortToast("支付成功");
-                PayCompleteActivity.start(context, mSartiId, orderPayInfoResponse.order_no);
-            } else {
-                return;
-            }
-            return;
-        }
-        if (orderPayInfoResponse == null) {
-            return;
-        }
-        if (TextUtils.equals(mPayType, ConfirmPayActivity.PAY_BY_WECHAT)) {
-            String path = "/pages/order/appPay?" + "salebill_id="
-                    + "&mem_phone=" + mUserInfo.mem_phone + "&benefits_level=" + mUserInfo.benefits_level;
-            new ShareUtils()
-                    .init(context)
-                    .jump2WxMiniProgram(path);
-        } else {
-            PayUtils payUtils = new PayUtils();
-            payUtils.registerApp(context);
-            payUtils.setOnPayListener(new OnPayListener() {
-                @Override
-                public void onPaySuccess() {
 
-                }
-
-                @Override
-                public void onPayFailed() {
-                    ToastUtil.showShortToast("支付失败");
-                }
-            });
-            payUtils.startPay(GoodsListActivity.this, mPayType, CommandTools.beanToJson(orderPayInfoResponse));
-        }
     }
 
     @Override

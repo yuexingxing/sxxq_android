@@ -6,12 +6,13 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.util.Constants;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivitySettingAccountBinding;
 import cn.sanshaoxingqiu.ssbm.module.personal.setting.viewmodel.SettingAccountViewModel;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
+
 import com.exam.commonbiz.util.ToastUtil;
 
 /**

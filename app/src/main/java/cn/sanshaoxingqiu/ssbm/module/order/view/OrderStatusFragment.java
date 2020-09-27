@@ -8,6 +8,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.base.BaseFragment;
+import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.ContainerUtil;
 
 import cn.sanshaoxingqiu.ssbm.R;
@@ -20,7 +21,7 @@ import cn.sanshaoxingqiu.ssbm.module.order.view.adapter.OrderListAdapter;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderListViewModel;
 import cn.sanshaoxingqiu.ssbm.module.personal.inquiry.view.AppointmentForConsultationActivity;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
+
 import com.exam.commonbiz.util.ToastUtil;
 
 /**
@@ -78,42 +79,42 @@ public class OrderStatusFragment extends BaseFragment<OrderListViewModel, Fragme
         mOrderListAdapter.setOnLoadMoreListener(this, binding.recyclerView);
         mOrderListAdapter.setOnItemClickListener(new OrderListAdapter.OnItemClickListener() {
             @Override
-            public void onOrderDetail(OrderInfo item) {
-                OrderDetailActivity.start(context, orderState, item.id);
+            public void onOrderDetail(GoodsDetailInfo item) {
+                OrderDetailActivity.start(context, orderState, item.salebill_id);
             }
 
             @Override
-            public void onSubscribe(OrderInfo item) {
+            public void onSubscribe(GoodsDetailInfo item) {
                 AppointmentForConsultationActivity.start(context);
             }
 
             @Override
-            public void onViewCouponCode(OrderInfo item) {
+            public void onViewCouponCode(GoodsDetailInfo item) {
 //                ViewCouponCodeActivity.start(context);
                 //TODO 查看券码先跳转到订单详情
-                OrderDetailActivity.start(context, orderState, item.id);
+                OrderDetailActivity.start(context, orderState, item.salebill_id);
             }
 
             @Override
-            public void onDeleteOrder(int position, OrderInfo item) {
+            public void onDeleteOrder(int position, GoodsDetailInfo item) {
                 mOrderListAdapter.remove(position);
             }
 
             @Override
-            public void onCancelOrder(int position, OrderInfo item) {
-                mViewModel.cancelOrder(item.id);
+            public void onCancelOrder(int position, GoodsDetailInfo item) {
+                mViewModel.cancelOrder(item.salebill_id);
             }
 
             @Override
-            public void onPay(OrderInfo item) {
+            public void onPay(GoodsDetailInfo item) {
                 GoodsDetailInfo goodsDetailInfo = new GoodsDetailInfo();
                 if (item.shopSartiInfo != null){
                     goodsDetailInfo.sarti_name = item.shopSartiInfo.sarti_name;
                 }
                 goodsDetailInfo.sarti_id = item.shopSartiInfo.sarti_id;
-                goodsDetailInfo.salebill_id = item.id;
-                goodsDetailInfo.sum_amt = item.totalPrice;
-                goodsDetailInfo.sum_point = item.sumPoint;
+                goodsDetailInfo.salebill_id = item.salebill_id;
+                goodsDetailInfo.sum_amt = item.sum_amt;
+                goodsDetailInfo.sum_point = item.sum_point;
                 ConfirmPayActivity.start(context, goodsDetailInfo);
             }
         });

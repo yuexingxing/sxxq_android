@@ -38,11 +38,18 @@
                     android:layout_height="1dp"
                     android:layout_weight="1" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="全部订单"
+                    android:textColor="@color/color_666666"
+                    android:textSize="13sp" />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginRight="11dp"
                     android:src="@drawable/arrow_right" />
             </LinearLayout>
@@ -84,10 +91,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:visibility="gone"
-                    tools:visibility="visible"
                     app:PersonalOrderMenuView_icon="@drawable/icon_forvisits"
                     app:PersonalOrderMenuView_name="待问诊"
-                    app:PersonalOrderMenuView_num="2" />
+                    app:PersonalOrderMenuView_num="2"
+                    tools:visibility="visible" />
 
                 <cn.sanshaoxingqiu.ssbm.widget.PersonalOrderMenuView
                     android:id="@+id/ll_order_complete"
@@ -114,6 +121,38 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:overScrollMode="never" />
+
+            <RelativeLayout
+                android:id="@+id/rl_open"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_below="@+id/recycler_view"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/shape_white_radius_10"
+                android:gravity="center"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/iv_open"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/icon_open" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4dp"
+                    android:layout_toRightOf="@+id/iv_open"
+                    android:gravity="center"
+                    android:text="展开"
+                    android:textColor="@color/color_333333" />
+            </RelativeLayout>
         </RelativeLayout>
+
     </LinearLayout>
 </layout>

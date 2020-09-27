@@ -36,7 +36,7 @@
     <!-- permission check-->
     <string name="float_window_not_allow">悬浮窗权限未开启 请在应用-权限中打开悬浮窗权限</string>
 
-    <string name="dialog_input_text_hint">看都看了，还不撩一下～</string>
+    <string name="dialog_input_text_hint">说点什么呢～</string>
 
     <string name="dialog_selectSex">请选择</string>
     <!-- live fragment-->

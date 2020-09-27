@@ -6,8 +6,9 @@
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
+        android:layout_width="35dp"
         android:layout_height="wrap_content"
+        android:singleLine="true"
         android:text="title"
         android:textColor="@color/white"
         android:textSize="18sp" />

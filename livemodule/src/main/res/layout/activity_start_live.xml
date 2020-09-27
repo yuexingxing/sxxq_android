@@ -174,11 +174,39 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <include
-                        layout="@layout/include_layout_login_policy"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/left_container_margin" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkbox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/transparent"
+                            android:layout_marginLeft="@dimen/left_container_margin"
+                            android:button="@drawable/selector_login_checked"
+                            android:checked="false"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="开播后默认同意"
+                            android:textColor="#ff999999"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_agreement"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="《直播服务协议》"
+                            android:textColor="@color/color_c52d2d"
+                            android:textSize="12sp" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tv_start_live"

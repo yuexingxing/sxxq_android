@@ -93,5 +93,5 @@ dependencies {
     api 'com.github.lzyzsd:jsbridge:1.0.4'
 
     compile (name:'commonui-1.0.14', ext: 'aar')
-    compile (name:'commonutil-1.0.1', ext: 'aar')
+    compile (name:'commonutil-1.0.2', ext: 'aar')
 }

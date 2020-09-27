@@ -5,30 +5,36 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.bean.UserInfo;
+import com.exam.commonbiz.util.Constants;
+import com.exam.commonbiz.util.ToastUtil;
+import com.sanshao.commonui.titlebar.OnTitleBarListener;
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityConfirmPayBinding;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.ConfirmOrderResponse;
+import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderNumStatusResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderPayInfoResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.bean.OrderStatusResponse;
 import cn.sanshaoxingqiu.ssbm.module.order.event.PayStatusChangedEvent;
 import cn.sanshaoxingqiu.ssbm.module.order.model.IConfirmOrderModel;
+import cn.sanshaoxingqiu.ssbm.module.order.model.IOrderDetailModel;
 import cn.sanshaoxingqiu.ssbm.module.order.model.IPayModel;
 import cn.sanshaoxingqiu.ssbm.module.order.model.OnPayListener;
 import cn.sanshaoxingqiu.ssbm.module.order.util.PayUtils;
+import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderDetailViewModel;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.PayViewModel;
-import com.exam.commonbiz.bean.UserInfo;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.model.IGoodsDetailModel;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.viewmodel.GoodsDetailViewModel;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
-import com.exam.commonbiz.util.ToastUtil;
-
-import com.exam.commonbiz.base.BaseActivity;
-import com.sanshao.commonui.titlebar.OnTitleBarListener;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * 确认付款
@@ -36,14 +42,16 @@ import org.greenrobot.eventbus.ThreadMode;
  * @Author yuexingxing
  * @time 2020/6/20
  */
-public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfirmPayBinding> implements IPayModel, IConfirmOrderModel {
+public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfirmPayBinding> implements IPayModel, IConfirmOrderModel,
+        IOrderDetailModel {
     public static final String PAY_BY_WECHAT = "HFWX";
     public static final String PAY_BY_ALI_APP = "HFALIPAYAPP";
-    private String mPayType = PAY_BY_ALI_APP;//默认支付宝支付
+    private String mPayType = PAY_BY_WECHAT;//默认微信支付
     private boolean isFirstIn = true;
     private UserInfo mUserInfo;
     private GoodsDetailInfo mGoodsDetailInfo;
     private boolean jumpPay;//标记跳转到支付页面，防止无限跳转
+    private OrderDetailViewModel mOrderDetailViewModel;
 
     public static void start(Context context, GoodsDetailInfo goodsDetailInfo) {
         Intent starter = new Intent(context, ConfirmPayActivity.class);
@@ -59,6 +67,8 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
     @Override
     public void initData() {
 
+        mOrderDetailViewModel = new OrderDetailViewModel();
+        mOrderDetailViewModel.setCallBack(this);
         mGoodsDetailInfo = (GoodsDetailInfo) getIntent().getSerializableExtra(Constants.OPT_DATA);
         if (mGoodsDetailInfo == null) {
             finish();
@@ -80,31 +90,29 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
 
             }
         });
-        binding.tvPrice.setText(mGoodsDetailInfo.getPriceText());
-        binding.tvName.setText(mGoodsDetailInfo.sarti_name);
         binding.tvOrderNo.setText("订单编号：" + mGoodsDetailInfo.salebill_id);
         mUserInfo = SSApplication.getInstance().getUserInfo();
-        if (mGoodsDetailInfo.isFree() && mUserInfo.hasBenefitsRight()) {
-            binding.rlPay.setVisibility(View.INVISIBLE);
-            binding.btnStartPay.setText("免费领取");
-        } else if (mGoodsDetailInfo.isPayByPoint()) {
-            binding.rlPay.setVisibility(View.INVISIBLE);
-            binding.btnStartPay.setText("确认支付");
-        } else {
-            binding.rlPay.setVisibility(View.VISIBLE);
-        }
+
         binding.btnStartPay.setOnClickListener(v -> {
-            if (TextUtils.equals(mPayType, PAY_BY_WECHAT)) {
-                String path = "/pages/order/appPay?" + "salebill_id=" + mGoodsDetailInfo.salebill_id
-                        + "&mem_phone=" + mUserInfo.mem_phone + "&benefits_level=" + mUserInfo.benefits_level;
-                new ShareUtils()
-                        .init(context)
-                        .jump2WxMiniProgram(path);
+            if (mGoodsDetailInfo == null) {
+                return;
+            }
+            jumpPay = true;
+            if (mGoodsDetailInfo.isFree() || mGoodsDetailInfo.isPayByPoint()) {
+                mViewModel.getOrderPayInfo(PayViewModel.CHECK_ORDER_STATUS, mGoodsDetailInfo.salebill_id, mPayType);
             } else {
-                jumpPay = true;
-                mViewModel.getOrderPayInfo(PayViewModel.GET_PAY_INFO, mGoodsDetailInfo.salebill_id, mPayType);
+                if (TextUtils.equals(mPayType, PAY_BY_WECHAT)) {
+                    String path = "/pages/order/appPay?" + "salebill_id=" + mGoodsDetailInfo.salebill_id
+                            + "&mem_phone=" + mUserInfo.mem_phone;
+                    new ShareUtils()
+                            .init(context)
+                            .jump2WxMiniProgram(path);
+                } else {
+                    mViewModel.getOrderPayInfo(PayViewModel.GET_PAY_INFO, mGoodsDetailInfo.salebill_id, mPayType);
+                }
             }
         });
+        mOrderDetailViewModel.getOrderDetailInfo(context, mGoodsDetailInfo.salebill_id);
         setCheckStatus(mPayType);
         binding.llPayWechat.setOnClickListener(v -> setCheckStatus(PAY_BY_WECHAT));
         binding.llPayAli.setOnClickListener(v -> setCheckStatus(PAY_BY_ALI_APP));
@@ -183,7 +191,6 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         if (orderStatusResponse == null) {
             return;
         }
-
     }
 
     @Override
@@ -204,5 +211,71 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
     @Override
     public void returnSubmitOrderInfo() {
 
+    }
+
+    @Override
+    public void returnOrderDetailInfo(GoodsDetailInfo goodsDetailInfo) {
+        if (goodsDetailInfo == null || goodsDetailInfo.order_product == null) {
+            return;
+        }
+        if (goodsDetailInfo.order_product.isFree()) {
+            binding.rlPay.setVisibility(View.INVISIBLE);
+            binding.btnStartPay.setText("免费领取");
+            binding.tvPrice.setText("免费领取");
+        } else if (goodsDetailInfo.order_product.isPayByPoint()) {
+            binding.llPayWechat.setVisibility(View.GONE);
+            binding.llPayAli.setVisibility(View.GONE);
+            binding.llPayPoint.setVisibility(View.VISIBLE);
+            binding.btnStartPay.setText("确认支付");
+            binding.tvPrice.setText(goodsDetailInfo.sum_point + "分享金");
+        } else {
+            binding.rlPay.setVisibility(View.VISIBLE);
+            binding.tvPrice.setText("¥" + goodsDetailInfo.sum_amt);
+        }
+    }
+
+    @Override
+    public void returnOrderNumStatus(OrderNumStatusResponse orderNumStatusResponse) {
+
+    }
+
+    @Override
+    public void returnCancelOrder() {
+
+    }
+
+    @Override
+    public void onRefreshData(Object object) {
+
+    }
+
+    @Override
+    public void onLoadMoreData(Object object) {
+
+    }
+
+    @Override
+    public void onNetError() {
+
+    }
+
+    @Override
+    public LoadingDialog createLoadingDialog() {
+        return null;
+    }
+
+    @Override
+    public LoadingDialog createLoadingDialog(String text) {
+        return null;
+    }
+
+    @Override
+    public boolean visibility() {
+        return false;
+    }
+
+    @Override
+    public boolean viewFinished() {
+        return false;
     }
 }

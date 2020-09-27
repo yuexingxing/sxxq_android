@@ -17,20 +17,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.exam.commonbiz.util.ToastUtil;
 import com.sanshao.livemodule.R;
 
 /**
  * Module:   TCInputTextMsgDialog
- *
+ * <p>
  * Function: 观众、主播的弹幕或普通文本的输入框
- *
  */
 public class TCInputTextMsgDialog extends Dialog {
 
     public interface OnTextSendListener {
 
-       void onTextSend(String msg, boolean tanmuOpen);
+        void onTextSend(String msg, boolean tanmuOpen);
     }
+
     private TextView confirmBtn;
     private LinearLayout mBarrageArea;
     private EditText messageTextView;
@@ -41,7 +42,7 @@ public class TCInputTextMsgDialog extends Dialog {
     private int mLastDiff = 0;
     private LinearLayout mConfirmArea;
     private OnTextSendListener mOnTextSendListener;
-    private boolean mDanmuOpen = false;
+    private boolean mDanmuOpen = true;
 
     public TCInputTextMsgDialog(Context context, int theme) {
         super(context, theme);
@@ -68,7 +69,7 @@ public class TCInputTextMsgDialog extends Dialog {
                     messageTextView.setText("");
                     dismiss();
                 } else {
-                    Toast.makeText(mContext, "内容不能为空", Toast.LENGTH_LONG).show();
+                    ToastUtil.showShortToast("内容不能为空");
                 }
                 messageTextView.setText(null);
             }
@@ -114,7 +115,8 @@ public class TCInputTextMsgDialog extends Dialog {
 //                            messageTextView.setText("");
                             dismiss();
                         } else {
-                            Toast.makeText(mContext, "input can not be empty!", Toast.LENGTH_LONG).show();
+                            ToastUtil.showShortToast("内容不能为空");
+                            ;
                         }
                         return true;
                     case KeyEvent.KEYCODE_BACK:
@@ -139,7 +141,7 @@ public class TCInputTextMsgDialog extends Dialog {
                     messageTextView.setText("");
                     dismiss();
                 } else {
-                    Toast.makeText(mContext, "input can not be empty!", Toast.LENGTH_LONG).show();
+                    ToastUtil.showShortToast("内容不能为空");
                 }
                 messageTextView.setText(null);
             }
@@ -157,7 +159,7 @@ public class TCInputTextMsgDialog extends Dialog {
         rlDlg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(v.getId() != R.id.rl_inputdlg_view)
+                if (v.getId() != R.id.rl_inputdlg_view)
                     dismiss();
             }
         });
@@ -171,11 +173,11 @@ public class TCInputTextMsgDialog extends Dialog {
                 //获取当前界面可视部分
                 getWindow().getDecorView().getWindowVisibleDisplayFrame(r);
                 //获取屏幕的高度
-                int screenHeight =  getWindow().getDecorView().getRootView().getHeight();
+                int screenHeight = getWindow().getDecorView().getRootView().getHeight();
                 //此处就是用来获取键盘的高度的， 在键盘没有弹出的时候 此高度为0 键盘弹出的时候为一个正数
                 int heightDifference = screenHeight - r.bottom;
 
-                if (heightDifference <= 0 && mLastDiff > 0){
+                if (heightDifference <= 0 && mLastDiff > 0) {
                     //imm.hideSoftInputFromWindow(messageTextView.getWindowToken(), 0);
                     dismiss();
                 }

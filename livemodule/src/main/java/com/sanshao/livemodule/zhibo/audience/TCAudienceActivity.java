@@ -79,17 +79,16 @@ import master.flame.danmaku.controller.IDanmakuView;
  * <p>
  * 3. 房间消息、弹幕、点赞处理
  **/
-public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudienceBinding> implements IMLVBLiveRoomListener, View.OnClickListener, TCInputTextMsgDialog.OnTextSendListener {
+public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudienceBinding> implements IMLVBLiveRoomListener, View.OnClickListener, TCInputTextMsgDialog.OnTextSendListener,
+        IMLVBLiveRoomListener.GetAudienceListCallback {
     private static final String TAG = TCAudienceActivity.class.getSimpleName();
     //连麦间隔控制
     private static final long LINK_MIC_INTERVAL = 3 * 1000;
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
-
     private TXCloudVideoView mTXCloudVideoView;      // 观看大主播的 View
     private MLVBLiveRoom mLiveRoom;              // MLVB 组件
-
 
     // 消息相关
     private TCInputTextMsgDialog mInputTextMsgDialog;    // 消息输入框
@@ -172,10 +171,9 @@ public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudi
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         Intent intent = getIntent();
         String strMemberCount = intent.getStringExtra(TCConstants.MEMBER_COUNT);
-        if (TextUtils.isEmpty(strMemberCount)){
+        if (TextUtils.isEmpty(strMemberCount)) {
             strMemberCount = "0";
         }
         mPusherId = intent.getStringExtra(TCConstants.PUSHER_ID);
@@ -203,11 +201,18 @@ public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudi
         mLiveRoom = MLVBLiveRoom.sharedInstance(this);
         mTvToomId = findViewById(R.id.tv_room_id);
         mTvToomId.setText(String.format("直播间号：%s", mGroupId));
+        mLiveRoom.getAudienceList(mGroupId, this);
 
         initView();
         LiveRoomBeautyKit manager = new LiveRoomBeautyKit(mLiveRoom);
         mBeautyControl.setProxy(manager);
         startPlay();
+
+//        String avatar = "http://img.cyw.com/shopx/20130606155913125664/shopinfo/201605041441522.jpg";
+//        for (int i = 0; i < 10; i++) {
+//            TCSimpleUserInfo tcSimpleUserInfo = new TCSimpleUserInfo("123" + i, "123", avatar);
+//            mAvatarListAdapter.addItem(tcSimpleUserInfo);
+//        }
 
         //在这里停留，让列表界面卡住几百毫秒，给sdk一点预加载的时间，形成秒开的视觉效果
         try {
@@ -368,7 +373,6 @@ public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudi
 
         hideNoticeToast();
 
-
         long endPushPts = System.currentTimeMillis();
         long diff = (endPushPts - mStartPlayPts) / 1000;
         TCELKReportMgr.getInstance().reportELK(TCConstants.ELK_ACTION_LIVE_PLAY_DURATION, TCUserMgr.getInstance().getUserId(), diff, "直播播放时长", null);
@@ -388,7 +392,8 @@ public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudi
         mLiveRoom.enterRoom(mGroupId, mPlayUrl, mTXCloudVideoView, new IMLVBLiveRoomListener.EnterRoomCallback() {
             @Override
             public void onError(int errCode, String errInfo) {
-                showErrorAndQuit("加入房间失败，Error:" + errCode + "/" + errInfo);
+                Log.e(TAG, "加入房间失败，Error:" + errCode + "/" + errInfo);
+                showErrorAndQuit("加入房间失败," + errInfo);
                 TCELKReportMgr.getInstance().reportELK(TCConstants.ELK_ACTION_LIVE_PLAY, TCUserMgr.getInstance().getUserId(), -10001, "进入LiveRoom失败", null);
             }
 
@@ -443,7 +448,6 @@ public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudi
         mBtnLinkMic.setBackgroundResource(R.drawable.linkmic_off);
 
         showNoticeToast("等待主播接受......");
-
 
         mLiveRoom.requestJoinAnchor("", new IMLVBLiveRoomListener.RequestJoinAnchorCallback() {
             @Override
@@ -695,7 +699,6 @@ public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudi
         }
     }
 
-
     @Override
     public void onRoomDestroy(String roomID) {
         stopLinkMic();
@@ -707,7 +710,7 @@ public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudi
         if (errorCode == MLVBCommonDef.LiveRoomErrorCode.ERROR_IM_FORCE_OFFLINE) { // IM 被强制下线。
             TCUtils.showKickOut(TCAudienceActivity.this);
         } else {
-            showErrorAndQuit("视频流播放失败，Error:");
+            showErrorAndQuit("视频流播放失败");
         }
     }
 
@@ -1128,7 +1131,30 @@ public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudi
             case TXLiveConstants.PLAY_ERR_GET_PLAYINFO_FAIL:
                 TCELKReportMgr.getInstance().reportELK(TCConstants.ELK_ACTION_LIVE_PLAY, TCUserMgr.getInstance().getUserId(), -6, "获取点播文件信息失败", null);
                 break;
+        }
+    }
 
+    @Override
+    public void onError(int errCode, String errInfo) {
+        Log.d(TAG, "getaAdienceInfoList/" + errInfo);
+    }
+
+    @Override
+    public void onSuccess(ArrayList<AudienceInfo> audienceInfoList) {
+        if (audienceInfoList == null) {
+            return;
+        }
+
+        mCurrentAudienceCount = audienceInfoList.size();
+        mMemberCount.setText("在线：" + String.format(Locale.CHINA, "%d", mCurrentAudienceCount));
+        for (int i = 0; i < audienceInfoList.size(); i++) {
+            AudienceInfo audienceInfo = audienceInfoList.get(i);
+            Log.d(TAG, audienceInfo.userID + "/" + audienceInfo.userName + "/" + audienceInfo.userAvatar);
+            if (TextUtils.equals(audienceInfo.userID, TCUserMgr.getInstance().getUserId())) {
+
+            }
+            TCSimpleUserInfo tcSimpleUserInfo = new TCSimpleUserInfo(audienceInfo.userID, audienceInfo.userName, audienceInfo.userAvatar);
+            mAvatarListAdapter.addItem(tcSimpleUserInfo);
         }
     }
 }

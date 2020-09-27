@@ -24,9 +24,15 @@ import com.exam.commonbiz.dialog.CommonTipDialog;
 import com.sanshao.livemodule.R;
 import com.sanshao.livemodule.liveroom.IMLVBLiveRoomListener;
 import com.sanshao.livemodule.liveroom.MLVBLiveRoom;
+import com.sanshao.livemodule.liveroom.MLVBLiveRoomImpl;
+import com.sanshao.livemodule.liveroom.model.ILiveRoomModel;
+import com.sanshao.livemodule.liveroom.roomutil.bean.RoomInfo;
+import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
+import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
 import com.sanshao.livemodule.liveroom.roomutil.commondef.AnchorInfo;
 import com.sanshao.livemodule.liveroom.roomutil.commondef.AudienceInfo;
 import com.sanshao.livemodule.liveroom.roomutil.commondef.MLVBCommonDef;
+import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;
 import com.sanshao.livemodule.zhibo.common.msg.TCChatEntity;
 import com.sanshao.livemodule.zhibo.common.msg.TCChatMsgListAdapter;
@@ -63,7 +69,7 @@ import master.flame.danmaku.controller.IDanmakuView;
  * <p>
  * 2. 处理消息接收到的文本信息：{@link TCBaseAnchorActivity#onRecvRoomTextMsg(String, String, String, String, String)}
  */
-public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListener, View.OnClickListener, TCInputTextMsgDialog.OnTextSendListener {
+public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListener, View.OnClickListener, TCInputTextMsgDialog.OnTextSendListener, ILiveRoomModel {
     private static final String TAG = TCBaseAnchorActivity.class.getSimpleName();
 
     // 消息列表相关
@@ -100,6 +106,7 @@ public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListe
     private BroadcastTimerTask mBroadcastTimerTask;    // 定时任务
     protected long mSecond = 0;            // 开播的时间，单位为秒
     private long mStartPushPts;          // 开始直播的时间，用于 ELK 上报统计。 您可以不关注
+    private LiveViewModel mLiveViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +128,9 @@ public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListe
         mArrayListChatEntity = new ArrayList<>();
         mErrDlgFragment = new ErrorDialogFragment();
         mLiveRoom = MLVBLiveRoom.sharedInstance(this);
+
+        mLiveViewModel = new LiveViewModel();
+        mLiveViewModel.setILiveRoomModel(this);
 
         initView();
         if (TextUtils.isEmpty(mNickName)) {
@@ -249,6 +259,12 @@ public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListe
             public void onSuccess(String RoomID, String pushUrl) {
                 Log.w(TAG, String.format("创建直播间%s成功", RoomID));
                 onCreateRoomSuccess();
+                RoomInfo roomInfo = new RoomInfo();
+                roomInfo.frontcover = mCoverPicUrl;
+                roomInfo.title = mTitle;
+                roomInfo.location = mLocation;
+                roomInfo.push_url =  MLVBLiveRoomImpl.mInstance.getSelfPushUrl();
+                mLiveViewModel.createLive(roomInfo);
             }
         });
     }
@@ -683,6 +699,16 @@ public class TCBaseAnchorActivity extends Activity implements IMLVBLiveRoomListe
      * /////////////////////////////////////////////////////////////////////////////////
      */
     protected void onBroadcasterTimeUpdate(long second) {
+
+    }
+
+    @Override
+    public void returnUserSign(UserSignResponse userSignResponse) {
+
+    }
+
+    @Override
+    public void returnGetVideoList(VideoListResponse videoListResponse) {
 
     }
 

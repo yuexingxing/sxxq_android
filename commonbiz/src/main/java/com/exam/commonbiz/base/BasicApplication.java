@@ -51,4 +51,12 @@ public abstract class BasicApplication extends Application {
     public static boolean isLogin() {
         return !TextUtils.isEmpty(getToken());
     }
+
+    /**
+     * 退出登录
+     */
+    public void logout() {
+        saveUserInfo(new UserInfo());
+        setToken("");
+    }
 }

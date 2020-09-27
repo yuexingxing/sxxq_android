@@ -41,9 +41,9 @@ ext {
     buildToolsVersion = "25.0.3"
     supportSdkVersion = "25.4.0"
     minSdkVersion = 16
-    targetSdkVersion = 23
+    targetSdkVersion = 28
     versionCode = 1
-    versionName = "v1.0"
+    versionName = "1.0.0"
     liteavSdk = "com.tencent.liteav:LiteAVSDK_TRTC:latest.release"
     imSdk = 'com.tencent.imsdk:imsdk:4.7.10'
     ndkAbi = 'armeabi'//,'armeabi-v7a', 'arm64-v8a'

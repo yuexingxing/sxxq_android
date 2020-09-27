@@ -2,11 +2,13 @@ package com.sanshao.livemodule.liveroom.api;
 
 import com.exam.commonbiz.net.BaseResponse;
 import com.sanshao.livemodule.liveroom.roomutil.bean.LicenceInfo;
+import com.sanshao.livemodule.liveroom.roomutil.bean.RoomInfo;
 import com.sanshao.livemodule.liveroom.roomutil.bean.UserSignResponse;
 import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
 import com.sanshao.livemodule.liveroom.roomutil.commondef.AnchorInfo;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -29,11 +31,15 @@ public interface LiveRoomApiService {
     @GET("live/mlive/home")
     Observable<BaseResponse<AnchorInfo>> getAnchorInfo();
 
-    //直播回放列表
+    //直播列表
     @GET("live/mlive/batchList")
     Observable<BaseResponse<VideoListResponse>> getLiveVideoList();
 
-    //回放列表
-    @GET("live/mlive/record/list")
+    //直播回放列表
+    @GET("live/mlive/video/list")
     Observable<BaseResponse<VideoListResponse>> getVideoBackList(@Query("page") int page, @Query("pageSize") int pageSize);
+
+    //创建直播房间
+    @POST("live/mlive/createLive")
+    Observable<BaseResponse> createLive(@Body RoomInfo roomInfo);
 }

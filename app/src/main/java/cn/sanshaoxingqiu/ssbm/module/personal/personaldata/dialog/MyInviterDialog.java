@@ -14,6 +14,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
+
 import com.exam.commonbiz.bean.UserInfo;
 import com.exam.commonbiz.util.GlideUtil;
 
@@ -43,16 +44,20 @@ public class MyInviterDialog {
         UserInfo userInfo = SSApplication.getInstance().getUserInfo();
         if (userInfo == null || userInfo.referrer_mem == null
                 || userInfo.referrer_mem.mem_class == null
-                || TextUtils.isEmpty(userInfo.referrer_mem.nickname)) {
+                || TextUtils.isEmpty(userInfo.referrer_mem.invitation_code)) {
             tvNoInviter.setVisibility(View.VISIBLE);
             llContent.setVisibility(View.GONE);
         } else {
             tvNoInviter.setVisibility(View.GONE);
             llContent.setVisibility(View.VISIBLE);
 
+            String nickName = userInfo.referrer_mem.nickname;
+            if (TextUtils.isEmpty(nickName)) {
+                nickName = userInfo.referrer_mem.invitation_code;
+            }
             tvInviteCode.setText("邀请码：" + userInfo.referrer_mem.invitation_code);
-            tvInviteName.setText(userInfo.referrer_mem.nickname + "");
-            GlideUtil.loadImage(userInfo.referrer_mem.avatar, ivAvatar);
+            tvInviteName.setText(nickName);
+            GlideUtil.loadAvatar(userInfo.referrer_mem.avatar, ivAvatar);
 
             //一星会员
             tvLabel.setText(userInfo.getMember());

@@ -8,11 +8,9 @@ import cn.sanshaoxingqiu.ssbm.SSApplication;
 
 import com.exam.commonbiz.bean.UserInfo;
 
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.MathUtil;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GoodsDetailInfo implements Serializable, MultiItemEntity {
@@ -49,8 +47,10 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
     public String sarti_desc;
     public GoodsDetailInfo order_product;
     public List<GoodsDetailInfo> product_list;
+    public List<GoodsDetailInfo> set_meal_list;
     public List<WriteOffInfo> write_off;
     public boolean isPlay;
+    public float total_amt;
     public String used;//已使用服务次数
     public String unused;//未使用服务次数
     public String pay_type;
@@ -66,9 +66,42 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
     public int qty;
     public String sale_status;//PAY=顾客待付款，PAYING=顾客付款中，PAID=顾客已付款 (金额进入第三方支付机构)，FINISH=订单已完成 (全部核销完毕)，CANCEL=顾客取消订单/订单支付超时，REFUNDING=顾客已申请退款，REFUNDED=顾客退款完成 ,
     public int itemType = GOODS_TYPE.REAL_DATA;
+    public List<MemberCommissionInfo> mem_commission_config;
+    public GoodsDetailInfo shopSartiInfo;
+    public String unit_price;
+    public String sharePath;
 
-    public String getPointTip() {
-        return sarti_point_price + "分享金";
+    public static String getOrderStatus(String status) {
+        if (TextUtils.isEmpty(status)) {
+            return "";
+        } else if (TextUtils.equals(status, ORDER_STATUS.PAY)) {
+            return "待支付";
+        } else if (TextUtils.equals(status, ORDER_STATUS.PAY_GAP)) {
+            return "待支付尾款";
+        } else if (TextUtils.equals(status, ORDER_STATUS.PAID)) {
+            return "待使用";
+        } else if (TextUtils.equals(status, ORDER_STATUS.FINISH)) {
+            return "已完成";
+        } else if (TextUtils.equals(status, ORDER_STATUS.PAYING)) {
+            return "付款中";
+        } else if (TextUtils.equals(status, ORDER_STATUS.CANCEL)) {
+            return "取消支付";
+        } else if (TextUtils.equals(status, ORDER_STATUS.REFUNDING)) {
+            return "申请退款";
+        } else {
+            return "退款完成";
+        }
+    }
+
+    public interface ORDER_STATUS {
+        String PAY = "PAY";
+        String PAID = "PAID";
+        String FINISH = "FINISH";
+        String PAYING = "PAYING";
+        String CANCEL = "CANCEL";
+        String REFUNDING = "REFUNDING";
+        String REFUNDED = "REFUNDED";
+        String PAY_GAP = "PAY_GAP";
     }
 
     /**
@@ -114,7 +147,18 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
         } else if (isPayByPoint()) {
             return sarti_point_price + "分享金";
         } else if (isPayByDisposit()) {
-            return "定金 ¥" + MathUtil.getNumExclude0(deposit_price);
+            return "¥" + MathUtil.getNumExclude0(deposit_price);
+        }
+        return "¥" + MathUtil.getNumExclude0(sarti_saleprice);
+    }
+
+    public String getOrderDetailPriceText() {
+        if (isFree()) {
+            return "¥0";
+        } else if (isPayByPoint()) {
+            return sarti_point_price + "分享金";
+        } else if (isPayByDisposit()) {
+            return "¥" + MathUtil.getNumExclude0(deposit_price);
         }
         return "¥" + MathUtil.getNumExclude0(sarti_saleprice);
     }
@@ -137,29 +181,10 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
         return is_package == 1;
     }
 
-    public static GoodsDetailInfo getGoodsDetailInfo() {
-
-        GoodsDetailInfo goodsDetailInfo = new GoodsDetailInfo();
-        goodsDetailInfo.sarti_name = "玻尿酸美容护肤不二之选，还你天使容颜，变美不容错误。";
-        goodsDetailInfo.thumbnail_img = Constants.DEFAULT_IMG_URL;
-        goodsDetailInfo.sarti_saleprice = 134;
-        goodsDetailInfo.sarti_mkprice = 99;
-
-        List<GoodsDetailInfo> setMealList = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            GoodsDetailInfo goodsDetailInfo2 = new GoodsDetailInfo();
-            goodsDetailInfo2.sarti_name = "玻尿酸美容护肤不二之选，还你天使容颜，变美不容错误。";
-            goodsDetailInfo2.thumbnail_img = Constants.DEFAULT_IMG_URL;
-            goodsDetailInfo2.sarti_saleprice = 1234;
-            goodsDetailInfo2.sarti_mkprice = 999;
-            setMealList.add(goodsDetailInfo2);
-        }
-        goodsDetailInfo.product_list = setMealList;
-
-        return goodsDetailInfo;
-    }
-
     public String getSharePath() {
+        if (!TextUtils.isEmpty(sharePath)) {
+            return sharePath;
+        }
         UserInfo userInfo = SSApplication.getInstance().getUserInfo();
         String path = "/pages/mall/goodsDetail?sarti_id=" + salebill_id + "&mem=" + userInfo.invitation_code;
         return path;
@@ -186,6 +211,44 @@ public class GoodsDetailInfo implements Serializable, MultiItemEntity {
 
     public boolean isThreeStarMember() {
         return TextUtils.equals("3", mem_class_key);
+    }
+
+    public static class MemberCommissionInfo implements Serializable {
+        public String amt;
+        public String mem_class_key;
+
+        public String getMember() {
+            if (TextUtils.equals("1", mem_class_key)) {
+                return "一星粉丝";
+            } else if (TextUtils.equals("2", mem_class_key)) {
+                return "二星粉丝";
+            } else if (TextUtils.equals("3", mem_class_key)) {
+                return "三星粉丝";
+            } else {
+                return "普通用户";
+            }
+        }
+    }
+
+    //是不是会员
+    public boolean isMember() {
+        if (mem_class_key == null || TextUtils.isEmpty(mem_class_key)) {
+            return false;
+        }
+        return true;
+    }
+
+
+    public String getMember() {
+        if (TextUtils.isEmpty(mem_class_key)) {
+            return "普通用户";
+        } else if (TextUtils.equals("1", mem_class_key)) {
+            return "一星粉丝";
+        } else if (TextUtils.equals("2", mem_class_key)) {
+            return "二星粉丝";
+        } else {
+            return "三星粉丝";
+        }
     }
 
     //核销码

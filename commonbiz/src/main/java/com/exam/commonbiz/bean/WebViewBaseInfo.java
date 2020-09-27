@@ -1,10 +1,8 @@
 package com.exam.commonbiz.bean;
 
-import org.json.JSONObject;
-
-public class WebViewBaseInfo {
+public class WebViewBaseInfo<T> {
 
     public int errorCode;
     public String message;
-    public JSONObject result;
+    public T result;
 }

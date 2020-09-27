@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseFragment;
+import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.QRCodeUtil;
 import com.exam.commonbiz.util.ScreenUtil;
 
@@ -12,7 +13,6 @@ import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.FragmentViewCouponcodeDetailBinding;
 import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderStatusViewModel;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.bean.GoodsDetailInfo;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 
 /**
  * 待支付

@@ -60,13 +60,22 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="1dp"
+                        android:textColor="@color/color_333333"
+                        android:textSize="15sp"
+                        android:text="上海市" />
+
+                    <TextView
                         android:id="@+id/tv_price_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="1dp"
                         android:textColor="@color/color_333333"
                         android:textSize="15sp"
-                        tools:text="¥0" />
+                        android:visibility="gone"
+                        android:text="上海市" />
 
                     <View
                         android:layout_width="0dp"
@@ -170,30 +179,31 @@
             android:textColor="@color/color_999999"
             android:textSize="11sp"
             tools:text="共计1件商品；实收：90元" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_more_setmeal"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        tools:visibility="visible">
+        <LinearLayout
+            android:id="@+id/ll_more_setmeal"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            tools:visibility="visible">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_opentwo" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_opentwo" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:text="展开更多套餐信息"
-            android:textColor="#ff666666"
-            android:textSize="12sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:text="展开更多套餐信息"
+                android:textColor="#ff666666"
+                android:textSize="12sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <FrameLayout

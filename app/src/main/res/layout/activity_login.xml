@@ -36,10 +36,10 @@
             </RelativeLayout>
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="116dp"
+                android:layout_height="116dp"
                 android:layout_marginTop="20dp"
-                android:src="@drawable/image_graphofbooth_default2" />
+                android:src="@drawable/image_logo_trans" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -49,6 +49,70 @@
                 android:textColor="@color/color_333333"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+
+            <FrameLayout
+                android:id="@+id/fl_invite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="invisible"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="46dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/shape_white_radius_6"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingRight="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_invite_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:text="周哈哈"
+                        android:textColor="@color/color_333333"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_invite_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:text="邀请码：tevs7935222"
+                        android:textColor="@color/color_666666"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:src="@color/white"
+                        app:riv_corner_radius="26dp" />
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/iv_invite_avatar"
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginTop="2dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/image_graphofbooth_avatar"
+                        app:riv_corner_radius="26dp" />
+                </FrameLayout>
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -142,6 +206,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_invite_code"
                     android:layout_width="match_parent"
                     android:layout_height="42dp"
                     android:layout_marginTop="12dp"
@@ -167,7 +232,7 @@
                         android:background="@null"
                         android:hint="请输入您的邀请码"
                         android:inputType="number"
-                        android:maxLength="12"
+                        android:maxLength="6"
                         android:paddingLeft="3dp"
                         android:text=""
                         android:textColor="@color/color_330000"

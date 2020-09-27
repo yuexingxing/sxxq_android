@@ -2,6 +2,8 @@ package cn.sanshaoxingqiu.ssbm.module.live.bean;
 
 import android.text.TextUtils;
 
+import com.tencent.bugly.Bugly;
+
 public class LiveApplyResponse {
 
     public interface AuditStatus {
@@ -18,8 +20,18 @@ public class LiveApplyResponse {
     public String identity_handle;
     public String audit_status;
     public String live_status;
+    public String status;//开播权限状态主播状态（1:正常 2:处罚）
     public String reason;
     public String frontcover;
+
+    /**
+     * 是否允许直播
+     *
+     * @return
+     */
+    public boolean isAllowLive() {
+        return TextUtils.equals("1", status);
+    }
 
     public boolean isAuditSuccess() {
         return TextUtils.equals(AuditStatus.SUCCESS, audit_status);

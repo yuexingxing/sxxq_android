@@ -3,9 +3,10 @@ package cn.sanshaoxingqiu.ssbm.module.home.view;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.ImageView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
@@ -16,17 +17,21 @@ import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.base.IBaseModel;
 import com.exam.commonbiz.util.CommonCallBack;
 import com.exam.commonbiz.util.ContainerUtil;
+import com.sanshao.livemodule.liveroom.MLVBLiveRoomImpl;
 import com.sanshao.livemodule.liveroom.roomutil.bean.VideoInfo;
 import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
 import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.audience.TCAudienceActivity;
 import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
-
-import java.util.ArrayList;
+import com.sanshao.livemodule.zhibo.login.TCUserMgr;
+import com.tencent.rtmp.TXLivePlayer;
+import com.tencent.rtmp.ui.TXCloudVideoView;
 
 import cn.sanshaoxingqiu.ssbm.R;
+import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.FragmentLayoutLiveListBinding;
-import cn.sanshaoxingqiu.ssbm.module.home.view.adapter.HomeAdapter;
+import cn.sanshaoxingqiu.ssbm.module.home.view.adapter.HomeLiveAdapter;
+import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 
 /**
  * 首页-直播列表
@@ -35,8 +40,9 @@ import cn.sanshaoxingqiu.ssbm.module.home.view.adapter.HomeAdapter;
  * @time 2020/9/16
  */
 public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayoutLiveListBinding> implements IBaseModel, BaseQuickAdapter.RequestLoadMoreListener {
-
-    private HomeAdapter mHomeAdapter;
+    public static final int START_LIVE_PLAY = 100;
+    private HomeLiveAdapter mHomeAdapter;
+    private TXLivePlayer mCurrentTXLivePlayer;
 
     public static LiveListFragment newInstance() {
         LiveListFragment fragment = new LiveListFragment();
@@ -52,21 +58,45 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
     public void initData() {
 
         mViewModel.setIBaseModel(this);
-        LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View emptyLayout = inflater.inflate(R.layout.item_layout_empty_live, null);
-        mHomeAdapter = new HomeAdapter();
+        emptyLayout.findViewById(R.id.ll_bg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getLiveData();
+            }
+        });
+        mHomeAdapter = new HomeLiveAdapter(null);
         mHomeAdapter.setEmptyView(emptyLayout);
-        binding.emptyLayout.showSuccess();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         binding.recyclerView.setLayoutManager(linearLayoutManager);
         binding.recyclerView.setAdapter(mHomeAdapter);
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(binding.recyclerView);
+        binding.recyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(View view) {
+                enterLiveRoom(view);
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(View view) {
+                leaveLiveRoom(view);
+            }
+        });
         mHomeAdapter.setCommonCallBack(new CommonCallBack() {
             @Override
             public void callback(int postion, Object object) {
-                startLivePlay(mHomeAdapter.getItem(postion));
+                if (!SSApplication.isLogin()) {
+                    LoginActivity.start(context);
+                    return;
+                }
+                if (MLVBLiveRoomImpl.mInstance.isLoginLiveRoom()) {
+                    startLivePlay(mHomeAdapter.getItem(postion));
+                } else {
+                    TCUserMgr.getInstance().loginMLVB();
+                }
             }
         });
 
@@ -75,11 +105,67 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {
             getLiveData();
         });
-
         getLiveData();
     }
 
-    private void getLiveData() {
+    @Override
+    protected void onVisible() {
+        super.onVisible();
+        Log.d(TAG, "LiveListFragment-onVisible");
+        if (mCurrentTXLivePlayer != null) {
+            mCurrentTXLivePlayer.resume();
+            Log.d(TAG, "LiveListFragment-直播播放了");
+        }
+    }
+
+    @Override
+    protected void onInVisible() {
+        Log.d(TAG, "LiveListFragment-onInVisible");
+        if (mCurrentTXLivePlayer != null) {
+            mCurrentTXLivePlayer.pause();
+            Log.d(TAG, "LiveListFragment-直播暂停播放了");
+        }
+    }
+
+    private void enterLiveRoom(View view) {
+        mCurrentTXLivePlayer = null;
+        TXCloudVideoView txCloudVideoView = view.findViewById(R.id.anchor_video_view);
+        ImageView ivLiveBg = view.findViewById(R.id.iv_bg);
+        if (txCloudVideoView == null || ivLiveBg == null) {
+            return;
+        }
+        VideoInfo videoInfo = (VideoInfo) txCloudVideoView.getTag();
+        TXLivePlayer txLivePlayer = (TXLivePlayer) ivLiveBg.getTag();
+        if (txLivePlayer != null) {
+            mCurrentTXLivePlayer = txLivePlayer;
+            if (!isVisible()) {
+                return;
+            }
+            txLivePlayer.setPlayerView(txCloudVideoView);
+            txLivePlayer.startPlay(videoInfo.flv_pull_url, TXLivePlayer.PLAY_TYPE_LIVE_FLV);
+            ivLiveBg.setVisibility(View.GONE);
+            if (videoInfo.pushers != null) {
+                Log.d(TAG, "LiveListFragment-播放成功：" + videoInfo.pushers.anchor_name);
+            }
+        }
+    }
+
+    private void leaveLiveRoom(View view) {
+        TXCloudVideoView txCloudVideoView = view.findViewById(R.id.anchor_video_view);
+        ImageView ivLiveBg = view.findViewById(R.id.iv_bg);
+        if (txCloudVideoView == null || ivLiveBg == null) {
+            return;
+        }
+        VideoInfo videoInfo = (VideoInfo) txCloudVideoView.getTag();
+        TXLivePlayer txLivePlayer = (TXLivePlayer) ivLiveBg.getTag();
+        if (txLivePlayer != null) {
+            txLivePlayer.pause();
+            ivLiveBg.setVisibility(View.VISIBLE);
+            Log.d(TAG, "暂停成功：" + videoInfo.room_id);
+        }
+    }
+
+    public void getLiveData() {
         mViewModel.getLiveVideoList();
 
 //        TCVideoListMgr.getInstance().fetchLiveVideoList(getActivity(), new TCVideoListMgr.Listener() {
@@ -95,28 +181,8 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
 //        });
     }
 
-    private void onRefreshVideoList(final int retCode, final ArrayList<VideoInfo> result) {
-        if (getActivity() != null) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (retCode == 0) {
-                        mHomeAdapter.getData().clear();
-                        if (result != null) {
-                            mHomeAdapter.addData((ArrayList<VideoInfo>) result.clone());
-                        }
-                    } else {
-                        Toast.makeText(getActivity(), "刷新列表失败", Toast.LENGTH_LONG).show();
-                    }
-                    if (mHomeAdapter.getData().size() > 0) {
-                        binding.emptyLayout.showSuccess();
-                    } else {
-                        binding.emptyLayout.showEmpty("暂无直播", R.drawable.image_nolive);
-                    }
-                    binding.swipeRefreshLayout.setRefreshing(false);
-                }
-            });
-        }
+    public void scrollToTop() {
+        binding.recyclerView.scrollToPosition(0);
     }
 
     /**
@@ -129,8 +195,10 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         Intent intent = new Intent(getActivity(), TCAudienceActivity.class);
         intent.putExtra(TCConstants.PLAY_URL, item.rtmp_pull_url);
         intent.putExtra(TCConstants.PUSHER_ID, item.userId);
-        intent.putExtra(TCConstants.PUSHER_NAME, item.nickname);
-        intent.putExtra(TCConstants.PUSHER_AVATAR, item.avatar);
+        if (item.pushers != null) {
+            intent.putExtra(TCConstants.PUSHER_NAME, item.pushers.anchor_name);
+            intent.putExtra(TCConstants.PUSHER_AVATAR, item.pushers.avatar);
+        }
         intent.putExtra(TCConstants.HEART_COUNT, TextUtils.isEmpty(item.like_number) ? "0" : item.like_number);
         intent.putExtra(TCConstants.MEMBER_COUNT, item.viewer_count + "");
         intent.putExtra(TCConstants.GROUP_ID, item.room_id);
@@ -139,7 +207,7 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         intent.putExtra(TCConstants.COVER_PIC, item.frontcover);
         intent.putExtra(TCConstants.TIMESTAMP, item.live_start_time);
         intent.putExtra(TCConstants.ROOM_TITLE, item.live_title);
-        startActivity(intent);
+        startActivityForResult(intent, START_LIVE_PLAY);
     }
 
     @Override
@@ -155,20 +223,23 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
     @Override
     public void onRefreshData(Object object) {
         binding.swipeRefreshLayout.setRefreshing(false);
+        mHomeAdapter.getData().clear();
+        mHomeAdapter.notifyDataSetChanged();
         if (object == null) {
+            mHomeAdapter.isUseEmpty(true);
             return;
         }
 
         VideoListResponse videoListResponse = (VideoListResponse) object;
         if (ContainerUtil.isEmpty(videoListResponse.rows)) {
-            binding.emptyLayout.showEmpty("暂无直播", R.drawable.image_nolive);
+            mHomeAdapter.isUseEmpty(true);
             return;
         }
 
+        mHomeAdapter.isUseEmpty(false);
         mHomeAdapter.setNewData(videoListResponse.rows);
         mHomeAdapter.loadMoreComplete();
         mHomeAdapter.loadMoreEnd();
-        binding.emptyLayout.showSuccess();
     }
 
     @Override
@@ -186,12 +257,19 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
 
         mHomeAdapter.addData(videoListResponse.rows);
         mHomeAdapter.loadMoreComplete();
-        binding.emptyLayout.showSuccess();
         binding.swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void onNetError() {
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (START_LIVE_PLAY == requestCode) {
+            getLiveData();
+        }
     }
 }

@@ -6,12 +6,12 @@ import android.text.TextUtils;
 
 import com.chinapnr.android.adapay.AdaPay;
 import com.chinapnr.android.adapay.bean.ResponseCode;
+import com.exam.commonbiz.util.Constants;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import cn.sanshaoxingqiu.ssbm.module.order.model.OnPayListener;
 import cn.sanshaoxingqiu.ssbm.module.order.view.ConfirmPayActivity;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
 import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
 import com.exam.commonbiz.util.ToastUtil;
 

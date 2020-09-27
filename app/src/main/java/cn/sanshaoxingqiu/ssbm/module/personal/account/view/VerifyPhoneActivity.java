@@ -13,7 +13,7 @@ import cn.sanshaoxingqiu.ssbm.module.login.model.ILoginCallBack;
 import cn.sanshaoxingqiu.ssbm.module.login.viewmodel.LoginViewModel;
 
 import com.exam.commonbiz.bean.UserInfo;
-import cn.sanshaoxingqiu.ssbm.util.Constants;
+import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.LoadDialogMgr;
 
 import com.exam.commonbiz.base.BaseActivity;
