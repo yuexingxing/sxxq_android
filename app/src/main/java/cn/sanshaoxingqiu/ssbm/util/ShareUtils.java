@@ -410,9 +410,9 @@ public class ShareUtils {
 
     public static int getMiniProgramType() {
         if (BuildConfig.DEBUG) {
-            return WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;
-        } else {
             return WXLaunchMiniProgram.Req.MINIPROGRAM_TYPE_PREVIEW;
+        } else {
+            return WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;
         }
     }
 }
