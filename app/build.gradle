@@ -115,6 +115,9 @@ android {
             meizu {
                 manifestPlaceholders = [UMENG_CHANNEL_VALUE: "meizu"]
             }
+            baidu {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
+            }
         }
     }
 }

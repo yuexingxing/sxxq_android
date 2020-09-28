@@ -1,6 +1,7 @@
 package cn.sanshaoxingqiu.ssbm.module.login;
 
 import com.exam.commonbiz.net.BaseResponse;
+
 import cn.sanshaoxingqiu.ssbm.module.login.bean.GetCodeRequest;
 import cn.sanshaoxingqiu.ssbm.module.login.bean.GetCodeResponse;
 import cn.sanshaoxingqiu.ssbm.module.login.bean.LoginRequest;
@@ -8,6 +9,7 @@ import cn.sanshaoxingqiu.ssbm.module.login.bean.LoginResponse;
 import cn.sanshaoxingqiu.ssbm.module.login.bean.ModifyPhoneRequest;
 
 import com.exam.commonbiz.bean.UserInfo;
+
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -19,6 +21,10 @@ import retrofit2.http.Query;
  * @time 2020/6/11
  */
 public interface LoginApiService {
+
+    @GET("w/auth/getPlatParamByParamKey")
+    Observable<BaseResponse<String>> getPlatParamByParamKey(@Query("group_id") String groupId,
+                                                              @Query("param_key") String paramKey);
 
     //获取验证码
     @POST("w/auth/pin")

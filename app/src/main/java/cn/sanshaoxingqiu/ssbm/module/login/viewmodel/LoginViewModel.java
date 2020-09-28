@@ -16,7 +16,9 @@ import cn.sanshaoxingqiu.ssbm.module.login.bean.LoginResponse;
 import cn.sanshaoxingqiu.ssbm.module.login.bean.ModifyPhoneRequest;
 import cn.sanshaoxingqiu.ssbm.module.login.event.LoginEvent;
 import cn.sanshaoxingqiu.ssbm.module.login.model.ILoginCallBack;
+import cn.sanshaoxingqiu.ssbm.module.login.model.IVerfyApkModel;
 import cn.sanshaoxingqiu.ssbm.module.login.model.LoginModel;
+
 import com.exam.commonbiz.bean.UserInfo;
 import com.exam.commonbiz.util.LoadDialogMgr;
 import com.exam.commonbiz.util.ToastUtil;
@@ -28,6 +30,7 @@ import com.exam.commonbiz.util.ToastUtil;
 public class LoginViewModel extends ViewModel {
     private String TAG = LoginViewModel.class.getSimpleName();
     private ILoginCallBack mLoginCallBack;
+    private IVerfyApkModel mIVerfyApkModel;
 
     public interface LoginType {
         String APP_LOGIN = "APP_LOGIN";
@@ -39,10 +42,43 @@ public class LoginViewModel extends ViewModel {
         mLoginCallBack = iLoginCallBack;
     }
 
+    public void setIVerfyApkModel(IVerfyApkModel iVerfyApkModel){
+        mIVerfyApkModel = iVerfyApkModel;
+    }
+
     @Override
     protected void onCleared() {
         super.onCleared();
         Log.i(TAG, "onCleared");
+    }
+
+    public void getPlatParamByParamKey(String groupId, String paramKey) {
+        LoginModel.getPlatParamByParamKey(groupId, paramKey, new OnLoadListener<String>() {
+
+            @Override
+            public void onLoadStart() {
+
+            }
+
+            @Override
+            public void onLoadCompleted() {
+                Log.d(TAG, "onLoadCompleted");
+                LoadDialogMgr.getInstance().dismiss();
+            }
+
+            @Override
+            public void onLoadSucessed(BaseResponse<String> t) {
+                ToastUtil.showShortToast(t.getContent());
+                if (mIVerfyApkModel != null) {
+                    mIVerfyApkModel.onVerfyApk(t.getContent());
+                }
+            }
+
+            @Override
+            public void onLoadFailed(String errMsg) {
+                Log.d(TAG, "onLoadFailed-" + errMsg);
+            }
+        });
     }
 
     public void getSMSCode(String mobile, String pinType) {

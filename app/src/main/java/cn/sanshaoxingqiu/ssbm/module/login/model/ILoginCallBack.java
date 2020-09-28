@@ -1,6 +1,7 @@
 package cn.sanshaoxingqiu.ssbm.module.login.model;
 
 import cn.sanshaoxingqiu.ssbm.module.login.bean.LoginResponse;
+
 import com.exam.commonbiz.bean.UserInfo;
 
 /**

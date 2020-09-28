@@ -94,7 +94,6 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     @Override
     public void initData() {
 
-        binding.tvPersonalTitle.setText(AppManager.getChannelName(context));
         mViewModel.setCallBack(this);
         mOrderDetailViewModel = new OrderDetailViewModel();
         mAppointmentForConsultationViewModel = new AppointmentForConsultationViewModel();
