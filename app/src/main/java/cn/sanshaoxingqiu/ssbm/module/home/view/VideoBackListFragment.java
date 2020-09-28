@@ -29,8 +29,11 @@ import com.sanshao.livemodule.zhibo.playback.TCPlaybackActivity;
 import com.tencent.rtmp.ITXVodPlayListener;
 import com.tencent.rtmp.TXLiveConstants;
 import com.tencent.rtmp.TXLivePlayer;
+import com.tencent.rtmp.TXVodPlayConfig;
 import com.tencent.rtmp.TXVodPlayer;
 import com.tencent.rtmp.ui.TXCloudVideoView;
+
+import java.io.File;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
@@ -52,6 +55,7 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
     private TXLivePlayer mCurrentTXLivePlayer;
     private TXVodPlayer mCurrentTXVodPlayer;
     private int mVideoBackProgress = 0;
+    private TXVodPlayConfig mTXVodPlayConfig = new TXVodPlayConfig();
 
     public static VideoBackListFragment newInstance() {
         VideoBackListFragment fragment = new VideoBackListFragment();
@@ -112,6 +116,12 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
             mPageNum = 1;
             getLiveData();
         });
+
+        File sdcardDir = context.getExternalFilesDir(null);
+        if (sdcardDir != null) {
+            mTXVodPlayConfig.setCacheFolderPath(sdcardDir.getAbsolutePath() + "/sanshao");
+        }
+        mTXVodPlayConfig.setMaxCacheItems(5);
 
         getLiveData();
     }
@@ -186,6 +196,7 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
 
         TXVodPlayer txVodPlayer = (TXVodPlayer) ivLiveBg.getTag();
         if (txVodPlayer != null) {
+            txVodPlayer.setConfig(mTXVodPlayConfig);
             ivLiveBg.setVisibility(View.GONE);
             mCurrentTXVodPlayer = txVodPlayer;
             txVodPlayer.setPlayerView(txCloudVideoView);
@@ -366,7 +377,7 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
         if (item.isLive()) {
             intent = new Intent(getActivity(), TCAudienceActivity.class);
         } else {
-            float playPosition = 0;
+            int playPosition = 0;
             if (mCurrentTXVodPlayer != null) {
                 mVideoBackProgress = mVideoBackProgress - 2;
                 if (mVideoBackProgress < 0 || mVideoBackProgress > 100) {

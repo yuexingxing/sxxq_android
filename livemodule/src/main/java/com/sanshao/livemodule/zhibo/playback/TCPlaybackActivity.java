@@ -41,21 +41,20 @@ import java.util.Locale;
 
 /**
  * Module:   TCPlaybackActivity
- *
+ * <p>
  * Function: 回放观看界面
- *
+ * <p>
  * 1. TXVodPlayer 的使用：开始和结束播放 {@link TCPlaybackActivity#startPlay()} 和 {@link TCPlaybackActivity#stopPlay(boolean)}
- *
+ * <p>
  * 2. 事件处理以及网络回调：{@link TCPlaybackActivity#onPlayEvent(TXVodPlayer, int, Bundle)} 和 {@link TCPlaybackActivity#onNetStatus(TXVodPlayer, Bundle)}
- *
  **/
 public class TCPlaybackActivity extends Activity implements View.OnClickListener, ITXVodPlayListener {
     private static final String TAG = TCAudienceActivity.class.getSimpleName();
 
     // 播放相关
-    private TXCloudVideoView                mTXCloudVideoView;                  // 播放预览的 view
-    private TXVodPlayer                     mTXVodPlayer;                       // 点播播放器
-    private TXVodPlayConfig                 mTXConfig = new TXVodPlayConfig();  // 点播配置
+    private TXCloudVideoView mTXCloudVideoView;                  // 播放预览的 view
+    private TXVodPlayer mTXVodPlayer;                       // 点播播放器
+    private TXVodPlayConfig mTXConfig = new TXVodPlayConfig();  // 点播配置
 
     private ImageView mIvAvatar;                          // 头像
     private TextView mTvPusherName;                      // 主播名称
@@ -71,7 +70,7 @@ public class TCPlaybackActivity extends Activity implements View.OnClickListener
     private TextView mTvProgress;
 
 
-    private long                            mViewedCount;                       // 已观看的人数
+    private long mViewedCount;                       // 已观看的人数
     private String mPusherNickname;                    // 主播昵称
     private String mPusherId;                          // 主播Id
     private String mPlayUrl = "";                      // 播放地址
@@ -81,19 +80,19 @@ public class TCPlaybackActivity extends Activity implements View.OnClickListener
 
 
     //点播相关
-    private long                            mTrackingTouchTS;
-    private boolean                         mStartSeek;                         // 是否在
-    private boolean                         mVideoPause;                        // 是否暂停
-    private boolean                         mPlaying;                           // 是否正在播放
+    private long mTrackingTouchTS;
+    private boolean mStartSeek;                         // 是否在
+    private boolean mVideoPause;                        // 是否暂停
+    private boolean mPlaying;                           // 是否正在播放
 
     private String mCoverUrl = "";
     private String mTitle = ""; //标题
 
     //log相关
-    private boolean                         mShowLog;
+    private boolean mShowLog;
 
     private ErrorDialogFragment mErrDlgFragment = new ErrorDialogFragment();
-    private long                            mStartPlayPts;
+    private long mStartPlayPts;
     private float mPlayPosition;
 
     @Override
@@ -110,7 +109,7 @@ public class TCPlaybackActivity extends Activity implements View.OnClickListener
 
         Intent intent = getIntent();
         String strMemberCount = intent.getStringExtra(TCConstants.MEMBER_COUNT);
-        if (TextUtils.isEmpty(strMemberCount)){
+        if (TextUtils.isEmpty(strMemberCount)) {
             strMemberCount = "0";
         }
 
@@ -123,7 +122,9 @@ public class TCPlaybackActivity extends Activity implements View.OnClickListener
         mTimeStamp = intent.getStringExtra(TCConstants.TIMESTAMP);
         mTitle = intent.getStringExtra(TCConstants.ROOM_TITLE);
         mCoverUrl = getIntent().getStringExtra(TCConstants.COVER_PIC);
-        mPlayPosition = getIntent().getFloatExtra(TCConstants.PLAY_POSITION, 0);
+        if (getIntent().hasExtra(TCConstants.PLAY_POSITION)) {
+            mPlayPosition = getIntent().getIntExtra(TCConstants.PLAY_POSITION, 0);
+        }
 
         mTXVodPlayer = new TXVodPlayer(this);
 
@@ -194,7 +195,7 @@ public class TCPlaybackActivity extends Activity implements View.OnClickListener
     private void startPlay() {
         File sdcardDir = getExternalFilesDir(null);
         if (sdcardDir != null) {
-            mTXConfig.setCacheFolderPath(sdcardDir.getAbsolutePath() + "/xzbcache");
+            mTXConfig.setCacheFolderPath(sdcardDir.getAbsolutePath() + "/sanshao");
         }
         mTXConfig.setMaxCacheItems(3);
         mIvCover.setVisibility(View.VISIBLE);
@@ -204,9 +205,9 @@ public class TCPlaybackActivity extends Activity implements View.OnClickListener
         mTXVodPlayer.setVodListener(this);
         mTXVodPlayer.setConfig(mTXConfig);
         mTXVodPlayer.setAutoPlay(true);
-        mTXVodPlayer.seek(mPlayPosition);
         int result;
         result = mTXVodPlayer.startPlay(mPlayUrl);
+        mTXVodPlayer.seek(mPlayPosition);
 
         if (0 != result) {
             Intent rstData = new Intent();
@@ -214,7 +215,7 @@ public class TCPlaybackActivity extends Activity implements View.OnClickListener
                 Log.d(TAG, "非腾讯云链接，若要放开限制请联系腾讯云商务团队");
                 rstData.putExtra(TCConstants.ACTIVITY_RESULT, "非腾讯云链接，若要放开限制请联系腾讯云商务团队");
             } else {
-                Log.d(TAG,"视频流播放失败，Error:");
+                Log.d(TAG, "视频流播放失败，Error:");
                 rstData.putExtra(TCConstants.ACTIVITY_RESULT, "非腾讯云链接，若要放开限制请联系腾讯云商务团队");
             }
             stopPlay(true);
@@ -321,6 +322,7 @@ public class TCPlaybackActivity extends Activity implements View.OnClickListener
         }
 
     }
+
     /**
      * /////////////////////////////////////////////////////////////////////////////////
      * //

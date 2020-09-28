@@ -86,21 +86,27 @@ public class HomeFragment extends BaseFragment<BaseViewModel, HomeFragmentBindin
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        onInVisible();
+    }
+
+    @Override
     protected void onVisible() {
-        if (mLiveListFragment != null){
+        if (mLiveListFragment != null) {
             mLiveListFragment.onVisible();
         }
-        if (mVideoBackListFragment != null){
+        if (mVideoBackListFragment != null) {
             mVideoBackListFragment.onVisible();
         }
     }
 
     @Override
     protected void onInVisible() {
-        if (mLiveListFragment != null){
+        if (mLiveListFragment != null) {
             mLiveListFragment.onInVisible();
         }
-        if (mVideoBackListFragment != null){
+        if (mVideoBackListFragment != null) {
             mVideoBackListFragment.onInVisible();
         }
     }
