@@ -14,6 +14,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import cn.sanshaoxingqiu.ssbm.module.order.model.OnPayListener;
 import cn.sanshaoxingqiu.ssbm.module.order.view.ConfirmPayActivity;
 import cn.sanshaoxingqiu.ssbm.util.ShareUtils;
+
 import com.exam.commonbiz.util.ToastUtil;
 
 /**
@@ -52,34 +53,29 @@ public class PayUtils {
             return this;
         }
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                AdaPay.doPay(activity, orderInfo, payResult -> {
-                    if (payResult == null) {
-                        ToastUtil.showShortToast("支付信息获取失败");
-                        return;
-                    }
-                    switch (payResult.getResultCode()) {
-                        case ResponseCode.SUCCESS:
-                            Log.d(TAG, "支付成功");
-                            if (mOnPayListener != null) {
-                                mOnPayListener.onPaySuccess();
-                            }
-                            break;
-                        case ResponseCode.PENDING:
-                            Log.d(TAG, "取消支付");
-                            break;
-                        case ResponseCode.FAILED:
-                            Log.d(TAG, "支付失败");
-                            if (mOnPayListener != null) {
-                                mOnPayListener.onPayFailed();
-                            }
-                            break;
-                    }
-                });
+        AdaPay.doPay(activity, orderInfo, payResult -> {
+            if (payResult == null) {
+//                        ToastUtil.showShortToast("支付信息获取失败");
+                return;
             }
-        }).start();
+            switch (payResult.getResultCode()) {
+                case ResponseCode.SUCCESS:
+                    Log.d(TAG, "支付成功");
+                    if (mOnPayListener != null) {
+                        mOnPayListener.onPaySuccess();
+                    }
+                    break;
+                case ResponseCode.PENDING:
+                    Log.d(TAG, "取消支付");
+                    break;
+                case ResponseCode.FAILED:
+                    Log.d(TAG, "支付失败");
+                    if (mOnPayListener != null) {
+                        mOnPayListener.onPayFailed();
+                    }
+                    break;
+            }
+        });
         return this;
     }
 }
