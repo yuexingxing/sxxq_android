@@ -94,6 +94,7 @@ public class TCPlaybackActivity extends Activity implements View.OnClickListener
 
     private ErrorDialogFragment mErrDlgFragment = new ErrorDialogFragment();
     private long                            mStartPlayPts;
+    private float mPlayPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +123,7 @@ public class TCPlaybackActivity extends Activity implements View.OnClickListener
         mTimeStamp = intent.getStringExtra(TCConstants.TIMESTAMP);
         mTitle = intent.getStringExtra(TCConstants.ROOM_TITLE);
         mCoverUrl = getIntent().getStringExtra(TCConstants.COVER_PIC);
+        mPlayPosition = getIntent().getFloatExtra(TCConstants.PLAY_POSITION, 0);
 
         mTXVodPlayer = new TXVodPlayer(this);
 
@@ -202,6 +204,7 @@ public class TCPlaybackActivity extends Activity implements View.OnClickListener
         mTXVodPlayer.setVodListener(this);
         mTXVodPlayer.setConfig(mTXConfig);
         mTXVodPlayer.setAutoPlay(true);
+        mTXVodPlayer.seek(mPlayPosition);
         int result;
         result = mTXVodPlayer.startPlay(mPlayUrl);
 

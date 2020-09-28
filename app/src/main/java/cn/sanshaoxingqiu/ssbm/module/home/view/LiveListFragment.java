@@ -66,7 +66,7 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
                 getLiveData();
             }
         });
-        mHomeAdapter = new HomeLiveAdapter(null);
+        mHomeAdapter = new HomeLiveAdapter();
         mHomeAdapter.setEmptyView(emptyLayout);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);

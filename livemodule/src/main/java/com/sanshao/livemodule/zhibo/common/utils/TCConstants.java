@@ -51,7 +51,7 @@ public class TCConstants {
     public static final String FILE_ID          = "file_id";
     public static final String TIMESTAMP        = "timestamp";
     public static final String ACTIVITY_RESULT  = "activity_result";
-
+    public static final String PLAY_POSITION  = "play_position";
 
 
     /**

@@ -16,6 +16,12 @@
             android:scaleType="centerCrop"
             android:src="@drawable/image_graphofbooth_default" />
 
+        <com.tencent.rtmp.ui.TXCloudVideoView
+            android:id="@+id/anchor_videoback_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -2,10 +2,9 @@ package com.sanshao.livemodule.liveroom.roomutil.bean;
 
 import android.text.TextUtils;
 
-import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.sanshao.livemodule.zhibo.main.videolist.utils.TCVideoInfo;
 
-public class VideoInfo extends TCVideoInfo implements MultiItemEntity {
+public class VideoInfo extends TCVideoInfo {
 
     public String live_batch_id;
     public String live_title;
@@ -24,19 +23,10 @@ public class VideoInfo extends TCVideoInfo implements MultiItemEntity {
 
     /**
      * 是不是直播
+     *
      * @return
      */
-    public boolean isLive(){
+    public boolean isLive() {
         return TextUtils.equals("1", meta_type);
-    }
-
-    @Override
-    public int getItemType() {
-        //1-直播 2-回放
-        if (TextUtils.equals("1", meta_type)){
-            return 1;
-        }else{
-            return 0;
-        }
     }
 }
