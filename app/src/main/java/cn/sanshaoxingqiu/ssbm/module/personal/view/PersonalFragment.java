@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.bean.UserInfo;
 import com.exam.commonbiz.dialog.CommonTipDialog;
+import com.exam.commonbiz.util.AppManager;
 import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.ContainerUtil;
 import com.exam.commonbiz.util.GlideUtil;
@@ -23,6 +24,7 @@ import com.sanshao.livemodule.zhibo.TCGlobalConfig;
 import com.sanshao.livemodule.zhibo.live.StartLiveActivity;
 import com.sanshao.livemodule.zhibo.login.TCLoginActivity;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
+import com.umeng.analytics.AnalyticsConfig;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -92,6 +94,7 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
     @Override
     public void initData() {
 
+        binding.tvPersonalTitle.setText(AppManager.getChannelName(context));
         mViewModel.setCallBack(this);
         mOrderDetailViewModel = new OrderDetailViewModel();
         mAppointmentForConsultationViewModel = new AppointmentForConsultationViewModel();

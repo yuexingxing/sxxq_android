@@ -179,13 +179,13 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
     @Override
     protected void onInVisible() {
         Log.d(TAG, "VideoBackListFragment-onInVisible");
-        if (mCurrentTXLivePlayer != null && mCurrentTXLivePlayer.isPlaying()) {
+        if (mCurrentTXLivePlayer != null) {
             mCurrentTXLivePlayer.pause();
-            Log.d(TAG, "VideoBackListFragment-直播暂停播放了");
+            Log.d(TAG, "VideoBackListFragment-直播暂停了");
         }
-        if (mCurrentTXVodPlayer != null && mCurrentTXVodPlayer.isPlaying()) {
+        if (mCurrentTXVodPlayer != null) {
             mCurrentTXVodPlayer.pause();
-            Log.d(TAG, "VideoBackListFragment-直播暂停播放了");
+            Log.d(TAG, "VideoBackListFragment-直播暂停了");
         }
     }
 
@@ -198,7 +198,6 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
         if (txVodPlayer != null) {
             txVodPlayer.setConfig(mTXVodPlayConfig);
             ivLiveBg.setVisibility(View.GONE);
-            mCurrentTXVodPlayer = txVodPlayer;
             txVodPlayer.setPlayerView(txCloudVideoView);
             txVodPlayer.startPlay(videoInfo.flv_pull_url);
             txVodPlayer.setVodListener(new ITXVodPlayListener() {
@@ -217,6 +216,7 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
                     Log.d(TAG, txVodPlayer.getCurrentPlaybackTime() + "/" + txVodPlayer.getDuration() + "/" + "duration:" + playProgress);
                     if (event == TXLiveConstants.PLAY_EVT_RCV_FIRST_I_FRAME) {
                         ivLiveBg.setVisibility(View.GONE);
+                        mCurrentTXVodPlayer = txVodPlayer;
                     } else if (event == TXLiveConstants.PLAY_ERR_NET_DISCONNECT) {
                         ivLiveBg.setVisibility(View.VISIBLE);
                     } else if (event == TXLiveConstants.PLAY_ERR_NET_DISCONNECT

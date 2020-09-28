@@ -8,11 +8,14 @@ import androidx.fragment.app.Fragment;
 
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.base.BaseViewModel;
+import com.exam.commonbiz.util.AppManager;
 import com.exam.commonbiz.util.Res;
+import com.exam.commonbiz.util.ToastUtil;
 import com.google.android.material.tabs.TabLayout;
 import com.sanshao.livemodule.liveroom.MLVBLiveRoomImpl;
 import com.sanshao.livemodule.zhibo.TCGlobalConfig;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
+import com.umeng.analytics.AnalyticsConfig;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
