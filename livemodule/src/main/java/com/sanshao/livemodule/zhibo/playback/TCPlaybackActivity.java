@@ -251,7 +251,6 @@ public class TCPlaybackActivity extends Activity implements View.OnClickListener
         }
     }
 
-
     @Override
     public void onPlayEvent(TXVodPlayer player, int event, Bundle param) {
         report(event);

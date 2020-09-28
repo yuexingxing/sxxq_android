@@ -227,6 +227,8 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
                             || event == TXLiveConstants.PLAY_ERR_GET_PLAYINFO_FAIL
                             || event == TXLiveConstants.PLAY_ERR_STREAM_SWITCH_FAIL) {
                         ivLiveBg.setVisibility(View.VISIBLE);
+                    } else if (event == TXLiveConstants.PLAY_EVT_PLAY_END) {
+
                     }
                 }
 
@@ -235,12 +237,6 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
 
                 }
             });
-
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
 
             if (videoInfo.pushers != null) {
                 Log.d(TAG, "VideoBackListFragment-播放成功：" + videoInfo.pushers.anchor_name);

@@ -93,12 +93,7 @@ public class HomeFragment extends BaseFragment<BaseViewModel, HomeFragmentBindin
 
     @Override
     protected void onVisible() {
-        if (mLiveListFragment != null) {
-            mLiveListFragment.onVisible();
-        }
-        if (mVideoBackListFragment != null) {
-            mVideoBackListFragment.onVisible();
-        }
+
     }
 
     @Override
