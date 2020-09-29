@@ -900,7 +900,7 @@ public class TCAudienceActivity extends BaseActivity<BaseViewModel, ActivityAudi
         if (id == R.id.btn_back) {
             Intent rstData = new Intent();
             long memberCount = mCurrentAudienceCount - 1;
-            rstData.putExtra(TCConstants.MEMBER_COUNT, memberCount >= 0 ? memberCount : 0);
+            rstData.putExtra(TCConstants.MEMBER_COUNT, memberCount >= 0 ? memberCount + "" : "0");
             rstData.putExtra(TCConstants.HEART_COUNT, mHeartCount);
             rstData.putExtra(TCConstants.PUSHER_ID, mPusherId);
             setResult(0, rstData);

@@ -395,7 +395,7 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
             intent.putExtra(TCConstants.PUSHER_AVATAR, item.pushers.avatar);
         }
         intent.putExtra(TCConstants.HEART_COUNT, TextUtils.isEmpty(item.like_number) ? "0" : item.like_number);
-        intent.putExtra(TCConstants.MEMBER_COUNT, item.viewer_count);
+        intent.putExtra(TCConstants.MEMBER_COUNT, item.viewer_count+"");
         intent.putExtra(TCConstants.GROUP_ID, item.room_id);
         intent.putExtra(TCConstants.PLAY_TYPE, item.meta_type);
         intent.putExtra(TCConstants.FILE_ID, "");
