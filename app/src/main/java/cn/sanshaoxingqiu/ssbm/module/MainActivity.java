@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.base.BasicApplication;
 import com.exam.commonbiz.event.IdentityExpiredEvent;
 import com.exam.commonbiz.util.Res;
 import com.google.android.material.tabs.TabLayout;
@@ -119,12 +120,18 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
 
     private void initViewPager() {
 
+        //把Fragment添加到List集合里面
+        mFragmentList = new ArrayList<>();
         mIncomeMenuInfoList = new ArrayList<>();
 
-        IncomeMenuInfo incomeMenuInfoLive = new IncomeMenuInfo();
-        incomeMenuInfoLive.tilte = "直播";
-        incomeMenuInfoLive.iconSelect = R.drawable.tab_home_selected;
-        incomeMenuInfoLive.iconUnSelect = R.drawable.tab_home_normal;
+        if (BasicApplication.app.isAPPVerfySuccess){
+            IncomeMenuInfo incomeMenuInfoLive = new IncomeMenuInfo();
+            incomeMenuInfoLive.tilte = "直播";
+            incomeMenuInfoLive.iconSelect = R.drawable.tab_home_selected;
+            incomeMenuInfoLive.iconUnSelect = R.drawable.tab_home_normal;
+            mIncomeMenuInfoList.add(incomeMenuInfoLive);
+            mFragmentList.add(HomeFragment.newInstance());
+        }
 
         IncomeMenuInfo incomeMenuInfoSort = new IncomeMenuInfo();
         incomeMenuInfoSort.tilte = "商城";
@@ -136,15 +143,12 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         incomeMenuInfo.iconSelect = R.drawable.tab_my_selected;
         incomeMenuInfo.iconUnSelect = R.drawable.tab_my_normal;
 
-        mIncomeMenuInfoList.add(incomeMenuInfoLive);
         mIncomeMenuInfoList.add(incomeMenuInfoSort);
         mIncomeMenuInfoList.add(incomeMenuInfo);
 
-        //把Fragment添加到List集合里面
-        mFragmentList = new ArrayList<>();
-        mFragmentList.add(HomeFragment.newInstance());
         mFragmentList.add(ShoppingCenterFragment.newInstance());
         mFragmentList.add(PersonalFragment.newInstance());
+
         mIncomeTabFragmentAdapter = new IncomeTabFragmentAdapter(getSupportFragmentManager(), mFragmentList, mIncomeMenuInfoList, context);
         binding.viewPager.setAdapter(mIncomeTabFragmentAdapter);
         binding.viewPager.setOffscreenPageLimit(mFragmentList.size());

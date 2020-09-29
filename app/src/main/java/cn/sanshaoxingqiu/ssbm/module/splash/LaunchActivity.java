@@ -1,28 +1,36 @@
 package cn.sanshaoxingqiu.ssbm.module.splash;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.util.Log;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.base.BaseViewModel;
+import com.exam.commonbiz.base.BasicApplication;
 import com.exam.commonbiz.cache.ACache;
 import com.exam.commonbiz.config.ConfigSP;
+import com.exam.commonbiz.event.IdentityExpiredEvent;
 import com.exam.commonbiz.kits.Kits;
 import com.exam.commonbiz.net.HostUrl;
 import com.exam.commonbiz.net.XApi;
 import com.exam.commonbiz.util.AppManager;
 import com.exam.commonbiz.util.CommonCallBack;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import cn.sanshaoxingqiu.ssbm.R;
+import cn.sanshaoxingqiu.ssbm.SSApplication;
+import cn.sanshaoxingqiu.ssbm.databinding.ActivityLaunchBinding;
 import cn.sanshaoxingqiu.ssbm.module.MainActivity;
 import cn.sanshaoxingqiu.ssbm.module.login.model.IVerfyApkModel;
+import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 import cn.sanshaoxingqiu.ssbm.module.login.viewmodel.LoginViewModel;
+import cn.sanshaoxingqiu.ssbm.module.personal.event.UpdateUserInfoEvent;
 import cn.sanshaoxingqiu.ssbm.module.splash.dialog.BenefitPolicyDialog;
 
 /**
@@ -31,18 +39,20 @@ import cn.sanshaoxingqiu.ssbm.module.splash.dialog.BenefitPolicyDialog;
  * @Author yuexingxing
  * @time 2020/7/21
  */
-public class LaunchActivity extends AppCompatActivity implements IVerfyApkModel {
+public class LaunchActivity extends BaseActivity<BaseViewModel, ActivityLaunchBinding> implements IVerfyApkModel {
     private final String TAG = LaunchActivity.class.getSimpleName();
     private LoginViewModel mLoginViewModel;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_launch);
-
+    public void initData() {
         mLoginViewModel = new LoginViewModel();
         mLoginViewModel.setIVerfyApkModel(this);
         mLoginViewModel.getPlatParamByParamKey("itomix", "android_review");
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_launch;
     }
 
     private void check() {
@@ -95,9 +105,21 @@ public class LaunchActivity extends AppCompatActivity implements IVerfyApkModel 
     }
 
     @Override
+    public boolean useEventBus() {
+        return true;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onIdentityExpiredEvent(IdentityExpiredEvent identityExpiredEvent) {
+        SSApplication.setToken("");//身份过期后token置空
+        LoginActivity.start(context);
+        finish();
+    }
+
+    @Override
     public void onVerfyApk(VerifyApkInfo verifyApkInfo) {
         if (verifyApkInfo == null || TextUtils.isEmpty(verifyApkInfo.param_value)) {
-            check();
+            jump2Main();
             return;
         }
 
@@ -105,7 +127,9 @@ public class LaunchActivity extends AppCompatActivity implements IVerfyApkModel 
         String versionCode = verifyApkInfo.getVersionCodeByChannelName(channelName);
         String currentVersionCode = Kits.Package.getVersionName(LaunchActivity.this);
 
+        Log.d(TAG, channelName + "/" + versionCode + "/" + currentVersionCode);
         if (TextUtils.isEmpty(versionCode) || TextUtils.isEmpty(currentVersionCode)) {
+            check();
             return;
         }
 
@@ -115,8 +139,10 @@ public class LaunchActivity extends AppCompatActivity implements IVerfyApkModel 
             hostMap.put(XApi.HOST_TYPE.JAVA, HostUrl.PRO_VERIFY.JAVA);
             hostMap.put(XApi.HOST_TYPE.NODE, HostUrl.PRO_VERIFY.NODE);
             XApi.setHostMap(hostMap);
+            BasicApplication.app.isAPPVerfySuccess = false;
             Log.d(TAG, channelName + "-审核未通过-" + verifyApkInfo.param_value);
         } else {
+            BasicApplication.app.isAPPVerfySuccess = true;
             Log.d(TAG, channelName + "-审核已通过-" + verifyApkInfo.param_value);
         }
         check();

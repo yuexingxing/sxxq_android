@@ -1,38 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center_horizontal"
-    android:gravity="bottom|center_horizontal">
+<layout>
 
-    <ImageView
-        android:id="@+id/iv_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/image_logo_word" />
-
-    <TextView
-        android:id="@+id/tv_tip"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_icon"
-        android:layout_marginTop="16dp"
-        android:gravity="center_horizontal"
-        android:text="不讨好世界·只变美自己"
-        android:textColor="@color/color_333333"
-        android:textSize="12sp" />
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:gravity="bottom|center_horizontal">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_tip"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="52dp"
-        android:gravity="center_horizontal"
-        android:text="Be Beautiful Be You"
-        android:textColor="@color/color_333333"
-        android:textSize="12sp" />
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/image_logo_word" />
+
+        <TextView
+            android:id="@+id/tv_tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_icon"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
+            android:text="不讨好世界·只变美自己"
+            android:textColor="@color/color_333333"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_tip"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="52dp"
+            android:gravity="center_horizontal"
+            android:text="Be Beautiful Be You"
+            android:textColor="@color/color_333333"
+            android:textSize="12sp" />
+    </RelativeLayout>
+</layout>

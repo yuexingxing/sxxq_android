@@ -14,6 +14,7 @@ import com.exam.commonbiz.config.ConfigSP;
  */
 public abstract class BasicApplication extends Application {
     public static BasicApplication app;
+    public boolean isAPPVerfySuccess = true;//当前app是否审核通过，审核中隐藏直播模块
 
     @Override
     protected void attachBaseContext(Context base) {

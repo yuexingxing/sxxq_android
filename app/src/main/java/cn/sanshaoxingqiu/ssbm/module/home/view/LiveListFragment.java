@@ -2,17 +2,21 @@ package cn.sanshaoxingqiu.ssbm.module.home.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.base.IBaseModel;
 import com.exam.commonbiz.util.CommonCallBack;
@@ -24,8 +28,15 @@ import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.audience.TCAudienceActivity;
 import com.sanshao.livemodule.zhibo.common.utils.TCConstants;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
+import com.tencent.rtmp.ITXLivePlayListener;
+import com.tencent.rtmp.ITXVodPlayListener;
+import com.tencent.rtmp.TXLiveConstants;
 import com.tencent.rtmp.TXLivePlayer;
+import com.tencent.rtmp.TXVodPlayer;
 import com.tencent.rtmp.ui.TXCloudVideoView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
@@ -43,6 +54,7 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
     public static final int START_LIVE_PLAY = 100;
     private HomeLiveAdapter mHomeAdapter;
     private TXLivePlayer mCurrentTXLivePlayer;
+    private List<VideoInfo> mVideoListData = new ArrayList<>();
 
     public static LiveListFragment newInstance() {
         LiveListFragment fragment = new LiveListFragment();
@@ -66,7 +78,7 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
                 getLiveData();
             }
         });
-        mHomeAdapter = new HomeLiveAdapter();
+        mHomeAdapter = new HomeLiveAdapter(mVideoListData);
         mHomeAdapter.setEmptyView(emptyLayout);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -77,12 +89,28 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         binding.recyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
-                enterLiveRoom(view);
+
             }
 
             @Override
             public void onChildViewDetachedFromWindow(View view) {
-                leaveLiveRoom(view);
+
+            }
+        });
+        binding.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    startPlayVideo();
+                }
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
             }
         });
         mHomeAdapter.setCommonCallBack(new CommonCallBack() {
@@ -236,10 +264,20 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
             return;
         }
 
+        mVideoListData.clear();
+        mVideoListData.addAll(videoListResponse.rows);
+        mHomeAdapter.notifyDataSetChanged();
+
         mHomeAdapter.isUseEmpty(false);
-        mHomeAdapter.setNewData(videoListResponse.rows);
         mHomeAdapter.loadMoreComplete();
         mHomeAdapter.loadMoreEnd();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }, 500);
     }
 
     @Override
@@ -255,7 +293,7 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
             return;
         }
 
-        mHomeAdapter.addData(videoListResponse.rows);
+        mVideoListData.addAll(videoListResponse.rows);
         mHomeAdapter.loadMoreComplete();
         binding.swipeRefreshLayout.setRefreshing(false);
     }
@@ -270,6 +308,50 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         super.onActivityResult(requestCode, resultCode, data);
         if (START_LIVE_PLAY == requestCode) {
             getLiveData();
+        }
+    }
+
+    /**
+     * 开始播放视频
+     */
+    private void startPlayVideo() {
+        if (ContainerUtil.isEmpty(mVideoListData)) {
+            return;
+        }
+        RecyclerView.LayoutManager layoutManager = binding.recyclerView.getLayoutManager();
+        if (layoutManager instanceof LinearLayoutManager) {
+            LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
+            int firstVisiblePosition = linearManager.findFirstVisibleItemPosition();
+            VideoInfo videoInfo = mVideoListData.get(firstVisiblePosition);
+            if (videoInfo.isLive()) {
+                if (mCurrentTXLivePlayer == null) {
+                    mCurrentTXLivePlayer = new TXLivePlayer(context);
+                } else {
+                    mCurrentTXLivePlayer.pause();
+                }
+            } else {
+                return;
+            }
+
+            View view = linearManager.findViewByPosition(firstVisiblePosition);
+            if (null != binding.recyclerView.getChildViewHolder(view)) {
+                BaseViewHolder viewHolder =
+                        (BaseViewHolder) binding.recyclerView.getChildViewHolder(view);
+                TXCloudVideoView txCloudVideoView = viewHolder.getView(R.id.anchor_video_view);
+                ImageView ivLiveBg = view.findViewById(R.id.iv_bg);
+
+                if (videoInfo.isLive()) {
+                    mCurrentTXLivePlayer.setPlayerView(txCloudVideoView);
+                    mCurrentTXLivePlayer.startPlay(videoInfo.flv_pull_url, TXLivePlayer.PLAY_TYPE_LIVE_FLV);
+                    ivLiveBg.setVisibility(View.GONE);
+                    txCloudVideoView.setVisibility(View.VISIBLE);
+                    if (videoInfo.pushers != null) {
+                        Log.d(TAG, "VideoBackListFragment-播放成功：" + videoInfo.pushers.anchor_name);
+                    }
+                }
+            } else {
+                Log.e(TAG, "view == null无法播放");
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.exam.commonbiz.base.BaseFragment;
+import com.exam.commonbiz.base.BasicApplication;
 import com.exam.commonbiz.bean.UserInfo;
 import com.exam.commonbiz.dialog.CommonTipDialog;
 import com.exam.commonbiz.util.AppManager;
@@ -291,6 +292,12 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
                 }
             }
         });
+
+        if (BasicApplication.app.isAPPVerfySuccess) {
+            binding.includePersonalLive.llTop.setVisibility(View.VISIBLE);
+        } else {
+            binding.includePersonalLive.llTop.setVisibility(View.GONE);
+        }
 
         initOrderList();
         binding.pavSetting.setOnClickListener(v -> SettingActivity.start(context));
