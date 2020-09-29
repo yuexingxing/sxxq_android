@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.exam.commonbiz.cache.ACache;
 import com.exam.commonbiz.config.ConfigSP;
+import com.exam.commonbiz.kits.Kits;
 import com.exam.commonbiz.net.HostUrl;
 import com.exam.commonbiz.net.XApi;
 import com.exam.commonbiz.util.AppManager;
@@ -22,7 +24,6 @@ import cn.sanshaoxingqiu.ssbm.module.MainActivity;
 import cn.sanshaoxingqiu.ssbm.module.login.model.IVerfyApkModel;
 import cn.sanshaoxingqiu.ssbm.module.login.viewmodel.LoginViewModel;
 import cn.sanshaoxingqiu.ssbm.module.splash.dialog.BenefitPolicyDialog;
-import cn.sanshaoxingqiu.ssbm.util.AppUtil;
 
 /**
  * 启动页
@@ -31,7 +32,7 @@ import cn.sanshaoxingqiu.ssbm.util.AppUtil;
  * @time 2020/7/21
  */
 public class LaunchActivity extends AppCompatActivity implements IVerfyApkModel {
-
+    private final String TAG = LaunchActivity.class.getSimpleName();
     private LoginViewModel mLoginViewModel;
 
     @Override
@@ -41,9 +42,8 @@ public class LaunchActivity extends AppCompatActivity implements IVerfyApkModel 
 
         mLoginViewModel = new LoginViewModel();
         mLoginViewModel.setIVerfyApkModel(this);
-        if (AppUtil.isDebug(this)) {
-            mLoginViewModel.getPlatParamByParamKey("itomix", "android_review");
-        }
+        mLoginViewModel.getPlatParamByParamKey("itomix", "android_review");
+
         if (checkShowPolicy()) {
             countDownTimer.start();
         } else {
@@ -82,7 +82,7 @@ public class LaunchActivity extends AppCompatActivity implements IVerfyApkModel 
 
         @Override
         public void onFinish() {
-            jump();
+//            jump();
         }
     };
 
@@ -93,18 +93,30 @@ public class LaunchActivity extends AppCompatActivity implements IVerfyApkModel 
     }
 
     @Override
-    public void onVerfyApk(String content) {
-        if (TextUtils.isEmpty(content)) {
+    public void onVerfyApk(VerifyApkInfo verifyApkInfo) {
+        if (verifyApkInfo == null || TextUtils.isEmpty(verifyApkInfo.param_value)) {
+            jump();
             return;
         }
-        String channelName = AppManager.getChannelName(LaunchActivity.this);
 
-        boolean isVerifySuccess = true;
-        if (!isVerifySuccess) {
+        String channelName = AppManager.getChannelName(LaunchActivity.this);
+        String versionCode = verifyApkInfo.getVersionCodeByChannelName(channelName);
+        String currentVersionCode = Kits.Package.getVersionName(LaunchActivity.this);
+
+        if (TextUtils.isEmpty(versionCode) || TextUtils.isEmpty(currentVersionCode)) {
+            return;
+        }
+
+        //应用市场版本比当前版本小，该版本还在审核
+        if (versionCode.compareTo(currentVersionCode) < 0) {
             Map<String, String> hostMap = new HashMap<>();
             hostMap.put(XApi.HOST_TYPE.JAVA, HostUrl.PRO_VERIFY.JAVA);
             hostMap.put(XApi.HOST_TYPE.NODE, HostUrl.PRO_VERIFY.NODE);
             XApi.setHostMap(hostMap);
+            Log.d(TAG, channelName + "-审核未通过-" + verifyApkInfo.param_value);
+        } else {
+            Log.d(TAG, channelName + "-审核已通过-" + verifyApkInfo.param_value);
         }
+        jump();
     }
 }

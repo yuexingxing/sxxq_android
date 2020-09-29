@@ -18,6 +18,7 @@ import cn.sanshaoxingqiu.ssbm.module.login.event.LoginEvent;
 import cn.sanshaoxingqiu.ssbm.module.login.model.ILoginCallBack;
 import cn.sanshaoxingqiu.ssbm.module.login.model.IVerfyApkModel;
 import cn.sanshaoxingqiu.ssbm.module.login.model.LoginModel;
+import cn.sanshaoxingqiu.ssbm.module.splash.VerifyApkInfo;
 
 import com.exam.commonbiz.bean.UserInfo;
 import com.exam.commonbiz.util.LoadDialogMgr;
@@ -42,7 +43,7 @@ public class LoginViewModel extends ViewModel {
         mLoginCallBack = iLoginCallBack;
     }
 
-    public void setIVerfyApkModel(IVerfyApkModel iVerfyApkModel){
+    public void setIVerfyApkModel(IVerfyApkModel iVerfyApkModel) {
         mIVerfyApkModel = iVerfyApkModel;
     }
 
@@ -53,7 +54,7 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void getPlatParamByParamKey(String groupId, String paramKey) {
-        LoginModel.getPlatParamByParamKey(groupId, paramKey, new OnLoadListener<String>() {
+        LoginModel.getPlatParamByParamKey(groupId, paramKey, new OnLoadListener<VerifyApkInfo>() {
 
             @Override
             public void onLoadStart() {
@@ -67,8 +68,7 @@ public class LoginViewModel extends ViewModel {
             }
 
             @Override
-            public void onLoadSucessed(BaseResponse<String> t) {
-                ToastUtil.showShortToast(t.getContent());
+            public void onLoadSucessed(BaseResponse<VerifyApkInfo> t) {
                 if (mIVerfyApkModel != null) {
                     mIVerfyApkModel.onVerfyApk(t.getContent());
                 }
@@ -77,6 +77,9 @@ public class LoginViewModel extends ViewModel {
             @Override
             public void onLoadFailed(String errMsg) {
                 Log.d(TAG, "onLoadFailed-" + errMsg);
+                if (mIVerfyApkModel != null) {
+                    mIVerfyApkModel.onVerfyApk(null);
+                }
             }
         });
     }

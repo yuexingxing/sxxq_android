@@ -10,6 +10,7 @@ import cn.sanshaoxingqiu.ssbm.module.login.bean.ModifyPhoneRequest;
 
 import com.exam.commonbiz.bean.UserInfo;
 
+import cn.sanshaoxingqiu.ssbm.module.splash.VerifyApkInfo;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -23,8 +24,8 @@ import retrofit2.http.Query;
 public interface LoginApiService {
 
     @GET("w/auth/getPlatParamByParamKey")
-    Observable<BaseResponse<String>> getPlatParamByParamKey(@Query("group_id") String groupId,
-                                                              @Query("param_key") String paramKey);
+    Observable<BaseResponse<VerifyApkInfo>> getPlatParamByParamKey(@Query("group_id") String groupId,
+                                                                   @Query("param_key") String paramKey);
 
     //获取验证码
     @POST("w/auth/pin")

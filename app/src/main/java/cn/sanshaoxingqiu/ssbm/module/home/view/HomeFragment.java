@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.base.BaseViewModel;
 import com.exam.commonbiz.util.AppManager;
+import com.exam.commonbiz.util.ContainerUtil;
 import com.exam.commonbiz.util.Res;
 import com.exam.commonbiz.util.ToastUtil;
 import com.google.android.material.tabs.TabLayout;
@@ -96,7 +97,17 @@ public class HomeFragment extends BaseFragment<BaseViewModel, HomeFragmentBindin
 
     @Override
     protected void onVisible() {
-
+        if (!ContainerUtil.isEmpty(mFragmentList)) {
+            if (binding.viewPager.getCurrentItem() == 0) {
+                if (mVideoBackListFragment != null) {
+                    mVideoBackListFragment.onVisible();
+                }
+            } else {
+                if (mLiveListFragment != null) {
+                    mLiveListFragment.onVisible();
+                }
+            }
+        }
     }
 
     @Override
