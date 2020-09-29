@@ -155,44 +155,6 @@ public class LiveListFragment extends BaseFragment<LiveViewModel, FragmentLayout
         }
     }
 
-    private void enterLiveRoom(View view) {
-        mCurrentTXLivePlayer = null;
-        TXCloudVideoView txCloudVideoView = view.findViewById(R.id.anchor_video_view);
-        ImageView ivLiveBg = view.findViewById(R.id.iv_bg);
-        if (txCloudVideoView == null || ivLiveBg == null) {
-            return;
-        }
-        VideoInfo videoInfo = (VideoInfo) txCloudVideoView.getTag();
-        TXLivePlayer txLivePlayer = (TXLivePlayer) ivLiveBg.getTag();
-        if (txLivePlayer != null) {
-            mCurrentTXLivePlayer = txLivePlayer;
-            if (!isVisible()) {
-                return;
-            }
-            txLivePlayer.setPlayerView(txCloudVideoView);
-            txLivePlayer.startPlay(videoInfo.flv_pull_url, TXLivePlayer.PLAY_TYPE_LIVE_FLV);
-            ivLiveBg.setVisibility(View.GONE);
-            if (videoInfo.pushers != null) {
-                Log.d(TAG, "LiveListFragment-播放成功：" + videoInfo.pushers.anchor_name);
-            }
-        }
-    }
-
-    private void leaveLiveRoom(View view) {
-        TXCloudVideoView txCloudVideoView = view.findViewById(R.id.anchor_video_view);
-        ImageView ivLiveBg = view.findViewById(R.id.iv_bg);
-        if (txCloudVideoView == null || ivLiveBg == null) {
-            return;
-        }
-        VideoInfo videoInfo = (VideoInfo) txCloudVideoView.getTag();
-        TXLivePlayer txLivePlayer = (TXLivePlayer) ivLiveBg.getTag();
-        if (txLivePlayer != null) {
-            txLivePlayer.pause();
-            ivLiveBg.setVisibility(View.VISIBLE);
-            Log.d(TAG, "暂停成功：" + videoInfo.room_id);
-        }
-    }
-
     public void getLiveData() {
         mViewModel.getLiveVideoList();
 

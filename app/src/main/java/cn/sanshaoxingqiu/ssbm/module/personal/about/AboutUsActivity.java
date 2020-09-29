@@ -108,9 +108,7 @@ public class AboutUsActivity extends BaseActivity<AboutUsViewModel, ActivityAbou
         mAboutUsAdapter.addData(new AgreementInfo("三少变美直播服务协议", Constants.liveServiceUrl));
         mAboutUsAdapter.addData(new AgreementInfo("三少变美用户服务协议", Constants.userPolicyUrl));
         mAboutUsAdapter.addData(new AgreementInfo("三少变美隐私协议", Constants.userSecretUrl));
-        mAboutUsAdapter.addData(new AgreementInfo("三少变美提现协议", "https://h5.sanshaoxingqiu.cn/agree/withdrawalrules.html"));
-        mAboutUsAdapter.addData(new AgreementInfo("三少变美用户注销协议", "https://h5.sanshaoxingqiu.cn/agree/cancellation.html"));
+        mAboutUsAdapter.addData(new AgreementInfo("三少变美提现协议", Constants.withdrawalrulesUrl));
+        mAboutUsAdapter.addData(new AgreementInfo("三少变美用户注销协议", Constants.cancellationUrl));
     }
-
-
 }

@@ -54,8 +54,6 @@ import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
  * @time 2020/9/16
  */
 public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentLayoutVideoBackListBinding> implements IBaseModel, BaseQuickAdapter.RequestLoadMoreListener {
-    private final int ITEM_ENTER = 1;
-    private final int ITEM_LEAVE = 0;
     private HomeLiveAdapter mHomeAdapter;
     private int mPageNum = 1;
     private TXLivePlayer mCurrentTXLivePlayer;
@@ -275,6 +273,7 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
 
     public void scrollToTop() {
         binding.recyclerView.scrollToPosition(0);
+        onInVisible();
     }
 
     @Override
@@ -301,84 +300,6 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
         if (mCurrentTXVodPlayer != null) {
             mCurrentTXVodPlayer.pause();
             Log.d(TAG, "VideoBackListFragment-直播暂停了");
-        }
-    }
-
-    private void playBackVideo(View view) {
-        ImageView ivLiveBg = view.findViewById(R.id.iv_bg);
-        TXCloudVideoView txCloudVideoView = view.findViewById(R.id.anchor_video_view);
-        VideoInfo videoInfo = (VideoInfo) txCloudVideoView.getTag();
-
-        if (mCurrentTXVodPlayer == null) {
-            mCurrentTXVodPlayer = new TXVodPlayer(context);
-        }
-        TXVodPlayer txVodPlayer = mCurrentTXVodPlayer;
-//        TXVodPlayer txVodPlayer = (TXVodPlayer) ivLiveBg.getTag();
-        if (txVodPlayer != null) {
-            txVodPlayer.setConfig(mTXVodPlayConfig);
-            ivLiveBg.setVisibility(View.GONE);
-            txVodPlayer.setPlayerView(txCloudVideoView);
-            txVodPlayer.startPlay(videoInfo.flv_pull_url);
-            txVodPlayer.setVodListener(new ITXVodPlayListener() {
-                @Override
-                public void onPlayEvent(TXVodPlayer txVodPlayer, int event, Bundle bundle) {
-
-                    int progress = bundle.getInt(TXLiveConstants.EVT_PLAY_PROGRESS);
-                    int duration = bundle.getInt(TXLiveConstants.EVT_PLAY_DURATION);
-
-                    int playProgress = 0;
-                    if (progress != 0 && duration != 0) {
-                        playProgress = progress * 100 / duration;
-                    }
-
-                    mVideoBackProgress = playProgress;
-                    if (event == TXLiveConstants.PLAY_EVT_RCV_FIRST_I_FRAME) {
-                        ivLiveBg.setVisibility(View.GONE);
-                        mCurrentTXVodPlayer = txVodPlayer;
-                        mCurrentPlayUrl = videoInfo.flv_pull_url;
-                        txCloudVideoView.setVisibility(View.VISIBLE);
-                    } else if (event == TXLiveConstants.PLAY_ERR_NET_DISCONNECT) {
-                        ivLiveBg.setVisibility(View.VISIBLE);
-                        txCloudVideoView.setVisibility(View.GONE);
-                    } else if (event == TXLiveConstants.PLAY_ERR_NET_DISCONNECT
-                            || event == TXLiveConstants.PLAY_ERR_GET_RTMP_ACC_URL_FAIL
-                            || event == TXLiveConstants.PLAY_ERR_FILE_NOT_FOUND
-                            || event == TXLiveConstants.PLAY_ERR_HEVC_DECODE_FAIL
-                            || event == TXLiveConstants.PLAY_ERR_HLS_KEY
-                            || event == TXLiveConstants.PLAY_ERR_GET_PLAYINFO_FAIL
-                            || event == TXLiveConstants.PLAY_ERR_STREAM_SWITCH_FAIL) {
-                        ivLiveBg.setVisibility(View.VISIBLE);
-                        txCloudVideoView.setVisibility(View.GONE);
-                    } else if (event == TXLiveConstants.PLAY_EVT_PLAY_END) {
-                        txVodPlayer.startPlay(mCurrentPlayUrl);
-                    }
-                }
-
-                @Override
-                public void onNetStatus(TXVodPlayer txVodPlayer, Bundle bundle) {
-
-                }
-            });
-
-            if (videoInfo.pushers != null) {
-                Log.d(TAG, "VideoBackListFragment-播放成功：" + videoInfo.pushers.anchor_name);
-            }
-        }
-    }
-
-    private void pauseBackVideo(View view) {
-        TXCloudVideoView txCloudVideoView = view.findViewById(R.id.anchor_video_view);
-        ImageView ivLiveBg = view.findViewById(R.id.iv_bg);
-        VideoInfo videoInfo = (VideoInfo) txCloudVideoView.getTag();
-
-        TXVodPlayer txVodPlayer = mCurrentTXVodPlayer;
-//        TXVodPlayer txVodPlayer = (TXVodPlayer) ivLiveBg.getTag();
-        if (txVodPlayer != null) {
-//            txVodPlayer.pause();
-            txCloudVideoView.setVisibility(View.GONE);
-            ivLiveBg.setVisibility(View.VISIBLE);
-            ivLiveBg.setTag(null);
-            Log.d(TAG, "暂停成功：" + videoInfo.room_id);
         }
     }
 

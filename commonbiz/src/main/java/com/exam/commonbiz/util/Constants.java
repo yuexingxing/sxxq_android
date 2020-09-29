@@ -33,4 +33,6 @@ public class Constants {
     public static final String userPolicyUrl = "https://vip.sancellvarymay.com/edm/agree/service.html";//用户服务协议
     public static final String userSecretUrl = "https://vip.sancellvarymay.com/edm/agree/clause.html";//用户隐私协议
     public static final String liveServiceUrl = "https://vip.sancellvarymay.com/edm/agree/live.html";//直播服务协议
+    public static final String withdrawalrulesUrl = "https://vip.sancellvarymay.com/edm/agree/withdrawalrules.html";//提现
+    public static final String cancellationUrl = "https://vip.sancellvarymay.com/edm/agree/cancellation.html";//注销协议
 }
