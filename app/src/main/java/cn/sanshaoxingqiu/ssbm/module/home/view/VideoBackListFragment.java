@@ -56,6 +56,7 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
     private TXVodPlayer mCurrentTXVodPlayer;
     private int mVideoBackProgress = 0;
     private TXVodPlayConfig mTXVodPlayConfig = new TXVodPlayConfig();
+    private String mCurrentPlayUrl;
 
     public static VideoBackListFragment newInstance() {
         VideoBackListFragment fragment = new VideoBackListFragment();
@@ -217,8 +218,11 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
                     if (event == TXLiveConstants.PLAY_EVT_RCV_FIRST_I_FRAME) {
                         ivLiveBg.setVisibility(View.GONE);
                         mCurrentTXVodPlayer = txVodPlayer;
+                        mCurrentPlayUrl = videoInfo.flv_pull_url;
+                        txCloudVideoView.setVisibility(View.VISIBLE);
                     } else if (event == TXLiveConstants.PLAY_ERR_NET_DISCONNECT) {
                         ivLiveBg.setVisibility(View.VISIBLE);
+                        txCloudVideoView.setVisibility(View.GONE);
                     } else if (event == TXLiveConstants.PLAY_ERR_NET_DISCONNECT
                             || event == TXLiveConstants.PLAY_ERR_GET_RTMP_ACC_URL_FAIL
                             || event == TXLiveConstants.PLAY_ERR_FILE_NOT_FOUND
@@ -227,8 +231,9 @@ public class VideoBackListFragment extends BaseFragment<LiveViewModel, FragmentL
                             || event == TXLiveConstants.PLAY_ERR_GET_PLAYINFO_FAIL
                             || event == TXLiveConstants.PLAY_ERR_STREAM_SWITCH_FAIL) {
                         ivLiveBg.setVisibility(View.VISIBLE);
+                        txCloudVideoView.setVisibility(View.GONE);
                     } else if (event == TXLiveConstants.PLAY_EVT_PLAY_END) {
-
+                        txVodPlayer.startPlay(mCurrentPlayUrl);
                     }
                 }
 

@@ -43,7 +43,9 @@ public class LaunchActivity extends AppCompatActivity implements IVerfyApkModel 
         mLoginViewModel = new LoginViewModel();
         mLoginViewModel.setIVerfyApkModel(this);
         mLoginViewModel.getPlatParamByParamKey("itomix", "android_review");
+    }
 
+    private void check() {
         if (checkShowPolicy()) {
             countDownTimer.start();
         } else {
@@ -82,11 +84,11 @@ public class LaunchActivity extends AppCompatActivity implements IVerfyApkModel 
 
         @Override
         public void onFinish() {
-//            jump();
+            jump2Main();
         }
     };
 
-    private void jump() {
+    private void jump2Main() {
         Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
@@ -95,7 +97,7 @@ public class LaunchActivity extends AppCompatActivity implements IVerfyApkModel 
     @Override
     public void onVerfyApk(VerifyApkInfo verifyApkInfo) {
         if (verifyApkInfo == null || TextUtils.isEmpty(verifyApkInfo.param_value)) {
-            jump();
+            check();
             return;
         }
 
@@ -117,6 +119,6 @@ public class LaunchActivity extends AppCompatActivity implements IVerfyApkModel 
         } else {
             Log.d(TAG, channelName + "-审核已通过-" + verifyApkInfo.param_value);
         }
-        jump();
+        check();
     }
 }
