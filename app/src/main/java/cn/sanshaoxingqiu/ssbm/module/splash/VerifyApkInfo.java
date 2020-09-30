@@ -22,7 +22,7 @@ public class VerifyApkInfo {
      */
     public String getVersionCodeByChannelName(String channelName) {
         String[] strChannelArray = param_value.split("&");
-        String versionCode = "1.0.0";
+        String versionCode = "1.0";
         if (strChannelArray == null) {
             return versionCode;
         }
