@@ -217,8 +217,10 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         binding.ivCallPhone.setOnClickListener(view -> CommandTools.showCall(context));
         if (BasicApplication.app.isAPPVerfySuccess) {
             binding.llHospital.setVisibility(View.VISIBLE);
+            binding.ivRecommendReward.setVisibility(View.VISIBLE);
         } else {
             binding.llHospital.setVisibility(View.GONE);
+            binding.ivRecommendReward.setVisibility(View.GONE);
         }
         mViewModel.getGoodsDetail(context, mSartiId);
     }

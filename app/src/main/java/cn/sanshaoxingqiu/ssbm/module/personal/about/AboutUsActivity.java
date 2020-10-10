@@ -2,6 +2,7 @@ package cn.sanshaoxingqiu.ssbm.module.personal.about;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,6 +21,7 @@ import cn.sanshaoxingqiu.ssbm.databinding.ActivityAboutUsBinding;
 import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 import cn.sanshaoxingqiu.ssbm.module.personal.about.adapter.AboutUsAdapter;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.ExerciseActivity;
+import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 
 /**
  * 账户安全
@@ -101,6 +103,10 @@ public class AboutUsActivity extends BaseActivity<AboutUsViewModel, ActivityAbou
         mAboutUsAdapter.setOnItemClickListener(new AboutUsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(AgreementInfo agreementInfo) {
+                if (TextUtils.equals("用户反馈", agreementInfo.title)) {
+                    CommandTools.startServiceChat();
+                    return;
+                }
                 ExerciseActivity.start(context, agreementInfo.title, agreementInfo.url);
             }
         });
@@ -110,5 +116,6 @@ public class AboutUsActivity extends BaseActivity<AboutUsViewModel, ActivityAbou
         mAboutUsAdapter.addData(new AgreementInfo("三少变美隐私协议", Constants.userSecretUrl));
         mAboutUsAdapter.addData(new AgreementInfo("三少变美提现协议", Constants.withdrawalrulesUrl));
         mAboutUsAdapter.addData(new AgreementInfo("三少变美用户注销协议", Constants.cancellationUrl));
+        mAboutUsAdapter.addData(new AgreementInfo("用户反馈", ""));
     }
 }
