@@ -1,14 +1,22 @@
 apply plugin: 'com.android.application'
 
+// 使用 versionName 维护版本号
+def getVersionCodeByVersionName() {
+    def versionCode = (project.versionName + "000").replace(".", "").substring(0, 4).toInteger()
+    println("versionCode--------------->" + versionCode)
+    return versionCode
+}
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
 
+    def currentVersionCode = getVersionCodeByVersionName()
     defaultConfig {
         applicationId "cn.sancell.ssbm"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode rootProject.ext.versionCode
+        versionCode currentVersionCode
         versionName rootProject.ext.versionName
         multiDexEnabled true
 
