@@ -67,10 +67,7 @@ public class ShoppingCenterFragment extends BaseFragment<ShoppingCenterViewModel
         binding.activitysRecyclerView.setLayoutManager(linearLayoutManager2);
         binding.activitysRecyclerView.setAdapter(mAdAdapter);
         mAdAdapter.setOnItemClickListener((adapter, view, position) -> {
-            if (mAdAdapter.getData().get(position).action_args != null) {
-                ExerciseActivity.start(context, mAdAdapter.getData().get(position).artitag_name,
-                        mAdAdapter.getData().get(position).action_args.activity_url);
-            }
+            jumpBanner(mAdAdapter.getData().get(position));
         });
 
         binding.homeBannerLayout.setOnBannerClick(bannerInfo -> {

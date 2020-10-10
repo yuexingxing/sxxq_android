@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
+import com.exam.commonbiz.base.BasicApplication;
 import com.exam.commonbiz.bean.UserInfo;
 import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.ToastUtil;
@@ -46,7 +47,7 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
         IOrderDetailModel {
     public static final String PAY_BY_WECHAT = "HFWX";
     public static final String PAY_BY_ALI_APP = "HFALIPAYAPP";
-    private String mPayType = PAY_BY_WECHAT;//默认微信支付
+    private String mPayType = PAY_BY_ALI_APP;//默认支付宝支付
     private boolean isFirstIn = true;
     private UserInfo mUserInfo;
     private GoodsDetailInfo mGoodsDetailInfo;
@@ -112,6 +113,11 @@ public class ConfirmPayActivity extends BaseActivity<PayViewModel, ActivityConfi
                 }
             }
         });
+        if (BasicApplication.app.isAPPVerfySuccess) {
+            binding.llPayWechat.setVisibility(View.VISIBLE);
+        } else {
+            binding.llPayWechat.setVisibility(View.GONE);
+        }
         mOrderDetailViewModel.getOrderDetailInfo(context, mGoodsDetailInfo.salebill_id);
         setCheckStatus(mPayType);
         binding.llPayWechat.setOnClickListener(v -> setCheckStatus(PAY_BY_WECHAT));
