@@ -74,5 +74,12 @@ public class WithdrawActivity extends BaseActivity<BaseViewModel, ActivityWithdr
 
             }
         });
+        //全部提现
+        binding.tvWithdrawAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 }
