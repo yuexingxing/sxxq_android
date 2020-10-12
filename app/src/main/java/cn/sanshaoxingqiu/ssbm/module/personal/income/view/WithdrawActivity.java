@@ -18,6 +18,7 @@ import java.util.List;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityWithdrawBinding;
+import cn.sanshaoxingqiu.ssbm.module.order.view.BindBankCardActivity;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.BankCardInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.view.dialog.SelectBankCardDialog;
 
@@ -71,7 +72,7 @@ public class WithdrawActivity extends BaseActivity<BaseViewModel, ActivityWithdr
                 selectBankCardDialog.setItemClickListener(new SelectBankCardDialog.ItemClickListener() {
                     @Override
                     public void addNewBankCard() {
-                        
+                        BindBankCardActivity.start(context);
                     }
 
                     @Override
