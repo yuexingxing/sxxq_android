@@ -54,6 +54,7 @@ import cn.sanshaoxingqiu.ssbm.module.order.viewmodel.OrderDetailViewModel;
 import cn.sanshaoxingqiu.ssbm.module.personal.about.AboutUsActivity;
 import cn.sanshaoxingqiu.ssbm.module.personal.adapter.PersonalOrderSubjectAdapter;
 import cn.sanshaoxingqiu.ssbm.module.personal.event.UpdateUserInfoEvent;
+import cn.sanshaoxingqiu.ssbm.module.personal.income.view.IncomeHomeActivity;
 import cn.sanshaoxingqiu.ssbm.module.personal.inquiry.view.ToBeInquiryListActivity;
 import cn.sanshaoxingqiu.ssbm.module.personal.model.IPersonalCallBack;
 import cn.sanshaoxingqiu.ssbm.module.personal.myfans.view.FansActivity;
@@ -167,7 +168,9 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
                 OrderListActivity.start(context, OrderInfo.State.Complete);
             }
         });
-        binding.pavIncome.setOnClickListener(v -> ToastUtil.showShortToast("开发中"));
+        binding.pavIncome.setOnClickListener(v -> {
+            IncomeHomeActivity.start(context);
+        });
         binding.pavMyReferrer.setOnClickListener(v -> {
             if (!SSApplication.isLogin()) {
                 LoginActivity.start(context);

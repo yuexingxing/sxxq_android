@@ -213,7 +213,7 @@
                     android:layout_height="45dp"
                     android:paddingLeft="@dimen/left_container_margin"
                     android:paddingRight="@dimen/right_container_margin"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:icon_pav="@drawable/icon_income"
                     app:isShowLine_pav="true"
                     app:title_pav="进账"
