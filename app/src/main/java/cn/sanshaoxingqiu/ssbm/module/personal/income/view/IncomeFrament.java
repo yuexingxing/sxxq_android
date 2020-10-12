@@ -10,9 +10,19 @@ import cn.sanshaoxingqiu.ssbm.databinding.FragmentIncomeBinding;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.IncomeBean;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.model.IncomeViewCallBack;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.viewmodel.IncomeViewModel;
+import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.ExerciseActivity;
+
+import com.exam.commonbiz.base.EmptyWebViewActivity;
+import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.ToastUtil;
 
-public class IncomeFrament extends BaseFragment<IncomeViewModel, FragmentIncomeBinding> implements IncomeViewCallBack,View.OnClickListener {
+/**
+ * 进账主页
+ *
+ * @Author yuexingxing
+ * @time 2020/10/12
+ */
+public class IncomeFrament extends BaseFragment<IncomeViewModel, FragmentIncomeBinding> implements IncomeViewCallBack, View.OnClickListener {
 
     public static IncomeFrament newInstance() {
         IncomeFrament fragment = new IncomeFrament();
@@ -21,6 +31,7 @@ public class IncomeFrament extends BaseFragment<IncomeViewModel, FragmentIncomeB
 
     @Override
     public void initData() {
+
         binding.incomeRule.setOnClickListener(this);
         binding.viewWithdrawal.setOnClickListener(this);
         binding.viewMyJimei.setOnClickListener(this);
@@ -46,7 +57,7 @@ public class IncomeFrament extends BaseFragment<IncomeViewModel, FragmentIncomeB
         if (bean == null) {
             return;
         }
-        binding.incomeId.setText("ID："+(bean.id == null ? "" : bean.id));
+        binding.incomeId.setText("ID：" + (bean.id == null ? "" : bean.id));
         binding.incomeRecommendCode.setText(getString(R.string.income_recommend_code) + (bean.code == null ? "" : bean.code));
         binding.canWithdrawalAmount.setText(bean.canWithdrawalAmount == null ? "" : bean.canWithdrawalAmount);
         binding.totalAmount.setText(getString(R.string.total_amount) + (bean.totalAmount == null ? "" : bean.totalAmount));
@@ -65,8 +76,10 @@ public class IncomeFrament extends BaseFragment<IncomeViewModel, FragmentIncomeB
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.income_rule:
+                EmptyWebViewActivity.start(context, "", Constants.withdrawalrulesUrl);
                 break;
             case R.id.view_withdrawal:
+                WithdrawActivity.start(context);
                 break;
             case R.id.view_my_jimei:
                 break;

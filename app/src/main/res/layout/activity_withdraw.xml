@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.sanshao.commonui.titlebar.TitleBar
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height"
+            app:title="提现" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/left_container_margin"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="@dimen/right_container_margin"
+                    android:background="@drawable/shape_white_radius_10"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:gravity="center"
+                        android:text="可提现金额(元)"
+                        android:textColor="#ff333333"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center"
+                        android:text="1,800"
+                        android:textColor="#ffb6a57b"
+                        android:textSize="26sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginBottom="30dp"
+                        android:gravity="center"
+                        android:text="待入账：778元"
+                        android:textColor="#ff666666"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/left_container_margin"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="@dimen/right_container_margin"
+                    android:background="@drawable/shape_white_radius_10"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/ll_add_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingTop="18dp"
+                        android:paddingBottom="18dp">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_marginLeft="14dp"
+                            android:src="@drawable/cloud_logo" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="添加银行卡"
+                            android:textColor="#ff333333"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/arrow_right" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="14dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/line" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingTop="18dp"
+                        android:paddingBottom="18dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="14dp"
+                            android:text="提现金额(元)"
+                            android:textColor="#ff333333"
+                            android:textSize="14sp" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="全部提现"
+                            android:textColor="#ffb6a57b"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="18dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="14dp"
+                            android:text="¥"
+                            android:textColor="#ffb6a57b"
+                            android:textSize="26sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:inputType="number"
+                            android:text="1,800"
+                            android:textColor="#ffb6a57b"
+                            android:textSize="26sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="14dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/line" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingTop="18dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="14dp"
+                            android:layout_weight="1"
+                            android:text="服务费"
+                            android:textColor="#ff999999"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="¥0.00"
+                            android:textColor="#ff333333"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingTop="18dp"
+                        android:paddingBottom="14dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="14dp"
+                            android:layout_weight="1"
+                            android:text="费率"
+                            android:textColor="#ff999999"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="0.6%(最低¥0.60)"
+                            android:textColor="#ff333333"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/checkbox_policy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/selector_login_checked"
+                        android:checked="false"
+                        android:gravity="center"
+                        android:padding="6dp" />
+
+                    <TextView
+                        android:id="@+id/tv_withdraw_policy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="《三少医美提现协议》"
+                        android:textColor="#ffc52d2d"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_withdraw"
+                        android:layout_width="180dp"
+                        android:layout_height="38dp"
+                        android:background="@drawable/selector_btn"
+                        android:gravity="center"
+                        android:text="提现"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/left_container_margin"
+                    android:layout_marginTop="12dp"
+                    android:text="提现说明"
+                    android:textColor="#ff333333"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/left_container_margin"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="@dimen/right_container_margin"
+                    android:layout_marginBottom="20dp"
+                    android:text="1.每位用户，每日均可可提现，单次可全额提现；\n\n
+
+2.每位用户单次提现金额为最少10元/次，累计提现金额最高100,000元/月，提现金额需为整数;\n\n
+
+3.提现将在7个工作日内审批到账，如遇高峰期可能延迟到账请耐心等候，查询提现进度请前往提现明细;\n\n
+
+4.平台仅支持银行提现，每月只可以提现两次；\n\n
+
+5.提现到账查询：三少医美APP/小程序>我的>钱包>账单/进账>提现记录。若有名称为[三少医美]的账单，即为成功到账；\n\n
+
+6.若还有疑问，请联系三少医美客服15202166190/18221513892\n\n"
+                    android:textColor="#ff666666"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+</layout>
