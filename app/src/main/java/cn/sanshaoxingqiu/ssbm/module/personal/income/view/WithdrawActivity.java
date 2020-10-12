@@ -13,8 +13,13 @@ import com.exam.commonbiz.base.EmptyWebViewActivity;
 import com.exam.commonbiz.util.Constants;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityWithdrawBinding;
+import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.BankCardInfo;
+import cn.sanshaoxingqiu.ssbm.module.personal.income.view.dialog.SelectBankCardDialog;
 
 /**
  * 提现界面
@@ -57,7 +62,24 @@ public class WithdrawActivity extends BaseActivity<BaseViewModel, ActivityWithdr
         binding.llAddCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                List<BankCardInfo> bankCardInfoList = new ArrayList<>();
+                for (int i = 0; i < 5; i++) {
+                    BankCardInfo bankCardInfo = new BankCardInfo();
+                    bankCardInfoList.add(bankCardInfo);
+                }
+                SelectBankCardDialog selectBankCardDialog = new SelectBankCardDialog();
+                selectBankCardDialog.setItemClickListener(new SelectBankCardDialog.ItemClickListener() {
+                    @Override
+                    public void addNewBankCard() {
+                        
+                    }
 
+                    @Override
+                    public void onItemClick(BankCardInfo bankCardInfo) {
+
+                    }
+                });
+                selectBankCardDialog.show(context, bankCardInfoList);
             }
         });
         //提现协议

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_white_top_radius_10"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="银行卡"
+        android:textColor="#ff333333"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/left_container_margin"
+        android:layout_marginRight="@dimen/right_container_margin" />
+
+    <LinearLayout
+        android:id="@+id/ll_add_new_bankcard"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginLeft="@dimen/left_container_margin"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="@dimen/right_container_margin"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/shape_radius_10_999999"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/gray_btn_bg" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="添加一张新银行卡"
+            android:textColor="#ffffffff"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:background="@color/line" />
+
+    <TextView
+        android:id="@+id/tv_ok"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:gravity="center"
+        android:text="确认"
+        android:textColor="@color/color_666666"
+        android:textSize="13sp" />
+</LinearLayout>
