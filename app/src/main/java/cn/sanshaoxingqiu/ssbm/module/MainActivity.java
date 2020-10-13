@@ -124,14 +124,12 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         mFragmentList = new ArrayList<>();
         mIncomeMenuInfoList = new ArrayList<>();
 
-        if (BasicApplication.app.isAPPVerfySuccess){
-            IncomeMenuInfo incomeMenuInfoLive = new IncomeMenuInfo();
-            incomeMenuInfoLive.tilte = "直播";
-            incomeMenuInfoLive.iconSelect = R.drawable.tab_home_selected;
-            incomeMenuInfoLive.iconUnSelect = R.drawable.tab_home_normal;
-            mIncomeMenuInfoList.add(incomeMenuInfoLive);
-            mFragmentList.add(HomeFragment.newInstance());
-        }
+        IncomeMenuInfo incomeMenuInfoLive = new IncomeMenuInfo();
+        incomeMenuInfoLive.tilte = "直播";
+        incomeMenuInfoLive.iconSelect = R.drawable.tab_home_selected;
+        incomeMenuInfoLive.iconUnSelect = R.drawable.tab_home_normal;
+        mIncomeMenuInfoList.add(incomeMenuInfoLive);
+        mFragmentList.add(HomeFragment.newInstance());
 
         IncomeMenuInfo incomeMenuInfoSort = new IncomeMenuInfo();
         incomeMenuInfoSort.tilte = "商城";
