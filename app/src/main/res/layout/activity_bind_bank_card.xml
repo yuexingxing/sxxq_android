@@ -125,7 +125,6 @@
                             android:layout_weight="1"
                             android:background="@null"
                             android:hint="请输入借记卡好号(仅支持存蓄卡)"
-                            android:maxLength="20"
                             android:singleLine="true"
                             android:textColor="@color/color_999999"
                             android:textSize="14sp" />
@@ -163,10 +162,10 @@
                             android:textSize="14sp" />
 
                         <ImageView
+                            android:id="@+id/iv_sel_bank"
+                            android:padding="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
                             android:src="@drawable/arrow_right" />
                     </LinearLayout>
 
@@ -234,7 +233,8 @@
                             android:layout_weight="1"
                             android:background="@null"
                             android:hint="请输入银行卡绑定号码"
-                            android:maxLength="20"
+                            android:maxLength="1"
+                            android:inputType="number"
                             android:singleLine="true"
                             android:textColor="@color/color_999999"
                             android:textSize="14sp" />
@@ -283,7 +283,7 @@
                             android:background="@null"
                             android:digits="@string/identity_card"
                             android:hint="请输入验证码"
-                            android:maxLength="18"
+                            android:maxLength="6"
                             android:singleLine="true"
                             android:textColor="@color/color_999999"
                             android:textSize="14sp" />
