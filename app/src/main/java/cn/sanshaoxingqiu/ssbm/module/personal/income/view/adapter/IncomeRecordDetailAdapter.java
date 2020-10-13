@@ -23,6 +23,5 @@ public class IncomeRecordDetailAdapter extends BaseQuickAdapter<IncomeInfo.Incom
         helper.setText(R.id.tv_time, "核销时间：" + item.optr_date);
         helper.setText(R.id.tv_fee, "¥" + item.commission);
         helper.setText(R.id.tv_status, item.getCommissionStatus());
-
     }
 }
