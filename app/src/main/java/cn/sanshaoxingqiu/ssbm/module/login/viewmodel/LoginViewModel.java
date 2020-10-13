@@ -33,10 +33,13 @@ public class LoginViewModel extends ViewModel {
     private ILoginCallBack mLoginCallBack;
     private IVerfyApkModel mIVerfyApkModel;
 
+    //246:登录确认 738:绑定手机 243:修改密码 244:用户注册 219:绑定银行卡 499:网资
     public interface LoginType {
         String APP_LOGIN = "APP_LOGIN";
         String BIND_PHONE = "BIND_PHONE";
         String CHANGE_PHONE = "CHANGE_PHONE";//修改手机号时发送验证码
+
+        String BIND_BANK_CARD = "219";
     }
 
     public void setCallBack(ILoginCallBack iLoginCallBack) {
@@ -86,6 +89,36 @@ public class LoginViewModel extends ViewModel {
 
     public void getSMSCode(String mobile, String pinType) {
         LoginModel.getSMSCode(new GetCodeRequest(mobile, pinType), new OnLoadListener<GetCodeResponse>() {
+
+            @Override
+            public void onLoadStart() {
+
+            }
+
+            @Override
+            public void onLoadCompleted() {
+                Log.d(TAG, "onLoadCompleted");
+                LoadDialogMgr.getInstance().dismiss();
+            }
+
+            @Override
+            public void onLoadSucessed(BaseResponse<GetCodeResponse> t) {
+                ToastUtil.showShortToast(t.getMsg());
+                if (mLoginCallBack != null) {
+                    mLoginCallBack.onGetCode();
+                }
+            }
+
+            @Override
+            public void onLoadFailed(String errMsg) {
+                Log.d(TAG, "onLoadFailed-" + errMsg);
+                ToastUtil.showShortToast(errMsg);
+            }
+        });
+    }
+
+    public void getSMSCode2(String mobile, String code) {
+        LoginModel.getSMSCode(mobile, code, new OnLoadListener<GetCodeResponse>() {
 
             @Override
             public void onLoadStart() {

@@ -95,7 +95,7 @@ public class BindBankCardActivity extends BaseActivity<BindBankCardViewModel, Ac
                 return;
             }
             LoadDialogMgr.getInstance().show(context);
-            mLoginViewModel.getSMSCode(mPhone, LoginViewModel.LoginType.APP_LOGIN);
+            mLoginViewModel.getSMSCode2(mPhone, LoginViewModel.LoginType.BIND_BANK_CARD);
         });
 
         binding.tvStartBind.setOnClickListener(new View.OnClickListener() {

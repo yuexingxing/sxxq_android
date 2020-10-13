@@ -22,7 +22,10 @@ public interface IncomeApiService {
     Observable<BaseResponse<RankinglistBean>> rankinglist();
 
     @POST("ssxq/bank/card/binding")
-    Observable<BaseResponse<RankinglistBean>> bindingBankCard(@Body RequestBindBankCardInfo requestBindBankCardInfo);
+    Observable<BaseResponse> bindingBankCard(@Body RequestBindBankCardInfo requestBindBankCardInfo);
+
+    @GET("ssxq/bank/card/list")
+    Observable<BaseResponse<List<BankCardInfo>>> getBindedBankList();
 
     @GET("ssxq/bank/card")
     Observable<BaseResponse<List<BankCardInfo>>> getBankList();

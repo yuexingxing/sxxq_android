@@ -23,6 +23,33 @@ public class BindBankCardViewModel extends BaseViewModel {
         mIBindBankCardModel = iBindBankCardModel;
     }
 
+    public void getBindedBankList() {
+        IncomeModel.getBindedBankList(new OnLoadListener<List<BankCardInfo>>() {
+
+            @Override
+            public void onLoadStart() {
+
+            }
+
+            @Override
+            public void onLoadCompleted() {
+
+            }
+
+            @Override
+            public void onLoadSucessed(BaseResponse<List<BankCardInfo>> t) {
+                if (mIBindBankCardModel != null) {
+                    mIBindBankCardModel.returnBankList(t.getContent());
+                }
+            }
+
+            @Override
+            public void onLoadFailed(String errMsg) {
+                ToastUtil.showShortToast(errMsg);
+            }
+        });
+    }
+
     public void getBankList() {
         IncomeModel.getBankList(new OnLoadListener<List<BankCardInfo>>() {
 
@@ -38,7 +65,6 @@ public class BindBankCardViewModel extends BaseViewModel {
 
             @Override
             public void onLoadSucessed(BaseResponse<List<BankCardInfo>> t) {
-                ToastUtil.showShortToast(t.getMsg());
                 if (mIBindBankCardModel != null) {
                     mIBindBankCardModel.returnBankList(t.getContent());
                 }

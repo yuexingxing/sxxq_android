@@ -136,10 +136,6 @@ public class LaunchActivity extends BaseActivity<BaseViewModel, ActivityLaunchBi
 
         //应用市场版本比当前版本小，该版本还在审核
         if (versionCode.compareTo(currentVersionCode) < 0) {
-            Map<String, String> hostMap = new HashMap<>();
-            hostMap.put(XApi.HOST_TYPE.JAVA, HostUrl.PRO_VERIFY.JAVA);
-            hostMap.put(XApi.HOST_TYPE.NODE, HostUrl.PRO_VERIFY.NODE);
-            XApi.setHostMap(hostMap);
             BasicApplication.app.isAPPVerfySuccess = false;
             Log.d(TAG, channelName + "-审核未通过-" + verifyApkInfo.param_value);
         } else {

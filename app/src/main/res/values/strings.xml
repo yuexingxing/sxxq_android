@@ -10,10 +10,10 @@
     <string name="income">进账</string>
     <string name="rankinglist">排行榜</string>
     <string name="income_rule">规则说明</string>
-    <string name="income_recommend_code">推荐码：</string>
+    <string name="income_recommend_code">邀请码：</string>
     <string name="withdrawal">提现</string>
     <string name="total_amount">总额：</string>
-    <string name="withdrawal_amount">已提现：</string>
+    <string name="withdrawal_amount">提现中：</string>
     <string name="my_jimei">我的集美</string>
     <string name="income_record">进账记录</string>
     <string name="withdrawal_record">提现记录</string>

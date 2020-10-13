@@ -31,6 +31,11 @@ public interface LoginApiService {
     @POST("w/auth/pin")
     Observable<BaseResponse<GetCodeResponse>> getSMSCode(@Body GetCodeRequest getCodeRequest);
 
+    //获取验证码
+    @GET("ssxq/sms/send")
+    Observable<BaseResponse<GetCodeResponse>> getSMSCode(@Query("phoneNumber") String phoneNumber,
+                                                         @Query("code") String code);
+
     //验证码登录
     @POST("w/auth/appPhoneLogin")
     Observable<BaseResponse<LoginResponse>> login(@Body LoginRequest loginRequest);

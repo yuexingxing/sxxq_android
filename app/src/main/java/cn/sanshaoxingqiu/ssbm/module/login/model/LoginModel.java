@@ -82,6 +82,36 @@ public class LoginModel {
                 });
     }
 
+    public static void getSMSCode(String phone, String code, final OnLoadListener onLoadListener) {
+        XApi.get(LoginApiService.class, XApi.HOST_TYPE.JAVA)
+                .getSMSCode(phone, code)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver() {
+
+                    @Override
+                    public void onStart() {
+                        onLoadListener.onLoadStart();
+                    }
+
+                    @Override
+                    public void onSuccess(BaseResponse response) {
+                        onLoadListener.onLoadSucessed(response);
+                    }
+
+                    @Override
+                    public void onError(ExceptionHandle.ResponeThrowable responeThrowable) {
+                        onLoadListener.onLoadFailed(responeThrowable.message);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        onLoadListener.onLoadCompleted();
+                    }
+
+                });
+    }
+
     public static void login(LoginRequest loginRequest, final OnLoadListener onLoadListener) {
         XApi.get(LoginApiService.class, XApi.HOST_TYPE.NODE)
                 .login(loginRequest)

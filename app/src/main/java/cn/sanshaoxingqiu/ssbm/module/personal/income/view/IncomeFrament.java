@@ -4,17 +4,15 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseFragment;
+import com.exam.commonbiz.base.EmptyWebViewActivity;
+import com.exam.commonbiz.util.Constants;
+import com.exam.commonbiz.util.ToastUtil;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.FragmentIncomeBinding;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.IncomeBean;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.model.IncomeViewCallBack;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.viewmodel.IncomeViewModel;
-import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.ExerciseActivity;
-
-import com.exam.commonbiz.base.EmptyWebViewActivity;
-import com.exam.commonbiz.util.Constants;
-import com.exam.commonbiz.util.ToastUtil;
 
 /**
  * 进账主页
@@ -39,7 +37,7 @@ public class IncomeFrament extends BaseFragment<IncomeViewModel, FragmentIncomeB
         binding.viewWithdrawalRecord.setOnClickListener(this);
 
         mViewModel.setCallBack(this);
-//        mViewModel.requestIncomeInfo();
+        mViewModel.requestIncomeInfo();
     }
 
     @Override
@@ -57,11 +55,10 @@ public class IncomeFrament extends BaseFragment<IncomeViewModel, FragmentIncomeB
         if (bean == null) {
             return;
         }
-        binding.incomeId.setText("ID：" + (bean.id == null ? "" : bean.id));
-        binding.incomeRecommendCode.setText(getString(R.string.income_recommend_code) + (bean.code == null ? "" : bean.code));
-        binding.canWithdrawalAmount.setText(bean.canWithdrawalAmount == null ? "" : bean.canWithdrawalAmount);
-        binding.totalAmount.setText(getString(R.string.total_amount) + (bean.totalAmount == null ? "" : bean.totalAmount));
-        binding.alreadyWithdrawalAmount.setText(getString(R.string.withdrawal_amount) + (bean.alreadyWithdrawalAmount == null ? "" : bean.alreadyWithdrawalAmount));
+        binding.incomeId.setText(getString(R.string.income_recommend_code) + bean.invitation_code);
+        binding.canWithdrawalAmount.setText(bean.used_price + "");
+        binding.totalAmount.setText(getString(R.string.total_amount) + bean.commission);
+        binding.alreadyWithdrawalAmount.setText(getString(R.string.withdrawal_amount) + bean.underway);
     }
 
     @Override

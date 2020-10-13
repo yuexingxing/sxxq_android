@@ -82,10 +82,10 @@
                         android:paddingBottom="18dp">
 
                         <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="14dp"
-                            android:src="@drawable/cloud_logo" />
+                            android:src="@drawable/icon_bankcard" />
 
                         <TextView
                             android:layout_width="0dp"

@@ -8,6 +8,7 @@ import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.base.BaseViewModel;
 import com.exam.commonbiz.base.EmptyWebViewActivity;
 import com.exam.commonbiz.util.Constants;
+import com.exam.commonbiz.util.ContainerUtil;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 
 import java.util.ArrayList;
@@ -16,7 +17,9 @@ import java.util.List;
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityWithdrawBinding;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.BankCardInfo;
+import cn.sanshaoxingqiu.ssbm.module.personal.income.model.IBindBankCardModel;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.view.dialog.SelectBankCardDialog;
+import cn.sanshaoxingqiu.ssbm.module.personal.income.viewmodel.BindBankCardViewModel;
 
 /**
  * 提现界面
@@ -24,7 +27,9 @@ import cn.sanshaoxingqiu.ssbm.module.personal.income.view.dialog.SelectBankCardD
  * @Author yuexingxing
  * @time 2020/10/12
  */
-public class WithdrawActivity extends BaseActivity<BaseViewModel, ActivityWithdrawBinding> {
+public class WithdrawActivity extends BaseActivity<BindBankCardViewModel, ActivityWithdrawBinding> implements IBindBankCardModel {
+
+    private List<BankCardInfo> mBankCardInfoList;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, WithdrawActivity.class);
@@ -39,6 +44,7 @@ public class WithdrawActivity extends BaseActivity<BaseViewModel, ActivityWithdr
     @Override
     public void initData() {
 
+        mViewModel.setBindBankCardModel(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View view) {
@@ -59,10 +65,8 @@ public class WithdrawActivity extends BaseActivity<BaseViewModel, ActivityWithdr
         binding.llAddCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                List<BankCardInfo> bankCardInfoList = new ArrayList<>();
-                for (int i = 0; i < 5; i++) {
-                    BankCardInfo bankCardInfo = new BankCardInfo();
-                    bankCardInfoList.add(bankCardInfo);
+                if (ContainerUtil.isEmpty(mBankCardInfoList)) {
+                    return;
                 }
                 SelectBankCardDialog selectBankCardDialog = new SelectBankCardDialog();
                 selectBankCardDialog.setItemClickListener(new SelectBankCardDialog.ItemClickListener() {
@@ -76,7 +80,7 @@ public class WithdrawActivity extends BaseActivity<BaseViewModel, ActivityWithdr
 
                     }
                 });
-                selectBankCardDialog.show(context, bankCardInfoList);
+                selectBankCardDialog.show(context, mBankCardInfoList);
             }
         });
         //提现协议
@@ -100,5 +104,29 @@ public class WithdrawActivity extends BaseActivity<BaseViewModel, ActivityWithdr
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mViewModel.getBindedBankList();
+    }
+
+    @Override
+    public void returnBankList(List<BankCardInfo> bankCardInfoList) {
+        if (ContainerUtil.isEmpty(bankCardInfoList)) {
+            return;
+        }
+        mBankCardInfoList = bankCardInfoList;
+    }
+
+    @Override
+    public void onBindBankCardSuccess() {
+
+    }
+
+    @Override
+    public void onBindBankCardFailed() {
+
     }
 }
