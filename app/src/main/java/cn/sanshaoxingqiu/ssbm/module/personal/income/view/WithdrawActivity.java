@@ -97,7 +97,7 @@ public class WithdrawActivity extends BaseActivity<BindBankCardViewModel, Activi
                 if (mIncomeBean == null) {
                     return;
                 }
-                binding.edtWithdrawFee.setText(mIncomeBean.used_price + "");
+                binding.edtWithdrawFee.setText((int) mIncomeBean.used_price + "");
             }
         });
 
