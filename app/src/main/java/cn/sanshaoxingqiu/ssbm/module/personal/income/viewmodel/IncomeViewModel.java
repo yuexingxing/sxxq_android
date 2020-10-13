@@ -106,7 +106,6 @@ public class IncomeViewModel extends BaseViewModel {
 
             @Override
             public void onLoadFailed(String errMsg) {
-                ToastUtil.showShortToast(errMsg);
                 if (mIncomeViewCallBack != null) {
                     mIncomeViewCallBack.returnIncomeRecordList(null);
                 }
@@ -136,7 +135,9 @@ public class IncomeViewModel extends BaseViewModel {
 
             @Override
             public void onLoadFailed(String errMsg) {
-                ToastUtil.showShortToast(errMsg);
+                if (mIncomeViewCallBack != null) {
+                    mIncomeViewCallBack.returnWithdrawRecordList(null);
+                }
             }
         });
     }

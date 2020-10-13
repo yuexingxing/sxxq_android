@@ -33,6 +33,9 @@
         tools:replace="allowBackup,icon,theme,label"
         tools:targetApi="m">
         <activity
+            android:name=".module.personal.income.view.WithdrawRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".module.personal.income.view.IncomeRecordActivity"
             android:screenOrientation="portrait" />
         <activity

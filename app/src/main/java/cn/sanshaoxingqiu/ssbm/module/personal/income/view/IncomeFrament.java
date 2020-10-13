@@ -93,6 +93,7 @@ public class IncomeFrament extends BaseFragment<IncomeViewModel, FragmentIncomeB
                 IncomeRecordActivity.start(context);
                 break;
             case R.id.view_withdrawal_record:
+                WithdrawRecordActivity.start(context);
                 break;
         }
     }
