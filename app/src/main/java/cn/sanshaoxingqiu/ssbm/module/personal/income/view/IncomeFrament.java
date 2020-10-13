@@ -70,6 +70,11 @@ public class IncomeFrament extends BaseFragment<IncomeViewModel, FragmentIncomeB
     }
 
     @Override
+    public void withdraw() {
+
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.income_rule:

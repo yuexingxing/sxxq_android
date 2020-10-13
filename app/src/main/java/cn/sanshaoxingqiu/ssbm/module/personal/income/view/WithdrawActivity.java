@@ -2,24 +2,30 @@ package cn.sanshaoxingqiu.ssbm.module.personal.income.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
-import com.exam.commonbiz.base.BaseViewModel;
 import com.exam.commonbiz.base.EmptyWebViewActivity;
 import com.exam.commonbiz.util.Constants;
 import com.exam.commonbiz.util.ContainerUtil;
+import com.exam.commonbiz.util.GlideUtil;
+import com.exam.commonbiz.util.ToastUtil;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityWithdrawBinding;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.BankCardInfo;
+import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.IncomeBean;
+import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.WithdrawRequest;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.model.IBindBankCardModel;
+import cn.sanshaoxingqiu.ssbm.module.personal.income.model.IncomeViewCallBack;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.view.dialog.SelectBankCardDialog;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.viewmodel.BindBankCardViewModel;
+import cn.sanshaoxingqiu.ssbm.module.personal.income.viewmodel.IncomeViewModel;
 
 /**
  * 提现界面
@@ -27,9 +33,12 @@ import cn.sanshaoxingqiu.ssbm.module.personal.income.viewmodel.BindBankCardViewM
  * @Author yuexingxing
  * @time 2020/10/12
  */
-public class WithdrawActivity extends BaseActivity<BindBankCardViewModel, ActivityWithdrawBinding> implements IBindBankCardModel {
+public class WithdrawActivity extends BaseActivity<BindBankCardViewModel, ActivityWithdrawBinding> implements IBindBankCardModel, IncomeViewCallBack, View.OnClickListener {
 
     private List<BankCardInfo> mBankCardInfoList;
+    private IncomeViewModel mIncomeViewModel;
+    private String mBankCardId;
+    private IncomeBean mIncomeBean;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, WithdrawActivity.class);
@@ -43,6 +52,9 @@ public class WithdrawActivity extends BaseActivity<BindBankCardViewModel, Activi
 
     @Override
     public void initData() {
+
+        mIncomeViewModel = new IncomeViewModel();
+        mIncomeViewModel.setCallBack(this);
 
         mViewModel.setBindBankCardModel(this);
         binding.titleBar.setOnTitleBarListener(new OnTitleBarListener() {
@@ -61,28 +73,9 @@ public class WithdrawActivity extends BaseActivity<BindBankCardViewModel, Activi
 
             }
         });
-        //添加银行卡
-        binding.llAddCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (ContainerUtil.isEmpty(mBankCardInfoList)) {
-                    return;
-                }
-                SelectBankCardDialog selectBankCardDialog = new SelectBankCardDialog();
-                selectBankCardDialog.setItemClickListener(new SelectBankCardDialog.ItemClickListener() {
-                    @Override
-                    public void addNewBankCard() {
-                        BindBankCardActivity.start(context);
-                    }
+        binding.llAddCard.setOnClickListener(this);
+        binding.llBankCard.setOnClickListener(this);
 
-                    @Override
-                    public void onItemClick(BankCardInfo bankCardInfo) {
-
-                    }
-                });
-                selectBankCardDialog.show(context, mBankCardInfoList);
-            }
-        });
         //提现协议
         binding.tvWithdrawPolicy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,16 +87,21 @@ public class WithdrawActivity extends BaseActivity<BindBankCardViewModel, Activi
         binding.tvWithdraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startWithdraw();
             }
         });
         //全部提现
         binding.tvWithdrawAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (mIncomeBean == null) {
+                    return;
+                }
+                binding.edtWithdrawFee.setText(mIncomeBean.used_price + "");
             }
         });
+
+        mIncomeViewModel.requestIncomeInfo();
     }
 
     @Override
@@ -112,12 +110,60 @@ public class WithdrawActivity extends BaseActivity<BindBankCardViewModel, Activi
         mViewModel.getBindedBankList();
     }
 
+    private void startWithdraw() {
+        if (mIncomeBean == null) {
+            return;
+        }
+
+        if (TextUtils.isEmpty(mBankCardId)) {
+            ToastUtil.showShortToast("请选择银行卡");
+            return;
+        }
+
+        String withdrawFeeStr = binding.edtWithdrawFee.getText().toString();
+        if (TextUtils.isEmpty(withdrawFeeStr)) {
+            ToastUtil.showShortToast("请输入提现金额");
+            return;
+        }
+
+        int withDraw = Integer.parseInt(withdrawFeeStr);
+        if (withDraw == 0) {
+            ToastUtil.showShortToast("提现金额不能为0");
+            return;
+        }
+        if (withDraw > mIncomeBean.used_price) {
+            ToastUtil.showShortToast("提现金额不能超过可提现金额");
+            return;
+        }
+
+        WithdrawRequest withdrawRequest = new WithdrawRequest();
+        withdrawRequest.withdraw_amount = withDraw;
+        withdrawRequest.withdraw_bank_card_id = mBankCardId;
+        mIncomeViewModel.withdraw(withdrawRequest);
+    }
+
+    private void setmBankCardInfo(BankCardInfo bankCardInfo) {
+
+        mBankCardId = bankCardInfo.mem_bank_card_id;
+        binding.tvBankName.setText(bankCardInfo.bank_name);
+        binding.tvBankCardNo.setText(bankCardInfo.bank_card_number);
+        GlideUtil.loadImage(bankCardInfo.bank_card_icon, binding.ivBanIcon);
+    }
+
     @Override
     public void returnBankList(List<BankCardInfo> bankCardInfoList) {
         if (ContainerUtil.isEmpty(bankCardInfoList)) {
+            binding.llAddCard.setVisibility(View.VISIBLE);
+            binding.llBankCard.setVisibility(View.GONE);
             return;
         }
         mBankCardInfoList = bankCardInfoList;
+        BankCardInfo bankCardInfo = mBankCardInfoList.get(0);
+        bankCardInfo.checked = true;
+        setmBankCardInfo(bankCardInfo);
+
+        binding.llAddCard.setVisibility(View.GONE);
+        binding.llBankCard.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -128,5 +174,68 @@ public class WithdrawActivity extends BaseActivity<BindBankCardViewModel, Activi
     @Override
     public void onBindBankCardFailed() {
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.ll_add_card || view.getId() == R.id.ll_bank_card) {
+            if (ContainerUtil.isEmpty(mBankCardInfoList)) {
+                return;
+            }
+            SelectBankCardDialog selectBankCardDialog = new SelectBankCardDialog();
+            selectBankCardDialog.setItemClickListener(new SelectBankCardDialog.ItemClickListener() {
+                @Override
+                public void addNewBankCard() {
+                    BindBankCardActivity.start(context);
+                }
+
+                @Override
+                public void onItemClick(BankCardInfo bankCardInfo) {
+                    setmBankCardInfo(bankCardInfo);
+                }
+            });
+            selectBankCardDialog.show(context, mBankCardInfoList);
+        }
+    }
+
+    @Override
+    public void requestIncomeInfoSucc(IncomeBean bean) {
+        if (bean == null) {
+            return;
+        }
+
+        mIncomeBean = bean;
+        binding.tvFee1.setText(bean.used_price + "");
+        binding.tvFee2.setText("待入账：" + bean.underway);
+    }
+
+    @Override
+    public void requestIncomeInfoFail(String msg) {
+
+    }
+
+    @Override
+    public void withdraw() {
+        finish();
+    }
+
+    @Override
+    public LoadingDialog createLoadingDialog() {
+        return null;
+    }
+
+    @Override
+    public LoadingDialog createLoadingDialog(String text) {
+        return null;
+    }
+
+    @Override
+    public boolean visibility() {
+        return false;
+    }
+
+    @Override
+    public boolean viewFinished() {
+        return false;
     }
 }

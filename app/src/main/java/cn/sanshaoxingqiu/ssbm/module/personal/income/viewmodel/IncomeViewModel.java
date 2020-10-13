@@ -8,41 +8,73 @@ import com.exam.commonbiz.util.ToastUtil;
 
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.BankCardInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.IncomeBean;
+import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.WithdrawRequest;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.model.IBindBankCardModel;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.model.IncomeModel;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.model.IncomeViewCallBack;
 
 public class IncomeViewModel extends BaseViewModel {
 
-    private IncomeViewCallBack callBack;
-    private IBindBankCardModel mIBindBankCardModel;
+    private IncomeViewCallBack mIncomeViewCallBack;
 
     public IncomeViewModel() {
     }
 
     public void setCallBack(IncomeViewCallBack callBack) {
-        this.callBack = callBack;
-    }
-
-    public void setBindBankCardModel(IBindBankCardModel iBindBankCardModel) {
-        mIBindBankCardModel = iBindBankCardModel;
+        this.mIncomeViewCallBack = callBack;
     }
 
     public void requestIncomeInfo() {
-        IncomeModel.requestIncomeInfo(new SimpleLoadCallBack<IncomeBean>(callBack) {
+        IncomeModel.requestIncomeInfo(new OnLoadListener<IncomeBean>() {
 
             @Override
-            public void onLoadSucessed(BaseResponse<IncomeBean> bean) {
-                if (callBack != null) {
-                    callBack.requestIncomeInfoSucc(bean.getContent());
+            public void onLoadStart() {
+
+            }
+
+            @Override
+            public void onLoadCompleted() {
+
+            }
+
+            @Override
+            public void onLoadSucessed(BaseResponse<IncomeBean> t) {
+                if (mIncomeViewCallBack != null) {
+                    mIncomeViewCallBack.requestIncomeInfoSucc(t.getContent());
                 }
             }
 
             @Override
             public void onLoadFailed(String errMsg) {
-                if (callBack != null) {
-                    callBack.requestIncomeInfoFail(errMsg);
+                ToastUtil.showShortToast(errMsg);
+            }
+        });
+    }
+
+    public void withdraw(WithdrawRequest withdrawRequest) {
+        IncomeModel.withdraw(withdrawRequest, new OnLoadListener() {
+
+            @Override
+            public void onLoadStart() {
+
+            }
+
+            @Override
+            public void onLoadCompleted() {
+
+            }
+
+            @Override
+            public void onLoadSucessed(BaseResponse t) {
+                ToastUtil.showShortToast(t.getMsg());
+                if (t.isOk() && mIncomeViewCallBack != null) {
+                    mIncomeViewCallBack.withdraw();
                 }
+            }
+
+            @Override
+            public void onLoadFailed(String errMsg) {
+                ToastUtil.showShortToast(errMsg);
             }
         });
     }

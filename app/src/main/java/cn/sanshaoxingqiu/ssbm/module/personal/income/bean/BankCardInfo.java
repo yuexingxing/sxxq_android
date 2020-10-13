@@ -2,6 +2,7 @@ package cn.sanshaoxingqiu.ssbm.module.personal.income.bean;
 
 public class BankCardInfo {
 
+    public String mem_bank_card_id;
     public String bank_name;
     public String bank_card_id;
     public String bank_card_icon;

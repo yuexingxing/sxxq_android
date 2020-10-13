@@ -9,6 +9,7 @@ import java.util.List;
 
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.BankCardInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.RequestBindBankCardInfo;
+import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.WithdrawRequest;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.model.IBindBankCardModel;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.model.IncomeModel;
 

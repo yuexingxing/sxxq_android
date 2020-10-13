@@ -43,6 +43,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv_fee1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -53,6 +54,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv_fee2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
@@ -101,6 +103,51 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
+                            android:src="@drawable/arrow_right" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_bank_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingTop="18dp"
+                        android:paddingBottom="18dp"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <ImageView
+                            android:id="@+id/iv_ban_icon"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:layout_marginLeft="14dp"
+                            android:src="@drawable/icon_bankcard" />
+
+                        <TextView
+                            android:id="@+id/tv_bank_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="中国银行"
+                            android:textColor="#ff333333"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_bank_card_no"
+                            android:layout_width="0dp"
+                            android:layout_height="16dp"
+                            android:layout_weight="1"
+                            android:gravity="right|center_vertical"
+                            android:text="6543 **** **** 0987"
+                            android:textColor="@color/color_666666"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
                             android:src="@drawable/arrow_right" />
                     </LinearLayout>
 
@@ -159,13 +206,14 @@
                             android:textStyle="bold" />
 
                         <EditText
+                            android:id="@+id/edt_withdraw_fee"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
                             android:background="@null"
                             android:inputType="number"
-                            android:text="1,800"
+                            android:text="0"
                             android:textColor="#ffb6a57b"
                             android:textSize="26sp"
                             android:textStyle="bold" />
@@ -290,17 +338,16 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="@dimen/right_container_margin"
                     android:layout_marginBottom="20dp"
-                    android:text="1.每位用户，每日均可可提现，单次可全额提现；\n\n
-
-2.每位用户单次提现金额为最少10元/次，累计提现金额最高100,000元/月，提现金额需为整数;\n\n
-
-3.提现将在7个工作日内审批到账，如遇高峰期可能延迟到账请耐心等候，查询提现进度请前往提现明细;\n\n
-
-4.平台仅支持银行提现，每月只可以提现两次；\n\n
-
-5.提现到账查询：三少医美APP/小程序>我的>钱包>账单/进账>提现记录。若有名称为[三少医美]的账单，即为成功到账；\n\n
-
-6.若还有疑问，请联系三少医美客服15202166190/18221513892\n\n"
+                    android:text="提现说明\n
+1.每位用户，每日均可可提现，单次可全额提现；\n
+2.每位用户单次提现金额为最少10元/次，累计提现金额最高为
+100000元/月，提现金额需为整数;\n
+3.提现将在7个工作日内审批到账，如遇高峰期，可能延迟到账，
+请耐心等候，查询提现进度请前往提现明细;\n
+4.平台仅支持银行提现，每月只可以提现两次；\n
+5.提现到账查询：三少医美APP/小程序>我的>钱包>账单/进账>提
+现记录。若有名称为[三少医美]的账单，即为成功到账；\n
+6.若还有疑问，请联系三少医美客服：400-7163188\n\n"
                     android:textColor="#ff666666"
                     android:textSize="12sp" />
 

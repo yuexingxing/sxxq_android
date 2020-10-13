@@ -8,6 +8,7 @@ import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.BankCardInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.IncomeBean;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.RankinglistBean;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.RequestBindBankCardInfo;
+import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.WithdrawRequest;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -29,4 +30,7 @@ public interface IncomeApiService {
 
     @GET("ssxq/bank/card")
     Observable<BaseResponse<List<BankCardInfo>>> getBankList();
+
+    @POST("ssxq/withdraw/apply/for")
+    Observable<BaseResponse> withdraw(@Body WithdrawRequest withdrawRequest);
 }

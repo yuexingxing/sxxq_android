@@ -9,4 +9,5 @@ public interface IncomeViewCallBack extends BaseViewCallBack {
 
    void requestIncomeInfoFail(String msg);
 
+   void withdraw();
 }
