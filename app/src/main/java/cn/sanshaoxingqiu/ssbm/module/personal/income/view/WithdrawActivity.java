@@ -1,10 +1,7 @@
 package cn.sanshaoxingqiu.ssbm.module.personal.income.view;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
@@ -18,7 +15,6 @@ import java.util.List;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityWithdrawBinding;
-import cn.sanshaoxingqiu.ssbm.module.order.view.BindBankCardActivity;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.BankCardInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.view.dialog.SelectBankCardDialog;
 

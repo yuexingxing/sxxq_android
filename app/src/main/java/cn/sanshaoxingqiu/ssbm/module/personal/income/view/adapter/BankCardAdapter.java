@@ -1,4 +1,4 @@
-package cn.sanshaoxingqiu.ssbm.module.personal.income.view;
+package cn.sanshaoxingqiu.ssbm.module.personal.income.view.adapter;
 
 import android.view.View;
 import android.widget.CheckBox;
@@ -31,7 +31,7 @@ public class BankCardAdapter extends BaseQuickAdapter<BankCardInfo, BaseViewHold
 
     @Override
     protected void convert(BaseViewHolder helper, BankCardInfo item) {
-        helper.setText(R.id.tv_name, helper.getAdapterPosition() + "-" + item.name);
+        helper.setText(R.id.tv_name, helper.getAdapterPosition() + "-" + item.bank_name);
         CheckBox checkBox = helper.getView(R.id.checkbox);
         if (item.checked) {
             checkBox.setChecked(true);

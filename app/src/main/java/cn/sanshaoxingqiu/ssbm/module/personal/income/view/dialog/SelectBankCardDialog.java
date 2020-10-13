@@ -8,16 +8,14 @@ import android.widget.LinearLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.exam.commonbiz.util.ContainerUtil;
-import com.exam.commonbiz.util.ToastUtil;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.List;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.BankCardInfo;
-import cn.sanshaoxingqiu.ssbm.module.personal.income.view.BankCardAdapter;
+import cn.sanshaoxingqiu.ssbm.module.personal.income.view.adapter.BankCardAdapter;
 
 /**
  * 选择银行卡

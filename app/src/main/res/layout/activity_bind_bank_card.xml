@@ -48,6 +48,7 @@
                             android:textStyle="bold" />
 
                         <EditText
+                            android:id="@+id/edt_name"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
@@ -80,6 +81,7 @@
                             android:textStyle="bold" />
 
                         <EditText
+                            android:id="@+id/edt_id"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_marginRight="10dp"
@@ -119,6 +121,7 @@
                             android:textStyle="bold" />
 
                         <EditText
+                            android:id="@+id/edt_bank_card_no"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
@@ -150,6 +153,7 @@
                             android:textStyle="bold" />
 
                         <EditText
+                            android:id="@+id/edt_bank_name"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -189,6 +193,7 @@
                             android:textStyle="bold" />
 
                         <EditText
+                            android:id="@+id/edt_open_bank"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
@@ -234,7 +239,7 @@
                             android:layout_weight="1"
                             android:background="@null"
                             android:hint="请输入银行卡绑定号码"
-                            android:maxLength="1"
+                            android:maxLength="11"
                             android:inputType="number"
                             android:singleLine="true"
                             android:textColor="@color/color_999999"
@@ -277,6 +282,7 @@
                             android:textStyle="bold" />
 
                         <EditText
+                            android:id="@+id/edt_code"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_marginRight="10dp"
@@ -298,7 +304,7 @@
                     android:gravity="center_horizontal">
 
                     <TextView
-                        android:id="@+id/tv_withdraw"
+                        android:id="@+id/tv_start_bind"
                         android:layout_width="180dp"
                         android:layout_height="38dp"
                         android:background="@drawable/selector_btn"

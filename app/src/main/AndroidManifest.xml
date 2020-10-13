@@ -32,7 +32,7 @@
         android:usesCleartextTraffic="true"
         tools:replace="allowBackup,icon,theme,label"
         tools:targetApi="m">
-        <activity android:name=".module.order.view.BindBankCardActivity"></activity>
+        <activity android:name=".module.personal.income.view.BindBankCardActivity"></activity>
         <activity android:name=".module.personal.income.view.WithdrawActivity" />
         <activity
             android:name=".module.shoppingcenter.view.ExerciseActivity"
