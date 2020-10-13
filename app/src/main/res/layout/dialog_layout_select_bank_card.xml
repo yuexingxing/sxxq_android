@@ -42,7 +42,7 @@
         <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:background="@drawable/gray_btn_bg" />
+            android:background="@drawable/icon_jia" />
 
         <TextView
             android:layout_width="wrap_content"

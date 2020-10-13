@@ -1,63 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ll_top"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="12dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal">
 
-    <FrameLayout
+    <LinearLayout
+        android:id="@+id/ll_bg"
         android:layout_width="match_parent"
-        android:layout_height="56dp">
+        android:layout_height="56dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/iv_bank_bg"
-            app:riv_corner_radius="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/shape_radius_10_999999" />
+        <ImageView
+            android:id="@+id/iv_bank_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginLeft="12dp"
+            android:src="@drawable/icon_aboc" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:text="中国银行"
+            android:textColor="#ffffffff"
+            android:textSize="14sp" />
+
+        <FrameLayout
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/iv_bank_icon"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_marginLeft="12dp"
-                android:src="@drawable/icon_aboc" />
-
-            <TextView
-                android:id="@+id/tv_name"
+                android:id="@+id/iv_signet_bg"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:text="中国银行"
-                android:textColor="#ffffffff"
-                android:textSize="14sp" />
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:layout_marginRight="20dp"
+                android:scaleType="centerCrop" />
 
             <TextView
                 android:id="@+id/tv_bank_no"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:gravity="right|center_vertical"
                 android:text="6543 **** **** 0987"
                 android:textColor="#ffffffff"
                 android:textSize="14sp" />
+        </FrameLayout>
 
-            <CheckBox
-                android:id="@+id/checkbox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:button="@drawable/selector_bank_card"
-                android:enabled="false" />
-        </LinearLayout>
-    </FrameLayout>
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:button="@drawable/selector_bank_card"
+            android:enabled="false" />
+    </LinearLayout>
 </LinearLayout>

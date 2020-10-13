@@ -47,13 +47,14 @@ public class BankCardAdapter extends BaseQuickAdapter<BankCardInfo, BaseViewHold
         }
 
         GlideUtil.loadImage(item.bank_card_icon, helper.getView(R.id.iv_bank_icon));
+        GlideUtil.loadImage(item.bank_signet, helper.getView(R.id.iv_signet_bg));
 
-        RoundedImageView roundedImageView = helper.getView(R.id.iv_bank_bg);
         GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setShape(GradientDrawable.RECTANGLE);//形状
         gradientDrawable.setCornerRadius(ScreenUtil.dp2px(helper.itemView.getContext(), 10));//设置圆角Radius
         gradientDrawable.setColor(Color.parseColor(item.bank_color));
-        roundedImageView.setBackground(gradientDrawable);
+
+        helper.getView(R.id.ll_bg).setBackground(gradientDrawable);
 
         helper.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
