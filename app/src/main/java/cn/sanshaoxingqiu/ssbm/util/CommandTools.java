@@ -232,4 +232,22 @@ public class CommandTools {
         String SerialNumber = android.os.Build.SERIAL;
         return SerialNumber;
     }
+
+    /**
+     * 获取APP版本
+     *
+     * @return APP版本
+     */
+    public static String getAppVersion(Context context) {
+        PackageManager packageManager = context.getPackageManager();
+        PackageInfo packInfo;
+        String version = "";
+        try {
+            packInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+            version = packInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return version;
+    }
 }
