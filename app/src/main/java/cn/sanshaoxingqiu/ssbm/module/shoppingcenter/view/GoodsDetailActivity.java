@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.exam.commonbiz.base.BaseActivity;
 import com.exam.commonbiz.base.BasicApplication;
+import com.exam.commonbiz.base.EmptyWebViewActivity;
 import com.exam.commonbiz.bean.UserInfo;
 import com.exam.commonbiz.util.BitmapUtil;
 import com.exam.commonbiz.util.Constants;
@@ -215,13 +216,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailViewModel, Acti
         layoutParams.height = videoHeight;
         binding.homeBannerLayout.setLayoutParams(layoutParams);
         binding.ivCallPhone.setOnClickListener(view -> CommandTools.showCall(context));
-        if (BasicApplication.app.isAPPVerfySuccess) {
-            binding.llHospital.setVisibility(View.VISIBLE);
-            binding.ivRecommendReward.setVisibility(View.VISIBLE);
-        } else {
-            binding.llHospital.setVisibility(View.GONE);
-            binding.ivRecommendReward.setVisibility(View.GONE);
-        }
+        binding.llHospital.setOnClickListener(view -> EmptyWebViewActivity.start(context, "", Constants.hospitalUrl));
         mViewModel.getGoodsDetail(context, mSartiId);
     }
 

@@ -113,7 +113,7 @@ public class AboutUsActivity extends BaseActivity<AboutUsViewModel, ActivityAbou
             }
         });
 
-        mAboutUsAdapter.addData(new AgreementInfo("营业执照", Constants.liveServiceUrl));
+        mAboutUsAdapter.addData(new AgreementInfo("营业执照", Constants.businessUrl));
         mAboutUsAdapter.addData(new AgreementInfo("三少变美直播服务协议", Constants.liveServiceUrl));
         mAboutUsAdapter.addData(new AgreementInfo("三少变美用户服务协议", Constants.userPolicyUrl));
         mAboutUsAdapter.addData(new AgreementInfo("三少变美隐私协议", Constants.userSecretUrl));
