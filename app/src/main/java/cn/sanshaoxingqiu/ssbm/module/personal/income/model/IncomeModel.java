@@ -163,4 +163,64 @@ public class IncomeModel {
 
                 });
     }
+
+    public static void getIncomeList(OnLoadListener onLoadListener) {
+        XApi.get(IncomeApiService.class, XApi.HOST_TYPE.JAVA)
+                .getIncomeList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver() {
+
+                    @Override
+                    public void onStart() {
+                        onLoadListener.onLoadStart();
+                    }
+
+                    @Override
+                    public void onSuccess(BaseResponse response) {
+                        onLoadListener.onLoadSucessed(response);
+                    }
+
+                    @Override
+                    public void onError(ExceptionHandle.ResponeThrowable responeThrowable) {
+                        onLoadListener.onLoadFailed(responeThrowable.message);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        onLoadListener.onLoadCompleted();
+                    }
+
+                });
+    }
+
+    public static void getWithDrawList(OnLoadListener onLoadListener) {
+        XApi.get(IncomeApiService.class, XApi.HOST_TYPE.JAVA)
+                .getWithDrawList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver() {
+
+                    @Override
+                    public void onStart() {
+                        onLoadListener.onLoadStart();
+                    }
+
+                    @Override
+                    public void onSuccess(BaseResponse response) {
+                        onLoadListener.onLoadSucessed(response);
+                    }
+
+                    @Override
+                    public void onError(ExceptionHandle.ResponeThrowable responeThrowable) {
+                        onLoadListener.onLoadFailed(responeThrowable.message);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        onLoadListener.onLoadCompleted();
+                    }
+
+                });
+    }
 }

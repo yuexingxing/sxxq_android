@@ -32,8 +32,15 @@
         android:usesCleartextTraffic="true"
         tools:replace="allowBackup,icon,theme,label"
         tools:targetApi="m">
-        <activity android:name=".module.personal.income.view.BindBankCardActivity"></activity>
-        <activity android:name=".module.personal.income.view.WithdrawActivity" />
+        <activity
+            android:name=".module.personal.income.view.IncomeRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.personal.income.view.BindBankCardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.personal.income.view.WithdrawActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".module.shoppingcenter.view.ExerciseActivity"
             android:screenOrientation="portrait" />

@@ -1,16 +1,18 @@
 package cn.sanshaoxingqiu.ssbm.module.personal.income.view;
 
-import android.text.TextUtils;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseFragment;
 import com.exam.commonbiz.base.EmptyWebViewActivity;
 import com.exam.commonbiz.util.Constants;
-import com.exam.commonbiz.util.ToastUtil;
+
+import java.util.List;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.FragmentIncomeBinding;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.IncomeBean;
+import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.IncomeInfo;
+import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.WithdrawInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.model.IncomeViewCallBack;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.viewmodel.IncomeViewModel;
 
@@ -62,15 +64,17 @@ public class IncomeFrament extends BaseFragment<IncomeViewModel, FragmentIncomeB
     }
 
     @Override
-    public void requestIncomeInfoFail(String msg) {
-        if (TextUtils.isEmpty(msg)) {
-            msg = getString(R.string.request_data_fail);
-        }
-        ToastUtil.showShortToast(msg);
+    public void withdraw() {
+
     }
 
     @Override
-    public void withdraw() {
+    public void returnIncomeRecordList(List<IncomeInfo> incomeInfoList) {
+
+    }
+
+    @Override
+    public void returnWithdrawRecordList(List<WithdrawInfo> withdrawInfoList) {
 
     }
 
@@ -86,6 +90,7 @@ public class IncomeFrament extends BaseFragment<IncomeViewModel, FragmentIncomeB
             case R.id.view_my_jimei:
                 break;
             case R.id.view_income_record:
+                IncomeRecordActivity.start(context);
                 break;
             case R.id.view_withdrawal_record:
                 break;

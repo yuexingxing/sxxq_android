@@ -20,6 +20,8 @@ import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.databinding.ActivityWithdrawBinding;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.BankCardInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.IncomeBean;
+import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.IncomeInfo;
+import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.WithdrawInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.WithdrawRequest;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.model.IBindBankCardModel;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.model.IncomeViewCallBack;
@@ -210,13 +212,18 @@ public class WithdrawActivity extends BaseActivity<BindBankCardViewModel, Activi
     }
 
     @Override
-    public void requestIncomeInfoFail(String msg) {
+    public void withdraw() {
+        finish();
+    }
+
+    @Override
+    public void returnIncomeRecordList(List<IncomeInfo> incomeInfoList) {
 
     }
 
     @Override
-    public void withdraw() {
-        finish();
+    public void returnWithdrawRecordList(List<WithdrawInfo> withdrawInfoList) {
+
     }
 
     @Override
