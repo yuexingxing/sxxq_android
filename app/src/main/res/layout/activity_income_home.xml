@@ -1,77 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <data></data>
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
 
+    <data></data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.sanshao.commonui.titlebar.TitleBar
             android:id="@+id/title_bar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/title_height"
             app:title="@string/rankinglist" />
+
         <FrameLayout
             android:id="@+id/income_home_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/title_bar"
-            android:layout_above="@+id/income_home_tab"/>
+            android:layout_above="@+id/income_home_tab"
+            android:layout_below="@+id/title_bar" />
+
         <LinearLayout
             android:id="@+id/income_home_tab"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
+            android:background="@drawable/bg_income_home_bottom_tab"
             android:orientation="horizontal"
-            android:background="@drawable/bg_income_home_bottom_tab">
+            android:visibility="gone"
+            tools:visibility="visible">
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1.0"
                 android:gravity="center"
                 android:orientation="vertical">
+
                 <ImageView
                     android:id="@+id/iv_rankinglist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
-                    android:src="@drawable/btn_rankinglist"/>
+                    android:src="@drawable/btn_rankinglist" />
+
                 <TextView
                     android:id="@+id/tv_rankinglist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingTop="2dp"
                     android:paddingLeft="10dp"
+                    android:paddingTop="2dp"
                     android:paddingRight="10dp"
+                    android:text="@string/rankinglist"
                     android:textColor="#333333"
-                    android:textSize="10sp"
-                    android:text="@string/rankinglist"/>
+                    android:textSize="10sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1.0"
                 android:gravity="center"
                 android:orientation="vertical">
+
                 <ImageView
                     android:id="@+id/iv_income"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
-                    android:src="@drawable/btn_income"/>
+                    android:src="@drawable/btn_income" />
+
                 <TextView
                     android:id="@+id/tv_income"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingTop="2dp"
                     android:paddingLeft="10dp"
+                    android:paddingTop="2dp"
                     android:paddingRight="10dp"
+                    android:text="@string/income"
                     android:textColor="#333333"
-                    android:textSize="10sp"
-                    android:text="@string/income"/>
+                    android:textSize="10sp" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
