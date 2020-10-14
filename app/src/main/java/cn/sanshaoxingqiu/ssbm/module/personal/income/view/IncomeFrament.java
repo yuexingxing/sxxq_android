@@ -39,6 +39,11 @@ public class IncomeFrament extends BaseFragment<IncomeViewModel, FragmentIncomeB
         binding.viewWithdrawalRecord.setOnClickListener(this);
 
         mViewModel.setCallBack(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         mViewModel.requestIncomeInfo();
     }
 

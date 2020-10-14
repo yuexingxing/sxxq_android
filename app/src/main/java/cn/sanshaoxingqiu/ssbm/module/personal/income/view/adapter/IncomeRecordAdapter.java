@@ -32,6 +32,7 @@ public class IncomeRecordAdapter extends BaseQuickAdapter<IncomeInfo, BaseViewHo
         recyclerView.setLayoutManager(linearLayoutManager);
         IncomeRecordDetailAdapter incomeRecordDetailAdapter = new IncomeRecordDetailAdapter();
         recyclerView.setAdapter(incomeRecordDetailAdapter);
+        recyclerView.setNestedScrollingEnabled(false);
         if (!ContainerUtil.isEmpty(item.income)) {
             incomeRecordDetailAdapter.addData(item.income);
         }

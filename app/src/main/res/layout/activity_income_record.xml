@@ -31,9 +31,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/left_container_margin"
+                    android:layout_marginTop="12dp"
                     android:layout_marginRight="@dimen/right_container_margin"
                     android:background="@drawable/shape_white_radius_10"
-                    android:paddingTop="12dp">
+                    android:paddingBottom="12dp">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_view"

@@ -117,6 +117,11 @@ public class WithdrawActivity extends BaseActivity<BindBankCardViewModel, Activi
             return;
         }
 
+        if (!binding.checkboxPolicy.isChecked()) {
+            ToastUtil.showShortToast("请先同意提现协议");
+            return;
+        }
+
         if (TextUtils.isEmpty(mBankCardId)) {
             ToastUtil.showShortToast("请选择银行卡");
             return;

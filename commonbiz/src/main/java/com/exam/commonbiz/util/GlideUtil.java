@@ -59,6 +59,21 @@ public class GlideUtil extends AppGlideModule {
         }
     }
 
+    public static void loadImageWithoutPlaceholder(Object obj, ImageView imageView) {
+        if (obj instanceof String) {
+            Glide.with(imageView.getContext()).load(obj).apply(initOptions())
+                    .skipMemoryCache(isSkipMemoryCache()).into(imageView);
+        }
+        if (obj instanceof Bitmap) {
+            Glide.with(imageView.getContext()).load(obj).apply(initOptions())
+                    .skipMemoryCache(isSkipMemoryCache()).into(imageView);
+        }
+        if (obj instanceof Drawable) {
+            Glide.with(imageView.getContext()).load(obj).apply(initOptions())
+                    .skipMemoryCache(isSkipMemoryCache()).into(imageView);
+        }
+    }
+
     public static void loadImage(Object obj, ImageView imageView, int placeholder) {
         if (obj instanceof String) {
             Glide.with(imageView.getContext()).load(obj).apply(initOptions())

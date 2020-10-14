@@ -5,6 +5,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.IncomeInfo;
+import cn.sanshaoxingqiu.ssbm.util.MathUtil;
 
 /**
  * @Author yuexingxing
@@ -19,9 +20,9 @@ public class IncomeRecordDetailAdapter extends BaseQuickAdapter<IncomeInfo.Incom
     @Override
     protected void convert(BaseViewHolder helper, IncomeInfo.IncomeDetailInfo item) {
         helper.setText(R.id.tv_order_no, "订单编号：" + item.salebill_id);
-        helper.setText(R.id.tv_order_fee, "订单总额：" + item.sum_amt);
+        helper.setText(R.id.tv_order_fee, "订单总额：" + MathUtil.getNumExclude0(item.sum_amt));
         helper.setText(R.id.tv_time, "核销时间：" + item.optr_date);
-        helper.setText(R.id.tv_fee, "¥" + item.commission);
+        helper.setText(R.id.tv_fee, "¥" + MathUtil.getNumExclude0(item.commission));
         helper.setText(R.id.tv_status, item.getCommissionStatus());
     }
 }

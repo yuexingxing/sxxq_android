@@ -10,7 +10,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.exam.commonbiz.util.ContainerUtil;
 
 import cn.sanshaoxingqiu.ssbm.R;
-import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.IncomeInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.WithdrawInfo;
 
 /**
@@ -33,6 +32,7 @@ public class WithdrawRecordAdapter extends BaseQuickAdapter<WithdrawInfo, BaseVi
         recyclerView.setLayoutManager(linearLayoutManager);
         WithdrawRecordDetailAdapter withdrawRecordDetailAdapter = new WithdrawRecordDetailAdapter();
         recyclerView.setAdapter(withdrawRecordDetailAdapter);
+        recyclerView.setNestedScrollingEnabled(false);
         if (!ContainerUtil.isEmpty(item.withdraw)) {
             withdrawRecordDetailAdapter.addData(item.withdraw);
         }

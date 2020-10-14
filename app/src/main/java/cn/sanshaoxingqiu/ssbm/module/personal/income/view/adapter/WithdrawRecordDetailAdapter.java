@@ -10,6 +10,7 @@ import com.exam.commonbiz.util.Res;
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.IncomeInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.WithdrawInfo;
+import cn.sanshaoxingqiu.ssbm.util.MathUtil;
 
 /**
  * @Author yuexingxing
@@ -23,14 +24,14 @@ public class WithdrawRecordDetailAdapter extends BaseQuickAdapter<WithdrawInfo.W
 
     @Override
     protected void convert(BaseViewHolder helper, WithdrawInfo.WithdrawDetailnfo item) {
-        helper.setText(R.id.tv_order_no, "可提现金额：" + item.used_price + "元");
-        helper.setText(R.id.tv_order_fee, "待入账金额：" + item.arrive_amount + "元");
+        helper.setText(R.id.tv_order_no, "可提现金额：" + MathUtil.getNumExclude0(item.used_price) + "元");
+        helper.setText(R.id.tv_order_fee, "待入账金额：" + MathUtil.getNumExclude0(item.arrive_amount) + "元");
         helper.setText(R.id.tv_time, "时间：" + item.create_date);
         helper.setText(R.id.tv_status, item.getWithdrawStatus());
 
         TextView tvFee = helper.getView(R.id.tv_fee);
         TextView tvStatus = helper.getView(R.id.tv_status);
-        tvFee.setText("+" + item.withdraw_amount);
+        tvFee.setText("+" + MathUtil.getNumExclude0(item.withdraw_amount));
         if (TextUtils.equals("APPLY", item.withdraw_status)) {
             tvStatus.setText("提现中");
             tvFee.setTextColor(Res.getColor(helper.itemView.getContext(), R.color.color_c5602d));

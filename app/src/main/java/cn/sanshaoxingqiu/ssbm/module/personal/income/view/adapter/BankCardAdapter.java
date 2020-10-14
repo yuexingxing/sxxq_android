@@ -46,8 +46,8 @@ public class BankCardAdapter extends BaseQuickAdapter<BankCardInfo, BaseViewHold
             checkBox.setChecked(false);
         }
 
-        GlideUtil.loadImage(item.bank_card_icon, helper.getView(R.id.iv_bank_icon));
-        GlideUtil.loadImage(item.bank_signet, helper.getView(R.id.iv_signet_bg));
+        GlideUtil.loadImageWithoutPlaceholder(item.bank_card_icon, helper.getView(R.id.iv_bank_icon));
+        GlideUtil.loadImageWithoutPlaceholder(item.bank_signet, helper.getView(R.id.iv_signet_bg));
 
         GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setShape(GradientDrawable.RECTANGLE);//形状
@@ -55,7 +55,6 @@ public class BankCardAdapter extends BaseQuickAdapter<BankCardInfo, BaseViewHold
         gradientDrawable.setColor(Color.parseColor(item.bank_color));
 
         helper.getView(R.id.ll_bg).setBackground(gradientDrawable);
-
         helper.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

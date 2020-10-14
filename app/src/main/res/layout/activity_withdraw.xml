@@ -292,7 +292,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:button="@drawable/selector_login_checked"
-                        android:checked="false"
+                        android:checked="true"
                         android:gravity="center"
                         android:paddingLeft="6dp"
                         android:paddingTop="6dp"
