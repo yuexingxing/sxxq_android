@@ -245,6 +245,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_service_fee"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
@@ -274,7 +275,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
-                            android:text="0.6%(最低¥0.60)"
+                            android:text="0.85%(最低¥0.85)"
                             android:textColor="#ff333333"
                             android:textSize="12sp" />
                     </LinearLayout>

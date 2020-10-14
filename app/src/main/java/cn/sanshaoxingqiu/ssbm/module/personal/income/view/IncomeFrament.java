@@ -31,6 +31,11 @@ public class IncomeFrament extends BaseFragment<IncomeViewModel, FragmentIncomeB
     }
 
     @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_income;
+    }
+
+    @Override
     public void initData() {
 
         binding.incomeRule.setOnClickListener(this);
@@ -46,11 +51,6 @@ public class IncomeFrament extends BaseFragment<IncomeViewModel, FragmentIncomeB
     public void onResume() {
         super.onResume();
         mViewModel.requestIncomeInfo();
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_income;
     }
 
     @Override

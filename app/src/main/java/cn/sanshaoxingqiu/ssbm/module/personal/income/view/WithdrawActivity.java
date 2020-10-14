@@ -2,7 +2,9 @@ package cn.sanshaoxingqiu.ssbm.module.personal.income.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 
 import com.exam.commonbiz.base.BaseActivity;
@@ -14,6 +16,7 @@ import com.exam.commonbiz.util.ToastUtil;
 import com.sanshao.commonui.titlebar.OnTitleBarListener;
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 
+import java.util.Calendar;
 import java.util.List;
 
 import cn.sanshaoxingqiu.ssbm.R;
@@ -28,6 +31,7 @@ import cn.sanshaoxingqiu.ssbm.module.personal.income.model.IncomeViewCallBack;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.view.dialog.SelectBankCardDialog;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.viewmodel.BindBankCardViewModel;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.viewmodel.IncomeViewModel;
+import cn.sanshaoxingqiu.ssbm.util.MathUtil;
 
 /**
  * 提现界面
@@ -77,6 +81,33 @@ public class WithdrawActivity extends BaseActivity<BindBankCardViewModel, Activi
         });
         binding.llAddCard.setOnClickListener(this);
         binding.llBankCard.setOnClickListener(this);
+
+        binding.edtWithdrawFee.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (TextUtils.isEmpty(charSequence)) {
+                    binding.tvServiceFee.setText("¥0");
+                    return;
+                }
+
+                int withdraw = Integer.parseInt(charSequence.toString());
+                double serviceFee = withdraw * 0.0085;
+                if (serviceFee > 0 && serviceFee < 0.85) {
+                    serviceFee = 0.85;
+                }
+                binding.tvServiceFee.setText("¥" + MathUtil.getNumExclude0(serviceFee));
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         //提现协议
         binding.tvWithdrawPolicy.setOnClickListener(new View.OnClickListener() {
