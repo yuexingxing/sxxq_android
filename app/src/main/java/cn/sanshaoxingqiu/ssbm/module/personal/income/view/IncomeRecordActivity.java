@@ -105,7 +105,7 @@ public class IncomeRecordActivity extends BaseActivity<IncomeViewModel, Activity
             return;
         }
         binding.emptyLayout.showSuccess();
-        mIncomeRecordAdapter.addData(incomeInfoList);
+        mIncomeRecordAdapter.setNewData(incomeInfoList);
     }
 
     @Override

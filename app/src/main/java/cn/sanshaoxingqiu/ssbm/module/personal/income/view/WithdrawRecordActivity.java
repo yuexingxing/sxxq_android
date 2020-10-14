@@ -110,7 +110,7 @@ public class WithdrawRecordActivity extends BaseActivity<IncomeViewModel, Activi
             return;
         }
         binding.emptyLayout.showSuccess();
-        mWithdrawRecordAdapter.addData(withdrawInfoList);
+        mWithdrawRecordAdapter.setNewData(withdrawInfoList);
     }
 
     @Override
