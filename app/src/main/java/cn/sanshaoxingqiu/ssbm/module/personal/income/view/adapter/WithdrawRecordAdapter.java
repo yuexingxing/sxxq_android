@@ -41,5 +41,11 @@ public class WithdrawRecordAdapter extends BaseQuickAdapter<WithdrawInfo, BaseVi
         } else {
             helper.getView(R.id.ll_tip).setVisibility(View.GONE);
         }
+
+        if (helper.getAdapterPosition() == getData().size() - 1) {
+            helper.getView(R.id.view_space_bottom).setVisibility(View.VISIBLE);
+        } else {
+            helper.getView(R.id.view_space_bottom).setVisibility(View.GONE);
+        }
     }
 }
