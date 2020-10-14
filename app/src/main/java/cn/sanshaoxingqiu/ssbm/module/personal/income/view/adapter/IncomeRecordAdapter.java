@@ -1,5 +1,7 @@
 package cn.sanshaoxingqiu.ssbm.module.personal.income.view.adapter;
 
+import android.view.View;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,6 +34,11 @@ public class IncomeRecordAdapter extends BaseQuickAdapter<IncomeInfo, BaseViewHo
         recyclerView.setAdapter(incomeRecordDetailAdapter);
         if (!ContainerUtil.isEmpty(item.income)) {
             incomeRecordDetailAdapter.addData(item.income);
+        }
+        if (helper.getAdapterPosition() == 0) {
+            helper.getView(R.id.ll_tip).setVisibility(View.VISIBLE);
+        } else {
+            helper.getView(R.id.ll_tip).setVisibility(View.GONE);
         }
     }
 }

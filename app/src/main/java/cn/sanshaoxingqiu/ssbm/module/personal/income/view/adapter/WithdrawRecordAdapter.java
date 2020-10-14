@@ -1,5 +1,7 @@
 package cn.sanshaoxingqiu.ssbm.module.personal.income.view.adapter;
 
+import android.view.View;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,6 +35,11 @@ public class WithdrawRecordAdapter extends BaseQuickAdapter<WithdrawInfo, BaseVi
         recyclerView.setAdapter(withdrawRecordDetailAdapter);
         if (!ContainerUtil.isEmpty(item.withdraw)) {
             withdrawRecordDetailAdapter.addData(item.withdraw);
+        }
+        if (helper.getAdapterPosition() == 0) {
+            helper.getView(R.id.ll_tip).setVisibility(View.VISIBLE);
+        } else {
+            helper.getView(R.id.ll_tip).setVisibility(View.GONE);
         }
     }
 }

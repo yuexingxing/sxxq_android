@@ -127,8 +127,9 @@
                             android:layout_marginRight="10dp"
                             android:layout_weight="1"
                             android:background="@null"
-                            android:hint="请输入借记卡好号(仅支持存蓄卡)"
+                            android:hint="请输入借记卡号(仅支持存蓄卡)"
                             android:inputType="number"
+                            android:maxLength="19"
                             android:singleLine="true"
                             android:textColor="@color/color_999999"
                             android:textSize="14sp" />
@@ -160,7 +161,6 @@
                             android:layout_weight="1"
                             android:background="@null"
                             android:hint="输入卡号自动识别所属银行"
-                            android:maxLength="18"
                             android:singleLine="true"
                             android:textColor="@color/color_999999"
                             android:textSize="14sp" />
@@ -200,7 +200,6 @@
                             android:layout_weight="1"
                             android:background="@null"
                             android:hint="请输入开户行名称"
-                            android:maxLength="20"
                             android:singleLine="true"
                             android:textColor="@color/color_999999"
                             android:textSize="14sp" />
