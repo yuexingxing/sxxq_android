@@ -15,6 +15,7 @@ import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.IncomeInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.WithdrawInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.model.IncomeViewCallBack;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.viewmodel.IncomeViewModel;
+import cn.sanshaoxingqiu.ssbm.util.MathUtil;
 
 /**
  * 进账主页
@@ -63,9 +64,9 @@ public class IncomeFrament extends BaseFragment<IncomeViewModel, FragmentIncomeB
             return;
         }
         binding.incomeId.setText(getString(R.string.income_recommend_code) + bean.invitation_code);
-        binding.canWithdrawalAmount.setText(bean.used_price + "");
-        binding.totalAmount.setText(getString(R.string.total_amount) + bean.commission);
-        binding.alreadyWithdrawalAmount.setText(getString(R.string.withdrawal_amount) + bean.underway);
+        binding.canWithdrawalAmount.setText(MathUtil.getNumExclude0(bean.used_price) + "");
+        binding.totalAmount.setText(getString(R.string.total_amount) + MathUtil.getNumExclude0(bean.commission) + "元");
+        binding.alreadyWithdrawalAmount.setText(getString(R.string.withdrawal_amount) + MathUtil.getNumExclude0(bean.underway) + "元");
     }
 
     @Override

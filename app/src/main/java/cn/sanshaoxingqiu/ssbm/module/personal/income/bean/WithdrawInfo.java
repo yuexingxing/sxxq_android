@@ -10,10 +10,12 @@ public class WithdrawInfo {
     public List<WithdrawDetailnfo> withdraw;
 
     public class WithdrawDetailnfo {
-        public String arrive_amount;
-        public String create_date;
-        public String used_price;
         public String withdraw_amount;
+        public String arrive_amount;
+        public String used_price;
+        public String create_date;
+        public String fail_reason;
+        public String review_note;
         public String withdraw_status;//APPLY=已申请提现，ENABLE=已同意提现申请，DISABLE=已拒绝提现申请，FINISH=已打款，FAIL=打款失败
 
         public String getWithdrawStatus() {

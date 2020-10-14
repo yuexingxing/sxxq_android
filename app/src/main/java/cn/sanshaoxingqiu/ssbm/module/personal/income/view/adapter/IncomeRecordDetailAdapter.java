@@ -1,5 +1,7 @@
 package cn.sanshaoxingqiu.ssbm.module.personal.income.view.adapter;
 
+import android.text.TextUtils;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -20,9 +22,14 @@ public class IncomeRecordDetailAdapter extends BaseQuickAdapter<IncomeInfo.Incom
     @Override
     protected void convert(BaseViewHolder helper, IncomeInfo.IncomeDetailInfo item) {
         helper.setText(R.id.tv_order_no, "订单编号：" + item.salebill_id);
-        helper.setText(R.id.tv_order_fee, "订单总额：" + MathUtil.getNumExclude0(item.sum_amt));
-        helper.setText(R.id.tv_time, "核销时间：" + item.optr_date);
+        helper.setText(R.id.tv_order_fee, "订单总额：¥" + MathUtil.getNumExclude0(item.sum_amt));
         helper.setText(R.id.tv_fee, "¥" + MathUtil.getNumExclude0(item.commission));
         helper.setText(R.id.tv_status, item.getCommissionStatus());
+
+        if (!TextUtils.isEmpty(item.optr_date) && item.optr_date.length() > 16) {
+            helper.setText(R.id.tv_time, "核销时间：" + item.optr_date.substring(5, 16));
+        } else {
+            helper.setText(R.id.tv_time, "核销时间：" + item.optr_date);
+        }
     }
 }
