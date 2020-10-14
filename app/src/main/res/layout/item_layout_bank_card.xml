@@ -38,10 +38,10 @@
             <ImageView
                 android:id="@+id/iv_signet_bg"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginRight="20dp"
-                android:scaleType="centerCrop" />
+                android:scaleType="fitCenter" />
 
             <TextView
                 android:id="@+id/tv_bank_no"
