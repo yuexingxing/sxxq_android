@@ -9,7 +9,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.exam.commonbiz.util.GlideUtil;
 import com.exam.commonbiz.util.ScreenUtil;
-import com.makeramen.roundedimageview.RoundedImageView;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.BankCardInfo;

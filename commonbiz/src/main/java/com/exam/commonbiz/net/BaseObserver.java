@@ -1,11 +1,11 @@
 package com.exam.commonbiz.net;
 
 import android.content.Context;
-import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.exam.commonbiz.event.IdentityExpiredEvent;
+import com.exam.commonbiz.util.BeanUtil;
 import com.google.gson.JsonParseException;
 
 import org.greenrobot.eventbus.EventBus;
@@ -19,7 +19,7 @@ import io.reactivex.disposables.Disposable;
  * @time 2020/6/11
  */
 public abstract class BaseObserver<T> implements Observer<BaseResponse<T>> {
-    private static final String TAG = "BaseObserver";
+    private static final String TAG = BaseObserver.class.getSimpleName();
 
     //前台请求
     public BaseObserver() {
@@ -38,6 +38,7 @@ public abstract class BaseObserver<T> implements Observer<BaseResponse<T>> {
 
     @Override
     public void onNext(@NonNull BaseResponse<T> response) {
+        Log.d(TAG, BeanUtil.beanToJson(response));
         if (TextUtils.equals(response.getRet(), "OK")) {
             onSuccess(response);
         } else if (TextUtils.equals(response.getRet(), "ERROR")) {
