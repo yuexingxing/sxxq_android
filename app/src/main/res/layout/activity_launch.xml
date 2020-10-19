@@ -23,7 +23,7 @@
             android:layout_below="@+id/iv_icon"
             android:layout_marginTop="16dp"
             android:gravity="center_horizontal"
-            android:text="不讨好世界·只变美自己"
+            android:text="让善良的人更美 让更美的人更善"
             android:textColor="@color/color_333333"
             android:textSize="12sp" />
 
@@ -34,7 +34,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="52dp"
             android:gravity="center_horizontal"
-            android:text="Be Beautiful Be You"
+            android:text="Be You Be Beautiful"
             android:textColor="@color/color_333333"
             android:textSize="12sp" />
     </RelativeLayout>
