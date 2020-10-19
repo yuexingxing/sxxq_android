@@ -35,12 +35,17 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <ImageView
-                android:id="@+id/iv_signet_bg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:scaleType="fitCenter" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right">
+
+                <ImageView
+                    android:id="@+id/iv_signet_bg"
+                    android:layout_width="94dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tv_bank_no"
@@ -59,6 +64,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:button="@drawable/selector_bank_card"
-            android:enabled="false" />
+            android:clickable="false"
+            android:enabled="false"
+            android:focusable="false" />
     </LinearLayout>
 </LinearLayout>
