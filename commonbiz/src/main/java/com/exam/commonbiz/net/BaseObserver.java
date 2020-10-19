@@ -38,7 +38,7 @@ public abstract class BaseObserver<T> implements Observer<BaseResponse<T>> {
 
     @Override
     public void onNext(@NonNull BaseResponse<T> response) {
-        Log.d(TAG, BeanUtil.beanToJson(response));
+        Log.e(TAG, BeanUtil.beanToJson(response));
         if (TextUtils.equals(response.getRet(), "OK")) {
             onSuccess(response);
         } else if (TextUtils.equals(response.getRet(), "ERROR")) {

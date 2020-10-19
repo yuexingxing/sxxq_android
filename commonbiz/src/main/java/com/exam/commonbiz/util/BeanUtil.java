@@ -10,11 +10,9 @@ public class BeanUtil {
      * @param bean
      * @return
      */
-
     public static String beanToJson(Object bean) {
         Gson gson = new Gson();
         String jsonStr = gson.toJson(bean);
-        System.out.println(jsonStr);
         return jsonStr;
     }
 }
