@@ -3,7 +3,10 @@ package cn.sanshaoxingqiu.ssbm.module.personal.income.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -33,6 +36,7 @@ import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.BankCardInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.bean.RequestBindBankCardInfo;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.model.IBindBankCardModel;
 import cn.sanshaoxingqiu.ssbm.module.personal.income.viewmodel.BindBankCardViewModel;
+import cn.sanshaoxingqiu.ssbm.util.BankInfo;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 
 /**
@@ -104,7 +108,62 @@ public class BindBankCardActivity extends BaseActivity<BindBankCardViewModel, Ac
                 startBind();
             }
         });
+
+        binding.edtBankCardNo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // 在输入数据时监听
+                int huoqu = charSequence.length();
+                if (huoqu >= 6) {
+                    char[] cardNumber = charSequence.toString().toCharArray();
+                    String bankName = BankInfo.getNameOfBank(cardNumber, 0);// 获取银行卡的信息
+                    checkBankName(bankName);
+                } else {
+                    binding.edtBankName.setText("");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         mViewModel.getBankList();
+    }
+
+    private void checkBankName(String bankName) {
+        if (TextUtils.isEmpty(bankName)) {
+            return;
+        }
+        if (ContainerUtil.isEmpty(mBankCardInfoList)) {
+            return;
+        }
+
+        Log.d(TAG, bankName);
+
+        if (bankName.contains(".")){
+            String[] bankNameArr = bankName.split("\\.");
+            if (bankNameArr != null && bankNameArr.length > 0){
+                bankName = bankNameArr[0];
+            }
+        }
+
+        for (int i = 0; i < mBankCardInfoList.size(); i++) {
+            BankCardInfo bankCardInfo = mBankCardInfoList.get(i);
+            if (TextUtils.isEmpty(bankCardInfo.bank_name)) {
+                continue;
+            }
+            Log.d(TAG, bankCardInfo.bank_name + "/" + bankName);
+            if (!TextUtils.isEmpty(bankName) && bankCardInfo.bank_name.contains(bankName)) {
+                binding.edtBankName.setText(bankCardInfo.bank_name);
+                break;
+            }
+        }
     }
 
     private void startBind() {
