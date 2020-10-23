@@ -169,7 +169,11 @@ public class PersonalFragment extends BaseFragment<PersonalViewModel, PersonalFr
             }
         });
         binding.pavIncome.setOnClickListener(v -> {
-            IncomeHomeActivity.start(context);
+            if (!SSApplication.isLogin()) {
+                LoginActivity.start(context);
+            } else {
+                IncomeHomeActivity.start(context);
+            }
         });
         binding.pavMyReferrer.setOnClickListener(v -> {
             if (!SSApplication.isLogin()) {
