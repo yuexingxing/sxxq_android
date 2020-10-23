@@ -21,6 +21,7 @@ import cn.sanshaoxingqiu.ssbm.databinding.ActivityAboutUsBinding;
 import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 import cn.sanshaoxingqiu.ssbm.module.personal.about.adapter.AboutUsAdapter;
 import cn.sanshaoxingqiu.ssbm.module.shoppingcenter.view.ExerciseActivity;
+import cn.sanshaoxingqiu.ssbm.util.AppUtil;
 import cn.sanshaoxingqiu.ssbm.util.CommandTools;
 
 /**
@@ -94,6 +95,7 @@ public class AboutUsActivity extends BaseActivity<AboutUsViewModel, ActivityAbou
                         .show();
             }
         });
+        binding.tvVersion.setText("v" + CommandTools.getAppVersion(context));
 
         mAboutUsAdapter = new AboutUsAdapter();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
@@ -111,6 +113,7 @@ public class AboutUsActivity extends BaseActivity<AboutUsViewModel, ActivityAbou
             }
         });
 
+        mAboutUsAdapter.addData(new AgreementInfo("营业执照", Constants.businessUrl));
         mAboutUsAdapter.addData(new AgreementInfo("三少变美直播服务协议", Constants.liveServiceUrl));
         mAboutUsAdapter.addData(new AgreementInfo("三少变美用户服务协议", Constants.userPolicyUrl));
         mAboutUsAdapter.addData(new AgreementInfo("三少变美隐私协议", Constants.userSecretUrl));

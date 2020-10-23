@@ -75,7 +75,7 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
         mTitleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(View v) {
-                finish();
+                goBack();
             }
 
             @Override
@@ -96,6 +96,14 @@ public abstract class BaseWebViewActivity extends AppCompatActivity {
         //重新开始webview，这样做的目的是为了不让webview重复进入的时候出现无法加载url出现空白
         if (mWebView != null) {
             mWebView.onResume();
+        }
+    }
+
+    public void goBack() {
+        if (mWebView.canGoBack()) {
+            mWebView.goBack();
+        } else {
+            finish();
         }
     }
 
