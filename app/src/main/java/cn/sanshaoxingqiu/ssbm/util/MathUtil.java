@@ -4,6 +4,8 @@ import android.text.TextUtils;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
 
 public class MathUtil {
 
@@ -131,7 +133,7 @@ public class MathUtil {
      * @return
      */
     public static String getNumExclude0(double price) {
-        DecimalFormat decimalFormat = new DecimalFormat("###################.###########");
+        DecimalFormat decimalFormat = new DecimalFormat("###################.##");
         return decimalFormat.format(price);
     }
 
@@ -139,7 +141,7 @@ public class MathUtil {
         if (TextUtils.isEmpty(price)) {
             return "0";
         }
-        DecimalFormat decimalFormat = new DecimalFormat("###################.###########");
+        DecimalFormat decimalFormat = new DecimalFormat("###################.##");
         return decimalFormat.format(Double.parseDouble(price));
     }
 
@@ -152,5 +154,26 @@ public class MathUtil {
      */
     public static double multiply(double a, double b) {
         return new BigDecimal(a).multiply(new BigDecimal(b)).doubleValue();
+    }
+
+    /**
+     * 字符串 千位符
+     *
+     * @param num
+     * @return
+     */
+    public static String num2thousand(String num) {
+        String numStr = "";
+        if (TextUtils.isEmpty(num)) {
+            return numStr;
+        }
+        NumberFormat nf = NumberFormat.getInstance();
+        try {
+            DecimalFormat df = new DecimalFormat("#,###");
+            numStr = df.format(nf.parse(num));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return numStr;
     }
 }

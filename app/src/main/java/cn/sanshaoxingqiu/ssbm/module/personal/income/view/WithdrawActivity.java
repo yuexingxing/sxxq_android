@@ -243,8 +243,8 @@ public class WithdrawActivity extends BaseActivity<BindBankCardViewModel, Activi
         }
 
         mIncomeBean = bean;
-        binding.tvFee1.setText(bean.used_price + "");
-        binding.tvFee2.setText("待入账：" + bean.underway + "元");
+        binding.tvFee1.setText(MathUtil.getNumExclude0(bean.used_price) + "");
+        binding.tvFee2.setText("待入账：" + MathUtil.getNumExclude0(bean.underway) + "元");
     }
 
     @Override
