@@ -69,7 +69,6 @@
     <color name="colorGreen">#0accac</color>
 
 
-
     <color name="colorSendName">#9966cc</color>
     <color name="colorSendName1">#F12B5B</color>
     <color name="colorSendName2">#2B7DE2</color>
@@ -82,6 +81,7 @@
 
     <color name="camera_video_grid_bg_color">#F3F4F6</color>
     <color name="pink">#f90051</color>
+    <color name="black_overlay">#66000000</color>
 
     <!-- 40%不透明度 -->
 

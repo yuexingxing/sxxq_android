@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/fl_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.tencent.rtmp.ui.TXCloudVideoView
+            android:id="@+id/anchor_video_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/iv_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_graphofbooth_default" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_ranking"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="@dimen/right_container_margin"
+                android:layout_gravity="right"
+                android:layout_marginTop="100dp"
+                android:src="@drawable/gray_btn_bg" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:id="@+id/ll_bottom_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center"
+                    android:layout_marginRight="@dimen/right_container_margin"
+                    android:orientation="vertical">
+
+                    <com.sanshao.livemodule.zhibo.main.videolist.ui.RoundImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/gray_btn_bg"
+                        app:radius="35dp" />
+
+                    <ImageView
+                        android:id="@+id/iv_like"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="60dp"
+                        android:src="@drawable/gray_btn_bg" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:shadowColor="#4d000000"
+                        android:shadowDx="0dp"
+                        android:shadowDy="1dp"
+                        android:shadowRadius="3.0"
+                        android:text="333"
+                        android:textColor="#ffffffff"
+                        android:textSize="7sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_share"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="12dp"
+                        android:src="@drawable/gray_btn_bg" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:shadowColor="#4d000000"
+                        android:shadowDx="0dp"
+                        android:shadowDy="1dp"
+                        android:shadowRadius="3.0"
+                        android:text="333"
+                        android:textColor="#ffffffff"
+                        android:textSize="7sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/left_container_margin"
+                    android:layout_marginTop="28dp"
+                    android:shadowColor="#80000000"
+                    android:shadowDx="0dp"
+                    android:shadowDy="1dp"
+                    android:shadowRadius="3.0"
+                    android:text="周哈哈小可爱"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/left_container_margin"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="100dp"
+                    android:shadowColor="#80000000"
+                    android:shadowDx="0dp"
+                    android:shadowDy="1dp"
+                    android:shadowRadius="3.0"
+                    android:text="黑夜的转弯是白天,愤怒的转弯是快乐,所以有的时候让心情转个弯就好了。最长能输就这"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+</RelativeLayout>

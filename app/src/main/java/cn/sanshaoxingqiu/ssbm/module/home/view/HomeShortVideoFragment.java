@@ -26,7 +26,7 @@ import java.util.List;
 
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
-import cn.sanshaoxingqiu.ssbm.databinding.FragmentLayoutShortVideoBinding;
+import cn.sanshaoxingqiu.ssbm.databinding.FragmentLayoutHomeShortVideoBinding;
 import cn.sanshaoxingqiu.ssbm.module.home.view.adapter.HomeLiveAdapter;
 import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 
@@ -36,21 +36,21 @@ import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
  * @Author yuexingxing
  * @time 2020/10/26
  */
-public class ShortVideoFragment extends BaseFragment<LiveViewModel, FragmentLayoutShortVideoBinding> implements IBaseModel, BaseQuickAdapter.RequestLoadMoreListener{
+public class HomeShortVideoFragment extends BaseFragment<LiveViewModel, FragmentLayoutHomeShortVideoBinding> implements IBaseModel, BaseQuickAdapter.RequestLoadMoreListener{
 
     public static final int START_LIVE_PLAY = 100;
     private HomeLiveAdapter mHomeAdapter;
     private TXLivePlayer mCurrentTXLivePlayer;
     private List<VideoInfo> mVideoListData = new ArrayList<>();
 
-    public static ShortVideoFragment newInstance() {
-        ShortVideoFragment fragment = new ShortVideoFragment();
+    public static HomeShortVideoFragment newInstance() {
+        HomeShortVideoFragment fragment = new HomeShortVideoFragment();
         return fragment;
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_layout_short_video;
+        return R.layout.fragment_layout_home_short_video;
     }
 
     @Override
