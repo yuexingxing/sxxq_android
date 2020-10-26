@@ -51,6 +51,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/left_container_margin"
                     android:layout_marginTop="28dp"
+                    android:shadowColor="#80000000"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="3.0"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     tools:text="@string/app_name" />
@@ -62,6 +66,10 @@
                     android:layout_marginLeft="@dimen/left_container_margin"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="100dp"
+                    android:shadowColor="#80000000"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="3.0"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
             </LinearLayout>

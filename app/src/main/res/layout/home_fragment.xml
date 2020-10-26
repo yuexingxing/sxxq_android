@@ -39,7 +39,7 @@
                     android:layout_marginTop="40dp"
                     app:tabBackground="@color/transparent"
                     app:tabIndicatorColor="@color/white"
-                    app:tabIndicatorFullWidth="false"
+                    app:tabIndicatorFullWidth="true"
                     app:tabMode="fixed"
                     app:tabRippleColor="@color/transparent"
                     app:tabTextAppearance="@style/MyTabLayoutTextAppearance" />

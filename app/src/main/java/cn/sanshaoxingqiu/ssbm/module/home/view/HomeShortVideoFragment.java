@@ -19,7 +19,6 @@ import com.sanshao.livemodule.liveroom.roomutil.bean.VideoInfo;
 import com.sanshao.livemodule.liveroom.roomutil.bean.VideoListResponse;
 import com.sanshao.livemodule.liveroom.viewmodel.LiveViewModel;
 import com.sanshao.livemodule.zhibo.login.TCUserMgr;
-import com.tencent.rtmp.TXLivePlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +26,7 @@ import java.util.List;
 import cn.sanshaoxingqiu.ssbm.R;
 import cn.sanshaoxingqiu.ssbm.SSApplication;
 import cn.sanshaoxingqiu.ssbm.databinding.FragmentLayoutHomeShortVideoBinding;
-import cn.sanshaoxingqiu.ssbm.module.home.view.adapter.HomeLiveAdapter;
+import cn.sanshaoxingqiu.ssbm.module.home.view.adapter.HomeShortVideoAdapter;
 import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
 
 /**
@@ -38,9 +37,7 @@ import cn.sanshaoxingqiu.ssbm.module.login.view.LoginActivity;
  */
 public class HomeShortVideoFragment extends BaseFragment<LiveViewModel, FragmentLayoutHomeShortVideoBinding> implements IBaseModel, BaseQuickAdapter.RequestLoadMoreListener{
 
-    public static final int START_LIVE_PLAY = 100;
-    private HomeLiveAdapter mHomeAdapter;
-    private TXLivePlayer mCurrentTXLivePlayer;
+    private HomeShortVideoAdapter mHomeShortVideoAdapter;
     private List<VideoInfo> mVideoListData = new ArrayList<>();
 
     public static HomeShortVideoFragment newInstance() {
@@ -60,6 +57,7 @@ public class HomeShortVideoFragment extends BaseFragment<LiveViewModel, Fragment
 
     @Override
     public void initData() {
+
         mViewModel.setIBaseModel(this);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View emptyLayout = inflater.inflate(R.layout.item_layout_empty_live, null);
@@ -69,12 +67,12 @@ public class HomeShortVideoFragment extends BaseFragment<LiveViewModel, Fragment
                 getLiveData();
             }
         });
-        mHomeAdapter = new HomeLiveAdapter(mVideoListData);
-        mHomeAdapter.setEmptyView(emptyLayout);
+        mHomeShortVideoAdapter = new HomeShortVideoAdapter(mVideoListData, getChildFragmentManager());
+        mHomeShortVideoAdapter.setEmptyView(emptyLayout);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         binding.recyclerView.setLayoutManager(linearLayoutManager);
-        binding.recyclerView.setAdapter(mHomeAdapter);
+        binding.recyclerView.setAdapter(mHomeShortVideoAdapter);
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(binding.recyclerView);
         binding.recyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
@@ -104,7 +102,7 @@ public class HomeShortVideoFragment extends BaseFragment<LiveViewModel, Fragment
 
             }
         });
-        mHomeAdapter.setCommonCallBack(new CommonCallBack() {
+        mHomeShortVideoAdapter.setCommonCallBack(new CommonCallBack() {
             @Override
             public void callback(int postion, Object object) {
                 if (!SSApplication.isLogin()) {
@@ -119,7 +117,7 @@ public class HomeShortVideoFragment extends BaseFragment<LiveViewModel, Fragment
             }
         });
 
-        mHomeAdapter.setOnLoadMoreListener(this, binding.recyclerView);
+        mHomeShortVideoAdapter.setOnLoadMoreListener(this, binding.recyclerView);
         binding.swipeRefreshLayout.setColorSchemeResources(R.color.main_color);
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {
             getLiveData();
@@ -128,7 +126,14 @@ public class HomeShortVideoFragment extends BaseFragment<LiveViewModel, Fragment
     }
 
     public void getLiveData() {
-        mViewModel.getLiveVideoList();
+//        mViewModel.getLiveVideoList();
+
+        mVideoListData.clear();
+        for (int i = 0; i <10 ; i++) {
+            VideoInfo videoInfo = new VideoInfo();
+            mVideoListData.add(videoInfo);
+        }
+        mHomeShortVideoAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -139,26 +144,26 @@ public class HomeShortVideoFragment extends BaseFragment<LiveViewModel, Fragment
     @Override
     public void onRefreshData(Object object) {
         binding.swipeRefreshLayout.setRefreshing(false);
-        mHomeAdapter.getData().clear();
-        mHomeAdapter.notifyDataSetChanged();
+        mHomeShortVideoAdapter.getData().clear();
+        mHomeShortVideoAdapter.notifyDataSetChanged();
         if (object == null) {
-            mHomeAdapter.isUseEmpty(true);
+            mHomeShortVideoAdapter.isUseEmpty(true);
             return;
         }
 
         VideoListResponse videoListResponse = (VideoListResponse) object;
         if (ContainerUtil.isEmpty(videoListResponse.rows)) {
-            mHomeAdapter.isUseEmpty(true);
+            mHomeShortVideoAdapter.isUseEmpty(true);
             return;
         }
 
         mVideoListData.clear();
         mVideoListData.addAll(videoListResponse.rows);
-        mHomeAdapter.notifyDataSetChanged();
+        mHomeShortVideoAdapter.notifyDataSetChanged();
 
-        mHomeAdapter.isUseEmpty(false);
-        mHomeAdapter.loadMoreComplete();
-        mHomeAdapter.loadMoreEnd();
+        mHomeShortVideoAdapter.isUseEmpty(false);
+        mHomeShortVideoAdapter.loadMoreComplete();
+        mHomeShortVideoAdapter.loadMoreEnd();
     }
 
     @Override
@@ -170,12 +175,12 @@ public class HomeShortVideoFragment extends BaseFragment<LiveViewModel, Fragment
 
         VideoListResponse videoListResponse = (VideoListResponse) object;
         if (ContainerUtil.isEmpty(videoListResponse.rows)) {
-            mHomeAdapter.loadMoreEnd();
+            mHomeShortVideoAdapter.loadMoreEnd();
             return;
         }
 
         mVideoListData.addAll(videoListResponse.rows);
-        mHomeAdapter.loadMoreComplete();
+        mHomeShortVideoAdapter.loadMoreComplete();
         binding.swipeRefreshLayout.setRefreshing(false);
     }
 

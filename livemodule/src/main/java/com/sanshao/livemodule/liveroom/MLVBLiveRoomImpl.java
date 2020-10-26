@@ -76,7 +76,7 @@ public class MLVBLiveRoomImpl extends MLVBLiveRoom implements HttpRequests.Heart
 
     protected boolean mBackground = false;
 
-    protected TXLivePlayer mTXLivePlayer;
+    public TXLivePlayer mTXLivePlayer;
 
     protected TXLivePlayConfig mTXLivePlayConfig;
     protected Handler mListenerHandler = null;
